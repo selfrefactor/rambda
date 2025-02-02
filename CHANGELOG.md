@@ -1,4 +1,72 @@
-9.4.2 
+10.0.0
+
+- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+
+- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+
+_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
+- Take typings of `R.filter/R.map` from `Remeda`.
+
+- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
+
+- Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
+
+- Remove use of `Record<string, ...>` in favour of `Record<PropertyType, ...>`
+
+- Add TypeScript definition to handle common case of `R.filter(Boolean)` that will turn `Array<T | undefined>` to `Array<T>`.
+
+- Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
+
+- head/last - empty array as input will return `undefined`, but `never`
+- assocPath - stop supporting curring of type `(x)(y)(z)`
+
+- Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+
+-- assocPath
+-- dissocPath 
+
+- Sync with typing of `@types/ramda`:
+
+-- allPass
+-- anyPass
+-- append
+-- both
+-- countBy
+-- drop
+-- dropLast
+-- dropRepeatsBy
+-- either
+-- filter
+-- forEach
+-- keys
+-- map
+-- mapObjIndexed
+-- mergeAll
+-- mergeWith
+-- modify
+-- modifyPath
+-- omit
+-- partition
+-- prepend
+-- where
+-- whereAny
+
+- Sync with typing of `remeda`:
+
+-- filter
+-- map
+-- toPairs
+
+- Publish to JSR registry - https://jsr.io/@rambda/rambda
+
+- Replace Record<string> with Record<PropertyKey>
+
+9.4.2
 
 - Fix TS issue when `R.take` is used as part of `R.pipe`.
 

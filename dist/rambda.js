@@ -1,5 +1,7 @@
 'use strict';
 
+require('remeda');
+
 function F() {
   return false;
 }
@@ -406,11 +408,6 @@ function clone(input) {
   return out;
 }
 
-class ReduceStopper {
-  constructor(value) {
-    this.value = value;
-  }
-}
 function reduceFn(reducer, acc, list) {
   if (list == null) {
     return acc;
@@ -422,15 +419,11 @@ function reduceFn(reducer, acc, list) {
   const len = list.length;
   while (index < len) {
     acc = reducer(acc, list[index], index, list);
-    if (acc instanceof ReduceStopper) {
-      return acc.value;
-    }
     index++;
   }
   return acc;
 }
 const reduce = curry(reduceFn);
-const reduceStopper = value => new ReduceStopper(value);
 
 function collectBy(fn, list) {
   if (arguments.length === 1) {
@@ -1966,6 +1959,11 @@ function pickBy(predicate, obj) {
   }, {});
 }
 
+function piped(...inputs) {
+  const [input, ...fnList] = inputs;
+  return pipe(...fnList)(input);
+}
+
 function pluck(property, list) {
   if (arguments.length === 1) return _list => pluck(property, _list);
   const willReturn = [];
@@ -2676,6 +2674,7 @@ exports.pickAll = pickAll;
 exports.pickBy = pickBy;
 exports.pipe = pipe;
 exports.pipeWith = pipeWith;
+exports.piped = piped;
 exports.pluck = pluck;
 exports.prepend = prepend;
 exports.product = product;
@@ -2691,7 +2690,6 @@ exports.reduce = reduce;
 exports.reduceBy = reduceBy;
 exports.reduceByFn = reduceByFn;
 exports.reduceFn = reduceFn;
-exports.reduceStopper = reduceStopper;
 exports.reject = reject;
 exports.removeIndex = removeIndex;
 exports.repeat = repeat;

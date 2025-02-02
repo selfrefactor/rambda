@@ -615,8 +615,6 @@ describe('R.addIndex', () => {
 addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[]
 ```
 
-Same as `R.addIndex`, but it will passed indexes are decreasing, instead of increasing.
-
 <details>
 
 <summary>All TypeScript definitions</summary>
@@ -895,7 +893,9 @@ describe('all', () => {
 
 ```typescript
 
-allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
+allPass<T, TF1 extends T, TF2 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2]
+): (a: T) => a is TF1 & TF2
 ```
 
 It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
@@ -919,8 +919,35 @@ const result = R.allPass(predicates)(input) // => true
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-allPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
-allPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
+allPass<T, TF1 extends T, TF2 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2]
+): (a: T) => a is TF1 & TF2;
+allPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3],
+): (a: T) => a is TF1 & TF2 & TF3;
+allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3, (a: T) => a is TF4],
+): (a: T) => a is TF1 & TF2 & TF3 & TF4;
+allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
+  predicates: [
+    (a: T) => a is TF1,
+    (a: T) => a is TF2,
+    (a: T) => a is TF3,
+    (a: T) => a is TF4,
+    (a: T) => a is TF5
+  ],
+): (a: T) => a is TF1 & TF2 & TF3 & TF4 & TF5;
+allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
+  predicates: [
+    (a: T) => a is TF1,
+    (a: T) => a is TF2,
+    (a: T) => a is TF3,
+    (a: T) => a is TF4,
+    (a: T) => a is TF5,
+    (a: T) => a is TF6
+  ],
+): (a: T) => a is TF1 & TF2 & TF3 & TF4 & TF5 & TF6;
+allPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
 ```
 
 </details>
@@ -1003,12 +1030,11 @@ import {allPass, filter} from 'rambda'
 
 describe('allPass', () => {
   it('happy', () => {
-    const x = allPass<number>([
-      y => {
-        y // $ExpectType number
+    const x = allPass([
+      (y: number) => {
         return typeof y === 'number'
       },
-      y => {
+      (y: number) => {
         return y > 0
       },
     ])(11)
@@ -1316,7 +1342,9 @@ describe('R.any', () => {
 
 ```typescript
 
-anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean
+anyPass<T, TF1 extends T, TF2 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2],
+): (a: T) => a is TF1 | TF2
 ```
 
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
@@ -1341,8 +1369,38 @@ const result = fn(input)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-anyPass<T>(predicates: ((x: T) => boolean)[]): (input: T) => boolean;
-anyPass<T>(predicates: ((...inputs: T[]) => boolean)[]): (...inputs: T[]) => boolean;
+anyPass<T, TF1 extends T, TF2 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2],
+): (a: T) => a is TF1 | TF2;
+anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3],
+): (a: T) => a is TF1 | TF2 | TF3;
+anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3],
+): (a: T) => a is TF1 | TF2 | TF3;
+anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
+  predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3, (a: T) => a is TF4],
+): (a: T) => a is TF1 | TF2 | TF3 | TF4;
+anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
+  predicates: [
+    (a: T) => a is TF1,
+    (a: T) => a is TF2,
+    (a: T) => a is TF3,
+    (a: T) => a is TF4,
+    (a: T) => a is TF5
+  ],
+): (a: T) => a is TF1 | TF2 | TF3 | TF4 | TF5;
+anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
+  predicates: [
+    (a: T) => a is TF1,
+    (a: T) => a is TF2,
+    (a: T) => a is TF3,
+    (a: T) => a is TF4,
+    (a: T) => a is TF5,
+    (a: T) => a is TF6
+  ],
+): (a: T) => a is TF1 | TF2 | TF3 | TF4 | TF5 | TF6;
+anyPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
 ```
 
 </details>
@@ -1437,19 +1495,6 @@ test('works with multiple inputs', () => {
 import {anyPass, filter} from 'rambda'
 
 describe('anyPass', () => {
-  it('happy', () => {
-    const x = anyPass<number>([
-      y => {
-        y // $ExpectType number
-        return typeof y === 'number'
-      },
-      y => {
-        return y > 0
-      },
-    ])(11)
-
-    x // $ExpectType boolean
-  })
   it('issue #604', () => {
     const plusEq = function(w: number, x: number, y: number, z: number) {
       return w + x === y + z
@@ -1475,12 +1520,10 @@ describe('anyPass', () => {
 
     const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean])
 
-    isStringNumberOrBoolean // $ExpectType (input: unknown) => boolean
-
     const aValue: unknown = 1
 
     if (isStringNumberOrBoolean(aValue)) {
-      aValue // $ExpectType unknown
+      aValue // $ExpectType string | number | boolean
     }
   })
 })
@@ -1652,7 +1695,7 @@ test('happy', () => {
 
 ```typescript
 
-append<T>(xToAppend: T, iterable: T[]): T[]
+append<T>(el: T): (list: T[]) => T[]
 ```
 
 It adds element `x` at the end of `iterable`.
@@ -1671,10 +1714,10 @@ const result = R.append(x, ['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-append<T>(xToAppend: T, iterable: T[]): T[];
-append<T, U>(xToAppend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
-append<T>(xToAppend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
-append<T>(xToAppend: T): (iterable: T[]) => T[];
+append<T>(el: T): (list: T[]) => T[];
+append<T>(el: T): (list: readonly T[]) => T[];
+append<T>(el: T, list: T[]): T[];
+append<T>(el: T, list: readonly T[]): T[];
 ```
 
 </details>
@@ -1900,7 +1943,7 @@ describe('R.apply', () => {
 
 ```typescript
 
-applySpec<Spec extends Record<string, AnyFunction>>(
+applySpec<Spec extends Record<PropertyKey, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
@@ -1925,7 +1968,7 @@ const result = fn(2, 4)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-applySpec<Spec extends Record<string, AnyFunction>>(
+applySpec<Spec extends Record<PropertyKey, AnyFunction>>(
   spec: Spec
 ): (
   ...args: Parameters<ValueOfRecord<Spec>>
@@ -2708,12 +2751,6 @@ describe('R.assoc', () => {
     result.num // $ExpectType number
     result.str // $ExpectType string
   })
-  it('curried 2', () => {
-    const result = assoc(newProp)(newValue)(obj)
-
-    result.num // $ExpectType number
-    result.str // $ExpectType string
-  })
   it('from @types/ramda', () => {
     // @ts-expect-error
     assoc('str')(2, obj)
@@ -2769,10 +2806,12 @@ describe('R.assoc', () => {
 
 ```typescript
 
-assocPath<Output>(path: Path, newValue: any, obj: object): Output
+assocPath<T>(path: Path, val: unknown): (obj: unknown) => T
 ```
 
 It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
+
+> :boom: Typescript Note: Pass explicit type annotation when used with **R.pipe/R.compose** for better type inference
 
 ```javascript
 const path = 'b.c'
@@ -2790,9 +2829,8 @@ const result = R.assocPath(path, newValue, obj)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-assocPath<Output>(path: Path, newValue: any, obj: object): Output;
-assocPath<Output>(path: Path, newValue: any): (obj: object) => Output;
-assocPath<Output>(path: Path): (newValue: any) => (obj: object) => Output;
+assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
+assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 ```
 
 </details>
@@ -3028,35 +3066,34 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {assocPath} from 'rambda'
+import {assocPath, dissocPath} from 'rambda'
 
-interface Output {
-  a: number,
-  foo: {bar: number},
-}
-
-describe('R.assocPath - user must explicitly set type of output', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2, {a: 1})
-
+describe('R.assocPath - needs explicit output type', () => {
+	interface Output{
+		a: number,
+		foo: {bar: number},
+	}
+  it('happy', () => {
+    const result = assocPath<Output>('foo.bar', 2, {a: 1})
     result // $ExpectType Output
   })
-  it('with string as path input', () => {
-    const result = assocPath<Output>('foo.bar', 2, {a: 1})
-
+  it('curried', () => {
+    const result = assocPath<Output>('foo.bar', 2)({a: 1})
     result // $ExpectType Output
   })
 })
 
-describe('R.assocPath - curried', () => {
-  it('with array as path input', () => {
-    const result = assocPath<Output>(['foo', 'bar'], 2)({a: 1})
-
+describe('R.dissocPath - needs explicit output type', () => {
+	interface Output{
+		a: number,
+		foo: {b: number},
+	}
+  it('happy', () => {
+    const result = dissocPath<Output>('foo.bar', {a: 1, foo: {b: 2,bar: 3}})
     result // $ExpectType Output
   })
-  it('with string as path input', () => {
-    const result = assocPath<Output>('foo.bar', 2)({a: 1})
-
+  it('curried', () => {
+		const result = dissocPath<Output>('foo.bar')({a: 1, foo: {b: 2,bar: 3}})
     result // $ExpectType Output
   })
 })
@@ -3336,7 +3373,7 @@ describe('R.bind', () => {
 
 ```typescript
 
-both(pred1: Pred, pred2: Pred): Pred
+both<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2
 ```
 
 It returns a function with `input` argument. 
@@ -3359,10 +3396,10 @@ const result = [fn(15), fn(30)]
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-both(pred1: Pred, pred2: Pred): Pred;
-both<T>(pred1: Predicate<T>, pred2: Predicate<T>): Predicate<T>;
-both<T>(pred1: Predicate<T>): (pred2: Predicate<T>) => Predicate<T>;
-both(pred1: Pred): (pred2: Pred) => Pred;
+both<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
+both<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
+both<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
+both<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
 ```
 
 </details>
@@ -3437,50 +3474,43 @@ test('skip evaluation of the second expression', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {both} from 'rambda'
+import { both } from 'rambda';
 
 describe('R.both', () => {
-  it('with passed type', () => {
-    const fn = both<number>(
-      x => x > 1,
-      x => x % 2 === 0
-    )
-    fn // $ExpectType Predicate<number>
-    const result = fn(2) // $ExpectType boolean
-    result // $ExpectType boolean
-  })
-  it('with passed type - curried', () => {
-    const fn = both<number>(x => x > 1)(x => x % 2 === 0)
-    fn // $ExpectType Predicate<number>
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed', () => {
-    const fn = both(
-      x => {
-        x // $ExpectType any
-        return x > 1
-      },
-      x => {
-        x // $ExpectType any
-        return x % 2 === 0
-      }
-    )
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed - curried', () => {
-    const fn = both((x: number) => {
-      x // $ExpectType number
-      return x > 1
-    })((x: number) => {
-      x // $ExpectType number
-      return x % 2 === 0
-    })
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-})
+	it('with passed type', () => {
+		const fn = both<number[]>(
+			(x) => x > 1,
+			(x) => x % 2 === 0,
+		);
+		fn(2); // $ExpectType boolean
+	});
+	it('no type passed', () => {
+		const fn = both(
+			(x) => {
+				// @ts-expect-error
+				return x > 1;
+			},
+			(x) => {
+				// @ts-expect-error
+				return x % 2 === 0;
+			},
+		);
+		fn(2); // $ExpectType boolean
+	});
+	it('only one type passed in predicate', () => {
+		const fn = both(
+			(x: number) => {
+				x; // $ExpectType number
+				return x > 1;
+			},
+			(x) => {
+				x; // $ExpectType number
+				return x % 2 === 0;
+			},
+		);
+		fn(2); // $ExpectType boolean
+	});
+});
 ```
 
 </details>
@@ -4014,15 +4044,35 @@ describe('R.clone', () => {
 collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: T[]): T[][]
 ```
 
+It groups items of list into separate lists based on the result of calling `keyFn` on each item.
+
 ```javascript
-const result = R.collectBy(
-  x => x % 2,
-  [1, 2, 3, 4]
-)
-// => [[2, 4], [1, 3]]
+const items = [
+  { category: 'fruit', item: '🍎' },
+  { category: 'vegetable', item: '🥕' },
+  { category: 'fruit', item: '🍌' },
+  { category: 'dairy', item: '🥛' },
+  { category: 'vegetable', item: '🌽' }
+];
+
+const result = R.groupBy(R.prop('category'), items);
+const expected = {
+  fruit: [
+    { category: 'fruit', item: '🍎' },
+    { category: 'fruit', item: '🍌' }
+  ],
+  vegetable: [
+    { category: 'vegetable', item: '🥕' },
+    { category: 'vegetable', item: '🌽' }
+  ],
+  dairy: [
+    { category: 'dairy', item: '🥛' }
+  ]
+}
+// => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.collectBy(%0A%20%20x%20%3D%3E%20x%20%25%202%2C%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%0A)%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%204%5D%2C%20%5B1%2C%203%5D%5D">Try this <strong>R.collectBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20items%20%3D%20%5B%0A%20%20%7B%20category%3A%20'fruit'%2C%20item%3A%20'%F0%9F%8D%8E'%20%7D%2C%0A%20%20%7B%20category%3A%20'vegetable'%2C%20item%3A%20'%F0%9F%A5%95'%20%7D%2C%0A%20%20%7B%20category%3A%20'fruit'%2C%20item%3A%20'%F0%9F%8D%8C'%20%7D%2C%0A%20%20%7B%20category%3A%20'dairy'%2C%20item%3A%20'%F0%9F%A5%9B'%20%7D%2C%0A%20%20%7B%20category%3A%20'vegetable'%2C%20item%3A%20'%F0%9F%8C%BD'%20%7D%0A%5D%3B%0A%0Aconst%20result%20%3D%20R.groupBy(R.prop('category')%2C%20items)%3B%0Aconst%20expected%20%3D%20%7B%0A%20%20fruit%3A%20%5B%0A%20%20%20%20%7B%20category%3A%20'fruit'%2C%20item%3A%20'%F0%9F%8D%8E'%20%7D%2C%0A%20%20%20%20%7B%20category%3A%20'fruit'%2C%20item%3A%20'%F0%9F%8D%8C'%20%7D%0A%20%20%5D%2C%0A%20%20vegetable%3A%20%5B%0A%20%20%20%20%7B%20category%3A%20'vegetable'%2C%20item%3A%20'%F0%9F%A5%95'%20%7D%2C%0A%20%20%20%20%7B%20category%3A%20'vegetable'%2C%20item%3A%20'%F0%9F%8C%BD'%20%7D%0A%20%20%5D%2C%0A%20%20dairy%3A%20%5B%0A%20%20%20%20%7B%20category%3A%20'dairy'%2C%20item%3A%20'%F0%9F%A5%9B'%20%7D%0A%20%20%5D%0A%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.collectBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4311,19 +4361,16 @@ describe('R.complement', () => {
 
 ```typescript
 
-compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  ...func: [
-      fnLast: (a: any) => TResult,
-      ...func: Array<(a: any) => any>,
-      f7: (a: R6) => R7,
-      f6: (a: R5) => R6,
-      f5: (a: R4) => R5,
-      f4: (a: R3) => R4,
-      f3: (a: R2) => R3,
-      f2: (a: R1) => R2,
-      f1: (...args: TArgs) => R1
-  ]
-): (...args: TArgs) => TResult
+compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
+  f8: (a: R7) => R8,
+  f7: (a: R6) => R7,
+  f6: (a: R5) => R6,
+  f5: (a: R4) => R5,
+  f4: (a: R3) => R4,
+  f3: (a: R2) => R3,
+  f2: (a: R1) => R2,
+  f1: (...args: TArgs) => R1
+): (...args: TArgs) => R8
 ```
 
 It performs right-to-left function composition.
@@ -4344,20 +4391,8 @@ const result = R.compose(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  ...func: [
-      fnLast: (a: any) => TResult,
-      ...func: Array<(a: any) => any>,
-      f7: (a: R6) => R7,
-      f6: (a: R5) => R6,
-      f5: (a: R4) => R5,
-      f4: (a: R3) => R4,
-      f3: (a: R2) => R3,
-      f2: (a: R1) => R2,
-      f1: (...args: TArgs) => R1
-  ]
-): (...args: TArgs) => TResult;
-compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
+compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
+  f8: (a: R7) => R8,
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
   f5: (a: R4) => R5,
@@ -4365,7 +4400,7 @@ compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
   f3: (a: R2) => R3,
   f2: (a: R1) => R2,
   f1: (...args: TArgs) => R1
-): (...args: TArgs) => R7;
+): (...args: TArgs) => R8;
 compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f7: (a: R6) => R7,
   f6: (a: R5) => R6,
@@ -5023,9 +5058,7 @@ describe('R.cond', () => {
 converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any
 ```
 
-Accepts a converging function and a list of branching functions and returns a new function. When invoked, this new function is applied to some arguments, each branching function is applied to those same arguments. The results of each branching function are passed as arguments to the converging function to produce the return value.
-
-> :boom: Explanation is taken from `Ramda` documentation
+Combines a converging function with multiple branching functions into a new function. When called, it applies the branching functions to the arguments and uses their results as inputs to the converging function to produce the final result.
 
 ```javascript
 const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
@@ -5275,7 +5308,7 @@ describe('R.count', () => {
 
 ```typescript
 
-countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>
+countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number }
 ```
 
 It counts elements in a list after each instance of the input list is passed through `transformFn` function.
@@ -5295,8 +5328,8 @@ const expected = { a: 2, b: 2, c: 2 }
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-countBy<T extends unknown>(transformFn: (x: T) => any, list: T[]): Record<string, number>;
-countBy<T extends unknown>(transformFn: (x: T) => any): (list: T[]) => Record<string, number>;
+countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
+countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
 ```
 
 </details>
@@ -5820,7 +5853,9 @@ It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or
 
 Else, it returns the first truthy `inputArguments` instance(from left to right).
 
-> :boom: Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+> :boom: Typescript Note: Pass explicit type annotation when used with **R.pipe/R.compose** for better type inference
+
+ Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
 
 ```javascript
 R.defaultTo('foo', 'bar') // => 'bar'
@@ -5838,7 +5873,7 @@ R.defaultTo('foo', '') // => 'foo'
 
 ```typescript
 defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
-defaultTo<T>(defaultValue: T): (input: T | null | undefined) => T;
+defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
 ```
 
 </details>
@@ -6002,7 +6037,7 @@ const result = R.difference(a, b)
 
 ```typescript
 difference<T>(a: T[], b: T[]): T[];
-difference<T>(a: T[]): (b: T[]) => T[];
+difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never
 ```
 
 </details>
@@ -6312,54 +6347,16 @@ test('includes prototype properties', () => {
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { dissoc } from 'rambda';
-
-type Obj = {
-	str: string;
-	num: number;
-	opt?: boolean;
-	orUndefined: boolean | undefined;
-	orNull: boolean | null;
-};
-
-const obj: Obj = { str: 'foo', num: 1, orUndefined: true, orNull: true };
-
-describe('R.dissoc', () => {
-	it('ramda tests', () => {
-		// @ts-expect-error
-		dissoc('str', obj);
-		// @ts-expect-error
-		dissoc('num', obj);
-		// @ts-expect-error
-		dissoc('orNull', obj);
-
-		const result1 = dissoc('opt', obj);
-		result1; // $ExpectType Obj
-		// @ts-expect-error
-		dissoc('num')(obj);
-		const result2 = dissoc('orUndefined', obj);
-		result2; // $ExpectType Obj
-		const result3 = dissoc('opt')(obj);
-		result3; // $ExpectType Obj
-	});
-});
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dissoc)
 
 ### dissocPath
 
 ```typescript
 
-dissocPath<T>(path: Path, obj: any): T
+dissocPath<T>(path: Path): (obj: unknown) => T
 ```
+
+> :boom: Typescript Note: Pass explicit type annotation when used with **R.pipe/R.compose** for better type inference
 
 ```javascript
 const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
@@ -6373,8 +6370,8 @@ const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-dissocPath<T>(path: Path, obj: any): T;
-dissocPath<T>(path: Path): (obj: any) => T;
+dissocPath<T>(path: Path): (obj: unknown) => T;
+dissocPath<T>(path: Path, obj: unknown): T;
 ```
 
 </details>
@@ -6443,6 +6440,10 @@ export function dissocPath(pathInput, input){
 const assert = require('assert')
 import { eq } from './_internals/testUtils.js'
 import { dissocPath } from './dissocPath.js'
+
+test('simple example', () => {
+	expect(dissocPath(['foo', 'bar'],{a: 1, foo: {bar: 2}})).toEqual({a: 1, foo: {}})
+})
 
 const testInput = {
   a : {
@@ -6616,7 +6617,6 @@ test('support remove null/undefined value path', () => {
   const obj2 = dissocPath([ 'c', 'd' ], obj1)
 
   eq(obj2, obj1)
-
   // NOTE: commented out on purpose
   // assert.notStrictEqual(obj2, obj1)
 })
@@ -6685,7 +6685,8 @@ test('happy', () => {
 
 ```typescript
 
-drop<T>(howMany: number, input: T[]): T[]
+drop<T>(howMany: number): {
+  (input: string): string
 ```
 
 It returns `howMany` items dropped from beginning of list or string `input`.
@@ -6702,12 +6703,14 @@ R.drop(2, 'foobar')  // => 'obar'
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-drop<T>(howMany: number, input: T[]): T[];
-drop(howMany: number, input: string): string;
 drop<T>(howMany: number): {
-  <T>(input: T[]): T[];
   (input: string): string;
+  (input: T[]): T[];
+  (input: readonly T[]): T[];
 };
+drop(howMany: number, input: string): string;
+drop<T>(howMany: number, input: T[]): T[];
+drop<T>(howMany: number, input: readonly T[]): T[];
 ```
 
 </details>
@@ -6774,23 +6777,19 @@ const howMany = 2
 
 describe('R.drop - array', () => {
   it('happy', () => {
-    const result = drop(howMany, list)
-    result // $ExpectType number[]
+    drop(howMany, list) // $ExpectType number[]
   })
   it('curried', () => {
-    const result = drop(howMany)(list)
-    result // $ExpectType number[]
+    drop(howMany)(list) // $ExpectType unknown[]
   })
 })
 
 describe('R.drop - string', () => {
   it('happy', () => {
-    const result = drop(howMany, str)
-    result // $ExpectType string
+    drop(howMany, str) // $ExpectType string
   })
   it('curried', () => {
-    const result = drop(howMany)(str)
-    result // $ExpectType string
+    drop(howMany)(str) // $ExpectType string
   })
 })
 ```
@@ -6803,7 +6802,8 @@ describe('R.drop - string', () => {
 
 ```typescript
 
-dropLast<T>(howMany: number, input: T[]): T[]
+dropLast<T>(howMany: number): {
+  (input: string): string
 ```
 
 It returns `howMany` items dropped from the end of list or string `input`.
@@ -6820,12 +6820,14 @@ R.dropLast(2, 'foobar')  // => 'foob'
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-dropLast<T>(howMany: number, input: T[]): T[];
-dropLast(howMany: number, input: string): string;
 dropLast<T>(howMany: number): {
-  <T>(input: T[]): T[];
   (input: string): string;
+  (input: T[]): T[];
+  (input: readonly T[]): T[];
 };
+dropLast(howMany: number, input: string): string;
+dropLast<T>(howMany: number, input: T[]): T[];
+dropLast<T>(howMany: number, input: readonly T[]): T[];
 ```
 
 </details>
@@ -6878,42 +6880,6 @@ test('should return copy', () => {
 
   assert.notStrictEqual(dropLast(0, xs), xs)
   assert.notStrictEqual(dropLast(-1, xs), xs)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {dropLast} from 'rambda'
-
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
-
-describe('R.dropLast - array', () => {
-  it('happy', () => {
-    const result = dropLast(howMany, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = dropLast(howMany)(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.dropLast - string', () => {
-  it('happy', () => {
-    const result = dropLast(howMany, str)
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = dropLast(howMany)(str)
-    result // $ExpectType string
-  })
 })
 ```
 
@@ -7239,7 +7205,7 @@ describe('R.dropRepeats', () => {
 
 ```typescript
 
-dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[]
+dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[]
 ```
 
 ```javascript
@@ -7257,11 +7223,8 @@ const result = R.dropRepeatsBy(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[];
-dropRepeatsBy<T, U>(
-  fn: (a: T) => U
-): (list: T[]) => T[];
-dropRepeatsBy(fn: any): <T>(list: T[]) => T[];
 ```
 
 </details>
@@ -7785,7 +7748,7 @@ describe('with string as iterable', () => {
 
 ```typescript
 
-either(firstPredicate: Pred, secondPredicate: Pred): Pred
+either<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 | RT2
 ```
 
 It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
@@ -7812,10 +7775,10 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-either(firstPredicate: Pred, secondPredicate: Pred): Pred;
-either<T>(firstPredicate: Predicate<T>, secondPredicate: Predicate<T>): Predicate<T>;
-either<T>(firstPredicate: Predicate<T>): (secondPredicate: Predicate<T>) => Predicate<T>;
-either(firstPredicate: Pred): (secondPredicate: Pred) => Pred;
+either<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 | RT2;
+either<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
+either<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 | RT2;
+either<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
 ```
 
 </details>
@@ -7900,47 +7863,40 @@ test('case 2', () => {
 import {either} from 'rambda'
 
 describe('R.either', () => {
-  it('with passed type', () => {
-    const fn = either<number>(
-      x => x > 1,
-      x => x % 2 === 0
-    )
-    fn // $ExpectType Predicate<number>
-    const result = fn(2) // $ExpectType boolean
-    result // $ExpectType boolean
-  })
-  it('with passed type - curried', () => {
-    const fn = either<number>(x => x > 1)(x => x % 2 === 0)
-    fn // $ExpectType Predicate<number>
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed', () => {
-    const fn = either(
-      x => {
-        x // $ExpectType any
-        return x > 1
-      },
-      x => {
-        x // $ExpectType any
-        return x % 2 === 0
-      }
-    )
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-  it('no type passed - curried', () => {
-    const fn = either((x: number) => {
-      x // $ExpectType number
-      return x > 1
-    })((x: number) => {
-      x // $ExpectType number
-      return x % 2 === 0
-    })
-    const result = fn(2)
-    result // $ExpectType boolean
-  })
-})
+	it('with passed type', () => {
+		const fn = either<number[]>(
+			(x) => x > 1,
+			(x) => x % 2 === 0,
+		);
+		fn(2); // $ExpectType boolean
+	});
+	it('no type passed', () => {
+		const fn = either(
+			(x) => {
+				// @ts-expect-error
+				return x > 1;
+			},
+			(x) => {
+				// @ts-expect-error
+				return x % 2 === 0;
+			},
+		);
+		fn(2); // $ExpectType boolean
+	});
+	it('only one type passed in predicate', () => {
+		const fn = either(
+			(x: number) => {
+				x; // $ExpectType number
+				return x > 1;
+			},
+			(x) => {
+				x; // $ExpectType number
+				return x % 2 === 0;
+			},
+		);
+		fn(2); // $ExpectType boolean
+	});
+});
 ```
 
 </details>
@@ -8204,7 +8160,8 @@ describe('R.endsWith - string', () => {
 
 ```typescript
 
-eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean
+eqBy<T>(fn: (a: T) => unknown): {
+  (a: T): (b: T) => boolean
 ```
 
 ```javascript
@@ -8219,12 +8176,12 @@ const result = R.eqBy(Math.abs, 5, -5)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
-eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
 eqBy<T>(fn: (a: T) => unknown): {
-  (a: T, b: T): boolean;
   (a: T): (b: T) => boolean;
+  (a: T, b: T): boolean;
 };
+eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
+eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
 ```
 
 </details>
@@ -9400,7 +9357,10 @@ export function F(){
 
 ```typescript
 
-filter<T>(predicate: Predicate<T>): (input: T[]) => T[]
+filter<T, S extends T>(
+	predicate: (value: T) => value is S,
+  list: T[],
+): S[]
 ```
 
 It filters list or object `input` using a `predicate` function.
@@ -9426,10 +9386,23 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-filter<T>(predicate: Predicate<T>): (input: T[]) => T[];
-filter<T>(predicate: Predicate<T>, input: T[]): T[];
-filter<T, U>(predicate: ObjectPredicate<T>): (x: Dictionary<T>) => Dictionary<T>;
-filter<T>(predicate: ObjectPredicate<T>, x: Dictionary<T>): Dictionary<T>;
+filter<T, S extends T>(
+	predicate: (value: T) => value is S,
+  list: T[],
+): S[];
+filter<T>(
+	predicate: (value: T) => boolean,
+  list: T[],
+): T[];
+filter<T, S extends T>(
+  predicate: (value: T) => value is S,
+): (list: T[]) => S[];
+filter<T>(
+	predicate: BooleanConstructor,
+): (list: T[]) => NonNullable<T>[];
+filter<T>(
+	predicate: (value: T) => boolean,
+): (list: T[]) => T[];
 ```
 
 </details>
@@ -9567,50 +9540,43 @@ test('bad inputs difference between Ramda and Rambda', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {filter} from 'rambda'
+import { filter, pipe, piped } from 'rambda';
 
-const list = [1, 2, 3]
-const obj = {a: 1, b: 2}
+const list = [1, 2, 3];
 
 describe('R.filter with array', () => {
-  it('happy', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    })(list)
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.filter with objects', () => {
-  it('happy', () => {
-    const result = filter<number>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried version requires second dummy type', () => {
-    const result = filter<number, any>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
-})
+	it('happy', () => {
+		const result = filter((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}, list);
+		result; // $ExpectType number[]
+	});
+	it('within piped', () => {
+		const result = piped(
+			list,
+			(x) => x,
+			filter((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		);
+		result; // $ExpectType number[]
+	});
+	it('within pipe requires explicit type', () => {
+		pipe(
+			(x) => x,
+			filter<number>((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+			filter((x: number) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		)(list);
+	});
+});
 ```
 
 </details>
@@ -10370,12 +10336,10 @@ describe('Ramda.flip', () => {
 
 ```typescript
 
-forEach<T>(fn: Iterator<T, void>, list: T[]): T[]
+forEach<T>(fn: (x: T) => void): <U extends readonly T[]>(list: U) => U
 ```
 
 It applies `iterable` function over all members of `list` and returns `list`.
-
-> :boom: It works with objects, unlike `Ramda`.
 
 ```javascript
 const sideEffect = {}
@@ -10394,10 +10358,9 @@ result // => [1, 2]
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-forEach<T>(fn: Iterator<T, void>, list: T[]): T[];
-forEach<T>(fn: Iterator<T, void>): (list: T[]) => T[];
-forEach<T>(fn: ObjectIterator<T, void>, list: Dictionary<T>): Dictionary<T>;
-forEach<T, U>(fn: ObjectIterator<T, void>): (list: Dictionary<T>) => Dictionary<T>;
+forEach<T>(fn: (x: T) => void): <U extends readonly T[]>(list: U) => U;
+forEach<U extends readonly any[]>(fn: (x: U extends readonly (infer T)[] ? T : never) => void, list: U): U;
+forEach<T>(fn: (item: T) => void, list: readonly T[]): T[];
 ```
 
 </details>
@@ -10506,7 +10469,6 @@ test('returns the input', () => {
 import {forEach} from 'rambda'
 
 const list = [1, 2, 3]
-const obj = {a: 1, b: 2}
 
 describe('R.forEach with arrays', () => {
   it('happy', () => {
@@ -10520,33 +10482,6 @@ describe('R.forEach with arrays', () => {
       a // $ExpectType number
     })(list)
     result // $ExpectType number[]
-  })
-})
-
-describe('R.forEach with objects', () => {
-  it('happy', () => {
-    const result = forEach((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-      return `${a}`
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried require an input typing and a dummy third typing', () => {
-    // Required in order all typings to work
-    const result = forEach<number, any>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-    })(obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('iterator without property', () => {
-    const result = forEach(a => {
-      a // $ExpectType number
-    }, obj)
-    result // $ExpectType Dictionary<number>
   })
 })
 ```
@@ -11214,13 +11149,13 @@ It returns `true` if `obj` has property `prop`.
 const obj = {a: 1}
 
 const result = [
-  R.has('a', Record<string, unknown>),
-  R.has('b', Record<string, unknown>)
+  R.has('a', obj),
+  R.has('b', obj)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.has('b'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.has</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.has('a'%2C%20obj)%2C%0A%20%20R.has('b'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.has</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11399,14 +11334,14 @@ const pathAsArray = ['a', 'b']
 const obj = {a: {b: []}}
 
 const result = [
-  R.hasPath(path, Record<string, unknown>),
-  R.hasPath(pathAsArray, Record<string, unknown>),
-  R.hasPath('a.c', Record<string, unknown>),
+  R.hasPath(path, obj),
+  R.hasPath(pathAsArray, obj),
+  R.hasPath('a.c', obj),
 ]
 // => [true, true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20pathAsArray%20%3D%20%5B'a'%2C%20'b'%5D%0Aconst%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%20%5B%5D%7D%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.hasPath(path%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.hasPath(pathAsArray%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.hasPath('a.c'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.hasPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20path%20%3D%20'a.b'%0Aconst%20pathAsArray%20%3D%20%5B'a'%2C%20'b'%5D%0Aconst%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%20%5B%5D%7D%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.hasPath(path%2C%20obj)%2C%0A%20%20R.hasPath(pathAsArray%2C%20obj)%2C%0A%20%20R.hasPath('a.c'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.hasPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11505,7 +11440,14 @@ describe('R.hasPath', () => {
 
 ```typescript
 
-head(str: string): string
+head<T>(listOrString: T): T extends string ? string : 
+	T extends [] ? undefined: 
+		T extends readonly [infer F, ...infer R] ? F : 
+			T extends readonly [infer F] ? F :
+				T extends [infer F] ? F :
+					T extends [infer F, ...infer R] ? F : 
+						T extends unknown[] ? T[number] : 
+							undefined
 ```
 
 It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
@@ -11525,12 +11467,14 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-head(str: string): string;
-head(str: ''): undefined;
-head(list: readonly[]): undefined;
-head<T>(list: never[]): undefined;
-head<T extends unknown[]>(array: T): FirstArrayElement<T>
-head<T extends readonly unknown[]>(array: T): FirstArrayElement<T>
+head<T>(listOrString: T): T extends string ? string : 
+	T extends [] ? undefined: 
+		T extends readonly [infer F, ...infer R] ? F : 
+			T extends readonly [infer F] ? F :
+				T extends [infer F] ? F :
+					T extends [infer F, ...infer R] ? F : 
+						T extends unknown[] ? T[number] : 
+							undefined;
 ```
 
 </details>
@@ -11588,8 +11532,8 @@ describe('R.head', () => {
     last(string) // $ExpectType string
   })
   it('empty string', () => {
-    head(emptyString) // $ExpectType undefined
-    last(emptyString) // $ExpectType undefined
+    head(emptyString) // $ExpectType string
+    last(emptyString) // $ExpectType string
   })
   it('array', () => {
     head(numberList) // $ExpectType number
@@ -11600,9 +11544,9 @@ describe('R.head', () => {
   })
   it('empty array', () => {
     const list = [] as const
-    head(emptyList) // $ExpectType undefined
+    head(emptyList) // $ExpectType never
     head(list) // $ExpectType undefined
-    last(emptyList) // $ExpectType undefined
+    last(emptyList) // $ExpectType never
     last(list) // $ExpectType undefined
   })
 
@@ -12348,77 +12292,77 @@ export function indexBy(condition, list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { indexBy } from './indexBy.js'
-import { prop } from './prop.js'
+import { indexBy } from './indexBy.js';
+import { prop } from './prop.js';
 
 test('happy', () => {
-  const list = [
-    { id : 1 },
-    {
-      id : 1,
-      a  : 2,
-    },
-    { id : 2 },
-    { id : 10 },
-    { id : 'a' },
-  ]
+	const list = [
+		{ id: 1, a: 10, c: 3 },
+		{
+			id: 1,
+			a: 2,
+		},
+		{ id: 2 },
+		{ id: 10 },
+		{ id: 'a' },
+	];
 
-  expect(indexBy(prop('id'))(list)).toEqual({
-    1 : {
-      id : 1,
-      a  : 2,
-    },
-    2  : { id : 2 },
-    10 : { id : 10 },
-    a  : { id : 'a' },
-  })
-})
+	expect(indexBy(prop('id'))(list)).toEqual({
+		1: {
+			id: 1,
+			a: 2,
+		},
+		2: { id: 2 },
+		10: { id: 10 },
+		a: { id: 'a' },
+	});
+});
 
 test('with string as condition', () => {
-  const list = [ { id : 1 }, { id : 2 }, { id : 10 }, { id : 'a' } ]
-  const standardResult = indexBy(obj => obj.id, list)
-  const suggestionResult = indexBy('id', list)
+	const list = [{ id: 1 }, { id: 2 }, { id: 10 }, { id: 'a' }];
+	const standardResult = indexBy((obj) => obj.id, list);
+	const suggestionResult = indexBy('id', list);
 
-  expect(standardResult).toEqual(suggestionResult)
-})
+	expect(standardResult).toEqual(suggestionResult);
+});
 
 test('with string - bad path', () => {
-  const list = [
-    {
-      a : {
-        b : 1,
-        c : 2,
-      },
-    },
-    { a : { c : 4 } },
-    {},
-    {
-      a : {
-        b : 10,
-        c : 20,
-      },
-    },
-  ]
+	const list = [
+		{
+			a: {
+				b: 1,
+				c: 2,
+			},
+		},
+		{ a: { c: 4 } },
+		{},
+		{
+			a: {
+				b: 10,
+				c: 20,
+			},
+		},
+	];
 
-  const result = indexBy('a.b', list)
-  const expected = {
-    1 : {
-      a : {
-        b : 1,
-        c : 2,
-      },
-    },
-    10 : {
-      a : {
-        b : 10,
-        c : 20,
-      },
-    },
-    undefined : {},
-  }
+	const result = indexBy('a.b', list);
+	const expected = {
+		1: {
+			a: {
+				b: 1,
+				c: 2,
+			},
+		},
+		10: {
+			a: {
+				b: 10,
+				c: 20,
+			},
+		},
+		undefined: {},
+	};
 
-  expect(result).toEqual(expected)
-})
+	expect(result).toEqual(expected);
+});
 ```
 
 </details>
@@ -13465,6 +13409,8 @@ export function isEmpty(input){
 import { isEmpty } from './isEmpty.js'
 
 test('happy', () => {
+  expect(isEmpty(0n)).toBeTrue()
+  expect(isEmpty(1n)).toBeFalse()
   expect(isEmpty(undefined)).toBeFalse()
   expect(isEmpty('')).toBeTrue()
   expect(isEmpty(null)).toBeFalse()
@@ -13812,7 +13758,7 @@ describe('R.juxt', () => {
 
 ```typescript
 
-keys<T extends object>(x: T): (keyof T & string)[]
+keys<T extends object>(x: T): Array<keyof T>
 ```
 
 It applies `Object.keys` over `x` and returns its keys.
@@ -13828,8 +13774,7 @@ R.keys({a:1, b:2})  // => ['a', 'b']
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-keys<T extends object>(x: T): (keyof T & string)[];
-keys<T>(x: T): string[];
+keys<T extends object>(x: T): Array<keyof T>;
 ```
 
 </details>
@@ -13866,7 +13811,14 @@ test('happy', () => {
 
 ```typescript
 
-last(str: ''): undefined
+last<T>(listOrString: T): T extends string ? string : 
+  T extends [] ? undefined : 
+    T extends readonly [...infer R, infer L] ? L : 
+      T extends readonly [infer L] ? L :
+        T extends [infer L] ? L :
+          T extends [...infer R, infer L] ? L : 
+            T extends unknown[] ? T[number] : 
+              undefined
 ```
 
 It returns the last element of `input`, as the `input` can be either a string or an array. It returns `undefined` if array has length of 0.
@@ -13886,13 +13838,14 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-last(str: ''): undefined;
-last(str: string): string;
-last(list: readonly[]): undefined;
-last(list: never[]): undefined;
-last<T extends unknown[]>(array: T): LastArrayElement<T>;
-last<T extends readonly unknown[]>(array: T): LastArrayElement<T>;
-last(str: string): string | undefined;
+last<T>(listOrString: T): T extends string ? string : 
+  T extends [] ? undefined : 
+    T extends readonly [...infer R, infer L] ? L : 
+      T extends readonly [infer L] ? L :
+        T extends [infer L] ? L :
+          T extends [...infer R, infer L] ? L : 
+            T extends unknown[] ? T[number] : 
+              undefined;
 ```
 
 </details>
@@ -14901,7 +14854,9 @@ describe('R.lte', () => {
 
 ```typescript
 
-map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>
+map<T extends IterableContainer, U>(
+  fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, U>
 ```
 
 It returns the result of looping through `iterable` with `fn`.
@@ -14933,12 +14888,13 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-map<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-map<T, U>(fn: Iterator<T, U>, iterable: T[]): U[];
-map<T, U>(fn: Iterator<T, U>): (iterable: T[]) => U[];
-map<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
-map<T>(fn: Iterator<T, T>): (iterable: T[]) => T[];
-map<T>(fn: Iterator<T, T>, iterable: T[]): T[];
+map<T extends IterableContainer, U>(
+  fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, U>;
+map<T extends IterableContainer, U>(
+  fn: (value: T[number]) => U,
+	data: T
+) : Mapped<T, U>;
 ```
 
 </details>
@@ -15074,85 +15030,39 @@ test('bad inputs difference between Ramda and Rambda', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {map} from 'rambda'
+import { map, pipe, piped } from 'rambda';
 
-describe('R.map with arrays', () => {
-  it('iterable returns the same type as the input', () => {
-    const result = map<number>(
-      (x: number) => {
-        x // $ExpectType number
-        return x + 2
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('iterable returns the same type as the input - curried', () => {
-    const result = map<number>((x: number) => {
-      x // $ExpectType number
-      return x + 2
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-  it('iterable returns different type as the input', () => {
-    const result = map<number, string>(
-      (x: number) => {
-        x // $ExpectType number
-        return String(x)
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType string[]
-  })
-})
+const list = [1, 2, 3];
 
-describe('R.map with objects', () => {
-  it('iterable with all three arguments - curried', () => {
-    // It requires dummy third typing argument
-    // in order to identify compared to curry typings for arrays
-    // ============================================
-    const result = map<number, string, any>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Dictionary<number>
-      return `${a}`
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with all three arguments', () => {
-    const result = map<number, string>(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Dictionary<number>
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with property argument', () => {
-    const result = map<number, string>(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-  it('iterable with no property argument', () => {
-    const result = map<number, string>(
-      a => {
-        a // $ExpectType number
-        return `${a}`
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<string>
-  })
-})
+describe('R.map with array', () => {
+	it('happy', () => {
+		const result = map((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}, list);
+		result; // $ExpectType number[]
+	});
+	it('within piped', () => {
+		const result = piped(
+			list,
+			(x) => x,
+			map((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		);
+		result; // $ExpectType number[]
+	});
+	it('within pipe requires explicit type', () => {
+		pipe(
+			(x) => x,
+			map((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		)(list);
+	});
+});
 ```
 
 </details>
@@ -15163,7 +15073,9 @@ describe('R.map with objects', () => {
 
 ```typescript
 
-mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>
+mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => Record<TKey, TResult>
 ```
 
 It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
@@ -15186,10 +15098,34 @@ const result = R.mapObjIndexed(fn, obj)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-mapObjIndexed<T>(fn: ObjectIterator<T, T>, iterable: Dictionary<T>): Dictionary<T>;
-mapObjIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Dictionary<T>): Dictionary<U>;
-mapObjIndexed<T>(fn: ObjectIterator<T, T>): (iterable: Dictionary<T>) => Dictionary<T>;
-mapObjIndexed<T, U>(fn: ObjectIterator<T, U>): (iterable: Dictionary<T>) => Dictionary<U>;
+mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
+mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
+mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: Record<TKey, T>,
+): Record<TKey, TResult>;
+mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: PartialRecord<TKey, T>,
+): PartialRecord<TKey, TResult>;
+mapObjIndexed<T, TResult>(
+	fn: (
+		value: T,
+		key: string,
+		obj?: {
+			[key: string]: T;
+		},
+	) => TResult,
+	obj: {
+		[key: string]: T;
+	},
+): {
+	[key: string]: TResult;
+};
 ```
 
 </details>
@@ -15214,7 +15150,7 @@ describe('R.mapObjIndexed', () => {
     result // $ExpectType Dictionary<number>
   })
   it('without type transform - curried', () => {
-    const result = mapObjIndexed<number>((x, prop, obj) => {
+    const result = mapObjIndexed<number, number, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
       obj // $ExpectType Dictionary<number>
@@ -15232,7 +15168,7 @@ describe('R.mapObjIndexed', () => {
     result // $ExpectType Dictionary<string>
   })
   it('change of type - curried', () => {
-    const result = mapObjIndexed<number, string>((x, prop, obj) => {
+    const result = mapObjIndexed<number, string, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
       obj // $ExpectType Dictionary<number>
@@ -16532,7 +16468,7 @@ describe('R.mergeRight', () => {
 
 ```typescript
 
-mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>
+mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any
 ```
 
 It takes two objects and a function, which will be used when there is an overlap between the keys.
@@ -16553,12 +16489,9 @@ const result = R.mergeWith(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown>;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>, b: Record<string, unknown>): Output;
-mergeWith(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Record<string, unknown>;
-mergeWith<Output>(fn: (x: any, z: any) => any, a: Record<string, unknown>): (b: Record<string, unknown>) => Output;
-mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Record<string, unknown>;
-mergeWith<Output>(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => Output;
+mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
+mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
+mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
 ```
 
 </details>
@@ -16902,27 +16835,41 @@ describe('R.minBy', () => {
 
 ```typescript
 
-modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U
+modify<K extends string, A, P>(
+  prop: K,
+  fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>
 ```
+
+It changes a property with the result of transformer function.
 
 ```javascript
-const result = R.modify()
-// =>
+const person = {
+  name : 'foo',
+  age  : 20,
+}
+const result = R.modify(
+	'age', x => x + 1, person
+)
+// => {name: 'foo', age: 21}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modify()%0A%2F%2F%20%3D%3E">Try this <strong>R.modify</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20person%20%3D%20%7B%0A%20%20name%20%3A%20'foo'%2C%0A%20%20age%20%20%3A%2020%2C%0A%7D%0Aconst%20result%20%3D%20R.modify(%0A%09'age'%2C%20x%20%3D%3E%20x%20%2B%201%2C%20person%0A)%0A%2F%2F%20%3D%3E%20%7Bname%3A%20'foo'%2C%20age%3A%2021%7D">Try this <strong>R.modify</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-modify<K extends PropertyKey, T>(prop: K, fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
-modify<U, K extends keyof U>(prop: K, fn: (value: U[K]) => U[K], object: U): U;
-modify<K extends PropertyKey>(prop: K): {
-  <T>(fn: (value: T) => T): <U extends Record<K, T>>(object: U) => U;
-  <T, U extends Record<K, T>>(fn: (value: T) => T, object: U): U;
-};
+modify<K extends string, A, P>(
+  prop: K,
+  fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+modify<T extends object, K extends keyof T, P>(
+  prop: K,
+  fn: (a: T[K]) => P,
+  obj: T,
+): Omit<T, K> & Record<K, P>;
 ```
 
 </details>
@@ -17119,7 +17066,7 @@ describe('R.modify', () => {
 
 ```typescript
 
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T
+modifyPath<U, T>(path: [], fn: (value: U) => T, obj: U): T
 ```
 
 It changes a property of object on the base of provided path and transformer function.
@@ -17136,9 +17083,60 @@ const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown, object: Record<string, unknown>): T;
-modifyPath<T extends Record<string, unknown>>(path: Path, fn: (x: any) => unknown): (object: Record<string, unknown>) => T;
-modifyPath<T extends Record<string, unknown>>(path: Path): (fn: (x: any) => unknown) => (object: Record<string, unknown>) => T;
+modifyPath<U, T>(path: [], fn: (value: U) => T, obj: U): T;
+modifyPath<K0 extends keyof U, U, T>(path: [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<[K0], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  U,
+  T
+>(path: [K0, K1], fn: (value: U[K0][K1]) => T, obj: U): DeepModify<[K0, K1], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  U,
+  T
+>(path: [K0, K1, K2], fn: (value: U[K0][K1][K2]) => T, obj: U): DeepModify<[K0, K1, K2], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  U,
+  T
+>(path: [K0, K1, K2, K3], fn: (value: U[K0][K1][K2][K3]) => T, obj: U): DeepModify<[K0, K1, K2, K3], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4], fn: (value: U[K0][K1][K2][K3][K4]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5], fn: (value: U[K0][K1][K2][K3][K4][K5]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5, K6], fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5, K6], U, T>;
+modifyPath<B, A = any>(path: Path, fn: (a: any) => any, obj: A): B;
 ```
 
 </details>
@@ -18091,7 +18089,7 @@ describe('R.of', () => {
 
 ```typescript
 
-omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>
+omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never
 ```
 
 It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -18104,25 +18102,23 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, Record<string, unknown>), 
-  R.omit(propsToOmitList, Record<string, unknown>) 
+  R.omit(propsToOmit, obj), 
+  R.omit(propsToOmitList, obj) 
 ]
 // => [{b: 2}, {b: 2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20Record%3Cstring%2C%20unknown%3E)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20Record%3Cstring%2C%20unknown%3E)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20obj)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-omit<T, K extends string>(propsToOmit: K[], obj: T): Omit<T, K>;
-omit<K extends string>(propsToOmit: K[]): <T>(obj: T) => Omit<T, K>;
-omit<T, U>(propsToOmit: string, obj: T): U;
-omit<T, U>(propsToOmit: string): (obj: T) => U;
-omit<T>(propsToOmit: string, obj: object): T;
-omit<T>(propsToOmit: string): (obj: object) => T;
+omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
+omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
+omit<T>(names: string): (obj: unknown) => T;
+omit<T>(names: string, obj: unknown): T;
 ```
 
 </details>
@@ -18209,32 +18205,12 @@ import {omit} from 'rambda'
 describe('R.omit with array as props input', () => {
   it('allow Typescript to infer object type', () => {
     const input = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = omit(['b,c'], input)
+    const result = omit(['b','c'], input)
 
     result.a // $ExpectType string
     result.d // $ExpectType number
 
-    const curriedResult = omit(['a,c'], input)
-
-    curriedResult.a // $ExpectType string
-    curriedResult.d // $ExpectType number
-  })
-
-  it('declare type of input object', () => {
-    interface Input {
-      a: string,
-      b: number,
-      c: number,
-      d: number,
-    }
-    const input: Input = {a: 'foo', b: 2, c: 3, d: 4}
-    const result = omit(['b,c'], input)
-    result // $ExpectType Omit<Input, "b,c">
-
-    result.a // $ExpectType string
-    result.d // $ExpectType number
-
-    const curriedResult = omit(['a,c'], input)
+    const curriedResult = omit(['b','c'])(input)
 
     curriedResult.a // $ExpectType string
     curriedResult.d // $ExpectType number
@@ -18242,45 +18218,20 @@ describe('R.omit with array as props input', () => {
 })
 
 describe('R.omit with string as props input', () => {
-  interface Output {
-    b: number,
-    d: number,
-  }
+  it('require explicit return type', () => {
+		interface Output {
+			a: string;
+			d: number;
+		}
+    const input = {a: 'foo', b: 2, c: 3, d: 4}
+    const result = omit<Output>('b,c', input)
 
-  it('explicitly declare output', () => {
-    const result = omit<Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType Output
-    result.b // $ExpectType number
+    result.a // $ExpectType string
+    result.d // $ExpectType number
 
-    const curriedResult = omit<Output>('a,c')({a: 1, b: 2, c: 3, d: 4})
-
-    curriedResult.b // $ExpectType number
-  })
-
-  it('explicitly declare input and output', () => {
-    interface Input {
-      a: number,
-      b: number,
-      c: number,
-      d: number,
-    }
-    const result = omit<Input, Output>('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType Output
-    result.b // $ExpectType number
-
-    const curriedResult = omit<Input, Output>('a,c')({
-      a: 1,
-      b: 2,
-      c: 3,
-      d: 4,
-    })
-
-    curriedResult.b // $ExpectType number
-  })
-
-  it('without passing type', () => {
-    const result = omit('a,c', {a: 1, b: 2, c: 3, d: 4})
-    result // $ExpectType unknown
+    const curriedResult = omit<Output>('b,c')(input)
+		curriedResult.a // $ExpectType string
+		curriedResult.d // $ExpectType number
   })
 })
 ```
@@ -19130,10 +19081,7 @@ describe('R.partialObject', () => {
 
 ```typescript
 
-partition<T>(
-  predicate: Predicate<T>,
-  input: T[]
-): [T[], T[]]
+partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]]
 ```
 
 It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
@@ -19145,7 +19093,7 @@ const predicate = x => x > 2
 
 const result = [
   R.partition(predicate, list),
-  R.partition(predicate, Record<string, unknown>)
+  R.partition(predicate, obj)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -19154,27 +19102,18 @@ const expected = [
 // `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.partition(predicate%2C%20list)%2C%0A%20%20R.partition(predicate%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B3%5D%2C%20%5B1%2C%202%5D%5D%2C%0A%20%20%5B%7Bc%3A%203%7D%2C%20%20%7Ba%3A%201%2C%20b%3A%202%7D%5D%2C%0A%5D%0A%2F%2F%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.partition</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.partition(predicate%2C%20list)%2C%0A%20%20R.partition(predicate%2C%20obj)%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B3%5D%2C%20%5B1%2C%202%5D%5D%2C%0A%20%20%5B%7Bc%3A%203%7D%2C%20%20%7Ba%3A%201%2C%20b%3A%202%7D%5D%2C%0A%5D%0A%2F%2F%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.partition</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-partition<T>(
-  predicate: Predicate<T>,
-  input: T[]
-): [T[], T[]];
-partition<T>(
-  predicate: Predicate<T>
-): (input: T[]) => [T[], T[]];
-partition<T>(
-  predicate: (x: T, prop?: string) => boolean,
-  input: { [key: string]: T}
-): [{ [key: string]: T}, { [key: string]: T}];
-partition<T>(
-  predicate: (x: T, prop?: string) => boolean
-): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
+partition<T>(fn: (a: T) => boolean): <L extends T = T>(list: L[]) => [L[], L[]];
+
+partition<T, U extends T>(fn: (a: T) => a is U, list: T[]): [U[], Exclude<T, U>[]];
+partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
 ```
 
 </details>
@@ -19325,30 +19264,6 @@ describe('R.partition', () => {
     result // $ExpectType [number[], number[]]
     curriedResult // $ExpectType [number[], number[]]
   })
-
-  /*
-    revert to old version of `dtslint` and `R.partition` typing
-    as there is diff between VSCode types(correct) and dtslint(incorrect)
-    
-    it('with object', () => {
-      const predicate = (value: number, prop?: string) => {
-        return value > 2
-      }
-      const hash = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4,
-      }
-  
-      const result = partition(predicate, hash)
-      const curriedResult = partition(predicate)(hash)
-      result[0] // $xExpectType { [key: string]: number; }
-      result[1] // $xExpectType { [key: string]: number; }
-      curriedResult[0] // $xExpectType { [key: string]: number; }
-      curriedResult[1] // $xExpectType { [key: string]: number; }
-    })
-    */
 })
 ```
 
@@ -19360,7 +19275,7 @@ describe('R.partition', () => {
 
 ```typescript
 
-path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0]
+path<T = unknown>(path: Path): (obj: any) => T | undefined
 ```
 
 If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
@@ -19389,42 +19304,73 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
-path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+path<T = unknown>(path: Path): (obj: any) => T | undefined;
+path<S, K0 extends keyof S>(path: [K0], obj: S): S[K0];
+path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
 path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1]
 >(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
 path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2]
 >(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
 path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3]
 >(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
 path<
-    S,
-    K0 extends keyof S = keyof S,
-    K1 extends keyof S[K0] = keyof S[K0],
-    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-path<T>(pathToSearch: string, obj: any): T | undefined;
-path<T>(pathToSearch: string): (obj: any) => T | undefined;
-path<T>(pathToSearch: RamdaPath): (obj: any) => T | undefined;
-path<T>(pathToSearch: RamdaPath, obj: any): T | undefined;
+path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
+path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7];
+path<
+	S,
+	K0 extends keyof S,
+	K1 extends keyof S[K0],
+	K2 extends keyof S[K0][K1],
+	K3 extends keyof S[K0][K1][K2],
+	K4 extends keyof S[K0][K1][K2][K3],
+	K5 extends keyof S[K0][K1][K2][K3][K4],
+	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+	K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+path<T = unknown>(path: Path, obj: any): T | undefined;
 ```
 
 </details>
@@ -19736,7 +19682,7 @@ describe('with ramda specs', () => {
 pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T
 ```
 
-It reads `obj` input and returns either `R.path(pathToSearch, Record<string, unknown>)` result or `defaultValue` input.
+It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
 
 ```javascript
 const defaultValue = 'DEFAULT_VALUE'
@@ -19750,14 +19696,14 @@ const obj = {
 }
 
 const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, Record<string, unknown>),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, Record<string, unknown>), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', Record<string, unknown>)
+  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
+  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
+  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
 ]
 // => [1, 1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%201%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearchList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20'a.b.c'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.pathOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%201%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearch%2C%20obj)%2C%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20pathToSearchList%2C%20obj)%2C%20%0A%20%20R.pathOr(DEFAULT_VALUE%2C%20'a.b.c'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.pathOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -19881,7 +19827,7 @@ describe('R.pathOr', () => {
 paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[]
 ```
 
-It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, Record<string, unknown>)`.
+It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
 
 Because it calls `R.path`, then `singlePath` can be either string or a list.
 
@@ -19899,11 +19845,11 @@ const result = R.paths([
   'a.b.c',
   'a.b.d',
   'a.b.c.d.e',
-], Record<string, unknown>)
+], obj)
 // => [1, 2, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%20%7B%0A%20%20%20%20%20%20c%20%3A%201%2C%0A%20%20%20%20%20%20d%20%3A%202%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20R.paths(%5B%0A%20%20'a.b.c'%2C%0A%20%20'a.b.d'%2C%0A%20%20'a.b.c.d.e'%2C%0A%5D%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20undefined%5D">Try this <strong>R.paths</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%20%7B%0A%20%20%20%20b%20%3A%20%7B%0A%20%20%20%20%20%20c%20%3A%201%2C%0A%20%20%20%20%20%20d%20%3A%202%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0Aconst%20result%20%3D%20R.paths(%5B%0A%20%20'a.b.c'%2C%0A%20%20'a.b.d'%2C%0A%20%20'a.b.c.d.e'%2C%0A%5D%2C%20obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%20undefined%5D">Try this <strong>R.paths</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -20154,10 +20100,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, Record<string, unknown>),
-  R.pick(propsToPickList, Record<string, unknown>),
-  R.pick('a,bar', Record<string, unknown>),
-  R.pick('bar', Record<string, unknown>),
+  R.pick(propsToPick, obj),
+  R.pick(propsToPickList, obj),
+  R.pick('a,bar', obj),
+  R.pick('bar', obj),
   R.pick([0, 3, 5], list),
   R.pick('0,3,5', list),
 ]
@@ -20173,7 +20119,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pick(propsToPick%2C%20obj)%2C%0A%20%20R.pick(propsToPickList%2C%20obj)%2C%0A%20%20R.pick('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pick('bar'%2C%20obj)%2C%0A%20%20R.pick(%5B0%2C%203%2C%205%5D%2C%20list)%2C%0A%20%20R.pick('0%2C3%2C5'%2C%20list)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%7D%2C%0A%20%20%7Ba%3A1%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%20%20%7B0%3A%201%2C%203%3A%204%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pick</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -20388,10 +20334,10 @@ const propsToPick = 'a,foo,bar'
 const propsToPickList = ['a', 'foo', 'bar']
 
 const result = [
-  R.pickAll(propsToPick, Record<string, unknown>),
-  R.pickAll(propsToPickList, Record<string, unknown>),
-  R.pickAll('a,bar', Record<string, unknown>),
-  R.pickAll('bar', Record<string, unknown>),
+  R.pickAll(propsToPick, obj),
+  R.pickAll(propsToPickList, obj),
+  R.pickAll('a,bar', obj),
+  R.pickAll('bar', obj),
 ]
 const expected = [
   {a:1, foo: 'cherry', bar: undefined},
@@ -20402,7 +20348,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo%2Cbar'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%2C%20'bar'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pickAll(propsToPick%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll(propsToPickList%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll('a%2Cbar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.pickAll('bar'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Bbar%3A%20undefined%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pickAll</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%20%3A%201%2C%0A%20%20b%20%3A%20false%2C%0A%20%20foo%3A%20'cherry'%0A%7D%0Aconst%20propsToPick%20%3D%20'a%2Cfoo%2Cbar'%0Aconst%20propsToPickList%20%3D%20%5B'a'%2C%20'foo'%2C%20'bar'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.pickAll(propsToPick%2C%20obj)%2C%0A%20%20R.pickAll(propsToPickList%2C%20obj)%2C%0A%20%20R.pickAll('a%2Cbar'%2C%20obj)%2C%0A%20%20R.pickAll('bar'%2C%20obj)%2C%0A%5D%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20foo%3A%20'cherry'%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Ba%3A1%2C%20bar%3A%20undefined%7D%2C%0A%20%20%7Bbar%3A%20undefined%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.pickAll</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -20609,8 +20555,8 @@ export function pickBy(predicate, obj) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { T, always } from 'rambdax'
-import { pickBy } from './pickBy'
+import { T, always } from 'rambda'
+import { pickBy } from './pickBy.js'
 
 var obj = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6}
 
@@ -20648,19 +20594,18 @@ it('is called with (val,key,obj)', () => {
 
 ```typescript
 
-pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  ...funcs: [
-      f1: (...args: TArgs) => R1,
-      f2: (a: R1) => R2,
-      f3: (a: R2) => R3,
-      f4: (a: R3) => R4,
-      f5: (a: R4) => R5,
-      f6: (a: R5) => R6,
-      f7: (a: R6) => R7,
-      ...func: Array<(a: any) => any>,
-      fnLast: (a: any) => TResult
-  ]
-): (...args: TArgs) => TResult
+pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10
+): (...args: TArgs) => R10
 ```
 
 It performs left-to-right function composition.
@@ -20681,19 +20626,39 @@ const result = R.pipe(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, TResult>(
-  ...funcs: [
-      f1: (...args: TArgs) => R1,
-      f2: (a: R1) => R2,
-      f3: (a: R2) => R3,
-      f4: (a: R3) => R4,
-      f5: (a: R4) => R5,
-      f6: (a: R5) => R6,
-      f7: (a: R6) => R7,
-      ...func: Array<(a: any) => any>,
-      fnLast: (a: any) => TResult
-  ]
-): (...args: TArgs) => TResult;  // fallback overload if number of piped functions greater than 7
+pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9,
+  f10: (a: R9) => R10
+): (...args: TArgs) => R10;
+pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8,
+  f9: (a: R8) => R9
+): (...args: TArgs) => R9;
+pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
+  f1: (...args: TArgs) => R1,
+  f2: (a: R1) => R2,
+  f3: (a: R2) => R3,
+  f4: (a: R3) => R4,
+  f5: (a: R4) => R5,
+  f6: (a: R5) => R6,
+  f7: (a: R6) => R7,
+  f8: (a: R7) => R8
+): (...args: TArgs) => R8;
 pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
   f1: (...args: TArgs) => R1,
   f2: (a: R1) => R2,
@@ -20777,25 +20742,547 @@ export function pipe(){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { add, last, length, map } from '../rambda.js'
-import { __findHighestArity } from './applySpec.js'
-import { pipe } from './pipe.js'
+import { Bench } from 'tinybench';
+import { __findHighestArity } from './applySpec.js';
+import { pipe } from './pipe.js';
 
-test('happy', () => {
-  const list = [ 1, 2, 3 ]
-  const result = pipe(
-    map(add(1)), map(add(10)), last
-  )(list)
+import * as Rambda from '../rambda.js';
+import * as Ramda from 'ramda';
+import { IS_CI } from './_internals/testUtils.js';
 
-  expect(result).toBe(14)
-})
+const zaratustra = {
+	title: 'Zaratustra',
+	year: 1956,
+};
+const awardedZaratustra = {
+	...zaratustra,
+	awards: {
+		number: 1,
+		years: [1956],
+	},
+};
+const awardedDostojevski = {
+	title: 'Idiot',
+	year: 1869,
+	awards: {
+		number: 2,
+		years: [1869, 1870],
+	},
+};
+const awardedDostojevskiToRead = {
+	...awardedDostojevski,
+	readFlag: true,
+	bookmarkFlag: true,
+};
+const awardedZaratustraToRead = {
+	...awardedZaratustra,
+	readFlag: true,
+	bookmarkFlag: true,
+	description: 'The essense of Nietzsche philosophy',
+	userRating: 5,
+};
+const awardedBaseValue = {
+	title: '',
+	year: 0,
+	awards: {
+		number: 0,
+		years: [],
+	},
+};
+
+const checkIfMustRead = (x) => {
+	return x.status === 'must-read';
+};
+const checkIfFamous = (x) => {
+	return x.status === 'famous';
+};
+const checkReadStatus = (x) => {
+	return x.readFlag;
+};
+const checkBookmarkStatus = (x) => {
+	return x.bookmarkFlag;
+};
+const checkBookToRead = (x) => {
+	return x.readFlag && x.bookmarkFlag;
+};
+const checkHasDescription = (x) => {
+	return x.description !== undefined;
+};
+const checkHasUserRating = (x) => {
+	return x.userRating !== undefined;
+};
+
+const assertType = (fn) => {
+	return (x) => {
+		if (fn(x)) {
+			return x;
+		}
+		throw new Error('type assertion failed');
+	};
+};
+
+describe('real use cases', () => {
+	it('books', async () => {
+		const applyTest = (R, book) =>
+			R.pipe(
+				R.assoc('status', 'famous'),
+				R.assocPath(['awards', 'number'], 1),
+				R.defaultTo(awardedBaseValue),
+				R.tap(R.anyPass([(x) => x.awards.number >= 0, (x) => x.year > 1900])),
+				R.tap(
+					R.both(
+						(x) => x.awards.number >= 1,
+						(x) => x.year > 1900,
+					),
+				),
+				assertType(R.either(checkIfFamous, checkIfMustRead)),
+				(x) => ({
+					...x,
+					readFlag: true,
+					bookmarkFlag: true,
+				}),
+				assertType(R.both(checkReadStatus, checkBookmarkStatus)),
+				assertType(checkBookToRead),
+				(x) => [x, x],
+				R.dropLast(1),
+				R.difference([awardedDostojevskiToRead]),
+				R.append(awardedZaratustraToRead),
+				R.last,
+				assertType(R.allPass([checkHasDescription, checkHasUserRating])),
+				assertType(R.anyPass([checkHasDescription, checkHasUserRating])),
+				R.dissocPath('description'),
+			)(book)
+			expect(
+  applyTest(Rambda, zaratustra)
+).toMatchInlineSnapshot(`
+{
+  "awards": {
+    "number": 1,
+    "years": [
+      1956,
+    ],
+  },
+  "bookmarkFlag": true,
+  "readFlag": true,
+  "title": "Zaratustra",
+  "userRating": 5,
+  "year": 1956,
+}
+`)
+		if(IS_CI) return;
+		const bench = new Bench({ name: 'simple benchmark', iterations: 10_000 });
+
+		bench
+			.add('Rambda', () => {
+				applyTest(Rambda,zaratustra);
+			})
+			.add('R', async () => {
+				applyTest(Ramda,zaratustra);
+			});
+
+		await bench.run();
+
+		console.log(bench.name);
+		console.table(bench.table());
+	});
+});
 
 test('issue #627', () => {
-  expect(__findHighestArity({ len : pipe(length) })).toBe(1)
-})
+	expect(__findHighestArity({ len: pipe(Rambda.length) })).toBe(1);
+});
 
 test('with bad input', () => {
-  expect(() => pipe()).toThrowErrorMatchingInlineSnapshot('"pipe requires at least one argument"')
+	expect(() => pipe()).toThrowErrorMatchingInlineSnapshot(
+		'"pipe requires at least one argument"',
+	);
+});
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { add, filter, map, pipe } from 'rambda';
+
+describe('R.pipe', () => {
+	it('with R.filter', () => {
+		const result = pipe(
+			filter<number>((x) => x > 2),
+			map(add(1)),
+		)([1, 2, 3]);
+		result; // $ExpectType number[]
+	});
+
+	it('with native filter', () => {
+		const result = pipe(
+			(list: number[]) => list.filter((x) => x > 2),
+			(list: number[]) => {
+				list; // $ExpectType number[]
+				return list;
+			},
+			map(add(1)),
+		)([1, 2, 3]);
+
+		result; // $ExpectType number[]
+	});
+
+	it('with void', () => {
+		const result = pipe(
+			() => {},
+			() => {},
+		)();
+		result; // $ExpectType void
+	});
+});
+
+describe('R.pipe - @types/ramda tests', () => {
+	test('complex', () => {
+		const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc);
+		const result = fn(3, 4);
+		result; // $ExpectType number
+	});
+});
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
+
+### piped
+
+```typescript
+
+piped<A, B>(value: A, op1: (input: A) => B): B
+```
+
+It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument. It has much better TypeScript support and it is recomended to use `R.piped` instead of `R.pipe`/`R.compose`.
+
+```javascript
+const result = R.piped(
+  [1, 2, 3],
+  R.filter(x => x > 1),
+  R.map(x => x*10),
+)
+// => [20, 30]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.piped(%0A%20%20%5B1%2C%202%2C%203%5D%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%2C%0A%20%20R.map(x%20%3D%3E%20x*10)%2C%0A)%0A%2F%2F%20%3D%3E%20%5B20%2C%2030%5D">Try this <strong>R.piped</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+piped<A, B>(value: A, op1: (input: A) => B): B;
+piped<A, B, C>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+): C;
+piped<A, B, C, D>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+): D;
+piped<A, B, C, D, E>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+): E;
+piped<A, B, C, D, E, F>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+): F;
+piped<A, B, C, D, E, F, G>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+): G;
+piped<A, B, C, D, E, F, G, H>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+): H;
+piped<A, B, C, D, E, F, G, H, I>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+  op8: (input: H) => I,
+): I;
+piped<A, B, C, D, E, F, G, H, I, J>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+  op8: (input: H) => I,
+  op9: (input: I) => J,
+): J;
+piped<A, B, C, D, E, F, G, H, I, J, K>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+): K;
+piped<A, B, C, D, E, F, G, H, I, J, K, L>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+): L;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+): M;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+): N;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+): O;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+): P;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+): Q;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+): R;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+  op18: (input: R) => S,
+): S;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+  op18: (input: R) => S,
+  op19: (input: S) => T,
+): T;
+piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+	value: A,
+	op01: (input: A) => B,
+	op02: (input: B) => C,
+	op03: (input: C) => D,
+	op04: (input: D) => E,
+	op05: (input: E) => F,
+	op06: (input: F) => G,
+	op07: (input: G) => H,
+	op08: (input: H) => I,
+	op09: (input: I) => J,
+	op10: (input: J) => K,
+	op11: (input: K) => L,
+	op12: (input: L) => M,
+	op13: (input: M) => N,
+	op14: (input: N) => O,
+	op15: (input: O) => P,
+	op16: (input: P) => Q,
+	op17: (input: Q) => R,
+	op18: (input: R) => S,
+	op19: (input: S) => T,
+	op20: (input: T) => U,
+): U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.piped</strong> source</summary>
+
+```javascript
+import { pipe } from './pipe.js'
+
+export function piped(...inputs){
+  const [ input, ...fnList ] = inputs
+
+  return pipe(...fnList)(input)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { add } from './add.js'
+import { filter } from './filter.js'
+import { map } from './map.js'
+import { piped } from './piped.js'
+
+test('happy', () => {
+  const result = piped(
+    [ 1, 2, 3 ],
+    filter(x => x > 1),
+    map(x => x * 10),
+    map(add(1))
+  )
+  const expectedResult = [ 21, 31 ]
+
+  expect(result).toEqual(expectedResult)
 })
 ```
 
@@ -20807,124 +21294,219 @@ test('with bad input', () => {
 
 ```typescript
 import {
-  add,
-  subtract,
-  pipe,
-  map,
-  filter,
-  identity,
-  dissoc,
-  inc,
-  negate,
-} from 'rambda'
+	allPass,
+	anyPass,
+	append,
+	assoc,
+	assocPath,
+	both,
+	defaultTo,
+	difference,
+	dissocPath,
+	drop,
+	dropLast,
+	either,
+	endsWith,
+	filter,
+	find,
+	head,
+	inc,
+	map,
+	mapObject,
+	negate,
+	piped,
+	tap,
+	union,
+} from 'rambda';
+import * as R from 'ramda';
+type IsNotNever<T> = [T] extends [never] ? false : true;
+type Expect<T extends true> = T;
 
-interface Input {
-  a: string,
-  b: string,
+interface BaseBook {
+	title: string;
+	year: number;
+	description?: string;
+	userRating?: number;
 }
-interface Output {
-  c: string,
+interface Book extends BaseBook {
+	awards: {
+		number: number;
+		years?: number[];
+	};
+	status?: Status;
+}
+interface MustReadBook extends Book {
+	status: 'must-read';
+}
+interface FamousBook extends Book {
+	status: 'famous';
+}
+interface BookWithBookmarkStatus extends Book {
+	bookmarkFlag: boolean;
+}
+interface BookWithReadStatus extends Book {
+	readFlag: boolean;
+}
+type BookToRead = BookWithBookmarkStatus & BookWithReadStatus;
+interface BookWithDescription extends Book {
+	description: string;
+}
+interface BookWithUserRating extends Book {
+	userRating: number;
+}
+type BookWithDetails = BookWithDescription & BookWithUserRating;
+
+const zaratustra: BaseBook = {
+	title: 'Zaratustra',
+	year: 1956,
+};
+let brothersKaramazov = {
+	title: 'Brothers Karamazov',
+	year: 1880,
 }
 
-describe('R.pipe with explicit types', () => {
-  it('with explicit types - complex', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
-    interface AfterInput {
-      a: number,
-    }
-    interface BeforeOutput {
-      b: string,
-    }
+const awardedZaratustra: Book = {
+	...zaratustra,
+	awards: {
+		number: 1,
+		years: [1956],
+	},
+};
+const awardedBrothersKaramazov: Book = {
+	...brothersKaramazov,
+	awards: {
+		number: 2,
+		years: [1869, 1870],
+	},
+};
+const awardedBrothersKaramazovToRead: BookToRead = {
+	...awardedBrothersKaramazov,
+	readFlag: true,
+	bookmarkFlag: true,
+};
+const awardedZaratustraToRead: BookToRead = {
+	...awardedZaratustra,
+	readFlag: true,
+	bookmarkFlag: true,
+};
+const awardedBaseValue: Book = {
+	title: '',
+	year: 0,
+	awards: {
+		number: 0,
+		years: [],
+	},
+};
 
-    const result = pipe<Input[], AfterInput, BeforeOutput, Output>(
-      x => ({a: x.a.length + x.b.length}),
-      x => ({b: x.a + 'foo'}),
-      x => ({c: x.b + 'bar'})
-    )(obj)
+type Status = 'famous' | 'can be skipped' | 'must-read';
 
-    result // $ExpectType Output
-  })
-  it('with explicit types - correct', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
+function checkIfMustRead(x: Book): x is MustReadBook {
+	return (x as MustReadBook).status === 'must-read';
+}
+function checkIfFamous(x: Book): x is FamousBook {
+	return (x as FamousBook).status === 'famous';
+}
+function checkReadStatus(x: Book): x is BookWithReadStatus {
+	return (x as BookWithReadStatus).readFlag;
+}
+function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus {
+	return (x as BookWithBookmarkStatus).bookmarkFlag;
+}
+function checkBookToRead(x: Book): x is BookToRead {
+	return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag;
+}
+function checkHasDescription(x: Book): x is BookWithDescription {
+	return (x as BookWithDescription).description !== undefined;
+}
+function checkHasUserRating(x: Book): x is BookWithUserRating {
+	return (x as BookWithUserRating).userRating !== undefined;
+}
 
-    const result = pipe<Input[], Output, Output>(input => {
-      input // $ExpectType Input
-      return input as unknown as Output
-    }, identity)(obj)
-    result // $ExpectType Output
-  })
-  it('with explicit types - wrong', () => {
-    const obj: Input = {
-      a: 'foo',
-      b: 'bar',
-    }
+function assertType<T, U extends T>(fn: (x: T) => x is U) {
+	return (x: T) => {
+		if (fn(x)) {
+			return x;
+		}
+		throw new Error('type assertion failed');
+	};
+}
+function convertToType<T>() {
+	return <U>(x: U) => x as unknown as T;
+}
 
-    // @ts-expect-error
-    pipe<string, number, Output>(identity, dissoc('b'))(obj)
-  })
-})
+function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T) => T {
+	return (x) => {
+		const result = transformFn(x);
+		fn(x, result);
+		return x;
+	};
+} 
+describe('real use cases - books', () => {
+	it('case 1', () => {
+		const result = piped(
+			[awardedZaratustra, awardedBrothersKaramazov],
+			filter(checkIfFamous),
+			drop(1),
+			// without converting to `as FamousBook`, endsWith will pick up `Book` as type
+			tapFn(endsWith([awardedBrothersKaramazov as FamousBook]),(a, b) => {
+				a; // $ExpectType FamousBook[]
+				b; // $ExpectType boolean
+			}),
+			tapFn(union([awardedBrothersKaramazov]),(a, b) => {
+				a; // $ExpectType Book[]
+				b; // $ExpectType boolean
+			}),
+			find(x => {
+				x // $ExpectType Book
+				return x.title === 'Brothers Karamazov'
+			}),
+			x => ([x]),
+			filter(Boolean),
 
-describe('R.pipe', () => {
-  it('happy', () => {
-    const result = pipe(subtract(11), add(1), add(1))(1)
-    result // $ExpectType number
-  })
-  it('happy - more complex', () => {
-    const result = pipe(
-      (x: string) => x.length + 1,
-      (x: number) => x + 1
-    )('foo')
-    result // $ExpectType number
-  })
-
-  it('with R.filter', () => {
-    const result = pipe(
-      filter<number>(x => x > 2),
-      map(add(1))
-    )([1, 2, 3])
-    result // $ExpectType number[]
-  })
-
-  it('with native filter', () => {
-    const result = pipe(
-      (list: number[]) => list.filter(x => x > 2),
-      (list: number[]) => {
-        list // $ExpectType number[]
-        return list
-      },
-      map(add(1))
-    )([1, 2, 3])
-
-    result // $ExpectType number[]
-  })
-
-  it('with void', () => {
-    const result = pipe(
-      () => {},
-      () => {}
-    )()
-    result // $ExpectType void
-  })
-})
-
-describe('R.pipe - @types/ramda tests', () => {
-  test('complex', () => {
-    const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc)
-    const result = fn(3, 4)
-    result // $ExpectType number
-  })
-})
+		);
+		const final: Expect<IsNotNever<typeof result>> = true;
+	});
+	it('case 2', () => {
+		const result = piped(
+			zaratustra,
+			assoc('status', 'famous' as Status),
+			assocPath<Book>('awards.number', 1),
+			defaultTo(awardedBaseValue),
+			tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
+			tap(
+				both(
+					(x) => x.awards.number > 1,
+					(x) => x.year > 1900,
+				),
+			),
+			assertType(either(checkIfFamous, checkIfMustRead)),
+			assertType(both(checkReadStatus, checkBookmarkStatus)),
+			assertType(checkBookToRead),
+			(x) => [x],
+			dropLast(1),
+			difference([awardedBrothersKaramazovToRead]),
+			append(awardedZaratustraToRead),
+			head,
+			assertType(allPass([checkHasDescription, checkHasUserRating])),
+			tap((x) => {
+				x; // $ExpectType BookWithDescription & BookWithUserRating
+			}),
+			assertType(anyPass([checkHasDescription, checkHasUserRating])),
+			convertToType<BookWithDescription>(),
+			dissocPath<Book>('description'),
+			convertToType<Record<string, string>>(),
+			mapObject((x) => {
+				return x as unknown as number;
+			}),
+		);
+		const final: Expect<IsNotNever<typeof result>> = true;
+	});
+});
 ```
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#piped)
 
 ### pluck
 
@@ -21072,8 +21654,6 @@ const result = R.prepend('foo', ['bar', 'baz'])
 
 ```typescript
 prepend<T>(xToPrepend: T, iterable: T[]): T[];
-prepend<T, U>(xToPrepend: T, iterable: IsFirstSubtypeOfSecond<T, U>[]) : U[];
-prepend<T>(xToPrepend: T): <U>(iterable: IsFirstSubtypeOfSecond<T, U>[]) => U[];
 prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 ```
 
@@ -21341,13 +21921,13 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, Record<string, unknown>),
-  R.propEq(propToFind, valueToMatch, secondRecord<string, unknown>)
+  R.propEq(propToFind, valueToMatch, obj),
+  R.propEq(propToFind, valueToMatch, secondObj)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20secondRecord%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20obj)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch%2C%20secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -21485,14 +22065,14 @@ It returns `true` if `property` of `obj` is from `target` type.
 const obj = {a:1, b: 'foo'}
 
 const result = [
-  R.propIs(Number, 'a', Record<string, unknown>),
-  R.propIs(String, 'b', Record<string, unknown>),
-  R.propIs(Number, 'b', Record<string, unknown>),
+  R.propIs(Number, 'a', obj),
+  R.propIs(String, 'b', obj),
+  R.propIs(Number, 'b', obj),
 ]
 // => [true, true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(Number%2C%20'a'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propIs(String%2C%20'b'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propIs(Number%2C%20'b'%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.propIs</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(Number%2C%20'a'%2C%20obj)%2C%0A%20%20R.propIs(String%2C%20'b'%2C%20obj)%2C%0A%20%20R.propIs(Number%2C%20'b'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.propIs</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -21605,13 +22185,13 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, Record<string, unknown>),
-  R.propOr(defaultValue, 'foo', Record<string, unknown>)
+  R.propOr(defaultValue, property, obj),
+  R.propOr(defaultValue, 'foo', obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property%2C%20Record%3Cstring%2C%20unknown%3E)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo'%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property%2C%20obj)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -21829,7 +22409,7 @@ describe('R.props', () => {
 
 ```typescript
 
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean
+propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean
 ```
 
 It returns `true` if the object property satisfies a given predicate.
@@ -21839,19 +22419,19 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, Record<string, unknown>)
+const result = R.propSatisfies(predicate, property, obj)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<string, T>): boolean;
-propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<string, T>) => boolean;
+propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
+propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
 ```
 
 </details>
@@ -22073,12 +22653,6 @@ reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, i
 import { isArray } from './_internals/isArray.js'
 import { curry } from './curry.js'
 
-class ReduceStopper{
-  constructor(value){
-    this.value = value
-  }
-}
-
 export function reduceFn(
   reducer, acc, list
 ){
@@ -22095,9 +22669,6 @@ export function reduceFn(
     acc = reducer(
       acc, list[ index ], index, list
     )
-    if (acc instanceof ReduceStopper){
-      return acc.value
-    }
     index++
   }
 
@@ -22105,7 +22676,6 @@ export function reduceFn(
 }
 
 export const reduce = curry(reduceFn)
-export const reduceStopper = value => new ReduceStopper(value)
 ```
 
 </details>
@@ -22117,7 +22687,7 @@ export const reduceStopper = value => new ReduceStopper(value)
 ```javascript
 import { add } from './add.js'
 import { concat } from './concat.js'
-import { reduce, reduceStopper } from './reduce.js'
+import { reduce } from './reduce.js'
 
 const reducer = (
   prev, current, i
@@ -22150,21 +22720,6 @@ test('with undefined as iterable', () => {
   expect(() => reduce(
     reducer, 0, {}
   )).toThrowWithMessage(TypeError, ERROR)
-})
-
-test('with reduceStopper', () => {
-  let maxIndex
-  const reducer = (
-    prev, current, i
-  ) => {
-    maxIndex = i
-
-    return current === 2 ? reduceStopper(current) : prev
-  }
-  expect(reduce(
-    reducer, initialValue, list
-  )).toBe(2)
-  expect(maxIndex).toBe(1)
 })
 
 test('returns the accumulator for a null list', () => {
@@ -22583,12 +23138,12 @@ const predicate = x => x > 1
 
 const result = [
   R.reject(predicate, list),
-  R.reject(predicate, Record<string, unknown>)
+  R.reject(predicate, obj)
 ]
 // => [[1], {a: 1}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%2C%0A%20%20R.reject(predicate%2C%20Record%3Cstring%2C%20unknown%3E)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%7Ba%3A%201%7D%5D">Try this <strong>R.reject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.reject(predicate%2C%20list)%2C%0A%20%20R.reject(predicate%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%5D%2C%20%7Ba%3A%201%7D%5D">Try this <strong>R.reject</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -22597,8 +23152,8 @@ const result = [
 ```typescript
 reject<T>(predicate: Predicate<T>, list: T[]): T[];
 reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
-reject<T>(predicate: Predicate<T>, obj: Dictionary<T>): Dictionary<T>;
-reject<T, U>(predicate: Predicate<T>): (obj: Dictionary<T>) => Dictionary<T>;
+reject<T>(predicate: Predicate<T>, obj: Record<PropertyKey, T>): Record<PropertyKey, T>;
+reject<T, U>(predicate: Predicate<T>): (obj: Record<PropertyKey, T>) => Record<PropertyKey, T>;
 ```
 
 </details>
@@ -25255,7 +25810,7 @@ describe('R.takeLast - array', () => {
 			filter(
 				x => x.length >= 100
 			),
-			takeLast(2),
+			// takeLast(2),
 		)
 		result // $ExpectType string[]
 	})
@@ -25945,7 +26500,7 @@ test('toLower', () => {
 
 ```typescript
 
-toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>
+toPairs<T extends {}>(data: T): Array<Entry<T>>
 ```
 
 It transforms an object to a list.
@@ -25969,8 +26524,7 @@ const result = R.toPairs(list)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
-toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
+toPairs<T extends {}>(data: T): Array<Entry<T>>;
 ```
 
 </details>
@@ -26007,6 +26561,39 @@ const expected = [
 
 test('happy', () => {
   expect(toPairs(obj)).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import {fromPairs} from 'rambda'
+
+describe('R.fromPairs - require explicit type for input list', () => {
+  it('with string index', () => {
+    const list: [string, number][] = [
+      ['a', 1],
+      ['b', 2],
+      ['c', 3],
+    ]
+    const result = fromPairs(list)
+
+    result // $ExpectType { [index: string]: number; }
+  })
+  it('with number index', () => {
+    const list: [number, string][] = [
+      [10, 'foo'],
+      [20, 'bar'],
+      [30, 'baz'],
+    ]
+    const result = fromPairs(list)
+
+    result // $ExpectType { [index: number]: string; }
+  })
 })
 ```
 
@@ -27438,6 +28025,31 @@ test('with list of strings', () => {
   expect(result).toEqual([ '0', '11', '222' ])
   expect(resultRamda).toEqual([ '0', '11', '222' ])
 })
+
+	test("should return items that are not equal to themselves", () => {
+    // test case based on https://github.com/remeda/remeda/issues/999
+    const data = [
+      { id: 1, reason: "No name" },
+      { id: 1, reason: "No name" },
+      { reason: "No name" },
+      { reason: "No name" },
+    ];
+    const expectedResult = [
+      { id: 1, reason: "No name" },
+      { reason: "No name" },
+      { reason: "No name" },
+    ];
+
+    const result = uniqWith((errorA, errorB) => {
+      // the objects with no ids should effectively be ignored from removal of duplicates
+      if (errorA.id === undefined || errorB.id === undefined) {
+        return false;
+      }
+      return errorA.id === errorB.id;
+    },data);
+
+    expect(result).toEqual(expectedResult);
+  });
 ```
 
 </details>
@@ -27991,16 +28603,16 @@ describe('R.update', () => {
 values<T extends object, K extends keyof T>(obj: T): T[K][]
 ```
 
-With correct input, this is nothing more than `Object.values(Record<string, unknown>)`. If `obj` is not an object, then it returns an empty array.
+With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
 
 ```javascript
 const obj = {a:1, b:2}
 
-R.values(Record<string, unknown>)
+R.values(obj)
 // => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A2%7D%0A%0Aconst%20result%20%3D%20R.values(Record%3Cstring%2C%20unknown%3E)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.values</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A2%7D%0A%0Aconst%20result%20%3D%20R.values(obj)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.values</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -28018,6 +28630,7 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 ```javascript
 import { type } from './type.js'
+import * as a from 'remeda'
 
 export function values(obj){
   if (type(obj) !== 'Object') return []
@@ -28272,7 +28885,7 @@ describe('R.when', () => {
 
 ```typescript
 
-where<T, U>(conditions: T, input: U): boolean
+where<T>(spec: T): <U>(testObj: U) => boolean
 ```
 
 It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
@@ -28299,10 +28912,8 @@ const result = condition(input)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-where<T, U>(conditions: T, input: U): boolean;
-where<T>(conditions: T): <U>(input: U) => boolean;
-where<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
-where<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+where<T>(spec: T): <U>(testObj: U) => boolean;
+where<T, U>(spec: T, testObj: U): boolean;
 ```
 
 </details>
@@ -28411,7 +29022,7 @@ describe('R.where', () => {
 
 ```typescript
 
-whereAny<T, U>(conditions: T, input: U): boolean
+whereAny<Spec extends Record<PropertyKey, (value: any) => boolean>>(spec: Spec): <U extends Record<keyof Spec, any>>(testObj: U) => boolean
 ```
 
 Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
@@ -28435,10 +29046,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-whereAny<T, U>(conditions: T, input: U): boolean;
-whereAny<T>(conditions: T): <U>(input: U) => boolean;
-whereAny<ObjFunc2, U>(conditions: ObjFunc2, input: U): boolean;
-whereAny<ObjFunc2>(conditions: ObjFunc2): <U>(input: U) => boolean;
+whereAny<Spec extends Record<PropertyKey, (value: any) => boolean>>(spec: Spec): <U extends Record<keyof Spec, any>>(testObj: U) => boolean;
+whereAny<Spec extends Partial<Record<keyof U, (value: any) => boolean>>, U>(spec: Spec, testObj: U): boolean;
 ```
 
 </details>
@@ -29259,7 +29868,75 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-9.4.2 
+10.0.0
+
+- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+
+- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+
+_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
+- Take typings of `R.filter/R.map` from `Remeda`.
+
+- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
+
+- Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
+
+- Remove use of `Record<string, ...>` in favour of `Record<PropertyType, ...>`
+
+- Add TypeScript definition to handle common case of `R.filter(Boolean)` that will turn `Array<T | undefined>` to `Array<T>`.
+
+- Regarding using object with `R.forEach` in TypeScript - this is no longer supported. Again, JS version still works with objects.
+
+- head/last - empty array as input will return `undefined`, but `never`
+- assocPath - stop supporting curring of type `(x)(y)(z)`
+
+- Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+
+-- assocPath
+-- dissocPath 
+
+- Sync with typing of `@types/ramda`:
+
+-- allPass
+-- anyPass
+-- append
+-- both
+-- countBy
+-- drop
+-- dropLast
+-- dropRepeatsBy
+-- either
+-- filter
+-- forEach
+-- keys
+-- map
+-- mapObjIndexed
+-- mergeAll
+-- mergeWith
+-- modify
+-- modifyPath
+-- omit
+-- partition
+-- prepend
+-- where
+-- whereAny
+
+- Sync with typing of `remeda`:
+
+-- filter
+-- map
+-- toPairs
+
+- Publish to JSR registry - https://jsr.io/@rambda/rambda
+
+- Replace Record<string> with Record<PropertyKey>
+
+9.4.2
 
 - Fix TS issue when `R.take` is used as part of `R.pipe`.
 
