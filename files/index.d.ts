@@ -1213,6 +1213,9 @@ export function filter<T, S extends T>(
 ): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
+): (list: readonly T[]) => NonNullable<T>[];
+export function filter<T>(
+	predicate: BooleanConstructor,
 ): (list: T[]) => NonNullable<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,

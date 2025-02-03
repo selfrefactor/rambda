@@ -13,13 +13,30 @@ describe('R.filter with array', () => {
 	it('within piped', () => {
 		const result = piped(
 			list,
-			(x) => x,
 			filter((x) => {
 				x; // $ExpectType number
 				return x > 1;
 			}),
 		);
 		result; // $ExpectType number[]
+	});
+	it('filtering NonNullable', () => {
+		let testList = [1, 2, null, undefined, 3]
+		const result = piped(
+			testList,
+			filter(Boolean),
+		);
+		result; // $ExpectType number[]
+	});
+	it('filtering NonNullable - readonly', () => {
+		let testList = [1, 2, null, undefined, 3] as const
+		const result = piped(
+			testList,
+			filter(Boolean),
+		);
+		result; // $ExpectType number[]
+		// @ts-expect-error
+		result.includes(null)
 	});
 	it('within pipe requires explicit type', () => {
 		pipe(

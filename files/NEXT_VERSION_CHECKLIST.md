@@ -3,6 +3,36 @@
 
 - Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
 
+Here is one example why `R.piped` is better than `R.pipe`:
+
+```ts
+const list = [1, 2, 3];
+
+it('within piped', () => {
+	const result = piped(
+		list,
+		filter((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+	);
+	result; // $ExpectType number[]
+});
+it('within pipe requires explicit type', () => {
+	pipe(
+		(x) => x,
+		filter<number>((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+		filter((x: number) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+	)(list);
+});
+```
+
 _ Regarding using object as input `R.map` and `R.filter`, `R.reject` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes.
 
 - Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
