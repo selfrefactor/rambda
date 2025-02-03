@@ -95,6 +95,10 @@ _ Regarding using object as input `R.map` and `R.filter`, `R.reject` in TypeScri
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 
 - Replace Record<string> with Record<PropertyKey>
+===
+source/filter-spec.ts
+mapIndexed remove object - need to be similar to map
+===
 
 
 ABOVE IS DONE

@@ -8467,10 +8467,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapIndexed<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
 export function mapIndexed<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
 export function mapIndexed<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
-export function mapIndexed<T, U, S>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
 export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
 export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
 
