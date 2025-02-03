@@ -1,3 +1,8 @@
+REFs
+
+Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
+===
+
 export type Expect<T extends true> = T
 export type ExpectTrue<T extends true> = T
 export type ExpectFalse<T extends false> = T

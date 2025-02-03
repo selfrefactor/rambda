@@ -1,4 +1,4 @@
-import { filter, map, mapIndexed, pipe, piped } from 'rambda';
+import { filter, mapIndexed, pipe, piped } from 'rambda';
 
 const list = [1, 2, 3];
 
@@ -41,27 +41,27 @@ describe('R.filter with array', () => {
 		);
 		result; // $ExpectType Bar[]
 	});
-	// it('narrowing type', () => {
-	// 	interface Foo{
-	// 		a: number
-	// 	}
-	// 	interface Bar extends Foo{
-	// 		b: string
-	// 	}
+	it('narrowing type - readonly', () => {
+		interface Foo{
+			a: number
+		}
+		interface Bar extends Foo{
+			b: string
+		}
 
-	// 	let testList = [{a: 1}, {a: 2}, {a: 3}] as const
-	// 	let filterBar = (x: unknown): x is Bar => {
-	// 		return typeof (x as Bar).b === 'string'
-	// 	}
-	// 	const result = piped(
-	// 		testList,
-	// 		mapIndexed((x, i) => {
-	// 			return {a: x.a, b: `${ i }`}
-	// 		}),
-	// 		filter(filterBar),
-	// 	);
-	// 	result; // $ExpectType Bar[]
-	// });
+		let testList = [{a: 1}, {a: 2}, {a: 3}] as const
+		let filterBar = (x: unknown): x is Bar => {
+			return typeof (x as Bar).b === 'string'
+		}
+		const result = piped(
+			testList,
+			mapIndexed((x, i) => {
+				return {a: x.a, b: `${ i }`}
+			}),
+			filter(filterBar),
+		);
+		result; // $ExpectType Bar[]
+	});
 	it('filtering NonNullable', () => {
 		let testList = [1, 2, null, undefined, 3]
 		const result = piped(

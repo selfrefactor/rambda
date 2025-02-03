@@ -1,7 +1,7 @@
 
-- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+- Optimize many methods to better work in TypeScript context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
-- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+- Add `R.piped` method from `Rambdax` since it works better with TypeScript than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
 
 Here is one example why `R.piped` is better than `R.pipe`:
 
@@ -33,15 +33,16 @@ it('within pipe requires explicit type', () => {
 });
 ```
 
-_ Regarding using object as input `R.map` and `R.filter`, `R.reject` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes.
+_ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
-- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+-- R.map
+-- R.mapIndexed
+-- R.filter
+-- R.reject
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` with TypeScript - now it require explicit definition of expected return type.
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
-
-- Take typings of `R.filter/R.map` from `Remeda`.
-
-- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
 
 - Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
@@ -90,11 +91,17 @@ _ Regarding using object as input `R.map` and `R.filter`, `R.reject` in TypeScri
 -- filter
 -- reject
 -- map
+-- mapIndexed
 -- toPairs
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 
 - Replace Record<string> with Record<PropertyKey>
+===
+Rambdax
+change 
+
+rejectIndexed
 ===
 source/filter-spec.ts
 mapIndexed remove object - need to be similar to map

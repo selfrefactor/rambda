@@ -3704,20 +3704,16 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T, S extends T>(
-	predicate: (value: T) => value is S,
-  list: T[],
-): Exclude<T, S>[];
 export function reject<T>(
 	predicate: (value: T) => boolean,
   list: T[],
 ): T[];
-export function reject<T, S extends T>(
-  predicate: (value: T) => value is S,
-): (list: T[]) => Exclude<T, S>[];
 export function reject<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => ("" | null | undefined | false)[];
+): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
+export function reject<T>(
+	predicate: BooleanConstructor,
+): (list: T[]) => ("" | null | undefined | false | 0)[];
 export function reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -8467,31 +8463,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapIndexed<T, U>(fn: IndexedIterator<T, U>, iterable: T[]): U[];
-export function mapIndexed<T, U>(fn: IndexedIterator<T, U>): (iterable: T[]) => U[];
-export function mapIndexed<T>(fn: IndexedIterator<T, T>): (iterable: T[]) => T[];
-export function mapIndexed<T>(fn: IndexedIterator<T, T>, iterable: T[]): T[];
-
-/*
-Method: mapArray
-
-Explanation:
-
-Example:
-
-```
-const result = R.mapArray(x => x + 1, [1, 2])
-// => [2, 3]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mapArray<T, U>(fn: (x: T) => U, iterable: T[]): U[];
-export function mapArray<T, U>(fn: (x: T) => U): (iterable: T[]) => U[];
+export function mapIndexed<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, U>;
+export function mapIndexed<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+	data: T
+) : Mapped<T, U>;
 
 /*
 Method: filterIndexed
