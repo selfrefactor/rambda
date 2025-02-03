@@ -2856,8 +2856,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
-export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
+export function objOf<T, K extends PropertyKey>(key: K, value: T) : { [P in K]: T };
+export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { [P in K]: T };
 
 /*
 Method: once
@@ -3428,14 +3428,12 @@ const result = R.pluck(property, list)
 
 Categories: List, Object
 
-Notes:
+Notes: pipe
 
 */
 // @SINGLE_MARKER
-export function pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
-export function pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
-export function pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
-export function pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
+export function pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
+export function pluck<T, K extends keyof T>(property: K, list: T[]): T[K][];
 
 /*
 Method: prepend
@@ -3534,12 +3532,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
-export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
-export function propEq(valueToMatch: any): {
-  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
-  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
+export function propEq<T>(val: T): {
+  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
+  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
 };
+export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
+export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /*
 Method: propIs

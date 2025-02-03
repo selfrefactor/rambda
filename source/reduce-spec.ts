@@ -1,4 +1,4 @@
-import {reduce, reduceStopper} from 'rambda'
+import {reduce} from 'rambda'
 
 describe('R.reduce', () => {
   it('happy', () => {
@@ -55,21 +55,6 @@ describe('R.reduce', () => {
       },
       1,
     )([1, 2, 3])
-
-    result // $ExpectType number
-  })
-
-  it('using `reduceStopper` to stop the loop', () => {
-    const result = reduce<number, number>(
-      (acc, elem, i) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        i // $ExpectType number
-        return acc + elem > 1 ? reduceStopper(elem) : acc
-      },
-      1,
-      [1, 2, 3]
-    )
 
     result // $ExpectType number
   })

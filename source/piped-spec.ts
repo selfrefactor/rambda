@@ -147,9 +147,6 @@ function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T)
 	};
 }
 
-/**
-reject
- */
 describe('real use cases - books', () => {
 	it('case 1', () => {
 		const result = piped(
@@ -163,7 +160,7 @@ describe('real use cases - books', () => {
 			}),
 			tapFn(union([awardedBrothersKaramazov]),(a, b) => {
 				a; // $ExpectType Book[]
-				b; // $ExpectType boolean
+				b; // $ExpectType Book[]
 			}),
 			find(x => {
 				x // $ExpectType Book

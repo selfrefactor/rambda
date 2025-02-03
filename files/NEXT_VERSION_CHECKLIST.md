@@ -73,12 +73,14 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- either
 -- filter
 -- forEach
+-- pluck
 -- keys
 -- map
 -- mapObjIndexed
 -- mergeAll
 -- mergeWith
 -- modify
+-- propEq
 -- modifyPath
 -- omit
 -- partition
@@ -97,6 +99,12 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 
 - Replace Record<string> with Record<PropertyKey>
+
+- Improve TypeScript definitions of:
+
+-- objOf
+-- pluck
+
 ===
 Rambdax
 change 

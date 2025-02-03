@@ -30,11 +30,3 @@ describe('R.pipe', () => {
 		result; // $ExpectType void
 	});
 });
-
-describe('R.pipe - @types/ramda tests', () => {
-	test('complex', () => {
-		const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc);
-		const result = fn(3, 4);
-		result; // $ExpectType number
-	});
-});

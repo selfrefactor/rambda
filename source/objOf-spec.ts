@@ -1,4 +1,4 @@
-import {objOf} from 'rambda'
+import {objOf, piped} from 'rambda'
 
 const key = 'foo'
 const value = 42
@@ -12,9 +12,13 @@ describe('R.objOf', () => {
     // @ts-expect-error
     result.bar
   })
-  it('curried', () => {
-    const result = objOf(key)(value)
-
-    result.foo // $ExpectType number
-  })
+	it('inside piped', () => {
+		const result = piped(
+			value,
+			objOf(key)
+		)
+		result.foo // $ExpectType number
+		// @ts-expect-error
+    result.bar
+	})
 })
