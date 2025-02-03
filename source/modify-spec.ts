@@ -1,4 +1,4 @@
-import { add, identity, modify, toUpper } from 'rambda';
+import { modify } from 'rambda';
 
 type Obj = {
 	foo: string;
@@ -7,17 +7,11 @@ type Obj = {
 
 describe('R.modify', () => {
 	it('ramda tests', () => {
-		const result1 = modify('foo', toUpper, {} as Obj);
-		result1; // $ExpectType Obj
+		const result1 = modify('foo', Number, {} as Obj);
+		result1.foo; // $ExpectType number
+		result1.bar; // $ExpectType number
 
-		const result2 = modify('bar', add(1), {} as Obj);
-		result2; // $ExpectType Obj
-
-		const result3 = modify('foo', identity, {} as Obj);
-		result3; // $ExpectType Obj
-
-		modify('bar', toUpper, {} as Obj);
-		// @ts-expect-error
-		modify('foo', add(1), {} as Obj);
+		const result2 = modify('bar', String, {} as Obj);
+		result2.bar; // $ExpectType string
 	});
 });

@@ -1,19 +1,20 @@
-import {mapIndexed} from 'rambda'
+import {mapIndexed, piped} from 'rambda'
 
 const fn = (x: number, i: number) => {
-  x // $ExpectType number
-  i // $ExpectType number
   return x + 2
 }
 const list = [1, 2, 3]
 
 describe('R.mapIndexed', () => {
   it('happy', () => {
-    const result = mapIndexed<number>(fn, list)
+    const result = mapIndexed(fn, list)
     result // $ExpectType number[]
   })
-  it('curried', () => {
-    const result = mapIndexed<number>(fn)(list)
-    result // $ExpectType number[]
+  it('inside piped', () => {
+		const result = piped(
+			list,
+			mapIndexed(fn),
+		)
+		result // $ExpectType number[]
   })
 })

@@ -7,36 +7,36 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number>
       return x + 2
     }, obj)
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<string, number>
   })
   it('without type transform - curried', () => {
     const result = mapObjIndexed<number, number, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number>
       return x + 2
     })(obj)
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<string, number>
   })
   it('change of type', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number>
       return String(x + 2)
     }, obj)
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<string, string>
   })
   it('change of type - curried', () => {
     const result = mapObjIndexed<number, string, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number>
       return String(x + 2)
     })(obj)
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<string, string>
   })
 })

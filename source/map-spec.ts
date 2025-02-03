@@ -8,7 +8,7 @@ describe('R.map with array', () => {
 			x; // $ExpectType number
 			return x > 1;
 		}, list);
-		result; // $ExpectType number[]
+		result; // $ExpectType boolean[]
 	});
 	it('within piped', () => {
 		const result = piped(
@@ -16,10 +16,10 @@ describe('R.map with array', () => {
 			(x) => x,
 			map((x) => {
 				x; // $ExpectType number
-				return x > 1;
+				return String(x);
 			}),
 		);
-		result; // $ExpectType number[]
+		result; // $ExpectType string[]
 	});
 	it('within pipe requires explicit type', () => {
 		pipe(
