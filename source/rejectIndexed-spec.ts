@@ -33,7 +33,7 @@ describe('R.rejectIndexed with objects', () => {
       },
       {a: 1, b: 2}
     )
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<PropertyKey, number>
   })
   it('curried require dummy type', () => {
     const result = rejectIndexed<number, any>((x, prop) => {
@@ -41,6 +41,6 @@ describe('R.rejectIndexed with objects', () => {
       prop // $ExpectType string
       return x > 1
     })({a: 1, b: 2})
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<PropertyKey, number>
   })
 })

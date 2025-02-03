@@ -145,7 +145,11 @@ function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T)
 		fn(x, result);
 		return x;
 	};
-} 
+}
+
+/**
+reject
+ */
 describe('real use cases - books', () => {
 	it('case 1', () => {
 		const result = piped(

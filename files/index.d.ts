@@ -3701,10 +3701,23 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(predicate: Predicate<T>, list: T[]): T[];
-export function reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
-export function reject<T>(predicate: Predicate<T>, obj: Record<PropertyKey, T>): Record<PropertyKey, T>;
-export function reject<T, U>(predicate: Predicate<T>): (obj: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function reject<T, S extends T>(
+	predicate: (value: T) => value is S,
+  list: T[],
+): Exclude<T, S>[];
+export function reject<T>(
+	predicate: (value: T) => boolean,
+  list: T[],
+): T[];
+export function reject<T, S extends T>(
+  predicate: (value: T) => value is S,
+): (list: T[]) => Exclude<T, S>[];
+export function reject<T>(
+	predicate: BooleanConstructor,
+): (list: T[]) => ("" | null | undefined | false)[];
+export function reject<T>(
+	predicate: (value: T) => boolean,
+): (list: T[]) => T[];
 
 /*
 Method: repeat
