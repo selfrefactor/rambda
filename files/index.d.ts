@@ -30,6 +30,11 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
       : never
     : never;
 
+export type MergeInsertions<T> =
+T extends object
+	? { [K in keyof T]: MergeInsertions<T[K]> }
+	: T		
+
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
@@ -5246,12 +5251,23 @@ Explanation: It takes two objects and a function, which will be used when there 
 Example:
 
 ```
-const result = R.mergeWith(
-  R.concat,
-  {values : [ 10, 20 ]},
-  {values : [ 15, 35 ]}
+const result = mergeWithFn(
+	R.concat,
+	{
+		a      : true,
+		values : [ 10, 20 ],
+	},
+	{
+		b      : true,
+		values : [ 15, 35 ],
+	}
 )
-// => [ 10, 20, 15, 35 ]
+const expected = {
+	a      : true,
+	b      : true,
+	values : [ 10, 20, 15, 35 ],
+}
+// => `result` is equal to `expected`
 ```
 
 Categories: Object
@@ -5260,9 +5276,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
-export function mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
-export function mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
+export function mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T;
+export function mergeWith<T>(fn: (x: any, z: any) => any, a: object, b: object): T;
 
 /*
 Method: juxt

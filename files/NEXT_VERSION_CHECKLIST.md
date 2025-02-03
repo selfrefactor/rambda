@@ -78,7 +78,6 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- map
 -- mapObjIndexed
 -- mergeAll
--- mergeWith
 -- modify
 -- propEq
 -- modifyPath
@@ -104,6 +103,7 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 -- objOf
 -- pluck
+-- mergeWith
 
 ===
 Rambdax
