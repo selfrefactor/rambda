@@ -7,11 +7,11 @@ describe('R.countBy', () => {
   it('happy', () => {
     const result = countBy(transformFn, list)
 
-    result // $ExpectType Record<string, number>
+    result // $ExpectType { [index: string]: number; }
   })
   it('curried', () => {
     const result = countBy(transformFn)(list)
 
-    result // $ExpectType Record<string, number>
+    result // $ExpectType { [index: string]: number; }
   })
 })

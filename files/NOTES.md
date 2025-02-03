@@ -2,6 +2,28 @@ REFs
 
 Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
 ===
+import {filter} from 'rambda'
+
+function dropEmpty<T>(input: T[] | Dictionary<T>) {
+  if (input instanceof Array) {
+    // <-- this check is necessary to calm down the TS compiler ... @_@
+    return filter<T>(Boolean, input) // <-- notice the same
+  } else {
+    return filter<T>(Boolean, input) // <-- code...
+  }
+  // return filter<T>(Boolean, input)
+}
+
+describe('R.dropEmpty', () => {
+  it('happy', () => {
+    const list = [1, 2, 3, '']
+    const result: any = dropEmpty(list)
+
+    result // $ExpectType any
+  })
+})
+
+===
 
 export type Expect<T extends true> = T
 export type ExpectTrue<T extends true> = T

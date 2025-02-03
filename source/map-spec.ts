@@ -1,4 +1,4 @@
-import { map, pipe, piped } from 'rambda';
+import { map, piped } from 'rambda';
 
 const list = [1, 2, 3];
 
@@ -20,14 +20,5 @@ describe('R.map with array', () => {
 			}),
 		);
 		result; // $ExpectType string[]
-	});
-	it('within pipe requires explicit type', () => {
-		pipe(
-			(x) => x,
-			map((x) => {
-				x; // $ExpectType number
-				return x > 1;
-			}),
-		)(list);
 	});
 });

@@ -73,17 +73,17 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- either
 -- filter
 -- forEach
--- pluck
 -- keys
 -- map
 -- mapObjIndexed
 -- mergeAll
 -- modify
--- propEq
 -- modifyPath
 -- omit
 -- partition
+-- pluck
 -- prepend
+-- propEq
 -- where
 -- whereAny
 

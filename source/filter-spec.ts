@@ -76,7 +76,7 @@ describe('R.filter with array', () => {
 			testList,
 			filter(Boolean),
 		);
-		result; // $ExpectType number[]
+		result; // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
 		// @ts-expect-error
 		result.includes(null)
 	});

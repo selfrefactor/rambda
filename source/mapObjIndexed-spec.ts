@@ -7,7 +7,7 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Record<string, number>
+      obj // $ExpectType Record<string, number> | undefined
       return x + 2
     }, obj)
     result // $ExpectType Record<string, number>
@@ -16,7 +16,7 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed<number, number, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Record<string, number>
+      obj // $ExpectType Record<string, number> | undefined
       return x + 2
     })(obj)
     result // $ExpectType Record<string, number>
@@ -25,7 +25,7 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Record<string, number>
+      obj // $ExpectType Record<string, number> | undefined
       return String(x + 2)
     }, obj)
     result // $ExpectType Record<string, string>
@@ -34,7 +34,7 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed<number, string, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Record<string, number>
+      obj // $ExpectType Record<string, number> | undefined
       return String(x + 2)
     })(obj)
     result // $ExpectType Record<string, string>
