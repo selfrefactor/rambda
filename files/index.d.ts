@@ -19,6 +19,17 @@ export type EntryForKey<T, Key extends keyof T> = Key extends number | string
 
 export type Entry<T> = Simplify<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
 
+export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
+  Keys extends [infer K, ...infer Rest]
+    ? K extends keyof U
+      ? Rest extends readonly []
+        ? Omit<U, K> & Record<K, T>
+        : Rest extends readonly PropertyKey[]
+          ? Omit<U, K> & Record<K, DeepModify<Rest, U[K], T>>
+          : never
+      : never
+    : never;
+
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
@@ -5483,6 +5494,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function modifyPath<T extends object>(path: string[], fn: (value: unknown) => unknown): (obj: object) => T;
 export function modifyPath<U, T>(path: [], fn: (value: U) => T, obj: U): T;
 export function modifyPath<K0 extends keyof U, U, T>(path: [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<[K0], U, T>;
 export function modifyPath<
