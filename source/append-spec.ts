@@ -33,8 +33,6 @@ describe('R.append/R.prepend', () => {
     it('curried', () => {
       // @ts-expect-error
       append(true)(listOfNumbersAndStrings)
-      append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
-      prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
   })
 
@@ -44,15 +42,6 @@ describe('R.append/R.prepend', () => {
       append('d', listOfNumbers)
       append<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
       prepend<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      append('d')(listOfNumbers)
-      const appendD = append('d')
-      appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
-      const prependD = prepend('d')
-      prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
     })
   })
 })

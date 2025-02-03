@@ -31,7 +31,7 @@ describe('R.assoc', () => {
     const result1 = assoc('what')(2, {} as Record<string, number>)
     result1.what // $ExpectType number
 
-    const result2 = assoc('str')('bar')(obj)
+    const result2 = assoc('str', 'bar')(obj)
     result2.str // $ExpectType string
     result2.num // $ExpectType number
 

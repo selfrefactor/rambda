@@ -105,6 +105,9 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- pluck
 -- mergeWith
 
+- R.assoc doesn't support curring of type `(x)(y)(z)`
+
+- Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining.
 ===
 Rambdax
 change 
