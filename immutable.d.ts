@@ -19,6 +19,22 @@ export type EntryForKey<T, Key extends keyof T> = Key extends number | string
 
 export type Entry<T> = Simplify<{ readonly [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
 
+export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
+  Keys extends readonly [infer K, ...infer Rest]
+    ? K extends keyof U
+      ? Rest extends readonly []
+        ? Omit<U, K> & Record<K, T>
+        : Rest extends readonly PropertyKey[]
+          ? Omit<U, K> & Record<K, DeepModify<Rest, U[K], T>>
+          : never
+      : never
+    : never;
+
+export type MergeInsertions<T> =
+T extends object
+	? { readonly [K in keyof T]: MergeInsertions<T[K]> }
+	: T		
+
 export type IndexedIterator<T, U> = (x: T, i: number) => U;
 export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
@@ -672,6 +688,9 @@ export function filter<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => readonly NonNullable<T>[];
 export function filter<T>(
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => readonly NonNullable<T>[];
+export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: readonly T[]) => readonly T[];
 
@@ -1140,9 +1159,8 @@ export function mergeRight<Output>(target: any): (newProps: any) => Output;
 /**
  * It takes two objects and a function, which will be used when there is an overlap between the keys.
  */
-export function mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
-export function mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
-export function mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
+export function mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T;
+export function mergeWith<T>(fn: (x: any, z: any) => any, a: object, b: object): T;
 
 /**
  * It returns the lesser value between `x` and `y`.
@@ -1173,6 +1191,7 @@ export function modify<T extends object, K extends keyof T, P>(
 /**
  * It changes a property of object on the base of provided path and transformer function.
  */
+export function modifyPath<T extends object>(path: readonly string[], fn: (value: unknown) => unknown): (obj: object) => T;
 export function modifyPath<U, T>(path: readonly [], fn: (value: U) => T, obj: U): T;
 export function modifyPath<K0 extends keyof U, U, T>(path: readonly [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<readonly [K0], U, T>;
 export function modifyPath<
@@ -1276,8 +1295,8 @@ export function nth(n: number): {
 /**
  * It creates an object with a single key-value pair.
  */
-export function objOf<T, K extends string>(key: K, value: T): Record<K, T>;
-export function objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
+export function objOf<T, K extends PropertyKey>(key: K, value: T) : { readonly [P in K]: T };
+export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { readonly [P in K]: T };
 
 export function of<T>(x: T): readonly T[];
 
@@ -1845,10 +1864,8 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
  */
-export function pluck<K extends keyof T, T>(property: K, list: readonly T[]): readonly T[K][];
-export function pluck<T>(property: number, list: readonly { readonly [k: number]: T }[]):  readonly T[];
-export function pluck<P extends string>(property: P): <T>(list: readonly Record<P, T>[]) => readonly T[];
-export function pluck(property: number): <T>(list: readonly { readonly [k: number]: T }[]) => readonly T[];
+export function pluck<T, K extends keyof T>(property: K): (list: readonly T[]) => readonly T[K][];
+export function pluck<T, K extends keyof T>(property: K, list: readonly T[]): readonly T[K][];
 
 /**
  * It adds element `x` at the beginning of `list`.
@@ -1871,12 +1888,12 @@ export function prop<V>(p: keyof never): (value: unknown) => V;
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
-export function propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
-export function propEq(valueToMatch: any): {
-  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
-  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
+export function propEq<T>(val: T): {
+  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
+  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
 };
+export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
+export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /**
  * It returns `true` if `property` of `obj` is from `target` type.
@@ -1946,10 +1963,19 @@ export function reduceBy<T, TResult>(
 /**
  * It has the opposite effect of `R.filter`.
  */
-export function reject<T>(predicate: Predicate<T>, list: readonly T[]): readonly T[];
-export function reject<T>(predicate: Predicate<T>): (list: readonly T[]) => readonly T[];
-export function reject<T>(predicate: Predicate<T>, obj: Record<PropertyKey, T>): Record<PropertyKey, T>;
-export function reject<T, U>(predicate: Predicate<T>): (obj: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function reject<T>(
+	predicate: (value: T) => boolean,
+  list: readonly T[],
+): readonly T[];
+export function reject<T>(
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => readonly ("" | null | undefined | false | 0)[];
+export function reject<T>(
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => readonly ("" | null | undefined | false | 0)[];
+export function reject<T>(
+	predicate: (value: T) => boolean,
+): (list: readonly T[]) => readonly T[];
 
 /**
  * It returns a copy of `list` input with removed `index`.

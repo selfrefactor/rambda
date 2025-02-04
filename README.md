@@ -1332,8 +1332,6 @@ describe('R.append/R.prepend', () => {
     it('curried', () => {
       // @ts-expect-error
       append(true)(listOfNumbersAndStrings)
-      append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
-      prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
     })
   })
 
@@ -1343,15 +1341,6 @@ describe('R.append/R.prepend', () => {
       append('d', listOfNumbers)
       append<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
       prepend<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      append('d')(listOfNumbers)
-      const appendD = append('d')
-      appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
-      const prependD = prepend('d')
-      prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
     })
   })
 })
@@ -3045,12 +3034,12 @@ describe('R.countBy', () => {
   it('happy', () => {
     const result = countBy(transformFn, list)
 
-    result // $ExpectType Record<string, number>
+    result // $ExpectType { [index: string]: number; }
   })
   it('curried', () => {
     const result = countBy(transformFn)(list)
 
-    result // $ExpectType Record<string, number>
+    result // $ExpectType { [index: string]: number; }
   })
 })
 ```
@@ -5159,6 +5148,9 @@ filter<T, S extends T>(
 ): (list: T[]) => S[];
 filter<T>(
 	predicate: BooleanConstructor,
+): (list: readonly T[]) => NonNullable<T>[];
+filter<T>(
+	predicate: BooleanConstructor,
 ): (list: T[]) => NonNullable<T>[];
 filter<T>(
 	predicate: (value: T) => boolean,
@@ -5300,7 +5292,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, pipe, piped } from 'rambda';
+import { filter, mapIndexed, pipe, piped } from 'rambda';
 
 const list = [1, 2, 3];
 
@@ -5315,13 +5307,72 @@ describe('R.filter with array', () => {
 	it('within piped', () => {
 		const result = piped(
 			list,
-			(x) => x,
 			filter((x) => {
 				x; // $ExpectType number
 				return x > 1;
 			}),
 		);
 		result; // $ExpectType number[]
+	});
+	it('narrowing type', () => {
+		interface Foo{
+			a: number
+		}
+		interface Bar extends Foo{
+			b: string
+		}
+
+		let testList = [{a: 1}, {a: 2}, {a: 3}]
+		let filterBar = (x: unknown): x is Bar => {
+			return typeof (x as Bar).b === 'string'
+		}
+		const result = piped(
+			testList,
+			mapIndexed((x, i) => {
+				return {a: x.a, b: `${ i }`}
+			}),
+			filter(filterBar),
+		);
+		result; // $ExpectType Bar[]
+	});
+	it('narrowing type - readonly', () => {
+		interface Foo{
+			a: number
+		}
+		interface Bar extends Foo{
+			b: string
+		}
+
+		let testList = [{a: 1}, {a: 2}, {a: 3}] as const
+		let filterBar = (x: unknown): x is Bar => {
+			return typeof (x as Bar).b === 'string'
+		}
+		const result = piped(
+			testList,
+			mapIndexed((x, i) => {
+				return {a: x.a, b: `${ i }`}
+			}),
+			filter(filterBar),
+		);
+		result; // $ExpectType Bar[]
+	});
+	it('filtering NonNullable', () => {
+		let testList = [1, 2, null, undefined, 3]
+		const result = piped(
+			testList,
+			filter(Boolean),
+		);
+		result; // $ExpectType number[]
+	});
+	it('filtering NonNullable - readonly', () => {
+		let testList = [1, 2, null, undefined, 3] as const
+		const result = piped(
+			testList,
+			filter(Boolean),
+		);
+		result; // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
+		// @ts-expect-error
+		result.includes(null)
 	});
 	it('within pipe requires explicit type', () => {
 		pipe(
@@ -8605,7 +8656,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { map, pipe, piped } from 'rambda';
+import { map, piped } from 'rambda';
 
 const list = [1, 2, 3];
 
@@ -8615,7 +8666,7 @@ describe('R.map with array', () => {
 			x; // $ExpectType number
 			return x > 1;
 		}, list);
-		result; // $ExpectType number[]
+		result; // $ExpectType boolean[]
 	});
 	it('within piped', () => {
 		const result = piped(
@@ -8623,19 +8674,10 @@ describe('R.map with array', () => {
 			(x) => x,
 			map((x) => {
 				x; // $ExpectType number
-				return x > 1;
+				return String(x);
 			}),
 		);
-		result; // $ExpectType number[]
-	});
-	it('within pipe requires explicit type', () => {
-		pipe(
-			(x) => x,
-			map((x) => {
-				x; // $ExpectType number
-				return x > 1;
-			}),
-		)(list);
+		result; // $ExpectType string[]
 	});
 });
 ```
@@ -8719,37 +8761,37 @@ describe('R.mapObjIndexed', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number> | undefined
       return x + 2
     }, obj)
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<string, number>
   })
   it('without type transform - curried', () => {
     const result = mapObjIndexed<number, number, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number> | undefined
       return x + 2
     })(obj)
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<string, number>
   })
   it('change of type', () => {
     const result = mapObjIndexed((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number> | undefined
       return String(x + 2)
     }, obj)
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<string, string>
   })
   it('change of type - curried', () => {
     const result = mapObjIndexed<number, string, string>((x, prop, obj) => {
       x // $ExpectType number
       prop // $ExpectType string
-      obj // $ExpectType Dictionary<number>
+      obj // $ExpectType Record<string, number> | undefined
       return String(x + 2)
     })(obj)
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<string, string>
   })
 })
 ```
@@ -9576,30 +9618,40 @@ const result = R.mergeRight(target, newProps)
 
 ```typescript
 
-mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any
+mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T
 ```
 
 It takes two objects and a function, which will be used when there is an overlap between the keys.
 
 ```javascript
-const result = R.mergeWith(
-  R.concat,
-  {values : [ 10, 20 ]},
-  {values : [ 15, 35 ]}
+const result = mergeWithFn(
+	R.concat,
+	{
+		a      : true,
+		values : [ 10, 20 ],
+	},
+	{
+		b      : true,
+		values : [ 15, 35 ],
+	}
 )
-// => [ 10, 20, 15, 35 ]
+const expected = {
+	a      : true,
+	b      : true,
+	values : [ 10, 20, 15, 35 ],
+}
+// => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.mergeWith(%0A%20%20R.concat%2C%0A%20%20%7Bvalues%20%3A%20%5B%2010%2C%2020%20%5D%7D%2C%0A%20%20%7Bvalues%20%3A%20%5B%2015%2C%2035%20%5D%7D%0A)%0A%2F%2F%20%3D%3E%20%5B%2010%2C%2020%2C%2015%2C%2035%20%5D">Try this <strong>R.mergeWith</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20mergeWithFn(%0A%09R.concat%2C%0A%09%7B%0A%09%09a%20%20%20%20%20%20%3A%20true%2C%0A%09%09values%20%3A%20%5B%2010%2C%2020%20%5D%2C%0A%09%7D%2C%0A%09%7B%0A%09%09b%20%20%20%20%20%20%3A%20true%2C%0A%09%09values%20%3A%20%5B%2015%2C%2035%20%5D%2C%0A%09%7D%0A)%0Aconst%20expected%20%3D%20%7B%0A%09a%20%20%20%20%20%20%3A%20true%2C%0A%09b%20%20%20%20%20%20%3A%20true%2C%0A%09values%20%3A%20%5B%2010%2C%2020%2C%2015%2C%2035%20%5D%2C%0A%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.mergeWith</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
-mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
-mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
+mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T;
+mergeWith<T>(fn: (x: any, z: any) => any, a: object, b: object): T;
 ```
 
 </details>
@@ -9626,8 +9678,11 @@ export function mergeWithFn(
   Object.keys(b).forEach(key => {
     if (willReturn[ key ] !== undefined) return
 
-    if (a[ key ] === undefined) willReturn[ key ] = b[ key ]
-    else willReturn[ key ] = mergeFn(a[ key ], b[ key ])
+    if (a[ key ] === undefined){
+			willReturn[ key ] = b[ key ]
+		} else {
+			willReturn[ key ] = mergeFn(a[ key ], b[ key ])
+		}
   })
 
   return willReturn
@@ -9707,13 +9762,8 @@ describe('acts as if nil values are simply empty objects', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {concat, mergeWith} from 'rambda'
+import {concat, MergeInsertions, mergeWith, piped} from 'rambda'
 
-interface Output {
-  a: boolean,
-  b: boolean,
-  values: number[],
-}
 const A = {
   a: true,
   values: [10, 20],
@@ -9723,30 +9773,19 @@ const B = {
   values: [15, 35],
 }
 
+type Output = MergeInsertions<typeof A & typeof B>
+
 describe('R.mergeWith', () => {
-  test('no curry | without explicit types', () => {
-    const result = mergeWith(concat, A, B)
-    result // $ExpectType Record<string, unknown>
-  })
-  test('no curry | with explicit types', () => {
+  test('no curry', () => {
     const result = mergeWith<Output>(concat, A, B)
-    result // $ExpectType Output
+    result // $ExpectType { a: boolean; values: number[]; b: boolean; }
   })
-  test('curry 1 | without explicit types', () => {
-    const result = mergeWith(concat, A)(B)
-    result // $ExpectType Record<string, unknown>
-  })
-  test('curry 1 | with explicit types', () => {
-    const result = mergeWith<Output>(concat, A)(B)
-    result // $ExpectType Output
-  })
-  test('curry 2 | without explicit types', () => {
-    const result = mergeWith(concat)(A, B)
-    result // $ExpectType Record<string, unknown>
-  })
-  test('curry 2 | with explicit types', () => {
-    const result = mergeWith<Output>(concat)(A, B)
-    result // $ExpectType Output
+  test('inside piped', () => {
+		const result = piped(
+			A,
+			mergeWith<Output>(concat, B),
+		)
+		result // $ExpectType { a: boolean; values: number[]; b: boolean; }
   })
 })
 ```
@@ -9964,7 +10003,7 @@ describe('brute force', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { add, identity, map, modify, pipe, toUpper } from 'rambda';
+import { modify } from 'rambda';
 
 type Obj = {
 	foo: string;
@@ -9973,41 +10012,12 @@ type Obj = {
 
 describe('R.modify', () => {
 	it('ramda tests', () => {
-		const result1 = modify('foo', toUpper, {} as Obj);
-		result1; // $ExpectType Obj
+		const result1 = modify('foo', Number, {} as Obj);
+		result1.foo; // $ExpectType number
+		result1.bar; // $ExpectType number
 
-		const result2 = modify('bar', add(1), {} as Obj);
-		result2; // $ExpectType Obj
-
-		const result3 = modify('foo', toUpper)({} as Obj);
-		result3; // $ExpectType Obj
-
-		const result4 = modify('bar', add(1))({} as Obj);
-		result4; // $ExpectType Obj
-
-		const result5 = modify('foo')(toUpper)({} as Obj);
-		result5; // $ExpectType Obj
-
-		const result6 = modify('bar')(add(1))({} as Obj);
-		result6; // $ExpectType Obj
-
-		const result7 = modify('foo')(toUpper, {} as Obj);
-		result7; // $ExpectType Obj
-
-		const result8 = modify('bar')(add(1), {} as Obj);
-		result8; // $ExpectType Obj
-
-		const result9 = modify('foo', identity, {} as Obj);
-		result9; // $ExpectType Obj
-
-		// @ts-expect-error
-		modify('foo', add(1), {} as Obj);
-		// @ts-expect-error
-		modify('bar', toUpper, {} as Obj);
-
-		const f = pipe(map<Obj, Obj>(modify('foo', toUpper)));
-
-		f([] as Obj[]); // $ExpectType Obj[]
+		const result2 = modify('bar', String, {} as Obj);
+		result2.bar; // $ExpectType string
 	});
 });
 ```
@@ -12666,7 +12676,7 @@ const result = R.piped(
 
 ```typescript
 
-pluck<K extends keyof T, T>(property: K, list: T[]): T[K][]
+pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][]
 ```
 
 It returns list of the values of `property` taken from the all objects inside `list`.
@@ -12686,10 +12696,8 @@ const result = R.pluck(property, list)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-pluck<K extends keyof T, T>(property: K, list: T[]): T[K][];
-pluck<T>(property: number, list: { [k: number]: T }[]):  T[];
-pluck<P extends string>(property: P): <T>(list: Record<P, T>[]) => T[];
-pluck(property: number): <T>(list: { [k: number]: T }[]) => T[];
+pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
+pluck<T, K extends keyof T>(property: K, list: T[]): T[K][];
 ```
 
 </details>
@@ -12750,35 +12758,48 @@ test('with number', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {pluck} from 'rambda'
+import {piped, pluck} from 'rambda'
 
-describe('R.pluck', () => {
-  it('with object', () => {
-    interface ListMember {
-      a: number,
-      b: string,
-    }
-    const input: ListMember[] = [
-      {a: 1, b: 'foo'},
-      {a: 2, b: 'bar'},
-    ]
+describe('R.pluck - with property key', () => {
+	const input = [
+		{a: 1, b: 'foo'},
+		{a: 2, b: 'bar'},
+	]
+	it('inside piped', () => {
+		const result = piped(
+			input,
+			pluck('b')
+		)
+		result // $ExpectType string[]
+	})
+  it('without currying', () => {
     const resultA = pluck('a', input)
-    const resultB = pluck('b')(input)
     resultA // $ExpectType number[]
-    resultB // $ExpectType string[]
-  })
 
-  it('with array', () => {
-    const input = [
-      [1, 2],
-      [3, 4],
-      [5, 6],
-    ]
-    const result = pluck(0, input)
-    const resultCurry = pluck(0)(input)
-    result // $ExpectType number[]
-    resultCurry // $ExpectType number[]
+		// @ts-expect-error
+    pluck('b')(input)
   })
+})
+
+describe('R.pluck - with list index', () => {
+	const input = [
+		[1, 2],
+		[3, 4],
+	]
+	it('inside piped', () => {
+		const result = piped(
+			input,
+			pluck(0)
+		)
+		result // $ExpectType number[]
+	})
+  it('without currying', () => {
+		const resultA = pluck(0, input)
+		resultA // $ExpectType number[]
+
+		// @ts-expect-error
+		pluck(1)(input)
+	})
 })
 ```
 
@@ -13062,7 +13083,8 @@ describe('with number as prop', () => {
 
 ```typescript
 
-propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean
+propEq<T>(val: T): {
+  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -13088,12 +13110,12 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propEq<K extends string | number>(valueToMatch: any, propToFind: K, obj: Record<K, any>): boolean;
-propEq<K extends string | number>(valueToMatch: any, propToFind: K): (obj: Record<K, any>) => boolean;
-propEq(valueToMatch: any): {
-  <K extends string | number>(propToFind: K, obj: Record<K, any>): boolean;
-  <K extends string | number>(propToFind: K): (obj: Record<K, any>) => boolean;
+propEq<T>(val: T): {
+  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
+  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
 };
+propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
+propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 ```
 
 </details>
@@ -13181,22 +13203,16 @@ describe('R.propEq', () => {
 
     const myObject: MyType = {}
     const valueToFind = '1111'
-    // @ts-expect-error
     propEq(valueToFind, 'optional', myObject)
   })
 
   it('imported from @types/ramda', () => {
-    interface A {
-      foo: string | null,
-    }
-    const obj: A = {
+    const obj = {
       foo: 'bar',
     }
     const value = ''
     const result = propEq(value, 'foo')(obj)
     result // $ExpectType boolean
-
-    // @ts-expect-error
     propEq(value, 'bar')(obj)
   })
 })
@@ -13801,7 +13817,10 @@ const result = R.reduceBy(
 
 ```typescript
 
-reject<T>(predicate: Predicate<T>, list: T[]): T[]
+reject<T>(
+	predicate: (value: T) => boolean,
+  list: T[],
+): T[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -13825,10 +13844,19 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-reject<T>(predicate: Predicate<T>, list: T[]): T[];
-reject<T>(predicate: Predicate<T>): (list: T[]) => T[];
-reject<T>(predicate: Predicate<T>, obj: Record<PropertyKey, T>): Record<PropertyKey, T>;
-reject<T, U>(predicate: Predicate<T>): (obj: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+reject<T>(
+	predicate: (value: T) => boolean,
+  list: T[],
+): T[];
+reject<T>(
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
+reject<T>(
+	predicate: BooleanConstructor,
+): (list: T[]) => ("" | null | undefined | false | 0)[];
+reject<T>(
+	predicate: (value: T) => boolean,
+): (list: T[]) => T[];
 ```
 
 </details>
@@ -13883,47 +13911,60 @@ test('with object', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {reject} from 'rambda'
+import { reject, mapIndexed, pipe, piped } from 'rambda';
+
+const list = [1, 2, 3];
 
 describe('R.reject with array', () => {
-  it('happy', () => {
-    const result = reject(
-      x => {
-        x // $ExpectType number
-        return x > 1
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType number[]
-  })
-  it('curried require explicit type', () => {
-    const result = reject<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    })([1, 2, 3])
-    result // $ExpectType number[]
-  })
-})
-
-describe('R.reject with objects', () => {
-  it('happy', () => {
-    const result = reject(
-      x => {
-        x // $ExpectType number
-
-        return x > 1
-      },
-      {a: 1, b: 2}
-    )
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried require dummy type', () => {
-    const result = reject<number, any>(x => {
-      return x > 1
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<number>
-  })
-})
+	it('happy', () => {
+		const result = reject((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}, list);
+		result; // $ExpectType number[]
+	});
+	it('within piped', () => {
+		const result = piped(
+			list,
+			reject((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		);
+		result; // $ExpectType number[]
+	});
+	it('rejecting NonNullable', () => {
+		let testList = [1, 2, null, undefined, 3]
+		const result = piped(
+			testList,
+			reject(Boolean),
+		);
+		result; // $ExpectType (false | "" | 0 | null | undefined)[]
+	});
+	it('rejecting NonNullable - readonly', () => {
+		let testList = [1, 2, null, undefined, 3] as const
+		const result = piped(
+			testList,
+			reject(Boolean),
+		);
+		result; // $ExpectType (false | "" | 0 | null | undefined)[]
+		// @ts-expect-error
+		result.includes(1)
+	});
+	it('within pipe requires explicit type', () => {
+		pipe(
+			(x) => x,
+			reject<number>((x) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+			reject((x: number) => {
+				x; // $ExpectType number
+				return x > 1;
+			}),
+		)(list);
+	});
+});
 ```
 
 </details>
@@ -18013,7 +18054,6 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 ```javascript
 import { type } from './type.js'
-import * as a from 'remeda'
 
 export function values(obj){
   if (type(obj) !== 'Object') return []

@@ -1,7 +1,5 @@
 'use strict';
 
-require('remeda');
-
 function F() {
   return false;
 }
@@ -1699,7 +1697,11 @@ function mergeWithFn(mergeFn, aInput, bInput) {
   });
   Object.keys(b).forEach(key => {
     if (willReturn[key] !== undefined) return;
-    if (a[key] === undefined) willReturn[key] = b[key];else willReturn[key] = mergeFn(a[key], b[key]);
+    if (a[key] === undefined) {
+      willReturn[key] = b[key];
+    } else {
+      willReturn[key] = mergeFn(a[key], b[key]);
+    }
   });
   return willReturn;
 }
