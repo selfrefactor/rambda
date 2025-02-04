@@ -109,6 +109,8 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 - Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining.
 ===
+complete rambdax before release
+===
 Rambdax
 change 
 
