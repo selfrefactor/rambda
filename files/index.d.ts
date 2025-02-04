@@ -5435,36 +5435,6 @@ export function whereAny<Spec extends Record<PropertyKey, (value: any) => boolea
 export function whereAny<Spec extends Partial<Record<keyof U, (value: any) => boolean>>, U>(spec: Spec, testObj: U): boolean;
 
 /*
-Method: partialObject
-
-Explanation: `R.partialObject` is a curry helper designed specifically for functions accepting object as a single argument.
-
-Initially the function knows only a part from the whole input object and then `R.partialObject` helps in preparing the function for the second part, when it receives the rest of the input.
-
-Example:
-
-```
-const fn = ({ a, b, c }) => a + b + c
-const curried = R.partialObject(fn, { a : 1 })
-const result = curried({
-  b : 2,
-  c : 3,
-})
-// => 6
-```
-
-Categories: Logic, Async
-
-Notes: Function input can be asynchronous
-
-*/
-// @SINGLE_MARKER
-export function partialObject<Input, PartialInput, Output>(
-  fn: (input: Input) => Output, 
-  partialInput: PartialInput,
-): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
-
-/*
 Method: uniqBy
 
 Explanation:
@@ -8801,29 +8771,6 @@ Notes:
 // @SINGLE_MARKER
 export function contains<T, U>(target: T, compareTo: U): boolean;
 export function contains<T, U>(target: T): (compareTo: U) => boolean;
-
-/*
-Method: partialCurry
-
-Explanation: Same as `R.partialObject`. 
-
-When `Ramda` introduced `R.partialObject`, `Rambdax` already had such method, i.e. `R.partialCurry`. So this method is kept for backward compatibility.
-
-Example:
-
-```
-```
-
-Categories: Logic, Async
-
-Notes: Function input can be asynchronous
-
-*/
-// @SINGLE_MARKER
-export function partialCurry<Input, PartialInput, Output>(
-  fn: (input: Input) => Output, 
-  partialInput: PartialInput,
-): (input: Pick<Input, Exclude<keyof Input, keyof PartialInput>>) => Output;
 
 /*
 Method: noop

@@ -173,8 +173,8 @@ describe('real use cases - books', () => {
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});
 	it('case 2', () => {
-		const result = piped(
-			zaratustra,
+		const getResult = (book: BaseBook) => piped(
+			book,
 			assoc('status', 'famous' as Status),
 			assocPath<Book>('awards.number', 1),
 			defaultTo(awardedBaseValue),
@@ -205,6 +205,7 @@ describe('real use cases - books', () => {
 				return x as unknown as number;
 			}),
 		);
+		const result = getResult(zaratustra);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});
 });
