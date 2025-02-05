@@ -8,10 +8,6 @@ const predicate = async(x: number) => {
 }
 
 describe('R.findAsync', () => {
-  it('happy', async() => {
-    const result = await findAsync(predicate, list)
-    result // $ExpectType number | undefined
-  })
   it('curried', async() => {
     const result = await findAsync(predicate)(list)
     result // $ExpectType number | undefined

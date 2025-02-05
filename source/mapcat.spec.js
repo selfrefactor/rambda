@@ -6,6 +6,5 @@ test('happy', () => {
 		['c', 'd'],
 		['e', 'f'],
 	]);
-
-	console.log(result);
+	expect(result).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F']);
 });

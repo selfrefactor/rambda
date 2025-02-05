@@ -60,9 +60,18 @@ interface KeyValuePair<K, V> extends Array<K | V> {
 export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
-export type ObjPredicate<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
+type Arity1Fn = (x: any) => any;
+type Arity2Fn = (x: any, y: any) => any;
+
+type Pred = (...x: any[]) => boolean;
+
+export interface Record<PropertyKey, T> {[index: string]: T}
 type Partial<T> = { [P in keyof T]?: T[P]};
+
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
@@ -115,7 +124,59 @@ type RegExpReplacerFn =
   | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
 type RegExpReplacer = string | RegExpReplacerFn
 
+type Func<T> = (input: any) => T;
+type VoidInputFunc<T> = () => T;
+type Fn<In, Out> = (x: In) => Out;
+export type SortObjectPredicate<T> = (aProp: string, bProp: string, aValue: T, bValue: T) => number;
+
 export type IdentityFunction<T> = (x: T) => T;
+
+type ArgumentTypes<T> = T extends (...args: infer U) => infer R ? U : never;
+type isfn<T> = (x: any, y: any) => T;
+
+interface Switchem<T> {
+  is: isfn<Switchem<T>>;
+  default: IdentityFunction<T>;
+}
+
+interface Schema {
+  [key: string]: any;
+}
+
+interface SchemaAsync {
+  [key: string]: Promise<boolean>;
+}
+
+export interface IsValid {
+  input: object;
+  schema: Schema;
+}
+
+export interface IsValidAsync {
+  input: object;
+  schema: Schema | SchemaAsync;
+}
+
+export type ProduceRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Output[P];
+};
+export type ProduceAsyncRules<Output,K extends keyof Output, Input> = {   [P in K]: (input: Input) => Promise<Output[P]>;
+};
+type ProduceAsyncRule<Input> = (input: Input) => Promise<any>;
+type Async<T> = (x: any) => Promise<T>;
+type AsyncIterable<T, K> = (x: T) => Promise<K>;
+type AsyncIterableIndexed<T, K> = (x: T, i: number) => Promise<K>;
+type AsyncPredicate<T> = (x: T) => Promise<boolean>;
+type AsyncPredicateIndexed<T> = (x: T, i: number) => Promise<boolean>;
+type AsyncWithProp<T> = (x: any, prop?: string) => Promise<T>;
+
+export type ApplyDiffUpdate = {op:'update', path: string, value: any};
+export type ApplyDiffAdd = {op:'add', path: string, value: any};
+export type ApplyDiffRemove = {op:'remove', path: string};
+export type ApplyDiffRule = ApplyDiffUpdate | ApplyDiffAdd | ApplyDiffRemove;
+
+export type EqualTypes<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false
 
 // API_MARKER
 
@@ -138,8 +199,8 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 
 */
 // @SINGLE_MARKER
+export function add(a: number, b: number): number;
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /*
 Method: adjust
@@ -154,7 +215,6 @@ Example:
 const result = R.adjust(
   0,
   a => a + 1,
-)(
   [0, 100]
 ) // => [1, 100]
 ```
@@ -165,6 +225,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function adjust<T>(index: number, replaceFn: (x: T) => T, list: T[]): T[];
 export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 /*
@@ -472,9 +533,9 @@ export function assoc<K extends PropertyKey>(prop: K): {
   <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
   <U extends Record<K, T>, T>(val: T, obj: U): U;
 };
-// export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
-//   <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
-// };
+export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
+  <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
+};
 export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
 
 /*
@@ -2266,10 +2327,24 @@ const result = R.mapObjIndexed(fn, obj)
 
 Categories: Object
 
-Notes: ?
+Notes:
 
 */
 // @SINGLE_MARKER
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult,
+): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: Record<TKey, T>,
+): Record<TKey, TResult>;
+export function mapObjIndexed<T, TResult, TKey extends string>(
+	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+	obj: PartialRecord<TKey, T>,
+): PartialRecord<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
 	fn: (
 		value: T,
@@ -4935,7 +5010,7 @@ const expected = {
 
 Categories: Object, List
 
-Notes: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct.
+Notes: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct. Full details for this mismatch are listed in `source/_snapshots/evolve.spec.js.snap` file.
 
 */
 // @SINGLE_MARKER
@@ -6200,8 +6275,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pickBy<T>(pred: ObjPredicate<T>): <U, V extends T>(obj: V) => U;
-export function pickBy<T, U>(pred: ObjPredicate<T>, obj: T): U;
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
 
 /*
 Method: pathSatisfies
@@ -6562,8 +6637,2111 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 	op19: (input: S) => T,
 	op20: (input: T) => U,
 ): U;
+// RAMBDAX_MARKER_START
 
-// API_MARKER_END
+/*
+Method: allFalse
+
+Explanation: It returns `true` if all `inputs` arguments are falsy(empty objects and empty arrays are considered falsy).
+
+Functions are valid inputs, but these functions cannot have their own arguments.
+
+This method is very similar to `R.anyFalse`, `R.anyTrue` and `R.allTrue`
+
+Example:
+
+```
+R.allFalse(0, null, [], {}, '', () => false)
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function allFalse(...inputs: any[]): boolean;
+
+/*
+Method: anyFalse
+
+Explanation: It returns `true` if any of `inputs` is falsy(empty objects and empty arrays are considered falsy).
+
+Example:
+
+```
+R.anyFalse(1, {a: 1}, [1], () => false)
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function anyFalse(...input: any[]): boolean;
+
+/*
+Method: allTrue
+
+Explanation: It returns `true` if all `inputs` arguments are truthy(empty objects and empty arrays are considered falsy).
+
+Example:
+
+```
+R.allTrue(1, true, {a: 1}, [1], 'foo', () => true)
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function allTrue(...input: any[]): boolean;
+
+/*
+Method: anyTrue
+
+Explanation: It returns `true` if any of `inputs` arguments are truthy(empty objects and empty arrays are considered falsy).
+
+Example:
+
+```
+R.anyTrue(0, null, [], {}, '', () => true)
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function anyTrue(...input: any[]): boolean;
+
+/*
+Method: allType
+
+Explanation: It returns a function which will return `true` if all of its `inputs` arguments belong to `targetType`.
+
+Example:
+
+```
+const targetType = 'String'
+
+const result = R.allType(
+  targetType
+)('foo', 'bar', 'baz')
+// => true
+```
+
+Categories: Logic
+
+Notes: `targetType` is one of the possible returns of `R.type`
+
+*/
+// @SINGLE_MARKER
+export function allType(targetType: RambdaTypes): (...input: any[]) => boolean;
+
+/*
+Method: anyType
+
+Explanation: It returns a function which will return `true` if at least one of its `inputs` arguments belongs to `targetType`.
+
+`targetType` is one of the possible returns of `R.type`
+
+Example:
+
+```
+const targetType = 'String'
+
+const result = R.anyType(
+  targetType
+)(1, {}, 'foo')
+// => true
+```
+
+Categories: Logic
+
+Notes: `targetType` is one of the possible returns of `R.type`
+
+*/
+// @SINGLE_MARKER
+export function anyType(targetType: RambdaTypes): (...input: any[]) => boolean;
+
+/*
+Method: composeAsync
+
+Explanation: Asynchronous version of `R.compose`. `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
+
+Example:
+
+```
+const add = async x => {
+  await R.delay(100)
+  return x + 1
+}
+const multiply = async x => {
+  await R.delay(100)
+  return x * 2 
+}
+
+const result = await R.composeAsync(
+  add,
+  multiply
+)(1)
+// `result` resolves to `3`
+```
+
+Categories: Logic, Async
+
+*/
+// @SINGLE_MARKER
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...func: [
+      fnLast: (a: any) => TResult,
+      ...func: Array<(a: any) => any>,
+      f7: (a: Awaited<R6>) => R7,
+      f6: (a: Awaited<R5>) => R6,
+      f5: (a: Awaited<R4>) => R5,
+      f4: (a: Awaited<R3>) => R4,
+      f3: (a: Awaited<R2>) => R3,
+      f2: (a: Awaited<R1>) => R2,
+      f1: (a: Awaited<TArg>) => R1
+  ]
+): (a: TArg | Promise<TArg>) => TResult;
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
+  f7: (a: Awaited<R6>) => R7,
+  f6: (a: Awaited<R5>) => R6,
+  f5: (a: Awaited<R4>) => R5,
+  f4: (a: Awaited<R3>) => R4,
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
+  f7: (a: Awaited<R6>) => R7,
+  f6: (a: Awaited<R5>) => R6,
+  f5: (a: Awaited<R4>) => R5,
+  f4: (a: Awaited<R3>) => R4,
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R7;
+export function composeAsync<TArg, R1, R2, R3, R4, R5, R6>(
+  f6: (a: Awaited<R5>) => R6,
+  f5: (a: Awaited<R4>) => R5,
+  f4: (a: Awaited<R3>) => R4,
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R6;
+export function composeAsync<TArg, R1, R2, R3, R4, R5>(
+  f5: (a: Awaited<R4>) => R5,
+  f4: (a: Awaited<R3>) => R4,
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R5;
+export function composeAsync<TArg, R1, R2, R3, R4>(
+  f4: (a: Awaited<R3>) => R4,
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R4;
+export function composeAsync<TArg, R1, R2, R3>(
+  f3: (a: Awaited<R2>) => R3,
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R3;
+export function composeAsync<TArg, R1, R2>(
+  f2: (a: Awaited<R1>) => R2,
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R2;
+export function composeAsync<TArg, R1>(
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
+
+/*
+Method: pipeAsync
+
+Explanation: Asynchronous version of `R.pipe`, but it accepts only one argument as input(instead of multiple as regular `pipe`). It `await`s the result of each function before passing it to the next. Returns a `Promise` of the result.
+
+Example:
+
+```
+const add = async x => {
+  await R.delay(100)
+  return x + 1
+}
+const multiply = async x => {
+  await R.delay(100)
+  return x * 2 
+}
+
+const result = await R.pipeAsync(
+  add,
+  multiply
+)(1)
+// `result` resolves to `4`
+```
+
+Categories: Logic, Async
+
+*/
+// @SINGLE_MARKER
+export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7, TResult>(
+  ...funcs: [
+      f1: (a: Awaited<TArg>) => R1,
+      f2: (a: Awaited<R1>) => R2,
+      f3: (a: Awaited<R2>) => R3,
+      f4: (a: Awaited<R3>) => R4,
+      f5: (a: Awaited<R4>) => R5,
+      f6: (a: Awaited<R5>) => R6,
+      f7: (a: Awaited<R6>) => R7,
+      ...func: Array<(a: any) => any>,
+      fnLast: (a: any) => TResult
+  ]
+): (a: TArg | Promise<TArg>) => TResult;
+export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6, R7>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2,
+  f3: (a: Awaited<R2>) => R3,
+  f4: (a: Awaited<R3>) => R4,
+  f5: (a: Awaited<R4>) => R5,
+  f6: (a: Awaited<R5>) => R6,
+  f7: (a: Awaited<R6>) => R7
+): (a: TArg | Promise<TArg>) => R7;
+export function pipeAsync<TArg, R1, R2, R3, R4, R5, R6>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2,
+  f3: (a: Awaited<R2>) => R3,
+  f4: (a: Awaited<R3>) => R4,
+  f5: (a: Awaited<R4>) => R5,
+  f6: (a: Awaited<R5>) => R6
+): (a: TArg | Promise<TArg>) => R6;
+export function pipeAsync<TArg, R1, R2, R3, R4, R5>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2,
+  f3: (a: Awaited<R2>) => R3,
+  f4: (a: Awaited<R3>) => R4,
+  f5: (a: Awaited<R4>) => R5
+): (a: TArg | Promise<TArg>) => R5;
+export function pipeAsync<TArg, R1, R2, R3, R4>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2,
+  f3: (a: Awaited<R2>) => R3,
+  f4: (a: Awaited<R3>) => R4
+): (a: TArg | Promise<TArg>) => R4;
+export function pipeAsync<TArg, R1, R2, R3>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2,
+  f3: (a: Awaited<R2>) => R3
+): (a: TArg | Promise<TArg>) => R3;
+export function pipeAsync<TArg, R1, R2>(
+  f1: (a: Awaited<TArg>) => R1,
+  f2: (a: Awaited<R1>) => R2
+): (a: TArg | Promise<TArg>) => R2;
+export function pipeAsync<TArg, R1>(
+  f1: (a: Awaited<TArg>) => R1
+): (a: TArg | Promise<TArg>) => R1;
+
+/*
+Method: debounce
+
+Explanation: 
+
+Example:
+
+```
+let counter = 0
+const increment = () => {
+  counter++
+}
+
+const debounced = R.debounce(increment, 1000)
+
+async function fn(){
+  debounced()
+  await R.delay(500)
+  debounced()
+  await R.delay(800)
+  console.log(counter) // => 0
+
+  await R.delay(1200)
+  console.log(counter) // => 1
+
+  return counter
+}
+const result = await fn()
+// `result` resolves to `1`
+```
+
+Categories: Logic
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function debounce<T, U>(fn: (input: T) => U, ms: number, immediate?: boolean): (input: T) => void;
+export function debounce<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number, immediate?: boolean): (input1: T, input2: Q) => void;
+export function debounce<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number, immediate?: boolean): (input1: T, input2: Q, input3: Z) => void;
+
+/*
+Method: delay
+
+Explanation: `setTimeout` as a promise that resolves to `R.DELAY` variable after `ms` milliseconds.
+
+Example:
+
+```
+const result = R.delay(1000)
+// `result` resolves to `RAMBDA_DELAY` which is `R.DELAY` value
+```
+
+Categories: Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function delay(ms: number): Promise<'RAMBDAX_DELAY'>;
+
+/*
+Method: filterAsync
+
+Explanation: Asynchronous version of `R.filter`
+
+Example:
+
+```
+const predicate = async x => {
+  await R.delay(100)
+  return x % 2 === 1
+}
+const result = await R.filterAsync(predicate, [ 1, 2, 3 ])
+// => [ 1, 3 ]
+```
+
+Categories: List, Object, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterAsync<T>(fn: AsyncPredicate<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>, list: T[]): Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicate<T>) : ( list: T[]) => Promise<T[]>;
+export function filterAsync<T>(fn: AsyncPredicateIndexed<T>) : ( list: T[]) => Promise<T[]>;
+
+/*
+Method: glue
+
+Explanation: It transforms multiline string to single line by gluing together the separate lines with the `glueString` and removing the empty spaces. By default `glueString` is equal to single space, so if that is what you need, then you can just pass a single argument.
+
+Example:
+
+```
+const result = R.glue(`
+  foo
+  bar
+  baz
+`)
+// => 'foo bar baz'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function glue(input: string, glueString?: string): string;
+
+/*
+Method: getter
+
+Explanation: The set of methods `R.setter`, `R.getter` and `R.reset` allow different parts of your logic to access communicate indirectly via shared cache object. 
+
+Usually these methods show that you might need to refactor to classes. Still, they can be helpful meanwhile.
+
+`R.getter`: It provides access to the cache object. If `undefined` is used as a key, this method will return the whole cache object. If `string` is passed, then it will return cache value for this key. If array of `string` is passed, then it assume that this is array of keys and it will return the corresponding cache values for these keys.
+
+`R.setter`: It allows cache object's keys to be changed. You can either set individual key-value pairs with `R.setter(key, value)` or you pass directly object, which will be merged with the cache object.
+
+`R.reset`: It resets the cache object.
+
+Example:
+
+```
+R.setter('foo','bar')
+R.setter('a', 1)
+R.getter(['foo','a']) // => {foo: 'bar', a: 1}
+
+R.setter('a', 2)
+R.getter('a') // => 2
+R.reset()
+R.getter('a') // => undefined
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function getter<T>(keyOrKeys: string | string[] | undefined): T;
+
+/*
+Method: setter
+
+Explanation:
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
+
+*/
+// @SINGLE_MARKER
+export function setter(keyOrObject: string | object, value?: any): void;
+
+/*
+Method: reset
+
+Explanation: 
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes: `R.getter` method contains explanations, tests and source information of `R.reset`, `R.setter` and `R.getter` methods.
+
+*/
+// @SINGLE_MARKER
+export function reset(): void;
+
+/*
+Method: interpolate
+
+Explanation: It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
+
+Example:
+
+```
+const inputWithTags = 'foo is {{bar}} even {{a}} more'
+const templateArguments = {"bar":"BAR", a: 1}
+
+const result = R.interpolate(inputWithTags, templateArguments)
+const expected = 'foo is BAR even 1 more'
+// => `result` is equal to `expected`
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function interpolate(inputWithTags: string, templateArguments: object): string;
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
+
+/*
+Method: ifElseAsync
+
+Explanation: Asynchronous version of `R.ifElse`. Any of `condition`, `ifFn` and `elseFn` can be either asynchronous or synchronous function.
+
+Example:
+
+```
+const condition = async x => {
+  await R.delay(100)
+  return x > 1
+}
+const ifFn = async x => {
+  await R.delay(100)
+  return x + 1
+}
+const elseFn = async x => {
+  await R.delay(100)
+  return x - 1
+}
+
+const result = await R.ifElseAsync(
+  condition,
+  ifFn,
+  elseFn  
+)(1)
+// => 0
+```
+
+Categories: Async, Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ifElseAsync<T, U>(
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => U, 
+  onFalse: (x: T) => U, 
+  ): (x: T) => Promise<U>;
+export function ifElseAsync<T, U>(
+  condition: (x: T) => boolean, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
+export function ifElseAsync<T, U>(
+  condition: (x: T) => Promise<boolean>, 
+  onTrue: (x: T) => Promise<U>, 
+  onFalse: (x: T) => Promise<U>, 
+): (x: T) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => U, 
+  onFalse: (x: T, y: K) => U, 
+): (x: T, y: K) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => boolean, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
+export function ifElseAsync<T, K, U>(
+  condition: (x: T, y: K) => Promise<boolean>, 
+  onTrue: (x: T, y: K) => Promise<U>, 
+  onFalse: (x: T, y: K) => Promise<U>, 
+): (x: T, y: K) => Promise<U>;
+
+/*
+Method:
+
+Explanation: It returns true if `input` is either asynchronous function or unresolved promise.
+
+Example:
+
+```
+R.isPromise(R.delay(1000))
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isPromise(input: any): boolean;
+
+/*
+Method: isType
+
+Explanation: It returns true if `targetType` is equal to type of `input` according to `R.type`.
+
+Example:
+
+```
+R.isType('Async',R.delay(1000))
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isType(targetType: RambdaTypes, input: any): boolean;
+export function isType(targetType: RambdaTypes): (input: any) => boolean;
+
+/*
+Method: isValid
+
+Explanation: It checks if `input` is following `schema` specifications.
+
+If validation fails, it returns `false`.
+
+Please [check the detailed explanation](https://github.com/selfrefactor/rambdax/blob/master/files/isValid.md) as it is hard to write a short description for this method.
+
+Example:
+
+```
+const input = {a: ['foo', 'bar']}
+const invalidInput = {a: ['foo', 'bar', 1]}
+const schema = {a: [String]}
+const result = [
+  R.isValid({schema, input}),
+  R.isValid({schema, input: invalidInput})
+]
+// => [true, false]
+```
+
+Categories: Logic
+
+Notes: Independently, somebody else came with very similar idea called [superstruct](https://github.com/ianstormtaylor/superstruct)
+
+*/
+// @SINGLE_MARKER
+export function isValid({input: object, schema: Schema}: IsValid): boolean;
+
+/*
+Method: isValidAsync
+
+Explanation: Asynchronous version of `R.isValid`
+
+Example:
+
+```
+const input = {a: 1, b: 2}
+const invalidInput = {a: 1, b: 'foo'}
+const schema = {a: Number, b: async x => {
+  await R.delay(100)
+  return typeof x === 'number'
+}}
+
+const result = await Promise.all([
+  R.isValidAsync({schema, input}),
+  R.isValidAsync({schema, input: invalidInput})
+])
+// => [true, false]
+```
+
+Categories: Logic, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function isValidAsync(x: IsValidAsync): Promise<boolean>;
+
+/*
+Method: mapAsync
+
+Explanation: Sequential asynchronous mapping with `fn` over members of `list`.
+
+Example:
+
+```
+async function fn(x){
+  await R.delay(1000)
+
+  return x+1
+}
+
+const result = await R.mapAsync(fn, [1, 2, 3])
+// `result` resolves after 3 seconds to `[2, 3, 4]`
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+
+/*
+Method: mapParallelAsync
+
+Explanation: Parallel asynchronous mapping with `fn` over members of `list`.
+
+Example:
+
+```
+async function fn(x){
+  await R.delay(1000)
+
+  return x+1
+}
+
+const result = await R.mapParallelAsync(fn, [1, 2, 3])
+// `result` resolves after 1 second to `[2, 3, 4]`
+```
+
+Categories: Async, List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>, list: T[]): Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterable<T, K>) : ( list: T[]) => Promise<K[]>;
+export function mapParallelAsync<T, K>(fn: AsyncIterableIndexed<T, K>) : ( list: T[]) => Promise<K[]>;
+
+/*
+Method: mapParallelAsyncWithLimit
+
+Explanation: It is similar to `R.mapParallelAsync` in that it uses `Promise.all`, but not over the whole list, rather than with only slice from `list` with length `limit`.
+
+Example:
+
+```
+
+```
+
+Categories: Async, List
+
+Notes: For example usage, please check `R.mapAsyncLimit` tests.
+
+*/
+// @SINGLE_MARKER
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterable<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number, list: T[]): Promise<K[]>;
+export function mapParallelAsyncWithLimit<T, K>(fn: AsyncIterableIndexed<T, K>, limit: number): (list: T[]) => Promise<K[]>;
+
+/*
+Method: mapToObject
+
+Explanation: This method allows to generate an object from a list using input function `fn`.
+
+This function must return either an object or `false` for every member of `list` input. 
+
+If `false` is returned, then this element of `list` will be skipped in the calculation of the result.
+
+All of returned objects will be merged to generate the final result.
+
+Example:
+
+```
+const list = [1, 2, 3, 12]
+const fn = x => {
+  if(x > 10) return false
+  return x % 2 ? {[x]: x + 1}: {[x]: x + 10}
+}
+
+const result = mapToObject(fn, list)
+const expected = {'1': 2, '2': 12, '3': 4}
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapToObject<T, U extends object>(fn: (input: T) => U|false, list: readonly T[]): U;
+export function mapToObject<T, U extends object>(fn: (input: T) => U|false): (list: readonly T[]) => U;
+export function mapToObject<T, U>(fn: (input: T) => object|false, list: T[]): U;
+export function mapToObject<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+
+/*
+Method: mapToObjectAsync
+
+Explanation: Asynchronous version of `R.mapToObject`
+
+Example:
+
+```
+
+```
+
+Categories: List, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<U|false>, list: readonly T[]): Promise<U>;
+export function mapToObjectAsync<T, U extends object>(fn: (input: T) => Promise<U|false>): (list: readonly T[]) => Promise<U>;
+export function mapToObjectAsync<T, U>(fn: (input: T) => object|false, list: T[]): U;
+export function mapToObjectAsync<T, U>(fn: (input: T) => object|false): (list: T[]) => U;
+
+/*
+Method: mapKeys
+
+Explanation: It takes an object and returns a new object with changed keys according to `changeKeyFn` function.
+
+Example:
+
+```
+const obj = {a: 1, b: 2}
+const changeKeyFn = prop => `{prop}_foo`
+const result = R.mapKeys(changeKeyFn, obj)
+// => {a_foo: 1, b_foo: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string, obj: { [key: string]: T}): U;
+export function mapKeys<T, U>(changeKeyFn: (x: string) => string): (obj: { [key: string]: T}) => U;
+
+/*
+Method: maybe
+
+Explanation: It acts as ternary operator and it is helpful when we have nested ternaries. 
+
+All of the inputs can be either direct values or anonymous functions. This is helpful if we don't want to evaluate certain paths as we can wrap this logic in a function.
+
+Example:
+
+```
+const x = 4
+const y = 8
+
+const ifRule = x > 2
+const whenIf = y > 10 ? 3 : 7
+const whenElse = () => {
+  // just to show that it won't be evaluated
+  return JSON.parse('{a:')
+}
+
+const result = R.maybe(
+  ifRule,
+  whenIf,
+  whenElse,
+)
+// `result` is `7`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function maybe<T>(ifRule: boolean, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
+export function maybe<T>(ifRule: VoidInputFunc<boolean>, whenIf: T | Func<T>, whenElse: T | Func<T>): T;
+
+/*
+Method: memoize
+
+Explanation: When `fn` is called for a second time with the same input, then the cache result is returned instead of calling again `fn`.
+
+Example:
+
+```
+let result = 0
+const fn = (a,b) =>{
+  result++
+
+  return a + b
+}
+const memoized = R.memoize(fn)
+memoized(1, 2)
+memoized(1, 2)
+
+// => `result` is equal to `1`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function memoize<T, K extends any[]>(fn: (...inputs: K) => T): (...inputs: K) => T;
+
+/*
+Method: memoizeWith
+
+Explanation: Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
+
+Example:
+
+```
+const keyGen = (a,b) => a + b
+let result = 0
+const fn = (a,b) =>{
+  result++
+
+  return a + b
+}
+const memoized = R.memoizeWith(keyGen, fn)
+memoized(1, 2)
+memoized(1, 2)
+
+// => `result` is equal to `1`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function memoizeWith<T, K extends any[]>(keyGen: any, fn: (...inputs: K) => T): (...inputs: K) => T;
+
+/*
+Method: nextIndex
+
+Explanation: It returns the next index of the list.
+
+If we have reached the end of the list, then it will return `0`.
+
+Example:
+
+```
+const list = [1, 2, 3]
+
+const result = [
+  R.nextIndex(0, list),
+  R.nextIndex(1, list),
+  R.nextIndex(2, list),
+  R.nextIndex(10, list)
+]
+// => [1, 2, 0, 0]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function nextIndex(index: number, list: any[]): number;
+
+/*
+Method: prevIndex
+
+Explanation: It returns the next index of the list when the order is descending.
+
+If we have reached the beginning of the list, then it will return the last index of the list.
+
+Example:
+
+```
+const list = [1, 2, 3]
+
+const result = [
+  R.prevIndex(0, list),
+  R.prevIndex(1, list),
+  R.prevIndex(2, list),
+]
+// => [2, 0, 1]
+```
+
+Categories: List
+
+Notes: Unlike `R.nextIndex`, which safeguards against index out of bounds, this method does not.
+
+*/
+// @SINGLE_MARKER
+export function prevIndex(index: number, list: any[]): number;
+
+/*
+Method: ok
+
+Explanation: It checks if `inputs` are following `schemas` specifications according to `R.isValid`.
+
+If validation fails, it throws.
+
+Example:
+
+```
+const result = R.ok(
+  1,
+  ['foo', 'bar']
+)(
+  Number,
+  [String]
+)
+// => undefined
+```
+
+Categories:
+
+Notes: It is same as `R.pass` but instead of returning `false`, it throws an error.
+
+*/
+// @SINGLE_MARKER
+export function ok(...inputs: any[]): (...schemas: any[]) => void | never;
+
+/*
+Method: pass
+
+Explanation: It checks if `inputs` are following `schemas` specifications according to `R.isValid`.
+
+Example:
+
+```
+const result = R.pass(
+  1,
+  ['foo','bar']
+)(
+  Number,
+  [String]
+)
+// => true
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function pass(...inputs: any[]): (...rules: any[]) => boolean;
+
+/*
+Method: pipedAsync
+
+Explanation: It accepts input as first argument and series of functions as next arguments. It is same as `R.piped` but with support for asynchronous functions like `R.pipeAsync`.
+
+Example:
+
+```
+const result = await R.pipedAsync(
+  100,
+  async x => {
+    await R.delay(100)
+    return x + 2
+  },
+  R.add(2),
+  async x => {
+    const delayed = await R.delay(100)
+    return delayed + x
+  }
+)
+// `result` resolves to `RAMBDAX_DELAY104`
+```
+
+Categories: Async
+
+*/
+// @SINGLE_MARKER
+export function pipedAsync<A, B>(input: A, fn0: (x: Awaited<A>) => B) : B;
+export function pipedAsync<A, B, C>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C) : C;
+export function pipedAsync<A, B, C, D>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D) : D;
+export function pipedAsync<A, B, C, D, E>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E) : E;
+export function pipedAsync<A, B, C, D, E, F>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F) : F;
+export function pipedAsync<A, B, C, D, E, F, G>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G) : G;
+export function pipedAsync<A, B, C, D, E, F, G, H>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H) : H;
+export function pipedAsync<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H, fn7: (x: Awaited<H>) => I) : I;
+
+/*
+Method: produce
+
+Explanation: It returns an object created by applying each value of `rules` to `input` argument.
+
+Example:
+
+```
+const rules = {
+  foo: R.pipe(R.add(1), R.add(2)),
+  a: {b: R.add(3)}
+}
+const result = R.produce(rules, 1)
+
+const expected = {
+  foo: 4,
+  a: {b: 4}
+}
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes: In Typescript context, `rules` functions can be only 1 level deep. In Javascript context, there is no such restriction.
+
+*/
+// @SINGLE_MARKER
+export function produce<Input extends any, Output>(
+  rules: ProduceRules<Output, keyof Output, Input>,
+  input: Input
+): Output;
+export function produce<Input extends any, Output>(
+  rules: ProduceRules<Output, keyof Output, Input>
+): <Input>(
+  input: Input
+) => Output;
+
+/*
+Method: produceAsync
+
+Explanation: It returns an object created by applying each value of `rules` to `input` argument.
+
+`rules` input is an object with synchronous or asynchronous functions as values.
+
+The return value is wrapped in a promise, even if all `rules` are synchronous functions.
+
+Example:
+
+```
+const rules = {
+  foo: async x => {
+    await R.delay(100)
+    return x > 1
+  },
+  bar: x => ({baz: x})
+}
+const input = 2
+const result = await R.produceAsync(rules, input)
+
+const expected = {
+  foo: true,
+  bar: {baz: 2}
+}
+// => `result` is equal to `expected`
+```
+
+Categories: Logic, Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function produceAsync<Input extends any, Output>(
+  rules: ProduceAsyncRules<Output, keyof Output, Input>,
+  input: Input
+): Promise<Output>;
+export function produceAsync<Input extends any, Output>(
+  rules: ProduceAsyncRules<Output, keyof Output, Input>
+): <Input>(
+  input: Input
+) => Promise<Output>;
+
+
+/*
+Method: random
+
+Explanation: It returns a random number between `min` inclusive and `max` inclusive.
+
+Example:
+
+```
+
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function random(minInclusive: number, maxInclusive: number): number;
+
+/*
+Method: remove
+
+Explanation: It will remove all `toRemove` entries from `text` sequentially. 
+
+`toRemove` argument can be either a list of strings/regular expressions or a single string/regular expression.
+
+Example:
+
+```
+const result = R.remove(
+  ['foo','bar'],
+  'foo bar baz foo'
+)
+// => 'baz foo'
+```
+
+Categories: String
+
+Notes: This is the only case where Rambdax exports clashes with Ramda API, as Ramda has `remove` method. If `Rambda.remove` is introduced, then this method will be renamed.
+
+*/
+// @SINGLE_MARKER
+export function remove(
+  toRemove: string | RegExp | (string | RegExp)[],
+  text: string
+): string;
+export function remove(
+  toRemove: string | RegExp | (string | RegExp)[]
+): (text: string) => string;
+
+/*
+Method: renameProps
+
+Explanation: If property `prop` of `rules` is also a property in `input`, then rename `input` property to `rules[prop]`.
+
+Example:
+
+```
+
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function renameProps(rules: object, input: object): object;
+export function renameProps(rules: object): (input: object) => object;
+export function renameProps<Output>(rules: object, input: object): Output;
+export function renameProps<Output>(rules: object): (input: object) => Output;
+
+
+/*
+Method: replaceAll
+ 
+Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+
+Example:
+
+```
+const replacer = '|'
+const patterns = [ /foo/g, 'bar' ]
+const input = 'foo bar baz foo bar'
+
+const result = R.replaceAll(patterns, replacer, input)
+// => '| | baz | bar'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function replaceAll(patterns: (RegExp | string)[], replacer: string, input: string): string;
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+export function replaceAll(patterns: (RegExp | string)[]): (replacer: string) => (input: string) => string;
+
+/*
+Method: shuffle
+
+Explanation: It returns a randomized copy of array.
+
+Example:
+
+```
+
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function shuffle<T>(list: T[]): T[];
+
+/*
+Method: sortObject
+
+Explanation: It returns a sorted version of `input` object.
+
+Example:
+
+```
+const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
+
+const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+// => {b: 4, c: 2, a: 1}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortObject<T>(predicate: SortObjectPredicate<T>, input: { [key: string]: T }): { [keyOutput: string]: T };
+export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key: string]: T }) => { [keyOutput: string]: T };
+
+/*
+Method: switcher
+
+Explanation: Edited fork of [Switchem](https://github.com/planttheidea/switchem) library.
+
+The method return a value if the matched option is a value.
+
+If the matched option is a function, then `R.switcher` returns a function which expects input. Tests of the method explain it better than this short description.
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const valueToMatch = {foo: 1}
+
+const result = R.switcher(valueToMatch)
+  .is('baz', 'is baz')
+  .is(x => typeof x === 'boolean', 'is boolean')
+  .is({foo: 1}, 'Property foo is 1')
+  .default('is bar')
+
+// => 'Property foo is 1'
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function switcher<T>(valueToMatch: any): Switchem<T>;
+
+/*
+Method: tapAsync
+
+Explanation: Asynchronous version of `R.tap`.
+
+Example:
+
+```
+
+```
+
+Categories: Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function tapAsync<T>(fn: Func<any> | Promise<any>, input: T): T;
+export function tapAsync<T>(fn: Func<any> | Promise<any>): (input: T) => T;
+
+/*
+Method: throttle
+
+Explanation:
+
+Example:
+
+```
+let counter = 0
+const inc = () => {
+  counter++
+}
+
+const throttledInc = R.throttle(inc, 800)
+
+const result = async () => {
+  throttledInc()
+  await R.delay(500)
+  throttledInc()
+
+  return counter
+}
+// `result` resolves to `1`
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function throttle<T>(fn: () => T, ms: number): () => T;
+export function throttle<T, U>(fn: (input: T) => U, ms: number): (input: T) => U;
+export function throttle<T, Q, U>(fn: (input1: T, input2: Q) => U, ms: number): (input1: T, input2: Q) => U;
+export function throttle<T, Q, Z, U>(fn: (input1: T, input2: Q, input3: Z) => U, ms: number): (input1: T, input2: Q, input3: Z) => U;
+
+/*
+Method: toDecimal
+
+Explanation:
+
+Example:
+
+```
+R.toDecimal(2.45464,2) // => 2.45
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function toDecimal(num: number, charsAfterDecimalPoint?: number): number;
+
+/*
+Method: wait
+
+Explanation: It provides `Golang`-like interface for handling promises.
+
+Example:
+
+```
+const [result, err] = await R.wait(R.delay(1000))
+// => err is undefined
+// => result is `RAMBDAX_DELAY`
+```
+
+Categories: Async
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function wait<T>(fn: Promise<T>): Promise<[T, Error|undefined]>;
+export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined]>;
+
+/*
+Method: waitFor
+
+Explanation: It returns `true`, if `condition` returns `true` within `howLong` milliseconds time period.
+
+The method accepts an optional third argument `loops`(default to 10), which is the number of times `waitForTrueCondition` will be evaluated for `howLong` period. Once this function returns a value different from `false`, this value will be the final result. 
+
+Otherwise, `R.waitFor` will return `false`.
+
+Example:
+
+```
+const howLong = 1000
+let counter = 0
+const waitForTrueCondition = async x => {
+  await R.delay(100)
+  counter = counter + x
+
+  return counter > 10
+}
+
+const result = await R.waitFor(waitForTrueCondition, howLong)(2)
+// => true
+```
+
+Categories: Async, Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function waitFor(
+  waitForTrueCondition: () => boolean,
+  howLong: number,
+  loops?: number
+): () => Promise<boolean>;
+export function waitFor(
+  waitForTrueCondition: () => Promise<boolean>,
+  howLong: number,
+  loops?: number
+): () => Promise<boolean>;
+export function waitFor<T>(
+  waitForTrueCondition: (input: T) => Promise<boolean>,
+  howLong: number,
+  loops?: number
+): (input: T) => Promise<boolean>;
+export function waitFor<T>(
+  waitForTrueCondition: (input: T) => boolean,
+  howLong: number,
+  loops?: number
+): (input: T) => Promise<boolean>;
+
+/*
+Method: lensEq
+
+Explanation: It returns `true` if data structure focused by the given lens equals to the `target` value.
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const list = [ 1, 2, 3 ]
+const lens = R.lensIndex(0)
+const result = R.lensEq(
+  lens, 1, list
+)
+// => true
+```
+
+Categories: Lenses
+
+Notes: Idea for this method comes from `ramda-adjunct` library
+
+*/
+// @SINGLE_MARKER
+export function lensEq(lens: Function, value: any, data: any): boolean;
+export function lensEq(lens: Function, value: any): (data: any) => boolean;
+export function lensEq(lens: Function): (value: any) => (data: any) => boolean;
+
+/*
+Method: lensSatisfies
+
+Explanation: It returns `true` if data structure focused by the given lens satisfies the predicate.
+
+Example:
+
+```
+const fn = R.lensSatisfies(x => x > 5, R.lensIndex(0))
+const result = [
+  fn([10, 20, 30]),
+  fn([1, 2, 3]),
+]
+// => [true, false]
+```
+
+Categories: Lenses
+
+Notes: Idea for this method comes from `ramda-adjunct` library
+
+*/
+// @SINGLE_MARKER
+export function lensSatisfies<PredicateInput, Input>(predicate: (x: PredicateInput) => boolean, lens: Lens<PredicateInput, Input>, input: Input): boolean;
+export function lensSatisfies<PredicateInput, Input>(predicate: (x: PredicateInput) => boolean, lens: Lens<PredicateInput, Input>): (input: Input) => boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens<T[], T>, input: T[]): boolean;
+export function lensSatisfies<T>(predicate: (x: T) => boolean, lens: Lens<T[], T>): (input: T[]) => boolean;
+
+/*
+Method: viewOr
+
+Explanation: A combination between `R.defaultTo` and `R.view.
+
+Example:
+
+```
+const lens = R.lensProp('a');
+const input = {a: 'foo'}
+const fallbackInput = {b: 'bar'}
+const fallback = 'FALLBACK'
+
+const result = [
+  R.viewOr(fallback, lens, input),
+  R.viewOr(fallback, lens, fallbackInput)
+]
+// => ['foo', 'FALLBACK']
+```
+
+Categories: Lenses
+
+Notes: Idea for this method comes from `@meltwater/phi` library
+
+*/
+// @SINGLE_MARKER
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>, input: Input): Output;
+export function viewOr<Input, Output>(fallback: Output, lens: Lens<Input, Output>): (input: Input) =>  Output;
+
+/*
+Method: sortByPath
+
+Explanation: It returns copy of `list` sorted by `sortPath` value. 
+
+As `sortPath` is passed to `R.path`, it can be either a string or an array of strings.
+
+Example:
+
+```
+const list = [
+  {a: {b: 2}},
+  {a: {b: 1}},
+  {a: {b: 3}}
+]
+const result = R.sortByPath('a.b', list)
+const expected = [
+  {a: {b: 1}},
+  {a: {b: 2}},
+  {a: {b: 3}}
+]
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes: Idea for this method comes from `@meltwater/phi` library
+
+*/
+// @SINGLE_MARKER
+export function sortByPath<T>(sortPath: Path, list: T[]): T[];
+export function sortByPath(sortPath: Path): <T>(list: T[]) => T[];
+
+/*
+Method: sortByProps
+
+Explanation: It returns sorted copy of `list` of objects.
+
+Sorting is done using a list of strings, each representing a path. Two members `a` and `b` from `list` can be sorted if both return a value for a given path. If the value is equal, then the next member of `sortPaths`(if there is such) will be used in order to find difference between `a` and `b`. This is useful in cases where you have multiple sorting criteria.
+
+Example:
+
+```
+const list = [
+  {a: {b: 2}},
+  {a: {b: 1}},
+  {a: {b: 3}}
+]
+const result = R.sortByProps(['a.b'], list)
+const expected = [
+  {a: {b: 1}},
+  {a: {b: 2}},
+  {a: {b: 3}}
+]
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes: Idea for this method comes from `@meltwater/phi` library
+
+*/
+// @SINGLE_MARKER
+export function sortByProps<T>(sortPaths: string[], list: T[]): T[];
+export function sortByProps(sortPaths: string[]): <T>(list: T[]) => T[];
+
+/*
+Method: excludes
+
+Explanation: Opposite of `R.includes`
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const result = [
+  R.excludes('ar', 'foo'),
+  R.excludes({a: 2}, [{a: 1}])
+]
+// => [true, true ]
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function excludes(valueToFind: string, input: string[] | string): boolean;
+export function excludes(valueToFind: string): (input: string[] | string) => boolean;
+export function excludes<T>(valueToFind: T, input: T[]): boolean;
+export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
+
+/*
+Method: updateObject
+
+Explanation: Very similar to `R.assocPath` but it applies list of updates instead of only a single update.
+
+It returns a copy of `obj` input with changed properties according to `rules` input.
+
+Each instance of `rules` is a tuple of object path and the new value for this path. If such object path does not exist, then such object path is created.
+
+As it uses `R.path` underneath, object path can be either string or array of strings(in Typescript object path can be only a string).
+
+Example:
+
+```
+const obj = {
+  a: {b: 1},
+  foo: {bar: 10},
+}
+const rules = [
+  ['a.b', 2],
+  ['foo.bar', 20],
+  ['q.z', 300],
+]
+const result = R.updateObject(rules, obj)
+
+const expected = {
+  a: {b: 2},
+  foo: {bar: 20},
+  q: {z: 300},
+}
+// => `result` is equal to `expected`
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function updateObject<Output>(rules: ([string, any])[], input: object): Output;
+export function updateObject<Output>(rules: ([string, any])[]): (input: object) => Output;
+
+/*
+Method: takeUntil
+
+Explanation:
+
+Example:
+
+```
+const list = [1, 2, 3, 4, 5]
+const predicate = x => x > 3
+const result = R.takeUntil(predicate, list)
+
+// => [1, 2, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function takeUntil<T>(predicate: (x: T) => boolean, list: T[]): T[];
+export function takeUntil<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
+
+/*
+Method: applyDiff
+
+Explanation: It changes paths in an object according to a list of operations. Valid operations are `add`, `update` and `delete`. Its use-case is while writing tests and you need to change the test data.
+
+Note, that you cannot use `update` operation, if the object path is missing in the input object.
+Also, you cannot use `add` operation, if the object path has a value.
+
+Example:
+
+```
+const obj = {a: {b:1, c:2}}
+const rules = [
+  {op: 'remove', path: 'a.c'},
+  {op: 'add', path: 'a.d', value: 4},
+  {op: 'update', path: 'a.b', value: 2},
+]
+const result = R.applyDiff(rules, obj)
+const expected = {a: {b: 2, d: 4}}
+
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function applyDiff<Output>(rules: ApplyDiffRule[], obj: object): Output;
+export function applyDiff<Output>(rules: ApplyDiffRule[]): ( obj: object) => Output;
+
+/*
+Method: mapIndexed
+
+Explanation: Same as `R.map`, but it passes index as second argument to the iterator, when looping over arrays.
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapIndexed<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, U>;
+export function mapIndexed<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+	data: T
+) : Mapped<T, U>;
+
+/*
+Method: filterIndexed
+
+Explanation: Same as `R.filter`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function filterIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function filterIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function filterIndexed<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
+
+/*
+Method: rejectIndexed
+
+Explanation: Same as `R.reject`, but it passes index/property as second argument to the predicate, when looping over arrays/objects.
+
+Example:
+
+```
+const list = [1, 2, 3, 4]
+const obj = {a: 1, b: 2}
+
+const result = [
+  R.reject((x, index) => x > 1, list)
+  R.reject((x, property) => x > 1, obj)
+]
+// => [[1], {a: 1}]
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>): (x: T[]) => T[];
+export function rejectIndexed<T>(predicate: IndexedPredicate<T>, x: T[]): T[];
+export function rejectIndexed<T, U>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function rejectIndexed<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
+
+
+/*
+Method: partitionIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>,
+  input: T[]
+): [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: IndexedPredicate<T>
+): (input: T[]) => [T[], T[]];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean,
+  input: { [key: string]: T}
+): [{ [key: string]: T}, { [key: string]: T}];
+export function partitionIndexed<T>(
+  predicate: (x: T, prop?: string) => boolean
+): (input: { [key: string]: T}) => [{ [key: string]: T}, { [key: string]: T}];
+
+/*
+Method: filterObject
+
+Explanation:
+
+Example:
+
+```
+const obj = {a: 1, b:2}
+const result = R.filterObject(
+  x => x > 1,
+  obj
+)
+// => {b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterObject<T>(predicate: ObjectPredicate<T>): (x: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function filterObject<T>(predicate: ObjectPredicate<T>, x: Record<PropertyKey, T>): Record<PropertyKey, T>;
+
+/*
+Method: filterArray
+
+Explanation:
+
+Example:
+
+```
+const result = R.filterArray(
+  x => x > 1,
+  [1, 2, 3]
+)
+// => [1, 3]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterArray<T>(predicate: Predicate<T>): (input: T[]) => T[];
+export function filterArray<T>(predicate: Predicate<T>, input: T[]): T[];
+
+/*
+Method: forEachIndexed
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function forEachIndexed<T>(fn: IndexedIterator<T, void>, list: T[]): T[];
+export function forEachIndexed<T>(fn: IndexedIterator<T, void>): (list: T[]) => T[];
+export function forEachIndexed<T>(fn: ObjectIterator<T, void>, list: Record<PropertyKey, T>): Record<PropertyKey, T>;
+export function forEachIndexed<T, U>(fn: ObjectIterator<T, void>): (list: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+
+/*
+Method: mapObject
+
+Explanation: 
+
+Example:
+
+```
+const result = R.mapObject(x => x + 1, {a:1, b:2})
+// => {a:2, b:3}
+```
+
+Categories: Object
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T>(fn: ObjectIterator<T, T>, iterable: Record<PropertyKey, T>): Record<PropertyKey, T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>, iterable: Record<PropertyKey, T>): Record<PropertyKey, U>;
+export function mapObject<T>(fn: ObjectIterator<T, T>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, T>;
+export function mapObject<T, U>(fn: ObjectIterator<T, U>): (iterable: Record<PropertyKey, T>) => Record<PropertyKey, U>;
+
+export const DELAY: 'RAMBDA_DELAY';
+
+/*
+Method: findAsync
+
+Explanation: Asynchronous version of `R.find`.
+
+Example:
+
+```
+const predicate = x => {
+  await R.delay(100)
+  return R.type(x.foo) === 'Number'
+}
+
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = await R.findAsync(predicate)(list)
+// => {foo: 1}
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function findAsync<T>(predicate: (x: T) => Promise<boolean>): (list: T[]) => T | undefined;
+
+/*
+Method: xnor
+
+Explanation: Logical XNOR
+
+Example:
+
+```
+const result = [
+  R.xnor(1)(0),
+	R.xnor(0)(1),
+	R.xnor(1)(1),
+	R.xnor(0)(0),
+]
+// => [true, false, false, true]
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function xnor(y: boolean): (y: boolean) => boolean;
+
+/*
+Method: mapcat
+
+Explanation: It is a combination of `R.map` and `R.flatten`.
+
+Example:
+
+```
+const result = mapcat((x) => x.toUpperCase())([
+	['a', 'b'],
+	['c', 'd'],
+	['e', 'f'],
+]);
+// => 
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapcat<T, U extends unknown>(transformFn: (x: T extends any[] ? T[number]: never) => U): (listOfLists: readonly T[]) => U[];
+export function mapcat<T, U extends unknown>(transformFn: (x: T extends any[] ? T[number]: never) => U): (listOfLists: T[]) => U[];
+
+/*
+Method: noop
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function noop(): void;
+
+/*
+Method: tryCatchAsync
+
+Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
+
+Example:
+
+```
+const x = {foo: 1}
+const fnFoo = async () => x.foo
+const fnBar = async () => x.bar
+
+const result = await Promise.all([
+  R.tryCatchAsync (fnFoo, false)(),
+  R.tryCatchAsync(fnBar, false)()
+])
+// => [1, false]
+```
+
+Categories: Async, Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function tryCatchAsync<T>(
+  fn: (input: any) => Promise<T>,
+  fallback: T
+): (input: any) => Promise<T>;
+export function tryCatchAsync<T>(
+  fn: (input: any) => Promise<T>,
+  fallback: (input: any) => Promise<T>,
+): (input: any) => Promise<T>;
+// RAMBDAX_MARKER_END
 // ============================================
 
 export as namespace R
