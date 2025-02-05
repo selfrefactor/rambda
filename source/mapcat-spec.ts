@@ -6,7 +6,7 @@ describe('R.mapcat', () => {
     const result = piped(
 			listOfLists,
 			mapcat(x => {
-				x // $ExpectType string[]
+				x // $ExpectType string
 				return x.length
 			}),
 		)

@@ -273,6 +273,7 @@ chech in to read for examples
 },
 
 ---
+https://rubyapi.org/3.4/o/array#method-i-one-3F
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---

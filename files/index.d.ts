@@ -8722,9 +8722,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapcat<T, U extends unknown>(transformFn: (x: T[number]) => U): (listOfLists: readonly T[]) => U[];
-export function mapcat<T, U extends unknown>(transformFn: (x: T[number]) => U): (listOfLists: T[]) => U[];
-// export function mapcat<T, U extends unknown>(transformFn: (x: T) => U): (listOfLists: T[]) => U[];
+export function mapcat<T, U extends unknown>(transformFn: (x: T extends any[] ? T[number]: never) => U): (listOfLists: readonly T[]) => U[];
+export function mapcat<T, U extends unknown>(transformFn: (x: T extends any[] ? T[number]: never) => U): (listOfLists: T[]) => U[];
 
 /*
 Method: noop
