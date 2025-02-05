@@ -4850,12 +4850,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitAt<T>(index: number, input: T[]): [T[], T[]];
-export function splitAt(index: number, input: string): [string, string];
-export function splitAt(index: number): {
-    <T>(input: T[]): [T[], T[]];
-    (input: string): [string, string];
-};
+
+export function splitAt(index: number): <T>(list: T[]) => [T[], T[]];
+// {
+//     <T>(input: T[]): [T[], T[]];
+//     (input: string): [string, string];
+// };
 
 /*
 Method: splitWhen

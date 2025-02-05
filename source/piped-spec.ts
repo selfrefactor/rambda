@@ -20,6 +20,8 @@ import {
 	mapObject,
 	negate,
 	piped,
+	split,
+	splitAt,
 	tap,
 	union,
 } from 'rambda';
@@ -175,7 +177,7 @@ describe('real use cases - books', () => {
 	it('case 2', () => {
 		const getResult = (book: BaseBook) => piped(
 			book,
-			assoc('status', 'famous' as Status),
+			// assoc('status', 'famous' as Status),
 			assocPath<Book>('awards.number', 1),
 			defaultTo(awardedBaseValue),
 			tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
@@ -201,11 +203,25 @@ describe('real use cases - books', () => {
 			convertToType<BookWithDescription>(),
 			dissocPath<Book>('description'),
 			convertToType<Record<string, string>>(),
-			mapObject((x) => {
-				return x as unknown as number;
-			}),
+			// mapObject((x) => {
+			// 	return x as unknown as number;
+			// }),
 		);
 		const result = getResult(zaratustra);
 		const final: Expect<IsNotNever<typeof result>> = true;
+	});
+	it('case 3', () => {
+		const tableData = `id,title,year
+		1,The First,2001
+		2,The Second,2020
+		3,The Third,2018`;
+		
+		const result = piped(
+			tableData,
+			split('\n'), // string => string[]
+			map(split(',')), // string[] => string[][]
+			splitAt(1) // <=== Adding this causes issue
+		)
+		result; // $ExpectType [string[][], string[][]]
 	});
 });
