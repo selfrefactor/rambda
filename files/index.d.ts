@@ -5356,7 +5356,7 @@ export function countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: 
 /*
 Method: unwind
 
-Explanation:
+Explanation: It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
 
 Example:
 
@@ -5376,35 +5376,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<T, U>(prop: keyof T, obj: T): U[];
-export function unwind<T, U>(prop: keyof T): (obj: T) => U[];
-
-/*
-Method: on
-
-Explanation: It passes the two inputs through `unaryFn` and then the results are passed as inputs the the `binaryFn` to receive the final result(`binaryFn(unaryFn(FIRST_INPUT), unaryFn(SECOND_INPUT))`). 
-
-This method is also known as P combinator. 
-
-Example:
-
-```
-const result = R.on((a, b) => a + b, R.prop('a'), {b:0, a:1}, {a:2})
-// => 3
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T, b: T): R;
-export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U, a: T): (b: T) => R;
-export function on<T, U, R>(binaryFn: (a: U, b: U) => R, unaryFn: (value: T) => U): {
-    (a: T, b: T): R;
-    (a: T): (b: T) => R;
-};
+export function unwind<T, S extends keyof T>(prop: S, obj: T): Omit<T, S> & { [K in S]: T[S][number] };
+export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
 
 /*
 Method: whereAny
