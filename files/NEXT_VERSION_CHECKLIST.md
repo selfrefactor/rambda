@@ -115,7 +115,7 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 ===
 lint scripts
 
-complete rambdax before release
+ramda typescript issues in google
 ===
 Rambdax
 change 
