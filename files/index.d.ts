@@ -5287,8 +5287,8 @@ Explanation: It applies list of function to a list of inputs.
 Example:
 
 ```
-const getRange = juxt([ Math.min, Math.max, Math.min ])
-const result = getRange(
+const fn = juxt([ Math.min, Math.max, Math.min ])
+const result = fn(
   3, 4, 9, -3
 )
 // => [-3, 9, -3]
@@ -8707,7 +8707,7 @@ export function xnor(y: boolean): (y: boolean) => boolean;
 /*
 Method: mapcat
 
-Explanation:
+Explanation: It is a combination of `R.map` and `R.flatten`.
 
 Example:
 
@@ -8722,28 +8722,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapcat<T>(x: T): T;
-
-/*
-Method: contains
-
-Explanation: It returns `true` if all of `target` object properties are `R.equal` to `compareTo` object.
-
-Example:
-
-```
-const result = R.contains({a:1}, {a:1, b:2})
-// => true
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function contains<T, U>(target: T, compareTo: U): boolean;
-export function contains<T, U>(target: T): (compareTo: U) => boolean;
+export function mapcat<T, U extends unknown>(transformFn: (x: T[number]) => U): (listOfLists: readonly T[]) => U[];
+export function mapcat<T, U extends unknown>(transformFn: (x: T[number]) => U): (listOfLists: T[]) => U[];
+// export function mapcat<T, U extends unknown>(transformFn: (x: T) => U): (listOfLists: T[]) => U[];
 
 /*
 Method: noop
