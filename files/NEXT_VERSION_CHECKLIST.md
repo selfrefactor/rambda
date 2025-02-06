@@ -116,47 +116,25 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - remove .nojekyll in project root
 
 - vitest
+
+- Renamed methods: 
+
+-- `evolve` to `changeObjectValuesWith`
+-- `chain` to `flatMap`
+-- `mapObjIndexed` to `mapObject`
+-- `collectBy` to `groupBy`
 ===
-https://rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
+R.path with string path
 
 check naming in fp-ts, as evolve looks like magic. also why radashi uses remove not reject
 https://github.com/toss/es-toolkit - another FP library
-check coverage
-
-really bad naming like mapObjIndexed - rename
-
-ramda typescript issues in google
 ===
-https://arethetypeswrong.github.io/
-Rambdax
-change 
-
-rejectIndexed
-===
-source/filter-spec.ts
-mapIndexed remove object - need to be similar to map
-===
-
-
 ABOVE IS DONE
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy
-? indexed  - need to be removed
-
 ===
-Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
-===
-support Map - https://github.com/ramda/types/pull/136/files
-
-can it support set
-===
-
-need further check:
-
-- chain
-===
-rename methods as naming is too generic, for example `collectBy`
+https://rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
 ===
 
 https://github.com/selfrefactor/rambda/discussions/758
@@ -169,26 +147,12 @@ export function splitEvery(sliceLength: number): {
 https://github.com/radashi-org/radashi/pull/357/files
 isEmptyObject
 ---
-no example usage
-sortWith
-
-Try this R.sortWith example in Rambda REPL
----
-Need to install the following packages:
-docsify-cli@4.4.4
-Ok to proceed? (y) 
----
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
 ---
-https://github.com/remeda/remeda/tree/main/docs docs site
-
 https://github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
 ---
-  console.log
-    Size - 0.454681MB
 ---
-move best methods of rambdax so at the end, it is not that needed
 ---
   const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
 instead of
@@ -206,37 +170,15 @@ https://github.com/ramda/types/pull/122/files
 
 https://github.com/ramda/types/pull/129/files#diff-d9fac8353ad9864266cabb1f64898d7290f9c71bac877858f72feeaef3c55351
 
-update Rambdax and release to now 
 https://github.com/selfrefactor/rambda/pull/744
-
-rambdax export file should include js extension
 
 https://github.com/ramda/types/pull/127/files
 https://github.com/ramda/types/pull/122/files
-release string.fn
 ---
 https://github.com/remeda/remeda/pull/1002/files
 
 https://remedajs.com/docs/#fromKeys
 https://remedajs.com/docs/#omitBy
----
-  "exports": {
-    ".": {
-      "require": {
-        "types": "./lib/index.d.cts",
-        "default": "./lib/index.cjs"
-      },
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.mjs"
-      },
-      "default": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.mjs"
-      }
-    }
-  },
-
 
 	https://github.com/ramda/types/pull/110/files
 ---
@@ -246,23 +188,11 @@ https://badgen.net/npm
 stats
 ![Alt](https://repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
 ---
-fix deno release or restore previous imports as VSCODE is not working when importing other files(add.js, subtract.js, etc.)
----
-complex pipe test with rameda radashi
----
-
 ## ABOVE IS IN PROGRESS
 
 npx publint > files/report
 
 https://github.com/selfrefactor/rambda/pull/737
-
-https://deno.land/x/rambda@9.3.0?source - release with `v9.3.0` tag
-
-release X on deno
-
-deno can install with package.json
-https://deno.com/blog/v2.0
 
 ## ABOVE SHOULD BE DONE
 
@@ -285,58 +215,12 @@ https://github.com/denoland/std/blob/main/collections/join_to_string_test.ts
 https://github.com/denoland/std/blob/main/collections/sum_of_test.ts
 ---
 
-chech in to read for examples
-"exports": {
-".": {
-"development": {
-"require": "./dist/cjs/development/index.cjs",
-"import": "./dist/esm/development/index.mjs"
-},
-"require": "./dist/cjs/production/index.cjs",
-"import": "./dist/esm/production/index.mjs",
-"types": "./dist/types/index.d.ts"
-}
-},
-
----
 https://rubyapi.org/3.4/o/array#method-i-one-3F
 ---
 https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---
-test('bug 524', () => {
-  /*
-    https://github.com/selfrefactor/rambda/issues/524
-  */
-  const state = {}
-
-  const withDateLike = assocPathFn(
-    [ 'outerProp', '2020-03-10' ],
-    { prop : 2 },
-    state
-  )
-  const withNumber = assocPathFn(
-    [ 'outerProp,5' ], { prop : 2 }, state
-  )
-
-  const withDateLikeExpected = { outerProp : { '2020-03-10' : { prop : 2 } } }
-  const withNumberExpected = { outerProp : { 5 : { prop : 2 } } }
-  expect(withDateLike).toEqual(withDateLikeExpected)
-  // expect(withNumber).toEqual(withNumberExpected)
-})
-
-assocpath
----
 bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
 ---
-R.path with string path - check typehero notes
----
-let result = piped(
-		input,
-		split(`\n`),
-		map(trim),
-		filter(x => Boolean(x)),
-
-why cannot filter(boolean) be used		
 ---
 
 export const getTestData = <K extends keyof TestData>(key: K) => {
@@ -367,7 +251,6 @@ return result
 }
 
 ---
-
 fix pluck and others where Record is used wrong
 // import { pipe, pluck, prop } from "ramda"
 import { pipe, pluck, prop } from "rambdax"
@@ -383,76 +266,10 @@ https://github.com/toss/es-toolkit/issues/91
 
 ## const pickedObject = pickDeep(object, [
 
-FP is generally slower
-
-add pipe example with large data set - with FP and declarative
-
-## run benchmark in Node, but also in dedicated Playwright browser
-
-REFS
-
-- prev assoc
-
-interface AssocPartialOne<K extends keyof any> {
-<T>(val: T): <U>(obj: U) => Record<K, T> & U;
-<T, U>(val: T, obj: U): Record<K, T> & U;
-}
-
-export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
-export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
-export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
-
-export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
-export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
-
----
-const nestedObject = {
- *   a: {
- *     b: {
- *       c: 1
- *     }
- *   },
- *   d: [2, 3]
- * };
- * 
- * const flattened = flattenObject(nestedObject);
- * console.log(flattened); 
- * // Output:
- * // {
- * //   'a.b.c': 1,
- * //   'd.0': 2,
- * //   'd.1': 3
- * // }
----
 
 ## https://github.com/ramda/ramda/issues/3390
 
 ## https://tokens2css.nanools.com/
-
-https://github.com/selfrefactor/rambda/issues/657#issuecomment-2235866164
-
-Hi I know this is a closed issue right now, but just to let you know for a possible solution that also includes the "exports" statement:
-
-According to the documentation:
-
-    Within the "exports" object, key order is significant. During condition matching, earlier entries have higher priority and take precedence over later entries. The general rule is that conditions should be from most specific to least specific in object order.
-
-## So, if you want webpack to pick up a different export than node you should, add a "webpack" condition as the first item the exports map.
-
-cancel even in debounce
-
-https://github.com/toss/es-toolkit/blob/main/src/function/debounce.ts
-
-## check TS output of library to compare
-
-/\*\*
-
-- Check whether a given key is in an object
-- @internal
-  \*/
-  function has<T, K extends PropertyKey>(value: T, key: K): value is T & { [Key in K]: unknown } {
-  return typeof value === 'object' && value !== null && key in value;
-  }
 
 ---
 https://codescene.io/projects/61343/jobs/3120520/results/code/hotspots/biomarkers?name=rambda-scripts%2Fsrc%2Fpopulate-readme-data%2Fcreate-method-data.ts
@@ -473,34 +290,11 @@ predicate: (value: Item) => value is Narrowed
 ): [Narrowed[], Exclude[]];
 
 ---
-
-R.maybe
-
-// case for maybe in Ramdba
-const isWord = word => {
-if(!word) return false
-if(!word.trim()) return false
-if(!word.includes('('))return false
-if(!word.includes(')'))return false
-if(word.includes('NULL'))return false
-return !!getCyrillicWord(word)
-}
-
----
-
-R.path with string path
-
----
-
 R.cycle
 https://www.pythoncheatsheet.org/modules/itertools-module
 
----
-
 R.Flatten
 orama/packages/orama/src/types.ts
-
----
 
 ## import { invert } from 'lodash'
 
@@ -510,13 +304,9 @@ but range is one example that this is not FP
 
 to keep it simply - R.rangeDescending
 
----
-
 splitWith
 R.pickWith
 R.pickAllWith - maybe
-
----
 
 ## R.findInObject
 
@@ -527,23 +317,6 @@ RA.template: compound strings with tagged template literals
 Fix compact type for objects
 
 ## https://github.com/char0n/ramda-adjunct/pull/1611/files
-
-restore maptoobject rambdax@2.1.0
-
-## why mapObject is not same
-
-Double check
-
-it('mixed', () => {
-const result = head(mixedList)
-result // $ExpectType string | number
-})
-
-## and typing of `R.head` suggest that this issue could be on many more places
-
-> Idea of this file is to store CHANGELOG changes until MR is ready to be opened.
-
-differenceWith
 
 ---
 
@@ -561,57 +334,9 @@ https://github.com/selfrefactor/rambda/pull/695/files
 handling errors out of the box:
 
 ## const [err, result] = R.safePipe
-
-export default function deepqual(foo, bar) {
-var ctor, len;
-if (foo === bar) return true;
-if (foo && bar && (ctor=foo.constructor) === bar.constructor) {
-if (ctor === Date) return foo.getTime() === bar.getTime();
-if (ctor === RegExp) return foo.toString() === bar.toString();
-if (ctor === Array && (len=foo.length) === bar.length) {
-while (len-- && dequal(foo[len], bar[len]));
-return len === -1;
-}
-if (ctor === Object) {
-if (Object.keys(foo).length !== Object.keys(bar).length) return false;
-for (len in foo) if (!(len in bar) || !dequal(foo[len], bar[len])) return false;
-return true;
-}
-}
-return foo !== foo && bar !== bar;
-}
 ===
 REFS:
 
-# run immutable script
-
-https://github.com/ramda/types/pull/101/files
-
-export function last<T>(list: readonly [...any[], T]): T;
-export function last<T>(list: ReadonlyNonEmptyArray<T>): T;
-export function last<T>(list: readonly T[]): T | undefined;
-===
-export function isFunction(value) {
-return !!(value && {}.toString.call(value) === '[object Function]')
-}
-===
-MAJOR bump suggestions
-
-[BUG]assocPath interprets string path element as integer, creating arrays instead of objects.
-
-WONT DO:
-
-R.equalsProps(a,b,properties)
-R.sum - as python
-R.contains({a:1}, {a:1, b:2}) => true
-R.resolve https://github.com/verydanny/vcslack/blob/master/src/api.ts
-deprecate R.renameProps in favour of https://jmlweb.github.io/ramdu/global.html#evolveKeys
-R.renamePropsWith
-https://github.com/Maggi64/moderndash/blob/main/package/src/object/flatKeys.ts
-
-from bookmarks:
-
-https://arethetypeswrong.github.io/?p=ramda%400.29.1
 https://github.com/selfrefactor/rambda/issues/638
 https://github.com/ramda/ramda/pull/3430/files
 https://github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
