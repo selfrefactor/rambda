@@ -1,21 +1,14 @@
-import {all} from 'rambda'
+import {all, piped} from 'rambda'
 
 describe('all', () => {
   it('happy', () => {
-    const result = all(
-      x => {
-        x // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-  it('curried needs a type', () => {
-    const result = all<number>(x => {
-      x // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
+    const result = piped(
+			[1, 2, 3],
+			all(x => {
+				x // $ExpectType number
+				return x > 0
+			})
+		)
     result // $ExpectType boolean
   })
 })

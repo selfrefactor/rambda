@@ -178,8 +178,10 @@ Example:
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
-const result = R.all(predicate, list)
-// => true
+const result = R.piped(
+	list,
+	R.all(predicate)
+) // => true
 ```
 
 Categories: List
