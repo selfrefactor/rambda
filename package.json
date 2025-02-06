@@ -3,9 +3,9 @@
   "version": "9.4.2",
   "scripts": {
     "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
-    "build": "yarn build:main && yarn build:web",
+    "build": "yarn build:main && yarn build:web && yarn build:esm",
     "build:main": "rollup rambda.js --file dist/rambda.js --format cjs",
-    "x": "rollup rambda.js --file dist/rambda.esm.js --format es",
+    "build:esm": "rollup rambda.js --file dist/rambda.esm.js --format es",
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
     "immutable": "cd ../rambda-scripts && yarn immutable:rambda",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
