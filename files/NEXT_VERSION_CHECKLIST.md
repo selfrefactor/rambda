@@ -34,6 +34,8 @@ it('within pipe requires explicit type', () => {
 ```
 
 - Remove following methods:
+
+-- always
 -- addIndex
 -- addIndexRight
 

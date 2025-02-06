@@ -216,28 +216,6 @@ Notes:
 export function allPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
 
 /*
-Method: always
-
-Explanation: It returns function that always returns `x`.
-
-Example:
-
-```
-const fn = R.always(7)
-
-const result = fn()
-// => 7
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function always<T>(x: T): (...args: unknown[]) => T;
-
-/*
 Method: and
 
 Explanation: Logical AND

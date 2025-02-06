@@ -1,10 +1,10 @@
-import { all, piped } from 'rambda'
+import * as R from 'rambda'
 
 describe('all', () => {
   it('happy', () => {
-    const result = piped(
+    const result = R.piped(
       [1, 2, 3],
-      all(x => {
+      R.all(x => {
         x // $ExpectType number
         return x > 0
       }),
