@@ -1,3 +1,9 @@
+This is major revamp of `Rambda` library:
+
+- `R.piped` is the recommended method for TypeScript chaining.
+- All methods should be useful to work inside `R.piped` chain. If method doesn't have clear use case inside `R.piped`, it is removed as part of this revamp.
+- There will be only one way to use each method. For example, `R.add` can be used only with `R.add(1)(2)`, i.e. it doesn't support `R.add(1, 2)`. This helps with testing and also with TypeScript definitions. This aligns with TypeScript focused approach of this library.
+- Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
 
 - Optimize many methods to better work in TypeScript context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
@@ -35,7 +41,10 @@ it('within pipe requires explicit type', () => {
 
 - Remove following methods:
 
--- always
+-- gte, lte, lt, gt - confusing direction; such functions should not exists
+-- always - useful only with `R.ifElse` or `R.cond`, but both of these methods are also removed.
+-- ifElse
+-- cond
 -- addIndex
 -- addIndexRight
 
