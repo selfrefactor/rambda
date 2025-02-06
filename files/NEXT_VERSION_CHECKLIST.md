@@ -117,12 +117,15 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 - vitest
 ===
+check naming in fp-ts, as evolve looks like magic. also why radashi uses remove not reject
+https://github.com/toss/es-toolkit - another FP library
 check coverage
 
 really bad naming like mapObjIndexed - rename
 
 ramda typescript issues in google
 ===
+
 Rambdax
 change 
 
@@ -160,6 +163,9 @@ export function splitEvery(sliceLength: number): {
   (input: string): string[];
   <T>(input: T[]): (T[])[];
 };
+---
+https://github.com/radashi-org/radashi/pull/357/files
+isEmptyObject
 ---
 no example usage
 sortWith
