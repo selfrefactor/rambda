@@ -1,33 +1,20 @@
-import { allPass } from './allPass.js'
 import * as R from '../rambda.js'
-test.only('happy', () => {
+
+let list = [[1, 2, 3, 4], [3, 4, 5]]
+test('happy', () => {
   const result = R.piped(
-		[[1, 2, 3, 4], [3, 4, 5]],
-		R.filter(allPass([R.includes(2), R.includes(3)]))
+		list,
+		R.filter(R.allPass([R.includes(2), R.includes(3)]))
 	)
-	console.log(result)
-})
-
-test('when returns true', () => {
-  const conditionArr = [val => val.a === 1, val => val.b === 2]
-
-  expect(
-    allPass(conditionArr)({
-      a: 1,
-      b: 2,
-    }),
-  ).toBeTrue()
+	expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const conditionArr = [val => val.a === 1, val => val.b === 3]
-
-  expect(
-    allPass(conditionArr)({
-      a: 1,
-      b: 2,
-    }),
-  ).toBeFalse()
+	let result = R.piped(
+		list,
+		R.filter(R.allPass([R.includes(12), R.includes(31)]))
+	)
+	expect(result).toEqual([])
 })
 
 test('works with multiple inputs', () => {

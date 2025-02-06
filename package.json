@@ -13,6 +13,7 @@
     "lint": "cd source && run lint:folder > lint-output.txt",
     "test:ci": "vitest run",
     "test": "vitest run --watch",
+    "x": "vitest run --watch source/allPass.spec.js",
     "test:cover": "vitest run --coverage",
     "test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
