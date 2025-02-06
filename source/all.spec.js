@@ -11,5 +11,5 @@ test('when true', () => {
 test('when false', () => {
   const fn = x => x > 2
 
-  expect(all(fn, list)).toBeFalse()
+  expect(all(fn)(list)).toBeFalse()
 })
