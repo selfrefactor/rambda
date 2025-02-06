@@ -1,4 +1,4 @@
-import { toDecimal } from 'rambda'
+import { toDecimal } from 'rambdax'
 
 describe('R.toDecimal', () => {
   it('happy', () => {

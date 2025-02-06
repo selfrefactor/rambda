@@ -1,4 +1,4 @@
-import { delay, tryCatchAsync } from 'rambda'
+import { delay, tryCatchAsync } from 'rambdax'
 
 const fn = async (x: number) => {
   await delay(100)

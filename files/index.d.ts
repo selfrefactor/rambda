@@ -200,15 +200,11 @@ Explanation: It returns `true`, if all functions of `predicates` return `true`, 
 Example:
 
 ```
-const input = {
-  a : 1,
-  b : 2,
-}
-const predicates = [
-  x => x.a === 1,
-  x => x.b === 2,
-]
-const result = R.allPass(predicates)(input) // => true
+const result = R.piped(
+	[[1, 2, 3, 4], [3, 4, 5]],
+	R.filter(R.allPass([R.includes(2), R.includes(3)]))
+)
+// => [[2, 3, 4]]
 ```
 
 Categories: Logic
@@ -814,25 +810,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function curry(fn: AnyFunction): (...a: any[]) => any;
-
-/*
-Method: curryN
-
-Explanation: It returns a curried equivalent of the provided function, with the specified arity.
-
-Example:
-
-```
-
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function curryN(length: number, fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: dec

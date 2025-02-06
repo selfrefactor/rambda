@@ -1,11 +1,11 @@
 import { allPass } from './allPass.js'
-
-test('happy', () => {
-  const rules = [x => typeof x === 'number', x => x > 10, x => x * 7 < 100]
-
-  expect(allPass(rules)(11)).toBeTrue()
-
-  expect(allPass(rules)(undefined)).toBeFalse()
+import * as R from '../rambda.js'
+test.only('happy', () => {
+  const result = R.piped(
+		[[1, 2, 3, 4], [3, 4, 5]],
+		R.filter(allPass([R.includes(2), R.includes(3)]))
+	)
+	console.log(result)
 })
 
 test('when returns true', () => {

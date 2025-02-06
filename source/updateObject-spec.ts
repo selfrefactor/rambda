@@ -1,4 +1,5 @@
-import { updateObject } from 'rambda'
+// looks like evolve
+import { updateObject } from 'rambdax'
 
 const obj = {
   a: { b: 1 },

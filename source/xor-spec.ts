@@ -1,4 +1,4 @@
-import { xor } from 'rambda'
+import { xor } from 'rambdax'
 
 describe('R.xor', () => {
   it('happy', () => {

@@ -1,4 +1,4 @@
-import { delay, tryCatch } from 'rambda'
+import { delay, tryCatch } from 'rambdax'
 
 describe('R.tryCatch', () => {
   it('synchronous', () => {

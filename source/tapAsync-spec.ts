@@ -1,4 +1,4 @@
-import { composeAsync, delay, tapAsync } from 'rambda'
+import { composeAsync, delay, tapAsync } from 'rambdax'
 
 describe('R.tapAsync', () => {
   it('happy', async () => {

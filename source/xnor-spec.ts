@@ -1,4 +1,4 @@
-import { xnor } from 'rambda'
+import { xnor } from 'rambdax'
 
 describe('R.xnor', () => {
   it('happy', () => {

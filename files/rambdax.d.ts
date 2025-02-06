@@ -1,9 +1,5 @@
 export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
 
-export type EqualTypes<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends
-  (<T>() => T extends Y ? 1 : 2) ? true : false
-
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
@@ -533,9 +529,9 @@ export function assoc<K extends PropertyKey>(prop: K): {
   <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
   <U extends Record<K, T>, T>(val: T, obj: U): U;
 };
-export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
-  <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
-};
+// export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
+//   <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
+// };
 export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
 
 /*
@@ -2334,31 +2330,31 @@ Notes:
 export function mapObjIndexed<T, TResult, TKey extends string>(
 	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
 ): (obj: Record<TKey, T>) => Record<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
-	fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult,
-): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
-	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
-	obj: Record<TKey, T>,
-): Record<TKey, TResult>;
-export function mapObjIndexed<T, TResult, TKey extends string>(
-	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
-	obj: PartialRecord<TKey, T>,
-): PartialRecord<TKey, TResult>;
-export function mapObjIndexed<T, TResult>(
-	fn: (
-		value: T,
-		key: string,
-		obj?: {
-			[key: string]: T;
-		},
-	) => TResult,
-	obj: {
-		[key: string]: T;
-	},
-): {
-	[key: string]: TResult;
-};
+// export function mapObjIndexed<T, TResult, TKey extends string>(
+// 	fn: (value: T, key: TKey, obj?: PartialRecord<TKey, T>) => TResult,
+// ): (obj: Record<TKey, T>) => PartialRecord<TKey, TResult>;
+// export function mapObjIndexed<T, TResult, TKey extends string>(
+// 	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+// 	obj: Record<TKey, T>,
+// ): Record<TKey, TResult>;
+// export function mapObjIndexed<T, TResult, TKey extends string>(
+// 	fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+// 	obj: PartialRecord<TKey, T>,
+// ): PartialRecord<TKey, TResult>;
+// export function mapObjIndexed<T, TResult>(
+// 	fn: (
+// 		value: T,
+// 		key: string,
+// 		obj?: {
+// 			[key: string]: T;
+// 		},
+// 	) => TResult,
+// 	obj: {
+// 		[key: string]: T;
+// 	},
+// ): {
+// 	[key: string]: TResult;
+// };
 
 /*
 Method: match
@@ -5374,8 +5370,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<T, S extends keyof T>(prop: S, obj: T): Omit<T, S> & { [K in S]: T[S][number] };
-export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
+// export function unwind<T, S extends keyof T>(prop: S, obj: T): Omit<T, S> & { [K in S]: T[S][number] };
+// export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
 
 /*
 Method: whereAny
@@ -7955,39 +7951,6 @@ export function sortObject<T>(predicate: SortObjectPredicate<T>, input: { [key: 
 export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key: string]: T }) => { [keyOutput: string]: T };
 
 /*
-Method: switcher
-
-Explanation: Edited fork of [Switchem](https://github.com/planttheidea/switchem) library.
-
-The method return a value if the matched option is a value.
-
-If the matched option is a function, then `R.switcher` returns a function which expects input. Tests of the method explain it better than this short description.
-
-`R.equals` is used to determine equality.
-
-Example:
-
-```
-const valueToMatch = {foo: 1}
-
-const result = R.switcher(valueToMatch)
-  .is('baz', 'is baz')
-  .is(x => typeof x === 'boolean', 'is boolean')
-  .is({foo: 1}, 'Property foo is 1')
-  .default('is bar')
-
-// => 'Property foo is 1'
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function switcher<T>(valueToMatch: any): Switchem<T>;
-
-/*
 Method: tapAsync
 
 Explanation: Asynchronous version of `R.tap`.
@@ -8061,80 +8024,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function toDecimal(num: number, charsAfterDecimalPoint?: number): number;
-
-/*
-Method: wait
-
-Explanation: It provides `Golang`-like interface for handling promises.
-
-Example:
-
-```
-const [result, err] = await R.wait(R.delay(1000))
-// => err is undefined
-// => result is `RAMBDAX_DELAY`
-```
-
-Categories: Async
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function wait<T>(fn: Promise<T>): Promise<[T, Error|undefined]>;
-export function wait<T>(fn: (x: any) => Promise<T>): Promise<[T, Error|undefined]>;
-
-/*
-Method: waitFor
-
-Explanation: It returns `true`, if `condition` returns `true` within `howLong` milliseconds time period.
-
-The method accepts an optional third argument `loops`(default to 10), which is the number of times `waitForTrueCondition` will be evaluated for `howLong` period. Once this function returns a value different from `false`, this value will be the final result. 
-
-Otherwise, `R.waitFor` will return `false`.
-
-Example:
-
-```
-const howLong = 1000
-let counter = 0
-const waitForTrueCondition = async x => {
-  await R.delay(100)
-  counter = counter + x
-
-  return counter > 10
-}
-
-const result = await R.waitFor(waitForTrueCondition, howLong)(2)
-// => true
-```
-
-Categories: Async, Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function waitFor(
-  waitForTrueCondition: () => boolean,
-  howLong: number,
-  loops?: number
-): () => Promise<boolean>;
-export function waitFor(
-  waitForTrueCondition: () => Promise<boolean>,
-  howLong: number,
-  loops?: number
-): () => Promise<boolean>;
-export function waitFor<T>(
-  waitForTrueCondition: (input: T) => Promise<boolean>,
-  howLong: number,
-  loops?: number
-): (input: T) => Promise<boolean>;
-export function waitFor<T>(
-  waitForTrueCondition: (input: T) => boolean,
-  howLong: number,
-  loops?: number
-): (input: T) => Promise<boolean>;
 
 /*
 Method: lensEq
