@@ -223,9 +223,10 @@ Explanation: Logical AND
 Example:
 
 ```
-R.and(true, true); // => true
-R.and(false, true); // => false
-R.and(true, 'foo'); // => 'foo'
+const result = R.piped(
+	[1, 2, 3],
+	R.all(R.and(R.gte(1), R.lte(3)))
+) // => true
 ```  
 
 Categories: Logic
