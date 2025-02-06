@@ -129,7 +129,10 @@ It adds `a` and `b`.
 Example:
 
 ```
-R.add(2, 3) // =>  5
+const result = R.piped(
+	2,
+	R.add(3)
+) // =>  5
 ```
 
 Categories: Number
@@ -139,7 +142,6 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 */
 // @SINGLE_MARKER
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /*
 Method: adjust
@@ -151,12 +153,10 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 Example:
 
 ```
-const result = R.adjust(
-  0,
-  a => a + 1,
-)(
-  [0, 100]
-) // => [1, 100]
+const result = R.piped(
+	[1, 2, 3],
+	R.adjust(1, R.add(1))
+) // => [1, 3, 3]
 ```
 
 Categories: List
@@ -188,7 +188,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function all<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function all<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
@@ -4852,10 +4851,6 @@ Notes:
 // @SINGLE_MARKER
 
 export function splitAt(index: number): <T>(list: T[]) => [T[], T[]];
-// {
-//     <T>(input: T[]): [T[], T[]];
-//     (input: string): [string, string];
-// };
 
 /*
 Method: splitWhen

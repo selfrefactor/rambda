@@ -1,1 +1,5 @@
-export const add = (a) => (b) => Number(a) + Number(b);
+export function add(a) {
+	return function (b) {
+		return Number(a) + Number(b);
+	};
+}
