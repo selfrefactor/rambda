@@ -1,21 +1,21 @@
-import { hasPath } from './hasPath.js'
+import { hasPath } from './hasPath.js';
 
 test('when true', () => {
-  const path = 'a.b'
-  const obj = { a : { b : [] } }
+	const path = 'a.b';
+	const obj = { a: { b: [] } };
 
-  const result = hasPath(path)(obj)
-  const expectedResult = true
+	const result = hasPath(path)(obj);
+	const expectedResult = true;
 
-  expect(result).toEqual(expectedResult)
-})
+	expect(result).toEqual(expectedResult);
+});
 
 test('when false', () => {
-  const path = 'a.b'
-  const obj = {}
+	const path = 'a.b';
+	const obj = {};
 
-  const result = hasPath(path, obj)
-  const expectedResult = false
+	const result = hasPath(path, obj);
+	const expectedResult = false;
 
-  expect(result).toEqual(expectedResult)
-})
+	expect(result).toEqual(expectedResult);
+});

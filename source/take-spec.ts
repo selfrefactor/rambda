@@ -1,31 +1,31 @@
-import {take} from 'rambda'
+import { take } from 'rambda';
 
-const list = [1, 2, 3, 4]
-const str = 'foobar'
-const howMany = 2
+const list = [1, 2, 3, 4];
+const str = 'foobar';
+const howMany = 2;
 
 describe('R.take - array', () => {
-  it('happy', () => {
-    const result = take(howMany, list)
+	it('happy', () => {
+		const result = take(howMany, list);
 
-    result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = take<number[]>(howMany)(list)
+		result; // $ExpectType number[]
+	});
+	it('curried', () => {
+		const result = take<number[]>(howMany)(list);
 
-    result // $ExpectType number[]
-  })
-})
+		result; // $ExpectType number[]
+	});
+});
 
 describe('R.take - string', () => {
-  it('happy', () => {
-    const result = take(howMany, str)
+	it('happy', () => {
+		const result = take(howMany, str);
 
-    result // $ExpectType string
-  })
-  it('curried', () => {
-    const result = take<string>(howMany)(str)
+		result; // $ExpectType string
+	});
+	it('curried', () => {
+		const result = take<string>(howMany)(str);
 
-    result // $ExpectType string
-  })
-})
+		result; // $ExpectType string
+	});
+});

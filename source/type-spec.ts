@@ -1,9 +1,9 @@
-import {type} from 'rambda'
+import { type } from 'rambda';
 
 describe('R.type', () => {
-  it('happy', () => {
-    const result = type(4)
+	it('happy', () => {
+		const result = type(4);
 
-    result // $ExpectType RambdaTypes
-  })
-})
+		result; // $ExpectType RambdaTypes
+	});
+});

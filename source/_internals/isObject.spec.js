@@ -1,13 +1,13 @@
-import { isObject } from './isObject.js'
+import { isObject } from './isObject.js';
 
 test('happy', () => {
-  expect(isObject({})).toBeTruthy()
-})
+	expect(isObject({})).toBeTruthy();
+});
 
 test('with array', () => {
-  expect(isObject([])).toBeFalsy()
-})
+	expect(isObject([])).toBeFalsy();
+});
 
 test('with object-alike boolean', () => {
-  expect(isObject(new Boolean(true))).toBeFalsy()
-})
+	expect(isObject(new Boolean(true))).toBeFalsy();
+});

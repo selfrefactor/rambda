@@ -1,15 +1,15 @@
-import {bind} from 'rambda'
+import { bind } from 'rambda';
 
 class Foo {}
 function isFoo<T = any>(this: T): boolean {
-  return this instanceof Foo
+	return this instanceof Foo;
 }
 
 describe('R.bind', () => {
-  it('happy', () => {
-    const foo = new Foo()
-    const result = bind(isFoo, foo)()
+	it('happy', () => {
+		const foo = new Foo();
+		const result = bind(isFoo, foo)();
 
-    result // $ExpectType boolean
-  })
-})
+		result; // $ExpectType boolean
+	});
+});

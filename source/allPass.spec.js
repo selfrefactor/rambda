@@ -1,38 +1,36 @@
-import { allPass } from './allPass.js'
+import { allPass } from './allPass.js';
 
 test('happy', () => {
-  const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
+	const rules = [(x) => typeof x === 'number', (x) => x > 10, (x) => x * 7 < 100];
 
-  expect(allPass(rules)(11)).toBeTrue()
+	expect(allPass(rules)(11)).toBeTrue();
 
-  expect(allPass(rules)(undefined)).toBeFalse()
-})
+	expect(allPass(rules)(undefined)).toBeFalse();
+});
 
 test('when returns true', () => {
-  const conditionArr = [ val => val.a === 1, val => val.b === 2 ]
+	const conditionArr = [(val) => val.a === 1, (val) => val.b === 2];
 
-  expect(allPass(conditionArr)({
-    a : 1,
-    b : 2,
-  })).toBeTrue()
-})
+	expect(
+		allPass(conditionArr)({
+			a: 1,
+			b: 2,
+		}),
+	).toBeTrue();
+});
 
 test('when returns false', () => {
-  const conditionArr = [ val => val.a === 1, val => val.b === 3 ]
+	const conditionArr = [(val) => val.a === 1, (val) => val.b === 3];
 
-  expect(allPass(conditionArr)({
-    a : 1,
-    b : 2,
-  })).toBeFalse()
-})
+	expect(
+		allPass(conditionArr)({
+			a: 1,
+			b: 2,
+		}),
+	).toBeFalse();
+});
 
 test('works with multiple inputs', () => {
-  const fn = function (
-    w, x, y, z
-  ){
-    return w + x === y + z
-  }
-  expect(allPass([ fn ])(
-    3, 3, 3, 3
-  )).toBeTrue()
-})
+	const fn = (w, x, y, z) => w + x === y + z;
+	expect(allPass([fn])(3, 3, 3, 3)).toBeTrue();
+});

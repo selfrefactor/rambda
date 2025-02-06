@@ -1,3 +1,3 @@
-export function juxt(listOfFunctions){
-  return (...args) => listOfFunctions.map(fn => fn(...args))
+export function juxt(listOfFunctions) {
+	return (...args) => listOfFunctions.map((fn) => fn(...args));
 }

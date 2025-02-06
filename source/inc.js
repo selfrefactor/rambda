@@ -1,1 +1,1 @@
-export const inc = x => x + 1
+export const inc = (x) => x + 1;

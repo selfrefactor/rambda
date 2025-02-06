@@ -1,1 +1,1 @@
-export const { keys } = Object
+export const { keys } = Object;

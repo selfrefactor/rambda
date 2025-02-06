@@ -1,24 +1,21 @@
-import {objOf, piped} from 'rambda'
+import { objOf, piped } from 'rambda';
 
-const key = 'foo'
-const value = 42
+const key = 'foo';
+const value = 42;
 
 describe('R.objOf', () => {
-  it('happy', () => {
-    const result = objOf(key, value)
+	it('happy', () => {
+		const result = objOf(key, value);
 
-    result.foo // $ExpectType number
+		result.foo; // $ExpectType number
 
-    // @ts-expect-error
-    result.bar
-  })
-	it('inside piped', () => {
-		const result = piped(
-			value,
-			objOf(key)
-		)
-		result.foo // $ExpectType number
 		// @ts-expect-error
-    result.bar
-	})
-})
+		result.bar;
+	});
+	it('inside piped', () => {
+		const result = piped(value, objOf(key));
+		result.foo; // $ExpectType number
+		// @ts-expect-error
+		result.bar;
+	});
+});

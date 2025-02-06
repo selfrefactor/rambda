@@ -1,5 +1,5 @@
-import { trim } from './trim.js'
+import { trim } from './trim.js';
 
 test('trim', () => {
-  expect(trim(' foo ')).toBe('foo')
-})
+	expect(trim(' foo ')).toBe('foo');
+});

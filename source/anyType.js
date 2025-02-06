@@ -1,16 +1,16 @@
-import { type } from './type.js'
+import { type } from './type.js';
 
-export function anyType(targetType){
-  return (...inputs) => {
-    let counter = 0
+export function anyType(targetType) {
+	return (...inputs) => {
+		let counter = 0;
 
-    while (counter < inputs.length){
-      if (type(inputs[ counter ]) === targetType){
-        return true
-      }
-      counter++
-    }
+		while (counter < inputs.length) {
+			if (type(inputs[counter]) === targetType) {
+				return true;
+			}
+			counter++;
+		}
 
-    return false
-  }
+		return false;
+	};
 }

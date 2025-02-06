@@ -1,4 +1,4 @@
-import { reject, mapIndexed, pipe, piped } from 'rambda';
+import { mapIndexed, pipe, piped, reject } from 'rambda';
 
 const list = [1, 2, 3];
 
@@ -21,22 +21,16 @@ describe('R.reject with array', () => {
 		result; // $ExpectType number[]
 	});
 	it('rejecting NonNullable', () => {
-		let testList = [1, 2, null, undefined, 3]
-		const result = piped(
-			testList,
-			reject(Boolean),
-		);
+		const testList = [1, 2, null, undefined, 3];
+		const result = piped(testList, reject(Boolean));
 		result; // $ExpectType (false | "" | 0 | null | undefined)[]
 	});
 	it('rejecting NonNullable - readonly', () => {
-		let testList = [1, 2, null, undefined, 3] as const
-		const result = piped(
-			testList,
-			reject(Boolean),
-		);
+		const testList = [1, 2, null, undefined, 3] as const;
+		const result = piped(testList, reject(Boolean));
 		result; // $ExpectType (false | "" | 0 | null | undefined)[]
 		// @ts-expect-error
-		result.includes(1)
+		result.includes(1);
 	});
 	it('within pipe requires explicit type', () => {
 		pipe(

@@ -1,9 +1,9 @@
 export function reverse(listOrString) {
-  if (typeof listOrString === 'string') {
-    return listOrString.split('').reverse().join('')
-  }
+	if (typeof listOrString === 'string') {
+		return listOrString.split('').reverse().join('');
+	}
 
-  const clone = listOrString.slice()
+	const clone = listOrString.slice();
 
-  return clone.reverse()
+	return clone.reverse();
 }

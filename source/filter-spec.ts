@@ -21,64 +21,58 @@ describe('R.filter with array', () => {
 		result; // $ExpectType number[]
 	});
 	it('narrowing type', () => {
-		interface Foo{
-			a: number
+		interface Foo {
+			a: number;
 		}
-		interface Bar extends Foo{
-			b: string
+		interface Bar extends Foo {
+			b: string;
 		}
 
-		let testList = [{a: 1}, {a: 2}, {a: 3}]
-		let filterBar = (x: unknown): x is Bar => {
-			return typeof (x as Bar).b === 'string'
-		}
+		const testList = [{ a: 1 }, { a: 2 }, { a: 3 }];
+		const filterBar = (x: unknown): x is Bar => {
+			return typeof (x as Bar).b === 'string';
+		};
 		const result = piped(
 			testList,
 			mapIndexed((x, i) => {
-				return {a: x.a, b: `${ i }`}
+				return { a: x.a, b: `${i}` };
 			}),
 			filter(filterBar),
 		);
 		result; // $ExpectType Bar[]
 	});
 	it('narrowing type - readonly', () => {
-		interface Foo{
-			a: number
+		interface Foo {
+			a: number;
 		}
-		interface Bar extends Foo{
-			b: string
+		interface Bar extends Foo {
+			b: string;
 		}
 
-		let testList = [{a: 1}, {a: 2}, {a: 3}] as const
-		let filterBar = (x: unknown): x is Bar => {
-			return typeof (x as Bar).b === 'string'
-		}
+		const testList = [{ a: 1 }, { a: 2 }, { a: 3 }] as const;
+		const filterBar = (x: unknown): x is Bar => {
+			return typeof (x as Bar).b === 'string';
+		};
 		const result = piped(
 			testList,
 			mapIndexed((x, i) => {
-				return {a: x.a, b: `${ i }`}
+				return { a: x.a, b: `${i}` };
 			}),
 			filter(filterBar),
 		);
 		result; // $ExpectType Bar[]
 	});
 	it('filtering NonNullable', () => {
-		let testList = [1, 2, null, undefined, 3]
-		const result = piped(
-			testList,
-			filter(Boolean),
-		);
+		const testList = [1, 2, null, undefined, 3];
+		const result = piped(testList, filter(Boolean));
 		result; // $ExpectType number[]
 	});
 	it('filtering NonNullable - readonly', () => {
-		let testList = [1, 2, null, undefined, 3] as const
-		const result = piped(
-			testList,
-			filter(Boolean),
-		);
+		const testList = [1, 2, null, undefined, 3] as const;
+		const result = piped(testList, filter(Boolean));
 		result; // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
 		// @ts-expect-error
-		result.includes(null)
+		result.includes(null);
 	});
 	it('within pipe requires explicit type', () => {
 		pipe(

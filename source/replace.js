@@ -1,9 +1,7 @@
-import { curry } from './curry.js'
+import { curry } from './curry.js';
 
-function replaceFn(
-  pattern, replacer, str
-){
-  return str.replace(pattern, replacer)
+function replaceFn(pattern, replacer, str) {
+	return str.replace(pattern, replacer);
 }
 
-export const replace = curry(replaceFn)
+export const replace = curry(replaceFn);

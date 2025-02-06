@@ -9,6 +9,7 @@
 		"immutable": "cd ../rambda-scripts && yarn immutable:rambda",
 		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
 		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
+		"lint": "cd source && run lint:folder",
 		"test": "jest -o -u --watch",
 		"test:all": "jest source/*.spec.js -u --bail=false",
 		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",

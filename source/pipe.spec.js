@@ -2,8 +2,8 @@ import { Bench } from 'tinybench';
 import { __findHighestArity } from './applySpec.js';
 import { pipe } from './pipe.js';
 
-import * as Rambda from '../rambda.js';
 import * as Ramda from 'ramda';
+import * as Rambda from '../rambda.js';
 import { IS_CI } from './_internals/testUtils.js';
 
 const zaratustra = {
@@ -107,10 +107,8 @@ describe('real use cases', () => {
 				assertType(R.allPass([checkHasDescription, checkHasUserRating])),
 				assertType(R.anyPass([checkHasDescription, checkHasUserRating])),
 				R.dissocPath('description'),
-			)(book)
-			expect(
-  applyTest(Rambda, zaratustra)
-).toMatchInlineSnapshot(`
+			)(book);
+		expect(applyTest(Rambda, zaratustra)).toMatchInlineSnapshot(`
 {
   "awards": {
     "number": 1,
@@ -124,16 +122,16 @@ describe('real use cases', () => {
   "userRating": 5,
   "year": 1956,
 }
-`)
-		if(IS_CI) return;
+`);
+		if (IS_CI) return;
 		const bench = new Bench({ name: 'simple benchmark', iterations: 10_000 });
 
 		bench
 			.add('Rambda', () => {
-				applyTest(Rambda,zaratustra);
+				applyTest(Rambda, zaratustra);
 			})
 			.add('R', async () => {
-				applyTest(Ramda,zaratustra);
+				applyTest(Ramda, zaratustra);
 			});
 
 		await bench.run();

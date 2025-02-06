@@ -9,7 +9,7 @@ test('happy', () => {
 });
 
 test('with negative index', () => {
-	expect(adjust(-2, add(10))( list)).toEqual(expected);
+	expect(adjust(-2, add(10))(list)).toEqual(expected);
 });
 
 test('when index is out of bounds', () => {

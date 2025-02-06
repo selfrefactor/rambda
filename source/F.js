@@ -1,3 +1,3 @@
-export function F(){
-  return false
+export function F() {
+	return false;
 }

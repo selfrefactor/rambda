@@ -1,5 +1,5 @@
-import { type } from './type.js'
+import { type } from './type.js';
 
-export function isPromise(x){
-  return type(x) === 'Promise'
+export function isPromise(x) {
+	return type(x) === 'Promise';
 }

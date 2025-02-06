@@ -1,9 +1,9 @@
-import {median} from 'rambda'
+import { median } from 'rambda';
 
 describe('R.median', () => {
-  it('happy', () => {
-    const result = median([1, 2, 3])
+	it('happy', () => {
+		const result = median([1, 2, 3]);
 
-    result // $ExpectType number
-  })
-})
+		result; // $ExpectType number
+	});
+});

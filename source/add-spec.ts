@@ -1,9 +1,9 @@
-import {add} from 'rambda'
+import { add } from 'rambda';
 
 describe('R.add', () => {
-  it('curried', () => {
-    const result = add(4)(1)
+	it('curried', () => {
+		const result = add(4)(1);
 
-    result // $ExpectType number
-  })
-})
+		result; // $ExpectType number
+	});
+});

@@ -1,10 +1,10 @@
-import {reverse} from 'rambda'
+import { reverse } from 'rambda';
 
-const list = [1, 2, 3, 4, 5]
+const list = [1, 2, 3, 4, 5];
 
 describe('R.reverse', () => {
-  it('happy', () => {
-    const result = reverse(list)
-    result // $ExpectType number[]
-  })
-})
+	it('happy', () => {
+		const result = reverse(list);
+		result; // $ExpectType number[]
+	});
+});

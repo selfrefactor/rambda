@@ -1,3 +1,3 @@
-export function complement(fn){
-  return (...input) => !fn(...input)
+export function complement(fn) {
+	return (...input) => !fn(...input);
 }

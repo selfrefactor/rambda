@@ -7,14 +7,7 @@ it('inserts an element into the given list', () => {
 
 it('inserts another list as an element', () => {
 	const list = ['a', 'b', 'c', 'd', 'e'];
-	expect(insert(2, ['s', 't'], list)).toEqual([
-		'a',
-		'b',
-		['s', 't'],
-		'c',
-		'd',
-		'e',
-	]);
+	expect(insert(2, ['s', 't'], list)).toEqual(['a', 'b', ['s', 't'], 'c', 'd', 'e']);
 });
 
 it('appends to the end of the list if the index is too large', () => {

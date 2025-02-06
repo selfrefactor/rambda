@@ -1,5 +1,5 @@
-export function multiply(x, y){
-  if (arguments.length === 1) return _y => multiply(x, _y)
+export function multiply(x, y) {
+	if (arguments.length === 1) return (_y) => multiply(x, _y);
 
-  return x * y
+	return x * y;
 }

@@ -1,31 +1,31 @@
-const _ = require('lodash')
-const R = require('../../dist/rambda.js')
-const Ramda = require('ramda')
+const _ = require('lodash');
+const R = require('../../dist/rambda.js');
+const Ramda = require('ramda');
 
-const obj = { bar : 'yes' }
+const obj = { bar: 'yes' };
 const a = {
-  foo : 'bar',
-  bar : 'baz',
-}
+	foo: 'bar',
+	bar: 'baz',
+};
 const merge = [
-  {
-    label : 'Rambda',
-    fn    : () => {
-      R.merge(a, obj)
-    },
-  },
-  {
-    label : 'Ramda',
-    fn    : () => {
-      Ramda.merge(a, obj)
-    },
-  },
-  {
-    label : 'Lodash',
-    fn    : () => {
-      _.merge(a, obj)
-    },
-  },
-]
+	{
+		label: 'Rambda',
+		fn: () => {
+			R.merge(a, obj);
+		},
+	},
+	{
+		label: 'Ramda',
+		fn: () => {
+			Ramda.merge(a, obj);
+		},
+	},
+	{
+		label: 'Lodash',
+		fn: () => {
+			_.merge(a, obj);
+		},
+	},
+];
 
-module.exports = merge
+module.exports = merge;

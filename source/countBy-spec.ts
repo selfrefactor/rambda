@@ -1,17 +1,17 @@
-import {countBy} from 'rambda'
+import { countBy } from 'rambda';
 
-const transformFn = (x: string) => x.toLowerCase()
-const list = ['a', 'A', 'b', 'B', 'c', 'C']
+const transformFn = (x: string) => x.toLowerCase();
+const list = ['a', 'A', 'b', 'B', 'c', 'C'];
 
 describe('R.countBy', () => {
-  it('happy', () => {
-    const result = countBy(transformFn, list)
+	it('happy', () => {
+		const result = countBy(transformFn, list);
 
-    result // $ExpectType { [index: string]: number; }
-  })
-  it('curried', () => {
-    const result = countBy(transformFn)(list)
+		result; // $ExpectType { [index: string]: number; }
+	});
+	it('curried', () => {
+		const result = countBy(transformFn)(list);
 
-    result // $ExpectType { [index: string]: number; }
-  })
-})
+		result; // $ExpectType { [index: string]: number; }
+	});
+});

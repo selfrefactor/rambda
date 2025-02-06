@@ -115,6 +115,8 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 ===
 lint scripts
 
+really bad naming like mapObjIndexed - rename
+
 ramda typescript issues in google
 ===
 Rambdax

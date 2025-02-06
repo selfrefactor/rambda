@@ -1,4 +1,4 @@
-import {either} from 'rambda'
+import { either } from 'rambda';
 
 describe('R.either', () => {
 	it('with passed type', () => {

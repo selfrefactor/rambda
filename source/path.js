@@ -1,30 +1,30 @@
-import { createPath } from './_internals/createPath.js'
+import { createPath } from './_internals/createPath.js';
 
-export function pathFn(pathInput, obj){
-  let willReturn = obj
-  let counter = 0
+export function pathFn(pathInput, obj) {
+	let willReturn = obj;
+	let counter = 0;
 
-  const pathArrValue = createPath(pathInput)
+	const pathArrValue = createPath(pathInput);
 
-  while (counter < pathArrValue.length){
-    if (willReturn === null || willReturn === undefined){
-      return undefined
-    }
-    if (willReturn[ pathArrValue[ counter ] ] === null) return undefined
+	while (counter < pathArrValue.length) {
+		if (willReturn === null || willReturn === undefined) {
+			return undefined;
+		}
+		if (willReturn[pathArrValue[counter]] === null) return undefined;
 
-    willReturn = willReturn[ pathArrValue[ counter ] ]
-    counter++
-  }
+		willReturn = willReturn[pathArrValue[counter]];
+		counter++;
+	}
 
-  return willReturn
+	return willReturn;
 }
 
-export function path(pathInput, obj){
-  if (arguments.length === 1) return _obj => path(pathInput, _obj)
+export function path(pathInput, obj) {
+	if (arguments.length === 1) return (_obj) => path(pathInput, _obj);
 
-  if (obj === null || obj === undefined){
-    return undefined
-  }
+	if (obj === null || obj === undefined) {
+		return undefined;
+	}
 
-  return pathFn(pathInput, obj)
+	return pathFn(pathInput, obj);
 }

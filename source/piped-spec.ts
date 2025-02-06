@@ -67,10 +67,10 @@ const zaratustra: BaseBook = {
 	title: 'Zaratustra',
 	year: 1956,
 };
-let brothersKaramazov = {
+const brothersKaramazov = {
 	title: 'Brothers Karamazov',
 	year: 1880,
-}
+};
 
 const awardedZaratustra: Book = {
 	...zaratustra,
@@ -141,7 +141,10 @@ function convertToType<T>() {
 	return <U>(x: U) => x as unknown as T;
 }
 
-function tapFn<T, U>(transformFn: (x: T) => U, fn: (a: T, b: U) => void): (x: T) => T {
+function tapFn<T, U>(
+	transformFn: (x: T) => U,
+	fn: (a: T, b: U) => void,
+): (x: T) => T {
 	return (x) => {
 		const result = transformFn(x);
 		fn(x, result);
@@ -156,57 +159,57 @@ describe('real use cases - books', () => {
 			filter(checkIfFamous),
 			drop(1),
 			// without converting to `as FamousBook`, endsWith will pick up `Book` as type
-			tapFn(endsWith([awardedBrothersKaramazov as FamousBook]),(a, b) => {
+			tapFn(endsWith([awardedBrothersKaramazov as FamousBook]), (a, b) => {
 				a; // $ExpectType FamousBook[]
 				b; // $ExpectType boolean
 			}),
-			tapFn(union([awardedBrothersKaramazov]),(a, b) => {
+			tapFn(union([awardedBrothersKaramazov]), (a, b) => {
 				a; // $ExpectType Book[]
 				b; // $ExpectType Book[]
 			}),
-			find(x => {
-				x // $ExpectType Book
-				return x.title === 'Brothers Karamazov'
+			find((x) => {
+				x; // $ExpectType Book
+				return x.title === 'Brothers Karamazov';
 			}),
-			x => ([x]),
+			(x) => [x],
 			filter(Boolean),
-
 		);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});
 	it('case 2', () => {
-		const getResult = (book: BaseBook) => piped(
-			book,
-			// assoc('status', 'famous' as Status),
-			assocPath<Book>('awards.number', 1),
-			defaultTo(awardedBaseValue),
-			tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
-			tap(
-				both(
-					(x) => x.awards.number > 1,
-					(x) => x.year > 1900,
+		const getResult = (book: BaseBook) =>
+			piped(
+				book,
+				// assoc('status', 'famous' as Status),
+				assocPath<Book>('awards.number', 1),
+				defaultTo(awardedBaseValue),
+				tap(anyPass([(x) => x.awards.number > 1, (x) => x.year > 1900])),
+				tap(
+					both(
+						(x) => x.awards.number > 1,
+						(x) => x.year > 1900,
+					),
 				),
-			),
-			assertType(either(checkIfFamous, checkIfMustRead)),
-			assertType(both(checkReadStatus, checkBookmarkStatus)),
-			assertType(checkBookToRead),
-			(x) => [x],
-			dropLast(1),
-			difference([awardedBrothersKaramazovToRead]),
-			append(awardedZaratustraToRead),
-			head,
-			assertType(allPass([checkHasDescription, checkHasUserRating])),
-			tap((x) => {
-				x; // $ExpectType BookWithDescription & BookWithUserRating
-			}),
-			assertType(anyPass([checkHasDescription, checkHasUserRating])),
-			convertToType<BookWithDescription>(),
-			dissocPath<Book>('description'),
-			convertToType<Record<string, string>>(),
-			// mapObject((x) => {
-			// 	return x as unknown as number;
-			// }),
-		);
+				assertType(either(checkIfFamous, checkIfMustRead)),
+				assertType(both(checkReadStatus, checkBookmarkStatus)),
+				assertType(checkBookToRead),
+				(x) => [x],
+				dropLast(1),
+				difference([awardedBrothersKaramazovToRead]),
+				append(awardedZaratustraToRead),
+				head,
+				assertType(allPass([checkHasDescription, checkHasUserRating])),
+				tap((x) => {
+					x; // $ExpectType BookWithDescription & BookWithUserRating
+				}),
+				assertType(anyPass([checkHasDescription, checkHasUserRating])),
+				convertToType<BookWithDescription>(),
+				dissocPath<Book>('description'),
+				convertToType<Record<string, string>>(),
+				// mapObject((x) => {
+				// 	return x as unknown as number;
+				// }),
+			);
 		const result = getResult(zaratustra);
 		const final: Expect<IsNotNever<typeof result>> = true;
 	});
@@ -215,13 +218,13 @@ describe('real use cases - books', () => {
 		1,The First,2001
 		2,The Second,2020
 		3,The Third,2018`;
-		
+
 		const result = piped(
 			tableData,
 			split('\n'), // string => string[]
 			map(split(',')), // string[] => string[][]
-			splitAt(1) // <=== Adding this causes issue
-		)
+			splitAt(1), // <=== Adding this causes issue
+		);
 		result; // $ExpectType [string[][], string[][]]
 	});
 });

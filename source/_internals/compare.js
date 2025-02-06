@@ -1,3 +1,3 @@
-export function compare(a, b){
-  return String(a) === String(b)
+export function compare(a, b) {
+	return String(a) === String(b);
 }

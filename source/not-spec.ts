@@ -1,9 +1,9 @@
-import {not} from 'rambda'
+import { not } from 'rambda';
 
 describe('R.not', () => {
-  it('happy', () => {
-    const result = not(4)
+	it('happy', () => {
+		const result = not(4);
 
-    result // $ExpectType boolean
-  })
-})
+		result; // $ExpectType boolean
+	});
+});

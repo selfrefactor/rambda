@@ -1,15 +1,15 @@
-import { excludes } from './excludes.js'
+import { excludes } from './excludes.js';
 
 test('excludes with string', () => {
-  const str = 'more is less'
+	const str = 'more is less';
 
-  expect(excludes('less')(str)).toBeFalse()
-  expect(excludes('never', str)).toBeTrue()
-})
+	expect(excludes('less')(str)).toBeFalse();
+	expect(excludes('never', str)).toBeTrue();
+});
 
 test('excludes with array', () => {
-  const arr = [ 1, 2, 3 ]
+	const arr = [1, 2, 3];
 
-  expect(excludes(2)(arr)).toBeFalse()
-  expect(excludes(4, arr)).toBeTrue()
-})
+	expect(excludes(2)(arr)).toBeFalse();
+	expect(excludes(4, arr)).toBeTrue();
+});

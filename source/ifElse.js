@@ -1,17 +1,15 @@
-import { curry } from './curry.js'
+import { curry } from './curry.js';
 
-function ifElseFn(
-  condition, onTrue, onFalse
-){
-  return (...input) => {
+function ifElseFn(condition, onTrue, onFalse) {
+	return (...input) => {
 		const conditionResult =
-      typeof condition === 'boolean' ? condition : condition(...input)
-    if (Boolean(conditionResult) ){
-      return onTrue(...input)
-    }
+			typeof condition === 'boolean' ? condition : condition(...input);
+		if (conditionResult) {
+			return onTrue(...input);
+		}
 
-    return onFalse(...input)
-  }
+		return onFalse(...input);
+	};
 }
 
-export const ifElse = curry(ifElseFn)
+export const ifElse = curry(ifElseFn);
