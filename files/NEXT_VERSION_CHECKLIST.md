@@ -112,8 +112,12 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - R.assoc doesn't support curring of type `(x)(y)(z)`
 
 - Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining.
+
+- remove .nojekyll in project root
+
+- vitest
 ===
-lint scripts
+check coverage
 
 really bad naming like mapObjIndexed - rename
 
@@ -227,6 +231,14 @@ https://remedajs.com/docs/#omitBy
 
 
 	https://github.com/ramda/types/pull/110/files
+---
+https://arethetypeswrong.github.io
+https://badgen.net/npm
+---
+stats
+![Alt](https://repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
+---
+fix deno release or restore previous imports as VSCODE is not working when importing other files(add.js, subtract.js, etc.)
 ---
 complex pipe test with rameda radashi
 ---

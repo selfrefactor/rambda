@@ -1,1 +1,3598 @@
-!function(n,r){"object"==typeof exports&&"undefined"!=typeof module?r(exports):"function"==typeof define&&define.amd?define(["exports"],r):r((n="undefined"!=typeof globalThis?globalThis:n||self).R={})}(this,function(n){function a(n,l){switch(n){case 0:return function(){return l.apply(this,arguments)};case 1:return function(n){return l.apply(this,arguments)};case 2:return function(n,r){return l.apply(this,arguments)};case 3:return function(n,r,t){return l.apply(this,arguments)};case 4:return function(n,r,t,e){return l.apply(this,arguments)};case 5:return function(n,r,t,e,u){return l.apply(this,arguments)};case 6:return function(n,r,t,e,u,i){return l.apply(this,arguments)};case 7:return function(n,r,t,e,u,i,o){return l.apply(this,arguments)};case 8:return function(n,r,t,e,u,i,o,c){return l.apply(this,arguments)};case 9:return function(n,r,t,e,u,i,o,c,f){return l.apply(this,arguments)};default:return function(n,r,t,e,u,i,o,c,f,a){return l.apply(this,arguments)}}}function t(r,n){if(1===arguments.length)return function(n){return t(r,n)};if(10<r)throw Error("First argument to _arity must be a non-negative integer no greater than ten");return a(r,function i(o,c,f){return function(){for(var n=0,r=0,t=c.length,e=arguments.length,u=Array(t+e);n<t;)u[n]=c[n],n++;for(;r<e;)u[t+r]=arguments[r],r++;return u.length<o?a(o-u.length,i(o,u,f)):f.apply(this,u)}}(r,[],n))}function q(u){var i=1<arguments.length&&void 0!==arguments[1]?arguments[1]:function(){return 0},o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:function(n){return n+1};return t(u.length,function(){var r=arguments[0],t=arguments[arguments.length-1],e=i(t.length),n=Array.prototype.slice.call(arguments,0);return n[0]=function(){var n=r.apply(this,function(n,r){for(var t=(n=n||[]).length,e=(r=r||[]).length,u=[],i=0;i<t;)u[u.length]=n[i],i+=1;for(i=0;i<e;)u[u.length]=r[i],i+=1;return u}(arguments,[e,t]));return e=o(e),n},u.apply(this,n)})}function l(n){return Array.prototype.slice.call(n)}function e(n,r){for(var t=0,e=Array(r=null!=r&&r<=n.length?r:n.length);t<r;t++)e[t]=n[t];return e}function C(n,r){for(var t=n.prototype,e=r,u=0;u<e.length;u++){var i=e[u];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,D(i.key),i)}return Object.defineProperty(n,"prototype",{writable:!1}),n}function c(n,r,t){return(r=D(r))in n?Object.defineProperty(n,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):n[r]=t,n}function U(r,n){var t,e=Object.keys(r);return Object.getOwnPropertySymbols&&(t=Object.getOwnPropertySymbols(r),n&&(t=t.filter(function(n){return Object.getOwnPropertyDescriptor(r,n).enumerable})),e.push.apply(e,t)),e}function f(r){for(var n=1;n<arguments.length;n++){var t=null!=arguments[n]?arguments[n]:{};n%2?U(Object(t),!0).forEach(function(n){c(r,n,t[n])}):Object.getOwnPropertyDescriptors?Object.defineProperties(r,Object.getOwnPropertyDescriptors(t)):U(Object(t)).forEach(function(n){Object.defineProperty(r,n,Object.getOwnPropertyDescriptor(t,n))})}return r}function o(n,r){return function(n){if(Array.isArray(n))return n}(n)||function(n,r){var t=null==n?null:"undefined"!=typeof Symbol&&n[Symbol.iterator]||n["@@iterator"];if(null!=t){var e,u,i,o,c=[],f=!0,a=!1;try{if(i=(t=t.call(n)).next,0!==r)for(;!(f=(e=i.call(t)).done)&&(c.push(e.value),c.length!==r);f=!0);}catch(n){a=!0,u=n}finally{try{if(!f&&null!=t.return&&Object(o=t.return())!==o)return}finally{if(a)throw u}}return c}}(n,r)||L(n,r)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function h(n){return function(n){if(Array.isArray(n))return e(n)}(n)||function(n){if("undefined"!=typeof Symbol&&null!=n[Symbol.iterator]||null!=n["@@iterator"])return Array.from(n)}(n)||L(n)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function D(n){n=function(n,r){if("object"!=typeof n||!n)return n;var t=n[Symbol.toPrimitive];if(void 0===t)return("string"===r?String:Number)(n);if("object"!=typeof(t=t.call(n,r||"default")))return t;throw new TypeError("@@toPrimitive must return a primitive value.")}(n,"string");return"symbol"==typeof n?n:n+""}function s(n){return(s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(n){return typeof n}:function(n){return n&&"function"==typeof Symbol&&n.constructor===Symbol&&n!==Symbol.prototype?"symbol":typeof n})(n)}function L(n,r){var t;if(n)return"string"==typeof n?e(n,r):"Map"===(t="Object"===(t={}.toString.call(n).slice(8,-1))&&n.constructor?n.constructor.name:t)||"Set"===t?Array.from(n):"Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)?e(n,r):void 0}function p(u){var i=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[];return function(){for(var n,r=arguments.length,t=Array(r),e=0;e<r;e++)t[e]=arguments[e];return(n=[].concat(h(i),t)).length<u.length?p(u,n):u.apply(void 0,h(n))}}var z=p(function(n,r,t){var e=n<0?t.length+n:n;return t.length<=n||e<0?t:((n=l(t))[e]=r(n[e]),n)});function M(r){return function(n){return r}}var g=Array.isArray;function i(n){var r,t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:0;for(r in n)!1!=n.hasOwnProperty(r)&&"constructor"!==r&&("object"===s(n[r])&&(t=Math.max(t,i(n[r]))),"function"==typeof n[r])&&(t=Math.max(t,n[r].length));return t}function v(){for(var n=[],r=0,t=arguments.length;r<t&&void 0!==arguments[r];)n[r]=arguments[r],r++;return n}function u(n,r,t,e){return n===r?0:n<r?t:e}function y(n,r,t){return Object.assign({},t,c({},n,r))}var _=p(y);function J(n){return Number.isInteger(+(""+n))}var d=Number.isInteger||function(n){return n<<0===n};function m(n,r){return"string"==typeof n?n.split(1<arguments.length&&void 0!==r?r:".").map(function(n){return d(n)?+(""+n):n}):n}function H(n,r,t){var e,u,n=m(n);return 0===n.length?r:(e=n[0],1<n.length&&(u="object"!==s(t)||null===t||!t.hasOwnProperty(e)?J(n[1])?[]:{}:t[e],r=H(Array.prototype.slice.call(n,1),r,u)),J(e)&&g(t)?((n=l(t))[e]=r,n):y(e,r,t))}var $=p(H);var G=p(function(n,r,t){if(r<n)throw Error("min must not be greater than max in clamp(min, max, value)");return t<n||r<t?r<t?r:t<n?n:void 0:t});function b(n){var r,t=g(n)?Array(n.length):{};if(n&&n.getTime)return new Date(n.getTime());for(r in n){var e=n[r];t[r]="object"===s(e)&&null!==e?e.getTime?new Date(e.getTime()):b(e):e}return t}function K(n,r,t){if(null!=t){if(!g(t))throw new TypeError("reduce: list must be array or iterable");for(var e=0,u=t.length;e<u;)r=n(r,t[e],e,t),e++}return r}var j=p(K);function Q(n,r){return function(){return r.call(this,n.apply(this,arguments))}}function V(){if(0===arguments.length)throw Error("pipe requires at least one argument");return a(arguments[0].length,K(Q,arguments[0],Array.prototype.slice.call(arguments,1,1/0)))}function X(n){return"string"==typeof n?n[0]||"":n[0]}function Y(n){return n}function Z(n){return"string"==typeof n?n.split("").reverse().join(""):n.slice().reverse()}function w(r,n){return 1===arguments.length?function(n){return w(r,n)}:n.slice(0<r?r:0)}function nn(n){return w(1,n)}function rn(t,n){var r,e;return 0<n.length?(r=X(n),e=nn(n),a(r.length,function(){return j(function(n,r){return t.call(this,r,n)},r.apply(this,arguments),e)})):Y}function tn(r,n){return 1===arguments.length?function(n){return tn(r,n)}:"string"==typeof r?"".concat(r).concat(n):[].concat(h(r),h(n))}var en="Incorrect iterable input",un=Object.keys;function O(n,r){for(var t=2<arguments.length&&void 0!==arguments[2]&&arguments[2],e=0,u=Array(r.length);e<r.length;)u[e]=t?n(r[e],e):n(r[e]),e++;return u}function A(r,n){if(1===arguments.length)return function(n){return A(r,n)};for(var t=0,e=un(n),u=e.length,i={};t<u;){var o=e[t];i[o]=r(n[o],o,n),t++}return i}var on=A;function E(r,n){if(1===arguments.length)return function(n){return E(r,n)};if(n)return(g(n)?O:A)(r,n);throw Error(en)}function cn(r,n){return 1===arguments.length?function(n){return cn(r,n)}:r<n?n:r}function N(r,n){return 1===arguments.length?function(n){return N(r,n)}:null==(t=n)||!0===Number.isNaN(t)?r:n;var t}function x(n){return null===n?"Null":void 0===n?"Undefined":Number.isNaN(n)?"NaN":"AsyncFunction"===(n=Object.prototype.toString.call(n).slice(8,-1))?"Promise":n}function fn(n,r){if(!g(r))throw Error("Cannot read property 'indexOf' of ".concat(r));var t=x(n);if(!["Array","NaN","Object","RegExp"].includes(t))return r.lastIndexOf(n);for(var e=r.length,u=-1;-1<--e&&-1===u;)k(r[e],n)&&(u=e);return u}function P(n,r){if(!g(r))throw Error("Cannot read property 'indexOf' of ".concat(r));var t=x(n);if(!["Array","NaN","Object","RegExp"].includes(t))return r.indexOf(n);for(var e=-1,u=-1,i=r.length;++e<i&&-1===u;)k(r[e],n)&&(u=e);return u}function an(n){for(var r,t=[];!(r=n.next()).done;)t.push(r.value);return t}function ln(n){return n.toDateString?[!0,n.getTime()]:[!1]}function hn(n){return n.constructor!==RegExp?[!1]:[!0,""+n]}function k(t,e){var n,u,i,r,o,c,f,a;return 1===arguments.length?function(n){return k(t,n)}:!!Object.is(t,e)||(n=x(t))===x(e)&&("Function"===n?void 0!==t.name&&t.name===e.name:!!["NaN","Null","Undefined"].includes(n)||(["BigInt","Number"].includes(n)?Object.is(-0,t)===Object.is(-0,e)&&""+t==""+e:["Boolean","String"].includes(n)?""+t==""+e:"Array"===n?""+(r=Array.from(t))==""+(u=Array.from(e))&&(i=!0,r.forEach(function(n,r){!i||n===u[r]||k(n,u[r])||(i=!1)}),i):(r=hn(t),o=hn(e),r[0]?!!o[0]&&r[1]===o[1]:!o[0]&&(r=ln(t),o=ln(e),r[0]?!!o[0]&&r[1]===o[1]:!o[0]&&(t instanceof Error?e instanceof Error&&(r=t).message===(o=e).message&&r.toString===o.toString&&""+r==""+o:"Set"===n?(o=t).size===(f=e).size&&(o=an(o.values()),c=an(f.values()),0===o.filter(function(n){return-1===P(n,c)}).length):"Object"===n&&(f=Object.keys(t)).length===Object.keys(e).length&&(a=!0,f.forEach(function(n){var r;a&&(r=t[n])!==(n=e[n])&&!k(r,n)&&(a=!1)}),a))))))}function F(r,n){if(1===arguments.length)return function(n){return F(r,n)};if("string"==typeof n)return n.includes(r);if(n)return!!g(n)&&-1<P(r,n);throw new TypeError("Cannot read property 'indexOf' of ".concat(n))}var sn=function(){function n(){if(!(this instanceof n))throw new TypeError("Cannot call a class as a function");this.set=new Set,this.items={}}return C(n,[{key:"checkUniqueness",value:function(n){var r=x(n);return["Null","Undefined","NaN"].includes(r)?!(r in this.items)&&(this.items[r]=!0):["Object","Array"].includes(r)?r in this.items?-1===P(n,this.items[r])&&(this.items[r].push(n),!0):(this.items[r]=[n],!0):(r=this.set.size,this.set.add(n),this.set.size!==r)}}])}();function pn(n){var r=new sn,t=[];return n.forEach(function(n){r.checkUniqueness(n)&&t.push(n)}),t}function gn(t,n,r){var e=[],n=o(n.length<r.length?[r,n]:[n,r],2),r=n[0],u=n[1];return r.forEach(function(r){u.some(function(n){return t(r,n)})||-1!==P(r,e)||e.push(r)}),e}var vn=p(gn);function yn(r,n){if(1===arguments.length)return function(n){return yn(r,n)};if(null!=n){var t,e=m(r,","),u={};for(t in n)!function(n,r){for(var t=-1,e=r.length;++t<e;)if(""+r[t]==""+n)return 1}(t,e)&&(u[t]=n[t]);return u}}function dn(n,r){for(var t=r,e=0,u=m(n);e<u.length;){if(null==t)return;if(null===t[u[e]])return;t=t[u[e]],e++}return t}function S(r,n){return 1===arguments.length?function(n){return S(r,n)}:null!=n?dn(r,n):void 0}function mn(r,n){return 1===arguments.length?function(n){return mn(r,n)}:0<r?r<n.length-1?[].concat(h(n.slice(0,r)),h(n.slice(r+1))):n.slice(0,n.length-1):n.slice(1)}function bn(n,r,t){t=l(t);return-1===n?t.fill(r,n):t.fill(r,n,n+1)}var jn=p(bn);function wn(n,r,t){return k(n(r),n(t))}var On=p(wn);function An(n,r){if(r)return r[n]}function I(r,n){return 1===arguments.length?function(n){return I(r,n)}:An(r,n)}var En=p(function(n,r,t){return k(I(n,r),I(n,t))});function Nn(t,n){return O(function(n,r){return"Function"===x(t[r])?t[r](n):n},n,!0)}function xn(e,n){return A(function(n,r){var t;return"Object"===x(n)?"Function"===(t=x(e[r]))?e[r](n):"Object"===t?Pn(e[r],n):n:"Function"===x(e[r])?e[r](n):n},n)}function Pn(r,n){if(1===arguments.length)return function(n){return Pn(r,n)};var t=x(r),e=x(n);if(e!==t)throw Error("iterableType !== rulesType");if(["Object","Array"].includes(t))return("Object"===e?xn:Nn)(r,n);throw Error("'iterable' and 'rules' are from wrong type ".concat(t))}function kn(n,r){var t,e={};for(t in r)n(r[t],t,r)&&(e[t]=r[t]);return e}function Fn(n,r){for(var t=2<arguments.length&&void 0!==arguments[2]&&arguments[2],e=0,u=r.length,i=[];e<u;)(t?n(r[e],e):n(r[e]))&&i.push(r[e]),e++;return i}function T(r,n){if(1===arguments.length)return function(n){return T(r,n)};if(n)return g(n)?Fn(r,n,!1):kn(r,n);throw Error("Incorrect iterable input")}function Sn(n,r){for(var t=0,e=un(r),u=e.length;t<u;){var i=e[t];n(r[i],i,r),t++}return r}function In(r,n){return 1===arguments.length?function(n){return In(r,n)}:!!n&&n.hasOwnProperty(r)}var Tn=Object.is||function(n,r){return n===r?0!==n||1/n==1/r:n!=n&&r!=r};var Wn=p(function(n,r,t){return function(){return(("boolean"==typeof n?n:n.apply(void 0,arguments))?r:t).apply(void 0,arguments)}});function Bn(n,r,t){for(var e=-1,u=n.length,i=((t=u<t?u:t)<0&&(t+=u),u=t<r?0:t-r>>>0,r>>>=0,Array(u));++e<u;)i[e]=n[e+r];return i}function Rn(o,n,c){for(var r=function(n){for(var r=o,t=n,e=c,u=0,i=e.length;u<i;){if(r(t,e[u]))return 1;u+=1}},t=n,e=0,u=t.length,i=[];e<u;)r(t[e])&&(i[i.length]=t[e]),e+=1;return i}var qn=p(Rn);function Cn(n,r,t){return[].concat(h(t.slice(0,n)),[r],h(t.slice(n)))}var Un=p(Cn);function Dn(n,r,t){return[].concat(h(t.slice(0,n)),h(r),h(t.slice(n)))}var Ln=p(Dn);function zn(r,n){return 1===arguments.length?function(n){return zn(r,n)}:null!=n&&n.constructor===r||n instanceof r}function Mn(n){var r=x(n);return!(["Undefined","NaN","Number","Null"].includes(r)||n&&("Object"===r?0!==Object.keys(n).length:"Array"!==r||0!==n.length))}function r(t,e){return function(n){return function(r){return n(t(r)).map(function(n){return e(n,r)})}}}function _n(r,n){var t;return 1===arguments.length?function(n){return _n(r,n)}:(t=r<0?n.length+r:r,"[object String]"===Object.prototype.toString.call(n)?n[0|t]||"":n[t])}function Jn(n,r,t){return n(t)>n(r)?t:r}var Hn=p(Jn);function $n(n){return n.reduce(function(n,r){return n+r},0)}function Gn(n){return $n(n)/n.length}function W(r,n){return 1===arguments.length?function(n){return W(r,n)}:Object.assign({},r||{},n||{})}function B(r,t){var e;return 1===arguments.length?function(n){return B(r,n)}:(e=b(r),Object.keys(t).forEach(function(n){"Object"===x(t[n])&&"Object"===x(r[n])?e[n]=B(r[n],t[n]):e[n]=t[n]}),e)}function Kn(r,n,t){var e=null!=n?n:{},u=null!=t?t:{},i={};return Object.keys(e).forEach(function(n){i[n]=void 0===u[n]?e[n]:r(e[n],u[n])}),Object.keys(u).forEach(function(n){void 0===i[n]&&(i[n]=void 0===e[n]?u[n]:r(e[n],u[n]))}),i}var Qn=p(Kn);function Vn(n,r,t){return n(t)<n(r)?t:r}var Xn=p(Vn);var Yn=p(function(n,r,t){var e;return!Array.isArray(e=t)&&"Object"!==x(e)||void 0===t[n]?t:g(t)?bn(n,r(t[n]),t):f(f({},t),{},c({},n,r(t[n])))});function Zn(n,r,t){n=m(n);return 1===n.length?f(f({},t),{},c({},n[0],r(t[n[0]]))):void 0===S(n,t)||(r=nr(Array.prototype.slice.call(n,1),r,t[n[0]]))===t[n[0]]?t:_(n[0],r,t)}var nr=p(Zn);var rr=p(function(n,r,t){if(n<0||r<0)throw Error("Rambda.move does not support negative indexes");var e;return t.length-1<n||t.length-1<r?t:((e=l(t))[n]=t[r],e[r]=t[n],e)});function tr(r,n){return 1===arguments.length?function(n){return tr(r,n)}:r*n}function er(n,r){var t;return function(){return n&&(t=n.apply(r||this,arguments),n=null),t}}var ur=function(r){return{x:r,map:function(n){return ur(n(r))}}};var ir=p(function(n,r,t){return n(function(n){return ur(r(n))})(t).x});function or(e){for(var u=e.length,n=arguments.length,r=Array(1<n?n-1:0),t=1;t<n;t++)r[t-1]=arguments[t];var i=1===r.length&&g(r[0])?r[0]:r;return function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return i.length+r.length<u?or.apply(void 0,[e].concat([].concat(h(i),r))):e.apply(void 0,h(i).concat(r))}}function cr(t,n){var e={},u={};return Object.entries(n).forEach(function(n){var n=o(n,2),r=n[0],n=n[1];t(n,r)?e[r]=n:u[r]=n}),[e,u]}function fr(n,r){for(var t=2<arguments.length&&void 0!==arguments[2]&&arguments[2],e=[],u=[],i=-1;i++<r.length-1;)((t?n(r[i],i):n(r[i]))?e:u).push(r[i]);return[e,u]}var ar=p(function(n,r,t){return k(S(n,t),r)});var lr=p(function(n,r,t){return N(n,S(r,t))});function hr(n,r,t){if(0===r.length)throw Error("R.pathSatisfies received an empty path");return!!n(S(r,t))}var sr=p(hr);var pr=j(tr,1);var gr=p(function(n,r,t){return!!t&&k(n,I(r,t))});var vr=p(function(n,r,t){return zn(n,t[r])});var yr=p(function(n,r,t){return t?N(n,t[r]):n});var dr=p(function(n,r,t){return n(I(r,t))});function mr(r,n){if(1===arguments.length)return function(n){return mr(r,n)};if(Number.isNaN(+(""+r))||Number.isNaN(+(""+n)))throw new TypeError("Both arguments to range must be numbers");if(n<r)return[];for(var t=n-r,e=Array(t),u=0;u<t;u++)e[u]=r+u;return e}function br(i,o,c,n){return j(function(n,r){return t=i,e=o,n=n,u=(u=c)(r=r),t=t(In(u,n)?n[u]:b(e),r),n[u]=t,n;var t,e,u},{},n)}var jr=p(br);var wr=p(function(n,r,t){return t.replace(n,r)});var Or=p(function(n,r,t){return ir(n,M(r),t)});var Ar=p(function(n,r,t){return t.slice(n,r)});function R(r,n){return 1===arguments.length?function(n){return R(r,n)}:r<0?n.slice():"string"==typeof n?n.slice(0,r):Bn(n,0,r)}var Er=p(function(n,r,t){var e,u,i,o;return g(t)||"string"==typeof t?(i=t,(e=(e=n)<0?i.length+e:e)===(u=(u=r)<0?i.length+u:u)||Math.min(e,u)<0||i.length<=Math.max(e,u)?i:"string"==typeof i?i.slice(0,e)+i[u]+i.slice(e+1,u)+i[e]+i.slice(u+1):(o=(i=i.slice())[e],i[e]=i[u],i[u]=o,i)):void 0===t[n]||void 0===t[r]?t:f(f({},t),{},c(c({},n,t[r]),r,t[n]))});function Nr(n){return["Promise","Function"].includes(x(n))}var xr=p(function(n,r,t){return n(t)?t:r(t)});var Pr=function(r){return{x:r,map:function(n){return Pr(r)}}};var kr=p(function(n,r,t){return n(t)?r(t):t});var Fr=p(function(t,n,e){return R((e.length<n.length?e:n).length,n).map(function(n,r){return t(n,e[r])})});n.F=function(){return!1},n.T=function(){return!0},n.__findHighestArity=i,n._indexOf=P,n._lastIndexOf=fn,n._pipe=Q,n.add=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:+(""+t)+ +(""+n)},n.addIndex=q,n.addIndexRight=function(n){return q(n,function(n){return n-1},function(n){return n-1})},n.adjust=z,n.all=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=0;e<n.length;e++)if(!t(n[e]))return!1;return!0},n.allPass=function(r){return function(){for(var n=0;n<r.length;){if(!r[n].apply(r,arguments))return!1;n++}return!0}},n.always=M,n.and=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t&&n},n.any=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=0;e<n.length;){if(t(n[e],e))return!0;e++}return!1},n.anyPass=function(r){return function(){for(var n=0;n<r.length;){if(r[n].apply(r,arguments))return!0;n++}return!1}},n.ap=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:t.reduce(function(n,r){return[].concat(h(n),h(e.map(r)))},[])},n.aperture=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(n.length<t)return[];for(var e=0,u=n.length-(t-1),i=Array(u);e<u;)i[e]=n.slice(e,e+t),e+=1;return i},n.append=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:"string"==typeof n?n.split("").concat(t):((n=l(n)).push(t),n)},n.apply=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t.apply(this,n)},n.applySpec=function(n){var r=i(n);if(0===r)return function(){return{}};for(var t=arguments.length,e=Array(1<t?t-1:0),u=1;u<t;u++)e[u-1]=arguments[u];return function u(i,o,c){var n=o-c.length;if(1==n)return function(n){return u(i,o,v.apply(void 0,h(c).concat([n])))};if(2==n)return function(n,r){return u(i,o,v.apply(void 0,h(c).concat([n,r])))};if(3==n)return function(n,r,t){return u(i,o,v.apply(void 0,h(c).concat([n,r,t])))};if(4==n)return function(n,r,t,e){return u(i,o,v.apply(void 0,h(c).concat([n,r,t,e])))};if(4<n)return function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return u(i,o,v.apply(void 0,h(c).concat(r)))};if(g(i)){for(var r=[],t=0,e=i.length;t<e;t++)"object"!==s(i[t])&&!g(i[t])||(r[t]=u(i[t],o,c)),"function"==typeof i[t]&&(r[t]=i[t].apply(i,h(c)));return r}var f,a={};for(f in i)0!=i.hasOwnProperty(f)&&"constructor"!==f&&("object"===s(i[f])?a[f]=u(i[f],o,c):"function"==typeof i[f]&&(a[f]=i[f].apply(i,h(c))));return a}(n,r,e)},n.applyTo=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n(t)},n.ascend=function t(e,n,r){return 1===arguments.length?function(n,r){return t(e,n,r)}:u(e(n),e(r),-1,1)},n.assoc=_,n.assocFn=y,n.assocPath=$,n.assocPathFn=H,n.binary=function(t){return 2<t.length?function(n,r){return t(n,r)}:t},n.bind=function r(e,u){return 1===arguments.length?function(n){return r(e,n)}:t(e.length,function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return e.apply(u,r)})},n.both=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:function(){return t.apply(void 0,arguments)&&n.apply(void 0,arguments)}},n.call=function(n){for(var r=arguments.length,t=Array(1<r?r-1:0),e=1;e<r;e++)t[e-1]=arguments[e];return n.apply(void 0,t)},n.chain=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e=[]).concat.apply(e,h(n.map(t)))},n.clamp=G,n.clone=b,n.collectBy=function r(e,n){if(1===arguments.length)return function(n){return r(e,n)};var t,u=j(function(n,r){var t=e(r);return void 0===n[t]&&(n[t]=[]),n[t].push(r),n},{},n),i=[];for(t in u)i.push(u[t]);return i},n.comparator=function(t){return function(n,r){return t(n,r)?-1:t(r,n)?1:0}},n.complement=function(n){return function(){return!n.apply(void 0,arguments)}},n.compose=function(){if(0===arguments.length)throw Error("compose requires at least one argument");return V.apply(this,Array.prototype.slice.call(arguments,0).reverse())},n.composeWith=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:rn(t,Z(n))},n.concat=tn,n.cond=function(i){return function(){for(var n=arguments.length,t=Array(n),r=0;r<n;r++)t[r]=arguments[r];var e,u=!1;return i.forEach(function(n){var n=o(n,2),r=n[0],n=n[1];!u&&r.apply(void 0,t)&&(u=!0,e=n.apply(void 0,t))}),e}},n.converge=function r(e,n){return 1===arguments.length?function(n){return r(e,n)}:t(j(function(n,r){return cn(n,r.length)},0,n),function(){var r=arguments,t=this;return e.apply(this,E(function(n){return n.apply(t,r)},n))})},n.count=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:g(n)?n.filter(function(n){return t(n)}).length:0},n.countBy=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e={},n.forEach(function(n){n=t(n),e[n]?e[n]++:e[n]=1}),e)},n.createCompareFunction=u,n.curry=p,n.curryN=t,n.dec=function(n){return n-1},n.defaultTo=N,n.descend=function t(e,n,r){return 1===arguments.length?function(n,r){return t(e,n,r)}:u(e(n),e(r),1,-1)},n.difference=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:pn(t).filter(function(n){return!F(n,e)})},n.differenceWith=vn,n.differenceWithFn=gn,n.dissoc=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(null==n)return{};var e,u={};for(e in n)u[e]=n[e];return delete u[t],u},n.dissocPath=function r(t,n){var e,u,i;return 1===arguments.length?function(n){return r(t,n)}:0===(i=m(t)).length||void 0===S(i,n)?n:(e=i[0],u="object"!==s(n)||null===n||!n.hasOwnProperty(e),1<i.length?(u=u?J(i[1])?[]:{}:n[e],i=r(Array.prototype.slice.call(i,1),u,n),g(n)?jn(e,i,n):f(f({},n),{},c({},e,i))):g(n)?mn(e,n):yn([e],n))},n.divide=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t/n},n.drop=w,n.dropLast=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:0<t?n.slice(0,-t):n.slice()},n.dropLastWhile=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(0===n.length)return n;var e=g(n);if("function"!=typeof t)throw Error("'predicate' is from wrong type ".concat(s(t)));if(!e&&"string"!=typeof n)throw Error("'iterable' is from wrong type ".concat(s(n)));for(var u=[],i=n.length;i;){var o=n[--i];if(!t(o)){u.push(o);break}}for(;i;)u.push(n[--i]);return e?u.reverse():u.reverse().join("")},n.dropRepeats=function(n){var t;if(g(n))return t=[],n.reduce(function(n,r){return k(n,r)||t.push(r),r},void 0),t;throw Error("".concat(n," is not a list"))},n.dropRepeatsBy=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e=null,n.slice().filter(function(n){if(null===e)e=t(n);else{if(n=t(n),k(e,n))return!1;e=n}return!0}))},n.dropRepeatsWith=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};var e;if(g(n))return e=[],n.reduce(function(n,r){return void 0!==n&&t(n,r)||e.push(r),r},void 0),e;throw Error("".concat(n," is not a list"))},n.dropWhile=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};var e=g(n);if(!e&&"string"!=typeof n)throw Error("`iterable` is neither list nor a string");for(var u=[],i=0;i<n.length;){var o=n[i++];if(!t(o)){u.push(o);break}}for(;i<n.length;)u.push(n[i++]);return e?u:u.join("")},n.either=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:function(){return!(!t.apply(void 0,arguments)&&!n.apply(void 0,arguments))}},n.empty=function(n){var r;return"string"==typeof n?"":Array.isArray(n)?"Uint8Array"===(r=n.constructor.name)?Uint8Array.from(""):"Float32Array"===r?new Float32Array([]):[]:"Object"===x(n)?{}:void 0},n.endsWith=function r(t,e){var u,i;return 1===arguments.length?function(n){return r(t,n)}:"string"==typeof e?e.endsWith(t):!!g(t)&&(u=e.length-t.length,i=!0,t.filter(function(n,r){return!!i&&((n=k(n,e[r+u]))||(i=!1),n)}).length===t.length)},n.eqBy=On,n.eqByFn=wn,n.eqProps=En,n.equals=k,n.evolve=Pn,n.evolveArray=Nn,n.evolveObject=xn,n.filter=T,n.filterArray=Fn,n.filterObject=kn,n.find=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=0,u=n.length;e<u;){var i=n[e];if(t(i))return i;e++}},n.findIndex=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=n.length,u=-1;++u<e;)if(t(n[u]))return u;return-1},n.findLast=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=n.length;0<=--e;)if(t(n[e]))return n[e]},n.findLastIndex=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=n.length;0<=--e;)if(t(n[e]))return e;return-1},n.flatten=function n(r,t){for(var e=void 0===t?[]:t,u=0;u<r.length;u++)g(r[u])?n(r[u],e):e.push(r[u]);return e},n.flip=function(n){return e=n,function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];if(1===r.length)return function(n){return e(n,r[0])};if(2===r.length)return e(r[1],r[0]);if(3===r.length)return e(r[1],r[0],r[2]);if(4===r.length)return e(r[1],r[0],r[2],r[3]);throw Error("R.flip doesn't work with arity > 4")};var e},n.forEach=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(void 0!==n){if(!g(n))return Sn(t,n);for(var e=0,u=n.length;e<u;)t(n[e]),e++;return n}},n.forEachObjIndexed=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:void 0!==n?Sn(t,n):void 0},n.forEachObjIndexedFn=Sn,n.fromPairs=function(n){var r={};return n.forEach(function(n){n=o(n,2);return r[n[0]]=n[1]}),r},n.groupBy=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e={},u=0;u<n.length;u++){var i=n[u],o=t(i);e[o]||(e[o]=[]),e[o].push(i)}return e},n.groupWith=function(i,o){var n,c,f;if(g(o))return n=l(o),1===o.length?[n]:(c=[],f=[],n.reduce(function(n,r,t){var e,u;return 0!==t&&(e=i(n,r),u=0===f.length,t=t===o.length-1,e?(u&&f.push(n),f.push(r),t&&c.push(f)):u?(c.push([n]),t&&c.push([r])):(c.push(f),t&&c.push([r]),f=[])),r},void 0),c);throw new TypeError("list.reduce is not a function")},n.gt=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n<t},n.gte=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n<=t},n.has=In,n.hasIn=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:void 0!==An(t,n)},n.hasPath=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:void 0!==S(t,n)},n.head=X,n.identical=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:Tn(t,n)},n.identity=Y,n.ifElse=Wn,n.inc=function(n){return n+1},n.includes=F,n.indexBy=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if("string"==typeof t){for(var e=t,u=n,i={},o=0;o<u.length;o++){var c=u[o];i[S(e,c)]=c}return i}for(var f={},a=0;a<n.length;a++){var l=n[a];f[t(l)]=l}return f},n.indexOf=function(r,n){return 1===arguments.length?function(n){return P(r,n)}:P(r,n)},n.init=function(n){return"string"==typeof n?n.slice(0,-1):n.length?Bn(n,0,-1):[]},n.innerJoin=qn,n.innerJoinFn=Rn,n.insert=Un,n.insertAll=Ln,n.insertAllFn=Dn,n.insertFn=Cn,n.intersection=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:T(function(n){return F(n,t)},n)},n.intersperse=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=-1,u=n.length,i=[];++e<u;)e===u-1?i.push(n[e]):i.push(n[e],t);return i},n.is=zn,n.isEmpty=Mn,n.isNil=function(n){return null==n},n.isNotEmpty=function(n){return!Mn(n)},n.isNotNil=function(n){return null!=n},n.join=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n.join(t)},n.juxt=function(e){return function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return e.map(function(n){return n.apply(void 0,r)})}},n.keys=function(n){return Object.keys(n)},n.last=function(n){return"string"==typeof n?n[n.length-1]||"":n[n.length-1]},n.lastIndexOf=function(r,n){return 1===arguments.length?function(n){return fn(r,n)}:fn(r,n)},n.length=function(n){return g(n)||"string"==typeof n?n.length:NaN},n.lens=r,n.lensIndex=function(n){return r(_n(n),jn(n))},n.lensPath=function(n){return r(S(n),$(n))},n.lensProp=function(n){return r(I(n),_(n))},n.lt=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t<n},n.lte=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t<=n},n.map=E,n.mapArray=O,n.mapObjIndexed=on,n.mapObject=A,n.match=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:null===(n=n.match(t))?[]:n},n.mathMod=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:d(t)&&d(n)&&1<=n?(t%n+n)%n:NaN},n.max=cn,n.maxBy=Hn,n.maxByFn=Jn,n.mean=Gn,n.median=function(n){var r,t=n.length;return 0===t?NaN:(r=(t-(t=2-t%2))/2,Gn(Array.prototype.slice.call(n,0).sort(function(n,r){return n===r?0:n<r?-1:1}).slice(r,r+t)))},n.merge=W,n.mergeAll=function(n){var r={};return E(function(n){r=W(r,n)},n),r},n.mergeDeepLeft=function(n,r){return B(r,n)},n.mergeDeepRight=B,n.mergeLeft=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:W(n,t)},n.mergeRight=W,n.mergeWith=Qn,n.mergeWithFn=Kn,n.min=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n<t?n:t},n.minBy=Xn,n.minByFn=Vn,n.modify=Yn,n.modifyPath=nr,n.modifyPathFn=Zn,n.modulo=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t%n},n.move=rr,n.multiply=tr,n.negate=function(n){return-n},n.none=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=0;e<n.length;e++)if(t(n[e]))return!1;return!0},n.not=function(n){return!n},n.nth=_n,n.objOf=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:c({},t,n)},n.of=function(n){return[n]},n.omit=yn,n.on=function t(e,u,r,n){return 3===arguments.length?function(n){return t(e,u,r,n)}:2===arguments.length?function(n,r){return t(e,u,n,r)}:e(u(r),u(n))},n.once=function(n,r){return 1===arguments.length?p(er(n,r)):er(n,r)},n.or=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t||n},n.over=ir,n.partial=or,n.partialObject=function(r,t){return function(n){return r(B(n,t))}},n.partition=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:(g(n)?fr:cr)(t,n)},n.partitionArray=fr,n.partitionObject=cr,n.path=S,n.pathEq=ar,n.pathFn=dn,n.pathOr=lr,n.pathSatisfies=sr,n.pathSatisfiesFn=hr,n.paths=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:t.map(function(n){return S(n,e)})},n.pick=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(null!=n){for(var e=m(t,","),u={},i=0;i<e.length;)e[i]in n&&(u[e[i]]=n[e[i]]),i++;return u}},n.pickAll=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(null!=n){for(var e=m(t,","),u={},i=0;i<e.length;)u[e[i]]=e[i]in n?n[e[i]]:void 0,i++;return u}},n.pickBy=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:Object.keys(e).reduce(function(n,r){return t(e[r],r,e)&&(n[r]=e[r]),n},{})},n.pipe=V,n.pipeWith=rn,n.piped=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];var e=r[0],u=r.slice(1);return V.apply(void 0,h(u))(e)},n.pluck=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e=[],E(function(n){void 0!==n[t]&&e.push(n[t])},n),e)},n.prepend=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:[t].concat("string"==typeof n?n.split(""):n)},n.product=pr,n.prop=I,n.propEq=gr,n.propFn=An,n.propIs=vr,n.propOr=yr,n.propSatisfies=dr,n.props=function r(t,e){if(1===arguments.length)return function(n){return r(t,n)};if(g(t))return O(function(n){return e[n]},t);throw Error("propsToPick is not a list")},n.range=mr,n.reduce=j,n.reduceBy=jr,n.reduceByFn=br,n.reduceFn=K,n.reject=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:T(function(n){return!t(n)},n)},n.removeIndex=mn,n.repeat=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:Array(n).fill(t)},n.replace=wr,n.reverse=Z,n.set=Or,n.slice=Ar,n.sort=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:l(n).sort(t)},n.sortBy=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:l(n).sort(function(n,r){return n=t(n),r=t(r),n===r?0:n<r?-1:1})},n.sortWith=function r(c,n){return 1===arguments.length?function(n){return r(c,n)}:!1===Array.isArray(n)?[]:((n=n.slice()).sort(function(n,r){for(var t=n,e=r,u=c,i=0,o=0;0===i&&o<u.length;)i=u[o](t,e),o+=1;return i}),n)},n.split=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:n.split(t)},n.splitAt=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};var e,u,i;if(n)return g(n)||"string"==typeof n?(u=n.length+t<0?0:n.length+t,u=(e=(i=t)<0)&&"Function"===x(u)?u():u,i=e||"Function"!==x(i)?i:i(),[R(e=e?u:i,n),w(e,n)]):[[],[]];throw new TypeError("Cannot read property 'slice' of ".concat(n))},n.splitEvery=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(t<1)throw Error("First argument to splitEvery must be a positive integer");for(var e=[],u=0;u<n.length;)e.push(n.slice(u,u+=t));return e},n.splitWhen=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(!n)throw new TypeError("Cannot read property 'length' of ".concat(n));for(var e=[],u=[],i=!1,o=-1;o++<n.length-1;)i?u.push(n[o]):t(n[o])?(u.push(n[o]),i=!0):e.push(n[o]);return[e,u]},n.startsWith=function r(t,e){var u;return 1===arguments.length?function(n){return r(t,n)}:"string"==typeof e?e.startsWith(t):!!g(t)&&(u=!0,t.filter(function(n,r){return!!u&&((n=k(n,e[r]))||(u=!1),n)}).length===t.length)},n.subtract=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t-n},n.sum=$n,n.swap=Er,n.symmetricDifference=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:tn(T(function(n){return!F(n,e)},t),T(function(n){return!F(n,t)},e))},n.tail=nn,n.take=R,n.takeLast=function r(t,n){var e,u;return 1===arguments.length?function(n){return r(t,n)}:(e=n.length,t<0?n.slice():(u=e<t?e:t,"string"==typeof n?n.slice(e-u):Bn(n,u=e-u,e)))},n.takeLastWhile=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(0===n.length)return n;for(var e=[],u=n.length;u;){var i=n[--u];if(!t(i))break;e.push(i)}return g(n)?e.reverse():e.reverse().join("")},n.takeWhile=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};var e=g(n);if(!e&&"string"!=typeof n)throw Error("`iterable` is neither list nor a string");for(var u=[],i=0;i<n.length;){var o=n[i++];if(!t(o))break;u.push(o)}return e?u:u.join("")},n.tap=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:(t(n),n)},n.test=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if("string"==typeof t)throw new TypeError('R.test requires a value of type RegExp as its first argument; received "'.concat(t,'"'));return-1!=n.search(t)},n.times=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};if(!d(n)||n<0)throw new RangeError("n must be an integer");return E(t,mr(0,n))},n.toLower=function(n){return n.toLowerCase()},n.toPairs=function(n){return Object.entries(n)},n.toString=function(n){return""+n},n.toUpper=function(n){return n.toUpperCase()},n.transpose=function(n){return n.reduce(function(t,n){return n.forEach(function(n,r){return g(t[r])?t[r].push(n):t.push([n])}),t},[])},n.trim=function(n){return n.trim()},n.tryCatch=function(e,u){var i;if(Nr(e))return i=Nr(u),function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];try{return e.apply(void 0,r)}catch(n){return i?u.apply(void 0,[n].concat(r)):u}};throw Error("R.tryCatch | fn '".concat(e,"'"))},n.type=x,n.unapply=function(e){return function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return e.call(this,r)}},n.union=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e=l(t),n.forEach(function(n){F(n,t)||e.push(n)}),e)},n.uniq=pn,n.uniqBy=function r(t,n){var e;return 1===arguments.length?function(n){return r(t,n)}:(e=new sn,n.filter(function(n){return e.checkUniqueness(t(n))}))},n.uniqWith=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=-1,u=[];++e<n.length;){var i=n[e];!function(n,r,t){for(var e=!1,u=-1;++u<t.length&&!e;)n(r,t[u])&&(e=!0);return e}(t,i,u)&&u.push(i)}return u},n.unless=xr,n.unnest=function(n){return n.reduce(function(n,r){return[].concat(h(n),Array.isArray(r)?h(r):[r])},[])},n.unwind=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:g(e[t])?O(function(n){return f(f({},e),{},c({},t,n))},e[t]):[e]},n.update=jn,n.updateFn=bn,n.values=function(n){return"Object"!==x(n)?[]:Object.values(n)},n.view=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:t(Pr)(n).x},n.when=kr,n.where=function r(t,n){if(void 0===n)return function(n){return r(t,n)};var e,u,i=!0;for(e in t)i&&(u=t[e](n[e]),i)&&!1===u&&(i=!1);return i},n.whereAny=function r(t,n){if(void 0===n)return function(n){return r(t,n)};for(var e in t)if(t[e](n[e]))return!0;return!1},n.whereEq=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:Object.keys(T(function(n,r){return k(n,e[r])},t)).length===Object.keys(t).length},n.without=function r(t,n){return void 0===n?function(n){return r(t,n)}:j(function(n,r){return-1<P(r,t)?n:n.concat(r)},[],n)},n.xor=function r(t,n){return 1===arguments.length?function(n){return r(t,n)}:!!t&&!n||!!n&&!t},n.zip=function r(t,n){if(1===arguments.length)return function(n){return r(t,n)};for(var e=[],u=Math.min(t.length,n.length),i=0;i<u;i++)e[i]=[t[i],n[i]];return e},n.zipObj=function r(t,e){return 1===arguments.length?function(n){return r(t,n)}:R(e.length,t).reduce(function(n,r,t){return n[r]=e[t],n},{})},n.zipWith=Fr});
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.R = {}));
+})(this, (function (exports) { 'use strict';
+
+  function F(){
+    return false
+  }
+
+  function T(){
+    return true
+  }
+
+  function add(a, b){
+    if (arguments.length === 1) return _b => add(a, _b)
+
+    return Number(a) + Number(b)
+  }
+
+  function _concat(set1, set2){
+    set1 = set1 || [];
+    set2 = set2 || [];
+    let idx;
+    const len1 = set1.length;
+    const len2 = set2.length;
+    const result = [];
+
+    idx = 0;
+    while (idx < len1){
+      result[ result.length ] = set1[ idx ];
+      idx += 1;
+    }
+    idx = 0;
+    while (idx < len2){
+      result[ result.length ] = set2[ idx ];
+      idx += 1;
+    }
+
+    return result
+  }
+
+  function _arity(n, fn){
+    switch (n){
+    case 0:
+      return function (){
+        return fn.apply(this, arguments)
+      }
+    case 1:
+      return function (_1){
+        return fn.apply(this, arguments)
+      }
+    case 2:
+      return function (_1, _2){
+        return fn.apply(this, arguments)
+      }
+    case 3:
+      return function (
+        _1, _2, _3
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 4:
+      return function (
+        _1, _2, _3, _4
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 5:
+      return function (
+        _1, _2, _3, _4, _5
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 6:
+      return function (
+        _1, _2, _3, _4, _5, _6
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 7:
+      return function (
+        _1, _2, _3, _4, _5, _6, _7
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 8:
+      return function (
+        _1, _2, _3, _4, _5, _6, _7, _8
+      ){
+        return fn.apply(this, arguments)
+      }
+    case 9:
+      return function (
+        _1, _2, _3, _4, _5, _6, _7, _8, _9
+      ){
+        return fn.apply(this, arguments)
+      }
+    default:
+      return function (
+        _1, _2, _3, _4, _5, _6, _7, _8, _9, _10
+      ){
+        return fn.apply(this, arguments)
+      }
+    }
+  }
+
+  function _curryN(
+    n, cache, fn
+  ){
+    return function (){
+      let ci = 0;
+      let ai = 0;
+      const cl = cache.length;
+      const al = arguments.length;
+      const args = new Array(cl + al);
+      while (ci < cl){
+        args[ ci ] = cache[ ci ];
+        ci++;
+      }
+      while (ai < al){
+        args[ cl + ai ] = arguments[ ai ];
+        ai++;
+      }
+      const remaining = n - args.length;
+
+      return args.length >= n ?
+        fn.apply(this, args) :
+        _arity(remaining, _curryN(
+          n, args, fn
+        ))
+    }
+  }
+
+  function curryN(n, fn){
+    if (arguments.length === 1) return _fn => curryN(n, _fn)
+
+    if (n > 10){
+      throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
+    }
+
+    return _arity(n, _curryN(
+      n, [], fn
+    ))
+  }
+
+  function addIndex(
+    originalFunction,
+    initialIndexFn = () => 0,
+    loopIndexChange = x => x + 1
+  ){
+    return curryN(originalFunction.length, function (){
+      const origFn = arguments[ 0 ];
+      const list = arguments[ arguments.length - 1 ];
+      let idx = initialIndexFn(list.length);
+      const args = Array.prototype.slice.call(arguments, 0);
+      args[ 0 ] = function (){
+        const result = origFn.apply(this, _concat(arguments, [ idx, list ]));
+        idx = loopIndexChange(idx);
+
+        return result
+      };
+
+      return originalFunction.apply(this, args)
+    })
+  }
+
+  function addIndexRight(originalFunction){
+    return addIndex(
+      originalFunction,
+      listLength => listLength - 1,
+      x => x - 1
+    )
+  }
+
+  const cloneList = list => Array.prototype.slice.call(list);
+
+  function curry(fn, args = []){
+    return (..._args) =>
+      (rest => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([
+        ...args,
+        ..._args,
+      ])
+  }
+
+  function adjustFn(
+    index, replaceFn, list
+  ){
+    const actualIndex = index < 0 ? list.length + index : index;
+    if (index >= list.length || actualIndex < 0) return list
+
+    const clone = cloneList(list);
+    clone[ actualIndex ] = replaceFn(clone[ actualIndex ]);
+
+    return clone
+  }
+
+  const adjust = curry(adjustFn);
+
+  function all(predicate, list){
+    if (arguments.length === 1) return _list => all(predicate, _list)
+
+    for (let i = 0; i < list.length; i++){
+      if (!predicate(list[ i ])) return false
+    }
+
+    return true
+  }
+
+  function allPass(predicates){
+    return (...input) => {
+      let counter = 0;
+      while (counter < predicates.length){
+        if (!predicates[ counter ](...input)){
+          return false
+        }
+        counter++;
+      }
+
+      return true
+    }
+  }
+
+  function always(x){
+    return _ => x
+  }
+
+  function and(a, b){
+    if (arguments.length === 1) return _b => and(a, _b)
+
+    return a && b
+  }
+
+  function any(predicate, list){
+    if (arguments.length === 1) return _list => any(predicate, _list)
+
+    let counter = 0;
+    while (counter < list.length){
+      if (predicate(list[ counter ], counter)){
+        return true
+      }
+      counter++;
+    }
+
+    return false
+  }
+
+  function anyPass(predicates){
+    return (...input) => {
+      let counter = 0;
+      while (counter < predicates.length){
+        if (predicates[ counter ](...input)){
+          return true
+        }
+        counter++;
+      }
+
+      return false
+    }
+  }
+
+  function ap(functions, input){
+    if (arguments.length === 1){
+      return _inputs => ap(functions, _inputs)
+    }
+
+    return functions.reduce((acc, fn) => [ ...acc, ...input.map(fn) ], [])
+  }
+
+  function aperture(step, list){
+    if (arguments.length === 1){
+      return _list => aperture(step, _list)
+    }
+    if (step > list.length) return []
+    let idx = 0;
+    const limit = list.length - (step - 1);
+    const acc = new Array(limit);
+    while (idx < limit){
+      acc[ idx ] = list.slice(idx, idx + step);
+      idx += 1;
+    }
+
+    return acc
+  }
+
+  function append(x, input){
+    if (arguments.length === 1) return _input => append(x, _input)
+
+    if (typeof input === 'string') return input.split('').concat(x)
+
+    const clone = cloneList(input);
+    clone.push(x);
+
+    return clone
+  }
+
+  function apply(fn, args){
+    if (arguments.length === 1){
+      return _args => apply(fn, _args)
+    }
+
+    return fn.apply(this, args)
+  }
+
+  const { isArray } = Array;
+
+  // recursively traverse the given spec object to find the highest arity function
+  function __findHighestArity(spec, max = 0){
+    for (const key in spec){
+      if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+      if (typeof spec[ key ] === 'object'){
+        max = Math.max(max, __findHighestArity(spec[ key ]));
+      }
+
+      if (typeof spec[ key ] === 'function'){
+        max = Math.max(max, spec[ key ].length);
+      }
+    }
+
+    return max
+  }
+
+  function __filterUndefined(){
+    const defined = [];
+    let i = 0;
+    const l = arguments.length;
+    while (i < l){
+      if (typeof arguments[ i ] === 'undefined') break
+      defined[ i ] = arguments[ i ];
+      i++;
+    }
+
+    return defined
+  }
+
+  function __applySpecWithArity(
+    spec, arity, cache
+  ){
+    const remaining = arity - cache.length;
+
+    if (remaining === 1)
+      return x =>
+        __applySpecWithArity(
+          spec, arity, __filterUndefined(...cache, x)
+        )
+    if (remaining === 2)
+      return (x, y) =>
+        __applySpecWithArity(
+          spec, arity, __filterUndefined(
+            ...cache, x, y
+          )
+        )
+    if (remaining === 3)
+      return (
+        x, y, z
+      ) =>
+        __applySpecWithArity(
+          spec, arity, __filterUndefined(
+            ...cache, x, y, z
+          )
+        )
+    if (remaining === 4)
+      return (
+        x, y, z, a
+      ) =>
+        __applySpecWithArity(
+          spec,
+          arity,
+          __filterUndefined(
+            ...cache, x, y, z, a
+          )
+        )
+    if (remaining > 4)
+      return (...args) =>
+        __applySpecWithArity(
+          spec, arity, __filterUndefined(...cache, ...args)
+        )
+
+    // handle spec as Array
+    if (isArray(spec)){
+      const ret = [];
+      let i = 0;
+      const l = spec.length;
+      for (; i < l; i++){
+        // handle recursive spec inside array
+        if (typeof spec[ i ] === 'object' || isArray(spec[ i ])){
+          ret[ i ] = __applySpecWithArity(
+            spec[ i ], arity, cache
+          );
+        }
+        // apply spec to the key
+        if (typeof spec[ i ] === 'function'){
+          ret[ i ] = spec[ i ](...cache);
+        }
+      }
+
+      return ret
+    }
+
+    // handle spec as Object
+    const ret = {};
+    // apply callbacks to each property in the spec object
+    for (const key in spec){
+      if (spec.hasOwnProperty(key) === false || key === 'constructor') continue
+
+      // apply the spec recursively
+      if (typeof spec[ key ] === 'object'){
+        ret[ key ] = __applySpecWithArity(
+          spec[ key ], arity, cache
+        );
+        continue
+      }
+
+      // apply spec to the key
+      if (typeof spec[ key ] === 'function'){
+        ret[ key ] = spec[ key ](...cache);
+      }
+    }
+
+    return ret
+  }
+
+  function applySpec(spec, ...args){
+    // get the highest arity spec function, cache the result and pass to __applySpecWithArity
+    const arity = __findHighestArity(spec);
+
+    if (arity === 0){
+      return () => ({})
+    }
+    const toReturn = __applySpecWithArity(
+      spec, arity, args
+    );
+
+    return toReturn
+  }
+
+  function applyTo(input, fn){
+    if (arguments.length === 1){
+      return _fn => applyTo(input, _fn)
+    }
+
+    return fn(input)
+  }
+
+  function createCompareFunction(
+    a, b, winner, loser
+  ){
+    if (a === b) return 0
+
+    return a < b ? winner : loser
+  }
+
+  function ascend(
+    getFunction, a, b
+  ){
+    if (arguments.length === 1){
+      return (_a, _b) => ascend(
+        getFunction, _a, _b
+      )
+    }
+    const aValue = getFunction(a);
+    const bValue = getFunction(b);
+
+    return createCompareFunction(
+      aValue, bValue, -1, 1
+    )
+  }
+
+  function assocFn(
+    prop, newValue, obj
+  ){
+    return Object.assign(
+      {}, obj, { [ prop ] : newValue }
+    )
+  }
+
+  const assoc = curry(assocFn);
+
+  function _isInteger(n){
+    return n << 0 === n
+  }
+
+  const isInteger = Number.isInteger || _isInteger;
+
+  /**
+   * Check if `index` is integer even if it is a string.
+   */
+  const isIndexInteger = index => Number.isInteger(Number(index));
+
+  function createPath(path, delimiter = '.'){
+    return typeof path === 'string' ?
+      path.split(delimiter).map(x => isInteger(x) ? Number(x) : x) :
+      path
+  }
+
+  function assocPathFn(
+    path, newValue, input
+  ){
+    const pathArrValue = createPath(path);
+    if (pathArrValue.length === 0) return newValue
+
+    const index = pathArrValue[ 0 ];
+    if (pathArrValue.length > 1){
+      const condition =
+        typeof input !== 'object' ||
+        input === null ||
+        !input.hasOwnProperty(index);
+
+      const nextInput = condition ?
+        isIndexInteger(pathArrValue[ 1 ]) ?
+          [] :
+          {} :
+        input[ index ];
+
+      newValue = assocPathFn(
+        Array.prototype.slice.call(pathArrValue, 1),
+        newValue,
+        nextInput
+      );
+    }
+
+    if (isIndexInteger(index) && isArray(input)){
+      const arr = cloneList(input);
+      arr[ index ] = newValue;
+
+      return arr
+    }
+
+    return assocFn(
+      index, newValue, input
+    )
+  }
+
+  const assocPath = curry(assocPathFn);
+
+  function binary(fn){
+    if (fn.length <= 2) return fn
+
+    return (a, b) => fn(a, b)
+  }
+
+  function bind(fn, thisObj){
+    if (arguments.length === 1){
+      return _thisObj => bind(fn, _thisObj)
+    }
+
+    return curryN(fn.length, (...args) => fn.apply(thisObj, args))
+  }
+
+  function both(f, g){
+    if (arguments.length === 1) return _g => both(f, _g)
+
+    return (...input) => f(...input) && g(...input)
+  }
+
+  const call = (fn, ...inputs) => fn(...inputs);
+
+  function chain(fn, list){
+    if (arguments.length === 1){
+      return _list => chain(fn, _list)
+    }
+
+    return [].concat(...list.map(fn))
+  }
+
+  function clampFn(
+    min, max, input
+  ){
+    if (min > max){
+      throw new Error('min must not be greater than max in clamp(min, max, value)')
+    }
+    if (input >= min && input <= max) return input
+
+    if (input > max) return max
+    if (input < min) return min
+  }
+
+  const clamp = curry(clampFn);
+
+  function clone(input){
+    const out = isArray(input) ? Array(input.length) : {};
+    if (input && input.getTime) return new Date(input.getTime())
+
+    for (const key in input){
+      const v = input[ key ];
+      out[ key ] =
+        typeof v === 'object' && v !== null ?
+          v.getTime ?
+            new Date(v.getTime()) :
+            clone(v) :
+          v;
+    }
+
+    return out
+  }
+
+  function reduceFn(
+    reducer, acc, list
+  ){
+    if (list == null){
+      return acc
+    }
+    if (!isArray(list)){
+      throw new TypeError('reduce: list must be array or iterable')
+    }
+    let index = 0;
+    const len = list.length;
+
+    while (index < len){
+      acc = reducer(
+        acc, list[ index ], index, list
+      );
+      index++;
+    }
+
+    return acc
+  }
+
+  const reduce = curry(reduceFn);
+
+  function collectBy(fn, list){
+    if (arguments.length === 1){
+      return _list => collectBy(fn, _list)
+    }
+
+    const group = reduce(
+      (o, x) => {
+        const tag = fn(x);
+        if (o[ tag ] === undefined){
+          o[ tag ] = [];
+        }
+        o[ tag ].push(x);
+
+        return o
+      },
+      {},
+      list
+    );
+    const newList = [];
+    for (const tag in group){
+      newList.push(group[ tag ]);
+    }
+
+    return newList
+  }
+
+  function comparator(fn){
+    return function (a, b){
+      return fn(a, b) ? -1 : fn(b, a) ? 1 : 0
+    }
+  }
+
+  function complement(fn){
+    return (...input) => !fn(...input)
+  }
+
+  function _pipe(f, g){
+    return function (){
+      return g.call(this, f.apply(this, arguments))
+    }
+  }
+
+  function pipe(){
+    if (arguments.length === 0){
+      throw new Error('pipe requires at least one argument')
+    }
+
+    return _arity(arguments[ 0 ].length,
+      reduceFn(
+        _pipe,
+        arguments[ 0 ],
+        Array.prototype.slice.call(
+          arguments, 1, Infinity
+        )
+      ))
+  }
+
+  function compose(){
+    if (arguments.length === 0){
+      throw new Error('compose requires at least one argument')
+    }
+
+    return pipe.apply(this, Array.prototype.slice.call(arguments, 0).reverse())
+  }
+
+  function head(listOrString){
+    if (typeof listOrString === 'string') return listOrString[ 0 ] || ''
+
+    return listOrString[ 0 ]
+  }
+
+  function identity(x){
+    return x
+  }
+
+  function reverse(listOrString) {
+    if (typeof listOrString === 'string') {
+      return listOrString.split('').reverse().join('')
+    }
+
+    const clone = listOrString.slice();
+
+    return clone.reverse()
+  }
+
+  function drop(howManyToDrop, listOrString){
+    if (arguments.length === 1) return _list => drop(howManyToDrop, _list)
+
+    return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+  }
+
+  function tail(listOrString){
+    return drop(1, listOrString)
+  }
+
+  function pipeWith(xf, list){
+    if (list.length <= 0){
+      return identity
+    }
+
+    const headList = head(list);
+    const tailList = tail(list);
+
+    return _arity(headList.length, function (){
+      return reduce(
+        function (result, f){
+          return xf.call(
+            this, f, result
+          )
+        },
+        headList.apply(this, arguments),
+        tailList
+      )
+    })
+  }
+
+  function composeWith(xf, list){
+    if (arguments.length === 1) return _list => composeWith(xf, _list)
+
+    return pipeWith.apply(this, [ xf, reverse(list) ])
+  }
+
+  function concat(x, y){
+    if (arguments.length === 1) return _y => concat(x, _y)
+
+    return typeof x === 'string' ? `${ x }${ y }` : [ ...x, ...y ]
+  }
+
+  function cond(conditions){
+    return (...input) => {
+      let done = false;
+      let toReturn;
+      conditions.forEach(([ predicate, getResult ]) => {
+        if (!done && predicate(...input)){
+          done = true;
+          toReturn = getResult(...input);
+        }
+      });
+
+      return toReturn
+    }
+  }
+
+  const INCORRECT_ITERABLE_INPUT = 'Incorrect iterable input';
+
+  const { keys: keys$1 } = Object;
+
+  function mapArray(
+    fn, list, isIndexed = false
+  ){
+    let index = 0;
+    const willReturn = Array(list.length);
+
+    while (index < list.length){
+      willReturn[ index ] = isIndexed ? fn(list[ index ], index) : fn(list[ index ]);
+
+      index++;
+    }
+
+    return willReturn
+  }
+
+  function mapObject(fn, obj){
+    if (arguments.length === 1){
+      return _obj => mapObject(fn, _obj)
+    }
+    let index = 0;
+    const objKeys = keys$1(obj);
+    const len = objKeys.length;
+    const willReturn = {};
+
+    while (index < len){
+      const key = objKeys[ index ];
+      willReturn[ key ] = fn(
+        obj[ key ], key, obj
+      );
+      index++;
+    }
+
+    return willReturn
+  }
+
+  const mapObjIndexed = mapObject;
+
+  function map(fn, iterable){
+    if (arguments.length === 1) return _iterable => map(fn, _iterable)
+    if (!iterable){
+      throw new Error(INCORRECT_ITERABLE_INPUT)
+    }
+
+    if (isArray(iterable)) return mapArray(fn, iterable)
+
+    return mapObject(fn, iterable)
+  }
+
+  function max(x, y){
+    if (arguments.length === 1) return _y => max(x, _y)
+
+    return y > x ? y : x
+  }
+
+  function converge(fn, transformers){
+    if (arguments.length === 1)
+      return _transformers => converge(fn, _transformers)
+
+    const highestArity = reduce(
+      (a, b) => max(a, b.length), 0, transformers
+    );
+
+    return curryN(highestArity, function (){
+      return fn.apply(this,
+        map(g => g.apply(this, arguments), transformers))
+    })
+  }
+
+  function count(predicate, list){
+    if (arguments.length === 1){
+      return _list => count(predicate, _list)
+    }
+    if (!isArray(list)) return 0
+
+    return list.filter(x => predicate(x)).length
+  }
+
+  function countBy(fn, list){
+    if (arguments.length === 1){
+      return _list => countBy(fn, _list)
+    }
+    const willReturn = {};
+
+    list.forEach(item => {
+      const key = fn(item);
+      if (!willReturn[ key ]){
+        willReturn[ key ] = 1;
+      } else {
+        willReturn[ key ]++;
+      }
+    });
+
+    return willReturn
+  }
+
+  const dec = x => x - 1;
+
+  function isFalsy(input){
+    return (
+      input === undefined || input === null || Number.isNaN(input) === true
+    )
+  }
+
+  function defaultTo(defaultArgument, input){
+    if (arguments.length === 1){
+      return _input => defaultTo(defaultArgument, _input)
+    }
+
+    return isFalsy(input) ? defaultArgument : input
+  }
+
+  function descend(
+    getFunction, a, b
+  ){
+    if (arguments.length === 1){
+      return (_a, _b) => descend(
+        getFunction, _a, _b
+      )
+    }
+    const aValue = getFunction(a);
+    const bValue = getFunction(b);
+
+    return createCompareFunction(
+      aValue, bValue, 1, -1
+    )
+  }
+
+  function type(input){
+    if (input === null){
+      return 'Null'
+    } else if (input === undefined){
+      return 'Undefined'
+    } else if (Number.isNaN(input)){
+      return 'NaN'
+    }
+    const typeResult = Object.prototype.toString.call(input).slice(8, -1);
+
+    return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
+  }
+
+  function _lastIndexOf(valueToFind, list){
+    if (!isArray(list))
+      throw new Error(`Cannot read property 'indexOf' of ${ list }`)
+
+    const typeOfValue = type(valueToFind);
+    if (![ 'Array', 'NaN', 'Object', 'RegExp' ].includes(typeOfValue))
+      return list.lastIndexOf(valueToFind)
+
+    const { length } = list;
+    let index = length;
+    let foundIndex = -1;
+
+    while (--index > -1 && foundIndex === -1)
+      if (equals(list[ index ], valueToFind))
+        foundIndex = index;
+
+    return foundIndex
+  }
+
+  function _indexOf(valueToFind, list){
+    if (!isArray(list))
+      throw new Error(`Cannot read property 'indexOf' of ${ list }`)
+
+    const typeOfValue = type(valueToFind);
+    if (![ 'Array', 'NaN', 'Object', 'RegExp' ].includes(typeOfValue))
+      return list.indexOf(valueToFind)
+
+    let index = -1;
+    let foundIndex = -1;
+    const { length } = list;
+
+    while (++index < length && foundIndex === -1)
+      if (equals(list[ index ], valueToFind))
+        foundIndex = index;
+
+    return foundIndex
+  }
+
+  function _arrayFromIterator(iter){
+    const list = [];
+    let next;
+    while (!(next = iter.next()).done)
+      list.push(next.value);
+
+    return list
+  }
+
+  function _compareSets(a, b){
+    if (a.size !== b.size)
+      return false
+
+    const aList = _arrayFromIterator(a.values());
+    const bList = _arrayFromIterator(b.values());
+
+    const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
+
+    return filtered.length === 0
+  }
+
+  function compareErrors(a, b){
+    if (a.message !== b.message) return false
+    if (a.toString !== b.toString) return false
+
+    return a.toString() === b.toString()
+  }
+
+  function parseDate(maybeDate){
+    if (!maybeDate.toDateString) return [ false ]
+
+    return [ true, maybeDate.getTime() ]
+  }
+
+  function parseRegex(maybeRegex){
+    if (maybeRegex.constructor !== RegExp) return [ false ]
+
+    return [ true, maybeRegex.toString() ]
+  }
+
+  function equals(a, b){
+    if (arguments.length === 1) return _b => equals(a, _b)
+
+    if (Object.is(a, b)) return true
+
+    const aType = type(a);
+
+    if (aType !== type(b)) return false
+    if (aType === 'Function')
+      return a.name === undefined ? false : a.name === b.name
+
+    if ([ 'NaN', 'Null', 'Undefined' ].includes(aType)) return true
+
+    if ([ 'BigInt', 'Number' ].includes(aType)){
+      if (Object.is(-0, a) !== Object.is(-0, b)) return false
+
+      return a.toString() === b.toString()
+    }
+
+    if ([ 'Boolean', 'String' ].includes(aType))
+      return a.toString() === b.toString()
+
+    if (aType === 'Array'){
+      const aClone = Array.from(a);
+      const bClone = Array.from(b);
+
+      if (aClone.toString() !== bClone.toString())
+        return false
+
+      let loopArrayFlag = true;
+      aClone.forEach((aCloneInstance, aCloneIndex) => {
+        if (loopArrayFlag)
+          if (
+            aCloneInstance !== bClone[ aCloneIndex ] &&
+            !equals(aCloneInstance, bClone[ aCloneIndex ])
+          )
+            loopArrayFlag = false;
+
+      });
+
+      return loopArrayFlag
+    }
+
+    const aRegex = parseRegex(a);
+    const bRegex = parseRegex(b);
+
+    if (aRegex[ 0 ])
+      return bRegex[ 0 ] ? aRegex[ 1 ] === bRegex[ 1 ] : false
+    else if (bRegex[ 0 ]) return false
+
+    const aDate = parseDate(a);
+    const bDate = parseDate(b);
+
+    if (aDate[ 0 ])
+      return bDate[ 0 ] ? aDate[ 1 ] === bDate[ 1 ] : false
+    else if (bDate[ 0 ]) return false
+
+    if (a instanceof Error){
+      if (!(b instanceof Error)) return false
+
+      return compareErrors(a, b)
+    }
+
+    if (aType === 'Set')
+      return _compareSets(a, b)
+
+    if (aType === 'Object'){
+      const aKeys = Object.keys(a);
+
+      if (aKeys.length !== Object.keys(b).length)
+        return false
+
+      let loopObjectFlag = true;
+      aKeys.forEach(aKeyInstance => {
+        if (loopObjectFlag){
+          const aValue = a[ aKeyInstance ];
+          const bValue = b[ aKeyInstance ];
+
+          if (aValue !== bValue && !equals(aValue, bValue))
+            loopObjectFlag = false;
+
+        }
+      });
+
+      return loopObjectFlag
+    }
+
+    return false
+  }
+
+  function includes$1(valueToFind, iterable){
+    if (arguments.length === 1)
+      return _iterable => includes$1(valueToFind, _iterable)
+    if (typeof iterable === 'string'){
+      return iterable.includes(valueToFind)
+    }
+    if (!iterable){
+      throw new TypeError(`Cannot read property \'indexOf\' of ${ iterable }`)
+    }
+    if (!isArray(iterable)) return false
+
+    return _indexOf(valueToFind, iterable) > -1
+  }
+
+  class _Set{
+    constructor(){
+      this.set = new Set();
+      this.items = {};
+    }
+
+    checkUniqueness(item){
+      const type$1 = type(item);
+      if ([ 'Null', 'Undefined', 'NaN' ].includes(type$1)){
+        if (type$1 in this.items){
+          return false
+        }
+        this.items[ type$1 ] = true;
+
+        return true
+      }
+      if (![ 'Object', 'Array' ].includes(type$1)){
+        const prevSize = this.set.size;
+        this.set.add(item);
+
+        return this.set.size !== prevSize
+      }
+
+      if (!(type$1 in this.items)){
+        this.items[ type$1 ] = [ item ];
+
+        return true
+      }
+
+      if (_indexOf(item, this.items[ type$1 ]) === -1){
+        this.items[ type$1 ].push(item);
+
+        return true
+      }
+
+      return false
+    }
+  }
+
+  function uniq(list){
+    const set = new _Set();
+    const willReturn = [];
+    list.forEach(item => {
+      if (set.checkUniqueness(item)){
+        willReturn.push(item);
+      }
+    });
+
+    return willReturn
+  }
+
+  function difference(a, b){
+    if (arguments.length === 1) return _b => difference(a, _b)
+
+    return uniq(a).filter(aInstance => !includes$1(aInstance, b))
+  }
+
+  function differenceWithFn(
+    fn, a, b
+  ){
+    const willReturn = [];
+    const [ first, second ] = a.length >= b.length ? [ a, b ] : [ b, a ];
+
+    first.forEach(item => {
+      const hasItem = second.some(secondItem => fn(item, secondItem));
+      if (!hasItem && _indexOf(item, willReturn) === -1){
+        willReturn.push(item);
+      }
+    });
+
+    return willReturn
+  }
+
+  const differenceWith = curry(differenceWithFn);
+
+  function dissoc(prop, obj){
+    if (arguments.length === 1) return _obj => dissoc(prop, _obj)
+
+    if (obj === null || obj === undefined) return {}
+
+    const willReturn = {};
+    for (const p in obj){
+      willReturn[ p ] = obj[ p ];
+    }
+    delete willReturn[ prop ];
+
+    return willReturn
+  }
+
+  function compare(a, b){
+    return String(a) === String(b)
+  }
+
+  function includes(a, list){
+    let index = -1;
+    const { length } = list;
+
+    while (++index < length)
+      if (compare(list[ index ], a))
+        return true
+
+    return false
+  }
+
+  function omit(propsToOmit, obj){
+    if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
+
+    if (obj === null || obj === undefined)
+      return undefined
+
+    const propsToOmitValue = createPath(propsToOmit, ',');
+    const willReturn = {};
+
+    for (const key in obj)
+      if (!includes(key, propsToOmitValue))
+        willReturn[ key ] = obj[ key ];
+
+    return willReturn
+  }
+
+  function pathFn(pathInput, obj){
+    let willReturn = obj;
+    let counter = 0;
+
+    const pathArrValue = createPath(pathInput);
+
+    while (counter < pathArrValue.length){
+      if (willReturn === null || willReturn === undefined){
+        return undefined
+      }
+      if (willReturn[ pathArrValue[ counter ] ] === null) return undefined
+
+      willReturn = willReturn[ pathArrValue[ counter ] ];
+      counter++;
+    }
+
+    return willReturn
+  }
+
+  function path(pathInput, obj){
+    if (arguments.length === 1) return _obj => path(pathInput, _obj)
+
+    if (obj === null || obj === undefined){
+      return undefined
+    }
+
+    return pathFn(pathInput, obj)
+  }
+
+  function removeIndex(index, list){
+    if (arguments.length === 1) return _list => removeIndex(index, _list)
+    if (index <= 0) return list.slice(1)
+    if (index >= list.length - 1) return list.slice(0, list.length - 1)
+
+    return [ ...list.slice(0, index), ...list.slice(index + 1) ]
+  }
+
+  function updateFn(
+    index, newValue, list
+  ){
+    const clone = cloneList(list);
+    if (index === -1) return clone.fill(newValue, index)
+
+    return clone.fill(
+      newValue, index, index + 1
+    )
+  }
+
+  const update = curry(updateFn);
+
+  function dissocPath(pathInput, input){
+    if (arguments.length === 1) return _obj => dissocPath(pathInput, _obj)
+
+    const pathArrValue = createPath(pathInput);
+    // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
+    // TODO: add warning that Rambda simply returns input if path is empty
+    if (pathArrValue.length === 0) return input
+
+    const pathResult = path(pathArrValue, input);
+    if (pathResult === undefined) return input
+
+    const index = pathArrValue[ 0 ];
+    const condition =
+      typeof input !== 'object' ||
+      input === null ||
+      !input.hasOwnProperty(index);
+    if (pathArrValue.length > 1){
+      const nextInput = condition ?
+        isIndexInteger(pathArrValue[ 1 ]) ?
+          [] :
+          {} :
+        input[ index ];
+      const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
+      const intermediateResult = dissocPath(
+        nextPathInput, nextInput, input
+      );
+      if (isArray(input)) return update(
+        index, intermediateResult, input
+      )
+
+      return {
+        ...input,
+        [ index ] : intermediateResult,
+      }
+    }
+    if (isArray(input)) return removeIndex(index, input)
+
+    return omit([ index ], input)
+  }
+
+  function divide(a, b){
+    if (arguments.length === 1) return _b => divide(a, _b)
+
+    return a / b
+  }
+
+  function dropLast(howManyToDrop, listOrString){
+    if (arguments.length === 1){
+      return _listOrString => dropLast(howManyToDrop, _listOrString)
+    }
+
+    return howManyToDrop > 0 ?
+      listOrString.slice(0, -howManyToDrop) :
+      listOrString.slice()
+  }
+
+  function dropLastWhile(predicate, iterable){
+    if (arguments.length === 1){
+      return _iterable => dropLastWhile(predicate, _iterable)
+    }
+    if (iterable.length === 0) return iterable
+    const isArray$1 = isArray(iterable);
+
+    if (typeof predicate !== 'function'){
+      throw new Error(`'predicate' is from wrong type ${ typeof predicate }`)
+    }
+    if (!isArray$1 && typeof iterable !== 'string'){
+      throw new Error(`'iterable' is from wrong type ${ typeof iterable }`)
+    }
+
+    const toReturn = [];
+    let counter = iterable.length;
+
+    while (counter){
+      const item = iterable[ --counter ];
+      if (!predicate(item)){
+        toReturn.push(item);
+        break
+      }
+    }
+
+    while (counter){
+      toReturn.push(iterable[ --counter ]);
+    }
+
+    return isArray$1 ? toReturn.reverse() : toReturn.reverse().join('')
+  }
+
+  function dropRepeats(list){
+    if (!isArray(list)){
+      throw new Error(`${ list } is not a list`)
+    }
+
+    const toReturn = [];
+
+    list.reduce((prev, current) => {
+      if (!equals(prev, current)){
+        toReturn.push(current);
+      }
+
+      return current
+    }, undefined);
+
+    return toReturn
+  }
+
+  function dropRepeatsBy(fn, list){
+    if (arguments.length === 1) return _list => dropRepeatsBy(fn, _list)
+
+    let lastEvaluated = null;
+
+    return list.slice().filter(item => {
+      if (lastEvaluated === null){
+        lastEvaluated = fn(item);
+
+        return true
+      }
+      const evaluatedResult = fn(item);
+      if (equals(lastEvaluated, evaluatedResult)) return false
+
+      lastEvaluated = evaluatedResult;
+
+      return true
+    })
+  }
+
+  function dropRepeatsWith(predicate, list){
+    if (arguments.length === 1){
+      return _iterable => dropRepeatsWith(predicate, _iterable)
+    }
+
+    if (!isArray(list)){
+      throw new Error(`${ list } is not a list`)
+    }
+
+    const toReturn = [];
+
+    list.reduce((prev, current) => {
+      if (prev === undefined){
+        toReturn.push(current);
+
+        return current
+      }
+      if (!predicate(prev, current)){
+        toReturn.push(current);
+      }
+
+      return current
+    }, undefined);
+
+    return toReturn
+  }
+
+  function dropWhile(predicate, iterable){
+    if (arguments.length === 1){
+      return _iterable => dropWhile(predicate, _iterable)
+    }
+    const isArray$1 = isArray(iterable);
+    if (!isArray$1 && typeof iterable !== 'string'){
+      throw new Error('`iterable` is neither list nor a string')
+    }
+
+    const toReturn = [];
+    let counter = 0;
+
+    while (counter < iterable.length){
+      const item = iterable[ counter++ ];
+      if (!predicate(item)){
+        toReturn.push(item);
+        break
+      }
+    }
+
+    while (counter < iterable.length){
+      toReturn.push(iterable[ counter++ ]);
+    }
+
+    return isArray$1 ? toReturn : toReturn.join('')
+  }
+
+  function either(firstPredicate, secondPredicate){
+    if (arguments.length === 1){
+      return _secondPredicate => either(firstPredicate, _secondPredicate)
+    }
+
+    return (...input) =>
+      Boolean(firstPredicate(...input) || secondPredicate(...input))
+  }
+
+  function empty(list){
+    if (typeof list === 'string') return ''
+
+    if (Array.isArray(list)){
+      const { name } = list.constructor;
+      if (name === 'Uint8Array') return Uint8Array.from('')
+
+      if (name === 'Float32Array') return new Float32Array([])
+
+      return []
+    }
+    if (type(list) === 'Object') return {}
+  }
+
+  function endsWith(target, iterable){
+    if (arguments.length === 1) return _iterable => endsWith(target, _iterable)
+
+    if (typeof iterable === 'string'){
+      return iterable.endsWith(target)
+    }
+    if (!isArray(target)) return false
+
+    const diff = iterable.length - target.length;
+    let correct = true;
+    const filtered = target.filter((x, index) => {
+      if (!correct) return false
+      const result = equals(x, iterable[ index + diff ]);
+      if (!result) correct = false;
+
+      return result
+    });
+
+    return filtered.length === target.length
+  }
+
+  function eqByFn(
+    fn, a, b
+  ){
+    return equals(fn(a), fn(b))
+  }
+
+  const eqBy = curry(eqByFn);
+
+  function propFn(searchProperty, obj){
+    if (!obj) return undefined
+
+    return obj[ searchProperty ]
+  }
+
+  function prop(searchProperty, obj){
+    if (arguments.length === 1) return _obj => prop(searchProperty, _obj)
+
+    return propFn(searchProperty, obj)
+  }
+
+  function eqPropsFn(
+    property, objA, objB
+  ){
+    return equals(prop(property, objA), prop(property, objB))
+  }
+
+  const eqProps = curry(eqPropsFn);
+
+  function evolveArray(rules, list){
+    return mapArray(
+      (x, i) => {
+        if (type(rules[ i ]) === 'Function'){
+          return rules[ i ](x)
+        }
+
+        return x
+      },
+      list,
+      true
+    )
+  }
+
+  function evolveObject(rules, iterable){
+    return mapObject((x, prop) => {
+      if (type(x) === 'Object'){
+        const typeRule = type(rules[ prop ]);
+        if (typeRule === 'Function'){
+          return rules[ prop ](x)
+        }
+        if (typeRule === 'Object'){
+          return evolve(rules[ prop ], x)
+        }
+
+        return x
+      }
+      if (type(rules[ prop ]) === 'Function'){
+        return rules[ prop ](x)
+      }
+
+      return x
+    }, iterable)
+  }
+
+  function evolve(rules, iterable){
+    if (arguments.length === 1){
+      return _iterable => evolve(rules, _iterable)
+    }
+    const rulesType = type(rules);
+    const iterableType = type(iterable);
+
+    if (iterableType !== rulesType){
+      throw new Error('iterableType !== rulesType')
+    }
+
+    if (![ 'Object', 'Array' ].includes(rulesType)){
+      throw new Error(`'iterable' and 'rules' are from wrong type ${ rulesType }`)
+    }
+
+    if (iterableType === 'Object'){
+      return evolveObject(rules, iterable)
+    }
+
+    return evolveArray(rules, iterable)
+  }
+
+  function filterObject(predicate, obj){
+    const willReturn = {};
+
+    for (const prop in obj){
+      if (predicate(
+        obj[ prop ], prop, obj
+      )){
+        willReturn[ prop ] = obj[ prop ];
+      }
+    }
+
+    return willReturn
+  }
+
+  function filterArray(
+    predicate, list, indexed = false
+  ){
+    let index = 0;
+    const len = list.length;
+    const willReturn = [];
+
+    while (index < len){
+      const predicateResult = indexed ?
+        predicate(list[ index ], index) :
+        predicate(list[ index ]);
+      if (predicateResult){
+        willReturn.push(list[ index ]);
+      }
+
+      index++;
+    }
+
+    return willReturn
+  }
+
+  function filter(predicate, iterable){
+    if (arguments.length === 1)
+      return _iterable => filter(predicate, _iterable)
+    if (!iterable){
+      throw new Error('Incorrect iterable input')
+    }
+
+    if (isArray(iterable)) return filterArray(
+      predicate, iterable, false
+    )
+
+    return filterObject(predicate, iterable)
+  }
+
+  function find(predicate, list){
+    if (arguments.length === 1) return _list => find(predicate, _list)
+
+    let index = 0;
+    const len = list.length;
+
+    while (index < len){
+      const x = list[ index ];
+      if (predicate(x)){
+        return x
+      }
+
+      index++;
+    }
+  }
+
+  function findIndex(predicate, list){
+    if (arguments.length === 1) return _list => findIndex(predicate, _list)
+
+    const len = list.length;
+    let index = -1;
+
+    while (++index < len){
+      if (predicate(list[ index ])){
+        return index
+      }
+    }
+
+    return -1
+  }
+
+  function findLast(predicate, list){
+    if (arguments.length === 1) return _list => findLast(predicate, _list)
+
+    let index = list.length;
+
+    while (--index >= 0){
+      if (predicate(list[ index ])){
+        return list[ index ]
+      }
+    }
+
+    return undefined
+  }
+
+  function findLastIndex(fn, list){
+    if (arguments.length === 1) return _list => findLastIndex(fn, _list)
+
+    let index = list.length;
+
+    while (--index >= 0){
+      if (fn(list[ index ])){
+        return index
+      }
+    }
+
+    return -1
+  }
+
+  function flatten(list, input){
+    const willReturn = input === undefined ? [] : input;
+
+    for (let i = 0; i < list.length; i++){
+      if (isArray(list[ i ])){
+        flatten(list[ i ], willReturn);
+      } else {
+        willReturn.push(list[ i ]);
+      }
+    }
+
+    return willReturn
+  }
+
+  function flipFn(fn){
+    return (...input) => {
+      if (input.length === 1){
+        return holder => fn(holder, input[ 0 ])
+      } else if (input.length === 2){
+        return fn(input[ 1 ], input[ 0 ])
+      } else if (input.length === 3){
+        return fn(
+          input[ 1 ], input[ 0 ], input[ 2 ]
+        )
+      } else if (input.length === 4){
+        return fn(
+          input[ 1 ], input[ 0 ], input[ 2 ], input[ 3 ]
+        )
+      }
+
+      throw new Error('R.flip doesn\'t work with arity > 4')
+    }
+  }
+
+  function flip(fn){
+    return flipFn(fn)
+  }
+
+  function forEachObjIndexedFn(fn, obj){
+    let index = 0;
+    const listKeys = keys$1(obj);
+    const len = listKeys.length;
+
+    while (index < len){
+      const key = listKeys[ index ];
+      fn(
+        obj[ key ], key, obj
+      );
+      index++;
+    }
+
+    return obj
+  }
+
+  function forEachObjIndexed(fn, list){
+    if (arguments.length === 1) return _list => forEachObjIndexed(fn, _list)
+    if (list === undefined) return
+
+    return forEachObjIndexedFn(fn, list)
+  }
+
+  function forEach(fn, iterable){
+    if (arguments.length === 1) return _list => forEach(fn, _list)
+    if (iterable === undefined) return
+
+    if (isArray(iterable)){
+      let index = 0;
+      const len = iterable.length;
+
+      while (index < len){
+        fn(iterable[ index ]);
+        index++;
+      }
+    } else return forEachObjIndexedFn(fn, iterable)
+
+    return iterable
+  }
+
+  function fromPairs(listOfPairs){
+    const toReturn = {};
+    listOfPairs.forEach(([ prop, value ]) => toReturn[ prop ] = value);
+
+    return toReturn
+  }
+
+  function groupBy(groupFn, list){
+    if (arguments.length === 1) return _list => groupBy(groupFn, _list)
+
+    const result = {};
+    for (let i = 0; i < list.length; i++){
+      const item = list[ i ];
+      const key = groupFn(item);
+
+      if (!result[ key ]){
+        result[ key ] = [];
+      }
+
+      result[ key ].push(item);
+    }
+
+    return result
+  }
+
+  function groupWith(compareFn, list){
+    if (!isArray(list)) throw new TypeError('list.reduce is not a function')
+
+    const clone = cloneList(list);
+
+    if (list.length === 1) return [ clone ]
+
+    const toReturn = [];
+    let holder = [];
+
+    clone.reduce((
+      prev, current, i
+    ) => {
+      if (i === 0) return current
+
+      const okCompare = compareFn(prev, current);
+      const holderIsEmpty = holder.length === 0;
+      const lastCall = i === list.length - 1;
+
+      if (okCompare){
+        if (holderIsEmpty) holder.push(prev);
+        holder.push(current);
+        if (lastCall) toReturn.push(holder);
+
+        return current
+      }
+
+      if (holderIsEmpty){
+        toReturn.push([ prev ]);
+        if (lastCall) toReturn.push([ current ]);
+
+        return current
+      }
+
+      toReturn.push(holder);
+      if (lastCall) toReturn.push([ current ]);
+      holder = [];
+
+      return current
+    }, undefined);
+
+    return toReturn
+  }
+
+  function gt(a, b){
+    if (arguments.length === 1)
+      return _b => gt(a, _b)
+
+    return a > b
+  }
+
+  function gte(a, b){
+    if (arguments.length === 1)
+      return _b => gte(a, _b)
+
+    return a >= b
+  }
+
+  function has(prop, obj){
+    if (arguments.length === 1) return _obj => has(prop, _obj)
+
+    if (!obj) return false
+
+    return obj.hasOwnProperty(prop)
+  }
+
+  function hasIn(searchProperty, obj) {
+  	if (arguments.length === 1) {
+  		return (_obj) => hasIn(searchProperty, _obj);
+  	}
+
+  	return propFn(searchProperty, obj) !== undefined;
+  }
+
+  function hasPath(pathInput, obj){
+    if (arguments.length === 1){
+      return objHolder => hasPath(pathInput, objHolder)
+    }
+
+    return path(pathInput, obj) !== undefined
+  }
+
+  function _objectIs(a, b){
+    if (a === b){
+      return a !== 0 || 1 / a === 1 / b
+    }
+
+    return a !== a && b !== b
+  }
+
+  const objectIs = Object.is || _objectIs;
+
+  function identical(a, b){
+    if (arguments.length === 1) return _b => identical(a, _b)
+
+    return objectIs(a, b)
+  }
+
+  function ifElseFn(
+    condition, onTrue, onFalse
+  ){
+    return (...input) => {
+  		const conditionResult =
+        typeof condition === 'boolean' ? condition : condition(...input);
+      if (Boolean(conditionResult) ){
+        return onTrue(...input)
+      }
+
+      return onFalse(...input)
+    }
+  }
+
+  const ifElse = curry(ifElseFn);
+
+  const inc = x => x + 1;
+
+  function indexByPath(pathInput, list){
+    const toReturn = {};
+    for (let i = 0; i < list.length; i++){
+      const item = list[ i ];
+      toReturn[ path(pathInput, item) ] = item;
+    }
+
+    return toReturn
+  }
+
+  function indexBy(condition, list){
+    if (arguments.length === 1){
+      return _list => indexBy(condition, _list)
+    }
+
+    if (typeof condition === 'string'){
+      return indexByPath(condition, list)
+    }
+
+    const toReturn = {};
+    for (let i = 0; i < list.length; i++){
+      const item = list[ i ];
+      toReturn[ condition(item) ] = item;
+    }
+
+    return toReturn
+  }
+
+  function indexOf(valueToFind, list){
+    if (arguments.length === 1){
+      return _list => _indexOf(valueToFind, _list)
+    }
+
+    return _indexOf(valueToFind, list)
+  }
+
+  function baseSlice(
+    array, start, end
+  ){
+    let index = -1;
+    let { length } = array;
+
+    end = end > length ? length : end;
+    if (end < 0){
+      end += length;
+    }
+    length = start > end ? 0 : end - start >>> 0;
+    start >>>= 0;
+
+    const result = Array(length);
+
+    while (++index < length){
+      result[ index ] = array[ index + start ];
+    }
+
+    return result
+  }
+
+  function init(listOrString){
+    if (typeof listOrString === 'string') return listOrString.slice(0, -1)
+
+    return listOrString.length ?
+      baseSlice(
+        listOrString, 0, -1
+      ) :
+      []
+  }
+
+  function _includesWith(
+    pred, x, list
+  ){
+    let idx = 0;
+    const len = list.length;
+
+    while (idx < len){
+      if (pred(x, list[ idx ]))
+        return true
+
+      idx += 1;
+    }
+
+    return false
+  }
+  function _filter(fn, list){
+    let idx = 0;
+    const len = list.length;
+    const result = [];
+
+    while (idx < len){
+      if (fn(list[ idx ]))
+        result[ result.length ] = list[ idx ];
+
+      idx += 1;
+    }
+
+    return result
+  }
+
+  function innerJoinFn(
+    pred, xs, ys
+  ){
+    return _filter(x => _includesWith(
+      pred, x, ys
+    ), xs)
+  }
+
+  const innerJoin = curry(innerJoinFn);
+
+  function insertFn(indexToInsert, valueToInsert, array) {
+    return [
+      ...array.slice(0, indexToInsert),
+      valueToInsert,
+      ...array.slice(indexToInsert),
+    ]
+  }
+
+  const insert = curry(insertFn);
+
+  function insertAllFn(index, listToInsert, list) {
+  	return [...list.slice(0, index), ...listToInsert, ...list.slice(index)];
+  }
+
+  const insertAll = curry(insertAllFn);
+
+  function intersection(listA, listB){
+    if (arguments.length === 1) return _list => intersection(listA, _list)
+
+    return filter(x => includes$1(x, listA), listB)
+  }
+
+  function intersperse(separator, list){
+    if (arguments.length === 1) return _list => intersperse(separator, _list)
+
+    let index = -1;
+    const len = list.length;
+    const willReturn = [];
+
+    while (++index < len){
+      if (index === len - 1){
+        willReturn.push(list[ index ]);
+      } else {
+        willReturn.push(list[ index ], separator);
+      }
+    }
+
+    return willReturn
+  }
+
+  function is(targetPrototype, x){
+    if (arguments.length === 1) return _x => is(targetPrototype, _x)
+
+    return (
+      x != null && x.constructor === targetPrototype ||
+      x instanceof targetPrototype
+    )
+  }
+
+  function isEmpty(input){
+    const inputType = type(input);
+    if ([ 'Undefined', 'NaN', 'Number', 'Null' ].includes(inputType))
+      return false
+    if (!input) return true
+
+    if (inputType === 'Object'){
+      return Object.keys(input).length === 0
+    }
+
+    if (inputType === 'Array'){
+      return input.length === 0
+    }
+
+    return false
+  }
+
+  function isNil(x){
+    return x === undefined || x === null
+  }
+
+  function isNotEmpty(input) {
+  	return !isEmpty(input);
+  }
+
+  function isNotNil(input) {
+    return input != null
+  }
+
+  function join(glue, list){
+    if (arguments.length === 1) return _list => join(glue, _list)
+
+    return list.join(glue)
+  }
+
+  function juxt(listOfFunctions){
+    return (...args) => listOfFunctions.map(fn => fn(...args))
+  }
+
+  function keys(x){
+    return Object.keys(x)
+  }
+
+  function last(listOrString){
+    if (typeof listOrString === 'string'){
+      return listOrString[ listOrString.length - 1 ] || ''
+    }
+
+    return listOrString[ listOrString.length - 1 ]
+  }
+
+  function lastIndexOf(valueToFind, list){
+    if (arguments.length === 1){
+      return _list => _lastIndexOf(valueToFind, _list)
+    }
+
+    return _lastIndexOf(valueToFind, list)
+  }
+
+  function length(x){
+    if (isArray(x)) return x.length
+    if (typeof x === 'string') return x.length
+
+    return NaN
+  }
+
+  function lens(getter, setter){
+    return function (functor){
+      return function (target){
+        return functor(getter(target)).map(focus => setter(focus, target))
+      }
+    }
+  }
+
+  function nth(index, input){
+    if (arguments.length === 1) return _input => nth(index, _input)
+
+    const idx = index < 0 ? input.length + index : index;
+
+    return Object.prototype.toString.call(input) === '[object String]' ?
+      input.charAt(idx) :
+      input[ idx ]
+  }
+
+  function lensIndex(index){
+    return lens(nth(index), update(index))
+  }
+
+  function lensPath(key){
+    return lens(path(key), assocPath(key))
+  }
+
+  function lensProp(key){
+    return lens(prop(key), assoc(key))
+  }
+
+  function lt(a, b){
+    if (arguments.length === 1)
+      return _b => lt(a, _b)
+
+    return a < b
+  }
+
+  function lte(a, b){
+    if (arguments.length === 1)
+      return _b => lte(a, _b)
+
+    return a <= b
+  }
+
+  function match(pattern, input){
+    if (arguments.length === 1) return _input => match(pattern, _input)
+
+    const willReturn = input.match(pattern);
+
+    return willReturn === null ? [] : willReturn
+  }
+
+  function mathMod(x, y){
+    if (arguments.length === 1) return _y => mathMod(x, _y)
+    if (!isInteger(x) || !isInteger(y) || y < 1) return NaN
+
+    return (x % y + y) % y
+  }
+
+  function maxByFn(
+    compareFn, x, y
+  ){
+    return compareFn(y) > compareFn(x) ? y : x
+  }
+
+  const maxBy = curry(maxByFn);
+
+  function sum(list){
+    return list.reduce((prev, current) => prev + current, 0)
+  }
+
+  function mean(list){
+    return sum(list) / list.length
+  }
+
+  function median(list){
+    const len = list.length;
+    if (len === 0) return NaN
+    const width = 2 - len % 2;
+    const idx = (len - width) / 2;
+
+    return mean(Array.prototype.slice
+      .call(list, 0)
+      .sort((a, b) => {
+        if (a === b) return 0
+
+        return a < b ? -1 : 1
+      })
+      .slice(idx, idx + width))
+  }
+
+  function mergeRight(target, newProps){
+    if (arguments.length === 1)
+      return _newProps => mergeRight(target, _newProps)
+
+    return Object.assign(
+      {}, target || {}, newProps || {}
+    )
+  }
+
+  function mergeAll(arr){
+    let willReturn = {};
+    map(val => {
+      willReturn = mergeRight(willReturn, val);
+    }, arr);
+
+    return willReturn
+  }
+
+  function mergeDeepRight(target, source){
+    if (arguments.length === 1){
+      return sourceHolder => mergeDeepRight(target, sourceHolder)
+    }
+
+    const willReturn = clone(target);
+
+    Object.keys(source).forEach(key => {
+      if (type(source[ key ]) === 'Object'){
+        if (type(target[ key ]) === 'Object'){
+          willReturn[ key ] = mergeDeepRight(target[ key ], source[ key ]);
+        } else {
+          willReturn[ key ] = source[ key ];
+        }
+      } else {
+        willReturn[ key ] = source[ key ];
+      }
+    });
+
+    return willReturn
+  }
+
+  function mergeDeepLeft(newProps, target) {
+  	return mergeDeepRight(target, newProps);
+  }
+
+  function mergeLeft(x, y){
+    if (arguments.length === 1) return _y => mergeLeft(x, _y)
+
+    return mergeRight(y, x)
+  }
+
+  function mergeWithFn(
+    mergeFn, aInput, bInput
+  ){
+    const a = aInput ?? {};
+    const b = bInput ?? {};
+    const willReturn = {};
+
+    Object.keys(a).forEach(key => {
+      if (b[ key ] === undefined) willReturn[ key ] = a[ key ];
+      else willReturn[ key ] = mergeFn(a[ key ], b[ key ]);
+    });
+
+    Object.keys(b).forEach(key => {
+      if (willReturn[ key ] !== undefined) return
+
+      if (a[ key ] === undefined){
+  			willReturn[ key ] = b[ key ];
+  		} else {
+  			willReturn[ key ] = mergeFn(a[ key ], b[ key ]);
+  		}
+    });
+
+    return willReturn
+  }
+
+  const mergeWith = curry(mergeWithFn);
+
+  function min(x, y){
+    if (arguments.length === 1) return _y => min(x, _y)
+
+    return y < x ? y : x
+  }
+
+  function minByFn(
+    compareFn, x, y
+  ){
+    return compareFn(y) < compareFn(x) ? y : x
+  }
+
+  const minBy = curry(minByFn);
+
+  function isIterable(input){
+    return Array.isArray(input) || type(input) === 'Object'
+  }
+
+  function modifyFn(
+    property, fn, iterable
+  ){
+    if (!isIterable(iterable)) return iterable
+    if (iterable[ property ] === undefined) return iterable
+    if (isArray(iterable)){
+      return updateFn(
+        property, fn(iterable[ property ]), iterable
+      )
+    }
+
+    return {
+      ...iterable,
+      [ property ] : fn(iterable[ property ]),
+    }
+  }
+
+  const modify = curry(modifyFn);
+
+  function modifyPathFn(
+    pathInput, fn, object
+  ){
+    const path$1 = createPath(pathInput);
+    if (path$1.length === 1){
+      return {
+        ...object,
+        [ path$1[ 0 ] ] : fn(object[ path$1[ 0 ] ]),
+      }
+    }
+    if (path(path$1, object) === undefined) return object
+
+    const val = modifyPath(
+      Array.prototype.slice.call(path$1, 1),
+      fn,
+      object[ path$1[ 0 ] ]
+    );
+    if (val === object[ path$1[ 0 ] ]){
+      return object
+    }
+
+    return assoc(
+      path$1[ 0 ], val, object
+    )
+  }
+
+  const modifyPath = curry(modifyPathFn);
+
+  function modulo(x, y){
+    if (arguments.length === 1) return _y => modulo(x, _y)
+
+    return x % y
+  }
+
+  function moveFn(
+    fromIndex, toIndex, list
+  ){
+    if (fromIndex < 0 || toIndex < 0){
+      throw new Error('Rambda.move does not support negative indexes')
+    }
+    if (fromIndex > list.length - 1 || toIndex > list.length - 1) return list
+
+    const clone = cloneList(list);
+    clone[ fromIndex ] = list[ toIndex ];
+    clone[ toIndex ] = list[ fromIndex ];
+
+    return clone
+  }
+
+  const move = curry(moveFn);
+
+  function multiply(x, y){
+    if (arguments.length === 1) return _y => multiply(x, _y)
+
+    return x * y
+  }
+
+  function negate(x){
+    return -x
+  }
+
+  function none(predicate, list){
+    if (arguments.length === 1) return _list => none(predicate, _list)
+
+    for (let i = 0; i < list.length; i++){
+      if (predicate(list[ i ])) return false
+    }
+
+    return true
+  }
+
+  function not(input){
+    return !input
+  }
+
+  function objOf(key, value){
+    if (arguments.length === 1){
+      return _value => objOf(key, _value)
+    }
+
+    return { [ key ] : value }
+  }
+
+  function of(value){
+    return [ value ]
+  }
+
+  function on(
+    binaryFn, unaryFn, a, b
+  ){
+    if (arguments.length === 3){
+      return _b => on(
+        binaryFn, unaryFn, a, _b
+      )
+    }
+    if (arguments.length === 2){
+      return (_a, _b) => on(
+        binaryFn, unaryFn, _a, _b
+      )
+    }
+
+    return binaryFn(unaryFn(a), unaryFn(b))
+  }
+
+  function onceFn(fn, context){
+    let result;
+
+    return function (){
+      if (fn){
+        result = fn.apply(context || this, arguments);
+        fn = null;
+      }
+
+      return result
+    }
+  }
+
+  function once(fn, context){
+    if (arguments.length === 1){
+      const wrap = onceFn(fn, context);
+
+      return curry(wrap)
+    }
+
+    return onceFn(fn, context)
+  }
+
+  function or(a, b){
+    if (arguments.length === 1) return _b => or(a, _b)
+
+    return a || b
+  }
+
+  const Identity = x => ({
+    x,
+    map : fn => Identity(fn(x)),
+  });
+
+  function overFn(
+    lens, fn, object
+  ){
+    return lens(x => Identity(fn(x)))(object).x
+  }
+
+  const over = curry(overFn);
+
+  function partial(fn, ...args){
+    const len = fn.length;
+
+    // If a single array argument is given, those are the args (a la Ramda).
+    // Otherwise, the variadic arguments are the args.
+    const argList = args.length === 1 && isArray(args[0]) ? args[0] : args;
+
+    return (...rest) => {
+      if (argList.length + rest.length >= len){
+        return fn(...argList, ...rest)
+      }
+
+      return partial(fn, ...[ ...argList, ...rest ])
+    }
+  }
+
+  function partialObject(fn, input){
+    return nextInput => fn(mergeDeepRight(nextInput, input))
+  }
+
+  function partitionObject(predicate, iterable){
+    const yes = {};
+    const no = {};
+    Object.entries(iterable).forEach(([ prop, value ]) => {
+      if (predicate(value, prop)){
+        yes[ prop ] = value;
+      } else {
+        no[ prop ] = value;
+      }
+    });
+
+    return [ yes, no ]
+  }
+
+  function partitionArray(
+    predicate, list, indexed = false
+  ){
+    const yes = [];
+    const no = [];
+    let counter = -1;
+
+    while (counter++ < list.length - 1){
+      if (
+        indexed ? predicate(list[ counter ], counter) : predicate(list[ counter ])
+      ){
+        yes.push(list[ counter ]);
+      } else {
+        no.push(list[ counter ]);
+      }
+    }
+
+    return [ yes, no ]
+  }
+
+  function partition(predicate, iterable){
+    if (arguments.length === 1){
+      return listHolder => partition(predicate, listHolder)
+    }
+    if (!isArray(iterable)) return partitionObject(predicate, iterable)
+
+    return partitionArray(predicate, iterable)
+  }
+
+  function pathEqFn(
+    pathToSearch, target, input
+  ){
+    return equals(path(pathToSearch, input), target)
+  }
+
+  const pathEq = curry(pathEqFn);
+
+  function pathOrFn(
+    defaultValue, pathInput, obj
+  ){
+    return defaultTo(defaultValue, path(pathInput, obj))
+  }
+
+  const pathOr = curry(pathOrFn);
+
+  function pathSatisfiesFn(fn, pathInput, obj) {
+    if(pathInput.length === 0) throw new Error("R.pathSatisfies received an empty path")
+    return Boolean(fn(path(pathInput, obj))) 
+  }
+
+  const pathSatisfies = curry(pathSatisfiesFn);
+
+  function paths(pathsToSearch, obj){
+    if (arguments.length === 1){
+      return _obj => paths(pathsToSearch, _obj)
+    }
+
+    return pathsToSearch.map(singlePath => path(singlePath, obj))
+  }
+
+  function pick(propsToPick, input){
+    if (arguments.length === 1) return _input => pick(propsToPick, _input)
+
+    if (input === null || input === undefined){
+      return undefined
+    }
+    const keys = createPath(propsToPick, ',');
+    const willReturn = {};
+    let counter = 0;
+
+    while (counter < keys.length){
+      if (keys[ counter ] in input){
+        willReturn[ keys[ counter ] ] = input[ keys[ counter ] ];
+      }
+      counter++;
+    }
+
+    return willReturn
+  }
+
+  function pickAll(propsToPick, obj){
+    if (arguments.length === 1) return _obj => pickAll(propsToPick, _obj)
+
+    if (obj === null || obj === undefined){
+      return undefined
+    }
+    const keysValue = createPath(propsToPick, ',');
+    const willReturn = {};
+    let counter = 0;
+
+    while (counter < keysValue.length){
+      if (keysValue[ counter ] in obj){
+        willReturn[ keysValue[ counter ] ] = obj[ keysValue[ counter ] ];
+      } else {
+        willReturn[ keysValue[ counter ] ] = undefined;
+      }
+      counter++;
+    }
+
+    return willReturn
+  }
+
+  function pickBy(predicate, obj) {
+    if (arguments.length === 1){
+      return (_obj) => pickBy(predicate, _obj);
+    }
+    return Object.keys(obj).reduce((accum, key) => {
+      if (predicate(obj[ key ], key, obj)){
+        accum[ key ] = obj[ key ];
+      }
+      return accum;
+    }, {});
+  }
+
+  function piped(...inputs){
+    const [ input, ...fnList ] = inputs;
+
+    return pipe(...fnList)(input)
+  }
+
+  function pluck(property, list){
+    if (arguments.length === 1) return _list => pluck(property, _list)
+
+    const willReturn = [];
+
+    map(x => {
+      if (x[ property ] !== undefined){
+        willReturn.push(x[ property ]);
+      }
+    }, list);
+
+    return willReturn
+  }
+
+  function prepend(x, input){
+    if (arguments.length === 1) return _input => prepend(x, _input)
+
+    if (typeof input === 'string') return [ x ].concat(input.split(''))
+
+    return [ x ].concat(input)
+  }
+
+  const product = reduce(multiply, 1);
+
+  function propEqFn(
+    valueToMatch, propToFind, obj
+  ){
+    if (!obj) return false
+
+    return equals(valueToMatch, prop(propToFind, obj))
+  }
+
+  const propEq = curry(propEqFn);
+
+  function propIsFn(
+    targetPrototype, property, obj
+  ){
+    return is(targetPrototype, obj[ property ])
+  }
+
+  const propIs = curry(propIsFn);
+
+  function propOrFn(
+    defaultValue, property, obj
+  ){
+    if (!obj) return defaultValue
+
+    return defaultTo(defaultValue, obj[ property ])
+  }
+
+  const propOr = curry(propOrFn);
+
+  function propSatisfiesFn(
+    predicate, property, obj
+  ){
+    return predicate(prop(property, obj))
+  }
+
+  const propSatisfies = curry(propSatisfiesFn);
+
+  function props(propsToPick, obj){
+    if (arguments.length === 1){
+      return _obj => props(propsToPick, _obj)
+    }
+    if (!isArray(propsToPick)){
+      throw new Error('propsToPick is not a list')
+    }
+
+    return mapArray(prop => obj[ prop ], propsToPick)
+  }
+
+  function range(start, end){
+    if (arguments.length === 1) return _end => range(start, _end)
+
+    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
+      throw new TypeError('Both arguments to range must be numbers')
+    }
+
+    if (end < start) return []
+
+    const len = end - start;
+    const willReturn = Array(len);
+
+    for (let i = 0; i < len; i++){
+      willReturn[ i ] = start + i;
+    }
+
+    return willReturn
+  }
+
+  function reduceByFunction(
+    valueFn, valueAcc, keyFn, acc, elt
+  ){
+    const key = keyFn(elt);
+    const value = valueFn(has(key, acc) ? acc[ key ] : clone(valueAcc), elt);
+
+    acc[ key ] = value;
+
+    return acc
+  }
+
+  function reduceByFn(
+    valueFn, valueAcc, keyFn, list
+  ){
+    return reduce(
+      (acc, elt) => reduceByFunction(
+        valueFn, valueAcc, keyFn, acc, elt
+      ),
+      {},
+      list
+    )
+  }
+
+  const reduceBy = curry(reduceByFn);
+
+  function reject(predicate, list){
+    if (arguments.length === 1) return _list => reject(predicate, _list)
+
+    return filter(x => !predicate(x), list)
+  }
+
+  function repeat(x, timesToRepeat){
+    if (arguments.length === 1){
+      return _timesToRepeat => repeat(x, _timesToRepeat)
+    }
+
+    return Array(timesToRepeat).fill(x)
+  }
+
+  function replaceFn(
+    pattern, replacer, str
+  ){
+    return str.replace(pattern, replacer)
+  }
+
+  const replace = curry(replaceFn);
+
+  function setFn(lens, replacer, x) {
+    return over(lens, always(replacer), x)
+  }
+
+  const set = curry(setFn);
+
+  function sliceFn(
+    from, to, list
+  ){
+    return list.slice(from, to)
+  }
+
+  const slice = curry(sliceFn);
+
+  function sort(sortFn, list){
+    if (arguments.length === 1) return _list => sort(sortFn, _list)
+
+    return cloneList(list).sort(sortFn)
+  }
+
+  function sortBy(sortFn, list){
+    if (arguments.length === 1) return _list => sortBy(sortFn, _list)
+
+    const clone = cloneList(list);
+
+    return clone.sort((a, b) => {
+      const aSortResult = sortFn(a);
+      const bSortResult = sortFn(b);
+
+      if (aSortResult === bSortResult) return 0
+
+      return aSortResult < bSortResult ? -1 : 1
+    })
+  }
+
+  function sortHelper(
+    a, b, listOfSortingFns
+  ){
+    let result = 0;
+    let i = 0;
+    while (result === 0 && i < listOfSortingFns.length){
+      result = listOfSortingFns[ i ](a, b);
+      i += 1;
+    }
+
+    return result
+  }
+
+  function sortWith(listOfSortingFns, list){
+    if (arguments.length === 1)
+      return _list => sortWith(listOfSortingFns, _list)
+
+    if (Array.isArray(list) === false)
+      return []
+
+    const clone = list.slice();
+    clone.sort((a, b) => sortHelper(
+      a, b, listOfSortingFns
+    ));
+
+    return clone
+  }
+
+  function split(separator, str){
+    if (arguments.length === 1) return _str => split(separator, _str)
+
+    return str.split(separator)
+  }
+
+  function maybe(
+    ifRule, whenIf, whenElse
+  ){
+    const whenIfInput =
+      ifRule && type(whenIf) === 'Function' ? whenIf() : whenIf;
+
+    const whenElseInput =
+      !ifRule && type(whenElse) === 'Function' ? whenElse() : whenElse;
+
+    return ifRule ? whenIfInput : whenElseInput
+  }
+
+  function take(howMany, listOrString){
+    if (arguments.length === 1)
+      return _listOrString => take(howMany, _listOrString)
+    if (howMany < 0) return listOrString.slice()
+    if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
+
+    return baseSlice(
+      listOrString, 0, howMany
+    )
+  }
+
+  function splitAt(index, input){
+    if (arguments.length === 1){
+      return _list => splitAt(index, _list)
+    }
+    if (!input) throw new TypeError(`Cannot read property 'slice' of ${ input }`)
+
+    if (!isArray(input) && typeof input !== 'string') return [ [], [] ]
+
+    const correctIndex = maybe(
+      index < 0,
+      input.length + index < 0 ? 0 : input.length + index,
+      index
+    );
+
+    return [ take(correctIndex, input), drop(correctIndex, input) ]
+  }
+
+  function splitEvery(sliceLength, listOrString){
+    if (arguments.length === 1){
+      return _listOrString => splitEvery(sliceLength, _listOrString)
+    }
+
+    if (sliceLength < 1){
+      throw new Error('First argument to splitEvery must be a positive integer')
+    }
+
+    const willReturn = [];
+    let counter = 0;
+
+    while (counter < listOrString.length){
+      willReturn.push(listOrString.slice(counter, counter += sliceLength));
+    }
+
+    return willReturn
+  }
+
+  function splitWhen(predicate, input){
+    if (arguments.length === 1){
+      return _input => splitWhen(predicate, _input)
+    }
+    if (!input)
+      throw new TypeError(`Cannot read property 'length' of ${ input }`)
+
+    const preFound = [];
+    const postFound = [];
+    let found = false;
+    let counter = -1;
+
+    while (counter++ < input.length - 1){
+      if (found){
+        postFound.push(input[ counter ]);
+      } else if (predicate(input[ counter ])){
+        postFound.push(input[ counter ]);
+        found = true;
+      } else {
+        preFound.push(input[ counter ]);
+      }
+    }
+
+    return [ preFound, postFound ]
+  }
+
+  function startsWith(question, iterable){
+    if (arguments.length === 1)
+      return _iterable => startsWith(question, _iterable)
+
+    if (typeof iterable === 'string'){
+      return iterable.startsWith(question)
+    }
+    if (!isArray(question)) return false
+
+    let correct = true;
+    const filtered = question.filter((x, index) => {
+      if (!correct) return false
+      const result = equals(x, iterable[ index ]);
+      if (!result) correct = false;
+
+      return result
+    });
+
+    return filtered.length === question.length
+  }
+
+  function subtract(a, b){
+    if (arguments.length === 1) return _b => subtract(a, _b)
+
+    return a - b
+  }
+
+  function swapArrayOrString(indexA, indexB, iterable) {
+  	const actualIndexA = indexA < 0 ? iterable.length + indexA : indexA;
+  	const actualIndexB = indexB < 0 ? iterable.length + indexB : indexB;
+  	if (
+  		actualIndexA === actualIndexB ||
+  		Math.min(actualIndexA, actualIndexB) < 0 ||
+  		Math.max(actualIndexA, actualIndexB) >= iterable.length
+  	)
+  		return iterable;
+  	if (typeof iterable === 'string') {
+  		return (
+  			iterable.slice(0, actualIndexA) +
+  			iterable[actualIndexB] +
+  			iterable.slice(actualIndexA + 1, actualIndexB) +
+  			iterable[actualIndexA] +
+  			iterable.slice(actualIndexB + 1)
+  		);
+  	}
+  	const clone = iterable.slice();
+  	const temp = clone[actualIndexA];
+  	clone[actualIndexA] = clone[actualIndexB];
+  	clone[actualIndexB] = temp;
+  	return clone;
+  }
+  function swapFn(indexA, indexB, iterable) {
+  	if (isArray(iterable) || typeof iterable === 'string')
+  		return swapArrayOrString(indexA, indexB, iterable);
+
+  	const aVal = iterable[indexA];
+  	const bVal = iterable[indexB];
+  	if (aVal === undefined || bVal === undefined) return iterable;
+  	return {
+  		...iterable,
+  		[indexA]: iterable[indexB],
+  		[indexB]: iterable[indexA],
+  	};
+  }
+
+  const swap = curry(swapFn);
+
+  function symmetricDifference(x, y){
+    if (arguments.length === 1){
+      return _y => symmetricDifference(x, _y)
+    }
+
+    return concat(filter(value => !includes$1(value, y), x),
+      filter(value => !includes$1(value, x), y))
+  }
+
+  function takeLast(howMany, listOrString){
+    if (arguments.length === 1)
+      return _listOrString => takeLast(howMany, _listOrString)
+
+    const len = listOrString.length;
+    if (howMany < 0) return listOrString.slice()
+    let numValue = howMany > len ? len : howMany;
+
+    if (typeof listOrString === 'string')
+      return listOrString.slice(len - numValue)
+
+    numValue = len - numValue;
+
+    return baseSlice(
+      listOrString, numValue, len
+    )
+  }
+
+  function takeLastWhile(predicate, input){
+    if (arguments.length === 1){
+      return _input => takeLastWhile(predicate, _input)
+    }
+    if (input.length === 0) return input
+
+    const toReturn = [];
+    let counter = input.length;
+
+    while (counter){
+      const item = input[ --counter ];
+      if (!predicate(item)){
+        break
+      }
+      toReturn.push(item);
+    }
+
+    return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
+  }
+
+  function takeWhile(predicate, iterable){
+    if (arguments.length === 1){
+      return _iterable => takeWhile(predicate, _iterable)
+    }
+    const isArray$1 = isArray(iterable);
+    if (!isArray$1 && typeof iterable !== 'string'){
+      throw new Error('`iterable` is neither list nor a string')
+    }
+
+    const toReturn = [];
+    let counter = 0;
+
+    while (counter < iterable.length){
+      const item = iterable[ counter++ ];
+      if (!predicate(item)){
+        break
+      }
+      toReturn.push(item);
+    }
+
+    return isArray$1 ? toReturn : toReturn.join('')
+  }
+
+  function tap(fn, x){
+    if (arguments.length === 1) return _x => tap(fn, _x)
+
+    fn(x);
+
+    return x
+  }
+
+  function test(pattern, str){
+    if (arguments.length === 1) return _str => test(pattern, _str)
+
+    if (typeof pattern === 'string'){
+      throw new TypeError(`R.test requires a value of type RegExp as its first argument; received "${ pattern }"`)
+    }
+
+    return str.search(pattern) !== -1
+  }
+
+  function times(fn, howMany){
+    if (arguments.length === 1) return _howMany => times(fn, _howMany)
+    if (!isInteger(howMany) || howMany < 0){
+      throw new RangeError('n must be an integer')
+    }
+
+    return map(fn, range(0, howMany))
+  }
+
+  function toLower(str){
+    return str.toLowerCase()
+  }
+
+  function toPairs(obj){
+    return Object.entries(obj)
+  }
+
+  function toString(x){
+    return x.toString()
+  }
+
+  function toUpper(str){
+    return str.toUpperCase()
+  }
+
+  function transpose(array){
+    return array.reduce((acc, el) => {
+      el.forEach((nestedEl, i) =>
+        isArray(acc[ i ]) ? acc[ i ].push(nestedEl) : acc.push([ nestedEl ]));
+
+      return acc
+    }, [])
+  }
+
+  function trim(str){
+    return str.trim()
+  }
+
+  const isFunction = x => [ 'Promise', 'Function' ].includes(type(x));
+
+  function tryCatch(fn, fallback){
+    if (!isFunction(fn)){
+      throw new Error(`R.tryCatch | fn '${ fn }'`)
+    }
+    const passFallback = isFunction(fallback);
+
+    return (...inputs) => {
+      try {
+        return fn(...inputs)
+      } catch (e){
+        return passFallback ? fallback(e, ...inputs) : fallback
+      }
+    }
+  }
+
+  function unapply(fn){
+    return function (...args){
+      return fn.call(this, args)
+    }
+  }
+
+  function union(x, y){
+    if (arguments.length === 1) return _y => union(x, _y)
+
+    const toReturn = cloneList(x);
+
+    y.forEach(yInstance => {
+      if (!includes$1(yInstance, x)) toReturn.push(yInstance);
+    });
+
+    return toReturn
+  }
+
+  function uniqBy(fn, list){
+    if (arguments.length === 1){
+      return _list => uniqBy(fn, _list)
+    }
+    const set = new _Set();
+
+    return list.filter(item => set.checkUniqueness(fn(item)))
+  }
+
+  function includesWith(
+    predicate, target, list
+  ){
+    let willReturn = false;
+    let index = -1;
+
+    while (++index < list.length && !willReturn){
+      const value = list[ index ];
+
+      if (predicate(target, value)){
+        willReturn = true;
+      }
+    }
+
+    return willReturn
+  }
+
+  function uniqWith(predicate, list){
+    if (arguments.length === 1) return _list => uniqWith(predicate, _list)
+
+    let index = -1;
+    const willReturn = [];
+
+    while (++index < list.length){
+      const value = list[ index ];
+
+      if (!includesWith(
+        predicate, value, willReturn
+      )){
+        willReturn.push(value);
+      }
+    }
+
+    return willReturn
+  }
+
+  function unlessFn(
+    predicate, whenFalseFn, input
+  ){
+    if (predicate(input)) return input
+
+    return whenFalseFn(input)
+  }
+
+  const unless = curry(unlessFn);
+
+  function unnest(list){
+    return list.reduce((acc, item) => {
+      if (Array.isArray(item)){
+        return [ ...acc, ...item ]
+      }
+
+      return [ ...acc, item ]
+    }, [])
+  }
+
+  function unwind(property, obj){
+    if (arguments.length === 1){
+      return _obj => unwind(property, _obj)
+    }
+
+    if (!isArray(obj[ property ])) return [ obj ]
+
+    return mapArray(x => ({
+      ...obj,
+      [ property ] : x,
+    }),
+    obj[ property ])
+  }
+
+  function values(obj){
+    if (type(obj) !== 'Object') return []
+    return Object.values(obj)
+  }
+
+  const Const = x => ({
+    x,
+    map : fn => Const(x),
+  });
+
+  function view(lens, target){
+    if (arguments.length === 1) return _target => view(lens, _target)
+
+    return lens(Const)(target).x
+  }
+
+  function whenFn(
+    predicate, whenTrueFn, input
+  ){
+    if (!predicate(input)) return input
+
+    return whenTrueFn(input)
+  }
+
+  const when = curry(whenFn);
+
+  function where(conditions, input){
+    if (input === undefined){
+      return _input => where(conditions, _input)
+    }
+    let flag = true;
+    for (const prop in conditions){
+      if (!flag) continue
+      const result = conditions[ prop ](input[ prop ]);
+      if (flag && result === false){
+        flag = false;
+      }
+    }
+
+    return flag
+  }
+
+  function whereAny(conditions, input){
+    if (input === undefined){
+      return _input => whereAny(conditions, _input)
+    }
+    for (const prop in conditions){
+      if (conditions[ prop ](input[ prop ])){
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function whereEq(condition, input){
+    if (arguments.length === 1){
+      return _input => whereEq(condition, _input)
+    }
+
+    const result = filter((conditionValue, conditionProp) =>
+      equals(conditionValue, input[ conditionProp ]),
+    condition);
+
+    return Object.keys(result).length === Object.keys(condition).length
+  }
+
+  function without(matchAgainst, source){
+    if (source === undefined){
+      return _source => without(matchAgainst, _source)
+    }
+
+    return reduce(
+      (prev, current) =>
+        _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current),
+      [],
+      source
+    )
+  }
+
+  function xor(a, b){
+    if (arguments.length === 1) return _b => xor(a, _b)
+
+    return Boolean(a) && !b || Boolean(b) && !a
+  }
+
+  function zip(left, right){
+    if (arguments.length === 1) return _right => zip(left, _right)
+
+    const result = [];
+    const length = Math.min(left.length, right.length);
+
+    for (let i = 0; i < length; i++){
+      result[ i ] = [ left[ i ], right[ i ] ];
+    }
+
+    return result
+  }
+
+  function zipObj(keys, values){
+    if (arguments.length === 1) return yHolder => zipObj(keys, yHolder)
+
+    return take(values.length, keys).reduce((
+      prev, xInstance, i
+    ) => {
+      prev[ xInstance ] = values[ i ];
+
+      return prev
+    }, {})
+  }
+
+  function zipWithFn(
+    fn, x, y
+  ){
+    return take(x.length > y.length ? y.length : x.length, x).map((xInstance, i) => fn(xInstance, y[ i ]))
+  }
+
+  const zipWith = curry(zipWithFn);
+
+  exports.F = F;
+  exports.T = T;
+  exports.__findHighestArity = __findHighestArity;
+  exports._indexOf = _indexOf;
+  exports._lastIndexOf = _lastIndexOf;
+  exports._pipe = _pipe;
+  exports.add = add;
+  exports.addIndex = addIndex;
+  exports.addIndexRight = addIndexRight;
+  exports.adjust = adjust;
+  exports.all = all;
+  exports.allPass = allPass;
+  exports.always = always;
+  exports.and = and;
+  exports.any = any;
+  exports.anyPass = anyPass;
+  exports.ap = ap;
+  exports.aperture = aperture;
+  exports.append = append;
+  exports.apply = apply;
+  exports.applySpec = applySpec;
+  exports.applyTo = applyTo;
+  exports.ascend = ascend;
+  exports.assoc = assoc;
+  exports.assocFn = assocFn;
+  exports.assocPath = assocPath;
+  exports.assocPathFn = assocPathFn;
+  exports.binary = binary;
+  exports.bind = bind;
+  exports.both = both;
+  exports.call = call;
+  exports.chain = chain;
+  exports.clamp = clamp;
+  exports.clone = clone;
+  exports.collectBy = collectBy;
+  exports.comparator = comparator;
+  exports.complement = complement;
+  exports.compose = compose;
+  exports.composeWith = composeWith;
+  exports.concat = concat;
+  exports.cond = cond;
+  exports.converge = converge;
+  exports.count = count;
+  exports.countBy = countBy;
+  exports.createCompareFunction = createCompareFunction;
+  exports.curry = curry;
+  exports.curryN = curryN;
+  exports.dec = dec;
+  exports.defaultTo = defaultTo;
+  exports.descend = descend;
+  exports.difference = difference;
+  exports.differenceWith = differenceWith;
+  exports.differenceWithFn = differenceWithFn;
+  exports.dissoc = dissoc;
+  exports.dissocPath = dissocPath;
+  exports.divide = divide;
+  exports.drop = drop;
+  exports.dropLast = dropLast;
+  exports.dropLastWhile = dropLastWhile;
+  exports.dropRepeats = dropRepeats;
+  exports.dropRepeatsBy = dropRepeatsBy;
+  exports.dropRepeatsWith = dropRepeatsWith;
+  exports.dropWhile = dropWhile;
+  exports.either = either;
+  exports.empty = empty;
+  exports.endsWith = endsWith;
+  exports.eqBy = eqBy;
+  exports.eqByFn = eqByFn;
+  exports.eqProps = eqProps;
+  exports.equals = equals;
+  exports.evolve = evolve;
+  exports.evolveArray = evolveArray;
+  exports.evolveObject = evolveObject;
+  exports.filter = filter;
+  exports.filterArray = filterArray;
+  exports.filterObject = filterObject;
+  exports.find = find;
+  exports.findIndex = findIndex;
+  exports.findLast = findLast;
+  exports.findLastIndex = findLastIndex;
+  exports.flatten = flatten;
+  exports.flip = flip;
+  exports.forEach = forEach;
+  exports.forEachObjIndexed = forEachObjIndexed;
+  exports.forEachObjIndexedFn = forEachObjIndexedFn;
+  exports.fromPairs = fromPairs;
+  exports.groupBy = groupBy;
+  exports.groupWith = groupWith;
+  exports.gt = gt;
+  exports.gte = gte;
+  exports.has = has;
+  exports.hasIn = hasIn;
+  exports.hasPath = hasPath;
+  exports.head = head;
+  exports.identical = identical;
+  exports.identity = identity;
+  exports.ifElse = ifElse;
+  exports.inc = inc;
+  exports.includes = includes$1;
+  exports.indexBy = indexBy;
+  exports.indexOf = indexOf;
+  exports.init = init;
+  exports.innerJoin = innerJoin;
+  exports.innerJoinFn = innerJoinFn;
+  exports.insert = insert;
+  exports.insertAll = insertAll;
+  exports.insertAllFn = insertAllFn;
+  exports.insertFn = insertFn;
+  exports.intersection = intersection;
+  exports.intersperse = intersperse;
+  exports.is = is;
+  exports.isEmpty = isEmpty;
+  exports.isNil = isNil;
+  exports.isNotEmpty = isNotEmpty;
+  exports.isNotNil = isNotNil;
+  exports.join = join;
+  exports.juxt = juxt;
+  exports.keys = keys;
+  exports.last = last;
+  exports.lastIndexOf = lastIndexOf;
+  exports.length = length;
+  exports.lens = lens;
+  exports.lensIndex = lensIndex;
+  exports.lensPath = lensPath;
+  exports.lensProp = lensProp;
+  exports.lt = lt;
+  exports.lte = lte;
+  exports.map = map;
+  exports.mapArray = mapArray;
+  exports.mapObjIndexed = mapObjIndexed;
+  exports.mapObject = mapObject;
+  exports.match = match;
+  exports.mathMod = mathMod;
+  exports.max = max;
+  exports.maxBy = maxBy;
+  exports.maxByFn = maxByFn;
+  exports.mean = mean;
+  exports.median = median;
+  exports.merge = mergeRight;
+  exports.mergeAll = mergeAll;
+  exports.mergeDeepLeft = mergeDeepLeft;
+  exports.mergeDeepRight = mergeDeepRight;
+  exports.mergeLeft = mergeLeft;
+  exports.mergeRight = mergeRight;
+  exports.mergeWith = mergeWith;
+  exports.mergeWithFn = mergeWithFn;
+  exports.min = min;
+  exports.minBy = minBy;
+  exports.minByFn = minByFn;
+  exports.modify = modify;
+  exports.modifyPath = modifyPath;
+  exports.modifyPathFn = modifyPathFn;
+  exports.modulo = modulo;
+  exports.move = move;
+  exports.multiply = multiply;
+  exports.negate = negate;
+  exports.none = none;
+  exports.not = not;
+  exports.nth = nth;
+  exports.objOf = objOf;
+  exports.of = of;
+  exports.omit = omit;
+  exports.on = on;
+  exports.once = once;
+  exports.or = or;
+  exports.over = over;
+  exports.partial = partial;
+  exports.partialObject = partialObject;
+  exports.partition = partition;
+  exports.partitionArray = partitionArray;
+  exports.partitionObject = partitionObject;
+  exports.path = path;
+  exports.pathEq = pathEq;
+  exports.pathFn = pathFn;
+  exports.pathOr = pathOr;
+  exports.pathSatisfies = pathSatisfies;
+  exports.pathSatisfiesFn = pathSatisfiesFn;
+  exports.paths = paths;
+  exports.pick = pick;
+  exports.pickAll = pickAll;
+  exports.pickBy = pickBy;
+  exports.pipe = pipe;
+  exports.pipeWith = pipeWith;
+  exports.piped = piped;
+  exports.pluck = pluck;
+  exports.prepend = prepend;
+  exports.product = product;
+  exports.prop = prop;
+  exports.propEq = propEq;
+  exports.propFn = propFn;
+  exports.propIs = propIs;
+  exports.propOr = propOr;
+  exports.propSatisfies = propSatisfies;
+  exports.props = props;
+  exports.range = range;
+  exports.reduce = reduce;
+  exports.reduceBy = reduceBy;
+  exports.reduceByFn = reduceByFn;
+  exports.reduceFn = reduceFn;
+  exports.reject = reject;
+  exports.removeIndex = removeIndex;
+  exports.repeat = repeat;
+  exports.replace = replace;
+  exports.reverse = reverse;
+  exports.set = set;
+  exports.slice = slice;
+  exports.sort = sort;
+  exports.sortBy = sortBy;
+  exports.sortWith = sortWith;
+  exports.split = split;
+  exports.splitAt = splitAt;
+  exports.splitEvery = splitEvery;
+  exports.splitWhen = splitWhen;
+  exports.startsWith = startsWith;
+  exports.subtract = subtract;
+  exports.sum = sum;
+  exports.swap = swap;
+  exports.symmetricDifference = symmetricDifference;
+  exports.tail = tail;
+  exports.take = take;
+  exports.takeLast = takeLast;
+  exports.takeLastWhile = takeLastWhile;
+  exports.takeWhile = takeWhile;
+  exports.tap = tap;
+  exports.test = test;
+  exports.times = times;
+  exports.toLower = toLower;
+  exports.toPairs = toPairs;
+  exports.toString = toString;
+  exports.toUpper = toUpper;
+  exports.transpose = transpose;
+  exports.trim = trim;
+  exports.tryCatch = tryCatch;
+  exports.type = type;
+  exports.unapply = unapply;
+  exports.union = union;
+  exports.uniq = uniq;
+  exports.uniqBy = uniqBy;
+  exports.uniqWith = uniqWith;
+  exports.unless = unless;
+  exports.unnest = unnest;
+  exports.unwind = unwind;
+  exports.update = update;
+  exports.updateFn = updateFn;
+  exports.values = values;
+  exports.view = view;
+  exports.when = when;
+  exports.where = where;
+  exports.whereAny = whereAny;
+  exports.whereEq = whereEq;
+  exports.without = without;
+  exports.xor = xor;
+  exports.zip = zip;
+  exports.zipObj = zipObj;
+  exports.zipWith = zipWith;
+
+}));

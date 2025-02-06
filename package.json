@@ -1,95 +1,76 @@
 {
-	"name": "rambda",
-	"version": "9.4.2",
-	"scripts": {
-		"out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
-		"build": "yarn build:main && yarn build:web",
-		"build:main": "cross-env NODE_ENV=build rollup -c files/rollup.config.mjs",
-		"build:web": "cross-env NODE_ENV=build rollup -c files/rollup.web.config.mjs",
-		"immutable": "cd ../rambda-scripts && yarn immutable:rambda",
-		"populatedocs": "cd ../rambda-scripts && yarn populate:docs",
-		"populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-		"lint": "cd source && run lint:folder",
-		"test": "jest -o -u --watch",
-		"test:all": "jest source/*.spec.js -u --bail=false",
-		"test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
-		"test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
-		"create-docsify": "cd ../rambda-scripts && yarn create-docsify",
-		"ts": "yarn test:typings"
-	},
-	"depFn": [
-		"@definitelytyped/dtslint"
-	],
-	"dependencies": {
-		
-	},
-	"devDependencies": {
-		"@babel/core": "7.26.0",
-		"@babel/plugin-proposal-object-rest-spread": "7.20.7",
-		"@babel/preset-env": "7.26.0",
-		"@definitelytyped/dtslint": "0.0.182",
-		"@rollup/plugin-babel": "6.0.4",
-		"@rollup/plugin-commonjs": "28.0.2",
-		"@rollup/plugin-node-resolve": "16.0.0",
-		"@rollup/plugin-replace": "6.0.2",
-		"@types/jest": "29.5.14",
-		"combinate": "1.1.11",
-		"cross-env": "7.0.3",
-		"fast-check": "3.23.2",
-		"helpers-fn": "2.0.0",
-		"jest": "29.7.0",
-		"jest-extended": "4.0.2",
-		"lodash": "4.17.21",
-		"rambdax": "11.3.1",
-		"ramda": "0.30.1",
-		"rollup": "4.31.0",
-		"rollup-plugin-cleanup": "3.2.1",
-		"rollup-plugin-sourcemaps": "0.6.3",
-		"rollup-plugin-uglify": "6.0.4",
-		"tinybench": "3.1.0",
-		"types-ramda": "0.30.1",
-		"typescript": "5.7.3",
-		"zod": "3.24.1"
-	},
-	"jest": {
-		"testEnvironment": "node",
-		"testRegex": ".*\\.(spec|test)\\.js$",
-		"setupFilesAfterEnv": [
-			"./files/testSetup.js"
-		],
-		"collectCoverageFrom": [
-			"source/*.js",
-			"!_internals",
-			"!benchmarks"
-		]
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/selfrefactor/rambda.git"
-	},
-	"license": "MIT",
-	"author": "self_refactor",
-	"description": "Lightweight and faster alternative to Ramda with included TS definitions",
-	"keywords": [
-		"ramda",
-		"fp",
-		"functional",
-		"utility",
-		"lodash"
-	],
-	"homepage": "https://github.com/selfrefactor/rambda#readme",
-	"files": [
-		"dist",
-		"src",
-		"CHANGELOG.md",
-		"index.d.ts",
-		"immutable.d.ts",
-		"rambda.js",
-		"immutable.js"
-	],
-	"sideEffects": false,
-	"main": "./dist/rambda.js",
-	"umd": "./dist/rambda.umd.js",
-	"module": "./rambda.js",
-	"types": "./index.d.ts"
+  "name": "rambda",
+  "version": "9.4.2",
+  "scripts": {
+    "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
+    "build": "yarn build:main && yarn build:web",
+    "build:main": "rollup rambda.js --file dist/rambda.js --format cjs",
+    "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
+    "immutable": "cd ../rambda-scripts && yarn immutable:rambda",
+    "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
+    "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
+    "lint": "cd source && run lint:folder",
+    "test": "jest -o -u --watch",
+    "test:all": "jest source/*.spec.js -u --bail=false",
+    "test:ci": "jest source/*.spec.js --coverage --no-cache -w 1",
+    "test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
+    "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
+    "deps": "run dep:next",
+    "ts": "yarn test:typings"
+  },
+  "depFn": [
+    "@definitelytyped/dtslint"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@definitelytyped/dtslint": "0.0.182",
+    "helpers-fn": "2.0.0",
+    "lodash": "4.17.21",
+    "rambdax": "11.3.1",
+    "ramda": "0.30.1",
+    "rollup": "4.34.4",
+    "types-ramda": "0.30.1",
+    "typescript": "5.8.0-dev.20250206"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testRegex": ".*\\.(spec|test)\\.js$",
+    "setupFilesAfterEnv": [
+      "./files/testSetup.js"
+    ],
+    "collectCoverageFrom": [
+      "source/*.js",
+      "!_internals",
+      "!benchmarks"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfrefactor/rambda.git"
+  },
+  "license": "MIT",
+  "author": "self_refactor",
+  "description": "Lightweight and faster alternative to Ramda with included TS definitions",
+  "keywords": [
+    "ramda",
+    "fp",
+    "functional",
+    "utility",
+    "lodash"
+  ],
+  "homepage": "https://github.com/selfrefactor/rambda#readme",
+  "files": [
+    "dist",
+    "src",
+    "CHANGELOG.md",
+    "index.d.ts",
+    "immutable.d.ts",
+    "rambda.js",
+    "immutable.js"
+  ],
+  "sideEffects": false,
+  "main": "./dist/rambda.js",
+  "umd": "./dist/rambda.umd.js",
+  "module": "./rambda.js",
+  "types": "./index.d.ts"
 }
