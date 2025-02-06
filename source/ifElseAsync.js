@@ -1,22 +1,22 @@
 function createThenable(fn) {
-	return async (...input) => fn(...input);
+  return async (...input) => fn(...input)
 }
 
 export function ifElseAsync(condition, ifFn, elseFn) {
-	return (...inputs) =>
-		new Promise((resolve, reject) => {
-			const conditionPromise = createThenable(condition);
-			const ifFnPromise = createThenable(ifFn);
-			const elseFnPromise = createThenable(elseFn);
+  return (...inputs) =>
+    new Promise((resolve, reject) => {
+      const conditionPromise = createThenable(condition)
+      const ifFnPromise = createThenable(ifFn)
+      const elseFnPromise = createThenable(elseFn)
 
-			conditionPromise(...inputs)
-				.then((conditionResult) => {
-					const promised = conditionResult === true ? ifFnPromise : elseFnPromise;
+      conditionPromise(...inputs)
+        .then(conditionResult => {
+          const promised = conditionResult === true ? ifFnPromise : elseFnPromise
 
-					promised(...inputs)
-						.then(resolve)
-						.catch(reject);
-				})
-				.catch(reject);
-		});
+          promised(...inputs)
+            .then(resolve)
+            .catch(reject)
+        })
+        .catch(reject)
+    })
 }

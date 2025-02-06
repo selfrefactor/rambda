@@ -1,24 +1,24 @@
-import { delay } from './delay.js';
-import { isType } from './isType.js';
+import { delay } from './delay.js'
+import { isType } from './isType.js'
 
-const list = [1, 2, 3];
+const list = [1, 2, 3]
 
 test('array', () => {
-	expect(isType('Array', list)).toBeTruthy();
-	expect(isType('Array')([])).toBeTruthy();
-});
+  expect(isType('Array', list)).toBeTruthy()
+  expect(isType('Array')([])).toBeTruthy()
+})
 
 test('promise', () => {
-	expect(isType('Promise', Promise.resolve(1))).toBeTruthy();
-});
+  expect(isType('Promise', Promise.resolve(1))).toBeTruthy()
+})
 
 test('async', () => {
-	async function fn() {}
+  async function fn() {}
 
-	expect(isType('Promise', fn)).toBeTruthy();
-});
+  expect(isType('Promise', fn)).toBeTruthy()
+})
 
 test('with R.delay', () => {
-	expect(isType('Function', delay)).toBeTruthy();
-	expect(isType('Promise', delay(100))).toBeTruthy();
-});
+  expect(isType('Function', delay)).toBeTruthy()
+  expect(isType('Promise', delay(100))).toBeTruthy()
+})

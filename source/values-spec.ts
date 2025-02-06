@@ -1,12 +1,12 @@
-import { values } from 'rambda';
+import { values } from 'rambda'
 
 describe('R.values', () => {
-	it('happy', () => {
-		const result = values({
-			a: 1,
-			b: 2,
-			c: 3,
-		});
-		result; // $ExpectType number[]
-	});
-});
+  it('happy', () => {
+    const result = values({
+      a: 1,
+      b: 2,
+      c: 3,
+    })
+    result // $ExpectType number[]
+  })
+})

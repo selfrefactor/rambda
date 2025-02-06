@@ -1,1 +1,1 @@
-export const call = (fn, ...inputs) => fn(...inputs);
+export const call = (fn, ...inputs) => fn(...inputs)

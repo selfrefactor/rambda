@@ -111,12 +111,14 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 - R.assoc doesn't support curring of type `(x)(y)(z)`
 
-- Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining.
+- Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining. Also, `R.piped` can be easily made to work just like `R.pipe`.
 
 - remove .nojekyll in project root
 
 - vitest
 ===
+https://rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
+
 check naming in fp-ts, as evolve looks like magic. also why radashi uses remove not reject
 https://github.com/toss/es-toolkit - another FP library
 check coverage
@@ -125,7 +127,7 @@ really bad naming like mapObjIndexed - rename
 
 ramda typescript issues in google
 ===
-
+https://arethetypeswrong.github.io/
 Rambdax
 change 
 

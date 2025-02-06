@@ -1,16 +1,16 @@
-import { props } from 'rambda';
+import { props } from 'rambda'
 
-const obj = { a: 1, b: 2 };
+const obj = { a: 1, b: 2 }
 
 describe('R.props', () => {
-	it('happy', () => {
-		const result = props(['a', 'b'], obj);
+  it('happy', () => {
+    const result = props(['a', 'b'], obj)
 
-		result; // $ExpectType number[]
-	});
-	it('curried', () => {
-		const result = props(['a', 'b'])(obj);
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = props(['a', 'b'])(obj)
 
-		result; // $ExpectType number[]
-	});
-});
+    result // $ExpectType number[]
+  })
+})

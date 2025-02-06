@@ -1,9 +1,9 @@
-import { isNil } from './isNil.js';
+import { isNil } from './isNil.js'
 
 test('happy', () => {
-	expect(isNil(null)).toBeTrue();
+  expect(isNil(null)).toBeTrue()
 
-	expect(isNil(undefined)).toBeTrue();
+  expect(isNil(undefined)).toBeTrue()
 
-	expect(isNil([])).toBeFalse();
-});
+  expect(isNil([])).toBeFalse()
+})

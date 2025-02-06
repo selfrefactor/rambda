@@ -1,3 +1,3 @@
 export function toString(x) {
-	return x.toString();
+  return x.toString()
 }

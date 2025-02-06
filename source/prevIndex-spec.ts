@@ -1,11 +1,11 @@
-import { prevIndex } from 'rambda';
+import { prevIndex } from 'rambda'
 
-const list = [1, 2, 3];
+const list = [1, 2, 3]
 
 describe('R.prevIndex', () => {
-	it('happy', () => {
-		const result = prevIndex(4, list);
+  it('happy', () => {
+    const result = prevIndex(4, list)
 
-		result; // $ExpectType number
-	});
-});
+    result // $ExpectType number
+  })
+})

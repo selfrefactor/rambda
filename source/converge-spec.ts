@@ -1,23 +1,23 @@
-import { converge } from 'rambda';
+import { converge } from 'rambda'
 
 const mult = (a: number, b: number) => {
-	return a * b;
-};
+  return a * b
+}
 const fn = converge(mult, [
-	(a: number) => {
-		return a;
-	},
-	(a: number, b: number) => {
-		return b;
-	},
-]);
+  (a: number) => {
+    return a
+  },
+  (a: number, b: number) => {
+    return b
+  },
+])
 
 describe('R.converge', () => {
-	it('happy', () => {
-		const result = fn(2, 3);
-		const curriedResult = fn(2)(3);
+  it('happy', () => {
+    const result = fn(2, 3)
+    const curriedResult = fn(2)(3)
 
-		result; // $ExpectType any
-		curriedResult; // $ExpectType any
-	});
-});
+    result // $ExpectType any
+    curriedResult // $ExpectType any
+  })
+})

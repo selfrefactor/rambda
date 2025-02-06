@@ -1,16 +1,16 @@
-import { toPairs } from './toPairs.js';
+import { toPairs } from './toPairs.js'
 
 const obj = {
-	a: 1,
-	b: 2,
-	c: [3, 4],
-};
+  a: 1,
+  b: 2,
+  c: [3, 4],
+}
 const expected = [
-	['a', 1],
-	['b', 2],
-	['c', [3, 4]],
-];
+  ['a', 1],
+  ['b', 2],
+  ['c', [3, 4]],
+]
 
 test('happy', () => {
-	expect(toPairs(obj)).toEqual(expected);
-});
+  expect(toPairs(obj)).toEqual(expected)
+})

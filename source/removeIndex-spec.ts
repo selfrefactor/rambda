@@ -1,14 +1,14 @@
-import { removeIndex } from 'rambda';
+import { removeIndex } from 'rambda'
 
 describe('R.removeIndex', () => {
-	it('happy', () => {
-		const result = removeIndex(1, [1, 2, 3]);
+  it('happy', () => {
+    const result = removeIndex(1, [1, 2, 3])
 
-		result; // $ExpectType number[]
-	});
-	it('curried', () => {
-		const result = removeIndex(1)([1, 2, 3]);
+    result // $ExpectType number[]
+  })
+  it('curried', () => {
+    const result = removeIndex(1)([1, 2, 3])
 
-		result; // $ExpectType number[]
-	});
-});
+    result // $ExpectType number[]
+  })
+})

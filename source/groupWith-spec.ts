@@ -1,13 +1,13 @@
-import { groupWith } from 'rambda';
+import { groupWith } from 'rambda'
 
 describe('R.groupWith', () => {
-	it('happy', () => {
-		const groupWithFn = (x: string, y: string) => x.length === y.length;
-		const list = ['foo', 'bar', 'bazzz'];
+  it('happy', () => {
+    const groupWithFn = (x: string, y: string) => x.length === y.length
+    const list = ['foo', 'bar', 'bazzz']
 
-		const result = groupWith(groupWithFn, list);
-		const curriedResult = groupWith(groupWithFn)(list);
-		result; // $ExpectType string[][]
-		curriedResult; // $ExpectType string[][]
-	});
-});
+    const result = groupWith(groupWithFn, list)
+    const curriedResult = groupWith(groupWithFn)(list)
+    result // $ExpectType string[][]
+    curriedResult // $ExpectType string[][]
+  })
+})

@@ -1,15 +1,15 @@
-import { transpose } from 'rambda';
+import { transpose } from 'rambda'
 
 const input = [
-	['a', 1],
-	['b', 2],
-	['c', 3],
-];
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
+]
 
 describe('R.transpose', () => {
-	it('happy', () => {
-		const result = transpose(input);
+  it('happy', () => {
+    const result = transpose(input)
 
-		result; // $ExpectType (string | number)[][]
-	});
-});
+    result // $ExpectType (string | number)[][]
+  })
+})

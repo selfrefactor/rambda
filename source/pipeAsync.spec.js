@@ -1,59 +1,59 @@
-import { delay } from './delay.js';
-import { pipeAsync } from './pipeAsync.js';
+import { delay } from './delay.js'
+import { pipeAsync } from './pipeAsync.js'
 
 async function identity(x) {
-	await delay(100);
+  await delay(100)
 
-	return x;
+  return x
 }
 
 test('happy', async () => {
-	const fn1 = async (x) => {
-		await delay(100);
+  const fn1 = async x => {
+    await delay(100)
 
-		return x.map((xx) => xx + 1);
-	};
-	const fn2 = async (x) => {
-		await delay(100);
+    return x.map(xx => xx + 1)
+  }
+  const fn2 = async x => {
+    await delay(100)
 
-		return x.map((xx) => xx * 2);
-	};
-	const result = await pipeAsync(
-		fn1,
-		fn2,
-	)(await Promise.all([identity(1), identity(2), identity(3)]));
+    return x.map(xx => xx * 2)
+  }
+  const result = await pipeAsync(
+    fn1,
+    fn2,
+  )(await Promise.all([identity(1), identity(2), identity(3)]))
 
-	expect(result).toEqual([4, 6, 8]);
-});
+  expect(result).toEqual([4, 6, 8])
+})
 
-const delayFn = (ms) =>
-	new Promise((resolve) => {
-		resolve(ms + 1);
-	});
+const delayFn = ms =>
+  new Promise(resolve => {
+    resolve(ms + 1)
+  })
 
 test('with function returning promise', async () => {
-	const result = await pipeAsync(
-		(x) => x,
-		(x) => x + 1,
-		delayFn,
-		(x) => x,
-	)(1);
+  const result = await pipeAsync(
+    x => x,
+    x => x + 1,
+    delayFn,
+    x => x,
+  )(1)
 
-	expect(result).toBe(3);
-});
+  expect(result).toBe(3)
+})
 
 test('throw error', async () => {
-	const fn = async () => {
-		await delay(1);
-		JSON.parse('{foo');
-	};
+  const fn = async () => {
+    await delay(1)
+    JSON.parse('{foo')
+  }
 
-	let didThrow = false;
-	try {
-		await pipeAsync((x) => x, fn)(20);
-	} catch (e) {
-		didThrow = true;
-	}
+  let didThrow = false
+  try {
+    await pipeAsync(x => x, fn)(20)
+  } catch (e) {
+    didThrow = true
+  }
 
-	expect(didThrow).toBeTrue();
-});
+  expect(didThrow).toBeTrue()
+})

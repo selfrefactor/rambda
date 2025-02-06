@@ -1,1 +1,1 @@
-export const IS_CI = process.env.GITHUB_ACTIONS === 'true';
+export const IS_CI = process.env.GITHUB_ACTIONS === 'true'

@@ -1,115 +1,115 @@
-import { curryN } from './curryN.js';
+import { curryN } from './curryN.js'
 
 function multiply(a, b, c, d, e, f, g, h, i, j, k, l) {
-	if (l) {
-		return a * b * c * d * e * f * g * h * i * j * k * l;
-	}
-	if (k) {
-		return a * b * c * d * e * f * g * h * i * j * k;
-	}
-	if (j) {
-		return a * b * c * d * e * f * g * h * i * j;
-	}
-	if (i) {
-		return a * b * c * d * e * f * g * h * i;
-	}
-	if (h) {
-		return a * b * c * d * e * f * g * h;
-	}
-	if (g) {
-		return a * b * c * d * e * f * g;
-	}
-	if (f) {
-		return a * b * c * d * e * f;
-	}
-	if (e) {
-		return a * b * c * d * e;
-	}
+  if (l) {
+    return a * b * c * d * e * f * g * h * i * j * k * l
+  }
+  if (k) {
+    return a * b * c * d * e * f * g * h * i * j * k
+  }
+  if (j) {
+    return a * b * c * d * e * f * g * h * i * j
+  }
+  if (i) {
+    return a * b * c * d * e * f * g * h * i
+  }
+  if (h) {
+    return a * b * c * d * e * f * g * h
+  }
+  if (g) {
+    return a * b * c * d * e * f * g
+  }
+  if (f) {
+    return a * b * c * d * e * f
+  }
+  if (e) {
+    return a * b * c * d * e
+  }
 
-	return a * b * c;
+  return a * b * c
 }
 
 test('accepts an arity', () => {
-	const curried = curryN(3, multiply);
-	expect(curried(1)(2)(3)).toBe(6);
-	expect(curried(1, 2)(3)).toBe(6);
-	expect(curried(1)(2, 3)).toBe(6);
-	expect(curried(1, 2, 3)).toBe(6);
-});
+  const curried = curryN(3, multiply)
+  expect(curried(1)(2)(3)).toBe(6)
+  expect(curried(1, 2)(3)).toBe(6)
+  expect(curried(1)(2, 3)).toBe(6)
+  expect(curried(1, 2, 3)).toBe(6)
+})
 
 test('can be partially applied', () => {
-	const curry3 = curryN(3);
-	const curried = curry3(multiply);
-	expect(curried).toHaveLength(3);
-	expect(curried(1)(2)(3)).toBe(6);
-	expect(curried(1, 2)(3)).toBe(6);
-	expect(curried(1)(2, 3)).toBe(6);
-	expect(curried(1, 2, 3)).toBe(6);
-});
+  const curry3 = curryN(3)
+  const curried = curry3(multiply)
+  expect(curried).toHaveLength(3)
+  expect(curried(1)(2)(3)).toBe(6)
+  expect(curried(1, 2)(3)).toBe(6)
+  expect(curried(1)(2, 3)).toBe(6)
+  expect(curried(1, 2, 3)).toBe(6)
+})
 
 test('preserves context', () => {
-	const ctx = { x: 10 };
-	const f = function (a, b) {
-		return a + b * this.x;
-	};
-	const g = curryN(2, f);
+  const ctx = { x: 10 }
+  const f = function (a, b) {
+    return a + b * this.x
+  }
+  const g = curryN(2, f)
 
-	expect(g.call(ctx, 2, 4)).toBe(42);
-	expect(g.call(ctx, 2).call(ctx, 4)).toBe(42);
-});
+  expect(g.call(ctx, 2, 4)).toBe(42)
+  expect(g.call(ctx, 2).call(ctx, 4)).toBe(42)
+})
 
 test('number of arguments is 4', () => {
-	const fn = curryN(4, multiply);
-	expect(fn(1, 2, 3, 4)).toBe(6);
-});
+  const fn = curryN(4, multiply)
+  expect(fn(1, 2, 3, 4)).toBe(6)
+})
 
 test('number of arguments is 5', () => {
-	const fn = curryN(5, multiply);
-	expect(fn(1, 2, 3, 4, 5)).toBe(120);
-});
+  const fn = curryN(5, multiply)
+  expect(fn(1, 2, 3, 4, 5)).toBe(120)
+})
 
 test('number of arguments is 6', () => {
-	const fn = curryN(6, multiply);
-	expect(fn(1, 2, 3, 4, 5, 6)).toBe(720);
-});
+  const fn = curryN(6, multiply)
+  expect(fn(1, 2, 3, 4, 5, 6)).toBe(720)
+})
 
 test('number of arguments is 7', () => {
-	const fn = curryN(7, multiply);
-	expect(fn(1, 2, 3, 4, 5, 6, 7)).toBe(5040);
-});
+  const fn = curryN(7, multiply)
+  expect(fn(1, 2, 3, 4, 5, 6, 7)).toBe(5040)
+})
 
 test('number of arguments is 8', () => {
-	const fn = curryN(8, multiply);
-	expect(fn(1, 2, 3, 4, 5, 6, 7, 8)).toBe(40320);
-});
+  const fn = curryN(8, multiply)
+  expect(fn(1, 2, 3, 4, 5, 6, 7, 8)).toBe(40320)
+})
 
 test('number of arguments is 9', () => {
-	const fn = curryN(9, multiply);
-	expect(fn(1, 2, 3, 4, 5, 6, 7, 8, 9)).toBe(362880);
-});
+  const fn = curryN(9, multiply)
+  expect(fn(1, 2, 3, 4, 5, 6, 7, 8, 9)).toBe(362880)
+})
 
 test('number of arguments is 10', () => {
-	const fn = curryN(10, multiply);
-	expect(fn(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)).toBe(3628800);
-});
+  const fn = curryN(10, multiply)
+  expect(fn(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)).toBe(3628800)
+})
 
 test('number of arguments is 11', () => {
-	expect(() => {
-		const fn = curryN(11, multiply);
-		fn(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-	}).toThrowWithMessage(
-		Error,
-		'First argument to _arity must be a non-negative integer no greater than ten',
-	);
-});
+  expect(() => {
+    const fn = curryN(11, multiply)
+    fn(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+  }).toThrowWithMessage(
+    Error,
+    'First argument to _arity must be a non-negative integer no greater than ten',
+  )
+})
 
 test('forwards extra arguments', () => {
-	const createArray = () => Array.prototype.slice.call(arguments);
-	const fn = curryN(3, createArray);
+  const createArray = () => Array.prototype.slice.call(arguments)
+  const fn = curryN(3, createArray)
 
-	expect(fn(1, 2, 3)).toEqual([1, 2, 3]);
-	expect(fn(1, 2, 3, 4)).toEqual([1, 2, 3, 4]);
-	expect(fn(1, 2)(3, 4)).toEqual([1, 2, 3, 4]);
-	expect(fn(1)(2, 3, 4)).toEqual([1, 2, 3, 4]);
-	expect(fn(1)(2)(3, 4)).toEqual([1, 2, 3, 4]);
-});
+  expect(fn(1, 2, 3)).toEqual([1, 2, 3])
+  expect(fn(1, 2, 3, 4)).toEqual([1, 2, 3, 4])
+  expect(fn(1, 2)(3, 4)).toEqual([1, 2, 3, 4])
+  expect(fn(1)(2, 3, 4)).toEqual([1, 2, 3, 4])
+  expect(fn(1)(2)(3, 4)).toEqual([1, 2, 3, 4])
+})

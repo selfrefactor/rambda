@@ -1,48 +1,48 @@
-import { groupBy } from './groupBy.js';
-import { prop } from './prop.js';
+import { groupBy } from './groupBy.js'
+import { prop } from './prop.js'
 
 test('groupBy', () => {
-	const list = [
-		{
-			age: 12,
-			name: 'john',
-		},
-		{
-			age: 12,
-			name: 'jack',
-		},
-		{
-			age: 24,
-			name: 'mary',
-		},
-		{
-			age: 24,
-			name: 'steve',
-		},
-	];
-	const expectedResult = {
-		12: [
-			{
-				age: 12,
-				name: 'john',
-			},
-			{
-				age: 12,
-				name: 'jack',
-			},
-		],
-		24: [
-			{
-				age: 24,
-				name: 'mary',
-			},
-			{
-				age: 24,
-				name: 'steve',
-			},
-		],
-	};
+  const list = [
+    {
+      age: 12,
+      name: 'john',
+    },
+    {
+      age: 12,
+      name: 'jack',
+    },
+    {
+      age: 24,
+      name: 'mary',
+    },
+    {
+      age: 24,
+      name: 'steve',
+    },
+  ]
+  const expectedResult = {
+    12: [
+      {
+        age: 12,
+        name: 'john',
+      },
+      {
+        age: 12,
+        name: 'jack',
+      },
+    ],
+    24: [
+      {
+        age: 24,
+        name: 'mary',
+      },
+      {
+        age: 24,
+        name: 'steve',
+      },
+    ],
+  }
 
-	expect(groupBy(prop('age'))(list)).toEqual(expectedResult);
-	expect(groupBy(prop('age'), list)).toEqual(expectedResult);
-});
+  expect(groupBy(prop('age'))(list)).toEqual(expectedResult)
+  expect(groupBy(prop('age'), list)).toEqual(expectedResult)
+})

@@ -1,24 +1,24 @@
-import { curry } from './curry.js';
+import { curry } from './curry.js'
 
 function onceFn(fn, context) {
-	let result;
+  let result
 
-	return function () {
-		if (fn) {
-			result = fn.apply(context || this, arguments);
-			fn = null;
-		}
+  return function () {
+    if (fn) {
+      result = fn.apply(context || this, arguments)
+      fn = null
+    }
 
-		return result;
-	};
+    return result
+  }
 }
 
 export function once(fn, context) {
-	if (arguments.length === 1) {
-		const wrap = onceFn(fn, context);
+  if (arguments.length === 1) {
+    const wrap = onceFn(fn, context)
 
-		return curry(wrap);
-	}
+    return curry(wrap)
+  }
 
-	return onceFn(fn, context);
+  return onceFn(fn, context)
 }

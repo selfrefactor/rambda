@@ -1,3 +1,3 @@
 export function isNil(x) {
-	return x === undefined || x === null;
+  return x === undefined || x === null
 }

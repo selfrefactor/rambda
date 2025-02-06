@@ -1,5 +1,5 @@
-import { pipeAsync } from './pipeAsync.js';
+import { pipeAsync } from './pipeAsync.js'
 
 export function pipedAsync(input, ...fnList) {
-	return pipeAsync(...fnList)(input);
+  return pipeAsync(...fnList)(input)
 }

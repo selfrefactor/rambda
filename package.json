@@ -10,7 +10,7 @@
     "immutable": "cd ../rambda-scripts && yarn immutable:rambda",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-    "lint": "cd source && run lint:folder",
+    "lint": "cd source && run lint:folder > lint-output.txt",
     "test:ci": "vitest run",
     "test": "vitest run --watch",
     "test:cover": "vitest run --coverage",

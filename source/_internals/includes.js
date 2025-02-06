@@ -1,10 +1,14 @@
-import { compare } from './compare.js';
+import { compare } from './compare.js'
 
 export function includes(a, list) {
-	let index = -1;
-	const { length } = list;
+  let index = -1
+  const { length } = list
 
-	while (++index < length) if (compare(list[index], a)) return true;
+  while (++index < length) {
+    if (compare(list[index], a)) {
+      return true
+    }
+  }
 
-	return false;
+  return false
 }

@@ -1,5 +1,5 @@
-import { drop } from './drop.js';
+import { drop } from './drop.js'
 
 export function tail(listOrString) {
-	return drop(1, listOrString);
+  return drop(1, listOrString)
 }

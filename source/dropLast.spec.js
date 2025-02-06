@@ -1,26 +1,26 @@
-import assert from 'node:assert';
+import assert from 'node:assert'
 
-import { dropLast } from './dropLast.js';
+import { dropLast } from './dropLast.js'
 
 test('with array', () => {
-	expect(dropLast(2)(['foo', 'bar', 'baz'])).toEqual(['foo']);
-	expect(dropLast(3, ['foo', 'bar', 'baz'])).toEqual([]);
-	expect(dropLast(4, ['foo', 'bar', 'baz'])).toEqual([]);
-});
+  expect(dropLast(2)(['foo', 'bar', 'baz'])).toEqual(['foo'])
+  expect(dropLast(3, ['foo', 'bar', 'baz'])).toEqual([])
+  expect(dropLast(4, ['foo', 'bar', 'baz'])).toEqual([])
+})
 
 test('with string', () => {
-	expect(dropLast(3, 'rambda')).toBe('ram');
-});
+  expect(dropLast(3, 'rambda')).toBe('ram')
+})
 
 test('with non-positive count', () => {
-	expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3]);
-	expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3]);
-	expect(dropLast(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3]);
-});
+  expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3])
+})
 
 test('should return copy', () => {
-	const xs = [1, 2, 3];
+  const xs = [1, 2, 3]
 
-	assert.notStrictEqual(dropLast(0, xs), xs);
-	assert.notStrictEqual(dropLast(-1, xs), xs);
-});
+  assert.notStrictEqual(dropLast(0, xs), xs)
+  assert.notStrictEqual(dropLast(-1, xs), xs)
+})

@@ -1,31 +1,31 @@
-import { paths } from 'rambda';
+import { paths } from 'rambda'
 
 interface Input {
-	a: number;
-	b: number;
-	c: number;
+  a: number
+  b: number
+  c: number
 }
 
-const input: Input = { a: 1, b: 2, c: 3 };
+const input: Input = { a: 1, b: 2, c: 3 }
 
 describe('R.paths', () => {
-	it('with dot notation', () => {
-		const result = paths<number>(['a.b.c', 'foo.bar'], input);
-		result; // $ExpectType (number | undefined)[]
-	});
+  it('with dot notation', () => {
+    const result = paths<number>(['a.b.c', 'foo.bar'], input)
+    result // $ExpectType (number | undefined)[]
+  })
 
-	it('without type', () => {
-		const result = paths(['a.b.c', 'foo.bar'], input);
-		result; // $ExpectType unknown[]
-	});
+  it('without type', () => {
+    const result = paths(['a.b.c', 'foo.bar'], input)
+    result // $ExpectType unknown[]
+  })
 
-	it('with array as path', () => {
-		const result = paths<number>([['a', 'b', 'c'], ['foo.bar']], input);
-		result; // $ExpectType (number | undefined)[]
-	});
+  it('with array as path', () => {
+    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']], input)
+    result // $ExpectType (number | undefined)[]
+  })
 
-	it('curried', () => {
-		const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input);
-		result; // $ExpectType (number | undefined)[]
-	});
-});
+  it('curried', () => {
+    const result = paths<number>([['a', 'b', 'c'], ['foo.bar']])(input)
+    result // $ExpectType (number | undefined)[]
+  })
+})

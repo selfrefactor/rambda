@@ -1,5 +1,5 @@
-import { dec } from './dec.js';
+import { dec } from './dec.js'
 
 test('happy', () => {
-	expect(dec(2)).toBe(1);
-});
+  expect(dec(2)).toBe(1)
+})

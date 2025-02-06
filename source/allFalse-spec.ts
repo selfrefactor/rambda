@@ -1,8 +1,8 @@
-import { allFalse } from 'rambda';
+import { allFalse } from 'rambda'
 
 describe('R.allFalse', () => {
-	it('happy', () => {
-		const result = allFalse(null, false, undefined, () => false);
-		result; // $ExpectType boolean
-	});
-});
+  it('happy', () => {
+    const result = allFalse(null, false, undefined, () => false)
+    result // $ExpectType boolean
+  })
+})

@@ -1,8 +1,8 @@
-import { isEmpty } from 'rambda';
+import { isEmpty } from 'rambda'
 
 describe('R.isEmpty', () => {
-	it('happy', () => {
-		const result = isEmpty('foo');
-		result; // $ExpectType boolean
-	});
-});
+  it('happy', () => {
+    const result = isEmpty('foo')
+    result // $ExpectType boolean
+  })
+})

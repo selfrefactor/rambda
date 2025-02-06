@@ -1,9 +1,11 @@
-import { curry } from './curry.js';
+import { curry } from './curry.js'
 
 function whenFn(predicate, whenTrueFn, input) {
-	if (!predicate(input)) return input;
+  if (!predicate(input)) {
+    return input
+  }
 
-	return whenTrueFn(input);
+  return whenTrueFn(input)
 }
 
-export const when = curry(whenFn);
+export const when = curry(whenFn)

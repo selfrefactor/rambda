@@ -1,7 +1,7 @@
-import { curry } from './curry.js';
+import { curry } from './curry.js'
 
 function sliceFn(from, to, list) {
-	return list.slice(from, to);
+  return list.slice(from, to)
 }
 
-export const slice = curry(sliceFn);
+export const slice = curry(sliceFn)

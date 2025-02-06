@@ -1,5 +1,5 @@
-import { pipeAsync } from './pipeAsync.js';
+import { pipeAsync } from './pipeAsync.js'
 
 export function composeAsync(...fnList) {
-	return pipeAsync(...fnList.reverse());
+  return pipeAsync(...fnList.reverse())
 }

@@ -1,3 +1,3 @@
 export function toPairs(obj) {
-	return Object.entries(obj);
+  return Object.entries(obj)
 }

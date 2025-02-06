@@ -1,8 +1,8 @@
-import { mergeRight } from './mergeRight.js';
-import { pick } from './pick.js';
-import { type } from './type.js';
+import { mergeRight } from './mergeRight.js'
+import { pick } from './pick.js'
+import { type } from './type.js'
 
-let holder = {};
+let holder = {}
 
 /**
  * Pass string to get value
@@ -10,32 +10,38 @@ let holder = {};
  * Pass undefined to get all data
  */
 export function getter(key) {
-	const typeKey = type(key);
+  const typeKey = type(key)
 
-	if (typeKey === 'String') return holder[key];
+  if (typeKey === 'String') {
+    return holder[key]
+  }
 
-	if (typeKey === 'Array') return pick(key, holder);
+  if (typeKey === 'Array') {
+    return pick(key, holder)
+  }
 
-	return holder;
+  return holder
 }
 
 export function setter(maybeKey, maybeValue) {
-	const typeKey = type(maybeKey);
-	const typeValue = type(maybeValue);
+  const typeKey = type(maybeKey)
+  const typeValue = type(maybeValue)
 
-	if (typeKey === 'String') {
-		if (typeValue === 'Function') {
-			return (holder[maybeKey] = maybeValue(holder[maybeKey]));
-		}
+  if (typeKey === 'String') {
+    if (typeValue === 'Function') {
+      return (holder[maybeKey] = maybeValue(holder[maybeKey]))
+    }
 
-		return (holder[maybeKey] = maybeValue);
-	}
+    return (holder[maybeKey] = maybeValue)
+  }
 
-	if (typeKey !== 'Object') return;
+  if (typeKey !== 'Object') {
+    return
+  }
 
-	holder = mergeRight(holder, maybeKey);
+  holder = mergeRight(holder, maybeKey)
 }
 
 export function reset() {
-	holder = {};
+  holder = {}
 }

@@ -1,25 +1,25 @@
-import { mapKeys } from 'rambda';
+import { mapKeys } from 'rambda'
 
 const obj = {
-	a: 1,
-	b: 2,
-};
-const changeKeyFn = (prop: string) => `${prop}_foo`;
+  a: 1,
+  b: 2,
+}
+const changeKeyFn = (prop: string) => `${prop}_foo`
 
 interface Output {
-	a_foo: string;
-	b_foo: string;
+  a_foo: string
+  b_foo: string
 }
 
 describe('R.mapKeys', () => {
-	it('happy', () => {
-		const result = mapKeys<number, Output>(changeKeyFn, obj);
+  it('happy', () => {
+    const result = mapKeys<number, Output>(changeKeyFn, obj)
 
-		result; // $ExpectType Output
-	});
-	it('curried', () => {
-		const result = mapKeys<number, Output>(changeKeyFn)(obj);
+    result // $ExpectType Output
+  })
+  it('curried', () => {
+    const result = mapKeys<number, Output>(changeKeyFn)(obj)
 
-		result; // $ExpectType Output
-	});
-});
+    result // $ExpectType Output
+  })
+})

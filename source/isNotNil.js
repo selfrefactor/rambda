@@ -1,3 +1,3 @@
 export function isNotNil(input) {
-	return input != null;
+  return input != null
 }

@@ -1,8 +1,8 @@
-import { allType } from 'rambda';
+import { allType } from 'rambda'
 
 describe('R.allType', () => {
-	it('happy', () => {
-		const result = allType('Array')([1, 2, 3], [], [null]);
-		result; // $ExpectType boolean
-	});
-});
+  it('happy', () => {
+    const result = allType('Array')([1, 2, 3], [], [null])
+    result // $ExpectType boolean
+  })
+})

@@ -1,19 +1,19 @@
-import { forEachIndexed } from './forEachIndexed.js';
+import { forEachIndexed } from './forEachIndexed.js'
 
-const list = [1, 2, 3];
+const list = [1, 2, 3]
 const iterator = (x, i) => {
-	expect(x).toBeNumber();
-	expect(i).toBeNumber();
-};
+  expect(x).toBeNumber()
+  expect(i).toBeNumber()
+}
 
 test('happy', () => {
-	const result = forEachIndexed(iterator, list);
+  const result = forEachIndexed(iterator, list)
 
-	expect(result).toEqual(list);
-});
+  expect(result).toEqual(list)
+})
 
 test('curried', () => {
-	const result = forEachIndexed(iterator)(list);
+  const result = forEachIndexed(iterator)(list)
 
-	expect(result).toEqual(list);
-});
+  expect(result).toEqual(list)
+})

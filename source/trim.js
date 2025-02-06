@@ -1,3 +1,3 @@
 export function trim(str) {
-	return str.trim();
+  return str.trim()
 }
