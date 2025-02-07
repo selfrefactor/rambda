@@ -480,9 +480,9 @@ export function both<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => 
 export function both<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
 
 /*
-Method: chain
+Method: flatMap
 
-Explanation:  The method is also known as `flatMap`. 
+Explanation: It combines `map` with `flatten` logic.
 
 Example:
 
@@ -490,7 +490,7 @@ Example:
 const duplicate = n => [ n, n ]
 const list = [ 1, 2, 3 ]
 
-const result = chain(duplicate, list)
+const result = flatMap(duplicate, list)
 // => [ 1, 1, 2, 2, 3, 3 ]
 ```
 
@@ -500,25 +500,22 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
-export function chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
+export function flatMap<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
 /*
 Method: clamp
 
 Explanation: Restrict a number `input` to be within `min` and `max` limits.
-
 If `input` is bigger than `max`, then the result is `max`.
-
 If `input` is smaller than `min`, then the result is `min`.
 
 Example:
 
 ```
 const result = [
-  R.clamp(0, 10, 5), 
-  R.clamp(0, 10, -1),
-  R.clamp(0, 10, 11)
+  R.clamp(0, 10)(5), 
+  R.clamp(0, 10)(-1),
+  R.clamp(0, 10)(11)
 ]
 // => [5, 0, 10]
 ```
@@ -529,7 +526,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function clamp(min: number, max: number, input: number): number;
 export function clamp(min: number, max: number): (input: number) => number;
 
 /*
@@ -682,42 +678,6 @@ export function concat<T>(x: T[], y: T[]): T[];
 export function concat<T>(x: T[]): (y: T[]) => T[];
 export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
-
-/*
-Method: cond
-
-Explanation: It takes list with `conditions` and returns a new function `fn` that expects `input` as argument. 
-
-This function will start evaluating the `conditions` in order to find the first winner(order of conditions matter). 
-
-The winner is this condition, which left side returns `true` when `input` is its argument. Then the evaluation of the right side of the winner will be the final result.
-
-If no winner is found, then `fn` returns `undefined`.
-
-Example:
-
-```
-const fn = R.cond([
-  [ x => x > 25, R.always('more than 25') ],
-  [ x => x > 15, R.always('more than 15') ],
-  [ R.T, x => `${x} is nothing special` ],
-])
-
-const result = [
-  fn(30),
-  fn(20),
-  fn(10),
-] 
-// => ['more than 25', 'more than 15', '10 is nothing special']
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function cond<T extends any[], R>(conditions: Array<CondPair<T, R>>): (...args: T) => R;
 
 /*
 Method: converge
