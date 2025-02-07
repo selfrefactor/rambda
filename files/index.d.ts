@@ -95,10 +95,6 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
-    | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
-    | [(...args: TArgs) => TResult];
-
 type AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
 
@@ -257,7 +253,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function or<T, U>(a: T, b: U): T | U;
 export function or<T>(a: T): <U>(b: U) => T | U;
 
 /*
@@ -5672,40 +5667,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
-
-/*
-Method: composeWith
-
-Explanation:
-
-Example:
-
-```
-const result = R.composeWith(
-  (fn, intermediateResult) => fn(intermediateResult),
-  [
-    R.map(x => x + 1),
-    R.map(x => x * 2),
-  ]
-)([1, 2, 3])
-// => [3, 5, 7]
-```
-
-Categories: Function
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function composeWith<TArgs extends any[], TResult>(
-  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
-  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
-): (...args: TArgs) => TResult;
-export function composeWith(
-  transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
-): <TArgs extends any[], TResult>(
-  fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
-) => (...args: TArgs) => TResult;
 
 /*
 Method: removeIndex

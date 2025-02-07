@@ -11,6 +11,7 @@
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "lint": "cd source && run lint:folder > lint-output.txt",
+    "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
     "test": "vitest run --watch",
     "x": "vitest run --watch source/and.spec.js",
@@ -19,6 +20,9 @@
     "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
     "deps": "run dep:next",
     "ts": "yarn test:typings"
+  },
+	"niketaScripts": {
+    "**/*.js": "yarn test:file"
   },
   "depFn": [
     "@definitelytyped/dtslint"

@@ -47,6 +47,7 @@ it('within pipe requires explicit type', () => {
 -- cond
 -- addIndex, addIndexRight
 -- T, F
+-- composeWith
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
@@ -134,7 +135,11 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- `collectBy` to `groupBy`
 ===
 R.path with string path
-
+  type SmartGet<T, S> = S extends `${infer F extends string}.${infer R extends string}` ?
+    F extends keyof T ?
+      SmartGet<T[F], R> :
+      undefined : S extends keyof T ?T[S] :undefined
+			
 check naming in fp-ts, as evolve looks like magic. also why radashi uses remove not reject
 https://github.com/toss/es-toolkit - another FP library
 ===
