@@ -11,9 +11,9 @@ git clone $TEMPLATE_REPO $TEMP_DIR --depth 1
 
 # Remove the existing scripts/tasks directory
 rm -rf scripts/tasks
-
+mkdir -p scripts/tasks
 # Copy the scripts/tasks folder from the template repository to the current repository
-cp -r $TEMP_DIR/scripts/tasks scripts/tasks
+cp -r $TEMP_DIR/scripts/tasks scripts
 
 # Remove the existing eslint.config.mjs file
 rm -f eslint.config.mjs

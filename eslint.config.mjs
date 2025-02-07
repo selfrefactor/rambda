@@ -5,9 +5,6 @@ import perfectionist from 'eslint-plugin-perfectionist';
 import unusedImports from 'eslint-plugin-unused-imports';
 import checkFile from 'eslint-plugin-check-file';
 
-// @ts-check
-import tseslint from 'typescript-eslint';
-
 let checkFileRules = {
 	'check-file/filename-naming-convention': [
 		2,
@@ -79,8 +76,6 @@ let importantRules = {
 
 const rules = {
 	...importantRules,
-	'@typescript-eslint/no-explicit-any': 0,
-	'@typescript-eslint/no-unused-vars': 2,
 	'consistent-type-assertions': 0,
 	'explicit-module-boundary-types': 0,
 	'no-array-constructor': 1,
