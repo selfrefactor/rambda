@@ -1213,33 +1213,6 @@ Notes: Rambda's **flip** will throw if the arity of the input function is greate
 export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
 /*
-Method: forEach
-
-Explanation: It applies `iterable` function over all members of `list` and returns `list`.
-
-Example:
-
-```
-const sideEffect = {}
-const result = R.forEach(
-  x => sideEffect[`foo${x}`] = x
-)([1, 2])
-
-sideEffect // => {foo1: 1, foo2: 2}
-result // => [1, 2]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function forEach<T>(fn: (x: T) => void): <U extends readonly T[]>(list: U) => U;
-export function forEach<U extends readonly any[]>(fn: (x: U extends readonly (infer T)[] ? T : never) => void, list: U): U;
-export function forEach<T>(fn: (item: T) => void, list: readonly T[]): T[];
-
-/*
 Method: fromPairs
 
 Explanation: It transforms a `listOfPairs` to an object.
@@ -5234,7 +5207,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqBy<T, U>(fn: (a: T) => U, list: T[]): T[];
 export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
 /*
@@ -5245,7 +5217,7 @@ Explanation: It changes a property of object on the base of provided path and tr
 Example:
 
 ```
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
 // => {a:{b: {c:2}}}
 ```
 
@@ -5324,9 +5296,10 @@ const person = {
   age  : 20,
 }
 const result = R.modify(
-	'age', x => x + 1, person
-)
-// => {name: 'foo', age: 21}
+	'age' 
+)(
+	x => x + 1, person
+) // => {name: 'foo', age: 21}
 ```
 
 Categories:
@@ -5339,32 +5312,6 @@ export function modify<K extends string, A, P>(
   prop: K,
   fn: (a: A) => P,
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
-export function modify<T extends object, K extends keyof T, P>(
-  prop: K,
-  fn: (a: T[K]) => P,
-  obj: T,
-): Omit<T, K> & Record<K, P>;
-
-/*
-Method: unnest
-
-Explanation:
-
-Example:
-
-```
-const result = R.unnest([1, [2], [[3]]])
-// => [1, 2, [3]]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function unnest(list: unknown[]): unknown[];
-export function unnest<T>(list: unknown[]): T;
 
 /*
 Method: differenceWith
@@ -5604,49 +5551,7 @@ Notes:
 export function call<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /*
-Method: collectBy
-
-Explanation: It groups items of list into separate lists based on the result of calling `keyFn` on each item.
-
-Example:
-
-```
-const items = [
-  { category: 'fruit', item: '🍎' },
-  { category: 'vegetable', item: '🥕' },
-  { category: 'fruit', item: '🍌' },
-  { category: 'dairy', item: '🥛' },
-  { category: 'vegetable', item: '🌽' }
-];
-
-const result = R.groupBy(R.prop('category'), items);
-const expected = {
-  fruit: [
-    { category: 'fruit', item: '🍎' },
-    { category: 'fruit', item: '🍌' }
-  ],
-  vegetable: [
-    { category: 'vegetable', item: '🥕' },
-    { category: 'vegetable', item: '🌽' }
-  ],
-  dairy: [
-    { category: 'dairy', item: '🥛' }
-  ]
-}
-// => `result` is equal to `expected`
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: T[]): T[][];
-export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: T[]) => T[][];
-
-/*
-Method: comparator
+Method: sortingFn
 
 Explanation: It returns a comparator function that can be used in `sort` method.
 
@@ -5654,7 +5559,7 @@ Example:
 
 ```
 const result = R.sort(
-  R.comparator((a, b) => a.x < b.x),
+  R.sortingFn((a, b) => a.x < b.x),
   [{x: 2}, {x: 1}]
 )
 // => [{x: 1}, {x: 2}]
@@ -5666,7 +5571,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
+export function sortingFn<T>(fn: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /*
 Method: removeIndex
@@ -5687,7 +5592,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function removeIndex<T>(index: number, list: T[]): T[];
 export function removeIndex(index: number): <T>(list: T[]) => T[];
 
 /*
@@ -5712,7 +5616,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
-export function dropRepeatsBy<T, U>(fn: (a: T) => U, list: T[]): T[];
 
 /*
 Method: empty
@@ -5742,7 +5645,7 @@ Explanation:
 Example:
 
 ```
-const result = R.eqBy(Math.abs, 5, -5)
+const result = R.eqBy(Math.abs, 5)(-5)
 // => true
 ```
 
@@ -5752,31 +5655,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqBy<T>(fn: (a: T) => unknown): {
-  (a: T): (b: T) => boolean;
-  (a: T, b: T): boolean;
-};
 export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
-export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
-
-/*
-Method: forEachObjIndexed
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
-export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
 
 /*
 Method: gt
@@ -6116,7 +5995,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeDeepLeft<Output>(newProps: object, target: object): Output;
 export function mergeDeepLeft<Output>(newProps: object): (target: object) => Output;
 
 /*

@@ -4,6 +4,7 @@ This is major revamp of `Rambda` library:
 - All methods should be useful to work inside `R.piped` chain. If method doesn't have clear use case inside `R.piped`, it is removed as part of this revamp.
 - There will be only one way to use each method. For example, `R.add` can be used only with `R.add(1)(2)`, i.e. it doesn't support `R.add(1, 2)`. This helps with testing and also with TypeScript definitions. This aligns with TypeScript focused approach of this library.
 - Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
+- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain.
 
 - Optimize many methods to better work in TypeScript context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
 
@@ -48,6 +49,9 @@ it('within pipe requires explicit type', () => {
 -- addIndex, addIndexRight
 -- T, F
 -- composeWith
+-- mapObjIndexed ?
+-- forEachObjIndexed ?
+-- unnest
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
@@ -91,7 +95,6 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- forEach
 -- keys
 -- map
--- mapObjIndexed
 -- mergeAll
 -- modify
 -- modifyPath
@@ -121,18 +124,20 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- pluck
 -- mergeWith
 
-- R.assoc doesn't support curring of type `(x)(y)(z)`
-
 - Remove TypeScript tests for `R.pipe` and `R.compose`. From now on, `R.piped` is the recommended method for TypeScript chaining. Also, `R.piped` can be easily made to work just like `R.pipe`.
 
-- vitest
+- Change `Jest` with `Vitest`.
+
+- Remove `Babel` dependency in `Rollup` build setup.
 
 - Renamed methods: 
 
--- `evolve` to `changeObjectValuesWith`
+-- `evolve` to `changeObjectValuesWith` ?
 -- `chain` to `flatMap`
--- `mapObjIndexed` to `mapObject`
--- `collectBy` to `groupBy`
+-- `mapObjIndexed` to `mapObject` ?
+-- `collectBy` to `groupBy` ? remove
+
+- All differences with Ramda are documented in [DIFFERENCES_WITH_RAMDA.md](./files/DIFFERENCES_WITH_RAMDA.md).
 ===
 R.path with string path
   type SmartGet<T, S> = S extends `${infer F extends string}.${infer R extends string}` ?
@@ -144,3 +149,4 @@ check naming in fp-ts, as evolve looks like magic. also why radashi uses remove 
 https://github.com/toss/es-toolkit - another FP library
 ===
 ABOVE IS DONE
+===
