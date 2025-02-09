@@ -1,7 +1,7 @@
-import {sortBy, pipe} from 'rambda'
+import { pipe, sortBy } from 'rambda'
 
 interface Input {
-  a: number,
+  a: number
 }
 
 describe('R.sortBy', () => {
@@ -13,7 +13,7 @@ describe('R.sortBy', () => {
       return x.a
     }
 
-    const input = [{a: 2}, {a: 1}, {a: 0}]
+    const input = [{ a: 2 }, { a: 1 }, { a: 0 }]
     const result = sortBy(fn, input)
     const curriedResult = sortBy(fn2)(input)
 
@@ -27,7 +27,7 @@ describe('R.sortBy', () => {
       return x.a
     }
 
-    const input: Input[] = [{a: 2}, {a: 1}, {a: 0}]
+    const input: Input[] = [{ a: 2 }, { a: 1 }, { a: 0 }]
     const result = sortBy(fn, input)
     const curriedResult = sortBy(fn)(input)
 
@@ -37,11 +37,11 @@ describe('R.sortBy', () => {
   })
   it('with R.pipe', () => {
     interface Obj {
-      value: number,
+      value: number
     }
     const fn = pipe(sortBy<Obj>(x => x.value))
 
-    const result = fn([{value: 1}, {value: 2}])
+    const result = fn([{ value: 1 }, { value: 2 }])
     result // $ExpectType Obj[]
   })
 })

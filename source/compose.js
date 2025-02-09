@@ -1,7 +1,7 @@
 import { pipe } from './pipe.js'
 
-export function compose(){
-  if (arguments.length === 0){
+export function compose() {
+  if (arguments.length === 0) {
     throw new Error('compose requires at least one argument')
   }
 

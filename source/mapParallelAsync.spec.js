@@ -10,8 +10,8 @@ test('happy', async () => {
 
     return x + 10
   }
-  const result = await mapParallelAsync(fn, [ 1, 2, 3 ])
-  expect(result).toEqual([ 11, 12, 13 ])
+  const result = await mapParallelAsync(fn, [1, 2, 3])
+  expect(result).toEqual([11, 12, 13])
 })
 
 test('composeAsync', async () => {
@@ -26,9 +26,9 @@ test('composeAsync', async () => {
 
       return x + 10
     }),
-    map(x => x * 10)
-  )([ 1, 2, 3 ])
-  expect(result).toEqual([ 21, 31, 41 ])
+    map(x => x * 10),
+  )([1, 2, 3])
+  expect(result).toEqual([21, 31, 41])
 })
 
 test('error', async () => {
@@ -36,17 +36,19 @@ test('error', async () => {
     const fn = async () => {
       JSON.parse('{:')
     }
-    await mapParallelAsync(fn, [ 1, 2, 3 ])
+    await mapParallelAsync(fn, [1, 2, 3])
     willFailAssertion()
-  } catch (err){
+  } catch (err) {
     expect(err.message).toBeTruthy()
   }
 })
 
 test('pass index as second argument', async () => {
-  await mapParallelAsync((x, i) => {
-    expect(x % 10).toBe(0)
-    expect(typeof i).toBe('number')
-  },
-  [ 10, 20, 30 ])
+  await mapParallelAsync(
+    (x, i) => {
+      expect(x % 10).toBe(0)
+      expect(typeof i).toBe('number')
+    },
+    [10, 20, 30],
+  )
 })

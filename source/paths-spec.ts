@@ -1,12 +1,12 @@
-import {paths} from 'rambda'
+import { paths } from 'rambda'
 
 interface Input {
-  a: number,
-  b: number,
-  c: number,
+  a: number
+  b: number
+  c: number
 }
 
-const input: Input = {a: 1, b: 2, c: 3}
+const input: Input = { a: 1, b: 2, c: 3 }
 
 describe('R.paths', () => {
   it('with dot notation', () => {

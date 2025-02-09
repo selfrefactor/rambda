@@ -1,7 +1,7 @@
-import {pipedAsync, delay} from 'rambda'
+import { delay, pipedAsync } from 'rambda'
 
 describe('R.pipedAsync', () => {
-  it('happy', async() => {
+  it('happy', async () => {
     const result = await pipedAsync(
       4 as const,
       async x => {
@@ -11,14 +11,14 @@ describe('R.pipedAsync', () => {
       },
       x => {
         x // $ExpectType number
-        return new Promise<string>((resolve) => {
+        return new Promise<string>(resolve => {
           resolve(x.toString())
         })
       },
       x => {
         x // $ExpectType string
         return Promise.resolve([x])
-      }
+      },
     )
 
     result // $ExpectType string[]

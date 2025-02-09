@@ -1,6 +1,6 @@
 import { all } from './all.js'
 
-const list = [ 0, 1, 2, 3, 4 ]
+const list = [0, 1, 2, 3, 4]
 
 test('when true', () => {
   const fn = x => x > -1
@@ -11,5 +11,5 @@ test('when true', () => {
 test('when false', () => {
   const fn = x => x > 2
 
-  expect(all(fn, list)).toBeFalse()
+  expect(all(fn)(list)).toBeFalse()
 })

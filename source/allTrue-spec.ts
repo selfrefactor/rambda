@@ -1,4 +1,4 @@
-import {allTrue} from 'rambda'
+import { allTrue } from 'rambda'
 
 describe('R.allTrue', () => {
   it('happy', () => {

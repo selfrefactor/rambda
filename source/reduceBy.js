@@ -3,26 +3,20 @@ import { curry } from './curry.js'
 import { has } from './has.js'
 import { reduce } from './reduce.js'
 
-function reduceByFunction(
-  valueFn, valueAcc, keyFn, acc, elt
-){
+function reduceByFunction(valueFn, valueAcc, keyFn, acc, elt) {
   const key = keyFn(elt)
-  const value = valueFn(has(key, acc) ? acc[ key ] : clone(valueAcc), elt)
+  const value = valueFn(has(key, acc) ? acc[key] : clone(valueAcc), elt)
 
-  acc[ key ] = value
+  acc[key] = value
 
   return acc
 }
 
-export function reduceByFn(
-  valueFn, valueAcc, keyFn, list
-){
+export function reduceByFn(valueFn, valueAcc, keyFn, list) {
   return reduce(
-    (acc, elt) => reduceByFunction(
-      valueFn, valueAcc, keyFn, acc, elt
-    ),
+    (acc, elt) => reduceByFunction(valueFn, valueAcc, keyFn, acc, elt),
     {},
-    list
+    list,
   )
 }
 

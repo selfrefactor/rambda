@@ -1,4 +1,4 @@
-import {lastIndexOf} from 'rambda'
+import { lastIndexOf } from 'rambda'
 
 const list = [1, 2, 3]
 

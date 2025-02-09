@@ -1,4 +1,4 @@
-import {transpose} from 'rambda'
+import { transpose } from 'rambda'
 
 const input = [
   ['a', 1],

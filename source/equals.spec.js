@@ -5,8 +5,8 @@ import { variousTypes } from './benchmarks/_utils.js'
 import { equals } from './equals.js'
 
 test('compare functions', () => {
-  function foo(){}
-  function bar(){}
+  function foo() {}
+  function bar() {}
   const baz = () => {}
 
   const expectTrue = equals(foo, foo)
@@ -19,9 +19,9 @@ test('compare functions', () => {
 })
 
 test('with array of objects', () => {
-  const list1 = [ { a : 1 }, [ { b : 2 } ] ]
-  const list2 = [ { a : 1 }, [ { b : 2 } ] ]
-  const list3 = [ { a : 1 }, [ { b : 3 } ] ]
+  const list1 = [{ a: 1 }, [{ b: 2 }]]
+  const list2 = [{ a: 1 }, [{ b: 2 }]]
+  const list3 = [{ a: 1 }, [{ b: 3 }]]
 
   expect(equals(list1, list2)).toBeTrue()
   expect(equals(list1, list3)).toBeFalse()
@@ -36,7 +36,7 @@ test('with regex', () => {
 })
 
 test('not a number', () => {
-  expect(equals([ NaN ], [ NaN ])).toBeTrue()
+  expect(equals([Number.NaN], [Number.NaN])).toBeTrue()
 })
 
 test('new number', () => {
@@ -82,76 +82,92 @@ test('with dates', () => {
 test('ramda spec', () => {
   expect(equals({}, {})).toBeTrue()
 
-  expect(equals({
-    a : 1,
-    b : 2,
-  },
-  {
-    a : 1,
-    b : 2,
-  })).toBeTrue()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        a: 1,
+        b: 2,
+      },
+    ),
+  ).toBeTrue()
 
-  expect(equals({
-    a : 2,
-    b : 3,
-  },
-  {
-    a : 2,
-    b : 3,
-  })).toBeTrue()
+  expect(
+    equals(
+      {
+        a: 2,
+        b: 3,
+      },
+      {
+        a: 2,
+        b: 3,
+      },
+    ),
+  ).toBeTrue()
 
-  expect(equals({
-    a : 2,
-    b : 3,
-  },
-  {
-    a : 3,
-    b : 3,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 2,
+        b: 3,
+      },
+      {
+        a: 3,
+        b: 3,
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({
-    a : 2,
-    b : 3,
-    c : 1,
-  },
-  {
-    a : 2,
-    b : 3,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 2,
+        b: 3,
+        c: 1,
+      },
+      {
+        a: 2,
+        b: 3,
+      },
+    ),
+  ).toBeFalse()
 })
 
 test('works with boolean tuple', () => {
-  expect(equals([ true, false ], [ true, false ])).toBeTrue()
-  expect(equals([ true, false ], [ true, true ])).toBeFalse()
+  expect(equals([true, false], [true, false])).toBeTrue()
+  expect(equals([true, false], [true, true])).toBeFalse()
 })
 
 test('works with equal objects within array', () => {
   const objFirst = {
-    a : {
-      b : 1,
-      c : 2,
-      d : [ 1 ],
+    a: {
+      b: 1,
+      c: 2,
+      d: [1],
     },
   }
   const objSecond = {
-    a : {
-      b : 1,
-      c : 2,
-      d : [ 1 ],
+    a: {
+      b: 1,
+      c: 2,
+      d: [1],
     },
   }
 
-  const x = [ 1, 2, objFirst, null, '', [] ]
-  const y = [ 1, 2, objSecond, null, '', [] ]
+  const x = [1, 2, objFirst, null, '', []]
+  const y = [1, 2, objSecond, null, '', []]
   expect(equals(x, y)).toBeTrue()
 })
 
 test('works with different objects within array', () => {
-  const objFirst = { a : { b : 1 } }
-  const objSecond = { a : { b : 2 } }
+  const objFirst = { a: { b: 1 } }
+  const objSecond = { a: { b: 2 } }
 
-  const x = [ 1, 2, objFirst, null, '', [] ]
-  const y = [ 1, 2, objSecond, null, '', [] ]
+  const x = [1, 2, objFirst, null, '', []]
+  const y = [1, 2, objSecond, null, '', []]
   expect(equals(x, y)).toBeFalse()
 })
 
@@ -162,9 +178,9 @@ test('works with undefined as second argument', () => {
 })
 
 test('compare sets', () => {
-  const toCompareDifferent = new Set([ { a : 1 }, { a : 2 } ])
-  const toCompareSame = new Set([ { a : 1 }, { a : 2 }, { a : 1 } ])
-  const testSet = new Set([ { a : 1 }, { a : 2 }, { a : 1 } ])
+  const toCompareDifferent = new Set([{ a: 1 }, { a: 2 }])
+  const toCompareSame = new Set([{ a: 1 }, { a: 2 }, { a: 1 }])
+  const testSet = new Set([{ a: 1 }, { a: 2 }, { a: 1 }])
   expect(equals(toCompareSame, testSet)).toBeTruthy()
   expect(equals(toCompareDifferent, testSet)).toBeFalsy()
   expect(equalsRamda(toCompareSame, testSet)).toBeTruthy()
@@ -172,15 +188,15 @@ test('compare sets', () => {
 })
 
 test('compare simple sets', () => {
-  const testSet = new Set([ '2', '3', '3', '2', '1' ])
-  expect(equals(new Set([ '3', '2', '1' ]), testSet)).toBeTruthy()
-  expect(equals(new Set([ '3', '2', '0' ]), testSet)).toBeFalsy()
+  const testSet = new Set(['2', '3', '3', '2', '1'])
+  expect(equals(new Set(['3', '2', '1']), testSet)).toBeTruthy()
+  expect(equals(new Set(['3', '2', '0']), testSet)).toBeFalsy()
 })
 
 test('various examples', () => {
-  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTrue()
+  expect(equals([1, 2, 3])([1, 2, 3])).toBeTrue()
 
-  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalse()
+  expect(equals([1, 2, 3], [1, 2])).toBeFalse()
 
   expect(equals(1, 1)).toBeTrue()
 
@@ -188,71 +204,95 @@ test('various examples', () => {
 
   expect(equals({}, {})).toBeTrue()
 
-  expect(equals({
-    a : 1,
-    b : 2,
-  },
-  {
-    a : 1,
-    b : 2,
-  })).toBeTrue()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        a: 1,
+        b: 2,
+      },
+    ),
+  ).toBeTrue()
 
-  expect(equals({
-    a : 1,
-    b : 2,
-  },
-  {
-    a : 1,
-    b : 1,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        a: 1,
+        b: 1,
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({
-    a : 1,
-    b : false,
-  },
-  {
-    a : 1,
-    b : 1,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: false,
+      },
+      {
+        a: 1,
+        b: 1,
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({
-    a : 1,
-    b : 2,
-  },
-  {
-    a : 1,
-    b : 2,
-    c : 3,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        a: 1,
+        b: 2,
+        c: 3,
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({
-    x : {
-      a : 1,
-      b : 2,
-    },
-  },
-  {
-    x : {
-      a : 1,
-      b : 2,
-      c : 3,
-    },
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        x: {
+          a: 1,
+          b: 2,
+        },
+      },
+      {
+        x: {
+          a: 1,
+          b: 2,
+          c: 3,
+        },
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({
-    a : 1,
-    b : 2,
-  },
-  {
-    a : 1,
-    b : 3,
-  })).toBeFalse()
+  expect(
+    equals(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        a: 1,
+        b: 3,
+      },
+    ),
+  ).toBeFalse()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
+  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 1 } } })).toBeTrue()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalse()
+  expect(equals({ a: { b: { c: 1 } } }, { a: { b: { c: 2 } } })).toBeFalse()
 
-  expect(equals({ a : {} }, { a : {} })).toBeTrue()
+  expect(equals({ a: {} }, { a: {} })).toBeTrue()
 
   expect(equals('', '')).toBeTrue()
 
@@ -270,7 +310,7 @@ test('various examples', () => {
 })
 
 test('with custom functions', () => {
-  function foo(){
+  function foo() {
     return 1
   }
   foo.prototype.toString = () => ''
@@ -280,7 +320,7 @@ test('with custom functions', () => {
 })
 
 test('with classes', () => {
-  class Foo{}
+  class Foo {}
   const foo = new Foo()
   const result = equals(foo, foo)
 
@@ -304,7 +344,7 @@ test('with big int', () => {
 
 describe('brute force', () => {
   compareCombinations({
-    callback : errorsCounters => {
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
 {
   "ERRORS_MESSAGE_MISMATCH": 0,
@@ -316,9 +356,9 @@ describe('brute force', () => {
 }
 `)
     },
-    firstInput  : variousTypes,
-    fn          : equals,
-    fnRamda     : equalsRamda,
-    secondInput : variousTypes,
+    firstInput: variousTypes,
+    fn: equals,
+    fnRamda: equalsRamda,
+    secondInput: variousTypes,
   })
 })

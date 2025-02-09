@@ -22,12 +22,6 @@ describe('R.assoc', () => {
     result.num // $ExpectType number
     result.str // $ExpectType string
   })
-  it('curried 2', () => {
-    const result = assoc(newProp)(newValue)(obj)
-
-    result.num // $ExpectType number
-    result.str // $ExpectType string
-  })
   it('from @types/ramda', () => {
     // @ts-expect-error
     assoc('str')(2, obj)
@@ -37,7 +31,7 @@ describe('R.assoc', () => {
     const result1 = assoc('what')(2, {} as Record<string, number>)
     result1.what // $ExpectType number
 
-    const result2 = assoc('str')('bar')(obj)
+    const result2 = assoc('str', 'bar')(obj)
     result2.str // $ExpectType string
     result2.num // $ExpectType number
 

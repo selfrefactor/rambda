@@ -1,9 +1,9 @@
-import {viewOr, lensProp} from 'rambda'
+import { lensProp, viewOr } from 'rambdax'
 
-const input = {a: 1, b:2}
+const input = { a: 1, b: 2 }
 interface Input {
-  a: number,
-  b: number,
+  a: number
+  b: number
 }
 const lens = lensProp<Input, 'b'>('b')
 

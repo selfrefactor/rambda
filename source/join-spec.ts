@@ -1,4 +1,4 @@
-import {join} from 'rambda'
+import { join } from 'rambda'
 
 describe('R.join', () => {
   it('happy', () => {

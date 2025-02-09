@@ -1,4 +1,4 @@
-import {findIndex} from 'rambda'
+import { findIndex } from 'rambda'
 
 const list = [1, 2, 3]
 

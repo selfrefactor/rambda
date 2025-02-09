@@ -1,4 +1,4 @@
-import {or} from 'rambda'
+import { or } from 'rambda'
 
 describe('R.or', () => {
   it('happy', () => {

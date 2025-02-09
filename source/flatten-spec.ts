@@ -1,4 +1,4 @@
-import {flatten} from 'rambda'
+import { flatten } from 'rambda'
 
 describe('flatten', () => {
   it('happy', () => {

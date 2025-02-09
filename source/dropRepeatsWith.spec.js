@@ -8,8 +8,8 @@ import { prop } from './prop.js'
 const eqI = eqProps('i')
 
 test('happy', () => {
-  const list = [ { i : 1 }, { i : 2 }, { i : 2 }, { i : 3 } ]
-  const expected = [ { i : 1 }, { i : 2 }, { i : 3 } ]
+  const list = [{ i: 1 }, { i: 2 }, { i: 2 }, { i: 3 }]
+  const expected = [{ i: 1 }, { i: 2 }, { i: 3 }]
   const result = dropRepeatsWith(eqI, list)
   expect(result).toEqual(expected)
 })
@@ -17,23 +17,23 @@ test('happy', () => {
 test('readme example', () => {
   const list = [
     {
-      a : 1,
-      b : 2,
+      a: 1,
+      b: 2,
     },
     {
-      a : 1,
-      b : 3,
+      a: 1,
+      b: 3,
     },
     {
-      a : 2,
-      b : 4,
+      a: 2,
+      b: 4,
     },
   ]
   const result = dropRepeatsWith(prop('a'), list)
   expect(result).toEqual([
     {
-      a : 1,
-      b : 2,
+      a: 1,
+      b: 2,
     },
   ])
 })
@@ -41,34 +41,34 @@ test('readme example', () => {
 test('keeps elements from the left predicate input', () => {
   const list = [
     {
-      i : 1,
-      n : 1,
+      i: 1,
+      n: 1,
     },
     {
-      i : 1,
-      n : 2,
+      i: 1,
+      n: 2,
     },
     {
-      i : 1,
-      n : 3,
+      i: 1,
+      n: 3,
     },
     {
-      i : 4,
-      n : 1,
+      i: 4,
+      n: 1,
     },
     {
-      i : 4,
-      n : 2,
+      i: 4,
+      n: 2,
     },
   ]
   const expected = [
     {
-      i : 1,
-      n : 1,
+      i: 1,
+      n: 1,
     },
     {
-      i : 4,
-      n : 1,
+      i: 4,
+      n: 1,
     },
   ]
   const result = dropRepeatsWith(eqI)(list)
@@ -82,22 +82,22 @@ const possiblePredicates = [
   x => true,
   x => false,
   x => '',
-  path([ 'a', 'b' ]),
+  path(['a', 'b']),
 ]
 const possibleLists = [
   null,
   undefined,
   [],
-  [ 1 ],
-  [ { a : { b : 1 } }, { a : { b : 1 } } ],
-  [ /foo/g, /foo/g ],
+  [1],
+  [{ a: { b: 1 } }, { a: { b: 1 } }],
+  [/foo/g, /foo/g],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput  : possiblePredicates,
-    secondInput : possibleLists,
-    callback    : errorsCounters => {
+    firstInput: possiblePredicates,
+    secondInput: possibleLists,
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 4,
@@ -109,7 +109,7 @@ describe('brute force', () => {
         }
       `)
     },
-    fn      : dropRepeatsWith,
-    fnRamda : dropRepeatsWithRamda,
+    fn: dropRepeatsWith,
+    fnRamda: dropRepeatsWithRamda,
   })
 })

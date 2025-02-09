@@ -3,7 +3,7 @@ import { lens } from './lens.js'
 import { prop } from './prop.js'
 import { view } from './view.js'
 
-const testObject = { foo : 'Led Zeppelin' }
+const testObject = { foo: 'Led Zeppelin' }
 const assocLens = lens(prop('foo'), assoc('foo'))
 
 test('happy', () => {

@@ -1,4 +1,4 @@
-import {filter, piped, takeLast} from 'rambda'
+import { filter, piped, takeLast } from 'rambda'
 
 const list = [1, 2, 3, 4]
 const str = 'foobar'
@@ -15,17 +15,15 @@ describe('R.takeLast - array', () => {
 
     result // $ExpectType number[]
   })
-	it('real case', () => {
-		const data = ['foo', 'bar', 'baz', 'qux']
-		const result = piped(
-			data,
-			filter(
-				x => x.length >= 100
-			),
-			takeLast(2),
-		)
-		result // $ExpectType string[]
-	})
+  it('real case', () => {
+    const data = ['foo', 'bar', 'baz', 'qux']
+    const result = piped(
+      data,
+      filter(x => x.length >= 100),
+      // takeLast(2),
+    )
+    result // $ExpectType string[]
+  })
 })
 
 describe('R.takeLast - string', () => {

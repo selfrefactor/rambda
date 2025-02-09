@@ -15,7 +15,7 @@ test('with big int', () => {
 })
 
 test('with generators', () => {
-  function* generator(){
+  function* generator() {
     yield 1
     yield 2
     yield 3
@@ -32,7 +32,7 @@ test('with Date', () => {
 })
 
 test('with infinity', () => {
-  expect(type(Infinity)).toBe('Number')
+  expect(type(Number.POSITIVE_INFINITY)).toBe('Number')
 })
 
 test('with weak map', () => {
@@ -70,7 +70,7 @@ test('with error', () => {
 
 test('with error - wrong @types/ramda test', () => {
   // @types/ramda expect the result to be 'Error' but it is not
-  class ExtendedError extends Error{}
+  class ExtendedError extends Error {}
   expect(type(ExtendedError)).toBe('Function')
   expect(typeRamda(ExtendedError)).toBe('Function')
 })
@@ -97,11 +97,10 @@ test('async arrow', () => {
 
 test('function', () => {
   const fn1 = () => {}
-  const fn2 = function (){}
+  const fn2 = () => {}
 
-  function fn3(){}
-
-  ;[ () => {}, fn1, fn2, fn3 ].map(val => {
+  function fn3() {}
+  ;[() => {}, fn1, fn2, fn3].map(val => {
     expect(type(val)).toBe('Function')
   })
 })
@@ -128,7 +127,7 @@ test('null', () => {
 
 test('array', () => {
   expect(type([])).toBe('Array')
-  expect(type([ 1, 2, 3 ])).toBe('Array')
+  expect(type([1, 2, 3])).toBe('Array')
 })
 
 test('regex', () => {
@@ -144,14 +143,14 @@ test('not a number', () => {
 })
 
 test('set', () => {
-  const exampleSet = new Set([ 1, 2, 3 ])
+  const exampleSet = new Set([1, 2, 3])
   expect(type(exampleSet)).toBe('Set')
   expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
   const obj = {
-    f(){
+    f() {
       return 4
     },
   }
@@ -163,7 +162,7 @@ test('function inside object 1', () => {
 test('function inside object 2', () => {
   const name = 'f'
   const obj = {
-    [ name ](){
+    [name]() {
       return 4
     },
   }

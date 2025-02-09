@@ -1,9 +1,18 @@
-import {mapcat} from 'rambda'
+import { mapcat, piped } from 'rambda'
 
 describe('R.mapcat', () => {
   it('happy', () => {
-    const result = mapcat(1)
-
-    result // $ExpectType 1
+    const listOfLists = [
+      ['f', 'bar'],
+      ['baz', 'b'],
+    ]
+    const result = piped(
+      listOfLists,
+      mapcat(x => {
+        x // $ExpectType string
+        return x.length
+      }),
+    )
+    result // $ExpectType number[]
   })
 })

@@ -1,4 +1,4 @@
-import {median} from 'rambda'
+import { median } from 'rambda'
 
 describe('R.median', () => {
   it('happy', () => {

@@ -9,7 +9,7 @@ test('with null', () => {
 })
 
 test('with NaN', () => {
-  expect(defaultTo('foo')(NaN)).toBe('foo')
+  expect(defaultTo('foo')(Number.NaN)).toBe('foo')
 })
 
 test('with empty string', () => {

@@ -1,19 +1,19 @@
-import {reduceBy} from 'rambda'
+import { reduceBy } from 'rambda'
 
 test('R.reduceBy', () => {
   interface Student {
-    name: string,
-    score: number,
+    name: string
+    score: number
   }
 
   const reduceToNamesBy = reduceBy(
     (acc: string[], student: Student) => acc.concat(student.name),
-    []
+    [],
   )
   const students = [
-    {name: 'Lucy', score: 92},
-    {name: 'Drew', score: 85},
-    {name: 'Bart', score: 62},
+    { name: 'Lucy', score: 92 },
+    { name: 'Drew', score: 85 },
+    { name: 'Bart', score: 62 },
   ]
   const result = reduceToNamesBy(student => {
     const score = student.score

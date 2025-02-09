@@ -1,5 +1,5 @@
+import { flip, subtract } from 'rambda'
 import * as R from 'ramda'
-import {flip, subtract} from 'rambda'
 
 describe('R.flip', () => {
   it('function with arity of 2', () => {

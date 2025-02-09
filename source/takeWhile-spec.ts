@@ -1,4 +1,4 @@
-import {takeWhile} from 'rambda'
+import { takeWhile } from 'rambda'
 
 const list = [1, 2, 3, 4]
 

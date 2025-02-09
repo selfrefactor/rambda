@@ -1,22 +1,22 @@
 import { mergeRight } from './mergeRight.js'
 
 const obj = {
-  foo : 1,
-  bar : 2,
+  foo: 1,
+  bar: 2,
 }
 
 test('happy', () => {
-  expect(mergeRight(obj, { bar : 20 })).toEqual({
-    foo : 1,
-    bar : 20,
+  expect(mergeRight(obj, { bar: 20 })).toEqual({
+    foo: 1,
+    bar: 20,
   })
 })
 
 test('curry', () => {
-  expect(mergeRight(obj)({ baz : 3 })).toEqual({
-    foo : 1,
-    bar : 2,
-    baz : 3,
+  expect(mergeRight(obj)({ baz: 3 })).toEqual({
+    foo: 1,
+    bar: 2,
+    baz: 3,
   })
 })
 
@@ -31,19 +31,19 @@ test('when undefined or null instead of object', () => {
 })
 
 test('with function inside object', () => {
-  const result = mergeRight({ a : 1 }, { b : () => 1 })
+  const result = mergeRight({ a: 1 }, { b: () => 1 })
   expect(typeof result.b).toBe('function')
 })
 
 describe('acts as if nil values are simply empty objects', () => {
   const a = {
-    w : 1,
-    x : 2,
+    w: 1,
+    x: 2,
   }
   const b = {
-    w : 100,
-    y : 3,
-    z : 4,
+    w: 100,
+    y: 3,
+    z: 4,
   }
 
   it('if the first object is nil', () => {

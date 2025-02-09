@@ -8,10 +8,10 @@ import { view } from './view.js'
 
 test('composed lenses', () => {
   const testObject = {
-    foo : [ 'a', 'b', 'c' ],
-    baz : {
-      a : 'x',
-      b : 'y',
+    foo: ['a', 'b', 'c'],
+    baz: {
+      a: 'x',
+      b: 'y',
     },
   }
   const propLens = lensProp('foo')
@@ -24,10 +24,8 @@ test('composed lenses', () => {
 
   expect(view(composedLens)(testObject)).toBe('c')
 
-  expect(over(
-    composedLens, toUpper, testObject
-  )).toEqual({
+  expect(over(composedLens, toUpper, testObject)).toEqual({
     ...testObject,
-    foo : [ 'a', 'b', 'C' ],
+    foo: ['a', 'b', 'C'],
   })
 })

@@ -1,15 +1,16 @@
-import {updateObject} from 'rambda'
+// looks like evolve
+import { updateObject } from 'rambdax'
 
 const obj = {
-  a: {b: 1},
+  a: { b: 1 },
 }
 const rules: [string, number][] = [
   ['a.b', 2],
   ['foo.bar', 20],
 ]
 interface Output {
-  a: {b: number},
-  foo: {bar: number},
+  a: { b: number }
+  foo: { bar: number }
 }
 
 describe('R.updateObject', () => {

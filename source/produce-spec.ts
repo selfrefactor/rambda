@@ -1,4 +1,4 @@
-import {produce, pipe, add} from 'rambda'
+import { add, pipe, produce } from 'rambda'
 
 describe('R.produce', () => {
   it('happy', () => {
@@ -7,10 +7,10 @@ describe('R.produce', () => {
         a: pipe(add(2), add(3)),
         b: x => {
           x // $ExpectType number
-          return {foo: x}
+          return { foo: x }
         },
       },
-      1
+      1,
     )
 
     result.a // $ExpectType number
@@ -18,14 +18,14 @@ describe('R.produce', () => {
   })
   it('curried require explicit types', () => {
     interface Output {
-      a: number,
-      b: {foo: number},
+      a: number
+      b: { foo: number }
     }
     const result = produce<number, Output>({
       a: pipe(add(2), add(3)),
       b: x => {
         x // $ExpectType number
-        return {foo: x}
+        return { foo: x }
       },
     })(1)
 

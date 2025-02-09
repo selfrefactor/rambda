@@ -1,8 +1,8 @@
-import {binary} from 'rambda'
+import { binary } from 'rambda'
 
 describe('R.binary', () => {
   it('happy', () => {
-    const result = binary(function(x: number, y: number, z) {
+    const result = binary((x: number, y: number, z) => {
       expect(arguments.length).toBe(2)
       expect(z).toBeUndefined()
       expect(x).toBe(10)

@@ -19,27 +19,21 @@ test('when fallback throws', async () => {
 test('fallback is not used', async () => {
   const fn = async x => x.x
 
-  expect(tryCatchAsync(fn, false)({ x : 1 })).resolves.toBe(1)
+  expect(tryCatchAsync(fn, false)({ x: 1 })).resolves.toBe(1)
 })
 
 test('fallback receives error object and all initial inputs', async () => {
-  async function thrower(
-    a, b, c
-  ){
+  async function thrower(a, b, c) {
     void c
     throw new Error('throwerError')
   }
 
-  function catchFn(
-    e, a, b, c
-  ){
-    return [ e.message, a, b, c ].join('|')
+  function catchFn(e, a, b, c) {
+    return [e.message, a, b, c].join('|')
   }
 
   const willThrow = tryCatchAsync(thrower, catchFn)
-  const result = await willThrow(
-    'A', 'B', 'C'
-  )
+  const result = await willThrow('A', 'B', 'C')
   expect(result).toBe('throwerError|A|B|C')
 })
 

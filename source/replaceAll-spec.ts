@@ -1,4 +1,4 @@
-import {replaceAll} from 'rambda'
+import { replaceAll } from 'rambda'
 
 const str = 'foo bar foo'
 const replacer = 'bar'

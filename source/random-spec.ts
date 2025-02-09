@@ -1,4 +1,4 @@
-import {random} from 'rambda'
+import { random } from 'rambda'
 
 describe('R.random', () => {
   it('happy', () => {

@@ -1,10 +1,10 @@
-import {includes} from 'rambda'
+import { includes } from 'rambda'
 
-const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
+const list = [{ a: { b: '1' } }, { a: { c: '2' } }, { a: { b: '3' } }]
 
 describe('R.includes', () => {
   it('happy', () => {
-    const result = includes({a: {b: '1'}}, list)
+    const result = includes({ a: { b: '1' } }, list)
     result // $ExpectType boolean
     const result2 = includes('oo', ['f', 'oo'])
     result2 // $ExpectType boolean

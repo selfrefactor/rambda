@@ -1,4 +1,4 @@
-import {filterArray} from 'rambda'
+import { filterArray } from 'rambda'
 
 const list = [1, 2, 3]
 

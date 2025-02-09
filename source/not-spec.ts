@@ -1,4 +1,4 @@
-import {not} from 'rambda'
+import { not } from 'rambda'
 
 describe('R.not', () => {
   it('happy', () => {

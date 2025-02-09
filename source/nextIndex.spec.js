@@ -1,6 +1,6 @@
 import { nextIndex } from './nextIndex.js'
 
-const list = [ 1, 2, 3, 4 ]
+const list = [1, 2, 3, 4]
 
 test('happy path', () => {
   expect(nextIndex(2, list)).toBe(3)

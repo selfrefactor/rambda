@@ -2,9 +2,7 @@ import { curry } from './curry.js'
 import { defaultTo } from './defaultTo.js'
 import { view } from './view.js'
 
-function viewOrFn(
-  fallback, lens, input
-){
+function viewOrFn(fallback, lens, input) {
   return defaultTo(fallback, view(lens, input))
 }
 

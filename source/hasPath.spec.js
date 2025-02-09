@@ -2,7 +2,7 @@ import { hasPath } from './hasPath.js'
 
 test('when true', () => {
   const path = 'a.b'
-  const obj = { a : { b : [] } }
+  const obj = { a: { b: [] } }
 
   const result = hasPath(path)(obj)
   const expectedResult = true

@@ -1,4 +1,4 @@
-function _isInteger(n){
+function _isInteger(n) {
   return n << 0 === n
 }
 

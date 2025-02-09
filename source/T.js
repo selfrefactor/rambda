@@ -1,3 +1,3 @@
-export function T(){
+export function T() {
   return true
 }

@@ -1,7 +1,7 @@
 import { delay } from './delay.js'
 import { pipeAsync } from './pipeAsync.js'
 
-async function identity(x){
+async function identity(x) {
   await delay(100)
 
   return x
@@ -18,10 +18,12 @@ test('happy', async () => {
 
     return x.map(xx => xx * 2)
   }
-  const result = await pipeAsync(fn1,
-    fn2)(await Promise.all([ identity(1), identity(2), identity(3) ]))
+  const result = await pipeAsync(
+    fn1,
+    fn2,
+  )(await Promise.all([identity(1), identity(2), identity(3)]))
 
-  expect(result).toEqual([ 4, 6, 8 ])
+  expect(result).toEqual([4, 6, 8])
 })
 
 const delayFn = ms =>
@@ -29,12 +31,12 @@ const delayFn = ms =>
     resolve(ms + 1)
   })
 
-test.only('with function returning promise', async () => {
+test('with function returning promise', async () => {
   const result = await pipeAsync(
     x => x,
     x => x + 1,
     delayFn,
-    x => x
+    x => x,
   )(1)
 
   expect(result).toBe(3)
@@ -49,7 +51,7 @@ test('throw error', async () => {
   let didThrow = false
   try {
     await pipeAsync(x => x, fn)(20)
-  } catch (e){
+  } catch (e) {
     didThrow = true
   }
 

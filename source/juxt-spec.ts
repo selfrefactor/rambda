@@ -1,4 +1,4 @@
-import {juxt} from 'rambda'
+import { juxt } from 'rambda'
 
 describe('R.juxt', () => {
   it('happy', () => {

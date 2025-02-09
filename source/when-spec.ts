@@ -1,4 +1,4 @@
-import {when} from 'rambda'
+import { when } from 'rambda'
 
 const predicate = (x: number) => x > 2
 const whenTrueFn = (x: number) => String(x)

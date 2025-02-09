@@ -1,7 +1,7 @@
-import {dropRepeatsWith} from 'rambda'
+import { dropRepeatsWith } from 'rambda'
 
 interface Foo {
-  a: number,
+  a: number
 }
 
 describe('R.dropRepeatsWith', () => {
@@ -10,7 +10,7 @@ describe('R.dropRepeatsWith', () => {
       (x: Foo, y: Foo) => {
         return x.a > y.a
       },
-      [{a: 2}, {a: 1}]
+      [{ a: 2 }, { a: 1 }],
     )
 
     result // $ExpectType { a: number; }[]
@@ -19,7 +19,7 @@ describe('R.dropRepeatsWith', () => {
   it('curried', () => {
     const result = dropRepeatsWith((x: Foo, y: Foo) => {
       return x.a > y.a
-    })([{a: 2}, {a: 1}])
+    })([{ a: 2 }, { a: 1 }])
 
     result // $ExpectType Foo[]
   })

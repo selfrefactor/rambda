@@ -1,4 +1,4 @@
-import {identical} from 'rambda'
+import { identical } from 'rambda'
 
 describe('R.identical', () => {
   it('happy', () => {
@@ -8,19 +8,19 @@ describe('R.identical', () => {
     curriedResult // $ExpectType boolean
   })
   it('with object', () => {
-    const result = identical({a: 1}, {b: 2})
+    const result = identical({ a: 1 }, { b: 2 })
     result // $ExpectType boolean
-    identical({a: 1}, {b: 2})
+    identical({ a: 1 }, { b: 2 })
 
     // @ts-expect-error
-    identical({a: 1})({b: 2})
+    identical({ a: 1 })({ b: 2 })
   })
   it('with object - explicit type', () => {
     interface Foo {
-      a: number,
+      a: number
     }
-    identical<Foo>({a: 1}, {a: 2})
+    identical<Foo>({ a: 1 }, { a: 2 })
     // @ts-expect-error
-    identical<Foo>({a: 1}, {b: 2})
+    identical<Foo>({ a: 1 }, { b: 2 })
   })
 })

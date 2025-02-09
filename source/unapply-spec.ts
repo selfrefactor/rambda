@@ -1,4 +1,4 @@
-import {join, unapply, sum} from 'rambda'
+import { join, sum, unapply } from 'rambda'
 
 describe('R.unapply', () => {
   it('happy', () => {

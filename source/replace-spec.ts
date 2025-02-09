@@ -1,4 +1,4 @@
-import {replace} from 'rambda'
+import { replace } from 'rambda'
 
 const str = 'foo bar foo'
 const replacer = 'bar'
@@ -15,12 +15,16 @@ describe('R.replace', () => {
     result // $ExpectType string
   })
   it('with function as replacer', () => {
-    const result = replace('f(o)o', (m: string, p1: string, offset: number) => {
-      m // $ExpectType string
-      p1 // $ExpectType string
-      offset // $ExpectType number
-      return p1
-    }, str)
+    const result = replace(
+      'f(o)o',
+      (m: string, p1: string, offset: number) => {
+        m // $ExpectType string
+        p1 // $ExpectType string
+        offset // $ExpectType number
+        return p1
+      },
+      str,
+    )
 
     result // $ExpectType string
   })

@@ -1,4 +1,4 @@
-import {split} from 'rambda'
+import { split } from 'rambda'
 
 const str = 'foo|bar|baz'
 const splitChar = '|'

@@ -1,4 +1,4 @@
-import {dropWhile} from 'rambda'
+import { dropWhile } from 'rambda'
 
 const list = [1, 2, 3, 4]
 

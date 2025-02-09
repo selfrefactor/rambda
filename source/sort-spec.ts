@@ -1,4 +1,4 @@
-import {sort} from 'rambda'
+import { sort } from 'rambda'
 
 const list = [3, 0, 5, 2, 1]
 

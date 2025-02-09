@@ -1,4 +1,4 @@
-import {cond, always, equals} from 'rambda'
+import { always, cond, equals } from 'rambda'
 
 describe('R.cond', () => {
   it('happy', () => {
@@ -7,9 +7,9 @@ describe('R.cond', () => {
       [equals(100), always('water boils at 100°C')],
       [
         () => true,
-        function(temp) {
+        temp => {
           temp // $ExpectType number
-          return 'nothing special happens at ' + temp + '°C'
+          return `nothing special happens at ${temp}°C`
         },
       ],
     ])

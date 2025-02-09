@@ -1,4 +1,4 @@
-import {partitionIndexed} from 'rambda'
+import { partitionIndexed } from 'rambda'
 
 describe('R.partitionIndexed', () => {
   it('with array', () => {

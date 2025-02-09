@@ -1,4 +1,4 @@
-import {count} from 'rambda'
+import { count } from 'rambda'
 
 const list = [1, 2, 3]
 const predicate = (x: number) => x > 1

@@ -1,4 +1,4 @@
-import {reduce, reduceStopper} from 'rambda'
+import { reduce } from 'rambda'
 
 describe('R.reduce', () => {
   it('happy', () => {
@@ -9,7 +9,7 @@ describe('R.reduce', () => {
         return acc + elem
       },
       1,
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType number
@@ -24,7 +24,7 @@ describe('R.reduce', () => {
         return `${acc}${elem}`
       },
       'foo',
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType string
@@ -39,37 +39,19 @@ describe('R.reduce', () => {
         return acc + elem
       },
       1,
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType number
   })
 
   it('with index, curried', () => {
-    const result = reduce<number, number>(
-      (acc, elem, i) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        i // $ExpectType number
-        return acc + elem
-      },
-      1,
-    )([1, 2, 3])
-
-    result // $ExpectType number
-  })
-
-  it('using `reduceStopper` to stop the loop', () => {
-    const result = reduce<number, number>(
-      (acc, elem, i) => {
-        acc // $ExpectType number
-        elem // $ExpectType number
-        i // $ExpectType number
-        return acc + elem > 1 ? reduceStopper(elem) : acc
-      },
-      1,
-      [1, 2, 3]
-    )
+    const result = reduce<number, number>((acc, elem, i) => {
+      acc // $ExpectType number
+      elem // $ExpectType number
+      i // $ExpectType number
+      return acc + elem
+    }, 1)([1, 2, 3])
 
     result // $ExpectType number
   })
@@ -81,7 +63,7 @@ describe('R.reduce', () => {
         return acc + val
       },
       1,
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType number
@@ -95,7 +77,7 @@ describe('R.reduce', () => {
         return acc + val
       },
       1,
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType number
@@ -108,7 +90,7 @@ describe('R.reduce', () => {
         return acc + val
       },
       'foo',
-      [1, 2, 3]
+      [1, 2, 3],
     )
 
     result // $ExpectType string

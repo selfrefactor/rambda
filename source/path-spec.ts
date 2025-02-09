@@ -1,6 +1,6 @@
-import {path} from 'rambda'
+import { path } from 'rambda'
 
-const input = {a: {b: {c: true}}}
+const input = { a: { b: { c: true } } }
 
 describe('R.path with string as path', () => {
   it('without specified output type', () => {
@@ -26,13 +26,13 @@ describe('R.path with list as path', () => {
   })
   test('shallow property', () => {
     // $ExpectType number
-    path(['a'], {a: 1})
+    path(['a'], { a: 1 })
 
     // $ExpectType unknown
-    path(['b'], {a: 1})
+    path(['b'], { a: 1 })
   })
   test('deep property', () => {
-    const testObject = {a: {b: {c: {d: {e: {f: 1}}}}}}
+    const testObject = { a: { b: { c: { d: { e: { f: 1 } } } } } }
     const result = path(['a', 'b', 'c', 'd', 'e', 'f'], testObject)
     // $ExpectType number
     result

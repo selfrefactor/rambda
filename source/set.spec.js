@@ -1,9 +1,9 @@
-import {assoc} from './assoc.js'
-import {lens} from './lens.js'
-import {lensIndex} from './lensIndex.js'
-import {lensPath} from './lensPath.js'
-import {prop} from './prop.js'
-import {set} from './set.js'
+import { assoc } from './assoc.js'
+import { lens } from './lens.js'
+import { lensIndex } from './lensIndex.js'
+import { lensPath } from './lensPath.js'
+import { prop } from './prop.js'
+import { set } from './set.js'
 
 const testObject = {
   foo: 'bar',

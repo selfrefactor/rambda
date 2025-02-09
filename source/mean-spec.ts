@@ -1,4 +1,4 @@
-import {mean} from 'rambda'
+import { mean } from 'rambda'
 
 describe('R.mean', () => {
   it('happy', () => {

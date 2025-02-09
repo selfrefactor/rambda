@@ -1,6 +1,6 @@
-import {indexBy} from 'rambda'
+import { indexBy } from 'rambda'
 
-const list = [{a: {b: '1'}}, {a: {c: '2'}}, {a: {b: '3'}}]
+const list = [{ a: { b: '1' } }, { a: { c: '2' } }, { a: { b: '3' } }]
 
 describe('indexBy', () => {
   it('happy', () => {
@@ -19,9 +19,9 @@ describe('indexBy', () => {
 
   it('with interface', () => {
     interface Foo {
-      a: string,
+      a: string
     }
-    const interfaceList = [{a: 'foo'}, {a: 'bar'}]
+    const interfaceList = [{ a: 'foo' }, { a: 'bar' }]
     const result = indexBy<Foo>(x => {
       x.a // $ExpectType string
       return x.a

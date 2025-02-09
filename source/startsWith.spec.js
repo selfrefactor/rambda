@@ -10,21 +10,21 @@ test('with string', () => {
 })
 
 test('use R.equals with array', () => {
-  const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
-  expect(startsWith({ a : 1 }, list)).toBeFalse()
-  expect(startsWith([ { a : 1 } ], list)).toBeTrue()
-  expect(startsWith([ { a : 1 }, { a : 2 } ], list)).toBeTrue()
+  const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
+  expect(startsWith({ a: 1 }, list)).toBeFalse()
+  expect(startsWith([{ a: 1 }], list)).toBeTrue()
+  expect(startsWith([{ a: 1 }, { a: 2 }], list)).toBeTrue()
   expect(startsWith(list, list)).toBeTrue()
-  expect(startsWith([ { a : 2 } ], list)).toBeFalse()
+  expect(startsWith([{ a: 2 }], list)).toBeFalse()
 })
 
 describe('brute force', () => {
   compareCombinations({
-    fn          : startsWith,
-    fnRamda     : startsWithRamda,
-    firstInput  : possibleTargets,
-    secondInput : possibleIterables,
-    callback    : errorsCounters => {
+    fn: startsWith,
+    fnRamda: startsWithRamda,
+    firstInput: possibleTargets,
+    secondInput: possibleIterables,
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,

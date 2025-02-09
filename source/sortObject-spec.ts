@@ -1,4 +1,4 @@
-import {sortObject} from 'rambda'
+import { sortObject } from 'rambda'
 
 const obj = {
   c: 1,

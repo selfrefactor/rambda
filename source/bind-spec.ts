@@ -1,4 +1,4 @@
-import {bind} from 'rambda'
+import { bind } from 'rambda'
 
 class Foo {}
 function isFoo<T = any>(this: T): boolean {

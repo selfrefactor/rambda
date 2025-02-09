@@ -7,11 +7,11 @@ test('r.F and R.T', () => {
 })
 
 test('identical', () => {
-  const a = { a : 1 }
-  const b = { a : 1 }
+  const a = { a: 1 }
+  const b = { a: 1 }
   const c = {
-    a : 1,
-    b : 2,
+    a: 1,
+    b: 2,
   }
 
   expect(identical(100)(100)).toBeTrue()

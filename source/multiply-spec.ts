@@ -1,4 +1,4 @@
-import {multiply} from 'rambda'
+import { multiply } from 'rambda'
 
 describe('R.multiply', () => {
   it('happy', () => {

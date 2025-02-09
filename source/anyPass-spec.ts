@@ -1,23 +1,8 @@
-import {anyPass, filter} from 'rambda'
+import { anyPass, filter } from 'rambda'
 
 describe('anyPass', () => {
-  it('happy', () => {
-    const x = anyPass<number>([
-      y => {
-        y // $ExpectType number
-        return typeof y === 'number'
-      },
-      y => {
-        return y > 0
-      },
-    ])(11)
-
-    x // $ExpectType boolean
-  })
   it('issue #604', () => {
-    const plusEq = function(w: number, x: number, y: number, z: number) {
-      return w + x === y + z
-    }
+    const plusEq = (w: number, x: number, y: number, z: number) => w + x === y + z
     const result = anyPass([plusEq])(3, 3, 3, 3)
 
     result // $ExpectType boolean
@@ -39,12 +24,10 @@ describe('anyPass', () => {
 
     const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean])
 
-    isStringNumberOrBoolean // $ExpectType (input: unknown) => boolean
-
     const aValue: unknown = 1
 
     if (isStringNumberOrBoolean(aValue)) {
-      aValue // $ExpectType unknown
+      aValue // $ExpectType string | number | boolean
     }
   })
 })

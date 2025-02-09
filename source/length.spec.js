@@ -4,7 +4,7 @@ import { length } from './length.js'
 
 test('happy', () => {
   expect(length('foo')).toBe(3)
-  expect(length([ 1, 2, 3 ])).toBe(3)
+  expect(length([1, 2, 3])).toBe(3)
   expect(length([])).toBe(0)
 })
 
@@ -20,9 +20,9 @@ test('with bad input returns NaN', () => {
 })
 
 test('with length as property', () => {
-  const input1 = { length : '123' }
-  const input2 = { length : null }
-  const input3 = { length : '' }
+  const input1 = { length: '123' }
+  const input2 = { length: null }
+  const input3 = { length: '' }
 
   expect(length(input1)).toBeNaN()
   expect(lengthRamda(input1)).toBeNaN()

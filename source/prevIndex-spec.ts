@@ -1,4 +1,4 @@
-import {prevIndex} from 'rambda'
+import { prevIndex } from 'rambda'
 
 const list = [1, 2, 3]
 

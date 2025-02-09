@@ -7,14 +7,14 @@ const iterator = (x, i) => {
 }
 
 test('happy', () => {
-  const list = [ 1, 2, 3 ]
+  const list = [1, 2, 3]
   filterIndexed(iterator, list)
   filterIndexed(iterator)(list)
 })
 
 test('with object', () => {
   const iterator = x => x + 1
-  const obj = { a : 1 }
+  const obj = { a: 1 }
   expect(filterIndexed(iterator, obj)).toEqual(filter(iterator, obj))
 })
 

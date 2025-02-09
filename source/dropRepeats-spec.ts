@@ -1,4 +1,4 @@
-import {dropRepeats} from 'rambda'
+import { dropRepeats } from 'rambda'
 
 describe('R.dropRepeats', () => {
   it('happy', () => {

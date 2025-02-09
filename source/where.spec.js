@@ -2,16 +2,18 @@ import { equals } from './equals.js'
 import { where } from './where.js'
 
 test('when true', () => {
-  const result = where({
-    a : equals('foo'),
-    b : equals('bar'),
-  },
-  {
-    a : 'foo',
-    b : 'bar',
-    x : 11,
-    y : 19,
-  })
+  const result = where(
+    {
+      a: equals('foo'),
+      b: equals('bar'),
+    },
+    {
+      a: 'foo',
+      b: 'bar',
+      x: 11,
+      y: 19,
+    },
+  )
 
   expect(result).toBeTrue()
 })
@@ -25,12 +27,14 @@ test('when false | early exit', () => {
     return input === expected
   }
   const predicate = where({
-    a : equalsFn('foo'),
-    b : equalsFn('baz'),
+    a: equalsFn('foo'),
+    b: equalsFn('baz'),
   })
-  expect(predicate({
-    a : 'notfoo',
-    b : 'notbar',
-  })).toBeFalse()
+  expect(
+    predicate({
+      a: 'notfoo',
+      b: 'notbar',
+    }),
+  ).toBeFalse()
   expect(counter).toBe(1)
 })

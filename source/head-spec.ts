@@ -7,7 +7,7 @@ import {
   numberListConst,
   string,
 } from '_internals/typescriptTestUtils'
-import {head, last} from 'rambda'
+import { head, last } from 'rambda'
 
 describe('R.head', () => {
   it('string', () => {
@@ -15,8 +15,8 @@ describe('R.head', () => {
     last(string) // $ExpectType string
   })
   it('empty string', () => {
-    head(emptyString) // $ExpectType undefined
-    last(emptyString) // $ExpectType undefined
+    head(emptyString) // $ExpectType string
+    last(emptyString) // $ExpectType string
   })
   it('array', () => {
     head(numberList) // $ExpectType number
@@ -27,9 +27,9 @@ describe('R.head', () => {
   })
   it('empty array', () => {
     const list = [] as const
-    head(emptyList) // $ExpectType undefined
+    head(emptyList) // $ExpectType never
     head(list) // $ExpectType undefined
-    last(emptyList) // $ExpectType undefined
+    last(emptyList) // $ExpectType never
     last(list) // $ExpectType undefined
   })
 

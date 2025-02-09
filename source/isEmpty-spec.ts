@@ -1,4 +1,4 @@
-import {isEmpty} from 'rambda'
+import { isEmpty } from 'rambda'
 
 describe('R.isEmpty', () => {
   it('happy', () => {

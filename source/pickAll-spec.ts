@@ -1,16 +1,16 @@
-import {pickAll} from 'rambda'
+import { pickAll } from 'rambda'
 
 interface Input {
-  a: string,
-  b: number,
-  c: number,
-  d: number,
+  a: string
+  b: number
+  c: number
+  d: number
 }
 interface Output {
-  a?: string,
-  c?: number,
+  a?: string
+  c?: number
 }
-const input = {a: 'foo', b: 2, c: 3, d: 4}
+const input = { a: 'foo', b: 2, c: 3, d: 4 }
 
 describe('R.pickAll with array as props input', () => {
   it('without passing type', () => {

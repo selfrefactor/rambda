@@ -1,4 +1,4 @@
-import {take} from 'rambda'
+import { take } from 'rambda'
 
 const list = [1, 2, 3, 4]
 const str = 'foobar'

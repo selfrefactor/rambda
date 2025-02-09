@@ -1,12 +1,10 @@
 import { curry } from './curry.js'
 
-function ifElseFn(
-  condition, onTrue, onFalse
-){
+function ifElseFn(condition, onTrue, onFalse) {
   return (...input) => {
-		const conditionResult =
+    const conditionResult =
       typeof condition === 'boolean' ? condition : condition(...input)
-    if (Boolean(conditionResult) ){
+    if (conditionResult) {
       return onTrue(...input)
     }
 

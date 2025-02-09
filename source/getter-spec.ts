@@ -1,4 +1,4 @@
-import {getter, setter, reset} from 'rambda'
+import { getter, reset, setter } from 'rambda'
 
 const KEY = 'foo'
 
@@ -12,10 +12,10 @@ describe('R.getter | R.setter | R.reset', () => {
 
   it('using lists of keys and whole object', () => {
     interface Output {
-      a: number,
-      foo: number,
+      a: number
+      foo: number
     }
-    setter({a: 1, b: 2, foo: 3})
+    setter({ a: 1, b: 2, foo: 3 })
     const result = getter<Output>(['a', KEY])
     result // $ExpectType Output
   })
