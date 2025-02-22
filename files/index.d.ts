@@ -5505,28 +5505,6 @@ export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 
 /*
-Method: binary
-
-Explanation:
-
-Example:
-
-```
-const result = R.binary(
-  (a, b, c) => a + b + c,
-)(1, 2, 3, 4)
-// => 3
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function binary<T extends (...arg: any[]) => any>(fn: T): (...args: any[]) => ReturnType<T>;
-
-/*
 Method: call
 
 Explanation:
