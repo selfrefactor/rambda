@@ -9,7 +9,7 @@ test('happy', () => {
 test('with bad input', () => {
   expect(() =>
     expect(splitEvery(0)('foo')).toEqual(['f', 'o', 'o']),
-  ).toThrowErrorMatchingInlineSnapshot(
+  ).toThrowError(
     '"First argument to splitEvery must be a positive integer"',
   )
 })

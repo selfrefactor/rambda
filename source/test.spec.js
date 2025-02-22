@@ -7,7 +7,7 @@ test('happy', () => {
 })
 
 test('throws if first argument is not regex', () => {
-  expect(() => testMethod('foo', 'bar')).toThrowErrorMatchingInlineSnapshot(
+  expect(() => testMethod('foo', 'bar')).toThrowError(
     '"R.test requires a value of type RegExp as its first argument; received "foo""',
   )
 })

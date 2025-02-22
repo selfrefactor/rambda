@@ -50,7 +50,7 @@ test('string.fn test', () => {
 })
 
 test('bad path', () => {
-  expect(() => mapToObject(1, null)).toThrowErrorMatchingInlineSnapshot(`
+  expect(() => mapToObject(1, null)).toThrowError(`
     "Failed R.ok -
     reason: {"input":"Number","schema":"Function"}
     all inputs: ["Number","Null"]

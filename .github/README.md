@@ -2712,7 +2712,7 @@ test('@types/ramda broken test', () => {
   const calculateAndAssocTotalToScore = chainRamda(assocTotalToScore,
     calculateTotal)
   expect(() =>
-    calculateAndAssocTotalToScore(score)).toThrowErrorMatchingInlineSnapshot('"fn(...) is not a function"')
+    calculateAndAssocTotalToScore(score)).toThrowError('"fn(...) is not a function"')
 })
 ```
 
@@ -7918,7 +7918,7 @@ test('with NaN', () => {
 
 test('will throw with bad input', () => {
   expect(lastIndexOfRamda([], true)).toBe(-1)
-  expect(() => indexOf([], true)).toThrowErrorMatchingInlineSnapshot('"indexOf is not defined"')
+  expect(() => indexOf([], true)).toThrowError('"indexOf is not defined"')
 })
 
 test('without list of objects - no R.equals', () => {
@@ -7941,7 +7941,7 @@ test('list of arrays uses R.equals', () => {
 })
 
 test('with string as iterable', () => {
-  expect(() => lastIndexOf('a', 'abc')).toThrowErrorMatchingInlineSnapshot('"Cannot read property \'indexOf\' of abc"')
+  expect(() => lastIndexOf('a', 'abc')).toThrowError('"Cannot read property \'indexOf\' of abc"')
   expect(lastIndexOfRamda('a', 'abc')).toBe(0)
 })
 
@@ -8677,11 +8677,11 @@ describe('with object', () => {
 })
 
 test('bad inputs difference between Ramda and Rambda', () => {
-  expect(() => map(double, null)).toThrowErrorMatchingInlineSnapshot('"Incorrect iterable input"')
-  expect(() => map(double)(undefined)).toThrowErrorMatchingInlineSnapshot('"Incorrect iterable input"')
-  expect(() => mapRamda(double, null)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'fantasy-land/map\')"')
+  expect(() => map(double, null)).toThrowError('"Incorrect iterable input"')
+  expect(() => map(double)(undefined)).toThrowError('"Incorrect iterable input"')
+  expect(() => mapRamda(double, null)).toThrowError('"Cannot read properties of null (reading \'fantasy-land/map\')"')
   expect(() =>
-    mapRamda(double, undefined)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of undefined (reading \'fantasy-land/map\')"')
+    mapRamda(double, undefined)).toThrowError('"Cannot read properties of undefined (reading \'fantasy-land/map\')"')
 })
 ```
 
@@ -8906,7 +8906,7 @@ test('with string', () => {
 test('throwing', () => {
   expect(() => {
     match(/a./g, null)
-  }).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'match\')"')
+  }).toThrowError('"Cannot read properties of null (reading \'match\')"')
 })
 ```
 
@@ -11231,7 +11231,7 @@ test('with function that throws an error', () => {
     curried({
       b : 2,
       c : 3,
-    })).toThrowErrorMatchingInlineSnapshot('"foo"')
+    })).toThrowError('"foo"')
 })
 
 test('with async', async () => {
@@ -13596,7 +13596,7 @@ test('curried', () => {
 })
 
 test('wrong input', () => {
-  expect(() => props(null)(obj)).toThrowErrorMatchingInlineSnapshot('"propsToPick is not a list"')
+  expect(() => props(null)(obj)).toThrowError('"propsToPick is not a list"')
 })
 ```
 
@@ -15322,7 +15322,7 @@ test('happy', () => {
 
 test('with bad input', () => {
   expect(() =>
-    expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrowErrorMatchingInlineSnapshot('"First argument to splitEvery must be a positive integer"')
+    expect(splitEvery(0)('foo')).toEqual([ 'f', 'o', 'o' ])).toThrowError('"First argument to splitEvery must be a positive integer"')
 })
 ```
 
@@ -16545,7 +16545,7 @@ test('happy', () => {
 })
 
 test('throws if first argument is not regex', () => {
-  expect(() => testMethod('foo', 'bar')).toThrowErrorMatchingInlineSnapshot('"R.test requires a value of type RegExp as its first argument; received "foo""')
+  expect(() => testMethod('foo', 'bar')).toThrowError('"R.test requires a value of type RegExp as its first argument; received "foo""')
 })
 ```
 
@@ -18627,7 +18627,7 @@ test('with nested object', () => {
 test('with wrong input', () => {
   const condition = { a : { b : 1 } }
 
-  expect(() => whereEq(condition, null)).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'a\')"')
+  expect(() => whereEq(condition, null)).toThrowError('"Cannot read properties of null (reading \'a\')"')
 })
 ```
 
@@ -18739,7 +18739,7 @@ test('with list of objects', () => {
 test('ramda accepts string as target input while rambda throws', () => {
   expect(withoutRamda('0:1', [ '0', '0:1' ])).toEqual([ '0:1' ])
   expect(() =>
-    without('0:1', [ '0', '0:1' ])).toThrowErrorMatchingInlineSnapshot('"Cannot read property \'indexOf\' of 0:1"')
+    without('0:1', [ '0', '0:1' ])).toThrowError('"Cannot read property \'indexOf\' of 0:1"')
   expect(without([ '0:1' ], [ '0', '0:1' ])).toEqual([ '0' ])
 })
 

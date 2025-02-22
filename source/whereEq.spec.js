@@ -39,7 +39,7 @@ test('with nested object', () => {
 test('with wrong input', () => {
   const condition = { a: { b: 1 } }
 
-  expect(() => whereEq(condition, null)).toThrowErrorMatchingInlineSnapshot(
+  expect(() => whereEq(condition, null)).toThrowError(
     '"Cannot read properties of null (reading \'a\')"',
   )
 })

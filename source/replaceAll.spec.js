@@ -12,7 +12,7 @@ test('happy', () => {
 })
 
 test('throws when wrong patterns', () => {
-  expect(() => replaceAll({}, replacer, input)).toThrowErrorMatchingInlineSnapshot(`
+  expect(() => replaceAll({}, replacer, input)).toThrowError(`
     "Failed R.ok -
     reason: {"input":{},"schema":"array"}
     all inputs: [{},"|","foo bar baz foo bar"]
@@ -23,7 +23,7 @@ test('throws when wrong patterns', () => {
 test('throws when wrong input', () => {
   expect(() =>
     replaceAll(patterns, replacer, []),
-  ).toThrowErrorMatchingInlineSnapshot(`
+  ).toThrowError(`
     "Failed R.ok -
     reason: {"input":[],"schema":"string"}
     all inputs: [[{},"bar"],"|",[]]
@@ -34,7 +34,7 @@ test('throws when wrong input', () => {
 test('throws when wrong replacer', () => {
   expect(() =>
     replaceAll(patterns, null, input),
-  ).toThrowErrorMatchingInlineSnapshot(`
+  ).toThrowError(`
     "Failed R.ok -
     reason: {"input":null,"schema":"string"}
     all inputs: [[{},"bar"],null,"foo bar baz foo bar"]

@@ -9,12 +9,12 @@ test('happy', () => {
 test('when validation fails', () => {
   expect(() =>
     ok(1, 'foo', {})('number', 'string', 'string'),
-  ).toThrowErrorMatchingInlineSnapshot(`
-    "Failed R.ok -
-    reason: {"input":{},"schema":"string"}
-    all inputs: [1,"foo",{}]
-    all schemas: ["number","string","string"]"
-  `)
+  ).toThrowError(`
+Failed R.ok -
+reason: {"input":{},"schema":"string"}
+all inputs: [1,"foo",{}]
+all schemas: ["number","string","string"]
+  `.trim())
 })
 
 test('schema in error message', () => {
@@ -58,7 +58,7 @@ test('when not throws with single schema', () => {
 })
 
 test('when throws with single schema', () => {
-  expect(() => ok(1, 2, '3')('number')).toThrowErrorMatchingInlineSnapshot(`
+  expect(() => ok(1, 2, '3')('number')).toThrowError(`
     "Failed R.ok -
     reason: {"input":"3","schema":"number"}
     all inputs: [1,2,"3"]
@@ -67,7 +67,7 @@ test('when throws with single schema', () => {
 })
 
 test('when throws with single input', () => {
-  expect(() => ok('3')('number')).toThrowErrorMatchingInlineSnapshot(
+  expect(() => ok('3')('number')).toThrowError(
     '"Failed R.ok - {"input":"3","schema":"number"}"',
   )
 })

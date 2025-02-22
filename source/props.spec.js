@@ -17,7 +17,7 @@ test('curried', () => {
 })
 
 test('wrong input', () => {
-  expect(() => props(null)(obj)).toThrowErrorMatchingInlineSnapshot(
+  expect(() => props(null)(obj)).toThrowError(
     '"propsToPick is not a list"',
   )
 })

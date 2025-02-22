@@ -34,7 +34,7 @@ test('text is not string', () => {
   const inputs = [/foo/g, 'bar']
   const text = null
 
-  expect(() => remove(inputs, text)).toThrowErrorMatchingInlineSnapshot(
+  expect(() => remove(inputs, text)).toThrowError(
     '"R.remove requires string not Null"',
   )
 })
