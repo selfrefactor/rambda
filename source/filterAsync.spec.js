@@ -3,7 +3,7 @@ import { filterAsync } from './filterAsync.js'
 
 test('happy', async () => {
   const predicate = async (x, i) => {
-    expect(i).toBeNumber()
+    expect(typeof i).toBe('number')
     await delay(100)
 
     return x % 2 === 1

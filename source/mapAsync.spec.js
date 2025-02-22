@@ -13,7 +13,7 @@ const rejectDelay = a =>
 test('happy', async () => {
   const fn = async (x, prop) => {
     await delay(100)
-    expect(prop).toBeNumber()
+    expect(typeof prop).toBe('number')
 
     return x + 1
   }

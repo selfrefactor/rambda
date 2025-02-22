@@ -22549,7 +22549,7 @@ import { reduce } from './reduce.js'
 const reducer = (
   prev, current, i
 ) => {
-  expect(i).toBeNumber()
+  expect(typeof i).toBe('number')
 
   return prev + current
 }

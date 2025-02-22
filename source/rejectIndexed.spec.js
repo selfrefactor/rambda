@@ -3,8 +3,8 @@ import { rejectIndexed } from './rejectIndexed.js'
 test('with array', () => {
   expect(
     rejectIndexed((x, i) => {
-      expect(x).toBeNumber()
-      expect(i).toBeNumber()
+  expect(typeof x).toBe('number')
+  expect(typeof i).toBe('number')
 
       return x % 2 === 1
     })([1, 2, 3, 4]),
@@ -20,7 +20,8 @@ test('with object', () => {
   }
   expect(
     rejectIndexed((x, prop) => {
-      expect(x).toBeNumber()
+  expect(typeof x).toBe('number')
+
       expect(prop).toBeString()
 
       return x % 2 === 1

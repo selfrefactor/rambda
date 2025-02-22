@@ -2,7 +2,7 @@ import { partitionIndexed } from './partitionIndexed.js'
 
 test('with array', () => {
   const predicate = (x, i) => {
-    expect(x).toBeNumber()
+    expect(typeof x).toBe('number')
 
     return x > 2
   }
