@@ -59,15 +59,15 @@ test('when not throws with single schema', () => {
 
 test('when throws with single schema', () => {
   expect(() => ok(1, 2, '3')('number')).toThrowError(`
-    "Failed R.ok -
-    reason: {"input":"3","schema":"number"}
-    all inputs: [1,2,"3"]
-    all schemas: ["number"]"
-  `)
+Failed R.ok -
+reason: {"input":"3","schema":"number"}
+all inputs: [1,2,"3"]
+all schemas: ["number"]
+  `.trim())
 })
 
 test('when throws with single input', () => {
   expect(() => ok('3')('number')).toThrowError(
-    '"Failed R.ok - {"input":"3","schema":"number"}"',
+    'Failed R.ok - {"input":"3","schema":"number"}',
   )
 })

@@ -18,6 +18,6 @@ test('curried', () => {
 
 test('wrong input', () => {
   expect(() => props(null)(obj)).toThrowError(
-    '"propsToPick is not a list"',
+    'propsToPick is not a list',
   )
 })

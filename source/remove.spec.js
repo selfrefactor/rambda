@@ -35,7 +35,7 @@ test('text is not string', () => {
   const text = null
 
   expect(() => remove(inputs, text)).toThrowError(
-    '"R.remove requires string not Null"',
+    'R.remove requires string not Null',
   )
 })
 

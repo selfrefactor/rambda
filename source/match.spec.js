@@ -18,6 +18,6 @@ test('throwing', () => {
   expect(() => {
     match(/a./g, null)
   }).toThrowError(
-    '"Cannot read properties of null (reading \'match\')"',
+    'Cannot read properties of null (reading \'match\')',
   )
 })

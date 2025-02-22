@@ -21,11 +21,9 @@ const throwingBadInputs = [null, undefined]
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
     expect(() => splitWhen(equals(2), badInput)).toThrowError(
-      TypeError,
       `Cannot read property 'length' of ${badInput}`,
     )
     expect(() => splitWhenRamda(equals(2), badInput)).toThrowError(
-      TypeError,
       `Cannot read properties of ${badInput} (reading 'length')`,
     )
   })

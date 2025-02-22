@@ -10,10 +10,10 @@ test('happy', () => {
 test('with negative index', () => {
   const errorMessage = 'Rambda.move does not support negative indexes'
   expect(() => move(0, -1, list)).toThrowError(
-    '"Rambda.move does not support negative indexes"',
+		errorMessage
   )
   expect(() => move(-1, 0, list)).toThrowError(
-    '"Rambda.move does not support negative indexes"',
+		errorMessage
   )
 })
 

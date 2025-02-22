@@ -24,7 +24,7 @@ test('readme example', () => {
 
 test('throw with string as input', () => {
   expect(() => groupWith(equals, 'Mississippi')).toThrowError(
-    '"list.reduce is not a function"',
+    'list.reduce is not a function',
   )
 })
 
