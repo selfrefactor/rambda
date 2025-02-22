@@ -4993,33 +4993,6 @@ export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
 export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
 
 /*
-Method: bind
-
-Explanation: Creates a function that is bound to a context.
-
-Example:
-
-```
-const log = R.bind(console.log, console)
-const result = R.pipe(
-  R.assoc('a', 2), 
-  R.tap(log), 
-  R.assoc('a', 3)
-)({a: 1}); 
-// => result - `{a: 3}`
-// => console log - `{a: 2}`
-```
-
-Categories: Logic
-
-Notes: R.bind does not provide the additional argument-binding capabilities of `Function.prototype.bind`.
-
-*/
-// @SINGLE_MARKER
-export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
-export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
-
-/*
 Method: mergeWith
 
 Explanation: It takes two objects and a function, which will be used when there is an overlap between the keys.

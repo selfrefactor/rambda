@@ -48,6 +48,7 @@ it('within pipe requires explicit type', () => {
 -- cond
 -- flip
 -- binary
+-- bind
 -- addIndex, addIndexRight
 -- T, F
 -- composeWith

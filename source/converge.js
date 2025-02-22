@@ -1,4 +1,4 @@
-import { curryN } from './curryN.js'
+import { curryN } from './_internals/curryN.js'
 import { map } from './map.js'
 import { max } from './max.js'
 import { reduce } from './reduce.js'

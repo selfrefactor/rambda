@@ -1,4 +1,4 @@
-import { _arity } from './_internals/_arity.js'
+import { _arity } from './_arity.js'
 
 function _curryN(n, cache, fn) {
   return function () {
