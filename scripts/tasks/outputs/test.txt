@@ -1,23 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
-stdout | source/pipe.spec.js > real use cases > books
-[90mundefined[39m
-┌─────────┬───────────┬──────────┬────────────────────┬──────────┬─────────┐
-│ (index) │ Task Name │ ops/sec  │ Average Time (ns)  │ Margin   │ Samples │
-├─────────┼───────────┼──────────┼────────────────────┼──────────┼─────────┤
-│ 0       │ [32m'Rambda'[39m  │ [32m'66,490'[39m │ [33m15039.70925825748[39m  │ [32m'±1.74%'[39m │ [33m33246[39m   │
-│ 1       │ [32m'R'[39m       │ [32m'76,738'[39m │ [33m13031.279176440199[39m │ [32m'±1.48%'[39m │ [33m38370[39m   │
-└─────────┴───────────┴──────────┴────────────────────┴──────────┴─────────┘
+ ✓ source/zipWith.spec.js (2 tests) 11ms
 
- ❯ source/pipe.spec.js (3 tests | 1 failed) 1126ms
-   ✓ real use cases > books 1118ms
-   ✓ issue #627
-   × with bad input 5ms
-     → expected [Function] to throw error including '[Error: pipe requires at least one ar…' but got 'pipe requires at least one argument'
-
- Test Files  1 failed (1)
-      Tests  1 failed | 2 passed (3)
-   Start at  22:27:09
-   Duration  2.37s (transform 356ms, setup 0ms, collect 870ms, tests 1.13s, environment 0ms, prepare 90ms)
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  23:07:56
+   Duration  538ms (transform 95ms, setup 0ms, collect 49ms, tests 11ms, environment 0ms, prepare 188ms)
 
