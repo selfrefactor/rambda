@@ -149,6 +149,6 @@ test('issue #627', () => {
 
 test('with bad input', () => {
   expect(() => pipe()).toThrowErrorMatchingInlineSnapshot(
-    '"pipe requires at least one argument"',
+    `[Error: pipe requires at least one argument]`,
   )
 })

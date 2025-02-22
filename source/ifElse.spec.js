@@ -15,7 +15,7 @@ test('happy', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo: 'bar' })).toBe(3)
-  expect(fn({ fo: 'bar' })).toBeFalse()
+  expect(fn({ fo: 'bar' })).toBeFalsy()
 })
 
 test('ramda spec', () => {
@@ -37,27 +37,27 @@ test('pass all arguments', () => {
 test('accept constant as condition', () => {
   const fn = ifElse(true)(always(true))(always(false))
 
-  expect(fn()).toBeTrue()
+  expect(fn()).toBeTruthy()
 })
 
 test('accept constant as condition - case 2', () => {
   const fn = ifElse(false, always(true), always(false))
 
-  expect(fn()).toBeFalse()
+  expect(fn()).toBeFalsy()
 })
 
 test('curry 1', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo: 'bar' })).toBe(3)
-  expect(fn({ fo: 'bar' })).toBeFalse()
+  expect(fn({ fo: 'bar' })).toBeFalsy()
 })
 
 test('curry 2', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({ foo: 'bar' })).toBe(3)
-  expect(fn({ fo: 'bar' })).toBeFalse()
+  expect(fn({ fo: 'bar' })).toBeFalsy()
 })
 
 test('simple arity of 1', () => {

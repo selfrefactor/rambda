@@ -2,8 +2,8 @@ import { F, T } from '../rambda.js'
 import { identical } from './identical.js'
 
 test('r.F and R.T', () => {
-  expect(F()).toBeFalse()
-  expect(T()).toBeTrue()
+  expect(F()).toBeFalsy()
+  expect(T()).toBeTruthy()
 })
 
 test('identical', () => {
@@ -14,13 +14,13 @@ test('identical', () => {
     b: 2,
   }
 
-  expect(identical(100)(100)).toBeTrue()
-  expect(identical(100, '100')).toBeFalse()
-  expect(identical('string', 'string')).toBeTrue()
-  expect(identical([], [])).toBeFalse()
-  expect(identical(a, a)).toBeTrue()
-  expect(identical(a, b)).toBeFalse()
-  expect(identical(a, c)).toBeFalse()
-  expect(identical(undefined, undefined)).toBeTrue()
-  expect(identical(null, undefined)).toBeFalse()
+  expect(identical(100)(100)).toBeTruthy()
+  expect(identical(100, '100')).toBeFalsy()
+  expect(identical('string', 'string')).toBeTruthy()
+  expect(identical([], [])).toBeFalsy()
+  expect(identical(a, a)).toBeTruthy()
+  expect(identical(a, b)).toBeFalsy()
+  expect(identical(a, c)).toBeFalsy()
+  expect(identical(undefined, undefined)).toBeTruthy()
+  expect(identical(null, undefined)).toBeFalsy()
 })

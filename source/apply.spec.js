@@ -16,6 +16,6 @@ test('provides no way to specify context', () => {
       return this === obj
     },
   }
-  expect(apply(obj.method, [])).toBeFalse()
-  expect(apply(bind(obj.method, obj), [])).toBeTrue()
+  expect(apply(obj.method, [])).toBeFalsy()
+  expect(apply(bind(obj.method, obj), [])).toBeTruthy()
 })

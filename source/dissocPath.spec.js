@@ -1,5 +1,4 @@
 const assert = require('node:assert')
-import { eq } from './_internals/testUtils.js'
 import { dissocPath } from './dissocPath.js'
 
 test('simple example', () => {
@@ -86,7 +85,7 @@ test('does not try to omit inner properties that do not exist', () => {
     f: 5,
   }
   const obj2 = dissocPath(['x', 0, 'z'], obj1)
-  eq(obj2, {
+	expect(obj2).toEqual({
     a: 1,
     b: {
       c: 2,
@@ -169,17 +168,17 @@ test('support remove null/undefined value path', () => {
       c: null,
     },
   )
-  eq(
+  expect(
     dissocPath(['c', 'd'], {
       a: 1,
       b: 2,
       c: undefined,
-    }),
+    })).toEqual(
     {
       a: 1,
       b: 2,
       c: undefined,
-    },
+    }
   )
 
   const obj1 = {
@@ -188,7 +187,7 @@ test('support remove null/undefined value path', () => {
   }
   const obj2 = dissocPath(['c', 'd'], obj1)
 
-  eq(obj2, obj1)
+	expect(obj2).toEqual(obj1)
   // NOTE: commented out on purpose
   // assert.notStrictEqual(obj2, obj1)
 })

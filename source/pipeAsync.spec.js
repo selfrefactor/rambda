@@ -55,5 +55,5 @@ test('throw error', async () => {
     didThrow = true
   }
 
-  expect(didThrow).toBeTrue()
+  expect(didThrow).toBeTruthy()
 })

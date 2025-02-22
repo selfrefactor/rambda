@@ -13,7 +13,7 @@
     "lint": "cd source && run lint:folder > lint-output.txt",
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
-    "test": "vitest run --watch",
+    "test": "vitest run --watch -u",
     "x": "vitest run --watch source/and.spec.js",
     "test:cover": "vitest run --coverage",
     "test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",

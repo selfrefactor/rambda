@@ -1,12 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ❯ source/or.spec.js (1 test | 1 failed) 16ms
-   × happy 15ms
-     → Invalid Chai property: toBeTrue. Did you mean "toBeTruthy"?
+ ✓ source/dissocPath.spec.js (9 tests | 8 skipped) 3ms
 
- Test Files  1 failed (1)
-      Tests  1 failed (1)
-   Start at  15:52:33
-   Duration  511ms (transform 50ms, setup 0ms, collect 19ms, tests 16ms, environment 0ms, prepare 122ms)
+ Test Files  1 passed (1)
+      Tests  1 passed | 8 skipped (9)
+   Start at  21:12:33
+   Duration  450ms (transform 64ms, setup 0ms, collect 73ms, tests 3ms, environment 0ms, prepare 91ms)
 

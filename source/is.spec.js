@@ -1,15 +1,15 @@
 import { is } from './is.js'
 
 test('works with built-in types', () => {
-  expect(is(Array, undefined)).toBeFalse()
-  expect(is(Array)([])).toBeTrue()
-  expect(is(Boolean, new Boolean(false))).toBeTrue()
-  expect(is(Date, new Date())).toBeTrue()
-  expect(is(Function, () => {})).toBeTrue()
-  expect(is(Number, new Number(0))).toBeTrue()
-  expect(is(Object, {})).toBeTrue()
-  expect(is(RegExp, /(?:)/)).toBeTrue()
-  expect(is(String, new String(''))).toBeTrue()
+  expect(is(Array, undefined)).toBeFalsy()
+  expect(is(Array)([])).toBeTruthy()
+  expect(is(Boolean, new Boolean(false))).toBeTruthy()
+  expect(is(Date, new Date())).toBeTruthy()
+  expect(is(Function, () => {})).toBeTruthy()
+  expect(is(Number, new Number(0))).toBeTruthy()
+  expect(is(Object, {})).toBeTruthy()
+  expect(is(RegExp, /(?:)/)).toBeTruthy()
+  expect(is(String, new String(''))).toBeTruthy()
 })
 
 test('works with user-defined types', () => {
@@ -20,26 +20,26 @@ test('works with user-defined types', () => {
   const foo = new Foo()
   const bar = new Bar()
 
-  expect(is(Foo, foo)).toBeTrue()
-  expect(is(Bar, bar)).toBeTrue()
-  expect(is(Foo, bar)).toBeTrue()
-  expect(is(Bar, foo)).toBeFalse()
+  expect(is(Foo, foo)).toBeTruthy()
+  expect(is(Bar, bar)).toBeTruthy()
+  expect(is(Foo, bar)).toBeTruthy()
+  expect(is(Bar, foo)).toBeFalsy()
 })
 
 test('does not coerce', () => {
-  expect(is(Boolean, 1)).toBeFalse()
-  expect(is(Number, '1')).toBeFalse()
-  expect(is(Number, false)).toBeFalse()
+  expect(is(Boolean, 1)).toBeFalsy()
+  expect(is(Number, '1')).toBeFalsy()
+  expect(is(Number, false)).toBeFalsy()
 })
 
 test('recognizes primitives as their object equivalents', () => {
-  expect(is(Boolean, false)).toBeTrue()
-  expect(is(Number, 0)).toBeTrue()
-  expect(is(String, '')).toBeTrue()
+  expect(is(Boolean, false)).toBeTruthy()
+  expect(is(Number, 0)).toBeTruthy()
+  expect(is(String, '')).toBeTruthy()
 })
 
 test('does not consider primitives to be instances of Object', () => {
-  expect(is(Object, false)).toBeFalse()
-  expect(is(Object, 0)).toBeFalse()
-  expect(is(Object, '')).toBeFalse()
+  expect(is(Object, false)).toBeFalsy()
+  expect(is(Object, 0)).toBeFalsy()
+  expect(is(Object, '')).toBeFalsy()
 })

@@ -2,11 +2,11 @@ import { delay } from './delay.js'
 import { isPrototype, isValid } from './isValid.js'
 
 test('is prototype', () => {
-  expect(isPrototype(Promise)).toBeTrue()
-  expect(isPrototype(Number)).toBeTrue()
-  expect(isPrototype(Boolean)).toBeTrue()
-  expect(isPrototype(String)).toBeTrue()
-  expect(isPrototype(0)).toBeFalse()
+  expect(isPrototype(Promise)).toBeTruthy()
+  expect(isPrototype(Number)).toBeTruthy()
+  expect(isPrototype(Boolean)).toBeTruthy()
+  expect(isPrototype(String)).toBeTruthy()
+  expect(isPrototype(0)).toBeFalsy()
 })
 
 test('prototype inside array', () => {

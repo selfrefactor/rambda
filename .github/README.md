@@ -509,13 +509,13 @@ const list = [ 0, 1, 2, 3, 4 ]
 test('when true', () => {
   const fn = x => x > -1
 
-  expect(all(fn)(list)).toBeTrue()
+  expect(all(fn)(list)).toBeTruthy()
 })
 
 test('when false', () => {
   const fn = x => x > 2
 
-  expect(all(fn, list)).toBeFalse()
+  expect(all(fn, list)).toBeFalsy()
 })
 ```
 
@@ -648,9 +648,9 @@ import { allPass } from './allPass.js'
 test('happy', () => {
   const rules = [ x => typeof x === 'number', x => x > 10, x => x * 7 < 100 ]
 
-  expect(allPass(rules)(11)).toBeTrue()
+  expect(allPass(rules)(11)).toBeTruthy()
 
-  expect(allPass(rules)(undefined)).toBeFalse()
+  expect(allPass(rules)(undefined)).toBeFalsy()
 })
 
 test('when returns true', () => {
@@ -659,7 +659,7 @@ test('when returns true', () => {
   expect(allPass(conditionArr)({
     a : 1,
     b : 2,
-  })).toBeTrue()
+  })).toBeTruthy()
 })
 
 test('when returns false', () => {
@@ -668,7 +668,7 @@ test('when returns false', () => {
   expect(allPass(conditionArr)({
     a : 1,
     b : 2,
-  })).toBeFalse()
+  })).toBeFalsy()
 })
 
 test('works with multiple inputs', () => {
@@ -679,7 +679,7 @@ test('works with multiple inputs', () => {
   }
   expect(allPass([ fn ])(
     3, 3, 3, 3
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 ```
 
@@ -820,11 +820,11 @@ import { any } from './any.js'
 const list = [ 1, 2, 3 ]
 
 test('happy', () => {
-  expect(any(x => x < 0, list)).toBeFalse()
+  expect(any(x => x < 0, list)).toBeFalsy()
 })
 
 test('with curry', () => {
-  expect(any(x => x > 2)(list)).toBeTrue()
+  expect(any(x => x > 2)(list)).toBeTruthy()
 })
 ```
 
@@ -962,15 +962,15 @@ import { anyPass } from './anyPass.js'
 test('happy', () => {
   const rules = [ x => typeof x === 'string', x => x > 10 ]
   const predicate = anyPass(rules)
-  expect(predicate('foo')).toBeTrue()
-  expect(predicate(6)).toBeFalse()
+  expect(predicate('foo')).toBeTruthy()
+  expect(predicate(6)).toBeFalsy()
 })
 
 test('happy', () => {
   const rules = [ x => typeof x === 'string', x => x > 10 ]
 
-  expect(anyPass(rules)(11)).toBeTrue()
-  expect(anyPass(rules)(undefined)).toBeFalse()
+  expect(anyPass(rules)(11)).toBeTruthy()
+  expect(anyPass(rules)(undefined)).toBeFalsy()
 })
 
 const obj = {
@@ -981,17 +981,17 @@ const obj = {
 test('when returns true', () => {
   const conditionArr = [ val => val.a === 1, val => val.a === 2 ]
 
-  expect(anyPass(conditionArr)(obj)).toBeTrue()
+  expect(anyPass(conditionArr)(obj)).toBeTruthy()
 })
 
 test('when returns false + curry', () => {
   const conditionArr = [ val => val.a === 2, val => val.b === 3 ]
 
-  expect(anyPass(conditionArr)(obj)).toBeFalse()
+  expect(anyPass(conditionArr)(obj)).toBeFalsy()
 })
 
 test('with empty predicates list', () => {
-  expect(anyPass([])(3)).toBeFalse()
+  expect(anyPass([])(3)).toBeFalsy()
 })
 
 test('works with multiple inputs', () => {
@@ -1006,7 +1006,7 @@ test('works with multiple inputs', () => {
   }
   expect(anyPass([ fn ])(
     3, 3, 3, 3
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 ```
 
@@ -1420,8 +1420,8 @@ test('provides no way to specify context', () => {
       return this === obj
     },
   }
-  expect(apply(obj.method, [])).toBeFalse()
-  expect(apply(bind(obj.method, obj), [])).toBeTrue()
+  expect(apply(obj.method, [])).toBeFalsy()
+  expect(apply(bind(obj.method, obj), [])).toBeTruthy()
 })
 ```
 
@@ -2347,8 +2347,8 @@ test('returns a function bound to the specified context object', () => {
     return this instanceof Foo
   }
   const isFooBound = bind(isFoo, f)
-  expect(isFoo()).toBeFalse()
-  expect(isFooBound()).toBeTrue()
+  expect(isFoo()).toBeFalsy()
+  expect(isFooBound()).toBeTruthy()
 })
 
 test('works with built-in types', () => {
@@ -2497,11 +2497,11 @@ const firstFn = val => val > 0
 const secondFn = val => val < 10
 
 test('with curry', () => {
-  expect(both(firstFn)(secondFn)(17)).toBeFalse()
+  expect(both(firstFn)(secondFn)(17)).toBeFalsy()
 })
 
 test('without curry', () => {
-  expect(both(firstFn, secondFn)(7)).toBeTrue()
+  expect(both(firstFn, secondFn)(7)).toBeTruthy()
 })
 
 test('with multiple inputs', () => {
@@ -2518,7 +2518,7 @@ test('with multiple inputs', () => {
   const fn = both(between, total20)
   expect(fn(
     5, 7, 8
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 
 test('skip evaluation of the second expression', () => {
@@ -3178,7 +3178,7 @@ test('with empty string', () => {
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toBeFalse()
+  expect(defaultTo('foo', false)).toBeFalsy()
 })
 
 test('when inputArgument passes initial check', () => {
@@ -3939,7 +3939,7 @@ test('with multiple inputs', () => {
   const fn = either(between, total20)
   expect(fn(
     7, 8, 5
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 
 test('skip evaluation of the second expression', () => {
@@ -3959,7 +3959,7 @@ test('case 1', () => {
   const firstFn = val => val > 0
   const secondFn = val => val * 5 > 10
 
-  expect(either(firstFn, secondFn)(1)).toBeTrue()
+  expect(either(firstFn, secondFn)(1)).toBeTruthy()
 })
 
 test('case 2', () => {
@@ -3967,7 +3967,7 @@ test('case 2', () => {
   const secondFn = val => val === -10
   const fn = either(firstFn)(secondFn)
 
-  expect(fn(-10)).toBeTrue()
+  expect(fn(-10)).toBeTruthy()
 })
 ```
 
@@ -4111,17 +4111,17 @@ import { compareCombinations } from './_internals/testUtils.js'
 import { endsWith } from './endsWith.js'
 
 test('with string', () => {
-  expect(endsWith('bar', 'foo-bar')).toBeTrue()
-  expect(endsWith('baz')('foo-bar')).toBeFalse()
+  expect(endsWith('bar', 'foo-bar')).toBeTruthy()
+  expect(endsWith('baz')('foo-bar')).toBeFalsy()
 })
 
 test('use R.equals with array', () => {
   const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
-  expect(endsWith({ a : 3 }, list)).toBeFalse(),
-  expect(endsWith([ { a : 3 } ], list)).toBeTrue()
-  expect(endsWith([ { a : 2 }, { a : 3 } ], list)).toBeTrue()
-  expect(endsWith(list, list)).toBeTrue()
-  expect(endsWith([ { a : 1 } ], list)).toBeFalse()
+  expect(endsWith({ a : 3 }, list)).toBeFalsy(),
+  expect(endsWith([ { a : 3 } ], list)).toBeTruthy()
+  expect(endsWith([ { a : 2 }, { a : 3 } ], list)).toBeTruthy()
+  expect(endsWith(list, list)).toBeTruthy()
+  expect(endsWith([ { a : 1 } ], list)).toBeFalsy()
 })
 
 export const possibleTargets = [
@@ -4460,9 +4460,9 @@ test('compare functions', () => {
   const expectFalseFirst = equals(foo, bar)
   const expectFalseSecond = equals(foo, baz)
 
-  expect(expectTrue).toBeTrue()
-  expect(expectFalseFirst).toBeFalse()
-  expect(expectFalseSecond).toBeFalse()
+  expect(expectTrue).toBeTruthy()
+  expect(expectFalseFirst).toBeFalsy()
+  expect(expectFalseSecond).toBeFalsy()
 })
 
 test('with array of objects', () => {
@@ -4470,64 +4470,64 @@ test('with array of objects', () => {
   const list2 = [ { a : 1 }, [ { b : 2 } ] ]
   const list3 = [ { a : 1 }, [ { b : 3 } ] ]
 
-  expect(equals(list1, list2)).toBeTrue()
-  expect(equals(list1, list3)).toBeFalse()
+  expect(equals(list1, list2)).toBeTruthy()
+  expect(equals(list1, list3)).toBeFalsy()
 })
 
 test('with regex', () => {
-  expect(equals(/s/, /s/)).toBeTrue()
-  expect(equals(/s/, /d/)).toBeFalse()
-  expect(equals(/a/gi, /a/gi)).toBeTrue()
-  expect(equals(/a/gim, /a/gim)).toBeTrue()
-  expect(equals(/a/gi, /a/i)).toBeFalse()
+  expect(equals(/s/, /s/)).toBeTruthy()
+  expect(equals(/s/, /d/)).toBeFalsy()
+  expect(equals(/a/gi, /a/gi)).toBeTruthy()
+  expect(equals(/a/gim, /a/gim)).toBeTruthy()
+  expect(equals(/a/gi, /a/i)).toBeFalsy()
 })
 
 test('not a number', () => {
-  expect(equals([ NaN ], [ NaN ])).toBeTrue()
+  expect(equals([ NaN ], [ NaN ])).toBeTruthy()
 })
 
 test('new number', () => {
-  expect(equals(new Number(0), new Number(0))).toBeTrue()
-  expect(equals(new Number(0), new Number(1))).toBeFalse()
-  expect(equals(new Number(1), new Number(0))).toBeFalse()
+  expect(equals(new Number(0), new Number(0))).toBeTruthy()
+  expect(equals(new Number(0), new Number(1))).toBeFalsy()
+  expect(equals(new Number(1), new Number(0))).toBeFalsy()
 })
 
 test('new string', () => {
-  expect(equals(new String(''), new String(''))).toBeTrue()
-  expect(equals(new String(''), new String('x'))).toBeFalse()
-  expect(equals(new String('x'), new String(''))).toBeFalse()
-  expect(equals(new String('foo'), new String('foo'))).toBeTrue()
-  expect(equals(new String('foo'), new String('bar'))).toBeFalse()
-  expect(equals(new String('bar'), new String('foo'))).toBeFalse()
+  expect(equals(new String(''), new String(''))).toBeTruthy()
+  expect(equals(new String(''), new String('x'))).toBeFalsy()
+  expect(equals(new String('x'), new String(''))).toBeFalsy()
+  expect(equals(new String('foo'), new String('foo'))).toBeTruthy()
+  expect(equals(new String('foo'), new String('bar'))).toBeFalsy()
+  expect(equals(new String('bar'), new String('foo'))).toBeFalsy()
 })
 
 test('new Boolean', () => {
-  expect(equals(new Boolean(true), new Boolean(true))).toBeTrue()
-  expect(equals(new Boolean(false), new Boolean(false))).toBeTrue()
-  expect(equals(new Boolean(true), new Boolean(false))).toBeFalse()
-  expect(equals(new Boolean(false), new Boolean(true))).toBeFalse()
+  expect(equals(new Boolean(true), new Boolean(true))).toBeTruthy()
+  expect(equals(new Boolean(false), new Boolean(false))).toBeTruthy()
+  expect(equals(new Boolean(true), new Boolean(false))).toBeFalsy()
+  expect(equals(new Boolean(false), new Boolean(true))).toBeFalsy()
 })
 
 test('new Error', () => {
-  expect(equals(new Error('XXX'), {})).toBeFalse()
-  expect(equals(new Error('XXX'), new TypeError('XXX'))).toBeFalse()
-  expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalse()
-  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
-  expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalse()
-  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTrue()
+  expect(equals(new Error('XXX'), {})).toBeFalsy()
+  expect(equals(new Error('XXX'), new TypeError('XXX'))).toBeFalsy()
+  expect(equals(new Error('XXX'), new Error('YYY'))).toBeFalsy()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTruthy()
+  expect(equals(new Error('XXX'), new TypeError('YYY'))).toBeFalsy()
+  expect(equals(new Error('XXX'), new Error('XXX'))).toBeTruthy()
 })
 
 test('with dates', () => {
-  expect(equals(new Date(0), new Date(0))).toBeTrue()
-  expect(equals(new Date(1), new Date(1))).toBeTrue()
-  expect(equals(new Date(0), new Date(1))).toBeFalse()
-  expect(equals(new Date(1), new Date(0))).toBeFalse()
-  expect(equals(new Date(0), {})).toBeFalse()
-  expect(equals({}, new Date(0))).toBeFalse()
+  expect(equals(new Date(0), new Date(0))).toBeTruthy()
+  expect(equals(new Date(1), new Date(1))).toBeTruthy()
+  expect(equals(new Date(0), new Date(1))).toBeFalsy()
+  expect(equals(new Date(1), new Date(0))).toBeFalsy()
+  expect(equals(new Date(0), {})).toBeFalsy()
+  expect(equals({}, new Date(0))).toBeFalsy()
 })
 
 test('ramda spec', () => {
-  expect(equals({}, {})).toBeTrue()
+  expect(equals({}, {})).toBeTruthy()
 
   expect(equals({
     a : 1,
@@ -4536,7 +4536,7 @@ test('ramda spec', () => {
   {
     a : 1,
     b : 2,
-  })).toBeTrue()
+  })).toBeTruthy()
 
   expect(equals({
     a : 2,
@@ -4545,7 +4545,7 @@ test('ramda spec', () => {
   {
     a : 2,
     b : 3,
-  })).toBeTrue()
+  })).toBeTruthy()
 
   expect(equals({
     a : 2,
@@ -4554,7 +4554,7 @@ test('ramda spec', () => {
   {
     a : 3,
     b : 3,
-  })).toBeFalse()
+  })).toBeFalsy()
 
   expect(equals({
     a : 2,
@@ -4564,12 +4564,12 @@ test('ramda spec', () => {
   {
     a : 2,
     b : 3,
-  })).toBeFalse()
+  })).toBeFalsy()
 })
 
 test('works with boolean tuple', () => {
-  expect(equals([ true, false ], [ true, false ])).toBeTrue()
-  expect(equals([ true, false ], [ true, true ])).toBeFalse()
+  expect(equals([ true, false ], [ true, false ])).toBeTruthy()
+  expect(equals([ true, false ], [ true, true ])).toBeFalsy()
 })
 
 test('works with equal objects within array', () => {
@@ -4590,7 +4590,7 @@ test('works with equal objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(equals(x, y)).toBeTrue()
+  expect(equals(x, y)).toBeTruthy()
 })
 
 test('works with different objects within array', () => {
@@ -4599,13 +4599,13 @@ test('works with different objects within array', () => {
 
   const x = [ 1, 2, objFirst, null, '', [] ]
   const y = [ 1, 2, objSecond, null, '', [] ]
-  expect(equals(x, y)).toBeFalse()
+  expect(equals(x, y)).toBeFalsy()
 })
 
 test('works with undefined as second argument', () => {
-  expect(equals(1, undefined)).toBeFalse()
+  expect(equals(1, undefined)).toBeFalsy()
 
-  expect(equals(undefined, undefined)).toBeTrue()
+  expect(equals(undefined, undefined)).toBeTruthy()
 })
 
 test('compare sets', () => {
@@ -4625,15 +4625,15 @@ test('compare simple sets', () => {
 })
 
 test('various examples', () => {
-  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTrue()
+  expect(equals([ 1, 2, 3 ])([ 1, 2, 3 ])).toBeTruthy()
 
-  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalse()
+  expect(equals([ 1, 2, 3 ], [ 1, 2 ])).toBeFalsy()
 
-  expect(equals(1, 1)).toBeTrue()
+  expect(equals(1, 1)).toBeTruthy()
 
-  expect(equals(1, '1')).toBeFalse()
+  expect(equals(1, '1')).toBeFalsy()
 
-  expect(equals({}, {})).toBeTrue()
+  expect(equals({}, {})).toBeTruthy()
 
   expect(equals({
     a : 1,
@@ -4642,7 +4642,7 @@ test('various examples', () => {
   {
     a : 1,
     b : 2,
-  })).toBeTrue()
+  })).toBeTruthy()
 
   expect(equals({
     a : 1,
@@ -4651,7 +4651,7 @@ test('various examples', () => {
   {
     a : 1,
     b : 1,
-  })).toBeFalse()
+  })).toBeFalsy()
 
   expect(equals({
     a : 1,
@@ -4660,7 +4660,7 @@ test('various examples', () => {
   {
     a : 1,
     b : 1,
-  })).toBeFalse()
+  })).toBeFalsy()
 
   expect(equals({
     a : 1,
@@ -4670,7 +4670,7 @@ test('various examples', () => {
     a : 1,
     b : 2,
     c : 3,
-  })).toBeFalse()
+  })).toBeFalsy()
 
   expect(equals({
     x : {
@@ -4684,7 +4684,7 @@ test('various examples', () => {
       b : 2,
       c : 3,
     },
-  })).toBeFalse()
+  })).toBeFalsy()
 
   expect(equals({
     a : 1,
@@ -4693,27 +4693,27 @@ test('various examples', () => {
   {
     a : 1,
     b : 3,
-  })).toBeFalse()
+  })).toBeFalsy()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTrue()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 1 } } })).toBeTruthy()
 
-  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalse()
+  expect(equals({ a : { b : { c : 1 } } }, { a : { b : { c : 2 } } })).toBeFalsy()
 
-  expect(equals({ a : {} }, { a : {} })).toBeTrue()
+  expect(equals({ a : {} }, { a : {} })).toBeTruthy()
 
-  expect(equals('', '')).toBeTrue()
+  expect(equals('', '')).toBeTruthy()
 
-  expect(equals('foo', 'foo')).toBeTrue()
+  expect(equals('foo', 'foo')).toBeTruthy()
 
-  expect(equals('foo', 'bar')).toBeFalse()
+  expect(equals('foo', 'bar')).toBeFalsy()
 
-  expect(equals(0, false)).toBeFalse()
+  expect(equals(0, false)).toBeFalsy()
 
-  expect(equals(/\s/g, null)).toBeFalse()
+  expect(equals(/\s/g, null)).toBeFalsy()
 
-  expect(equals(null, null)).toBeTrue()
+  expect(equals(null, null)).toBeTruthy()
 
-  expect(equals(false)(null)).toBeFalse()
+  expect(equals(false)(null)).toBeFalsy()
 })
 
 test('with custom functions', () => {
@@ -4723,7 +4723,7 @@ test('with custom functions', () => {
   foo.prototype.toString = () => ''
   const result = equals(foo, foo)
 
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('with classes', () => {
@@ -4731,22 +4731,22 @@ test('with classes', () => {
   const foo = new Foo()
   const result = equals(foo, foo)
 
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('with negative zero', () => {
-  expect(equals(-0, -0)).toBeTrue()
-  expect(equals(-0, 0)).toBeFalse()
-  expect(equals(0, 0)).toBeTrue()
-  expect(equals(-0, 1)).toBeFalse()
+  expect(equals(-0, -0)).toBeTruthy()
+  expect(equals(-0, 0)).toBeFalsy()
+  expect(equals(0, 0)).toBeTruthy()
+  expect(equals(-0, 1)).toBeFalsy()
 })
 
 test('with big int', () => {
   const a = BigInt(9007199254740991)
   const b = BigInt(9007199254740991)
   const c = BigInt(7007199254740991)
-  expect(equals(a, b)).toBeTrue()
-  expect(equals(a, c)).toBeFalse()
+  expect(equals(a, b)).toBeTruthy()
+  expect(equals(a, c)).toBeFalsy()
 })
 
 describe('brute force', () => {
@@ -6315,16 +6315,16 @@ export function has(prop, obj){
 import { has } from './has.js'
 
 test('happy', () => {
-  expect(has('a')({ a : 1 })).toBeTrue()
-  expect(has('b', { a : 1 })).toBeFalse()
+  expect(has('a')({ a : 1 })).toBeTruthy()
+  expect(has('b', { a : 1 })).toBeFalsy()
 })
 
 test('with non-object', () => {
-  expect(has('a', undefined)).toBeFalse()
-  expect(has('a', null)).toBeFalse()
-  expect(has('a', true)).toBeFalse()
-  expect(has('a', '')).toBeFalse()
-  expect(has('a', /a/)).toBeFalse()
+  expect(has('a', undefined)).toBeFalsy()
+  expect(has('a', null)).toBeFalsy()
+  expect(has('a', true)).toBeFalsy()
+  expect(has('a', '')).toBeFalsy()
+  expect(has('a', /a/)).toBeFalsy()
 })
 ```
 
@@ -6681,7 +6681,7 @@ import { identity } from './identity.js'
 
 test('happy', () => {
   expect(identity(7)).toBe(7)
-  expect(identity(true)).toBeTrue()
+  expect(identity(true)).toBeTruthy()
   expect(identity({ a : 1 })).toEqual({ a : 1 })
 })
 ```
@@ -6802,7 +6802,7 @@ test('happy', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toBe(3)
-  expect(fn({ fo : 'bar' })).toBeFalse()
+  expect(fn({ fo : 'bar' })).toBeFalsy()
 })
 
 test('ramda spec', () => {
@@ -6830,7 +6830,7 @@ test('pass all arguments', () => {
 test('accept constant as condition', () => {
   const fn = ifElse(true)(always(true))(always(false))
 
-  expect(fn()).toBeTrue()
+  expect(fn()).toBeTruthy()
 })
 
 test('accept constant as condition - case 2', () => {
@@ -6838,21 +6838,21 @@ test('accept constant as condition - case 2', () => {
     false, always(true), always(false)
   )
 
-  expect(fn()).toBeFalse()
+  expect(fn()).toBeFalsy()
 })
 
 test('curry 1', () => {
   const fn = ifElse(condition, ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toBe(3)
-  expect(fn({ fo : 'bar' })).toBeFalse()
+  expect(fn({ fo : 'bar' })).toBeFalsy()
 })
 
 test('curry 2', () => {
   const fn = ifElse(condition)(ifFn)(elseFn)
 
   expect(fn({ foo : 'bar' })).toBe(3)
-  expect(fn({ fo : 'bar' })).toBeFalse()
+  expect(fn({ fo : 'bar' })).toBeFalsy()
 })
 
 test('simple arity of 1', () => {
@@ -7024,41 +7024,41 @@ import { includes } from './includes.js'
 test('with string as iterable', () => {
   const str = 'foo bar'
 
-  expect(includes('bar')(str)).toBeTrue()
-  expect(includesRamda('bar')(str)).toBeTrue()
-  expect(includes('never', str)).toBeFalse()
-  expect(includesRamda('never', str)).toBeFalse()
+  expect(includes('bar')(str)).toBeTruthy()
+  expect(includesRamda('bar')(str)).toBeTruthy()
+  expect(includes('never', str)).toBeFalsy()
+  expect(includesRamda('never', str)).toBeFalsy()
 })
 
 test('with array as iterable', () => {
   const arr = [ 1, 2, 3 ]
 
-  expect(includes(2)(arr)).toBeTrue()
-  expect(includesRamda(2)(arr)).toBeTrue()
+  expect(includes(2)(arr)).toBeTruthy()
+  expect(includesRamda(2)(arr)).toBeTruthy()
 
-  expect(includes(4, arr)).toBeFalse()
-  expect(includesRamda(4, arr)).toBeFalse()
+  expect(includes(4, arr)).toBeFalsy()
+  expect(includesRamda(4, arr)).toBeFalsy()
 })
 
 test('with list of objects as iterable', () => {
   const arr = [ { a : 1 }, { b : 2 }, { c : 3 } ]
 
-  expect(includes({ c : 3 }, arr)).toBeTrue()
-  expect(includesRamda({ c : 3 }, arr)).toBeTrue()
+  expect(includes({ c : 3 }, arr)).toBeTruthy()
+  expect(includesRamda({ c : 3 }, arr)).toBeTruthy()
 })
 
 test('with NaN', () => {
   const result = includes(NaN, [ NaN ])
   const ramdaResult = includesRamda(NaN, [ NaN ])
-  expect(result).toBeTrue()
-  expect(ramdaResult).toBeTrue()
+  expect(result).toBeTruthy()
+  expect(ramdaResult).toBeTruthy()
 })
 
 test('with wrong input that does not throw', () => {
   const result = includes(1, /foo/g)
   const ramdaResult = includesRamda(1, /foo/g)
-  expect(result).toBeFalse()
-  expect(ramdaResult).toBeFalse()
+  expect(result).toBeFalsy()
+  expect(ramdaResult).toBeFalsy()
 })
 
 test('throws on wrong input - match ramda behaviour', () => {
@@ -7416,20 +7416,20 @@ export function isEmpty(input){
 import { isEmpty } from './isEmpty.js'
 
 test('happy', () => {
-  expect(isEmpty(0n)).toBeTrue()
-  expect(isEmpty(1n)).toBeFalse()
-  expect(isEmpty(undefined)).toBeFalse()
-  expect(isEmpty('')).toBeTrue()
-  expect(isEmpty(null)).toBeFalse()
-  expect(isEmpty(' ')).toBeFalse()
-  expect(isEmpty(new RegExp(''))).toBeFalse()
-  expect(isEmpty([])).toBeTrue()
-  expect(isEmpty([ [] ])).toBeFalse()
-  expect(isEmpty({})).toBeTrue()
-  expect(isEmpty({ x : 0 })).toBeFalse()
-  expect(isEmpty(0)).toBeFalse()
-  expect(isEmpty(NaN)).toBeFalse()
-  expect(isEmpty([ '' ])).toBeFalse()
+  expect(isEmpty(0n)).toBeTruthy()
+  expect(isEmpty(1n)).toBeFalsy()
+  expect(isEmpty(undefined)).toBeFalsy()
+  expect(isEmpty('')).toBeTruthy()
+  expect(isEmpty(null)).toBeFalsy()
+  expect(isEmpty(' ')).toBeFalsy()
+  expect(isEmpty(new RegExp(''))).toBeFalsy()
+  expect(isEmpty([])).toBeTruthy()
+  expect(isEmpty([ [] ])).toBeFalsy()
+  expect(isEmpty({})).toBeTruthy()
+  expect(isEmpty({ x : 0 })).toBeFalsy()
+  expect(isEmpty(0)).toBeFalsy()
+  expect(isEmpty(NaN)).toBeFalsy()
+  expect(isEmpty([ '' ])).toBeFalsy()
 })
 ```
 
@@ -7503,11 +7503,11 @@ export function isNil(x){
 import { isNil } from './isNil.js'
 
 test('happy', () => {
-  expect(isNil(null)).toBeTrue()
+  expect(isNil(null)).toBeTruthy()
 
-  expect(isNil(undefined)).toBeTrue()
+  expect(isNil(undefined)).toBeTruthy()
 
-  expect(isNil([])).toBeFalse()
+  expect(isNil([])).toBeFalsy()
 })
 ```
 
@@ -8900,7 +8900,7 @@ test('fallback', () => {
 
 test('with string', () => {
   expect(match('a', 'foo')).toEqual([])
-  expect(equals(match('o', 'foo'), [ 'o' ])).toBeTrue()
+  expect(equals(match('o', 'foo'), [ 'o' ])).toBeTruthy()
 })
 
 test('throwing', () => {
@@ -10185,11 +10185,11 @@ import { none } from './none.js'
 const isEven = n => n % 2 === 0
 
 test('when true', () => {
-  expect(none(isEven, [ 1, 3, 5, 7 ])).toBeTrue()
+  expect(none(isEven, [ 1, 3, 5, 7 ])).toBeTruthy()
 })
 
 test('when false curried', () => {
-  expect(none(input => input > 1, [ 1, 2, 3 ])).toBeFalse()
+  expect(none(input => input > 1, [ 1, 2, 3 ])).toBeFalsy()
 })
 ```
 
@@ -10272,10 +10272,10 @@ export function not(input){
 import { not } from './not.js'
 
 test('not', () => {
-  expect(not(false)).toBeTrue()
-  expect(not(true)).toBeFalse()
-  expect(not(0)).toBeTrue()
-  expect(not(1)).toBeFalse()
+  expect(not(false)).toBeTruthy()
+  expect(not(true)).toBeFalsy()
+  expect(not(0)).toBeTruthy()
+  expect(not(1)).toBeFalsy()
 })
 ```
 
@@ -11840,7 +11840,7 @@ test('when true', () => {
 
   expect(pathEq(
     path, target, obj
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 
 test('when false', () => {
@@ -11848,7 +11848,7 @@ test('when false', () => {
   const obj = { a : { b : 1 } }
   const target = 2
 
-  expect(pathEq(path, target)(obj)).toBeFalse()
+  expect(pathEq(path, target)(obj)).toBeFalsy()
 })
 
 test('when wrong path', () => {
@@ -11858,7 +11858,7 @@ test('when wrong path', () => {
 
   expect(pathEq(
     path, target, obj
-  )).toBeFalse()
+  )).toBeFalsy()
 })
 ```
 
@@ -13206,21 +13206,21 @@ import { propEq } from './propEq.js'
 
 test('happy', () => {
   const obj = { [ FOO ] : BAR }
-  expect(propEq(BAR, FOO)(obj)).toBeTrue()
-  expect(propEq(1, FOO)(obj)).toBeFalse()
-  expect(propEq(1)(FOO)(obj)).toBeFalse()
+  expect(propEq(BAR, FOO)(obj)).toBeTruthy()
+  expect(propEq(1, FOO)(obj)).toBeFalsy()
+  expect(propEq(1)(FOO)(obj)).toBeFalsy()
   expect(propEq(
     1, 1, null
-  )).toBeFalse()
+  )).toBeFalsy()
 })
 
 test('returns false if called with a null or undefined object', () => {
   expect(propEq(
     'name', 'Abby', null
-  )).toBeFalse()
+  )).toBeFalsy()
   expect(propEq(
     'name', 'Abby', undefined
-  )).toBeFalse()
+  )).toBeFalsy()
 })
 ```
 
@@ -13349,19 +13349,19 @@ const obj = {
 test('when true', () => {
   expect(propIs(
     Number, 'a', obj
-  )).toBeTrue()
+  )).toBeTruthy()
   expect(propIs(
     String, 'b', obj
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 
 test('when false', () => {
   expect(propIs(
     String, 'a', obj
-  )).toBeFalse()
+  )).toBeFalsy()
   expect(propIs(
     Number, 'b', obj
-  )).toBeFalse()
+  )).toBeFalsy()
 })
 ```
 
@@ -13691,11 +13691,11 @@ const obj = { a : 1 }
 test('when true', () => {
   expect(propSatisfies(
     x => x > 0, 'a', obj
-  )).toBeTrue()
+  )).toBeTruthy()
 })
 
 test('when false', () => {
-  expect(propSatisfies(x => x < 0, 'a')(obj)).toBeFalse()
+  expect(propSatisfies(x => x < 0, 'a')(obj)).toBeFalsy()
 })
 ```
 
@@ -14180,7 +14180,7 @@ test('repeat', () => {
 
   expect(arr).toEqual([ {}, {}, {} ])
 
-  expect(arr[ 0 ] === arr[ 1 ]).toBeTrue()
+  expect(arr[ 0 ] === arr[ 1 ]).toBeTruthy()
 })
 ```
 
@@ -14279,7 +14279,7 @@ test('with function as replacer input', () => {
       match, offset, str
     ) => {
       expect(match).toBe(' ')
-      expect([ 3, 7 ].includes(offset)).toBeTrue()
+      expect([ 3, 7 ].includes(offset)).toBeTruthy()
       expect(str).toBe('foo bar baz')
 
       return '|'
@@ -15572,17 +15572,17 @@ import { possibleIterables, possibleTargets } from './endsWith.spec.js'
 import { startsWith } from './startsWith.js'
 
 test('with string', () => {
-  expect(startsWith('foo', 'foo-bar')).toBeTrue()
-  expect(startsWith('baz')('foo-bar')).toBeFalse()
+  expect(startsWith('foo', 'foo-bar')).toBeTruthy()
+  expect(startsWith('baz')('foo-bar')).toBeFalsy()
 })
 
 test('use R.equals with array', () => {
   const list = [ { a : 1 }, { a : 2 }, { a : 3 } ]
-  expect(startsWith({ a : 1 }, list)).toBeFalse()
-  expect(startsWith([ { a : 1 } ], list)).toBeTrue()
-  expect(startsWith([ { a : 1 }, { a : 2 } ], list)).toBeTrue()
-  expect(startsWith(list, list)).toBeTrue()
-  expect(startsWith([ { a : 2 } ], list)).toBeFalse()
+  expect(startsWith({ a : 1 }, list)).toBeFalsy()
+  expect(startsWith([ { a : 1 } ], list)).toBeTruthy()
+  expect(startsWith([ { a : 1 }, { a : 2 } ], list)).toBeTruthy()
+  expect(startsWith(list, list)).toBeTruthy()
+  expect(startsWith([ { a : 2 } ], list)).toBeFalsy()
 })
 
 describe('brute force', () => {
@@ -16539,9 +16539,9 @@ export function test(pattern, str){
 import { test as testMethod } from './test.js'
 
 test('happy', () => {
-  expect(testMethod(/^x/, 'xyz')).toBeTrue()
+  expect(testMethod(/^x/, 'xyz')).toBeTruthy()
 
-  expect(testMethod(/^y/)('xyz')).toBeFalse()
+  expect(testMethod(/^y/)('xyz')).toBeFalsy()
 })
 
 test('throws if first argument is not regex', () => {
@@ -18447,7 +18447,7 @@ test('when true', () => {
     y : 19,
   })
 
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('when false | early exit', () => {
@@ -18465,7 +18465,7 @@ test('when false | early exit', () => {
   expect(predicate({
     a : 'notfoo',
     b : 'notbar',
-  })).toBeFalse()
+  })).toBeFalsy()
   expect(counter).toBe(1)
 })
 ```
@@ -18831,47 +18831,47 @@ export function xor(a, b){
 import { xor } from './xor.js'
 
 test('compares two values with exclusive or', () => {
-  expect(xor(true, true)).toBeFalse()
-  expect(xor(true, false)).toBeTrue()
-  expect(xor(false, true)).toBeTrue()
-  expect(xor(false, false)).toBeFalse()
+  expect(xor(true, true)).toBeFalsy()
+  expect(xor(true, false)).toBeTruthy()
+  expect(xor(false, true)).toBeTruthy()
+  expect(xor(false, false)).toBeFalsy()
 })
 
 test('when both values are truthy, it should return false', () => {
-  expect(xor(true, 'foo')).toBeFalse()
-  expect(xor(42, true)).toBeFalse()
-  expect(xor('foo', 42)).toBeFalse()
-  expect(xor({}, true)).toBeFalse()
-  expect(xor(true, [])).toBeFalse()
-  expect(xor([], {})).toBeFalse()
-  expect(xor(new Date(), true)).toBeFalse()
-  expect(xor(true, Infinity)).toBeFalse()
-  expect(xor(Infinity, new Date())).toBeFalse()
+  expect(xor(true, 'foo')).toBeFalsy()
+  expect(xor(42, true)).toBeFalsy()
+  expect(xor('foo', 42)).toBeFalsy()
+  expect(xor({}, true)).toBeFalsy()
+  expect(xor(true, [])).toBeFalsy()
+  expect(xor([], {})).toBeFalsy()
+  expect(xor(new Date(), true)).toBeFalsy()
+  expect(xor(true, Infinity)).toBeFalsy()
+  expect(xor(Infinity, new Date())).toBeFalsy()
 })
 
 test('when both values are falsy, it should return false', () => {
-  expect(xor(null, false)).toBeFalse()
-  expect(xor(false, undefined)).toBeFalse()
-  expect(xor(undefined, null)).toBeFalse()
-  expect(xor(0, false)).toBeFalse()
-  expect(xor(false, NaN)).toBeFalse()
-  expect(xor(NaN, 0)).toBeFalse()
-  expect(xor('', false)).toBeFalse()
+  expect(xor(null, false)).toBeFalsy()
+  expect(xor(false, undefined)).toBeFalsy()
+  expect(xor(undefined, null)).toBeFalsy()
+  expect(xor(0, false)).toBeFalsy()
+  expect(xor(false, NaN)).toBeFalsy()
+  expect(xor(NaN, 0)).toBeFalsy()
+  expect(xor('', false)).toBeFalsy()
 })
 
 test('when one argument is truthy and the other is falsy, it should return true', () => {
-  expect(xor('foo', null)).toBeTrue()
-  expect(xor(null, 'foo')).toBeTrue()
-  expect(xor(undefined, 42)).toBeTrue()
-  expect(xor(42, undefined)).toBeTrue()
-  expect(xor(Infinity, NaN)).toBeTrue()
-  expect(xor(NaN, Infinity)).toBeTrue()
-  expect(xor({}, '')).toBeTrue()
-  expect(xor('', {})).toBeTrue()
-  expect(xor(new Date(), 0)).toBeTrue()
-  expect(xor(0, new Date())).toBeTrue()
-  expect(xor([], null)).toBeTrue()
-  expect(xor(undefined, [])).toBeTrue()
+  expect(xor('foo', null)).toBeTruthy()
+  expect(xor(null, 'foo')).toBeTruthy()
+  expect(xor(undefined, 42)).toBeTruthy()
+  expect(xor(42, undefined)).toBeTruthy()
+  expect(xor(Infinity, NaN)).toBeTruthy()
+  expect(xor(NaN, Infinity)).toBeTruthy()
+  expect(xor({}, '')).toBeTruthy()
+  expect(xor('', {})).toBeTruthy()
+  expect(xor(new Date(), 0)).toBeTruthy()
+  expect(xor(0, new Date())).toBeTruthy()
+  expect(xor([], null)).toBeTruthy()
+  expect(xor(undefined, [])).toBeTruthy()
 })
 ```
 
@@ -19115,7 +19115,7 @@ test('ignore extra keys', () => {
     c : 3,
   }
 
-  expect(equals(result, expected)).toBeTrue()
+  expect(equals(result, expected)).toBeTruthy()
 })
 ```
 

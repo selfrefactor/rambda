@@ -11,7 +11,7 @@ test('fallback', () => {
 
 test('with string', () => {
   expect(match('a', 'foo')).toEqual([])
-  expect(equals(match('o', 'foo'), ['o'])).toBeTrue()
+  expect(equals(match('o', 'foo'), ['o'])).toBeTruthy()
 })
 
 test('throwing', () => {

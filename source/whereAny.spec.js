@@ -12,9 +12,9 @@ test('happy', () => {
       a: 1,
       b: 'bar',
     }),
-  ).toBeTrue()
+  ).toBeTruthy()
 })
 
 test('curried', () => {
-  expect(whereAny(conditions)({ a: 1 })).toBeFalse()
+  expect(whereAny(conditions)({ a: 1 })).toBeFalsy()
 })

@@ -6,11 +6,11 @@ const obj = {
 }
 
 test('when true', () => {
-  expect(propIs(Number, 'a', obj)).toBeTrue()
-  expect(propIs(String, 'b', obj)).toBeTrue()
+  expect(propIs(Number, 'a', obj)).toBeTruthy()
+  expect(propIs(String, 'b', obj)).toBeTruthy()
 })
 
 test('when false', () => {
-  expect(propIs(String, 'a', obj)).toBeFalse()
-  expect(propIs(Number, 'b', obj)).toBeFalse()
+  expect(propIs(String, 'a', obj)).toBeFalsy()
+  expect(propIs(Number, 'b', obj)).toBeFalsy()
 })

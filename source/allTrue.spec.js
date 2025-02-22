@@ -5,7 +5,7 @@ test('with functions', () => {
   const bar = () => false
   const baz = () => JSON.parse('{sda')
   const result = allTrue(foo, bar, baz)
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('usage with non boolean', () => {
@@ -13,7 +13,7 @@ test('usage with non boolean', () => {
   const baz = [1, 2, 3]
 
   const result = allTrue(foo, foo, baz)
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('usage with boolean', () => {
@@ -21,25 +21,25 @@ test('usage with boolean', () => {
   const baz = [1, 2, 3]
 
   const result = allTrue(foo > 2, baz.length === 3)
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('escapes early - case 0', () => {
   const foo = undefined
   const result = allTrue(foo, () => foo.a)
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('escapes early - case 1', () => {
   const foo = null
   const result = allTrue(foo, () => foo.a)
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('escapes early - case 2', () => {
   const foo = { a: 'bar' }
   const result = allTrue(foo, foo.a, foo.a.b)
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('escapes early - case 3', () => {
@@ -49,5 +49,5 @@ test('escapes early - case 3', () => {
     () => foo.a,
     () => foo.a.b,
   )
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })

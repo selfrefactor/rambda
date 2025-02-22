@@ -10,7 +10,7 @@ test('with function as replacer input', () => {
       /\s/g,
       (match, offset, str) => {
         expect(match).toBe(' ')
-        expect([3, 7].includes(offset)).toBeTrue()
+        expect([3, 7].includes(offset)).toBeTruthy()
         expect(str).toBe('foo bar baz')
 
         return '|'

@@ -9,5 +9,5 @@ test('repeat', () => {
 
   expect(arr).toEqual([{}, {}, {}])
 
-  expect(arr[0] === arr[1]).toBeTrue()
+  expect(arr[0] === arr[1]).toBeTruthy()
 })

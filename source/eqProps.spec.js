@@ -14,32 +14,32 @@ const obj2 = {
 
 test('props are equal', () => {
   const result = eqProps('a', obj1, obj2)
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('props are not equal', () => {
   const result = eqProps('b', obj1, obj2)
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('prop does not exist', () => {
   const result = eqProps('c', obj1, obj2)
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('can handle null or undefined object', () => {
-  expect(eqProps('value', { value: 0 }, null)).toBeFalse()
-  expect(eqProps('value', { value: 0 }, undefined)).toBeFalse()
-  expect(eqProps('value', null, { value: 0 })).toBeFalse()
-  expect(eqProps('value', undefined, { value: 0 })).toBeFalse()
-  expect(eqProps('value', undefined, { value: undefined })).toBeTrue()
-  expect(eqProps('value', null, { value: undefined })).toBeTrue()
-  expect(eqProps('value', { value: undefined }, undefined)).toBeTrue()
-  expect(eqProps('value', { value: undefined }, null)).toBeTrue()
-  expect(eqProps('value', {}, null)).toBeTrue()
-  expect(eqProps('value', {}, undefined)).toBeTrue()
-  expect(eqProps('value', null, {})).toBeTrue()
-  expect(eqProps('value', undefined, {})).toBeTrue()
+  expect(eqProps('value', { value: 0 }, null)).toBeFalsy()
+  expect(eqProps('value', { value: 0 }, undefined)).toBeFalsy()
+  expect(eqProps('value', null, { value: 0 })).toBeFalsy()
+  expect(eqProps('value', undefined, { value: 0 })).toBeFalsy()
+  expect(eqProps('value', undefined, { value: undefined })).toBeTruthy()
+  expect(eqProps('value', null, { value: undefined })).toBeTruthy()
+  expect(eqProps('value', { value: undefined }, undefined)).toBeTruthy()
+  expect(eqProps('value', { value: undefined }, null)).toBeTruthy()
+  expect(eqProps('value', {}, null)).toBeTruthy()
+  expect(eqProps('value', {}, undefined)).toBeTruthy()
+  expect(eqProps('value', null, {})).toBeTruthy()
+  expect(eqProps('value', undefined, {})).toBeTruthy()
 })
 
 const possibleProps = ['a', 'a.b', null, false, 0, 1, {}, []]

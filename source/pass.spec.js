@@ -3,19 +3,19 @@ import { pass } from './pass.js'
 test('true on success', () => {
   const result = pass(1, 'foo', {})('number', 'string', 'object')
 
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('false on failure', () => {
-  expect(pass(1, 'foo', {})('number', 'string', 'string')).toBeFalse()
+  expect(pass(1, 'foo', {})('number', 'string', 'string')).toBeFalsy()
 })
 
 test('true when single schema', () => {
-  expect(pass(1, 2, 3)('number')).toBeTrue()
+  expect(pass(1, 2, 3)('number')).toBeTruthy()
 })
 
 test('false when single schema', () => {
-  expect(pass(1, 'foo', {})('number')).toBeFalse()
+  expect(pass(1, 'foo', {})('number')).toBeFalsy()
 })
 
 test('array of schemas', () => {

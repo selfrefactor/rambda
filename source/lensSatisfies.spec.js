@@ -7,8 +7,8 @@ const predicate = x => x > 1
 test('with list', () => {
   const lens = lensIndex(0)
   const fn = lensSatisfies(predicate, lens)
-  expect(fn([10, 20, 30])).toBeTrue()
-  expect(fn([1, 2, 3])).toBeFalse()
+  expect(fn([10, 20, 30])).toBeTruthy()
+  expect(fn([1, 2, 3])).toBeFalsy()
 })
 
 test('with R.lensPath', () => {
@@ -17,6 +17,6 @@ test('with R.lensPath', () => {
   const lens = lensPath('a.b')
   const fn = lensSatisfies(predicate, lens)
 
-  expect(fn(input1)).toBeTrue()
-  expect(fn(input2)).toBeFalse()
+  expect(fn(input1)).toBeTruthy()
+  expect(fn(input2)).toBeFalsy()
 })

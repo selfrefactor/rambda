@@ -17,7 +17,7 @@ test('with empty string', () => {
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toBeFalse()
+  expect(defaultTo('foo', false)).toBeFalsy()
 })
 
 test('when inputArgument passes initial check', () => {

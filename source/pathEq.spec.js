@@ -5,7 +5,7 @@ test('when true', () => {
   const obj = { a: { b: { c: 1 } } }
   const target = { c: 1 }
 
-  expect(pathEq(path, target, obj)).toBeTrue()
+  expect(pathEq(path, target, obj)).toBeTruthy()
 })
 
 test('when false', () => {
@@ -13,7 +13,7 @@ test('when false', () => {
   const obj = { a: { b: 1 } }
   const target = 2
 
-  expect(pathEq(path, target)(obj)).toBeFalse()
+  expect(pathEq(path, target)(obj)).toBeFalsy()
 })
 
 test('when wrong path', () => {
@@ -21,5 +21,5 @@ test('when wrong path', () => {
   const obj = { a: { b: 1 } }
   const target = 2
 
-  expect(pathEq(path, target, obj)).toBeFalse()
+  expect(pathEq(path, target, obj)).toBeFalsy()
 })

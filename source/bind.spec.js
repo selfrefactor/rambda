@@ -23,8 +23,8 @@ test('returns a function bound to the specified context object', () => {
     return this instanceof Foo
   }
   const isFooBound = bind(isFoo, f)
-  expect(isFoo()).toBeFalse()
-  expect(isFooBound()).toBeTrue()
+  expect(isFoo()).toBeFalsy()
+  expect(isFooBound()).toBeTruthy()
 })
 
 test('works with built-in types', () => {

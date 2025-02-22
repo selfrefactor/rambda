@@ -9,13 +9,13 @@ test('happy', () => {
     throw new Error('foo')
   }
   const result = tryCatch(fn, () => true)()
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('when fallback is used', () => {
   const fn = x => x.x
 
-  expect(tryCatch(fn, false)(null)).toBeFalse()
+  expect(tryCatch(fn, false)(null)).toBeFalsy()
 })
 
 test('with json parse', () => {

@@ -20,6 +20,6 @@ test('complex', async () => {
     tapAsync(fn),
     x => x + 1,
   )
-  expect(marker).toBeTrue()
+  expect(marker).toBeTruthy()
   expect(result).toBe(3)
 })

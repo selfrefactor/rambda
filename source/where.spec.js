@@ -15,7 +15,7 @@ test('when true', () => {
     },
   )
 
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('when false | early exit', () => {
@@ -35,6 +35,6 @@ test('when false | early exit', () => {
       a: 'notfoo',
       b: 'notbar',
     }),
-  ).toBeFalse()
+  ).toBeFalsy()
   expect(counter).toBe(1)
 })

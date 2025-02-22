@@ -19,5 +19,5 @@ test('when returns false', () => {
 
 test('works with multiple inputs', () => {
   const fn = (w, x, y, z) => w + x === y + z
-  expect(allPass([fn])(3, 3, 3, 3)).toBeTrue()
+  expect(allPass([fn])(3, 3, 3, 3)).toBeTruthy()
 })

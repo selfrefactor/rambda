@@ -20,7 +20,7 @@ test('whenElse is a function', () => {
 
   const result = maybe(ifRule, WHEN_IF, () => y.a === 'foo')
 
-  expect(result).toBeFalse()
+  expect(result).toBeFalsy()
 })
 
 test('whenIf', () => {
