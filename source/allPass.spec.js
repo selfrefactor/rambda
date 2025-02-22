@@ -1,3 +1,4 @@
+import { allPass } from './allPass.js'
 import * as R from '../rambda.js'
 
 let list = [[1, 2, 3, 4], [3, 4, 5]]

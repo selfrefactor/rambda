@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/replaceAll.spec.js (4 tests) 7ms
+ ✓ source/allPass.spec.js (3 tests) 4ms
 
  Test Files  1 passed (1)
-      Tests  4 passed (4)
-   Start at  22:19:09
-   Duration  532ms (transform 78ms, setup 0ms, collect 93ms, tests 7ms, environment 0ms, prepare 103ms)
+      Tests  3 passed (3)
+   Start at  22:23:14
+   Duration  1.10s (transform 363ms, setup 0ms, collect 687ms, tests 4ms, environment 0ms, prepare 97ms)
 
