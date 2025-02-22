@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/dissocPath.spec.js (9 tests | 8 skipped) 3ms
+ ✓ source/filter.spec.js (4 tests) 6ms
 
  Test Files  1 passed (1)
-      Tests  1 passed | 8 skipped (9)
-   Start at  21:12:33
-   Duration  450ms (transform 64ms, setup 0ms, collect 73ms, tests 3ms, environment 0ms, prepare 91ms)
+      Tests  4 passed (4)
+   Start at  21:20:56
+   Duration  635ms (transform 48ms, setup 0ms, collect 213ms, tests 6ms, environment 0ms, prepare 111ms)
 

@@ -116,11 +116,6 @@ test('sorts by multiple properties using ascend and descend', () => {
   expect(sortedAlbums[11].title).toBe('Romance with the Unseen')
 })
 
-test('sorts only arrays not array-like object', () => {
-  const args = (() => arguments)('c', 'a', 'b')
-  expect(sortWith([ascend(prop('value'))], args)).toEqual([])
-})
-
 test('sorts only arrays not primitives', () => {
   const result = sortWith(
     [

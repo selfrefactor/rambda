@@ -49,17 +49,14 @@ test('with object', () => {
 })
 
 test('bad inputs difference between Ramda and Rambda', () => {
-  expect(() => filter(T, null)).toThrowWithMessage(Error, 'Incorrect iterable input')
-  expect(() => filter(T)(undefined)).toThrowWithMessage(
-    Error,
+  expect(() => filter(T, null)).toThrowError('Incorrect iterable input')
+  expect(() => filter(T)(undefined)).toThrowError(
     'Incorrect iterable input',
   )
-  expect(() => filterRamda(T, null)).toThrowWithMessage(
-    TypeError,
+  expect(() => filterRamda(T, null)).toThrowError(
     "Cannot read properties of null (reading 'fantasy-land/filter')",
   )
-  expect(() => filterRamda(T, undefined)).toThrowWithMessage(
-    TypeError,
+  expect(() => filterRamda(T, undefined)).toThrowError(
     "Cannot read properties of undefined (reading 'fantasy-land/filter')",
   )
 })

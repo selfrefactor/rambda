@@ -107,7 +107,7 @@ test('leaves an empty object when all properties omitted', () => {
     d: 3,
   }
   const obj2 = dissocPath(['b', 'c'], obj1)
-  eq(obj2, {
+  expect(obj2).toEqual({
     a: 1,
     b: {},
     d: 3,
@@ -121,7 +121,7 @@ test('leaves an empty array when all indexes are omitted', () => {
     d: 3,
   }
   const obj2 = dissocPath(['b', 0], obj1)
-  eq(obj2, {
+  expect(obj2).toEqual({
     a: 1,
     b: [],
     d: 3,
@@ -129,29 +129,26 @@ test('leaves an empty array when all indexes are omitted', () => {
 })
 
 test('accepts empty path', () => {
-  eq(
+  expect(
     dissocPath([], {
       a: 1,
       b: 2,
-    }),
-    {
+    })).toEqual({
       a: 1,
       b: 2,
-    },
-  )
+    })
 })
 
 test('allow integer to be used as key for object', () => {
-  eq(
+  expect(
     dissocPath([42], {
       42: 3,
       a: 1,
       b: 2,
-    }),
-    {
+    })).toEqual({
       a: 1,
       b: 2,
-    },
+    })
   )
 })
 
