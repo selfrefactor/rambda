@@ -1,8 +1,8 @@
 import { clamp } from './clamp.js'
 
 test('when min is greater than max', () => {
-  expect(() => clamp(-5, -10, 5)).toThrowErrorMatchingInlineSnapshot(
-    '"min must not be greater than max in clamp(min, max, value)"',
+  expect(() => clamp(-5, -10, 5)).toThrowError(
+    'min must not be greater than max in clamp(min, max, value)',
   )
 })
 

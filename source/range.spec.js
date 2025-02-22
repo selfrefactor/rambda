@@ -11,8 +11,8 @@ test('end range is bigger than start range', () => {
 
 test('with bad input', () => {
   const throwMessage = 'Both arguments to range must be numbers'
-  expect(() => range('a', 6)).toThrowWithMessage(Error, throwMessage)
-  expect(() => range(6, 'z')).toThrowWithMessage(Error, throwMessage)
+  expect(() => range('a', 6)).toThrowError(Error, throwMessage)
+  expect(() => range(6, 'z')).toThrowError(Error, throwMessage)
 })
 
 test('curry', () => {

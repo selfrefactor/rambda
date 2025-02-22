@@ -5587,7 +5587,7 @@ test('number of arguments is 11', () => {
     fn(
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     )
-  }).toThrowWithMessage(Error,
+  }).toThrowError(Error,
     'First argument to _arity must be a non-negative integer no greater than ten')
 })
 
@@ -9381,13 +9381,13 @@ test('with object', () => {
 })
 
 test('bad inputs difference between Ramda and Rambda', () => {
-  expect(() => filter(T, null)).toThrowWithMessage(Error,
+  expect(() => filter(T, null)).toThrowError(Error,
     'Incorrect iterable input')
-  expect(() => filter(T)(undefined)).toThrowWithMessage(Error,
+  expect(() => filter(T)(undefined)).toThrowError(Error,
     'Incorrect iterable input')
-  expect(() => filterRamda(T, null)).toThrowWithMessage(TypeError,
+  expect(() => filterRamda(T, null)).toThrowError(TypeError,
     'Cannot read properties of null (reading \'fantasy-land/filter\')')
-  expect(() => filterRamda(T, undefined)).toThrowWithMessage(TypeError,
+  expect(() => filterRamda(T, undefined)).toThrowError(TypeError,
     'Cannot read properties of undefined (reading \'fantasy-land/filter\')')
 })
 ```
@@ -12075,13 +12075,13 @@ test('with wrong input that does not throw', () => {
 })
 
 test('throws on wrong input - match ramda behaviour', () => {
-  expect(() => includes(2, null)).toThrowWithMessage(TypeError,
+  expect(() => includes(2, null)).toThrowError(TypeError,
     'Cannot read property \'indexOf\' of null')
-  expect(() => includesRamda(2, null)).toThrowWithMessage(TypeError,
+  expect(() => includesRamda(2, null)).toThrowError(TypeError,
     'Cannot read properties of null (reading \'indexOf\')')
-  expect(() => includes(2, undefined)).toThrowWithMessage(TypeError,
+  expect(() => includes(2, undefined)).toThrowError(TypeError,
     'Cannot read property \'indexOf\' of undefined')
-  expect(() => includesRamda(2, undefined)).toThrowWithMessage(TypeError,
+  expect(() => includesRamda(2, undefined)).toThrowError(TypeError,
     'Cannot read properties of undefined (reading \'indexOf\')')
 })
 ```
@@ -12425,7 +12425,7 @@ test('list of arrays uses R.equals', () => {
 })
 
 test('with string as iterable', () => {
-  expect(() => indexOf('a', 'abc')).toThrowWithMessage(Error,
+  expect(() => indexOf('a', 'abc')).toThrowError(Error,
     'Cannot read property \'indexOf\' of abc')
   expect(indexOfRamda('a', 'abc')).toBe(0)
 })
@@ -22433,8 +22433,8 @@ test('end range is bigger than start range', () => {
 
 test('with bad input', () => {
   const throwMessage = 'Both arguments to range must be numbers'
-  expect(() => range('a', 6)).toThrowWithMessage(Error, throwMessage)
-  expect(() => range(6, 'z')).toThrowWithMessage(Error, throwMessage)
+  expect(() => range('a', 6)).toThrowError(Error, throwMessage)
+  expect(() => range(6, 'z')).toThrowError(Error, throwMessage)
 })
 
 test('curry', () => {
@@ -22570,13 +22570,13 @@ test('with object as iterable', () => {
         a : 1,
         b : 2,
       }
-    )).toThrowWithMessage(TypeError, ERROR)
+    )).toThrowError(TypeError, ERROR)
 })
 
 test('with undefined as iterable', () => {
   expect(() => reduce(
     reducer, 0, {}
-  )).toThrowWithMessage(TypeError, ERROR)
+  )).toThrowError(TypeError, ERROR)
 })
 
 test('returns the accumulator for a null list', () => {
@@ -24474,9 +24474,9 @@ const throwingBadInputs = [ null, undefined ]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
-    expect(() => splitAt(1, badInput)).toThrowWithMessage(TypeError,
+    expect(() => splitAt(1, badInput)).toThrowError(TypeError,
       `Cannot read property 'slice' of ${ badInput }`)
-    expect(() => splitAtRamda(1, badInput)).toThrowWithMessage(TypeError,
+    expect(() => splitAtRamda(1, badInput)).toThrowError(TypeError,
       `Cannot read properties of ${ badInput } (reading 'slice')`)
   })
 
@@ -24741,9 +24741,9 @@ const throwingBadInputs = [ null, undefined ]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
-    expect(() => splitWhen(equals(2), badInput)).toThrowWithMessage(TypeError,
+    expect(() => splitWhen(equals(2), badInput)).toThrowError(TypeError,
       `Cannot read property 'length' of ${ badInput }`)
-    expect(() => splitWhenRamda(equals(2), badInput)).toThrowWithMessage(TypeError,
+    expect(() => splitWhenRamda(equals(2), badInput)).toThrowError(TypeError,
       `Cannot read properties of ${ badInput } (reading 'length')`)
   })
 

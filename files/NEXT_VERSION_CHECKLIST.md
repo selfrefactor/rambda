@@ -46,6 +46,7 @@ it('within pipe requires explicit type', () => {
 -- always - useful only with `R.ifElse` or `R.cond`, but both of these methods are also removed.
 -- ifElse
 -- cond
+-- flip
 -- addIndex, addIndexRight
 -- T, F
 -- composeWith

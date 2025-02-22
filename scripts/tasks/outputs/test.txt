@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/filter.spec.js (4 tests) 6ms
+ ✓ source/flip.spec.js (4 tests) 6ms
 
  Test Files  1 passed (1)
       Tests  4 passed (4)
-   Start at  21:20:56
-   Duration  635ms (transform 48ms, setup 0ms, collect 213ms, tests 6ms, environment 0ms, prepare 111ms)
+   Start at  21:22:40
+   Duration  511ms (transform 60ms, setup 0ms, collect 41ms, tests 6ms, environment 0ms, prepare 118ms)
 

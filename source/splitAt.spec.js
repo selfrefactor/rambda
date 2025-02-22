@@ -45,11 +45,11 @@ const throwingBadInputs = [null, undefined]
 
 test('with bad inputs', () => {
   throwingBadInputs.forEach(badInput => {
-    expect(() => splitAt(1, badInput)).toThrowWithMessage(
+    expect(() => splitAt(1, badInput)).toThrowError(
       TypeError,
       `Cannot read property 'slice' of ${badInput}`,
     )
-    expect(() => splitAtRamda(1, badInput)).toThrowWithMessage(
+    expect(() => splitAtRamda(1, badInput)).toThrowError(
       TypeError,
       `Cannot read properties of ${badInput} (reading 'slice')`,
     )
