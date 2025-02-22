@@ -21,8 +21,7 @@ test('with object', () => {
   expect(
     rejectIndexed((x, prop) => {
   expect(typeof x).toBe('number')
-
-      expect(prop).toBeString()
+			expect(typeof prop).toBe('string')
 
       return x % 2 === 1
     }, obj),

@@ -8,5 +8,5 @@ test('with object', () => {
 })
 
 test('with bad input', () => {
-  expect(mapIndexed(iterator, undefined)).toEqual([])
+  expect(mapIndexed(null, undefined)).toEqual([])
 })

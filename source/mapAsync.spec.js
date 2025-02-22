@@ -23,7 +23,7 @@ test('happy', async () => {
 
 test('with object', async () => {
   const fn = async (x, prop) => {
-    expect(prop).toBeString()
+		expect(typeof prop).toBe('string')
 
     return x + 1
   }

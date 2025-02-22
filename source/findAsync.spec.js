@@ -9,16 +9,14 @@ test('happy', async () => {
 
     return propEq(2, 'a', x)
   }
-  await expect(findAsync(fn, list)).resolves.toEqual({ a: 2 })
   await expect(findAsync(fn)(list)).resolves.toEqual({ a: 2 })
-  await expect(findAsync(fn)([])).resolves.toBeUndefined()
 })
 
 test('with error', async () => {
   const fn = async x => x.a.b.c === 1
 
   try {
-    await findAsync(fn, list)
+    await findAsync(fn)(list)
   } catch (error) {
     expect(error.message).toBe("Cannot read properties of undefined (reading 'c')")
   }

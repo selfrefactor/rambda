@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/zipWith.spec.js (2 tests) 11ms
+ ✓ source/findAsync.spec.js (2 tests) 5ms
 
  Test Files  1 passed (1)
       Tests  2 passed (2)
-   Start at  23:07:56
-   Duration  538ms (transform 95ms, setup 0ms, collect 49ms, tests 11ms, environment 0ms, prepare 188ms)
+   Start at  23:25:39
+   Duration  435ms (transform 64ms, setup 0ms, collect 65ms, tests 5ms, environment 0ms, prepare 103ms)
 
