@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/findAsync.spec.js (2 tests) 5ms
+ ✓ source/unapply.spec.js (5 tests) 14ms
 
  Test Files  1 passed (1)
-      Tests  2 passed (2)
-   Start at  23:25:39
-   Duration  435ms (transform 64ms, setup 0ms, collect 65ms, tests 5ms, environment 0ms, prepare 103ms)
+      Tests  5 passed (5)
+   Start at  23:31:57
+   Duration  508ms (transform 87ms, setup 0ms, collect 77ms, tests 14ms, environment 0ms, prepare 149ms)
 

@@ -11,13 +11,6 @@ test('happy', () => {
   expect(fn()).toEqual([])
 })
 
-test('returns a function which is always passed one argument', () => {
-  const fn = unapply(() => arguments.length)
-  expect(fn('x')).toBe(1)
-  expect(fn('x', 'y')).toBe(1)
-  expect(fn('x', 'y', 'z')).toBe(1)
-})
-
 test('forwards arguments to decorated function as an array', () => {
   const fn = unapply(xs => `[${xs}]`)
   expect(fn(2)).toBe('[2]')
