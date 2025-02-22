@@ -5,28 +5,21 @@ import { equals } from './equals.js'
 import { sortObject } from './sortObject.js'
 
 const obj = {
-  c : 1,
-  a : 2,
-  b : 3,
+  c: 1,
+  a: 2,
+  b: 3,
 }
 
-const predicateA = (
-  propA, propB, valueA, valueB
-) => propA > propB ? -1 : 1
+const predicateA = (propA, propB, valueA, valueB) => (propA > propB ? -1 : 1)
 
-const expectationA = [ 'c', 'b', 'a' ]
+const expectationA = ['c', 'b', 'a']
 
-const predicateB = (
-  propA, propB, valueA, valueB
-) => propA < propB ? -1 : 1
-const expectationB = [ 'a', 'b', 'c' ]
-const predicateC = (
-  propA, propB, valueA, valueB
-) =>
-  valueA > valueB ? -1 : 1
-const expectationC = [ 'b', 'a', 'c' ]
+const predicateB = (propA, propB, valueA, valueB) => (propA < propB ? -1 : 1)
+const expectationB = ['a', 'b', 'c']
+const predicateC = (propA, propB, valueA, valueB) => (valueA > valueB ? -1 : 1)
+const expectationC = ['b', 'a', 'c']
 
-const fn = ([ predicate, expectation ]) => {
+const fn = ([predicate, expectation]) => {
   const result = sortObject(predicate, obj)
   const curriedResult = sortObject(predicate)(obj)
   const sortedKeys = Object.keys(result)
@@ -38,16 +31,16 @@ const fn = ([ predicate, expectation ]) => {
     isSameObject,
     isSameObjectCurried,
     equals(sortedKeys, expectation),
-    equals(sortedKeysCurried, expectation)
+    equals(sortedKeysCurried, expectation),
   )
 }
 
 const testData = {
-  label : 'foo',
-  data  : [
-    { ok : [ predicateA, expectationA ] },
-    { ok : [ predicateB, expectationB ] },
-    { ok : [ predicateC, expectationC ] },
+  label: 'foo',
+  data: [
+    { ok: [predicateA, expectationA] },
+    { ok: [predicateB, expectationB] },
+    { ok: [predicateC, expectationC] },
   ],
   fn,
 }

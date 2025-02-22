@@ -1,4 +1,4 @@
-import {modulo} from 'rambda'
+import { modulo } from 'rambda'
 
 describe('R.modulo', () => {
   it('happy', () => {

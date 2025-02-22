@@ -1,4 +1,4 @@
-import {min} from 'rambda'
+import { min } from 'rambda'
 
 const first = 1
 const second = 2

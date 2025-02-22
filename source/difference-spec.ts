@@ -1,4 +1,4 @@
-import {difference} from 'rambda'
+import { difference } from 'rambda'
 
 const list1 = [1, 2, 3]
 const list2 = [1, 2, 4]

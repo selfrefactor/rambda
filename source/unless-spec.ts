@@ -1,4 +1,4 @@
-import {unless, inc} from 'rambda'
+import { inc, unless } from 'rambda'
 
 describe('R.unless', () => {
   it('happy', () => {
@@ -16,7 +16,7 @@ describe('R.unless', () => {
         x // $ExpectType number
         return x + 1
       },
-      1
+      1,
     )
     result // $ExpectType number
   })
@@ -30,7 +30,7 @@ describe('R.unless', () => {
         x // $ExpectType number
         return `${x}-foo`
       },
-      1
+      1,
     )
     result // $ExpectType string | number
   })
@@ -51,7 +51,7 @@ describe('R.unless - curried', () => {
       x => {
         x // $ExpectType number
         return x + 1
-      }
+      },
     )
     const result = fn(1)
     result // $ExpectType number
@@ -65,7 +65,7 @@ describe('R.unless - curried', () => {
       x => {
         x // $ExpectType number
         return `${x}-foo`
-      }
+      },
     )
     const result = fn(1)
     result // $ExpectType string | number

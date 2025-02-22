@@ -1,4 +1,4 @@
-import {glue} from 'rambda'
+import { glue } from 'rambda'
 
 const baz = 'led zeppelin'
 
@@ -19,7 +19,7 @@ describe('R.glue', () => {
       ${baz}
       Bar
     `,
-      '|'
+      '|',
     )
     result // $ExpectType string
   })

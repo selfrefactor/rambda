@@ -1,4 +1,4 @@
-import {memoize, delay} from 'rambda'
+import { delay, memoize } from 'rambda'
 
 describe('memoize', () => {
   test('synchronous function', () => {
@@ -7,8 +7,8 @@ describe('memoize', () => {
     const result = memoized(1, 2)
     result // $ExpectType number
   })
-  test('asynchronous function', async() => {
-    const fn = async(x: number, y: number) => {
+  test('asynchronous function', async () => {
+    const fn = async (x: number, y: number) => {
       await delay(100)
       return x + y
     }

@@ -1,4 +1,4 @@
-import {lte} from 'rambda'
+import { lte } from 'rambda'
 
 describe('R.lte', () => {
   it('happy', () => {

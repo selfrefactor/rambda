@@ -1,4 +1,4 @@
-import {zipWith} from 'rambda'
+import { zipWith } from 'rambda'
 
 const list1 = [1, 2]
 const list2 = [10, 20, 30]
@@ -12,7 +12,7 @@ describe('R.zipWith', () => {
         return `${x}-${y}`
       },
       list1,
-      list2
+      list2,
     )
 
     result // $ExpectType string[]

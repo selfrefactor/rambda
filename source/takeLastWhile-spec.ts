@@ -1,4 +1,4 @@
-import {takeLastWhile} from 'rambda'
+import { takeLastWhile } from 'rambda'
 
 const list = [1, 2, 3]
 const str = 'FOO'

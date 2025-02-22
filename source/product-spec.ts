@@ -1,4 +1,4 @@
-import {product} from 'rambda'
+import { product } from 'rambda'
 
 describe('R.product', () => {
   it('happy', () => {

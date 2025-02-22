@@ -4,41 +4,41 @@ import { prop } from './prop.js'
 test('groupBy', () => {
   const list = [
     {
-      age  : 12,
-      name : 'john',
+      age: 12,
+      name: 'john',
     },
     {
-      age  : 12,
-      name : 'jack',
+      age: 12,
+      name: 'jack',
     },
     {
-      age  : 24,
-      name : 'mary',
+      age: 24,
+      name: 'mary',
     },
     {
-      age  : 24,
-      name : 'steve',
+      age: 24,
+      name: 'steve',
     },
   ]
   const expectedResult = {
-    12 : [
+    12: [
       {
-        age  : 12,
-        name : 'john',
+        age: 12,
+        name: 'john',
       },
       {
-        age  : 12,
-        name : 'jack',
+        age: 12,
+        name: 'jack',
       },
     ],
-    24 : [
+    24: [
       {
-        age  : 24,
-        name : 'mary',
+        age: 24,
+        name: 'mary',
       },
       {
-        age  : 24,
-        name : 'steve',
+        age: 24,
+        name: 'steve',
       },
     ],
   }

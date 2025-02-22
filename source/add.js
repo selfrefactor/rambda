@@ -1,5 +1,3 @@
-export function add(a, b){
-  if (arguments.length === 1) return _b => add(a, _b)
-
-  return Number(a) + Number(b)
+export function add(a) {
+  return b => Number(a) + Number(b)
 }

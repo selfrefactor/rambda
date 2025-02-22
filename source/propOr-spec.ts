@@ -1,6 +1,6 @@
-import {propOr} from 'rambda'
+import { propOr } from 'rambda'
 
-const obj = {foo: 'bar'}
+const obj = { foo: 'bar' }
 const property = 'foo'
 const fallback = 'fallback'
 

@@ -1,4 +1,4 @@
-import {clamp} from 'rambda'
+import { clamp } from 'rambda'
 
 describe('R.clamp', () => {
   it('happy', () => {

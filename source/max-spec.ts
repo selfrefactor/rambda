@@ -1,4 +1,4 @@
-import {max} from 'rambda'
+import { max } from 'rambda'
 
 const first = 1
 const second = 2

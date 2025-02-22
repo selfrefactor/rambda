@@ -4,7 +4,7 @@
 # yarn test:typings
 
 # before
-yarn out && yarn docs && rd build
+# yarn out && yarn docs && rd build
 #===========
 # benchmark
 # cd ../rambda-scripts && RAMBDA_RUN_ALL=ON RAMBDA_RUN_INDEXES=ON yarn benchmark

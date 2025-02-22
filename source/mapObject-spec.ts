@@ -1,4 +1,4 @@
-import {mapObject} from 'rambda'
+import { mapObject } from 'rambda'
 
 describe('R.mapObject', () => {
   it('iterable with all three arguments', () => {
@@ -6,12 +6,12 @@ describe('R.mapObject', () => {
       (a, b, c) => {
         a // $ExpectType number
         b // $ExpectType string
-        c // $ExpectType Dictionary<number>
+        c // $ExpectType Record<PropertyKey, number>
         return `${a}`
       },
-      {a: 1, b: 2}
+      { a: 1, b: 2 },
     )
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<PropertyKey, string>
   })
   it('iterable with property argument', () => {
     const result = mapObject(
@@ -20,9 +20,9 @@ describe('R.mapObject', () => {
         b // $ExpectType string
         return a + 2
       },
-      {a: 1, b: 2}
+      { a: 1, b: 2 },
     )
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<PropertyKey, number>
   })
   it('iterable with no property argument', () => {
     const result = mapObject(
@@ -30,26 +30,26 @@ describe('R.mapObject', () => {
         a // $ExpectType number
         return `${a}`
       },
-      {a: 1, b: 2}
+      { a: 1, b: 2 },
     )
-    result // $ExpectType Dictionary<string>
+    result // $ExpectType Record<PropertyKey, string>
   })
   it('curried requires explicit type', () => {
     const result = mapObject<number>((a, b, c) => {
       a // $ExpectType number
       b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+      c // $ExpectType Record<PropertyKey, number>
       return a + 2
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<number>
+    })({ a: 1, b: 2 })
+    result // $ExpectType Record<PropertyKey, number>
   })
   it('curried requires explicit types', () => {
     const result = mapObject<number, string>((a, b, c) => {
       a // $ExpectType number
       b // $ExpectType string
-      c // $ExpectType Dictionary<number>
+      c // $ExpectType Record<PropertyKey, number>
       return `${a}`
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<string>
+    })({ a: 1, b: 2 })
+    result // $ExpectType Record<PropertyKey, string>
   })
 })

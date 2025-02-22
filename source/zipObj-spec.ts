@@ -1,4 +1,4 @@
-import {zipObj} from 'rambda'
+import { zipObj } from 'rambda'
 
 describe('R.zipObj', () => {
   it('happy', () => {

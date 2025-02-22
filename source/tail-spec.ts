@@ -1,4 +1,4 @@
-import {tail} from 'rambda'
+import { tail } from 'rambda'
 
 describe('R.tail', () => {
   it('with string', () => {

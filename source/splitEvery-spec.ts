@@ -1,4 +1,4 @@
-import {splitEvery} from 'rambda'
+import { splitEvery } from 'rambda'
 
 const list = [1, 2, 3, 4, 5, 6, 7]
 

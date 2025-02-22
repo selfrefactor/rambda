@@ -1,4 +1,4 @@
-import {remove} from 'rambda'
+import { remove } from 'rambda'
 
 const text = 'foo bar baz foo'
 

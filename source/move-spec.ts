@@ -1,4 +1,4 @@
-import {move} from 'rambda'
+import { move } from 'rambda'
 
 const list = [1, 2, 3]
 

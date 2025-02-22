@@ -1,4 +1,4 @@
-import {whereAny} from 'rambda'
+import { whereAny } from 'rambda'
 
 describe('R.whereAny', () => {
   it('happy', () => {
@@ -6,7 +6,7 @@ describe('R.whereAny', () => {
       a: (a: number) => a > 1,
       b: (b: number) => b > 2,
     }
-    const result = whereAny(conditions, {b: 3})
+    const result = whereAny(conditions, { b: 3 })
     result // $ExpectType boolean
   })
 })

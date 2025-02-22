@@ -14,6 +14,10 @@ test('curried', () => {
 })
 
 test('with 3 inputs', () => {
-  let result = unless(x => x.startsWith('/'), x=> x.concat('/'), '/api')
+  const result = unless(
+    x => x.startsWith('/'),
+    x => x.concat('/'),
+    '/api',
+  )
   expect(result).toBe('/api')
 })

@@ -1,4 +1,4 @@
-import {any} from 'rambda'
+import { any } from 'rambda'
 
 describe('R.any', () => {
   it('happy', () => {
@@ -7,7 +7,7 @@ describe('R.any', () => {
         x // $ExpectType number
         return x > 2
       },
-      [1, 2, 3]
+      [1, 2, 3],
     )
     result // $ExpectType boolean
   })

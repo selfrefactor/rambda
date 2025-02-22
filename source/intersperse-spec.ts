@@ -1,4 +1,4 @@
-import {intersperse} from 'rambda'
+import { intersperse } from 'rambda'
 
 describe('R.intersperse', () => {
   it('happy', () => {

@@ -1,4 +1,4 @@
-import {repeat} from 'rambda'
+import { repeat } from 'rambda'
 
 describe('R.repeat', () => {
   it('happy', () => {

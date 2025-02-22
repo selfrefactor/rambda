@@ -1,4 +1,4 @@
-import {find} from 'rambda'
+import { find } from 'rambda'
 
 const list = [1, 2, 3]
 

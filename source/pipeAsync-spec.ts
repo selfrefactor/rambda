@@ -1,7 +1,7 @@
-import {delay, pipeAsync} from 'rambda'
+import { delay, pipeAsync } from 'rambda'
 
 describe('R.pipeAsync', () => {
-  it('happy', async() => {
+  it('happy', async () => {
     const fn = pipeAsync(
       async (x: 4) => {
         x // $ExpectType 4
@@ -10,14 +10,14 @@ describe('R.pipeAsync', () => {
       },
       x => {
         x // $ExpectType number
-        return new Promise<string>((resolve) => {
+        return new Promise<string>(resolve => {
           resolve(x.toString())
         })
       },
       x => {
         x // $ExpectType string
         return Promise.resolve([x])
-      }
+      },
     )
 
     const result1 = await fn(4)

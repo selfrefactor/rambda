@@ -15,19 +15,15 @@ test('with counter', () => {
 })
 
 test('happy path', () => {
-  const addOneOnce = once((
-    a, b, c
-  ) => a + b + c, 1)
+  const addOneOnce = once((a, b, c) => a + b + c, 1)
 
-  expect(addOneOnce(
-    10, 20, 30
-  )).toBe(60)
+  expect(addOneOnce(10, 20, 30)).toBe(60)
   expect(addOneOnce(40)).toBe(60)
 })
 
 test('with context', () => {
   const context = { name: 'fris' }
-  const getNameOnce = once(function (){
+  const getNameOnce = once(function () {
     return this.name
   }, context)
 

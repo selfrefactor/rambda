@@ -1,4 +1,4 @@
-import {gte} from 'rambda'
+import { gte } from 'rambda'
 
 describe('R.gte', () => {
   it('happy', () => {

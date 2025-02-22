@@ -1,4 +1,4 @@
-import {findLast} from 'rambda'
+import { findLast } from 'rambda'
 
 const list = [1, 2, 3]
 

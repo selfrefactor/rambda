@@ -1,6 +1,6 @@
-import {pick} from 'rambda'
+import { pick } from 'rambda'
 
-const input = {a: 'foo', b: 2, c: 3, d: 4}
+const input = { a: 'foo', b: 2, c: 3, d: 4 }
 
 describe('R.pick with array as props input', () => {
   it('without passing type', () => {
@@ -12,14 +12,14 @@ describe('R.pick with array as props input', () => {
 
 describe('R.pick with string as props input', () => {
   interface Input {
-    a: string,
-    b: number,
-    c: number,
-    d: number,
+    a: string
+    b: number
+    c: number
+    d: number
   }
   interface Output {
-    a: string,
-    c: number,
+    a: string
+    c: number
   }
   it('explicitly declare output', () => {
     const result = pick<Output>('a,c', input)

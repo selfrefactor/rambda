@@ -1,4 +1,4 @@
-import {rejectIndexed} from 'rambda'
+import { rejectIndexed } from 'rambda'
 
 describe('R.rejectIndexed with array', () => {
   it('happy', () => {
@@ -8,7 +8,7 @@ describe('R.rejectIndexed with array', () => {
         index // $ExpectType number
         return x > 1
       },
-      [1, 2, 3]
+      [1, 2, 3],
     )
     result // $ExpectType number[]
   })
@@ -31,16 +31,16 @@ describe('R.rejectIndexed with objects', () => {
 
         return x > 1
       },
-      {a: 1, b: 2}
+      { a: 1, b: 2 },
     )
-    result // $ExpectType Dictionary<number>
+    result // $ExpectType Record<PropertyKey, number>
   })
   it('curried require dummy type', () => {
     const result = rejectIndexed<number, any>((x, prop) => {
       x // $ExpectType number
       prop // $ExpectType string
       return x > 1
-    })({a: 1, b: 2})
-    result // $ExpectType Dictionary<number>
+    })({ a: 1, b: 2 })
+    result // $ExpectType Record<PropertyKey, number>
   })
 })

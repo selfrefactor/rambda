@@ -1,3 +1,3 @@
-export function toLower(str){
+export function toLower(str) {
   return str.toLowerCase()
 }

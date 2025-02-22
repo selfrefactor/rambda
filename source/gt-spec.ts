@@ -1,4 +1,4 @@
-import {gt} from 'rambda'
+import { gt } from 'rambda'
 
 describe('R.gt', () => {
   it('happy', () => {
@@ -8,4 +8,3 @@ describe('R.gt', () => {
     curriedResult // $ExpectType boolean
   })
 })
-

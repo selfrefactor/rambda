@@ -1,4 +1,4 @@
-import {curry} from 'rambda'
+import { curry } from 'rambda'
 
 function source(a: number, b: number, c: number, d: number) {
   void d

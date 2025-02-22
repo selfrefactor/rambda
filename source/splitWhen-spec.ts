@@ -1,4 +1,4 @@
-import {splitWhen} from 'rambda'
+import { splitWhen } from 'rambda'
 
 const list = [1, 2, 1, 2]
 const predicate = (x: number) => x === 2

@@ -9,20 +9,20 @@ test('happy', () => {
     throw new Error('foo')
   }
   const result = tryCatch(fn, () => true)()
-  expect(result).toBeTrue()
+  expect(result).toBeTruthy()
 })
 
 test('when fallback is used', () => {
   const fn = x => x.x
 
-  expect(tryCatch(fn, false)(null)).toBeFalse()
+  expect(tryCatch(fn, false)(null)).toBeFalsy()
 })
 
 test('with json parse', () => {
-  const good = () => JSON.parse(JSON.stringify({ a : 1 }))
+  const good = () => JSON.parse(JSON.stringify({ a: 1 }))
   const bad = () => JSON.parse('a{a')
 
-  expect(tryCatch(good, 1)()).toEqual({ a : 1 })
+  expect(tryCatch(good, 1)()).toEqual({ a: 1 })
   expect(tryCatch(bad, 1)()).toBe(1)
 })
 
@@ -36,44 +36,36 @@ test('when fn is used', () => {
   const fn = prop('x')
 
   expect(tryCatch(fn, false)({})).toBeUndefined()
-  expect(tryCatch(fn, false)({ x : 1 })).toBe(1)
+  expect(tryCatch(fn, false)({ x: 1 })).toBe(1)
 })
 
 test('fallback receives error object and all initial inputs', () => {
-  function thrower(
-    a, b, c
-  ){
+  function thrower(a, b, c) {
     void c
     throw new Error('throwerError')
   }
 
-  function catchFn(
-    e, a, b, c
-  ){
-    return [ e.message, a, b, c ].join('|')
+  function catchFn(e, a, b, c) {
+    return [e.message, a, b, c].join('|')
   }
 
   const willThrow = tryCatch(thrower, catchFn)
-  const result = willThrow(
-    'A', 'B', 'C'
-  )
+  const result = willThrow('A', 'B', 'C')
   expect(result).toBe('throwerError|A|B|C')
 })
 
 test('fallback receives error object', () => {
-  function throwFn(){
+  function throwFn() {
     throw new Error(10)
   }
 
-  function eCatcher(
-    e, a, b
-  ){
+  function eCatcher(e, a, b) {
     return e.message
   }
 
   const willThrow = tryCatch(throwFn, eCatcher)
   expect(willThrow([])).toBe('10')
-  expect(willThrow([ {}, {}, {} ])).toBe('10')
+  expect(willThrow([{}, {}, {}])).toBe('10')
 })
 
 const possibleFns = [
@@ -95,19 +87,19 @@ const possibleFns = [
 const possibleCatchers = [
   null,
   e => e.message.length,
-  (e, ...inputs) => `${ e.message.length } ${ inputs.length }`,
+  (e, ...inputs) => `${e.message.length} ${inputs.length}`,
   () => {
     throw new Error('bar')
   },
 ]
 
-const possibleInputs = [ null, {}, { foo : 1 } ]
+const possibleInputs = [null, {}, { foo: 1 }]
 
 describe('brute force', () => {
   compareCombinations({
-    returnsFunctionFlag : true,
-    firstInput          : possibleFns,
-    callback            : errorsCounters => {
+    returnsFunctionFlag: true,
+    firstInput: possibleFns,
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 0,
@@ -119,9 +111,9 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput : possibleCatchers,
-    thirdInput  : possibleInputs,
-    fn          : tryCatch,
-    fnRamda     : tryCatchRamda,
+    secondInput: possibleCatchers,
+    thirdInput: possibleInputs,
+    fn: tryCatch,
+    fnRamda: tryCatchRamda,
   })
 })

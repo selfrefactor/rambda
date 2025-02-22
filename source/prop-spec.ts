@@ -1,12 +1,12 @@
-import {prop} from 'rambda'
+import { prop } from 'rambda'
 
 describe('R.prop', () => {
   interface Foo {
-    a: number,
-    b: string,
-    c?: number,
+    a: number
+    b: string
+    c?: number
   }
-  const obj: Foo = {a: 1, b: 'foo'}
+  const obj: Foo = { a: 1, b: 'foo' }
 
   it('issue #553', () => {
     const result = {

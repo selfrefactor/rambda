@@ -1,14 +1,9 @@
-import {partial} from 'rambda'
+import { partial } from 'rambda'
 
 describe('R.partial', () => {
   it('happy', () => {
-    function fn(
-      aString: string,
-      aNumber: number,
-      aBoolean: boolean,
-      aNull: null
-    ) {
-      return {aString, aNumber, aBoolean, aNull}
+    function fn(aString: string, aNumber: number, aBoolean: boolean, aNull: null) {
+      return { aString, aNumber, aBoolean, aNull }
     }
 
     // @ts-expect-error

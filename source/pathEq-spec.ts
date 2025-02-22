@@ -1,10 +1,10 @@
-import {pathEq} from 'rambda'
+import { pathEq } from 'rambda'
 
 describe('R.pathEq', () => {
   it('with string path', () => {
     const pathToSearch = 'a.b.c'
-    const input = {a: {b: {c: 1}}}
-    const target = {c: 1}
+    const input = { a: { b: { c: 1 } } }
+    const target = { c: 1 }
 
     const result = pathEq(pathToSearch, input, target)
     const curriedResult = pathEq(pathToSearch, input, target)
@@ -14,8 +14,8 @@ describe('R.pathEq', () => {
 
   it('with array path', () => {
     const pathToSearch = ['a', 'b', 'c']
-    const input = {a: {b: {c: 1}}}
-    const target = {c: 1}
+    const input = { a: { b: { c: 1 } } }
+    const target = { c: 1 }
 
     const result = pathEq(pathToSearch, input, target)
     const curriedResult = pathEq(pathToSearch, input, target)
@@ -28,8 +28,8 @@ describe('with ramda specs', () => {
   const testPath = ['x', 0, 'y']
   const testObj = {
     x: [
-      {y: 2, z: 3},
-      {y: 4, z: 5},
+      { y: 2, z: 3 },
+      { y: 4, z: 5 },
     ],
   }
 

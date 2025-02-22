@@ -1,4 +1,4 @@
-import {lensSatisfies, lensIndex, lensPath} from 'rambda'
+import { lensIndex, lensPath, lensSatisfies } from 'rambda'
 
 describe('R.lensSatisfies', () => {
   it('with list', () => {
@@ -12,7 +12,7 @@ describe('R.lensSatisfies', () => {
     curriedResult // $ExpectType boolean
   })
   it('with object', () => {
-    const input = {a: {b: {c: 1}}}
+    const input = { a: { b: { c: 1 } } }
     const lens = lensPath('a.b.c')
     const predicate = (x: number) => x > 1
     const result = lensSatisfies(predicate, lens, input)

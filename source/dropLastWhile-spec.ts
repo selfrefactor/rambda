@@ -1,4 +1,4 @@
-import {dropLastWhile} from 'rambda'
+import { dropLastWhile } from 'rambda'
 
 const list = [1, 2, 3]
 const str = 'FOO'

@@ -9,7 +9,7 @@ test('with null', () => {
 })
 
 test('with NaN', () => {
-  expect(defaultTo('foo')(NaN)).toBe('foo')
+  expect(defaultTo('foo')(Number.NaN)).toBe('foo')
 })
 
 test('with empty string', () => {
@@ -17,7 +17,7 @@ test('with empty string', () => {
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toBeFalse()
+  expect(defaultTo('foo', false)).toBeFalsy()
 })
 
 test('when inputArgument passes initial check', () => {

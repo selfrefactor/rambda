@@ -1,4 +1,4 @@
-import {ok} from 'rambda'
+import { ok } from 'rambda'
 
 describe('R.ok', () => {
   it('happy', () => {

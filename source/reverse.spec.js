@@ -1,4 +1,4 @@
-import {reverse} from './reverse.js'
+import { reverse } from './reverse.js'
 
 test('happy', () => {
   expect(reverse([1, 2, 3])).toEqual([3, 2, 1])

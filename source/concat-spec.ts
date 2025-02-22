@@ -1,4 +1,4 @@
-import {concat} from 'rambda'
+import { concat } from 'rambda'
 
 const list1 = [1, 2, 3]
 const list2 = [4, 5, 6]

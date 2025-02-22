@@ -1,7 +1,7 @@
-import {interpolate} from 'rambda'
+import { interpolate } from 'rambda'
 
 const templateInput = 'foo {{x}} baz'
-const templateArguments = {x: 'led zeppelin'}
+const templateArguments = { x: 'led zeppelin' }
 
 describe('R.interpolate', () => {
   it('happy', () => {

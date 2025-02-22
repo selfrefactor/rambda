@@ -1,4 +1,4 @@
-import {complement, isNil} from 'rambda'
+import { complement, isNil } from 'rambda'
 
 describe('R.complement', () => {
   it('happy', () => {

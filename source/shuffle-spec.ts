@@ -1,4 +1,4 @@
-import {shuffle} from 'rambda'
+import { shuffle } from 'rambda'
 
 const list = [1, 2, 3, 4, 5]
 

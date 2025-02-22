@@ -1,4 +1,4 @@
-import {match} from 'rambda'
+import { match } from 'rambda'
 
 const str = 'foo bar'
 

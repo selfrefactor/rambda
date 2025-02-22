@@ -1,5 +1,5 @@
-function _objectIs(a, b){
-  if (a === b){
+function _objectIs(a, b) {
+  if (a === b) {
     return a !== 0 || 1 / a === 1 / b
   }
 

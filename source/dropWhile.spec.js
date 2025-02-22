@@ -3,12 +3,12 @@ import { dropWhile as dropWhileRamda } from 'ramda'
 import { compareCombinations } from './_internals/testUtils.js'
 import { dropWhile } from './dropWhile.js'
 
-const list = [ 1, 2, 3, 4 ]
+const list = [1, 2, 3, 4]
 
 test('happy', () => {
   const predicate = x => x < 3
   const result = dropWhile(predicate, list)
-  expect(result).toEqual([ 3, 4 ])
+  expect(result).toEqual([3, 4])
 })
 
 test('always true', () => {
@@ -30,15 +30,7 @@ test('works with string as iterable', () => {
   expect(result).toBe('bar')
 })
 
-const possiblePredicates = [
-  null,
-  undefined,
-  () => 0,
-  () => true,
-  /foo/g,
-  {},
-  [],
-]
+const possiblePredicates = [null, undefined, () => 0, () => true, /foo/g, {}, []]
 
 const possibleIterables = [
   null,
@@ -48,14 +40,14 @@ const possibleIterables = [
   1,
   '',
   'foobar',
-  [ '' ],
-  [ 1, 2, 3, 4, 5 ],
+  [''],
+  [1, 2, 3, 4, 5],
 ]
 
 describe('brute force', () => {
   compareCombinations({
-    firstInput : possiblePredicates,
-    callback   : errorsCounters => {
+    firstInput: possiblePredicates,
+    callback: errorsCounters => {
       expect(errorsCounters).toMatchInlineSnapshot(`
         {
           "ERRORS_MESSAGE_MISMATCH": 15,
@@ -67,8 +59,8 @@ describe('brute force', () => {
         }
       `)
     },
-    secondInput : possibleIterables,
-    fn          : dropWhile,
-    fnRamda     : dropWhileRamda,
+    secondInput: possibleIterables,
+    fn: dropWhile,
+    fnRamda: dropWhileRamda,
   })
 })

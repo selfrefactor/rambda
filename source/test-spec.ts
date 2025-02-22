@@ -1,4 +1,4 @@
-import {test} from 'rambda'
+import { test } from 'rambda'
 
 const input = 'foo   '
 const regex = /foo/

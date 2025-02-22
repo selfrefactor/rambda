@@ -1,4 +1,4 @@
-import {removeIndex} from 'rambda'
+import { removeIndex } from 'rambda'
 
 describe('R.removeIndex', () => {
   it('happy', () => {

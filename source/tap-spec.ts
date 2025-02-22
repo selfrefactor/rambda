@@ -1,4 +1,4 @@
-import {tap, pipe} from 'rambda'
+import { pipe, tap } from 'rambda'
 
 describe('R.tap', () => {
   it('happy', () => {
@@ -6,7 +6,7 @@ describe('R.tap', () => {
       tap(x => {
         x // $ExpectType number[]
       }),
-      (x: number[]) => x.length
+      (x: number[]) => x.length,
     )([1, 2])
   })
 })

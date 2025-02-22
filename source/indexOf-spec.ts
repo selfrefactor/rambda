@@ -1,4 +1,4 @@
-import {indexOf} from 'rambda'
+import { indexOf } from 'rambda'
 
 describe('R.indexOf', () => {
   it('happy', () => {

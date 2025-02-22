@@ -1,4 +1,4 @@
-import {none} from 'rambda'
+import { none } from 'rambda'
 
 describe('R.none', () => {
   it('happy', () => {
@@ -7,7 +7,7 @@ describe('R.none', () => {
         x // $ExpectType number
         return x > 0
       },
-      [1, 2, 3]
+      [1, 2, 3],
     )
     result // $ExpectType boolean
   })

@@ -1,4 +1,4 @@
-import {where, equals} from 'rambda'
+import { equals, where } from 'rambda'
 
 describe('R.where', () => {
   it('happy', () => {

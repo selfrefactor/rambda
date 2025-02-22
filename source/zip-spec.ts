@@ -1,4 +1,4 @@
-import {zip} from 'rambda'
+import { zip } from 'rambda'
 
 describe('R.zip', () => {
   it('happy', () => {

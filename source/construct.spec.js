@@ -1,5 +1,5 @@
-import { construct } from './construct'
 import { construct as constructRamda } from 'ramda'
+import { construct } from './construct'
 
 test('happy', () => {
   const result = construct()

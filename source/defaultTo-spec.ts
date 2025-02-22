@@ -1,4 +1,4 @@
-import {defaultTo} from 'rambda'
+import { defaultTo } from 'rambda'
 
 describe('R.defaultTo with Ramda spec', () => {
   it('happy', () => {

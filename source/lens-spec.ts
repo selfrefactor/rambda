@@ -1,7 +1,7 @@
-import {lens, assoc, lensProp, view, lensIndex, over, lensPath} from 'rambda'
+import { assoc, lens, lensIndex, lensPath, lensProp, over, view } from 'rambda'
 
 interface Input {
-  foo: string,
+  foo: string
 }
 const testObject: Input = {
   foo: 'Jazz',
@@ -24,12 +24,12 @@ describe('R.lensProp', () => {
   })
   it('issue 740', () => {
     // @ts-expect-error
-    over(lensProp('x'), (n) => String(n), {x: 1})
+    over(lensProp('x'), n => String(n), { x: 1 })
   })
 })
 
 describe('R.lensIndex', () => {
-  const testList: Input[] = [{foo: 'bar'}, {foo: 'baz'}]
+  const testList: Input[] = [{ foo: 'bar' }, { foo: 'baz' }]
   it('happy', () => {
     const result = view<Input[], Input>(lensIndex(0), testList)
     result // $ExpectType Input

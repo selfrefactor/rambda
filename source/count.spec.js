@@ -9,12 +9,12 @@ test('with empty list', () => {
 })
 
 test('happy', () => {
-  const list = [ 1, 2, { a : 1 }, 3, { a : 1 } ]
+  const list = [1, 2, { a: 1 }, 3, { a: 1 }]
 
   expect(count(predicate)(list)).toBe(2)
 })
 
 test('rambdax/issues/86', () => {
-  const arr = [ true, false, true, false ]
+  const arr = [true, false, true, false]
   expect(count(Boolean, arr)).toBe(countRamda(Boolean, arr))
 })

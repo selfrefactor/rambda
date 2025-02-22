@@ -1,4 +1,4 @@
-import {update} from 'rambda'
+import { update } from 'rambda'
 
 describe('R.update', () => {
   it('happy', () => {

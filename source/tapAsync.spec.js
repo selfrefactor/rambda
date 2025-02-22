@@ -9,7 +9,7 @@ test('happy', async () => {
 
 test('complex', async () => {
   let marker = false
-  const fn = () => marker = true
+  const fn = () => (marker = true)
   const result = await pipedAsync(
     1,
     async x => {
@@ -18,8 +18,8 @@ test('complex', async () => {
       return x + 1
     },
     tapAsync(fn),
-    x => x + 1
+    x => x + 1,
   )
-  expect(marker).toBeTrue()
+  expect(marker).toBeTruthy()
   expect(result).toBe(3)
 })

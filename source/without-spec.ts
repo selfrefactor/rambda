@@ -1,4 +1,4 @@
-import {without} from 'rambda'
+import { without } from 'rambda'
 
 const itemsToOmit = ['A', 'B', 'C']
 const collection = ['A', 'B', 'C', 'D', 'E', 'F']
