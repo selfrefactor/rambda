@@ -1,6 +1,6 @@
-import { composeAsync } from './composeAsync.js'
 import { delay } from './delay.js'
 import { map } from './map.js'
+import { pipedAsync } from './pipedAsync.js'
 import { mapAsync } from './mapAsync.js'
 
 const rejectDelay = a =>
@@ -37,16 +37,17 @@ test('with object', async () => {
   })
 })
 
-test('with R.composeAsync', async () => {
-  const result = await composeAsync(
-    map(x => x + 1),
+test('with R.pipedAsync', async () => {
+  const result = await pipedAsync(
+    [1, 2, 3],
+		map(x => x + 1),
     mapAsync(async x => {
       delay(x)
 
       return x
     }),
     map(x => x * 10),
-  )([1, 2, 3])
+  )
   expect(result).toEqual([11, 21, 31])
 })
 

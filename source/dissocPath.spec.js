@@ -149,7 +149,6 @@ test('allow integer to be used as key for object', () => {
       a: 1,
       b: 2,
     })
-  )
 })
 
 test('support remove null/undefined value path', () => {

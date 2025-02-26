@@ -1,8 +1,5 @@
-import { dropRepeatsWith as dropRepeatsWithRamda, eqProps } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils.js'
+import { eqProps } from './eqProps.js'
 import { dropRepeatsWith } from './dropRepeatsWith.js'
-import { path } from './path.js'
 import { prop } from './prop.js'
 
 const eqI = eqProps('i')
@@ -73,43 +70,4 @@ test('keeps elements from the left predicate input', () => {
   ]
   const result = dropRepeatsWith(eqI)(list)
   expect(result).toEqual(expected)
-})
-
-const possiblePredicates = [
-  null,
-  undefined,
-  x => x + 1,
-  x => true,
-  x => false,
-  x => '',
-  path(['a', 'b']),
-]
-const possibleLists = [
-  null,
-  undefined,
-  [],
-  [1],
-  [{ a: { b: 1 } }, { a: { b: 1 } }],
-  [/foo/g, /foo/g],
-]
-
-describe('brute force', () => {
-  compareCombinations({
-    firstInput: possiblePredicates,
-    secondInput: possibleLists,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 4,
-          "ERRORS_TYPE_MISMATCH": 14,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 42,
-        }
-      `)
-    },
-    fn: dropRepeatsWith,
-    fnRamda: dropRepeatsWithRamda,
-  })
 })

@@ -153,3 +153,7 @@ https://github.com/toss/es-toolkit - another FP library
 ===
 ABOVE IS DONE
 ===
+partitionAsync
+ is removed - but there should be a way to have utility that turns any Ramda method to async function
+
+also mapToObjectAsync 

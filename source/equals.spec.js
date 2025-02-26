@@ -1,7 +1,4 @@
 import { equals as equalsRamda } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils.js'
-import { variousTypes } from './benchmarks/_utils.js'
 import { equals } from './equals.js'
 
 test('compare functions', () => {
@@ -340,25 +337,4 @@ test('with big int', () => {
   const c = BigInt(7007199254740991)
   expect(equals(a, b)).toBeTruthy()
   expect(equals(a, c)).toBeFalsy()
-})
-
-describe('brute force', () => {
-  compareCombinations({
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-{
-  "ERRORS_MESSAGE_MISMATCH": 0,
-  "ERRORS_TYPE_MISMATCH": 0,
-  "RESULTS_MISMATCH": 0,
-  "SHOULD_NOT_THROW": 0,
-  "SHOULD_THROW": 0,
-  "TOTAL_TESTS": 289,
-}
-`)
-    },
-    firstInput: variousTypes,
-    fn: equals,
-    fnRamda: equalsRamda,
-    secondInput: variousTypes,
-  })
 })

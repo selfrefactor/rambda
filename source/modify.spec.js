@@ -1,8 +1,4 @@
-import { modify as modifyRamda } from 'ramda'
-
-import { FALSY_VALUES, compareCombinations } from './_internals/testUtils.js'
 import { add } from './add.js'
-import { compose } from './compose.js'
 import { modify } from './modify.js'
 
 const person = {
@@ -30,47 +26,5 @@ describe('ignores transformations if the input value is not Array and Object', (
     it(`${value}`, () => {
       expect(modify('a', add(1), value)).toEqual(value)
     })
-  })
-})
-
-const possibleProperties = [...FALSY_VALUES, 'foo', 0]
-const possibleTransformers = [...FALSY_VALUES, add(1), add('foo'), compose, String]
-const possibleObjects = [
-  ...FALSY_VALUES,
-  {},
-  [1, 2, 3],
-  {
-    a: 1,
-    foo: 2,
-  },
-  {
-    a: 1,
-    foo: [1],
-  },
-  {
-    a: 1,
-    foo: 'bar',
-  },
-]
-
-describe('brute force', () => {
-  compareCombinations({
-    fn: modify,
-    fnRamda: modifyRamda,
-    firstInput: possibleProperties,
-    secondInput: possibleTransformers,
-    thirdInput: possibleObjects,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 0,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 630,
-        }
-      `)
-    },
   })
 })

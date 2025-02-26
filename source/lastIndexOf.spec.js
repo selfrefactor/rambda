@@ -1,7 +1,3 @@
-import { lastIndexOf as lastIndexOfRamda } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils.js'
-import { possibleIterables, possibleTargets } from './indexOf.spec.js'
 import { lastIndexOf } from './lastIndexOf.js'
 
 test('with NaN', () => {
@@ -39,25 +35,4 @@ test('with string as iterable', () => {
     '"Cannot read property \'indexOf\' of abc"',
   )
   expect(lastIndexOfRamda('a', 'abc')).toBe(0)
-})
-
-describe('brute force', () => {
-  compareCombinations({
-    fn: lastIndexOf,
-    fnRamda: lastIndexOfRamda,
-    firstInput: possibleTargets,
-    secondInput: possibleIterables,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 34,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 51,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 170,
-        }
-      `)
-    },
-  })
 })

@@ -1,5 +1,5 @@
 import { willFailAssertion } from './_internals/testUtils.js'
-import { composeAsync } from './composeAsync.js'
+import { pipedAsync } from './pipedAsync.js'
 import { delay } from './delay.js'
 import { map } from './map.js'
 import { mapParallelAsync } from './mapParallelAsync.js'
@@ -14,8 +14,9 @@ test('happy', async () => {
   expect(result).toEqual([11, 12, 13])
 })
 
-test('composeAsync', async () => {
-  const result = await composeAsync(
+test('pipedAsync', async () => {
+  const result = await pipedAsync(
+		[1, 2, 3],
     mapParallelAsync(async x => {
       await delay(100)
 
@@ -27,7 +28,7 @@ test('composeAsync', async () => {
       return x + 10
     }),
     map(x => x * 10),
-  )([1, 2, 3])
+  )
   expect(result).toEqual([21, 31, 41])
 })
 

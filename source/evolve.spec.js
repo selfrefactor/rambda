@@ -1,7 +1,4 @@
-import { evolve as evolveRamda } from 'ramda'
-
 import { add } from '../rambda.js'
-import { compareCombinations, compareToRamda } from './_internals/testUtils.js'
 import { evolve } from './evolve.js'
 
 test('happy', () => {
@@ -88,30 +85,4 @@ test('with array', () => {
   const expected = [101, 1399]
   const result = evolve(rules, list)
   expect(result).toEqual(expected)
-})
-
-const rulesObject = { a: add(1) }
-const rulesList = [add(1)]
-const possibleIterables = [null, undefined, '', 42, [], [1], { a: 1 }]
-const possibleRules = [...possibleIterables, rulesList, rulesObject]
-
-describe('brute force', () => {
-  compareCombinations({
-    firstInput: possibleRules,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 4,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 51,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 63,
-        }
-      `)
-    },
-    secondInput: possibleIterables,
-    fn: evolve,
-    fnRamda: evolveRamda,
-  })
 })

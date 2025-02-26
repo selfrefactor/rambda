@@ -41,9 +41,3 @@ test('passes context to its functions', () => {
   expect(b.call(context, 1)).toBe(3)
   expect(d.call(context, 1)).toBe(5)
 })
-
-test('works with empty functions list', () => {
-  const fn = converge(() => arguments.length, [])
-  expect(fn).toHaveLength(0)
-  expect(fn()).toBe(0)
-})

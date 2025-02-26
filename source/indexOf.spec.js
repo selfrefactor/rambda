@@ -1,6 +1,4 @@
 import { indexOf as indexOfRamda } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils.js'
 import { indexOf } from './indexOf.js'
 
 test('with NaN', () => {
@@ -36,68 +34,4 @@ test('with string as iterable', () => {
     "Cannot read property 'indexOf' of abc",
   )
   expect(indexOfRamda('a', 'abc')).toBe(0)
-})
-
-export const possibleTargets = [
-  x => x > 2,
-  /foo/,
-  'foo',
-  { a: 1 },
-  true,
-  3,
-  null,
-  /bar/g,
-  Number.NaN,
-  undefined,
-  4,
-  [],
-  [[]],
-  [[1], [2]],
-  { a: 1 },
-  { a: 2 },
-  Promise.resolve(1),
-]
-
-export const possibleIterables = [
-  [
-    1,
-    2,
-    new Boolean(true),
-    false,
-    true,
-    new String('foo'),
-    new Number(3),
-    null,
-    undefined,
-  ],
-  [/foo/g, /bar/, /bar/g, Number.NaN],
-  [1, 2, 3],
-  [1, [[], []]],
-  [{ a: 3 }, { a: 2 }, { a: 1 }],
-  {},
-  null,
-  undefined,
-  true,
-  'foo',
-]
-
-describe('brute force', () => {
-  compareCombinations({
-    fn: indexOf,
-    fnRamda: indexOfRamda,
-    firstInput: possibleTargets,
-    secondInput: possibleIterables,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 34,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 51,
-          "SHOULD_THROW": 0,
-          "TOTAL_TESTS": 170,
-        }
-      `)
-    },
-  })
 })

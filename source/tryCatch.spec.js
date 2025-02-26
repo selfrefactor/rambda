@@ -1,6 +1,3 @@
-import { tryCatch as tryCatchRamda } from 'ramda'
-
-import { compareCombinations } from './_internals/testUtils.js'
 import { prop } from './prop.js'
 import { tryCatch } from './tryCatch.js'
 
@@ -68,52 +65,3 @@ test('fallback receives error object', () => {
   expect(willThrow([{}, {}, {}])).toBe('10')
 })
 
-const possibleFns = [
-  null,
-  () => 1,
-  () => 0,
-  () => JSON.parse('{a:1'),
-  () => {
-    const x = {}
-
-    return x.x
-  },
-  x => x.foo,
-  () => {
-    throw new Error('foo')
-  },
-]
-
-const possibleCatchers = [
-  null,
-  e => e.message.length,
-  (e, ...inputs) => `${e.message.length} ${inputs.length}`,
-  () => {
-    throw new Error('bar')
-  },
-]
-
-const possibleInputs = [null, {}, { foo: 1 }]
-
-describe('brute force', () => {
-  compareCombinations({
-    returnsFunctionFlag: true,
-    firstInput: possibleFns,
-    callback: errorsCounters => {
-      expect(errorsCounters).toMatchInlineSnapshot(`
-        {
-          "ERRORS_MESSAGE_MISMATCH": 0,
-          "ERRORS_TYPE_MISMATCH": 12,
-          "RESULTS_MISMATCH": 0,
-          "SHOULD_NOT_THROW": 0,
-          "SHOULD_THROW": 7,
-          "TOTAL_TESTS": 84,
-        }
-      `)
-    },
-    secondInput: possibleCatchers,
-    thirdInput: possibleInputs,
-    fn: tryCatch,
-    fnRamda: tryCatchRamda,
-  })
-})

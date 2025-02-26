@@ -1,4 +1,5 @@
-export function _arity(n, fn) {
+export function 
+_arity(n, fn) {
   switch (n) {
     case 0:
       return function () {
