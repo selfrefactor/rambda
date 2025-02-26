@@ -55,6 +55,7 @@ it('within pipe requires explicit type', () => {
 -- mapObjIndexed ?
 -- forEachObjIndexed ?
 -- unnest
+-- converge
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
@@ -154,6 +155,8 @@ https://github.com/toss/es-toolkit - another FP library
 ABOVE IS DONE
 ===
 partitionAsync
- is removed - but there should be a way to have utility that turns any Ramda method to async function
+ is removed -
 
 also mapToObjectAsync 
+
+show how all these are not needed if used with pipedasync

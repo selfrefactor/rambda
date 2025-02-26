@@ -1,8 +1,5 @@
 import { apply } from './apply.js'
-import { converge } from './converge.js'
 import { identity } from './identity.js'
-import { prop } from './prop.js'
-import { sum } from './sum.js'
 import { unapply } from './unapply.js'
 
 test('happy', () => {
@@ -59,16 +56,4 @@ test('is the inverse of R.apply', () => {
     expect(f([a, b, c, d, e])).toEqual(g([a, b, c, d, e]))
     n += 1
   }
-})
-
-test('it works with converge', () => {
-  const fn = unapply(sum)
-  const convergeFn = converge(fn, [prop('a'), prop('b'), prop('c')])
-  const obj = {
-    a: 1337,
-    b: 42,
-    c: 1,
-  }
-  const expected = 1337 + 42 + 1
-  expect(convergeFn(obj)).toEqual(expected)
 })

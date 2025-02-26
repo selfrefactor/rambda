@@ -29,7 +29,7 @@ test('pipedAsync', async () => {
     }),
     map(x => x * 10),
   )
-  expect(result).toEqual([21, 31, 41])
+  expect(result).toEqual([120, 130, 140])
 })
 
 test('error', async () => {

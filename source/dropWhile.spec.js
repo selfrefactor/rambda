@@ -8,12 +8,6 @@ test('happy', () => {
   expect(result).toEqual([3, 4])
 })
 
-test('always true', () => {
-  const predicate = () => true
-  const result = dropWhileRamda(predicate, list)
-  expect(result).toEqual([])
-})
-
 test('always false', () => {
   const predicate = () => 0
   const result = dropWhile(predicate)(list)

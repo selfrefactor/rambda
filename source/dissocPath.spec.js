@@ -152,12 +152,12 @@ test('allow integer to be used as key for object', () => {
 })
 
 test('support remove null/undefined value path', () => {
-  eq(
+  expect(
     dissocPath(['c', 'd'], {
       a: 1,
       b: 2,
       c: null,
-    }),
+    })).toEqual(
     {
       a: 1,
       b: 2,

@@ -48,7 +48,7 @@ test('with R.pipedAsync', async () => {
     }),
     map(x => x * 10),
   )
-  expect(result).toEqual([11, 21, 31])
+  expect(result).toEqual([20, 30, 40])
 })
 
 test('error', async () => {

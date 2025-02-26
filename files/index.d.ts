@@ -675,26 +675,6 @@ export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
 
 /*
-Method: converge
-
-Explanation: Combines a converging function with multiple branching functions into a new function. When called, it applies the branching functions to the arguments and uses their results as inputs to the converging function to produce the final result.
-
-Example:
-
-```
-const result = R.converge(R.multiply)([ R.add(1), R.add(3) ])(2)
-// => 15
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function converge(after: ((...a: any[]) => any), fns: ((...x: any[]) => any)[]): (...y: any[]) => any;
-
-/*
 Method: curry
 
 Explanation: It expects a function as input and returns its curried version.
