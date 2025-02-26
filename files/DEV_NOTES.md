@@ -2,7 +2,7 @@
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy
 ===
-curryN 
+https://bundlejs.com
 ===
 https://rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
 ===

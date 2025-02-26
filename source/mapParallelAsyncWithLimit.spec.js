@@ -1,4 +1,4 @@
-import { composeAsync } from './composeAsync.js'
+import { pipedAsync } from './pipedAsync.js'
 import { delay } from './delay.js'
 import { mapAsync } from './mapAsync.js'
 import { mapParallelAsyncWithLimit } from './mapParallelAsyncWithLimit.js'
@@ -36,8 +36,8 @@ const fn = async x => {
 }
 
 test('with R.composeAsync', async () => {
-  const result = await composeAsync(mapParallelAsyncWithLimit(fn, 2), x =>
-    x.map(xx => xx + 1),
+  const result = await pipedAsync(, x =>
+    x.map(xx => xx + 1), mapParallelAsyncWithLimit(fn, 2),
   )([1, 2, 3, 4, 5, 6])
   expect(result).toEqual([3, 4, 5, 6, 7, 8])
 })

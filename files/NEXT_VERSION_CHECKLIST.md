@@ -56,6 +56,11 @@ it('within pipe requires explicit type', () => {
 -- forEachObjIndexed ?
 -- unnest
 -- converge
+-- juxt
+-- curry - still need remove all usages of it
+-- applySpec
+-- applyTo
+-- unapply
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 

@@ -48,11 +48,6 @@ type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
     ? T extends undefined ? undefined : T[Extract<P, keyof T>]
     : undefined;
 
-type ValueOfRecord<R> =
-  R extends Record<any, infer T>
-  ? T
-  : never;
-
 interface KeyValuePair<K, V> extends Array<K | V> {
   0: K;
   1: V;
@@ -140,7 +135,7 @@ Notes: It doesn't work with strings, as the inputs are parsed to numbers before 
 export function add(a: number): (b: number) => number;
 
 /*
-Method: adjust
+Method: replaceItemAtIndex
 
 Explanation:
 
@@ -151,7 +146,7 @@ Example:
 ```
 const result = R.piped(
 	[1, 2, 3],
-	R.adjust(1, R.add(1))
+	R.replaceItemAtIndex(1, R.add(1))
 ) // => [1, 3, 3]
 ```
 
@@ -161,7 +156,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function adjust<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
+export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 /*
 Method: all
@@ -196,11 +191,11 @@ Explanation: It returns `true`, if all functions of `predicates` return `true`, 
 Example:
 
 ```
+const list = [[1, 2, 3, 4], [3, 4, 5]]
 const result = R.piped(
-	[[1, 2, 3, 4], [3, 4, 5]],
+	list,
 	R.filter(R.allPass([R.includes(2), R.includes(3)]))
-)
-// => [[2, 3, 4]]
+) // => [[1, 2, 3, 4]]
 ```
 
 Categories: Logic
@@ -361,35 +356,6 @@ export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
 export function append<T>(el: T, list: T[]): T[];
 export function append<T>(el: T, list: readonly T[]): T[];
-
-/*
-Method: applySpec
-
-Explanation: 
-
-Example:
-
-```
-const fn = R.applySpec({
-  sum: R.add,
-  nested: { mul: R.multiply }
-})
-const result = fn(2, 4) 
-// => { sum: 6, nested: { mul: 8 } }
-```
-
-Categories: Logic
-
-Notes: The currying in this function works best with functions with 4 arguments or less. (arity of 4)
-
-*/
-// @SINGLE_MARKER
-export function applySpec<Spec extends Record<PropertyKey, AnyFunction>>(
-  spec: Spec
-): (
-  ...args: Parameters<ValueOfRecord<Spec>>
-) => { [Key in keyof Spec]: ReturnType<Spec[Key]> };
-export function applySpec<T>(spec: any): (...args: unknown[]) => T;
 
 /*
 Method: assoc
@@ -660,7 +626,7 @@ Example:
 
 ```
 R.concat([1, 2])([3, 4]) // => [1, 2, 3, 4]
-R.concat('foo', 'bar') // => 'foobar'
+R.concat('foo')('bar') // => 'foobar'
 ```
 
 Categories: List, String
@@ -669,33 +635,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function concat<T>(x: T[], y: T[]): T[];
 export function concat<T>(x: T[]): (y: T[]) => T[];
-export function concat(x: string, y: string): string;
 export function concat(x: string): (y: string) => string;
-
-/*
-Method: curry
-
-Explanation: It expects a function as input and returns its curried version.
-
-Example:
-
-```
-const fn = (a, b, c) => a + b + c
-const curried = R.curry(fn)
-const sum = curried(1,2)
-
-const result = sum(3) // => 6
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function curry(fn: AnyFunction): (...a: any[]) => any;
 
 /*
 Method: dec
@@ -798,7 +739,7 @@ Explanation:
 Example:
 
 ```
-const result = R.dissocPath(['a', 'b'], {a: {b: 1, c: 2}})
+const result = R.dissocPath(['a', 'b'])({a: {b: 1, c: 2}})
 // => {a: {c: 2}}
 ```
 
@@ -809,7 +750,6 @@ Notes: pipe
 */
 // @SINGLE_MARKER
 export function dissocPath<T>(path: Path): (obj: unknown) => T;
-export function dissocPath<T>(path: Path, obj: unknown): T;
 
 /*
 Method: divide
@@ -819,7 +759,7 @@ Explanation:
 Example:
 
 ```
-R.divide(71, 100) // => 0.71
+R.divide(71)(100) // => 0.71
 ```
 
 Categories: Number
@@ -828,7 +768,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function divide(x: number, y: number): number;
 export function divide(x: number): (y: number) => number;
 
 /*
@@ -970,25 +909,6 @@ Notes: It doesn't handle cyclical data structures and functions
 // @SINGLE_MARKER
 export function equals<T>(x: T, y: T): boolean;
 export function equals<T>(x: T): (y: T) => boolean;
-
-/*
-Method: F
-
-Explanation:
-
-Example:
-
-```
-F() // => false
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function F(): boolean;
 
 /*
 Method: filter
@@ -1166,31 +1086,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function flatten<T>(list: any[]): T[];
-
-/*
-Method: flip
-
-Explanation: It returns function which calls `fn` with exchanged first and second argument.
-
-Example:
-
-```
-const subtractFlip = R.flip(R.subtract)
-
-const result = [
-  subtractFlip(1,7),
-  R.subtract(1, 6)
-]  
-// => [6, -6]
-```
-
-Categories: Logic
-
-Notes: Rambda's **flip** will throw if the arity of the input function is greater or equal to 5.
-
-*/
-// @SINGLE_MARKER
-export function flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
 
 /*
 Method: fromPairs
@@ -4928,51 +4823,6 @@ export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, o
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
 /*
-Method: unapply
-
-Explanation: It calls a function `fn` with the list of values of the returned function. 
-
-`R.unapply` is the opposite of `R.apply` method.
-
-Example:
-
-```
-R.unapply(JSON.stringify)(1, 2, 3)
-//=> '[1,2,3]'
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function unapply<T = any>(fn: (args: any[]) => T): (...args: any[]) => T;
-
-/*
-Method: apply
-
-Explanation: It applies function `fn` to the list of arguments. 
-
-This is useful for creating a fixed-arity function from a variadic function. `fn` should be a bound function if context is significant.
-
-Example:
-
-```
-const result = R.apply(Math.max, [42, -Infinity, 1337])
-// => 1337
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function apply<T = any>(fn: (...args: any[]) => T, args: any[]): T;
-export function apply<T = any>(fn: (...args: any[]) => T): (args: any[]) => T;
-
-/*
 Method: mergeWith
 
 Explanation: It takes two objects and a function, which will be used when there is an overlap between the keys.
@@ -5007,34 +4857,6 @@ Notes:
 // @SINGLE_MARKER
 export function mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T;
 export function mergeWith<T>(fn: (x: any, z: any) => any, a: object, b: object): T;
-
-/*
-Method: juxt
-
-Explanation: It applies list of function to a list of inputs.
-
-Example:
-
-```
-const fn = juxt([ Math.min, Math.max, Math.min ])
-const result = fn(
-  3, 4, 9, -3
-)
-// => [-3, 9, -3]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
-export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
-export function juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
-export function juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
-export function juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
-export function juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
 /*
 Method: count
@@ -5300,120 +5122,6 @@ export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
-
-/*
-Method: addIndex
-
-Explanation:
-
-Example:
-
-```
-const result = R.addIndex(R.map)((val, idx) => val + idx + 1, [1, 2, 3])
-// => [2, 4, 6]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function addIndex(originalFn: any): (fn: any) => (list: any[]) => any[];
-export function addIndex(originalFn: any): (fn: any, list: any[]) => any[];
-
-/*
-Method: ap
-
-Explanation: It takes a list of functions and a list of values. Then it returns a list of values obtained by applying each function to each value.
-
-Example:
-
-```
-const result = R.ap(
-  [
-    x => x + 1,
-    x => x + 2,
-  ],
-  [1, 2, 3]
-)
-// => [2, 3, 4, 3, 4, 5]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function ap<T, U>(fns: Array<(a: T) => U>[], vs: T[]): U[];
-export function ap<T, U>(fns: Array<(a: T) => U>): (vs: T[]) => U[];
-export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
-
-/*
-Method: addIndexRight
-
-Explanation:
-
-Example:
-
-```
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function addIndexRight(originalFn: any): (fn: any) => (list: any[]) => any[];
-export function addIndexRight(originalFn: any): (fn: any, list: any[]) => any[];
-
-/*
-Method: aperture
-
-Explanation: It returns a new list, composed of consecutive `n`-tuples from a `list`.
-
-Example:
-
-```
-const result = R.aperture(2, [1, 2, 3, 4])
-// => [[1, 2], [2, 3], [3, 4]]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function aperture<N extends number, T>(n: N, list: T[]): Array<Tuple<T, N>> | [];
-export function aperture<N extends number>(n: N): <T>(list: T[]) => Array<Tuple<T, N>> | [];
-
-
-/*
-Method: applyTo
-
-Explanation:
-
-Example:
-
-```
-const result = R.applyTo(
-  1,
-  x => x + 1
-)
-// => 2
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function applyTo<T, U>(el: T, fn: (t: T) => U): U;
-export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
 
 /*
 Method: ascend
