@@ -464,32 +464,6 @@ Notes:
 export function flatMap<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
 /*
-Method: clamp
-
-Explanation: Restrict a number `input` to be within `min` and `max` limits.
-If `input` is bigger than `max`, then the result is `max`.
-If `input` is smaller than `min`, then the result is `min`.
-
-Example:
-
-```
-const result = [
-  R.clamp(0, 10)(5), 
-  R.clamp(0, 10)(-1),
-  R.clamp(0, 10)(11)
-]
-// => [5, 0, 10]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function clamp(min: number, max: number): (input: number) => number;
-
-/*
 Method: clone
 
 Explanation: It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
@@ -1693,29 +1667,6 @@ Notes:
 // @SINGLE_MARKER
 export function lastIndexOf<T>(target: T, list: T[]): number;
 export function lastIndexOf<T>(target: T): (list: T[]) => number;
-
-/*
-Method: length
-
-Explanation: It returns the `length` property of list or string `input`.
-
-Example:
-
-```
-const result = [
-  R.length([1, 2, 3, 4]),
-  R.length('foo'),
-]
-// => [4, 3]
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function length<T>(input: T[]): number;
 
 /*
 Method: lens
@@ -5164,30 +5115,6 @@ Notes:
 // @SINGLE_MARKER
 export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
-
-/*
-Method: call
-
-Explanation:
-
-Example:
-
-```
-const result = R.call(
-  (a, b) => a + b,
-  1,
-  2
-)
-// => 3
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function call<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): ReturnType<T>;
 
 /*
 Method: sortingFn

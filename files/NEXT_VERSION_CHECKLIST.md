@@ -55,9 +55,12 @@ it('within pipe requires explicit type', () => {
 -- mapObjIndexed ?
 -- forEachObjIndexed ?
 -- unnest
+-- ap
+-- length
+-- call
 -- converge
 -- juxt
--- curry - still need remove all usages of it
+-- curry
 -- applySpec
 -- applyTo
 -- unapply
@@ -159,9 +162,13 @@ https://github.com/toss/es-toolkit - another FP library
 ===
 ABOVE IS DONE
 ===
+new version of curry that works with custom function so it works with R.piped
+===
 partitionAsync
  is removed -
 
 also mapToObjectAsync 
 
 show how all these are not needed if used with pipedasync
+
+move glue to string-fn

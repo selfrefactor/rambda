@@ -1,4 +1,4 @@
-import { delay, filterAsync } from 'rambda'
+import { delay, filterAsync } from 'rambdax'
 
 const list = ['a', 'bc', 'def']
 const predicate = async (x: string) => {
