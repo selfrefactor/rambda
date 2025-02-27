@@ -366,4 +366,8 @@ It makes a Github release. It expects user to be logged with Github.
 yarn build:step && WITH_INITIAL_STEP=ON METHOD=modify yarn run:ramda:test
 
 build output and run ramda test agains rambda method
-
+===
+export type MergeInsertions<T> =
+T extends object
+	? { [K in keyof T]: MergeInsertions<T[K]> }
+	: T		

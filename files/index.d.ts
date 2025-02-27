@@ -30,20 +30,11 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
       : never
     : never;
 
-export type MergeInsertions<T> =
-T extends object
-	? { [K in keyof T]: MergeInsertions<T[K]> }
-	: T		
 
-export type IndexedIterator<T, U> = (x: T, i: number) => U;
-export type ObjectIterator<T, U> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => U;
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
 export type Path = Array<number | string> | string;
 export type Predicate<T> = (x: T) => boolean;
-export type IndexedPredicate<T> = (x: T, i: number) => boolean;
-export type ObjectPredicate<T> = (x: T, prop: string, inputObj: Record<PropertyKey, T>) => boolean;
-type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
     ? T extends undefined ? undefined : T[Extract<P, keyof T>]
     : undefined;
@@ -92,19 +83,6 @@ type EvolveValue<V, E> =
 
 type AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
-
-type RegExpReplacerFn =
-  | ((m: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, offset: number, s: string, groups?: Record<string, string>) => string)
-  | ((m: string, p1: string, p2: string, p3: string, p4: string, p5: string, p6: string, p7: string, p8: string, p9: string, offset: number, s: string, groups?: Record<string, string>) => string)
-type RegExpReplacer = string | RegExpReplacerFn
 
 export type IdentityFunction<T> = (x: T) => T;
 
@@ -1112,31 +1090,6 @@ Notes:
 // @SINGLE_MARKER
 export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
 export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: T[]): Partial<Record<K, T[]>>;
-
-/*
-Method: groupWith
-
-Explanation: It returns separated version of list or string `input`, where separation is done with equality `compareFn` function.
-
-Example:
-
-```
-const isConsecutive = (x, y) => x === y
-const list = [1, 2, 2, 1, 1, 2]
-
-const result = R.groupWith(isConsecutive, list)
-// => [[1], [2,2], [1,1], [2]]
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean): (input: T[]) => (T[])[];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: T[]): (T[])[];
-export function groupWith<T>(compareFn: (x: T, y: T) => boolean, input: string): string[];
 
 /*
 Method: has
@@ -2482,30 +2435,6 @@ export function objOf<T, K extends PropertyKey>(key: K, value: T) : { [P in K]: 
 export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { [P in K]: T };
 
 /*
-Method: once
-
-Explanation: It returns a function, which invokes only once `fn` function.
-
-Example:
-
-```
-let result = 0
-const addOnce = R.once((x) => result = result + x)
-
-addOnce(1)
-addOnce(1)
-// => 1
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function once<T extends AnyFunction, C = unknown>(fn: T, context?: C): T;
-
-/*
 Method: omit
 
 Explanation: It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -3122,10 +3051,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
-export function prop<V>(p: keyof never, value: unknown): V;
-export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
-export function prop<V>(p: keyof never): (value: unknown) => V;
+export function prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
+export function prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 
 /*
 Method: propEq
@@ -3367,10 +3294,11 @@ Explanation: It replaces `strOrRegex` found in `str` with `replacer`.
 Example:
 
 ```
-const strOrRegex = /o/g
-
-const result = R.replace(strOrRegex, '|0|', 'foo')
-// => 'f|0||0|'
+const result = [
+	R.replace('o', '|1|')('foo'),
+	R.replace(/o/g, '|1|')('foo'),
+]
+// => ['f|1|o', 'f|1||1|']
 ```
 
 Categories: String
@@ -3379,9 +3307,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer, str: string): string;
-export function replace(strOrRegex: RegExp | string, replacer: RegExpReplacer): (str: string) => string;
-export function replace(strOrRegex: RegExp | string): (replacer: RegExpReplacer) => (str: string) => string;
+export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
 
 /*
 Method: reverse
@@ -5224,132 +5150,6 @@ Notes:
 export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
 
 /*
-Method: gt
-
-Explanation:
-
-Example:
-
-```
-const result = [R.gt(2, 1), R.gt(2, 3)]
-// => [true, false]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function gt<T, U>(x: T, y: U): boolean;
-export function gt<T, U>(x: T): (y: U) => boolean;
-
-/*
-Method: gte
-
-Explanation:
-
-Example:
-
-```
-const result = [R.gte(2, 1), R.gte(2, 2), R.gte(2, 3)]
-// => [true, true, false]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function gte<T, U>(x: T, y: U): boolean;
-export function gte<T, U>(x: T): (y: U) => boolean;
-
-/*
-Method: lt
-
-Explanation:
-
-Example:
-
-```
-const result = [R.lt(2, 1), R.lt(2, 3)]
-// => [false, true]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function lt<T, U>(x: T, y: U): boolean;
-export function lt<T, U>(x: T): (y: U) => boolean;
-
-/*
-Method: lte
-
-Explanation:
-
-Example:
-
-```
-const result = [R.lte(2, 1), R.lte(2, 2), R.lte(2, 3)]
-// => [false, true, true]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function lte<T, U>(x: T, y: U): boolean;
-export function lte<T, U>(x: T): (y: U) => boolean;
-
-/*
-Method: reduceBy
-
-Explanation:
-
-Example:
-
-```
-const result = R.reduceBy(
-  (acc, elem) => acc + elem,
-  0,
-  x => x > 2 ? 'big' : 'small',
-  [1, 2, 3, 4, 5]
-)
-// => { big: 12, small: 3 }
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function reduceBy<T, TResult>(
-  valueFn: (acc: TResult, elem: T) => TResult,
-): (a: TResult, b: (elem: T) => string, c: T[]) => { [index: string]: TResult }
-export function reduceBy<T, TResult>(
-  valueFn: (acc: TResult, elem: T) => TResult,
-  acc: TResult,
-): (a: (elem: T) => string, b: T[]) => { [index: string]: TResult }
-export function reduceBy<T, TResult>(
-  valueFn: (acc: TResult, elem: T) => TResult,
-  acc: TResult,
-  keyFn: (elem: T) => string,
-): (list: T[]) => { [index: string]: TResult };
-export function reduceBy<T, TResult>(
-  valueFn: (acc: TResult, elem: T) => TResult,
-  acc: TResult,
-  keyFn: (elem: T) => string,
-  list: T[],
-): { [index: string]: TResult };
-
-/*
 Method: hasIn
 
 Explanation:
@@ -5401,7 +5201,7 @@ export function innerJoin<T1, T2>(
 export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
 
 /*
-Method: insert
+Method: insertAtIndex
 
 Explanation:
 
@@ -5409,7 +5209,7 @@ Example:
 
 ```
 const list = ['a', 'b', 'c', 'd', 'e'];
-const result = R.insert(2, 'x', list);
+const result = R.insertAtIndex(2, 'x', list);
 // => ['a', 'b', 'x', 'c', 'd', 'e']
 ```
 
@@ -5419,32 +5219,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function insert(index: number): <T>(itemToInsert: T, list: T[]) => T[];
-export function insert<T>(index: number, itemToInsert: T): (list: T[]) => T[];
-export function insert<T>(index: number, itemToInsert: T, list: T[]): T[];
-
-/*
-Method: insertAll
-
-Explanation:
-
-Example:
-
-```
-const list = ['a', 'b', 'c', 'd', 'e'];
-const result = R.insertAll(2, ['x', 'y', 'z'], list);
-// => ['a', 'b', 'x', 'y', 'z', 'c', 'd', 'e']
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function insertAll(index: number): <T>(itemsToInsert: T[], list: T[]) => T[];
-export function insertAll<T>(index: number, itemsToInsert: T[]): (list: T[]) => T[];
-export function insertAll<T>(index: number, itemsToInsert: T[], list: T[]): T[];
+export function insertAtIndex<T>(index: number, itemToInsert: T): (list: T[]) => T[];
 
 /*
 Method: isNotNil
@@ -5539,29 +5314,6 @@ Notes:
 // @SINGLE_MARKER
 export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
 export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
-
-/*
-Method: mergeDeepLeft
-
-Explanation:
-
-Example:
-
-```
-const result = R.mergeDeepLeft(
-  {a: {b: 1}},
-  {a: {b: 2, c: 3}}
-)
-// => {a: {b: 1, c: 3}}
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeDeepLeft<Output>(newProps: object): (target: object) => Output;
 
 /*
 Method: piped
