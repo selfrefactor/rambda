@@ -53,7 +53,8 @@ export const init = async () => {
 		OUTPUT_LINT_OUTPUTS,
 	].forEach(async (file) => {
 		if(existsSync(file)) return
-		await exec(`mkdir -p ${dirname(file)}`)
+		await exec(`mkdir -p ${__dirname}/outputs`)
+
 		await exec(`touch ${file}`)
 	})
 }
