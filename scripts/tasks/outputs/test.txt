@@ -1,13 +1,15 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
-stdout | source/map.spec.js > happy
-[ [32m'1'[39m, [32m'2'[39m, [32m'3'[39m ]
+ ❯ source/props.spec.js (3 tests | 2 failed) 17ms
+   × happy 10ms
+     → expected [Function] to deeply equal [ 1, undefined ]
+   ✓ curried
+   × wrong input 6ms
+     → expected [Function] to throw error including 'propsToPick is not a list' but got 'Cannot read properties of null (readi…'
 
- ✓ source/map.spec.js (1 test) 5ms
-
- Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  21:20:21
-   Duration  455ms (transform 44ms, setup 0ms, collect 15ms, tests 5ms, environment 0ms, prepare 112ms)
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  22:33:25
+   Duration  477ms (transform 31ms, setup 0ms, collect 15ms, tests 17ms, environment 0ms, prepare 106ms)
 

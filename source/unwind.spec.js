@@ -18,6 +18,6 @@ test('happy', () => {
       c: [3, 4],
     },
   ]
-  const result = unwind('b', obj)
+  const result = unwind('b')(obj)
   expect(result).toEqual(expected)
 })

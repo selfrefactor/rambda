@@ -64,11 +64,12 @@ it('within pipe requires explicit type', () => {
 -- applySpec
 -- applyTo
 -- unapply
+-- update
 
 Rename:
 
 -- insertAtIndex -> insert
--- replaceItemAtIndex -> update
+-- replaceItemAtIndex -> adjust 
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
@@ -177,3 +178,5 @@ also mapToObjectAsync
 show how all these are not needed if used with pipedasync
 
 move glue to string-fn
+
+utils such as todecimal can be moved to R.util

@@ -3765,31 +3765,6 @@ export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /*
-Method: update
-
-Explanation: It returns a copy of `list` with updated element at `index` with `newValue`.
-
-Example:
-
-```
-const index = 2
-const newValue = 88
-const list = [1, 2, 3, 4, 5]
-
-const result = R.update(index, newValue, list)
-// => [1, 2, 88, 4, 5]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function update<T>(index: number, newValue: T, list: T[]): T[];
-export function update<T>(index: number, newValue: T): (list: T[]) => T[];
-
-/*
 Method: values
 
 Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
@@ -4434,7 +4409,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<T, S extends keyof T>(prop: S, obj: T): Omit<T, S> & { [K in S]: T[S][number] };
 export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
 
 /*
