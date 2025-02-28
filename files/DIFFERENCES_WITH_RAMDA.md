@@ -13,13 +13,15 @@ From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order 
 
 - Naming of methods that doesn't match developer's expectation, such as `R.chain`, which should be called `flatMap`.
 
-- Methods that don't follow naming conventions, such as `R.mapObjIndexed`.
+- Naming of methods is sometimes too generic to be remembered such as `R.update`/`R.insert`.
 
 ## The goals of Rambda are
 
 - Build a library that can be useful for TypeScript developers in the context of `R.piped` chain.
 
 - Methods that are simply to remember only by its name. Complex logic shouldn't be part of utility library, but part of your codebase.
+
+- Keep only methods which are both useful and which behaviour is obvious from its name. For example, `R.innerJoin` is kept, but `R.identical`,`R.move` is removed. Methods such as `R.toLower`, `R.length` provide little value. Such method are omitted from Rambda on purpose.
 
 ## Differences
 

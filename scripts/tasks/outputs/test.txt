@@ -1,10 +1,13 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/unapply.spec.js (5 tests) 14ms
+stdout | source/map.spec.js > happy
+[ [32m'1'[39m, [32m'2'[39m, [32m'3'[39m ]
+
+ ✓ source/map.spec.js (1 test) 5ms
 
  Test Files  1 passed (1)
-      Tests  5 passed (5)
-   Start at  23:31:57
-   Duration  508ms (transform 87ms, setup 0ms, collect 77ms, tests 14ms, environment 0ms, prepare 149ms)
+      Tests  1 passed (1)
+   Start at  21:20:21
+   Duration  455ms (transform 44ms, setup 0ms, collect 15ms, tests 5ms, environment 0ms, prepare 112ms)
 

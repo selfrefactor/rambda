@@ -777,39 +777,6 @@ export function dropLast<T>(howMany: number, input: T[]): T[];
 export function dropLast<T>(howMany: number, input: readonly T[]): T[];
 
 /*
-Method: either
-
-Explanation: It returns a new `predicate` function from `firstPredicate` and `secondPredicate` inputs.
-
-This `predicate` function will return `true`, if any of the two input predicates return `true`.
-
-Example:
-
-```
-const firstPredicate = x => x > 10
-const secondPredicate = x => x % 2 === 0
-const predicate = R.either(firstPredicate, secondPredicate)
-
-const result = [
-  predicate(15),
-  predicate(8),
-  predicate(7),
-]
-// => [true, true, false]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function either<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 | RT2;
-export function either<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
-export function either<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 | RT2;
-export function either<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
-
-/*
 Method: endsWith
 
 Explanation: When iterable is a string, then it behaves as `String.prototype.endsWith`.
@@ -1181,54 +1148,6 @@ export function head<T>(listOrString: T): T extends string ? string :
 						T extends unknown[] ? T[number] : 
 							undefined;
 
-/*
-Method: identical
-
-Explanation: It returns `true` if its arguments `a` and `b` are identical.
-
-Otherwise, it returns `false`. 
-
-Example:
-
-```
-const objA = {a: 1};
-const objB = {a: 1};
-R.identical(objA, objA); // => true
-R.identical(objA, objB); // => false
-R.identical(1, 1); // => true
-R.identical(1, '1'); // => false
-R.identical([], []); // => false
-R.identical(0, -0); // => false
-R.identical(NaN, NaN); // => true
-```
-
-Categories: Logic
-
-Notes: Values are identical if they reference the same memory. `NaN` is identical to `NaN`; `0` and `-0` are not identical.
-
-*/
-// @SINGLE_MARKER
-export function identical<T>(x: T, y: T): boolean;
-export function identical<T>(x: T): (y: T) => boolean;
-
-/*
-Method: identity
-
-Explanation: It just passes back the supplied `input` argument.
-
-Example:
-
-```
-R.identity(7) // => 7
-```
-
-Categories:
-
-Notes: Logic
-
-*/
-// @SINGLE_MARKER
-export function identity<T>(input: T): T;
 
 /*
 Method: ifElse
@@ -1264,25 +1183,6 @@ export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /*
-Method: inc
-
-Explanation: It increments a number.
-
-Example:
-
-```
-R.inc(1) // => 2
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function inc(x: number): number;
-
-/*
 Method: includes
 
 Explanation: If `input` is string, then this method work as native `String.includes`.
@@ -1305,9 +1205,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes<T extends string>(valueToFind: T, input: string): boolean;
 export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function includes<T>(valueToFind: T, input: T[]): boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /*
@@ -1437,9 +1335,9 @@ Example:
 
 ```
 const list = [ 0, 1, 2, 3 ]
-const separator = '|'
+const separator = 10
 const result = intersperse(separator, list)
-// => [0, '|', 1, '|', 2, '|', 3]
+// => [0, 10, 1, 10, 2, 10, 3]
 ```
 
 Categories: List
@@ -1460,8 +1358,8 @@ Example:
 
 ```
 const result = [
-  R.is(String, 'foo'),  
-  R.is(Array, 1)
+  R.is(String)('foo'),  
+  R.is(Array)(1)
 ]
 // => [true, false]
 ```
@@ -1542,25 +1440,6 @@ Notes:
 // @SINGLE_MARKER
 export function join<T>(glue: string, list: T[]): string;
 export function join<T>(glue: string): (list: T[]) => string;
-
-/*
-Method: keys
-
-Explanation: It applies `Object.keys` over `x` and returns its keys.
-
-Example:
-
-```
-R.keys({a:1, b:2})  // => ['a', 'b']
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function keys<T extends object>(x: T): Array<keyof T>;
 
 /*
 Method: last
@@ -1883,7 +1762,7 @@ export function map<T extends IterableContainer, U>(
 ) : Mapped<T, U>;
 
 /*
-Method: mapObjIndexed
+Method: mapObject
 
 Explanation: It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
 
@@ -1896,7 +1775,7 @@ const fn = (val, prop) => {
 
 const obj = {a: 1, b: 2}
 
-const result = R.mapObjIndexed(fn, obj)
+const result = R.mapObject(fn, obj)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
@@ -1906,7 +1785,7 @@ Notes: ?
 
 */
 // @SINGLE_MARKER
-export function mapObjIndexed<T, TResult>(
+export function mapObject<T, TResult>(
 	fn: (
 		value: T,
 		key: string,
@@ -2132,59 +2011,6 @@ export function mergeAll<T>(list: object[]): T;
 export function mergeAll(list: object[]): object;
 
 /*
-Method: mergeDeepRight
-
-Explanation: Creates a new object with the own properties of the first object merged with the own properties of the second object. If a key exists in both objects:
-
-  - and both values are objects, the two values will be recursively merged
-  - otherwise the value from the second object will be used.
-
-Example:
-
-```
-const x = { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
-const y = { age: 40, contact: { email: 'baa@example.com' }}
-
-const result = R.mergeDeepRight(x, y)
-const expected = { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
-// => `result` is equal to `expected`
-```
-
-Categories: Object
-
-Notes: Explanation and example are taken from `Ramda` documentation.
-
-*/
-// @SINGLE_MARKER
-export function mergeDeepRight<Output>(target: object, newProps: object): Output;
-export function mergeDeepRight<Output>(target: object): (newProps: object) => Output;
-
-
-/*
-Method: mergeLeft
-
-Explanation: Same as `R.merge`, but in opposite direction.
-
-Example:
-
-```
-const result = R.mergeLeft(
-  {a: 10},
-  {a: 1, b: 2}
-)
-// => {a:10, b: 2}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeLeft<Output>(newProps: object, target: object): Output;
-export function mergeLeft<Output>(newProps: object): (target: object) => Output;
-
-/*
 Method: min
 
 Explanation: It returns the lesser value between `x` and `y`.
@@ -2205,7 +2031,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function min<T extends Ord>(x: T, y: T): T;
 export function min<T extends Ord>(x: T): (y: T) => T;
 
 /*
@@ -2227,96 +2052,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function minBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function minBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
-
-
-/*
-Method: modulo
-
-Explanation: Curried version of `x%y`.
-
-Example:
-
-```
-R.modulo(17, 3) // => 2
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function modulo(x: number, y: number): number;
-export function modulo(x: number): (y: number) => number;
-
-/*
-Method: move
-
-Explanation: It returns a copy of `list` with exchanged `fromIndex` and `toIndex` elements.
-
-Example:
-
-```
-const list = [1, 2, 3]
-const result = R.move(0, 1, list)
-// => [2, 1, 3]
-```
-
-Categories: List
-
-Notes: Rambda.move doesn't support negative indexes - it throws an error.
-
-*/
-// @SINGLE_MARKER
-export function move<T>(fromIndex: number, toIndex: number, list: T[]): T[];
-export function move(fromIndex: number, toIndex: number): <T>(list: T[]) => T[];
-export function move(fromIndex: number): {
-    <T>(toIndex: number, list: T[]): T[];
-    (toIndex: number): <T>(list: T[]) => T[];
-};
-
-/*
-Method: multiply
-
-Explanation: Curried version of `x*y`.
-
-
-Example:
-
-```
-R.multiply(2, 4) // => 8
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function multiply(x: number, y: number): number;
-export function multiply(x: number): (y: number) => number;
-
-/*
-Method: negate
-
-Explanation:
-
-Example:
-
-```
-R.negate(420)// => -420
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function negate(x: number): number;
 
 /*
 Method: none
@@ -2329,7 +2065,7 @@ Example:
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > 6
 
-const result = R.none(predicate, arr)
+const result = R.none(predicate)(arr)
 // => true
 ```
 
@@ -2339,27 +2075,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function none<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
-
-/*
-Method: not
-
-Explanation: It returns a boolean negated version of `input`.
-
-Example:
-
-```
-R.not(false) // true
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function not(input: any): boolean;
 
 /*
 Method: notEmpty
@@ -2431,7 +2147,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function objOf<T, K extends PropertyKey>(key: K, value: T) : { [P in K]: T };
 export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { [P in K]: T };
 
 /*
@@ -3806,48 +3521,6 @@ export function times<T>(fn: (i: number) => T, howMany: number): T[];
 export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 /*
-Method: toLower
-
-Explanation:
-
-Example:
-
-```
-R.toLower('FOO')
-// => 'foo'
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toLower<S extends string>(str: S): Lowercase<S>;
-export function toLower(str: string): string;
-
-/*
-Method: toUpper
-
-Explanation:
-
-Example:
-
-```
-R.toUpper('foo')
-// => 'FOO'
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toUpper<S extends string>(str: S): Uppercase<S>;
-export function toUpper(str: string): string;
-
-/*
 Method: toPairs
 
 Explanation: It transforms an object to a list.
@@ -3874,49 +3547,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function toPairs<T extends {}>(data: T): Array<Entry<T>>;
-
-/*
-Method: toString
-
-Explanation:
-
-Example:
-
-```
-R.toString([1, 2]) 
-// => '1,2'
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toString(x: unknown): string;
-
-/*
-Method: transpose
-
-Explanation:
-
-Example:
-
-```
-const list = [[10, 11], [20], [], [30, 31, 32]]
-const expected = [[10, 20, 30], [11, 31], [32]]
-
-const result = R.transpose(list)
-// => `result` is equal to `expected`
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function transpose<T>(list: (T[])[]): (T[])[];
 
 /*
 Method: trim
@@ -5181,7 +4811,7 @@ Example:
 const list1 = [1, 2, 3, 4, 5]
 const list2 = [4, 5, 6]
 const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1, list2)
+const result = R.innerJoin(predicate, list1)(list2)
 // => [4, 5]
 ```
 
@@ -5293,27 +4923,6 @@ Notes:
 // @SINGLE_MARKER
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
-
-/*
-Method: swap
-
-Explanation:
-
-Example:
-
-```
-const result = R.swap(1, 2, [1, 2, 3])
-// => [1, 3, 2]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function swap(indexA: number, indexB: number): <T>(list: T[]) => T[];
-export function swap<T>(indexA: number, indexB: number, list: T[]): T[];
 
 /*
 Method: piped
