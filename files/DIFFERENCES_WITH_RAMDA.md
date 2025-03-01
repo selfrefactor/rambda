@@ -13,7 +13,7 @@ From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order 
 
 - Naming of methods that doesn't match developer's expectation, such as `R.chain`, which should be called `flatMap`.
 
-- Naming of methods is sometimes too generic to be remembered such as `R.update`/`R.insert`.
+- Naming of methods is sometimes too generic to be remembered such as `R.update`, `R.modify`.
 
 ## The goals of Rambda are
 

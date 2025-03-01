@@ -287,8 +287,6 @@ Notes:
 // @SINGLE_MARKER
 export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
-export function append<T>(el: T, list: T[]): T[];
-export function append<T>(el: T, list: readonly T[]): T[];
 
 /*
 Method: assoc
@@ -298,7 +296,7 @@ Explanation: It makes a shallow clone of `obj` with setting or overriding the pr
 Example:
 
 ```
-R.assoc('c', 3, {a: 1, b: 2})
+R.assoc('c', 3)({a: 1, b: 2})
 // => {a: 1, b: 2, c: 3}
 ```
 
@@ -310,14 +308,7 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<K extends PropertyKey>(prop: K): {
-  <T>(val: T): <U extends Record<K, T>>(obj: U) => U;
-  <U extends Record<K, T>, T>(val: T, obj: U): U;
-};
-// export function assoc<T, K extends PropertyKey>(prop: K, val: T): {
-//   <U>(obj: U): U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
-// };
-export function assoc<U, K extends keyof U, T extends U[K]>(prop: K, val: T, obj: U): U;
+export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) => U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>
 
 /*
 Method: assocPath

@@ -1,4 +1,4 @@
-import { allType } from 'rambda'
+import { allType } from 'rambdax'
 
 describe('R.allType', () => {
   it('happy', () => {

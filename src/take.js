@@ -1,12 +1,12 @@
-import baseSlice from './_internals/baseSlice.js'
+import {baseSlice} from './_internals/baseSlice.js'
 
-export function take(howMany, listOrString){
-  if (arguments.length === 1)
-    return _listOrString => take(howMany, _listOrString)
-  if (howMany < 0) return listOrString.slice()
-  if (typeof listOrString === 'string') return listOrString.slice(0, howMany)
+export function take(numberOfItems){
+	return input => {
+  if (howMany < 0) return input.slice()
+  if (typeof input === 'string') return input.slice(0, howMany)
 
   return baseSlice(
-    listOrString, 0, howMany
+    input, 0, howMany
   )
+}
 }
