@@ -167,6 +167,7 @@ export function isValid({ input, schema }) {
                 input: inputPropInstance,
                 schema: currentRule,
               }),
+						)(
             inputProp,
           )
           boom(isValidResult)
@@ -182,6 +183,7 @@ export function isValid({ input, schema }) {
           const isInvalidResult = any(
             inputPropInstance =>
               type(inputPropInstance).toLowerCase() !== actualRule.toLowerCase(),
+					)(
             inputProp,
           )
           boom(!isInvalidResult)

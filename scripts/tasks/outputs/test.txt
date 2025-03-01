@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ❯ source/merge.spec.js (0 test)
+ ✓ source/isValid.spec.js (46 tests) 14ms
 
- Test Files  1 failed (1)
-      Tests  no tests
-   Start at  22:20:46
-   Duration  388ms (transform 32ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 94ms)
+ Test Files  1 passed (1)
+      Tests  46 passed (46)
+   Start at  22:54:37
+   Duration  442ms (transform 76ms, setup 0ms, collect 83ms, tests 14ms, environment 0ms, prepare 96ms)
 
