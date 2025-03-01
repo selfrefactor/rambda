@@ -185,50 +185,6 @@ Notes:
 export function allPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
 
 /*
-Method: and
-
-Explanation: Logical AND
-
-Example:
-
-```
-const result = R.piped(
-	[1, 2, 3],
-	R.all(R.and(R.gte(1), R.lte(3)))
-) // => true
-```  
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function and<T, U>(x: T, y: U): T | U;
-export function and<T>(x: T): <U>(y: U) => T | U;
-
-/*
-Method: or
-
-Explanation: Logical OR
-
-Example:
-
-```
-R.or(false, true); // => true
-R.or(false, false); // => false
-R.or(false, 'foo'); // => 'foo'
-```  
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function or<T>(a: T): <U>(b: U) => T | U;
-
-/*
 Method: any
 
 Explanation: It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
@@ -248,7 +204,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function any<T>(predicate: (x: T) => boolean, list: T[]): boolean;
 export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
@@ -273,7 +228,7 @@ const result = fn(input)
 
 Categories: Logic
 
-Notes:
+Notes: Function accepts only one input, but in Ramda it accepts indefinite number of arguments.
 
 */
 // @SINGLE_MARKER

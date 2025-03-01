@@ -1,15 +1,13 @@
-export function any(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => any(predicate, _list)
-  }
-
-  let counter = 0
-  while (counter < list.length) {
-    if (predicate(list[counter], counter)) {
-      return true
+export function any(predicate) {
+  return list => {
+    let counter = 0
+    while (counter < list.length) {
+      if (predicate(list[counter], counter)) {
+        return true
+      }
+      counter++
     }
-    counter++
-  }
 
-  return false
+    return false
+  }
 }

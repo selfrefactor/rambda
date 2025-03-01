@@ -34,12 +34,3 @@ test('when returns false + curry', () => {
 test('with empty predicates list', () => {
   expect(anyPass([])(3)).toBeFalsy()
 })
-
-test('works with multiple inputs', () => {
-  const fn = (w, x, y, z) => {
-    console.log(w, x, y, z)
-
-    return w + x === y + z
-  }
-  expect(anyPass([fn])(3, 3, 3, 3)).toBeTruthy()
-})
