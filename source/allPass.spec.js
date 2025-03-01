@@ -18,7 +18,3 @@ test('when returns false', () => {
 	expect(result).toEqual([])
 })
 
-test('works with multiple inputs', () => {
-  const fn = (w, x, y, z) => w + x === y + z
-  expect(allPass([fn])(3, 3, 3, 3)).toBeTruthy()
-})

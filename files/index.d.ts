@@ -162,6 +162,28 @@ Notes:
 export function all<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
+Method: any
+
+Explanation: It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
+
+Example:
+
+```
+const list = [1, 2, 3]
+const predicate = x => x * x > 8
+R.any(fn, list)
+// => true
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+
+/*
 Method: allPass
 
 Explanation: It returns `true`, if all functions of `predicates` return `true`, when `input` is their argument.
@@ -183,28 +205,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function allPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
-
-/*
-Method: any
-
-Explanation: It returns `true`, if at least one member of `list` returns true, when passed to a `predicate` function.
-
-Example:
-
-```
-const list = [1, 2, 3]
-const predicate = x => x * x > 8
-R.any(fn, list)
-// => true
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function any<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: anyPass
