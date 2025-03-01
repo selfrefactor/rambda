@@ -1,4 +1,4 @@
-import { delay, mapParallelAsync } from 'rambda'
+import { delay, mapParallelAsync } from 'rambdax'
 
 const list = ['a', 'bc', 'def']
 const fn = async (x: string) => {

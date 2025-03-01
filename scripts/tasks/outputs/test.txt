@@ -1,15 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
-stdout | source/allFalse.spec.js > happy
-[ [33m0[39m, [1mnull[22m ]
-[33m0[39m
-[1mnull[22m
+ ❯ source/merge.spec.js (0 test)
 
- ✓ source/allFalse.spec.js (1 test) 5ms
-
- Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  10:06:08
-   Duration  1.14s (transform 402ms, setup 0ms, collect 738ms, tests 5ms, environment 0ms, prepare 105ms)
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  22:20:46
+   Duration  388ms (transform 32ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 94ms)
 

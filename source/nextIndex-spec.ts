@@ -1,4 +1,4 @@
-import { nextIndex } from 'rambda'
+import { nextIndex } from 'rambdax'
 
 const list = [1, 2, 3]
 

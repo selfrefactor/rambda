@@ -2995,43 +2995,6 @@ export function reverse<T>(input: T[]): T[];
 export function reverse(input: string): string;
 
 /*
-Method: slice
-
-Explanation: 
-
-Example:
-
-```
-const list = [0, 1, 2, 3, 4, 5]
-const str = 'FOO_BAR'
-const from = 1
-const to = 4
-
-const result = [
-  R.slice(from, to, str),
-  R.slice(from, to, list)
-]
-// => ['OO_', [1, 2, 3]]
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function slice(from: number, to: number, input: string): string;
-export function slice<T>(from: number, to: number, input: T[]): T[];
-export function slice(from: number, to: number): {
-  (input: string): string;
-  <T>(input: T[]): T[];
-};
-export function slice(from: number): {
-  (to: number, input: string): string;
-  <T>(to: number, input: T[]): T[];
-};
-
-/*
 Method: sort
 
 Explanation: It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
@@ -4549,71 +4512,6 @@ export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
-
-/*
-Method: ascend
-
-Explanation:
-
-Example:
-
-```
-const result = R.sort(R.descend(x => x), [2, 1])
-// => [1, 2]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
-export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
-
-/*
-Method: descend
-
-Explanation:
-
-Example:
-
-```
-const result = R.sort(R.descend(x => x), [1, 2])
-// => [2, 1]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
-export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
-
-/*
-Method: sortingFn
-
-Explanation: It returns a comparator function that can be used in `sort` method.
-
-Example:
-
-```
-const result = R.sort(
-  R.sortingFn((a, b) => a.x < b.x),
-  [{x: 2}, {x: 1}]
-)
-// => [{x: 1}, {x: 2}]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function sortingFn<T>(fn: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /*
 Method: removeIndex

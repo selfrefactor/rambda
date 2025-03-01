@@ -1,4 +1,4 @@
-import { mergeRight } from './mergeRight.js'
+import { merge } from './merge.js'
 
 const obj = {
   foo: 1,
@@ -6,14 +6,14 @@ const obj = {
 }
 
 test('happy', () => {
-  expect(mergeRight(obj, { bar: 20 })).toEqual({
+  expect(merge(obj, { bar: 20 })).toEqual({
     foo: 1,
     bar: 20,
   })
 })
 
 test('curry', () => {
-  expect(mergeRight(obj)({ baz: 3 })).toEqual({
+  expect(merge(obj)({ baz: 3 })).toEqual({
     foo: 1,
     bar: 2,
     baz: 3,
@@ -24,14 +24,14 @@ test('curry', () => {
  * https://github.com/selfrefactor/rambda/issues/77
  */
 test('when undefined or null instead of object', () => {
-  expect(mergeRight(null, undefined)).toEqual({})
-  expect(mergeRight(obj, null)).toEqual(obj)
-  expect(mergeRight(obj, undefined)).toEqual(obj)
-  expect(mergeRight(undefined, obj)).toEqual(obj)
+  expect(merge(null, undefined)).toEqual({})
+  expect(merge(obj, null)).toEqual(obj)
+  expect(merge(obj, undefined)).toEqual(obj)
+  expect(merge(undefined, obj)).toEqual(obj)
 })
 
 test('with function inside object', () => {
-  const result = mergeRight({ a: 1 }, { b: () => 1 })
+  const result = merge({ a: 1 }, { b: () => 1 })
   expect(typeof result.b).toBe('function')
 })
 
@@ -47,14 +47,14 @@ describe('acts as if nil values are simply empty objects', () => {
   }
 
   it('if the first object is nil', () => {
-    expect(mergeRight(null, b)).toEqual(b)
+    expect(merge(null, b)).toEqual(b)
   })
 
   it('if the second object is nil', () => {
-    expect(mergeRight(a, undefined)).toEqual(a)
+    expect(merge(a, undefined)).toEqual(a)
   })
 
   it('if both objects are nil', () => {
-    expect(mergeRight(null, undefined)).toEqual({})
+    expect(merge(null, undefined)).toEqual({})
   })
 })

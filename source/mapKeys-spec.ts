@@ -1,4 +1,4 @@
-import { mapKeys } from 'rambda'
+import { mapKeys } from 'rambdax'
 
 const obj = {
   a: 1,

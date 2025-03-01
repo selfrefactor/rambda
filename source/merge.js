@@ -1,1 +1,3 @@
-export { mergeRight as merge } from './mergeRight.js'
+export function merge(target) {
+	return objectWithNewProps => Object.assign({}, target || {}, objectWithNewProps || {})
+}

@@ -8412,6 +8412,73 @@ export function tryCatchAsync<T>(
   fn: (input: any) => Promise<T>,
   fallback: (input: any) => Promise<T>,
 ): (input: any) => Promise<T>;
+
+
+/*
+Method: ascend
+
+Explanation:
+
+Example:
+
+```
+const result = R.sort(R.descend(x => x), [2, 1])
+// => [1, 2]
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ascend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
+
+/*
+Method: descend
+
+Explanation:
+
+Example:
+
+```
+const result = R.sort(R.descend(x => x), [1, 2])
+// => [2, 1]
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function descend<T>(fn: (obj: T) => Ord, a: T, b: T): Ordering;
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
+
+/*
+Method: sortingFn
+
+Explanation: It returns a comparator function that can be used in `sort` method.
+
+Example:
+
+```
+const result = R.sort(
+  R.sortingFn((a, b) => a.x < b.x),
+  [{x: 2}, {x: 1}]
+)
+// => [{x: 1}, {x: 2}]
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortingFn<T>(fn: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
+
 // RAMBDAX_MARKER_END
 // ============================================
 
