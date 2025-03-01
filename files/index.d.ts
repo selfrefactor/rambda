@@ -3790,7 +3790,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereEq<T, U>(condition: T, input: U): boolean;
 export function whereEq<T>(condition: T): <U>(input: U) => boolean;
 
 /*
@@ -3816,33 +3815,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function without<T>(matchAgainst: T[], source: T[]): T[];
 export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
-
-/*
-Method: xor
-
-Explanation: Logical XOR
-
-Example:
-
-```
-const result = [
-  xor(true, true),
-  xor(false, false),
-  xor(false, true),
-]
-// => [false, false, true]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function xor(x: boolean, y: boolean): boolean;
-export function xor(y: boolean): (y: boolean) => boolean;
 
 /*
 Method: zip
