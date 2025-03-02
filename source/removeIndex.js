@@ -1,7 +1,5 @@
-export function removeIndex(index, list) {
-  if (arguments.length === 1) {
-    return _list => removeIndex(index, _list)
-  }
+export function removeIndex(index) {
+	return list => {
   if (index <= 0) {
     return list.slice(1)
   }
@@ -10,4 +8,5 @@ export function removeIndex(index, list) {
   }
 
   return [...list.slice(0, index), ...list.slice(index + 1)]
+}
 }

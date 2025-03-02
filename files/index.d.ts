@@ -1296,78 +1296,6 @@ export function intersperse<T>(separator: T, list: T[]): T[];
 export function intersperse<T>(separator: T): (list: T[]) => T[];
 
 /*
-Method: is
-
-Explanation: It returns `true` if `x` is instance of `targetPrototype`.
-
-Example:
-
-```
-const result = [
-  R.is(String)('foo'),  
-  R.is(Array)(1)
-]
-// => [true, false]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function is<C extends () => any>(targetPrototype: C, val: any): val is ReturnType<C>;
-export function is<C extends new () => any>(targetPrototype: C, val: any): val is InstanceType<C>;
-export function is<C extends () => any>(targetPrototype: C): (val: any) => val is ReturnType<C>;
-export function is<C extends new () => any>(targetPrototype: C): (val: any) => val is InstanceType<C>;
-
-/*
-Method: isEmpty
-
-Explanation: It returns `true` if `x` is `empty`.
-
-Example:
-
-```
-const result = [
-  R.isEmpty(''),
-  R.isEmpty({ x : 0 })
-]
-// => [true, false]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isEmpty<T>(x: T): boolean;
-
-/*
-Method: isNil
-
-Explanation: It returns `true` if `x` is either `null` or `undefined`.
-
-Example:
-
-```
-const result = [
-  R.isNil(null),
-  R.isNil(1),
-]
-// => [true, false]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isNil(x: any): x is null | undefined;
-
-/*
 Method: join
 
 Explanation: It returns a string of all `list` instances joined with a `glue`.
@@ -4180,42 +4108,6 @@ export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, o
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
 /*
-Method: mergeWith
-
-Explanation: It takes two objects and a function, which will be used when there is an overlap between the keys.
-
-Example:
-
-```
-const result = mergeWithFn(
-	R.concat,
-	{
-		a      : true,
-		values : [ 10, 20 ],
-	},
-	{
-		b      : true,
-		values : [ 15, 35 ],
-	}
-)
-const expected = {
-	a      : true,
-	b      : true,
-	values : [ 10, 20, 15, 35 ],
-}
-// => `result` is equal to `expected`
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeWith<T>(fn: (x: any, z: any) => any, a: object): (b: object) => T;
-export function mergeWith<T>(fn: (x: any, z: any) => any, a: object, b: object): T;
-
-/*
 Method: count
 
 Explanation: It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
@@ -4524,26 +4416,6 @@ Notes:
 export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
 /*
-Method: empty
-
-Explanation:
-
-Example:
-
-```
-const result = [R.empty([1,2,3]), R.empty('foo'), R.empty({x: 1, y: 2})]
-// => [[], '', {}]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function empty<T>(x: T): T;
-
-/*
 Method: eqBy
 
 Explanation:
@@ -4634,30 +4506,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function insertAtIndex<T>(index: number, itemToInsert: T): (list: T[]) => T[];
-
-/*
-Method: isNotNil
-
-Explanation:
-
-Example:
-
-```
-const result = [
-  R.isNotNil(null),
-  R.isNotNil(undefined),
-  R.isNotNil([]),
-]
-// => [false, false, true]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isNotNil<T>(value: T): value is NonNullable<T>;
 
 /*
 Method: pickBy
