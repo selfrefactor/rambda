@@ -4,7 +4,19 @@ import { isIndexInteger } from './_internals/isInteger.js'
 import { omit } from './omit.js'
 import { path } from './path.js'
 import { removeIndex } from './removeIndex.js'
-import { update } from './update.js'
+import { cloneList } from './_internals/cloneList.js'
+
+export function update(
+  index, newValue, list
+){
+  const clone = cloneList(list)
+  if (index === -1) return clone.fill(newValue, index)
+
+  return clone.fill(
+    newValue, index, index + 1
+  )
+}
+
 
 export function dissocPath(pathInput, input) {
   if (arguments.length === 1) {

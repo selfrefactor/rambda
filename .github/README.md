@@ -789,9 +789,9 @@ import { createPath } from './_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
 import { isIndexInteger } from './_internals/isInteger.js'
 import { assocFn } from './assoc.js'
-import { curry } from './curry.js'
 
-export function assocPathFn(path, newValue, input) {
+export function assocPath(path, newValue){
+	return (input) => {
   const pathArrValue = createPath(path)
   if (pathArrValue.length === 0) {
     return newValue
@@ -824,8 +824,7 @@ export function assocPathFn(path, newValue, input) {
 
   return assocFn(index, newValue, input)
 }
-
-export const assocPath = curry(assocPathFn)
+}
 ```
 
 </details>
