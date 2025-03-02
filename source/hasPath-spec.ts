@@ -10,9 +10,7 @@ describe('R.hasPath', () => {
   })
   it('array path', () => {
     const obj = { a: { b: 1 } }
-    const result = hasPath(['a', 'b'], obj)
-    const curriedResult = hasPath(['a', 'c'])(obj)
+    const result = hasPath(['a', 'c'])(obj)
     result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
   })
 })

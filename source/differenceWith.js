@@ -1,7 +1,7 @@
-import { curry } from './curry.js'
 import { _indexOf } from './equals.js'
 
-export function differenceWithFn(fn, a, b) {
+export function differenceWithFn(fn, a) {
+	return (b) =>  {
   const willReturn = []
   const [first, second] = a.length >= b.length ? [a, b] : [b, a]
 
@@ -14,5 +14,5 @@ export function differenceWithFn(fn, a, b) {
 
   return willReturn
 }
+}
 
-export const differenceWith = curry(differenceWithFn)

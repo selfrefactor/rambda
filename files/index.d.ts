@@ -86,6 +86,11 @@ type AnyConstructor = new (...args: any[]) => unknown;
 
 export type IdentityFunction<T> = (x: T) => T;
 
+
+export const utils = {
+	range: 
+}
+
 // API_MARKER
 
 /*
@@ -2763,27 +2768,6 @@ export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj:
 export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /*
-Method: range
-
-Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
-
-Example:
-
-```
-R.range(0, 5)
-// => [0, 1, 2, 3, 4]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function range(startInclusive: number, endExclusive: number): number[];
-export function range(startInclusive: number): (endExclusive: number) => number[];
-
-/*
 Method: reduce
 
 Explanation: 
@@ -2805,9 +2789,6 @@ Notes: It passes index of the list as third argument to `reducer` function.
 
 */
 // @SINGLE_MARKER
-export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult, list: T[]): TResult;
-export function reduce<T, TResult>(reducer: (prev: TResult, current: T) => TResult, initialValue: TResult, list: T[]): TResult;
-export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult): (initialValue: TResult, list: T[]) => TResult;
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
 /*

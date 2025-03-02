@@ -1,5 +1,5 @@
-import { pipeAsync } from './pipeAsync.js'
+import { reduce } from "./reduce.js";
 
 export function pipedAsync(input, ...fnList) {
-  return pipeAsync(...fnList)(input)
+  return reduce(async (value, fn) => fn(await value), input, fnList)
 }

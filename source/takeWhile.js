@@ -1,9 +1,7 @@
 import { isArray as isArrayModule } from './_internals/isArray.js'
 
-export function takeWhile(predicate, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => takeWhile(predicate, _iterable)
-  }
+export function takeWhile(predicate) {
+	return iterable => {
   const isArray = isArrayModule(iterable)
   if (!isArray && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string')
@@ -21,4 +19,5 @@ export function takeWhile(predicate, iterable) {
   }
 
   return isArray ? toReturn : toReturn.join('')
+}
 }

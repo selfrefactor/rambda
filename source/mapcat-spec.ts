@@ -1,4 +1,4 @@
-import { mapcat, piped } from 'rambda'
+import { mapcat, piped } from 'rambdax'
 
 describe('R.mapcat', () => {
   it('happy', () => {

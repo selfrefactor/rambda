@@ -1,4 +1,4 @@
-import { delay, mapParallelAsyncWithLimit } from 'rambda'
+import { delay, mapParallelAsyncWithLimit } from 'rambdax'
 
 const list = ['a', 'bc', 'def']
 const limit = 3
