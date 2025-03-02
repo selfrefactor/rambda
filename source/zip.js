@@ -1,8 +1,5 @@
-export function zip(left, right) {
-  if (arguments.length === 1) {
-    return _right => zip(left, _right)
-  }
-
+export function zip(left) {
+	return (right) => {
   const result = []
   const length = Math.min(left.length, right.length)
 
@@ -11,4 +8,5 @@ export function zip(left, right) {
   }
 
   return result
+}
 }

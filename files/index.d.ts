@@ -2807,12 +2807,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, P extends string>(defaultValue: T, property: P, obj: Partial<Record<P, T>> | undefined): T;
 export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
-export function propOr<T>(defaultValue: T): {
-  <P extends string>(property: P, obj: Partial<Record<P, T>> | undefined): T;
-  <P extends string>(property: P): (obj: Partial<Record<P, T>> | undefined) => T;
-}
 
 /*
 Method: propSatisfies
@@ -3729,9 +3724,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U, input: T): T | U;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
-export function when<T, U>(predicate: (x: T) => boolean): ((whenTrueFn: (a: T) => U) => (input: T) => T | U);
 
 /*
 Method: where

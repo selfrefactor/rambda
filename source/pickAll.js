@@ -1,10 +1,7 @@
 import { createPath } from './_internals/createPath.js'
 
-export function pickAll(propsToPick, obj) {
-  if (arguments.length === 1) {
-    return _obj => pickAll(propsToPick, _obj)
-  }
-
+export function pickAll(propsToPick) {
+	return obj => {
   if (obj === null || obj === undefined) {
     return undefined
   }
@@ -22,4 +19,5 @@ export function pickAll(propsToPick, obj) {
   }
 
   return willReturn
+}
 }
