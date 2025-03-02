@@ -87,11 +87,11 @@ type AnyConstructor = new (...args: any[]) => unknown;
 export type IdentityFunction<T> = (x: T) => T;
 
 
-export interface Utils {
-	range: (startInclusive: number, endExclusive: number) => number[]
-};
+// export interface Utils {
+// 	range: (startInclusive: number, endExclusive: number) => number[]
+// };
 
-export const utils: Utils
+// export const utils: Utils
 
 // API_MARKER
 
@@ -315,7 +315,7 @@ reference.
 
 */
 // @SINGLE_MARKER
-export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) => U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>
+export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) => U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
 
 /*
 Method: assocPath
