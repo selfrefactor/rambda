@@ -1,6 +1,6 @@
-import { equals, where } from 'rambda'
+import { equals, checkObjectWithSpec } from 'rambda'
 
-describe('R.where', () => {
+describe('R.checkObjectWithSpec', () => {
   it('happy', () => {
     const input = {
       a: 'foo',
@@ -12,9 +12,7 @@ describe('R.where', () => {
       a: equals('foo'),
       b: equals('bar'),
     }
-    const result = where(conditions, input)
-    const curriedResult = where(conditions)(input)
+    const result = checkObjectWithSpec(conditions)(input)
     result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
   })
 })

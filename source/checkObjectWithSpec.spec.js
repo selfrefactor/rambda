@@ -1,12 +1,12 @@
 import { equals } from './equals.js'
-import { where } from './where.js'
+import { checkObjectWithSpec } from './checkObjectWithSpec.js'
 
 test('when true', () => {
-  const result = where(
+  const result = checkObjectWithSpec(
     {
       a: equals('foo'),
       b: equals('bar'),
-    },
+    })(
     {
       a: 'foo',
       b: 'bar',
@@ -26,7 +26,7 @@ test('when false | early exit', () => {
 
     return input === expected
   }
-  const predicate = where({
+  const predicate = checkObjectWithSpec({
     a: equalsFn('foo'),
     b: equalsFn('baz'),
   })

@@ -87,9 +87,11 @@ type AnyConstructor = new (...args: any[]) => unknown;
 export type IdentityFunction<T> = (x: T) => T;
 
 
-export const utils = {
-	range: 
-}
+export interface Utils {
+	range: (startInclusive: number, endExclusive: number) => number[]
+};
+
+export const utils: Utils
 
 // API_MARKER
 
@@ -3636,14 +3638,14 @@ Notes:
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
 
 /*
-Method: where
+Method: checkObjectWithSpec
 
 Explanation: It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
 
 Example:
 
 ```
-const condition = R.where({
+const condition = R.checkObjectWithSpec({
   a : x => typeof x === "string",
   b : x => x === 4
 })
@@ -3663,26 +3665,25 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function where<T>(spec: T): <U>(testObj: U) => boolean;
-export function where<T, U>(spec: T, testObj: U): boolean;
+export function checkObjectWithSpec<T>(spec: T): <U>(testObj: U) => boolean;
 
 /*
-Method: whereEq
+Method: objectIncludes
 
-Explanation: It will return `true` if all of `input` object fully or partially include `rule` object.
+Explanation: It will return `true` if `specification` object fully or partially include `obj` object.
 
 `R.equals` is used to determine equality.
 
 Example:
 
 ```
-const condition = { a : { b : 1 } }
+const specification = { a : { b : 1 } }
 const input = {
   a : { b : 1 },
   c : 2
 }
 
-const result = whereEq(condition, input)
+const result = objectIncludes(specification)(input)
 // => true
 ```
 
@@ -3692,7 +3693,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function whereEq<T>(condition: T): <U>(input: U) => boolean;
+export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
 
 /*
 Method: without
@@ -3918,7 +3919,7 @@ const input = {
   foo : 2,
   bar : 3,
 }
-const result = evolve(rules, input)
+const result = R.evolve(rules)(input)
 const expected = {
   a   : 1,
   foo : 3,
@@ -3933,9 +3934,7 @@ Notes: Error handling of this method differs between Ramda and Rambda. Ramda for
 
 */
 // @SINGLE_MARKER
-export function evolve<T, U>(rules: ((x: T) => U)[], list: T[]): U[];
 export function evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
-export function evolve<E extends Evolver, V extends Evolvable<E>>(rules: E, obj: V): Evolve<V, E>;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /*
@@ -4158,34 +4157,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
-
-/*
-Method: whereAny
-
-Explanation: Same as `R.where`, but it will return `true` if at least one condition check returns `true`.
-
-Example:
-
-```
-const conditions = {
-  a: a => a > 1,
-  b: b => b > 2,
-}
-const result = [
-  R.whereAny(conditions, {b:3}),
-  R.whereAny(conditions, {c:4})
-]
-// => [true, false]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function whereAny<Spec extends Record<PropertyKey, (value: any) => boolean>>(spec: Spec): <U extends Record<keyof Spec, any>>(testObj: U) => boolean;
-export function whereAny<Spec extends Partial<Record<keyof U, (value: any) => boolean>>, U>(spec: Spec, testObj: U): boolean;
 
 /*
 Method: uniqBy
