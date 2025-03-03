@@ -87,13 +87,6 @@ type AnyConstructor = new (...args: readonly any[]) => unknown;
 export type IdentityFunction<T> = (x: T) => T;
 
 
-// export interface Utils {
-// 	range: (startInclusive: number, endExclusive: number) => number[]
-// };
-
-// export const utils: Utils
-
-
 export function T(): boolean;
 
 /**
@@ -606,65 +599,6 @@ export function lastIndexOf<T>(target: T, list: readonly T[]): number;
 export function lastIndexOf<T>(target: T): (list: readonly T[]) => number;
 
 /**
- * It returns a `lens` for the given `getter` and `setter` functions.
- * 
- * The `getter` **gets** the value of the focus; the `setter` **sets** the value of the focus.
- * 
- * The setter should not mutate the data structure.
- */
-export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
-
-/**
- * It returns a lens that focuses on specified `index`.
- */
-export function lensIndex<A>(n: number): Lens<readonly A[], A>;
-export function lensIndex<A extends readonly any[], N extends number>(n: N): Lens<A, A[N]>;
-
-/**
- * It returns a lens that focuses on specified `path`.
- */
-export function lensPath<S, K0 extends keyof S = keyof S>(path: readonly [K0]): Lens<S, S[K0]>;
-export function lensPath<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(
-  path: readonly [K0, K1],
-): Lens<S, S[K0][K1]>;
-export function lensPath<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1]
->(path: readonly [K0, K1, K2]): Lens<S, S[K0][K1][K2]>;
-export function lensPath<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2]
->(path: readonly [K0, K1, K2, K3]): Lens<S, S[K0][K1][K2][K3]>;
-export function lensPath<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3]
->(path: readonly [K0, K1, K2, K3, K4]): Lens<S, S[K0][K1][K2][K3][K4]>;
-export function lensPath<
-  S,
-  K0 extends keyof S = keyof S,
-  K1 extends keyof S[K0] = keyof S[K0],
-  K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4]
->(path: readonly [K0, K1, K2, K3, K4, K5]): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
-export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
-
-/**
- * It returns a lens that focuses on specified property `prop`.
- */
-export function lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
-
-/**
  * It returns the result of looping through `iterable` with `fn`.
  * 
  * It works with both array and object.
@@ -767,65 +701,6 @@ export function modify<K extends string, A, P>(
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
 /**
- * It changes a property of object on the base of provided path and transformer function.
- */
-export function modifyPath<T extends object>(path: readonly string[], fn: (value: unknown) => unknown): (obj: object) => T;
-export function modifyPath<U, T>(path: readonly [], fn: (value: U) => T, obj: U): T;
-export function modifyPath<K0 extends keyof U, U, T>(path: readonly [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<readonly [K0], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  U,
-  T
->(path: readonly [K0, K1], fn: (value: U[K0][K1]) => T, obj: U): DeepModify<readonly [K0, K1], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  U,
-  T
->(path: readonly [K0, K1, K2], fn: (value: U[K0][K1][K2]) => T, obj: U): DeepModify<readonly [K0, K1, K2], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  U,
-  T
->(path: readonly [K0, K1, K2, K3], fn: (value: U[K0][K1][K2][K3]) => T, obj: U): DeepModify<readonly [K0, K1, K2, K3], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  U,
-  T
->(path: readonly [K0, K1, K2, K3, K4], fn: (value: U[K0][K1][K2][K3][K4]) => T, obj: U): DeepModify<readonly [K0, K1, K2, K3, K4], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  K5 extends keyof U[K0][K1][K2][K3][K4],
-  U,
-  T
->(path: readonly [K0, K1, K2, K3, K4, K5], fn: (value: U[K0][K1][K2][K3][K4][K5]) => T, obj: U): DeepModify<readonly [K0, K1, K2, K3, K4, K5], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  K5 extends keyof U[K0][K1][K2][K3][K4],
-  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
-  U,
-  T
->(path: readonly [K0, K1, K2, K3, K4, K5, K6], fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T, obj: U): DeepModify<readonly [K0, K1, K2, K3, K4, K5, K6], U, T>;
-export function modifyPath<B, A = any>(path: Path, fn: (a: any) => any, obj: A): B;
-
-/**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
  */
 export function none<T>(predicate: (x: T) => boolean): (list: readonly T[]) => boolean;
@@ -861,16 +736,6 @@ export function omit<const Keys extends readonly PropertyKey[]>(names: Keys): <U
 export function omit<U, Keys extends keyof U>(names: readonly Keys[], obj: U): Omit<U, Keys>;
 export function omit<T>(names: string): (obj: unknown) => T;
 export function omit<T>(names: string, obj: unknown): T;
-
-/**
- * It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
- */
-export function over<S, A>(lens: Lens<S, A>): {
-  (fn: (a: A) => A): (value: S) => S;
-  (fn: (a: A) => A, value: S): S;
-};
-export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
-export function over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
 
 /**
  * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
@@ -1399,8 +1264,6 @@ export function pluck<T, K extends keyof T>(property: K, list: readonly T[]): re
 export function prepend<T>(xToPrepend: T, iterable: readonly T[]): readonly T[];
 export function prepend<T>(xToPrepend: T): (iterable: readonly T[]) => readonly T[];
 
-export function product(list: readonly number[]): number;
-
 /**
  * It returns the value of property `propToFind` in `obj`.
  * 
@@ -1418,18 +1281,6 @@ export function propEq<T>(val: T): {
 };
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
-
-/**
- * It returns `true` if `property` of `obj` is from `target` type.
- */
-export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends AnyFunction>(type: C): {
-    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
-    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-};
 
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
@@ -1491,16 +1342,6 @@ export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (l
  */
 export function reverse<T>(input: readonly T[]): readonly T[];
 export function reverse(input: string): string;
-
-/**
- * It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
- */
-export function set<S, A>(lens: Lens<S, A>): {
-  (a: A): (obj: S) => S
-  (a: A, obj: S): S
-};
-export function set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
-export function set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
 
 /**
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
@@ -1700,12 +1541,6 @@ export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & {
  * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
  */
 export function values<T extends object, K extends keyof T>(obj: T): readonly T[K][];
-
-/**
- * It returns the value of `lens` focus over `target` object.
- */
-export function view<S, A>(lens: Lens<S, A>): (obj: S) => A;
-export function view<S, A>(lens: Lens<S, A>, obj: S): A;
 
 /**
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.

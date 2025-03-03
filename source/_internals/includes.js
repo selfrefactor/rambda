@@ -1,4 +1,6 @@
-import { compare } from './compare.js'
+function compare(a, b){
+  return String(a) === String(b)
+}
 
 export function includes(a, list) {
   let index = -1

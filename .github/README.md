@@ -5307,318 +5307,6 @@ describe('R.lastIndexOf', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
 
-### lens
-
-```typescript
-
-lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>
-```
-
-It returns a `lens` for the given `getter` and `setter` functions. 
-
-The `getter` **gets** the value of the focus; the `setter` **sets** the value of the focus. 
-
-The setter should not mutate the data structure.
-
-```javascript
-const xLens = R.lens(R.prop('x'), R.assoc('x'));
-
-R.view(xLens, {x: 1, y: 2}) // => 1
-R.set(xLens, 4, {x: 1, y: 2}) // => {x: 4, y: 2}
-R.over(xLens, R.negate, {x: 1, y: 2}) // => {x: -1, y: 2}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20xLens%20%3D%20R.lens(R.prop('x')%2C%20R.assoc('x'))%3B%0A%0AR.view(xLens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%201%0AR.set(xLens%2C%204%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0Aconst%20result%20%3D%20R.over(xLens%2C%20R.negate%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%20%7Bx%3A%20-1%2C%20y%3A%202%7D">Try this <strong>R.lens</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens<S, A>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.lens</strong> source</summary>
-
-```javascript
-export function lens(getter, setter) {
-  return functor => target =>
-    functor(getter(target)).map(focus => setter(focus, target))
-}
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lens)
-
-### lensIndex
-
-```typescript
-
-lensIndex<A>(n: number): Lens<A[], A>
-```
-
-It returns a lens that focuses on specified `index`.
-
-```javascript
-const list = ['a', 'b', 'c']
-const headLens = R.lensIndex(0)
-
-R.view(headLens, list) // => 'a'
-R.set(headLens, 'x', list) // => ['x', 'b', 'c']
-R.over(headLens, R.toUpper, list) // => ['A', 'b', 'c']
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B'a'%2C%20'b'%2C%20'c'%5D%0Aconst%20headLens%20%3D%20R.lensIndex(0)%0A%0AR.view(headLens%2C%20list)%20%2F%2F%20%3D%3E%20'a'%0AR.set(headLens%2C%20'x'%2C%20list)%20%2F%2F%20%3D%3E%20%5B'x'%2C%20'b'%2C%20'c'%5D%0Aconst%20result%20%3D%20R.over(headLens%2C%20R.toUpper%2C%20list)%20%2F%2F%20%3D%3E%20%5B'A'%2C%20'b'%2C%20'c'%5D">Try this <strong>R.lensIndex</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-lensIndex<A>(n: number): Lens<A[], A>;
-lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.lensIndex</strong> source</summary>
-
-```javascript
-import { lens } from './lens.js'
-import { nth } from './nth.js'
-import { update } from './update.js'
-
-export function lensIndex(index) {
-  return lens(nth(index), update(index))
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compose } from './compose.js'
-import { keys } from './keys.js'
-import { lensIndex } from './lensIndex.js'
-import { over } from './over.js'
-import { set } from './set.js'
-import { view } from './view.js'
-
-const testList = [{ a: 1 }, { b: 2 }, { c: 3 }]
-
-test('focuses list element at the specified index', () => {
-  expect(view(lensIndex(0), testList)).toEqual({ a: 1 })
-})
-
-test('returns undefined if the specified index does not exist', () => {
-  expect(view(lensIndex(10), testList)).toBeUndefined()
-})
-
-test('sets the list value at the specified index', () => {
-  expect(set(lensIndex(0), 0, testList)).toEqual([0, { b: 2 }, { c: 3 }])
-})
-
-test('applies function to the value at the specified list index', () => {
-  expect(over(lensIndex(2), keys, testList)).toEqual([{ a: 1 }, { b: 2 }, ['c']])
-})
-
-test('can be composed', () => {
-  const nestedList = [0, [10, 11, 12], 1, 2]
-  const composedLens = compose(lensIndex(1), lensIndex(0))
-
-  expect(view(composedLens, nestedList)).toBe(10)
-})
-
-test('set s (get s) === s', () => {
-  expect(set(lensIndex(0), view(lensIndex(0), testList), testList)).toEqual(testList)
-})
-
-test('get (set s v) === v', () => {
-  expect(view(lensIndex(0), set(lensIndex(0), 0, testList))).toBe(0)
-})
-
-test('get (set(set s v1) v2) === v2', () => {
-  expect(
-    view(lensIndex(0), set(lensIndex(0), 11, set(lensIndex(0), 10, testList))),
-  ).toBe(11)
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensIndex)
-
-### lensPath
-
-It returns a lens that focuses on specified `path`.
-
-```javascript
-const lensPath = R.lensPath(['x', 0, 'y'])
-const input = {x: [{y: 2, z: 3}, {y: 4, z: 5}]}
-
-R.view(lensPath, input) // => 2
-
-R.set(lensPath, 1, input) 
-// => {x: [{y: 1, z: 3}, {y: 4, z: 5}]}
-
-R.over(xHeadYLens, R.negate, input) 
-// => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lensPath%20%3D%20R.lensPath(%5B'x'%2C%200%2C%20'y'%5D)%0Aconst%20input%20%3D%20%7Bx%3A%20%5B%7By%3A%202%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0AR.view(lensPath%2C%20input)%20%2F%2F%20%3D%3E%202%0A%0AR.set(lensPath%2C%201%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%201%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D%0A%0Aconst%20result%20%3D%20R.over(xHeadYLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20%5B%7By%3A%20-2%2C%20z%3A%203%7D%2C%20%7By%3A%204%2C%20z%3A%205%7D%5D%7D">Try this <strong>R.lensPath</strong> example in Rambda REPL</a>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensPath)
-
-### lensProp
-
-```typescript
-
-lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>
-```
-
-It returns a lens that focuses on specified property `prop`.
-
-```javascript
-const xLens = R.lensProp('x');
-const input = {x: 1, y: 2}
-
-R.view(xLens, input) // => 1
-
-R.set(xLens, 4, input) 
-// => {x: 4, y: 2}
-
-R.over(xLens, R.negate, input) 
-// => {x: -1, y: 2}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20xLens%20%3D%20R.lensProp('x')%3B%0Aconst%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0A%0AR.view(xLens%2C%20input)%20%2F%2F%20%3D%3E%201%0A%0AR.set(xLens%2C%204%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%204%2C%20y%3A%202%7D%0A%0Aconst%20result%20%3D%20R.over(xLens%2C%20R.negate%2C%20input)%20%0A%2F%2F%20%3D%3E%20%7Bx%3A%20-1%2C%20y%3A%202%7D">Try this <strong>R.lensProp</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-lensProp<S, K extends keyof S = keyof S>(prop: K): Lens<S, S[K]>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.lensProp</strong> source</summary>
-
-```javascript
-import { assoc } from './assoc.js'
-import { lens } from './lens.js'
-import { prop } from './prop.js'
-
-export function lensProp(key) {
-  return lens(prop(key), assoc(key))
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { compose } from './compose.js'
-import { identity } from './identity.js'
-import { inc } from './inc.js'
-import { lensProp } from './lensProp.js'
-import { over } from './over.js'
-import { set } from './set.js'
-import { view } from './view.js'
-
-const testObj = {
-  a: 1,
-  b: 2,
-  c: 3,
-}
-
-test('focuses object the specified object property', () => {
-  expect(view(lensProp('a'), testObj)).toBe(1)
-})
-
-test('returns undefined if the specified property does not exist', () => {
-  expect(view(lensProp('X'), testObj)).toBeUndefined()
-})
-
-test('sets the value of the object property specified', () => {
-  expect(set(lensProp('a'), 0, testObj)).toEqual({
-    a: 0,
-    b: 2,
-    c: 3,
-  })
-})
-
-test("adds the property to the object if it doesn't exist", () => {
-  expect(set(lensProp('d'), 4, testObj)).toEqual({
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 4,
-  })
-})
-
-test('applies function to the value of the specified object property', () => {
-  expect(over(lensProp('a'), inc, testObj)).toEqual({
-    a: 2,
-    b: 2,
-    c: 3,
-  })
-})
-
-test("applies function to undefined and adds the property if it doesn't exist", () => {
-  expect(over(lensProp('X'), identity, testObj)).toEqual({
-    a: 1,
-    b: 2,
-    c: 3,
-    X: undefined,
-  })
-})
-
-test('can be composed', () => {
-  const nestedObj = {
-    a: { b: 1 },
-    c: 2,
-  }
-  const composedLens = compose(lensProp('a'), lensProp('b'))
-
-  expect(view(composedLens, nestedObj)).toBe(1)
-})
-
-test('set s (get s) === s', () => {
-  expect(set(lensProp('a'), view(lensProp('a'), testObj), testObj)).toEqual(testObj)
-})
-
-test('get (set s v) === v', () => {
-  expect(view(lensProp('a'), set(lensProp('a'), 0, testObj))).toBe(0)
-})
-
-test('get (set(set s v1) v2) === v2', () => {
-  expect(
-    view(lensProp('a'), set(lensProp('a'), 11, set(lensProp('a'), 10, testObj))),
-  ).toBe(11)
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lensProp)
-
 ### map
 
 ```typescript
@@ -6159,12 +5847,12 @@ mergeAll(list: object[]): object;
 
 ```javascript
 import { map } from './map.js'
-import { mergeRight } from './mergeRight.js'
+import { merge } from './merge.js'
 
 export function mergeAll(arr) {
   let willReturn = {}
   map(val => {
-    willReturn = mergeRight(willReturn, val)
+    willReturn = merge(willReturn, val)
   }, arr)
 
   return willReturn
@@ -6339,19 +6027,6 @@ modify<K extends string, A, P>(
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modify)
-
-### modifyPath
-
-It changes a property of object on the base of provided path and transformer function.
-
-```javascript
-const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
-// => {a:{b: {c:2}}}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1)(%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
 
 ### none
 
@@ -6872,115 +6547,6 @@ describe('R.omit with string as props input', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#omit)
-
-### over
-
-```typescript
-
-over<S, A>(lens: Lens<S, A>): {
-  (fn: (a: A) => A): (value: S) => S
-```
-
-It returns a copied **Object** or **Array** with modified value received by applying function `fn` to `lens` focus.
-
-```javascript
-const headLens = R.lensIndex(0)
- 
-R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']) // => ['FOO', 'bar', 'baz']
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20headLens%20%3D%20R.lensIndex(0)%0A%20%0Aconst%20result%20%3D%20R.over(headLens%2C%20R.toUpper%2C%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D)%20%2F%2F%20%3D%3E%20%5B'FOO'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.over</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-over<S, A>(lens: Lens<S, A>): {
-  (fn: (a: A) => A): (value: S) => S;
-  (fn: (a: A) => A, value: S): S;
-};
-over<S, A>(lens: Lens<S, A>, fn: (a: A) => A): (value: S) => S;
-over<S, A>(lens: Lens<S, A>, fn: (a: A) => A, value: S): S;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.over</strong> source</summary>
-
-```javascript
-import { curry } from './curry.js'
-
-const Identity = x => ({
-  x,
-  map: fn => Identity(fn(x)),
-})
-
-function overFn(lens, fn, object) {
-  return lens(x => Identity(fn(x)))(object).x
-}
-
-export const over = curry(overFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { assoc } from './assoc.js'
-import { lens } from './lens.js'
-import { lensIndex } from './lensIndex.js'
-import { lensPath } from './lensPath.js'
-import { over } from './over.js'
-import { prop } from './prop.js'
-import { toUpper } from './toUpper.js'
-
-const testObject = {
-  foo: 'bar',
-  baz: {
-    a: 'x',
-    b: 'y',
-  },
-}
-
-test('assoc lens', () => {
-  const assocLens = lens(prop('foo'), assoc('foo'))
-  const result = over(assocLens, toUpper, testObject)
-  const expected = {
-    ...testObject,
-    foo: 'BAR',
-  }
-  expect(result).toEqual(expected)
-})
-
-test('path lens', () => {
-  const pathLens = lensPath('baz.a')
-  const result = over(pathLens, toUpper, testObject)
-  const expected = {
-    ...testObject,
-    baz: {
-      a: 'X',
-      b: 'y',
-    },
-  }
-  expect(result).toEqual(expected)
-})
-
-test('index lens', () => {
-  const indexLens = lensIndex(0)
-  const result = over(indexLens, toUpper)(['foo', 'bar'])
-  expect(result).toEqual(['FOO', 'bar'])
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#over)
 
 ### partial
 
@@ -7656,15 +7222,12 @@ pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
 <summary><strong>R.pathEq</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
 import { equals } from './equals.js'
 import { path } from './path.js'
 
-function pathEqFn(pathToSearch, target, input) {
-  return equals(path(pathToSearch, input), target)
+export function pathEq(pathToSearch, target) {
+  return input =>  equals(path(pathToSearch, input), target)
 }
-
-export const pathEq = curry(pathEqFn)
 ```
 
 </details>
@@ -7803,15 +7366,12 @@ pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 <summary><strong>R.pathOr</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
 import { defaultTo } from './defaultTo.js'
 import { path } from './path.js'
 
-function pathOrFn(defaultValue, pathInput, obj) {
-  return defaultTo(defaultValue, path(pathInput, obj))
+export function pathOr(defaultValue, pathInput) {
+  return obj => defaultTo(defaultValue, path(pathInput, obj))
 }
-
-export const pathOr = curry(pathOrFn)
 ```
 
 </details>
@@ -8777,82 +8337,6 @@ test('with string instead of array', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#prepend)
 
-### product
-
-```typescript
-
-product(list: number[]): number
-```
-
-```javascript
-R.product([ 2, 3, 4 ])
-// => 24)
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.product(%5B%202%2C%203%2C%204%20%5D)%0A%2F%2F%20%3D%3E%2024)">Try this <strong>R.product</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-product(list: number[]): number;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.product</strong> source</summary>
-
-```javascript
-import { multiply } from './multiply.js'
-import { reduce } from './reduce.js'
-
-export const product = reduce(multiply, 1)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { product } from './product.js'
-
-test('happy', () => {
-  expect(product([2, 3, 4])).toBe(24)
-})
-
-test('bad input', () => {
-  expect(product([null])).toBe(0)
-  expect(product([])).toBe(1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { product } from 'rambda'
-
-describe('R.product', () => {
-  it('happy', () => {
-    const result = product([1, 2, 3])
-
-    result // $ExpectType number
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#product)
-
 ### prop
 
 ```typescript
@@ -9025,19 +8509,18 @@ propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 <summary><strong>R.propEq</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
 import { equals } from './equals.js'
 import { prop } from './prop.js'
 
-function propEqFn(valueToMatch, propToFind, obj) {
+export function propEq(valueToMatch, propToFind) {
+	return obj => {
   if (!obj) {
     return false
   }
 
   return equals(valueToMatch, prop(propToFind, obj))
 }
-
-export const propEq = curry(propEqFn)
+}
 ```
 
 </details>
@@ -9115,114 +8598,6 @@ describe('R.propEq', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
-
-### propIs
-
-```typescript
-
-propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>
-```
-
-It returns `true` if `property` of `obj` is from `target` type.
-
-```javascript
-const obj = {a:1, b: 'foo'}
-
-const result = [
-  R.propIs(Number, 'a', obj),
-  R.propIs(String, 'b', obj),
-  R.propIs(Number, 'b', obj),
-]
-// => [true, true, false]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A1%2C%20b%3A%20'foo'%7D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propIs(Number%2C%20'a'%2C%20obj)%2C%0A%20%20R.propIs(String%2C%20'b'%2C%20obj)%2C%0A%20%20R.propIs(Number%2C%20'b'%2C%20obj)%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%2C%20false%5D">Try this <strong>R.propIs</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-propIs<C extends AnyFunction>(type: C): {
-    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
-    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-};
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.propIs</strong> source</summary>
-
-```javascript
-import { curry } from './curry.js'
-import { is } from './is.js'
-
-function propIsFn(targetPrototype, property, obj) {
-  return is(targetPrototype, obj[property])
-}
-
-export const propIs = curry(propIsFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { propIs } from './propIs.js'
-
-const obj = {
-  a: 1,
-  b: 'foo',
-}
-
-test('when true', () => {
-  expect(propIs(Number, 'a', obj)).toBeTruthy()
-  expect(propIs(String, 'b', obj)).toBeTruthy()
-})
-
-test('when false', () => {
-  expect(propIs(String, 'a', obj)).toBeFalsy()
-  expect(propIs(Number, 'b', obj)).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { propIs } from 'rambda'
-
-const property = 'a'
-const obj = { a: 1 }
-
-describe('R.propIs', () => {
-  it('happy', () => {
-    const result = propIs(Number, property, obj)
-    result // $ExpectType boolean
-  })
-
-  it('curried', () => {
-    const result = propIs(Number, property)(obj)
-    result // $ExpectType boolean
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propIs)
 
 ### propOr
 
@@ -9464,14 +8839,11 @@ propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<Proper
 <summary><strong>R.propSatisfies</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
 import { prop } from './prop.js'
 
-function propSatisfiesFn(predicate, property, obj) {
-  return predicate(prop(property, obj))
+export function propSatisfies(predicate, property) {
+  return obj => predicate(prop(property, obj))
 }
-
-export const propSatisfies = curry(propSatisfiesFn)
 ```
 
 </details>
@@ -9916,13 +9288,9 @@ replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) =
 <summary><strong>R.replace</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
-
-function replaceFn(pattern, replacer, str) {
-  return str.replace(pattern, replacer)
+export function replace(pattern, replacer) {
+  return (str) => str.replace(pattern, replacer)
 }
-
-export const replace = curry(replaceFn)
 ```
 
 </details>
@@ -10198,120 +9566,6 @@ describe('R.reverse', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reverse)
-
-### set
-
-```typescript
-
-set<S, A>(lens: Lens<S, A>): {
-  (a: A): (obj: S) => S
-  (a: A, obj: S): S
-}
-```
-
-It returns a copied **Object** or **Array** with modified `lens` focus set to `replacer` value.
-
-```javascript
-const input = {x: 1, y: 2}
-const xLens = R.lensProp('x')
-
-const result = [
-  R.set(xLens, 4, input),
-  R.set(xLens, 8, input) 
-]
-// => [{x: 4, y: 2}, {x: 8, y: 2}]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7Bx%3A%201%2C%20y%3A%202%7D%0Aconst%20xLens%20%3D%20R.lensProp('x')%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.set(xLens%2C%204%2C%20input)%2C%0A%20%20R.set(xLens%2C%208%2C%20input)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bx%3A%204%2C%20y%3A%202%7D%2C%20%7Bx%3A%208%2C%20y%3A%202%7D%5D">Try this <strong>R.set</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-set<S, A>(lens: Lens<S, A>): {
-  (a: A): (obj: S) => S
-  (a: A, obj: S): S
-};
-set<S, A>(lens: Lens<S, A>, a: A): (obj: S) => S;
-set<S, A>(lens: Lens<S, A>, a: A, obj: S): S;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.set</strong> source</summary>
-
-```javascript
-import { curry } from './curry.js'
-import { over } from './over.js'
-
-let always = x => () => x
-
-function setFn(lens, replacer, x) {
-  return over(lens, always(replacer), x)
-}
-
-export const set = curry(setFn)
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { assoc } from './assoc.js'
-import { lens } from './lens.js'
-import { lensIndex } from './lensIndex.js'
-import { lensPath } from './lensPath.js'
-import { prop } from './prop.js'
-import { set } from './set.js'
-
-const testObject = {
-  foo: 'bar',
-  baz: {
-    a: 'x',
-    b: 'y',
-  },
-}
-
-test('assoc lens', () => {
-  const assocLens = lens(prop('foo'), assoc('foo'))
-  const result = set(assocLens, 'FOO', testObject)
-  const expected = {
-    ...testObject,
-    foo: 'FOO',
-  }
-  expect(result).toEqual(expected)
-})
-
-test('path lens', () => {
-  const pathLens = lensPath('baz.a')
-  const result = set(pathLens, 'z', testObject)
-  const expected = {
-    ...testObject,
-    baz: {
-      a: 'z',
-      b: 'y',
-    },
-  }
-  expect(result).toEqual(expected)
-})
-
-test('index lens', () => {
-  const indexLens = lensIndex(0)
-
-  const result = set(indexLens, 3, [1, 2])
-  expect(result).toEqual([3, 2])
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#set)
 
 ### sort
 
@@ -12673,17 +11927,14 @@ unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 <summary><strong>R.unless</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
-
-function unlessFn(predicate, whenFalseFn, input) {
+export function unless(predicate, whenFalseFn) {
+	return input => {
   if (predicate(input)) {
     return input
   }
 
   return whenFalseFn(input)
-}
-
-export const unless = curry(unlessFn)
+}}
 ```
 
 </details>
@@ -12852,78 +12103,6 @@ values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#values)
 
-### view
-
-```typescript
-
-view<S, A>(lens: Lens<S, A>): (obj: S) => A
-```
-
-It returns the value of `lens` focus over `target` object.
-
-```javascript
-const lens = R.lensProp('x')
-
-R.view(lens, {x: 1, y: 2}) // => 1
-R.view(lens, {x: 4, y: 2}) // => 4
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20lens%20%3D%20R.lensProp('x')%0A%0AR.view(lens%2C%20%7Bx%3A%201%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%201%0Aconst%20result%20%3D%20R.view(lens%2C%20%7Bx%3A%204%2C%20y%3A%202%7D)%20%2F%2F%20%3D%3E%204">Try this <strong>R.view</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-view<S, A>(lens: Lens<S, A>): (obj: S) => A;
-view<S, A>(lens: Lens<S, A>, obj: S): A;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.view</strong> source</summary>
-
-```javascript
-const Const = x => ({
-  x,
-  map: fn => Const(x),
-})
-
-export function view(lens, target) {
-  if (arguments.length === 1) {
-    return _target => view(lens, _target)
-  }
-
-  return lens(Const)(target).x
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { assoc } from './assoc.js'
-import { lens } from './lens.js'
-import { prop } from './prop.js'
-import { view } from './view.js'
-
-const testObject = { foo: 'Led Zeppelin' }
-const assocLens = lens(prop('foo'), assoc('foo'))
-
-test('happy', () => {
-  expect(view(assocLens, testObject)).toBe('Led Zeppelin')
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#view)
-
 ### when
 
 ```typescript
@@ -12972,17 +12151,16 @@ when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) =>
 <summary><strong>R.when</strong> source</summary>
 
 ```javascript
-import { curry } from './curry.js'
-
-function whenFn(predicate, whenTrueFn, input) {
+export function when(predicate, whenTrueFn) {
+	return input => {
+		
   if (!predicate(input)) {
     return input
   }
 
   return whenTrueFn(input)
 }
-
-export const when = curry(whenFn)
+}
 ```
 
 </details>

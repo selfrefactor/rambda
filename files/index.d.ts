@@ -86,14 +86,6 @@ type AnyConstructor = new (...args: any[]) => unknown;
 
 export type IdentityFunction<T> = (x: T) => T;
 
-
-export interface Utils {
-	range: (startInclusive: number, endExclusive: number) => number[]
-};
-
-export const utils: Utils
-export const _: Utils
-
 // API_MARKER
 
 /*
@@ -2382,27 +2374,6 @@ Notes:
 export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
 export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
-
-/*
-Method: product
-
-Explanation:
-
-Example:
-
-```
-R.product([ 2, 3, 4 ])
-// => 24)
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function product(list: number[]): number;
-
 /*
 Method: prop
 
@@ -2462,39 +2433,6 @@ export function propEq<T>(val: T): {
 };
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
-
-/*
-Method: propIs
-
-Explanation: It returns `true` if `property` of `obj` is from `target` type.
-
-Example:
-
-```
-const obj = {a:1, b: 'foo'}
-
-const result = [
-  R.propIs(Number, 'a', obj),
-  R.propIs(String, 'b', obj),
-  R.propIs(Number, 'b', obj),
-]
-// => [true, true, false]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, ReturnType<C>>;
-export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K, obj: any): obj is Record<K, InstanceType<C>>;
-export function propIs<C extends AnyFunction, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-export function propIs<C extends AnyConstructor, K extends keyof any>(type: C, name: K): (obj: any) => obj is Record<K, InstanceType<C>>;
-export function propIs<C extends AnyFunction>(type: C): {
-    <K extends keyof any>(name: K, obj: any): obj is Record<K, ReturnType<C>>;
-    <K extends keyof any>(name: K): (obj: any) => obj is Record<K, ReturnType<C>>;
-};
 
 /*
 Method: propOr
@@ -3962,80 +3900,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
-
-/*
-Method: modifyPath
-
-Explanation: It changes a property of object on the base of provided path and transformer function.
-
-Example:
-
-```
-const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
-// => {a:{b: {c:2}}}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function modifyPath<T extends object>(path: string[], fn: (value: unknown) => unknown): (obj: object) => T;
-export function modifyPath<U, T>(path: [], fn: (value: U) => T, obj: U): T;
-export function modifyPath<K0 extends keyof U, U, T>(path: [K0], fn: (value: U[K0]) => T, obj: U): DeepModify<[K0], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  U,
-  T
->(path: [K0, K1], fn: (value: U[K0][K1]) => T, obj: U): DeepModify<[K0, K1], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  U,
-  T
->(path: [K0, K1, K2], fn: (value: U[K0][K1][K2]) => T, obj: U): DeepModify<[K0, K1, K2], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  U,
-  T
->(path: [K0, K1, K2, K3], fn: (value: U[K0][K1][K2][K3]) => T, obj: U): DeepModify<[K0, K1, K2, K3], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  U,
-  T
->(path: [K0, K1, K2, K3, K4], fn: (value: U[K0][K1][K2][K3][K4]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  K5 extends keyof U[K0][K1][K2][K3][K4],
-  U,
-  T
->(path: [K0, K1, K2, K3, K4, K5], fn: (value: U[K0][K1][K2][K3][K4][K5]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5], U, T>;
-export function modifyPath<
-  K0 extends keyof U,
-  K1 extends keyof U[K0],
-  K2 extends keyof U[K0][K1],
-  K3 extends keyof U[K0][K1][K2],
-  K4 extends keyof U[K0][K1][K2][K3],
-  K5 extends keyof U[K0][K1][K2][K3][K4],
-  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
-  U,
-  T
->(path: [K0, K1, K2, K3, K4, K5, K6], fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T, obj: U): DeepModify<[K0, K1, K2, K3, K4, K5, K6], U, T>;
-export function modifyPath<B, A = any>(path: Path, fn: (a: any) => any, obj: A): B;
 
 /*
 Method: modify
