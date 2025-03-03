@@ -1,5 +1,3 @@
-import { curry } from './curry.js'
-
 function _includesWith(pred, x, list) {
   let idx = 0
   const len = list.length
@@ -30,8 +28,7 @@ function _filter(fn, list) {
   return result
 }
 
-export function innerJoinFn(pred, xs, ys) {
-  return _filter(x => _includesWith(pred, x, ys), xs)
+export function innerJoin(pred, xs) {
+  return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
 
-export const innerJoin = curry(innerJoinFn)
