@@ -6396,7 +6396,19 @@ omit<T>(names: string, obj: unknown): T;
 
 ```javascript
 import { createPath } from './_internals/createPath.js'
-import { includes } from './_internals/includes.js'
+
+export function _includes(a, list) {
+  let index = -1
+  const { length } = list
+
+  while (++index < length) {
+    if (String(list[index])=== String(a)) {
+      return true
+    }
+  }
+
+  return false
+}
 
 export function omit(propsToOmit, obj) {
   if (arguments.length === 1) {
@@ -6411,7 +6423,7 @@ export function omit(propsToOmit, obj) {
   const willReturn = {}
 
   for (const key in obj) {
-    if (!includes(key, propsToOmitValue)) {
+    if (!_includes(key, propsToOmitValue)) {
       willReturn[key] = obj[key]
     }
   }

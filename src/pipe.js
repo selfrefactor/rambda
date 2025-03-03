@@ -1,4 +1,4 @@
-import { reduceFn } from './reduce.js'
+import { reduce } from './reduce.js'
 
 export function _arity(n, fn){
   switch (n){
@@ -79,9 +79,10 @@ export function pipe(){
   }
 
   return _arity(arguments[ 0 ].length,
-    reduceFn(
+    reduce(
       _pipe,
       arguments[ 0 ],
+		)(
       Array.prototype.slice.call(
         arguments, 1, Infinity
       )
