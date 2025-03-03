@@ -2960,12 +2960,21 @@ evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<
 <summary><strong>R.evolve</strong> source</summary>
 
 ```javascript
-import { isArray } from './_internals/isArray.js'
-import { mapArray, mapObject } from './map.js'
+import { mapObject } from './mapObject.js'
 import { type } from './type.js'
 
+function _map(fn, list) {
+    let index = 0
+    const willReturn = Array(list.length)
+    while (index < list.length) {
+      willReturn[index] = fn(list[index], index)
+      index++
+    }
+    return willReturn
+}
+
 export function evolveArray(rules, list) {
-  return mapArray(
+  return _map(
     (x, i) => {
       if (type(rules[i]) === 'Function') {
         return rules[i](x)
@@ -2974,7 +2983,6 @@ export function evolveArray(rules, list) {
       return x
     },
     list,
-    true,
   )
 }
 
@@ -2996,7 +3004,7 @@ export function evolveObject(rules, iterable) {
     }
 
     return x
-  }, iterable)
+  })(iterable)
 }
 
 export function evolve(rules, iterable) {
