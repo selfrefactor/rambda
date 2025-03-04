@@ -13,6 +13,8 @@ export type Mapped<T extends IterableContainer, K> = {
 
 export type ElementOf<Type extends readonly any[]> = Type[number];
 export type Simplify<T> = {[KeyType in keyof T]: T[KeyType]} & {};
+export type Simplify<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
+
 export type EntryForKey<T, Key extends keyof T> = Key extends number | string
   ? [key: `${Key}`, value: Required<T>[Key]]
   : never;
@@ -2981,18 +2983,19 @@ Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debugging in the middle of `R.compose`.
+One use case is debugging in the middle of `R.piped` chain.
 
 Example:
 
 ```
 const list = [1, 2, 3]
 
-R.compose(
+R.piped(
+	list,
   R.map(x => x * 2)
   R.tap(console.log),
   R.filter(x => x > 1)
-)(list)
+)
 // => `2` and `3` will be logged
 ```
 
@@ -3079,26 +3082,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function toPairs<T extends {}>(data: T): Array<Entry<T>>;
-
-/*
-Method: trim
-
-Explanation:
-
-Example:
-
-```
-R.trim('  foo  ') 
-// => 'foo'
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function trim(str: string): string;
 
 /*
 Method: tryCatch

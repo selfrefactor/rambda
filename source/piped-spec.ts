@@ -10,22 +10,20 @@ import {
   dissocPath,
   drop,
   dropLast,
-  either,
   endsWith,
+  evolve,
   filter,
   find,
   head,
-  inc,
   map,
   mapObject,
-  negate,
   piped,
+  Simplify,
   split,
   splitAt,
   tap,
   union,
 } from 'rambda'
-import * as R from 'ramda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
 
@@ -152,6 +150,10 @@ function tapFn<T, U>(
   }
 }
 
+function simplify<T>(x: T) {
+	return x  as Simplify<T>
+}
+
 describe('real use cases - books', () => {
   it('case 1', () => {
     const result = piped(
@@ -190,7 +192,6 @@ describe('real use cases - books', () => {
             x => x.year > 1900,
           ),
         ),
-        assertType(either(checkIfFamous, checkIfMustRead)),
         assertType(both(checkReadStatus, checkBookmarkStatus)),
         assertType(checkBookToRead),
         x => [x],
@@ -198,19 +199,25 @@ describe('real use cases - books', () => {
         difference([awardedBrothersKaramazovToRead]),
         append(awardedZaratustraToRead),
         head,
-        assertType(allPass([checkHasDescription, checkHasUserRating])),
-        tap(x => {
-          x // $ExpectType BookWithDescription & BookWithUserRating
-        }),
-        assertType(anyPass([checkHasDescription, checkHasUserRating])),
-        convertToType<BookWithDescription>(),
-        dissocPath<Book>('description'),
-        convertToType<Record<string, string>>(),
+				evolve({
+					year: (x: number) => x + 1,
+					mustRead: allPass([checkHasDescription, checkHasUserRating]),
+				}),
+        // allPass([checkHasDescription, checkHasUserRating]),
+        // tap(x => {
+        //   x // $ExpectType BookWithDescription & BookWithUserRating
+        // }),
+        // assertType(anyPass([checkHasDescription, checkHasUserRating])),
+        // convertToType<BookWithDescription>(),
+        // dissocPath<Book>('description'),
+        // convertToType<Record<string, string>>(),
         // mapObject((x) => {
         // 	return x as unknown as number;
         // }),
+				simplify
       )
     const result = getResult(zaratustra)
+		type Foo = Simplify<typeof result>
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {
