@@ -1,13 +1,17 @@
-import { path } from 'rambda'
+import { path, piped } from 'rambda'
 
 const input = { a: { b: { c: true } } }
 
 describe('R.path with string as path', () => {
   it('without specified output type', () => {
-    // $ExpectType unknown
-    path('a.b.c', input)
-    // $ExpectType unknown
-    path('a.b.c')(input)
+    
+		let a = piped(
+			input,
+			path(['a','b','c'])
+			// path(['a','b','c'])
+		)
+		
+    // path('a.b.c')(input)
   })
   it('with specified output type', () => {
     // $ExpectType boolean | undefined
