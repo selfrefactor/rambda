@@ -12,14 +12,14 @@ export type Mapped<T extends IterableContainer, K> = {
 };
 
 export type ElementOf<Type extends readonly any[]> = Type[number];
-export type Simplify<T> = {[KeyType in keyof T]: T[KeyType]} & {};
+export type MergeTypes<T> = {[KeyType in keyof T]: T[KeyType]} & {};
 export type Simplify<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
 
 export type EntryForKey<T, Key extends keyof T> = Key extends number | string
   ? [key: `${Key}`, value: Required<T>[Key]]
   : never;
 
-export type Entry<T> = Simplify<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
+export type Entry<T> = MergeTypes<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
 
 export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
   Keys extends [infer K, ...infer Rest]
@@ -1059,12 +1059,27 @@ Notes:
 */
 // @SINGLE_MARKER
 export function hasPath<T>(
-  path: string | string[],
-  input: object
-): boolean;
-export function hasPath<T>(
   path: string | string[]
 ): (input: object) => boolean;
+
+/*
+Method: mergeTypes
+
+Explanation: Helper to merge all calculated TypeScript definitions into one definition.
+It returns its input and it is intended to be used as last method inside `R.piped` chain.
+
+Example:
+
+```
+```
+
+Categories: 
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeTypes<T>(x: T): MergeTypes<T>;
 
 /*
 Method: head

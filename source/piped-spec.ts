@@ -18,11 +18,12 @@ import {
   map,
   mapObject,
   piped,
-  Simplify,
+  MergeTypes,
   split,
   splitAt,
   tap,
   union,
+	path,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
@@ -151,7 +152,7 @@ function tapFn<T, U>(
 }
 
 function simplify<T>(x: T) {
-	return x  as Simplify<T>
+	return x as MergeTypes<T>
 }
 
 describe('real use cases - books', () => {
@@ -214,10 +215,11 @@ describe('real use cases - books', () => {
         // mapObject((x) => {
         // 	return x as unknown as number;
         // }),
-				simplify
+				simplify,
+				path('awards.number'),
       )
     const result = getResult(zaratustra)
-		type Foo = Simplify<typeof result>
+		type Foo = MergeTypes<typeof result>
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {
