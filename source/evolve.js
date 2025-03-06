@@ -1,31 +1,8 @@
 import { mapObject } from './mapObject.js'
 import { type } from './type.js'
 
-function _map(fn, list) {
-    let index = 0
-    const willReturn = Array(list.length)
-    while (index < list.length) {
-      willReturn[index] = fn(list[index], index)
-      index++
-    }
-    return willReturn
-}
-
-export function evolveArray(rules, list) {
-  return _map(
-    (x, i) => {
-      if (type(rules[i]) === 'Function') {
-        return rules[i](x)
-      }
-
-      return x
-    },
-    list,
-  )
-}
-
-export function evolveObject(rules, iterable) {
-  return mapObject((x, prop) => {
+export function evolve(rules) {
+	return obj => mapObject((x, prop) => {
     if (type(x) === 'Object') {
       const typeRule = type(rules[prop])
       if (typeRule === 'Function') {
@@ -42,27 +19,5 @@ export function evolveObject(rules, iterable) {
     }
 
     return x
-  })(iterable)
-}
-
-export function evolve(rules, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => evolve(rules, _iterable)
-  }
-  const rulesType = type(rules)
-  const iterableType = type(iterable)
-
-  if (iterableType !== rulesType) {
-    throw new Error('iterableType !== rulesType')
-  }
-
-  if (!['Object', 'Array'].includes(rulesType)) {
-    throw new Error(`'iterable' and 'rules' are from wrong type ${rulesType}`)
-  }
-
-  if (iterableType === 'Object') {
-    return evolveObject(rules, iterable)
-  }
-
-  return evolveArray(rules, iterable)
+  })(obj)
 }

@@ -21,18 +21,6 @@ export type EntryForKey<T, Key extends keyof T> = Key extends number | string
 
 export type Entry<T> = MergeTypes<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
 
-export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
-  Keys extends [infer K, ...infer Rest]
-    ? K extends keyof U
-      ? Rest extends readonly []
-        ? Omit<U, K> & Record<K, T>
-        : Rest extends readonly PropertyKey[]
-          ? Omit<U, K> & Record<K, DeepModify<Rest, U[K], T>>
-          : never
-      : never
-    : never;
-
-
 type Ord = number | string | boolean | Date;
 type Ordering = -1 | 0 | 1;
 export type Path = Array<number | string> | string;
@@ -335,7 +323,6 @@ Notes: pipe
 */
 // @SINGLE_MARKER
 export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
-export function assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 
 /*
 Method: both
@@ -2164,83 +2151,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
 export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
-export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
-
-/*
-Method: paths
-
-Explanation: It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
-
-Because it calls `R.path`, then `singlePath` can be either string or a list.
-
-Example:
-
-```
-const obj = {
-  a : {
-    b : {
-      c : 1,
-      d : 2
-    }
-  }
-}
-
-const result = R.paths([
-  'a.b.c',
-  'a.b.d',
-  'a.b.c.d.e',
-], obj)
-// => [1, 2, undefined]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
-export function paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
-export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
-export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
-
-/*
-Method: pathOr
-
-Explanation: It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
-
-Example:
-
-```
-const defaultValue = 'DEFAULT_VALUE'
-const pathToSearch = 'a.b'
-const pathToSearchList = ['a', 'b']
-
-const obj = {
-  a : {
-    b : 1
-  }
-}
-
-const result = [
-  R.pathOr(DEFAULT_VALUE, pathToSearch, obj),
-  R.pathOr(DEFAULT_VALUE, pathToSearchList, obj), 
-  R.pathOr(DEFAULT_VALUE, 'a.b.c', obj)
-]
-// => [1, 1, 'DEFAULT_VALUE']
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
-export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
 
 /*
 Method: pick
@@ -3710,7 +3621,7 @@ export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) 
 /*
 Method: evolve
 
-Explanation: It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+Explanation: It takes object of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
 
 Example:
 
@@ -3733,13 +3644,12 @@ const expected = {
 // => `result` is equal to `expected`
 ```
 
-Categories: Object, List
+Categories: Object
 
-Notes: Error handling of this method differs between Ramda and Rambda. Ramda for some wrong inputs returns result and for other - it returns one of the inputs. Rambda simply throws when inputs are not correct.
+Notes: 
 
 */
 // @SINGLE_MARKER
-export function evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /*

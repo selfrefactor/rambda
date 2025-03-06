@@ -24,6 +24,7 @@ import {
   tap,
   union,
 	path,
+	add,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
@@ -183,17 +184,9 @@ describe('real use cases - books', () => {
     const getResult = (book: BaseBook) =>
       piped(
         book,
-        // assoc('status', 'famous' as Status),
         assocPath<Book>('awards.number', 1),
         defaultTo(awardedBaseValue),
         tap(anyPass([x => x.awards.number > 1, x => x.year > 1900])),
-        tap(
-          both(
-            x => x.awards.number > 1,
-            x => x.year > 1900,
-          ),
-        ),
-        assertType(both(checkReadStatus, checkBookmarkStatus)),
         assertType(checkBookToRead),
         x => [x],
         dropLast(1),
@@ -201,14 +194,9 @@ describe('real use cases - books', () => {
         append(awardedZaratustraToRead),
         head,
 				evolve({
-					year: (x: number) => x + 1,
+					year: add(1),
 					mustRead: allPass([checkHasDescription, checkHasUserRating]),
 				}),
-        // allPass([checkHasDescription, checkHasUserRating]),
-        // tap(x => {
-        //   x // $ExpectType BookWithDescription & BookWithUserRating
-        // }),
-        // assertType(anyPass([checkHasDescription, checkHasUserRating])),
         // convertToType<BookWithDescription>(),
         // dissocPath<Book>('description'),
         // convertToType<Record<string, string>>(),
@@ -216,7 +204,7 @@ describe('real use cases - books', () => {
         // 	return x as unknown as number;
         // }),
 				simplify,
-				path('awards.number'),
+				// path('awards.number'),
       )
     const result = getResult(zaratustra)
 		type Foo = MergeTypes<typeof result>

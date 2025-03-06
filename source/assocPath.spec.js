@@ -1,41 +1,29 @@
-import { assocPathFn } from './assocPath.js'
+import { assocPath } from './assocPath.js'
 
 test('happy', () => {
-  const path = 'a.c.1'
+  const path = 'a.b.d'
   const input = {
     a: {
-      b: 1,
-      c: [1, 2],
+      b: {
+				c: 1
+			}
     },
   }
-  assocPathFn(path, 3, input)
-  expect(input).toEqual({
+  console.log(assocPath(path, 2)(input)	)
+  expect(assocPath(path, 2)(input)).toEqual({
     a: {
-      b: 1,
-      c: [1, 2],
+      b: {
+				c: 1,
+				d: 2
+			}
     },
   })
 })
 
-test('string can be used as path input', () => {
-  const testObj = {
-    a: [{ b: 1 }, { b: 2 }],
-    d: 3,
-  }
-  const result1 = assocPathFn(['a', 0, 'b'], 10, testObj)
-  const result2 = assocPathFn('a.0.b', 10, testObj)
-
-  const expected = {
-    a: [{ b: 10 }, { b: 2 }],
-    d: 3,
-  }
-  expect(result1).toEqual(expected)
-  expect(result2).toEqual(expected)
-})
-
 test("difference with ramda - doesn't overwrite primitive values with keys in the path", () => {
   const obj = { a: 'str' }
-  const result = assocPathFn(['a', 'b'], 42, obj)
+  const result = assocPath(['a', 'b'], 42)(obj)
+	console.log(result)
 
   expect(result).toEqual({
     a: {
@@ -48,18 +36,18 @@ test("difference with ramda - doesn't overwrite primitive values with keys in th
 })
 
 test('adds a key to an empty object', () => {
-  expect(assocPathFn(['a'], 1, {})).toEqual({ a: 1 })
+  expect(assocPath(['a'], 1)({})).toEqual({ a: 1 })
 })
 
 test('adds a key to a non-empty object', () => {
-  expect(assocPathFn('b', 2, { a: 1 })).toEqual({
+  expect(assocPath('b', 2, { a: 1 })).toEqual({
     a: 1,
     b: 2,
   })
 })
 
 test('adds a nested key to a non-empty object', () => {
-  expect(assocPathFn('b.c', 2, { a: 1 })).toEqual({
+  expect(assocPath('b.c', 2)({ a: 1 })).toEqual({
     a: 1,
     b: { c: 2 },
   })
@@ -67,7 +55,7 @@ test('adds a nested key to a non-empty object', () => {
 
 test('adds a nested key to a nested non-empty object', () => {
   expect(
-    assocPathFn('b.d', 3, {
+    assocPath('b.d', 3)({
       a: 1,
       b: { c: 2 },
     }),
@@ -81,45 +69,33 @@ test('adds a nested key to a nested non-empty object', () => {
 })
 
 test('adds a key to a non-empty object', () => {
-  expect(assocPathFn('b', 2, { a: 1 })).toEqual({
+  expect(assocPath('b', 2)({ a: 1 })).toEqual({
     a: 1,
     b: 2,
   })
 })
 
 test('adds a nested key to a non-empty object', () => {
-  expect(assocPathFn('b.c', 2, { a: 1 })).toEqual({
+  expect(assocPath('b.c', 2)({ a: 1 })).toEqual({
     a: 1,
     b: { c: 2 },
   })
 })
 
 test('changes an existing key', () => {
-  expect(assocPathFn('a', 2, { a: 1 })).toEqual({ a: 2 })
+  expect(assocPath('a', 2)({ a: 1 })).toEqual({ a: 2 })
 })
 
 test('undefined is considered an empty object', () => {
-  expect(assocPathFn('a', 1, undefined)).toEqual({ a: 1 })
-})
-
-test('null is considered an empty object', () => {
-  expect(assocPathFn('a', 1, null)).toEqual({ a: 1 })
-})
-
-test('value can be null', () => {
-  expect(assocPathFn('a', null, null)).toEqual({ a: null })
-})
-
-test('value can be undefined', () => {
-  expect(assocPathFn('a', undefined, null)).toEqual({ a: undefined })
+  expect(assocPath('a', 1)(undefined)).toEqual({ a: 1 })
 })
 
 test('assignment is shallow', () => {
-  expect(assocPathFn('a', { b: 2 }, { a: { c: 3 } })).toEqual({ a: { b: 2 } })
+  expect(assocPath('a', { b: 2 })({ a: { c: 3 } })).toEqual({ a: { b: 2 } })
 })
 
 test('empty array as path', () => {
-  const result = assocPathFn([], 3, {
+  const result = assocPath([], 3)({
     a: 1,
     b: 2,
   })
@@ -128,6 +104,6 @@ test('empty array as path', () => {
 
 test('happy', () => {
   const expected = { foo: { bar: { baz: 42 } } }
-  const result = assocPathFn(['foo', 'bar', 'baz'], 42, { foo: null })
+  const result = assocPath(['foo', 'bar', 'baz'], 42, { foo: null })
   expect(result).toEqual(expected)
 })

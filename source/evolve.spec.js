@@ -78,11 +78,3 @@ test('ignores primitive values', () => {
   const result = evolve(rules, object)
   expect(result).toEqual(expected)
 })
-
-test('with array', () => {
-  const rules = [add(1), add(-1)]
-  const list = [100, 1400]
-  const expected = [101, 1399]
-  const result = evolve(rules, list)
-  expect(result).toEqual(expected)
-})
