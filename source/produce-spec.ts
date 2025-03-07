@@ -1,4 +1,4 @@
-import { add, pipe, produce } from 'rambda'
+import { add, pipe, produce } from 'rambdax'
 
 describe('R.produce', () => {
   it('happy', () => {

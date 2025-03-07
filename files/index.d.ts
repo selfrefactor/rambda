@@ -2403,7 +2403,7 @@ export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /*
-Method: propOr
+Method: getPropertyOrDefault
 
 Explanation: It returns either `defaultValue` or the value of `property` in `obj`.
 
@@ -2415,8 +2415,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property, obj),
-  R.propOr(defaultValue, 'foo', obj)
+  R.getPropertyOrDefault(defaultValue, property)(obj),
+  R.getPropertyOrDefault(defaultValue, 'foo')(obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -2427,7 +2427,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>> | undefined) => T;
+export function getPropertyOrDefault<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
 
 /*
 Method: propSatisfies
@@ -2664,29 +2664,6 @@ Notes:
 // @SINGLE_MARKER
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
-
-/*
-Method: split
-
-Explanation: Curried version of `String.prototype.split`
-
-Example:
-
-```
-const str = 'foo|bar|baz'
-const separator = '|'
-const result = R.split(separator, str)
-// => [ 'foo', 'bar', 'baz' ]
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function split(separator: string | RegExp): (str: string) => string[];
-export function split(separator: string | RegExp, str: string): string[];
 
 /*
 Method: splitEvery
@@ -2996,34 +2973,6 @@ Notes:
 // @SINGLE_MARKER
 export function times<T>(fn: (i: number) => T, howMany: number): T[];
 export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
-
-/*
-Method: toPairs
-
-Explanation: It transforms an object to a list.
-
-
-Example:
-
-```
-const list = {
-  a : 1,
-  b : 2,
-  c : [ 3, 4 ],
-}
-const expected = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
-
-const result = R.toPairs(list)
-// => `result` is equal to `expected`
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function toPairs<T extends {}>(data: T): Array<Entry<T>>;
 
 /*
 Method: tryCatch
