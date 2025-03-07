@@ -1,4 +1,4 @@
-import { filter, mapIndexed, pipe, piped } from 'rambda'
+import { filter, map, pipe, piped } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -34,7 +34,7 @@ describe('R.filter with array', () => {
     }
     const result = piped(
       testList,
-      mapIndexed((x, i) => {
+      map((x, i) => {
         return { a: x.a, b: `${i}` }
       }),
       filter(filterBar),
@@ -55,7 +55,7 @@ describe('R.filter with array', () => {
     }
     const result = piped(
       testList,
-      mapIndexed((x, i) => {
+      map((x, i) => {
         return { a: x.a, b: `${i}` }
       }),
       filter(filterBar),
@@ -73,18 +73,5 @@ describe('R.filter with array', () => {
     result // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
     // @ts-expect-error
     result.includes(null)
-  })
-  it('within pipe requires explicit type', () => {
-    pipe(
-      x => x,
-      filter<number>(x => {
-        x // $ExpectType number
-        return x > 1
-      }),
-      filter((x: number) => {
-        x // $ExpectType number
-        return x > 1
-      }),
-    )(list)
   })
 })

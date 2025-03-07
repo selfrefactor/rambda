@@ -3,7 +3,7 @@ export function map(fn) {
     let index = 0
     const willReturn = Array(list.length)
     while (index < list.length) {
-      willReturn[index] = fn(list[index])
+      willReturn[index] = fn(list[index], index)
       index++
     }
     return willReturn

@@ -388,32 +388,6 @@ Notes:
 export function flatMap<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
 /*
-Method: clone
-
-Explanation: It creates a deep copy of the `input`, which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
-
-Example:
-
-```
-const objects = [{a: 1}, {b: 2}];
-const objectsClone = R.clone(objects);
-
-const result = [
-  R.equals(objects, objectsClone),
-  R.equals(objects[0], objectsClone[0]),
-] // => [ true, true ]
-```
-
-Categories: Object
-
-Notes: It doesn't work with very specific types, such as MongoDB's ObjectId.
-
-*/
-// @SINGLE_MARKER
-export function clone<T>(input: T): T;
-export function clone<T>(input: T[]): T[];
-
-/*
 Method: complement
 
 Explanation: It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -1170,73 +1144,26 @@ export function includes<T extends string>(valueToFind: T): (input: string) => b
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /*
-Method: indexBy
+Method: indexOf
 
-Explanation: It generates object with properties provided by `condition` and values provided by `list` array.
-
-If `condition` is a function, then all list members are passed through it.
-
-If `condition` is a string, then all list members are passed through `R.path(condition)`.
+Explanation: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
 
 Example:
 
 ```
-const list = [ {id: 10}, {id: 20} ]
-
-const withFunction = R.indexBy(
-  x => x.id,
-  list
-)
-const withString = R.indexBy(
-  'id',
-  list
-)
 const result = [
-  withFunction, 
-  R.equals(withFunction, withString)
+  R.indexOf({a:1})([{a:1}, {a:2}]),
+  R.indexOf(2)([1, 2, 3]),
 ]
-// => [ { 10: {id: 10}, 20: {id: 20} }, true ]
+// => [0, 1]
 ```
 
 Categories: List
- 
+
 Notes:
 
 */
 // @SINGLE_MARKER
-export function indexBy<T, K extends string | number = string>(condition: (key: T) => K, list: T[]): { [key in K]: T };
-export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K, list: T[]): { [key in NonNullable<K>]?: T };
-export function indexBy<T, K extends string | number = string>(condition: (key: T) => K): (list: T[]) => { [key in K]: T };
-export function indexBy<T, K extends string | number | undefined = string>(condition: (key: T) => K | undefined): (list: T[]) => { [key in NonNullable<K>]?: T };
-export function indexBy<T>(condition: string, list: T[]): { [key: string]: T };
-export function indexBy<T>(condition: string): (list: T[]) => { [key: string]: T };
-
-/*
-Method: indexOf
-
-Explanation: It returns the index of the first element of `list` equals to `valueToFind`.
-
-If there is no such element, it returns `-1`.
-
-Example:
-
-```
-const list = [0, 1, 2, 3]
-
-const result = [
-  R.indexOf(2, list),
-  R.indexOf(0, list)
-]
-// => [2, -1]
-```
-
-Categories: List
-
-Notes: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
-
-*/
-// @SINGLE_MARKER
-export function indexOf<T>(valueToFind: T, list: T[]): number;
 export function indexOf<T>(valueToFind: T): (list: T[]) => number;
 
 /*
@@ -1421,8 +1348,15 @@ Notes: Unlike Ramda's `map`, here property and input object are passed as argume
 */
 // @SINGLE_MARKER
 export function map<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, U>;
+export function map<T extends IterableContainer, U>(
   fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
+export function map<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => U,
+	data: T
+) : Mapped<T, U>;
 export function map<T extends IterableContainer, U>(
   fn: (value: T[number]) => U,
 	data: T
@@ -2626,30 +2560,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
-
-/*
-Method: reverse
-
-Explanation: It returns a reversed copy of list or string `input`. 
-
-Example:
-
-```
-const result = [
-  R.reverse('foo'),
-  R.reverse([1, 2, 3])
-]
-// => ['oof', [3, 2, 1]
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function reverse<T>(input: T[]): T[];
-export function reverse(input: string): string;
 
 /*
 Method: sort
