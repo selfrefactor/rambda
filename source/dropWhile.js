@@ -1,9 +1,7 @@
 import { isArray as isArrayMethod } from './_internals/isArray.js'
 
-export function dropWhile(predicate, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => dropWhile(predicate, _iterable)
-  }
+export function dropWhile(predicate) {
+	return iterable => {
   const isArray = isArrayMethod(iterable)
   if (!isArray && typeof iterable !== 'string') {
     throw new Error('`iterable` is neither list nor a string')
@@ -25,4 +23,5 @@ export function dropWhile(predicate, iterable) {
   }
 
   return isArray ? toReturn : toReturn.join('')
+}
 }

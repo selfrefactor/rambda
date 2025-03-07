@@ -12,13 +12,28 @@ export type Mapped<T extends IterableContainer, K> = {
 };
 
 export type ElementOf<Type extends readonly any[]> = Type[number];
-export type Simplify<T> = {[KeyType in keyof T]: T[KeyType]} & {};
+export type MergeTypes<T> = {[KeyType in keyof T]: T[KeyType]} & {};
+export type Simplify<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
+
 export type EntryForKey<T, Key extends keyof T> = Key extends number | string
   ? [key: `${Key}`, value: Required<T>[Key]]
   : never;
 
-export type Entry<T> = Simplify<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
+export type Entry<T> = MergeTypes<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof T]>;
 
+export type Ord = number | string | boolean | Date;
+export type Ordering = -1 | 0 | 1;
+type Path = Array<string> | string;
+type Predicate<T> = (x: T) => boolean;
+type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
+    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
+    : undefined;
+
+interface KeyValuePair<K, V> extends Array<K | V> {
+  0: K;
+  1: V;
+}
+export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
   Keys extends [infer K, ...infer Rest]
     ? K extends keyof U
@@ -31,24 +46,11 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
     : never;
 
 
-type Ord = number | string | boolean | Date;
-type Ordering = -1 | 0 | 1;
-export type Path = Array<number | string> | string;
-export type Predicate<T> = (x: T) => boolean;
-type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
-    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
-    : undefined;
-
-interface KeyValuePair<K, V> extends Array<K | V> {
-  0: K;
-  1: V;
-}
-export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 export type ObjPredicate<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
-type Partial<T> = { [P in keyof T]?: T[P]};
+export type Partial<T> = { [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
 
@@ -81,10 +83,9 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type AnyFunction = (...args: any[]) => unknown;
+type 
+AnyFunction = (...args: any[]) => unknown;
 type AnyConstructor = new (...args: any[]) => unknown;
-
-export type IdentityFunction<T> = (x: T) => T;
 
 
 export function T(): boolean;
@@ -160,7 +161,6 @@ export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) =>
  * It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
  */
 export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
-export function assocPath<T>(path: Path, val: unknown, obj: unknown): T;
 
 /**
  * It returns a function with `input` argument.
@@ -255,13 +255,11 @@ export function concat(x: string): (y: string) => string;
 /**
  * It counts how many times `predicate` function returns `true`, when supplied with iteration of `list`.
  */
-export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
 export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /**
  * It counts elements in a list after each instance of the input list is passed through `transformFn` function.
  */
-export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
 export function countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
 
 /**
@@ -332,24 +330,14 @@ export function dropLast(howMany: number, input: string): string;
 export function dropLast<T>(howMany: number, input: T[]): T[];
 export function dropLast<T>(howMany: number, input: readonly T[]): T[];
 
-export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
 export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
-export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: T[]): T[];
 export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: T[]) => T[];
-
-/**
- * It removes any successive duplicates according to `R.equals`.
- */
-export function dropRepeats<T>(list: T[]): T[];
 
 export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 
-export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
-export function dropWhile(fn: Predicate<string>, iterable: string): string;
 export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
-export function dropWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
 export function dropWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /**
@@ -366,8 +354,6 @@ export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
 /**
  * It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
  */
-export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
-export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
 /**
@@ -377,9 +363,8 @@ export function equals<T>(x: T, y: T): boolean;
 export function equals<T>(x: T): (y: T) => boolean;
 
 /**
- * It takes object or array of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+ * It takes object of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
  */
-export function evolve<T, U>(rules: ((x: T) => U)[]) : (list: T[]) => U[];
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /**
@@ -472,10 +457,6 @@ export function hasIn<T>(searchProperty: string, obj: T): boolean;
 /**
  * It will return true, if `input` object has truthy `path`(calculated with `R.path`).
  */
-export function hasPath<T>(
-  path: string | string[],
-  input: object
-): boolean;
 export function hasPath<T>(
   path: string | string[]
 ): (input: object) => boolean;
@@ -683,6 +664,12 @@ export function mergeRight<A, B>(target: A, newProps: B): A & B
 export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /**
+ * Helper to merge all calculated TypeScript definitions into one definition.
+ * It returns its input and it is intended to be used as last method inside `R.piped` chain.
+ */
+export function mergeTypes<T>(x: T): MergeTypes<T>;
+
+/**
  * It returns the lesser value between `x` and `y`.
  */
 export function min<T extends Ord>(x: T): (y: T) => T;
@@ -701,19 +688,127 @@ export function modify<K extends string, A, P>(
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
 /**
+ * It changes a property of object on the base of provided path and transformer function.
+ */
+export function modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T;
+export function modifyPath<
+  K0 extends keyof U,
+  U,
+  T
+>(path: [K0], fn: (value: U[K0]) => T): (obj: U) => DeepModify<[K0], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  U,
+  T
+>(path: `${K0}`, fn: (value: U[K0]) => T): (obj: U) => DeepModify<[K0], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  U,
+  T
+>(path: [K0, K1], fn: (value: U[K0][K1]) => T): (obj: U) => DeepModify<[K0, K1], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  U,
+  T
+>(path: `${K0}.${K1}`, fn: (value: U[K0][K1]) => T): (obj: U) => DeepModify<[K0, K1], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  U,
+  T
+>(path: [K0, K1, K2], fn: (value: U[K0][K1][K2]) => T): (obj: U) => DeepModify<[K0, K1, K2], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  U,
+  T
+>(path: `${K0}.${K1}.${K2}`, fn: (value: U[K0][K1][K2]) => T): (obj: U) => DeepModify<[K0, K1, K2], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  U,
+  T
+>(path: [K0, K1, K2, K3], fn: (value: U[K0][K1][K2][K3]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  U,
+  T
+>(path: `${K0}.${K1}.${K2}.${K3}`, fn: (value: U[K0][K1][K2][K3]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4], fn: (value: U[K0][K1][K2][K3][K4]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  U,
+  T
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}`, fn: (value: U[K0][K1][K2][K3][K4]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5], fn: (value: U[K0][K1][K2][K3][K4][K5]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4, K5], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  U,
+  T
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`, fn: (value: U[K0][K1][K2][K3][K4][K5]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4, K5], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
+  U,
+  T
+>(path: [K0, K1, K2, K3, K4, K5, K6], fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4, K5, K6], U, T>;
+export function modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  K2 extends keyof U[K0][K1],
+  K3 extends keyof U[K0][K1][K2],
+  K4 extends keyof U[K0][K1][K2][K3],
+  K5 extends keyof U[K0][K1][K2][K3][K4],
+  K6 extends keyof U[K0][K1][K2][K3][K4][K5],
+  U,
+  T
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`, fn: (value: U[K0][K1][K2][K3][K4][K5][K6]) => T): (obj: U) => DeepModify<[K0, K1, K2, K3, K4, K5, K6], U, T>;
+export function modifyPath<B, A = any>(path: Path, fn: (a: any) => any): (obj: A) => B;
+
+/**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
  */
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
-
-/**
- * Curried version of `input[index]`.
- */
-export function nth(index: number, input: string): string;	
-export function nth<T>(index: number, input: T[]): T | undefined;	
-export function nth(n: number): {
-  <T>(input: T[]): T | undefined;
-  (input: string): string;
-};
 
 /**
  * It creates an object with a single key-value pair.
@@ -727,8 +822,6 @@ export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { [P in K
  */
 export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
 
-export function of<T>(x: T): T[];
-
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
  */
@@ -736,29 +829,6 @@ export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends 
 export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
 export function omit<T>(names: string): (obj: unknown) => T;
 export function omit<T>(names: string, obj: unknown): T;
-
-/**
- * It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
- * 
- * `R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
- * The name comes from the fact that you partially inject the inputs.
- */
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0, V1, V2],
-): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0, V1],
-): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0],
-): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
 /**
  * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
@@ -774,102 +844,166 @@ export function partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
  * 
  * It will return `undefined`, if such path is not found.
  */
-export function path<T = unknown>(path: Path): (obj: any) => T | undefined;
-export function path<S, K0 extends keyof S>(path: [K0], obj: S): S[K0];
-export function path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<S, K0 extends keyof S>(path: [K0]): (obj: S) => S[K0];
+export function path<S, K0 extends keyof S>(path: `${K0}`): (obj: S) => S[K0];
+export function path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1]): (obj: S) => S[K0][K1];
+export function path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: `${K0}.${K1}`): (obj: S) => S[K0][K1];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1]
->(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1]
+>(path: [K0, K1, K2]): (obj: S) => S[K0][K1][K2];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2]
->(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1]
+>(path: `${K0}.${K1}.${K2}`): (obj: S) => S[K0][K1][K2];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2],
-	K4 extends keyof S[K0][K1][K2][K3]
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2]
+>(path: [K0, K1, K2, K3]): (obj: S) => S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2]
+>(path: `${K0}.${K1}.${K2}.${K3}`): (obj: S) => S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3]
+>(path: [K0, K1, K2, K3, K4]): (obj: S) => S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3]
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}`): (obj: S) => S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3]
 >(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2],
-	K4 extends keyof S[K0][K1][K2][K3],
-	K5 extends keyof S[K0][K1][K2][K3][K4]
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4]
+>(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4]
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`): (obj: S) => S[K0][K1][K2][K3][K4][K5];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2],
-	K4 extends keyof S[K0][K1][K2][K3],
-	K5 extends keyof S[K0][K1][K2][K3][K4],
-	K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(path: [K0, K1, K2, K3, K4, K5, K6]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
 >(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2],
-	K4 extends keyof S[K0][K1][K2][K3],
-	K5 extends keyof S[K0][K1][K2][K3][K4],
-	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7];
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
 export function path<
-	S,
-	K0 extends keyof S,
-	K1 extends keyof S[K0],
-	K2 extends keyof S[K0][K1],
-	K3 extends keyof S[K0][K1][K2],
-	K4 extends keyof S[K0][K1][K2][K3],
-	K5 extends keyof S[K0][K1][K2][K3][K4],
-	K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-	K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
-	K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8], obj: S): S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
-export function path<T = unknown>(path: Path, obj: any): T | undefined;
-
-/**
- * It returns `true` if `pathToSearch` of `input` object is equal to `target` value.
- * 
- * `pathToSearch` is passed to `R.path`, which means that it can be either a string or an array. Also equality between `target` and the found value is determined by `R.equals`.
- */
-export function pathEq(pathToSearch: Path, target: any, input: any): boolean;
-export function pathEq(pathToSearch: Path, target: any): (input: any) => boolean;
-export function pathEq(pathToSearch: Path): (target: any) => (input: any) => boolean;
-
-/**
- * It reads `obj` input and returns either `R.path(pathToSearch, obj)` result or `defaultValue` input.
- */
-export function pathOr<T>(defaultValue: T, pathToSearch: Path, obj: any): T;
-export function pathOr<T>(defaultValue: T, pathToSearch: Path): (obj: any) => T;
-export function pathOr<T>(defaultValue: T): (pathToSearch: Path) => (obj: any) => T;
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+    K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+export function path<
+    S,
+    K0 extends keyof S,
+    K1 extends keyof S[K0],
+    K2 extends keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4],
+    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+    K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
 
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
-
-/**
- * It loops over members of `pathsToSearch` as `singlePath` and returns the array produced by `R.path(singlePath, obj)`.
- * 
- * Because it calls `R.path`, then `singlePath` can be either string or a list.
- */
-export function paths<Input, T>(pathsToSearch: Path[], obj: Input): (T | undefined)[];
-export function paths<Input, T>(pathsToSearch: Path[]): (obj: Input) => (T | undefined)[];
-export function paths<T>(pathsToSearch: Path[], obj: any): (T | undefined)[];
-export function paths<T>(pathsToSearch: Path[]): (obj: any) => (T | undefined)[];
 
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -1293,13 +1427,6 @@ export function propOr<T, P extends string>(defaultValue: T, property: P): (obj:
 export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
 export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
-/**
- * It takes list with properties `propsToPick` and returns a list with property values in `obj`.
- */
-export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
-export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
-export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
-
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
 /**
@@ -1380,7 +1507,6 @@ export function splitEvery(sliceLength: number): {
  * 
  * The first array contains all members of `list` before `predicate` returns `true`.
  */
-export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[];
 export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
 
 /**
@@ -1426,20 +1552,16 @@ export function take<T>(howMany: number) : (input: T) => T extends string ? stri
 export function takeLast<T>(howMany: number, input: T): T extends string ? string : T;
 export function takeLast<T>(howMany: number) : (input: T) => T extends string ? string : T;
 
-export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
-export function takeLastWhile<T>(predicate: (x: T) => boolean, input: T[]): T[];
 export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 
-export function takeWhile(fn: Predicate<string>, iterable: string): string;
 export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
-export function takeWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
 export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
- * One use case is debugging in the middle of `R.compose`.
+ * One use case is debugging in the middle of `R.piped` chain.
  */
 export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;
@@ -1463,8 +1585,6 @@ export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
  */
 export function toPairs<T extends {}>(data: T): Array<Entry<T>>;
 
-export function trim(str: string): string;
-
 /**
  * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
  */
@@ -1472,18 +1592,6 @@ export function tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
 ): (input: T) => U;
-export function tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: (input: T) => U
-): (input: T) => U;
-export function tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: T
-): (input: any) => Promise<T>;
-export function tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: (input: any) => Promise<any>,
-): (input: any) => Promise<T>;
 
 /**
  * It accepts any input and it returns its type.
@@ -1495,7 +1603,6 @@ export function type(x: any): RambdaTypes;
  * 
  * `R.equals` is used to compare for duplication.
  */
-export function union<T>(x: T[], y: T[]): T[];
 export function union<T>(x: T[]): (y: T[]) => T[];
 
 /**
@@ -1517,20 +1624,7 @@ export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
  * 
  * This predicate should return true, if two elements are equal.
  */
-export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
-
-/**
- * The method returns function that will be called with argument `input`.
- * 
- * If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
- * 
- * In the other case, the final output will be the `input` itself.
- */
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
 
 /**
  * It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
@@ -1538,14 +1632,10 @@ export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T
 export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
 
 /**
- * With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
- */
-export function values<T extends object, K extends keyof T>(obj: T): T[K][];
-
-/**
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
  * If the `predicate` returns `false`, then it will simply return `input`.
  */
+export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => T): (input: T) => T;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
 
 /**
@@ -1560,17 +1650,6 @@ export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
  * 
  * The returned list will be truncated to match the length of the shortest supplied list.
  */
-export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
 export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
 
-/**
- * It will return a new object with keys of `keys` array and values of `values` array.
- */
-export function zipObj<T, K extends string>(keys: K[], values: T[]): { [P in K]: T };
-export function zipObj<K extends string>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
-export function zipObj<T, K extends number>(keys: K[], values: T[]): { [P in K]: T };
-export function zipObj<K extends number>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
-
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];

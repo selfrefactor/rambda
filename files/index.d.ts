@@ -3134,7 +3134,7 @@ const result = [
 
 Categories: Logic
 
-Notes: Please check the tests of `R.tryCatch` to fully understand how this method works.
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3142,18 +3142,6 @@ export function tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
 ): (input: T) => U;
-export function tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: (input: T) => U
-): (input: T) => U;
-export function tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: T
-): (input: any) => Promise<T>;
-export function tryCatch<T>(
-  fn: (input: any) => Promise<any>,
-  fallback: (input: any) => Promise<any>,
-): (input: any) => Promise<T>;
 
 /*
 Method: type
@@ -3210,7 +3198,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function union<T>(x: T[], y: T[]): T[];
 export function union<T>(x: T[]): (y: T[]) => T[];
 
 /*
@@ -3273,65 +3260,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
-
-/*
-Method: unless
-
-Explanation: The method returns function that will be called with argument `input`.
-
-If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
-
-In the other case, the final output will be the `input` itself.
-
-Example:
-
-```
-const fn = R.unless(
-  x => x > 2,
-  x => x + 10
-)
-
-const result = [
-  fn(1),
-  fn(5)
-]
-// => [11, 5]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U, x: T): T | U;
-export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T, x: T): T;
-export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
-
-/*
-Method: values
-
-Explanation: With correct input, this is nothing more than `Object.values(obj)`. If `obj` is not an object, then it returns an empty array.
-
-Example:
-
-```
-const obj = {a:1, b:2}
-
-R.values(obj)
-// => [1, 2]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function values<T extends object, K extends keyof T>(obj: T): T[K][];
 
 /*
 Method: when
@@ -3367,6 +3296,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => T): (input: T) => T;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
 
 /*
@@ -3464,11 +3394,11 @@ Example:
 ```
 const x = [1, 2]
 const y = ['A', 'B']
-R.zip(x, y)
+R.zip(x)(y)
 // => [[1, 'A'], [2, 'B']]
 
 // truncates to shortest list
-R.zip([...x, 3], ['A', 'B'])
+R.zip([...x, 3])(['A', 'B'])
 // => [[1, 'A'], [2, 'B']]
 ```
 
@@ -3478,62 +3408,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zip<K, V>(x: K[], y: V[]): KeyValuePair<K, V>[];
 export function zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[];
-
-/*
-Method: zipObj
-
-Explanation: It will return a new object with keys of `keys` array and values of `values` array.
-
-Example:
-
-```
-const keys = ['a', 'b', 'c']
-
-R.zipObj(keys, [1, 2, 3])
-// => {a: 1, b: 2, c: 3}
-
-// truncates to shortest list
-R.zipObj(keys, [1, 2])
-// => {a: 1, b: 2}
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function zipObj<T, K extends string>(keys: K[], values: T[]): { [P in K]: T };
-export function zipObj<K extends string>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
-export function zipObj<T, K extends number>(keys: K[], values: T[]): { [P in K]: T };
-export function zipObj<K extends number>(keys: K[]): <T>(values: T[]) => { [P in K]: T };
-
-/*
-Method: props
-
-Explanation: It takes list with properties `propsToPick` and returns a list with property values in `obj`.
-
-Example:
-
-```
-const result = R.props(
-  ['a', 'b'], 
-  {a:1, c:3}
-)
-// => [1, undefined]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function props<P extends string, T>(propsToPick: P[], obj: Record<P, T>): T[];
-export function props<P extends string>(propsToPick: P[]): <T>(obj: Record<P, T>) => T[];
-export function props<P extends string, T>(propsToPick: P[]): (obj: Record<P, T>) => T[];
 
 /*
 Method: zipWith
@@ -3546,9 +3421,7 @@ Example:
 const list1 = [ 10, 20, 30, 40 ]
 const list2 = [ 100, 200 ]
 
-const result = R.zipWith(
-  R.add, list1, list2
-)
+const result = R.zipWith(R.add, list1)(list2)
 // => [110, 220]
 ```
 
@@ -3558,31 +3431,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
 
-/*
-Method: splitAt
-
-Explanation: It splits string or array at a given index.
-
-Example:
-
-```
-const list = [ 1, 2, 3 ]
-const result = R.splitAt(2, list)
-// => [[ 1, 2 ], [ 3 ]]
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-
-export function splitAt(index: number): <T>(list: T[]) => [T[], T[]];
 
 /*
 Method: splitWhen
@@ -3605,7 +3455,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function splitWhen<T, U>(predicate: Predicate<T>, list: U[]): (U[])[];
 export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
 
 /*
@@ -3629,9 +3478,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLastWhile(predicate: (x: string) => boolean, input: string): string;
 export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
-export function takeLastWhile<T>(predicate: (x: T) => boolean, input: T[]): T[];
 export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 
 /*
@@ -3689,36 +3536,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLastWhile(predicate: (x: string) => boolean, iterable: string): string;
 export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
-export function dropLastWhile<T>(predicate: (x: T) => boolean, iterable: T[]): T[];
 export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: T[]) => T[];
-
-/*
-Method: dropRepeats
-
-Explanation: It removes any successive duplicates according to `R.equals`.
-
-Example:
-
-```
-const result = R.dropRepeats([
-  1, 
-  1, 
-  {a: 1}, 
-  {a:1}, 
-  1
-])
-// => [1, {a: 1}, 1]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function dropRepeats<T>(list: T[]): T[];
 
 /*
 Method: dropRepeatsWith
@@ -3729,7 +3548,7 @@ Example:
 
 ```
 const list = [{a:1,b:2}, {a:1,b:3}, {a:2, b:4}]
-const result = R.dropRepeatsWith(R.prop('a'), list)
+const result = R.dropRepeatsWith(R.prop('a'))(list)
 
 // => [{a:1,b:2}, {a:2, b:4}]
 ```
@@ -3740,7 +3559,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean, list: T[]): T[];
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /*
@@ -3753,7 +3571,7 @@ Example:
 ```
 const list = [1, 2, 3, 4]
 const predicate = x => x < 3
-const result = R.dropWhile(predicate, list)
+const result = R.dropWhile(predicate)(list)
 // => [3, 4]
 ```
 
@@ -3763,9 +3581,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile(fn: Predicate<string>, iterable: string): string;
 export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
-export function dropWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
 export function dropWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /*
@@ -3779,7 +3595,7 @@ Example:
 const list = [1, 2, 3, 4]
 const predicate = x => x < 3
 
-const result = R.takeWhile(predicate, list)
+const result = R.takeWhile(predicate)(list)
 // => [1, 2]
 ```
 
@@ -3789,9 +3605,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile(fn: Predicate<string>, iterable: string): string;
 export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
-export function takeWhile<T>(fn: Predicate<T>, iterable: T[]): T[];
 export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
 
 /*
@@ -3804,7 +3618,7 @@ Example:
 ```
 const obj1 = {a: 1, b:2}
 const obj2 = {a: 1, b:3}
-const result = R.eqProps('a', obj1, obj2)
+const result = R.eqProps('a', obj1)(obj2)
 // => true 
 ```
 
@@ -3814,8 +3628,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqProps<T, U>(prop: string, obj1: T, obj2: U): boolean;
-export function eqProps<P extends string>(prop: P): <T, U>(obj1: Record<P, T>, obj2: Record<P, U>) => boolean;
 export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
 /*
@@ -3837,7 +3649,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function count<T>(predicate: (x: T) => boolean, list: T[]): number;
 export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
@@ -3861,7 +3672,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
 export function countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
 
 /*

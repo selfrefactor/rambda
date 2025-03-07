@@ -79,7 +79,7 @@
     return clone
   }
 
-  function assocFn(prop, newValue) {
+  function assoc(prop, newValue) {
     return obj => Object.assign({}, obj, { [prop]: newValue })
   }
 
@@ -100,8 +100,6 @@
       : path
   }
 
-  const { isArray } = Array;
-
   function assocPath(path, newValue){
   	return (input) => {
     const pathArrValue = createPath(path);
@@ -111,35 +109,23 @@
 
     const index = pathArrValue[0];
     if (pathArrValue.length > 1) {
-      const condition =
-        typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
-
-      const nextInput = condition
-        ? isIndexInteger(pathArrValue[1])
-          ? []
-          : {}
+      const nextInput = typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
+        ? {}
         : input[index];
 
-      newValue = assocPathFn(
+      newValue = assocPath(
         Array.prototype.slice.call(pathArrValue, 1),
-        newValue,
+        newValue)(
         nextInput,
       );
     }
 
-    if (isIndexInteger(index) && isArray(input)) {
-      const arr = cloneList(input);
-      arr[index] = newValue;
-
-      return arr
-    }
-
-    return assocFn(index, newValue)
+    return assoc(index, newValue)(input)
   }
   }
 
   function checkObjectWithSpec(conditions) {
-  	return function(input) {
+  	return (input) => {
   	let shouldProceed = true;
     for (const prop in conditions) {
       if (!shouldProceed) {
@@ -154,6 +140,8 @@
     return shouldProceed
   }
   }
+
+  const { isArray } = Array;
 
   function clone(input) {
     const out = isArray(input) ? Array(input.length) : {};
@@ -835,10 +823,8 @@
       : listOrString.slice()
   }
 
-  function dropLastWhile(predicate, iterable) {
-    if (arguments.length === 1) {
-      return _iterable => dropLastWhile(predicate, _iterable)
-    }
+  function dropLastWhile(predicate) {
+  	return iterable => {
     if (iterable.length === 0) {
       return iterable
     }
@@ -868,78 +854,10 @@
 
     return isArray$1 ? toReturn.reverse() : toReturn.reverse().join('')
   }
-
-  function dropRepeats(list) {
-    if (!isArray(list)) {
-      throw new Error(`${list} is not a list`)
-    }
-
-    const toReturn = [];
-
-    list.reduce((prev, current) => {
-      if (!equals(prev, current)) {
-        toReturn.push(current);
-      }
-
-      return current
-    }, undefined);
-
-    return toReturn
   }
 
-  function dropRepeatsBy(fn) {
-  	return list => {
-  		let lastEvaluated = null;
-  	
-  		return list.slice().filter(item => {
-  			if (lastEvaluated === null) {
-  				lastEvaluated = fn(item);
-  	
-  				return true
-  			}
-  			const evaluatedResult = fn(item);
-  			if (equals(lastEvaluated, evaluatedResult)) {
-  				return false
-  			}
-  	
-  			lastEvaluated = evaluatedResult;
-  	
-  			return true
-  		})
-  	}
-  }
-
-  function dropRepeatsWith(predicate, list) {
-    if (arguments.length === 1) {
-      return _iterable => dropRepeatsWith(predicate, _iterable)
-    }
-
-    if (!isArray(list)) {
-      throw new Error(`${list} is not a list`)
-    }
-
-    const toReturn = [];
-
-    list.reduce((prev, current) => {
-      if (prev === undefined) {
-        toReturn.push(current);
-
-        return current
-      }
-      if (!predicate(prev, current)) {
-        toReturn.push(current);
-      }
-
-      return current
-    }, undefined);
-
-    return toReturn
-  }
-
-  function dropWhile(predicate, iterable) {
-    if (arguments.length === 1) {
-      return _iterable => dropWhile(predicate, _iterable)
-    }
+  function dropWhile(predicate) {
+  	return iterable => {
     const isArray$1 = isArray(iterable);
     if (!isArray$1 && typeof iterable !== 'string') {
       throw new Error('`iterable` is neither list nor a string')
@@ -961,6 +879,7 @@
     }
 
     return isArray$1 ? toReturn : toReturn.join('')
+  }
   }
 
   function endsWith(target, iterable) {
@@ -1035,38 +954,15 @@
   	}
   }
 
-  function _map(fn, list) {
-      let index = 0;
-      const willReturn = Array(list.length);
-      while (index < list.length) {
-        willReturn[index] = fn(list[index], index);
-        index++;
-      }
-      return willReturn
-  }
-
-  function evolveArray(rules, list) {
-    return _map(
-      (x, i) => {
-        if (type(rules[i]) === 'Function') {
-          return rules[i](x)
-        }
-
-        return x
-      },
-      list,
-    )
-  }
-
-  function evolveObject(rules, iterable) {
-    return mapObject((x, prop) => {
+  function evolve(rules) {
+  	return obj => mapObject((x, prop) => {
       if (type(x) === 'Object') {
         const typeRule = type(rules[prop]);
         if (typeRule === 'Function') {
           return rules[prop](x)
         }
         if (typeRule === 'Object') {
-          return evolve(rules[prop], x)
+          return evolve(rules[prop])
         }
 
         return x
@@ -1076,29 +972,7 @@
       }
 
       return x
-    })(iterable)
-  }
-
-  function evolve(rules, iterable) {
-    if (arguments.length === 1) {
-      return _iterable => evolve(rules, _iterable)
-    }
-    const rulesType = type(rules);
-    const iterableType = type(iterable);
-
-    if (iterableType !== rulesType) {
-      throw new Error('iterableType !== rulesType')
-    }
-
-    if (!['Object', 'Array'].includes(rulesType)) {
-      throw new Error(`'iterable' and 'rules' are from wrong type ${rulesType}`)
-    }
-
-    if (iterableType === 'Object') {
-      return evolveObject(rules, iterable)
-    }
-
-    return evolveArray(rules, iterable)
+    })(obj)
   }
 
   function filterObject(predicate, obj) {
@@ -1485,8 +1359,34 @@
     return willReturn
   }
 
+  function mergeTypes(x) {
+    return x
+  }
+
   function minBy(compareFn, x) {
     return y => compareFn(y) < compareFn(x) ? y : x
+  }
+
+  function modifyPath(pathInput, fn) {
+  	return object => {
+  		const path$1 = createPath(pathInput);
+  		if (path$1.length === 1) {
+  			return {
+  				...object,
+  				[path$1[0]]: fn(object[path$1[0]]),
+  			}
+  		}
+  		if (path(path$1)(object) === undefined) {
+  			return object
+  		}
+  	
+  		const val = modifyPath(Array.prototype.slice.call(path$1, 1), fn, object[path$1[0]]);
+  		if (val === object[path$1[0]]) {
+  			return object
+  		}
+  	
+  		return assoc(path$1[0], val)(object)
+  	}
   }
 
   function none(predicate) {
@@ -1501,44 +1401,8 @@
   }
   }
 
-  function nth(index, input) {
-    if (arguments.length === 1) {
-      return _input => nth(index, _input)
-    }
-
-    const idx = index < 0 ? input.length + index : index;
-
-    return Object.prototype.toString.call(input) === '[object String]'
-      ? input.charAt(idx)
-      : input[idx]
-  }
-
-  function objOf(key, value) {
-    if (arguments.length === 1) {
-      return _value => objOf(key, _value)
-    }
-
-    return { [key]: value }
-  }
-
-  function of(value) {
-    return [value]
-  }
-
-  function partial(fn, ...args) {
-    const len = fn.length;
-
-    // If a single array argument is given, those are the args (a la Ramda).
-    // Otherwise, the variadic arguments are the args.
-    const argList = args.length === 1 && isArray(args[0]) ? args[0] : args;
-
-    return (...rest) => {
-      if (argList.length + rest.length >= len) {
-        return fn(...argList, ...rest)
-      }
-
-      return partial(fn, ...[...argList, ...rest])
-    }
+  function objOf(key) {
+    return value => ({ [key]: value })
   }
 
   function partitionObject(predicate, iterable) {
@@ -1582,24 +1446,8 @@
     return partitionArray(predicate, iterable)
   }
 
-  function pathEq(pathToSearch, target) {
-    return input =>  equals(path(pathToSearch, input), target)
-  }
-
-  function pathOr(defaultValue, pathInput) {
-    return obj => defaultTo(defaultValue, path(pathInput, obj))
-  }
-
   function pathSatisfies(fn, pathInput) {
-    return obj => Boolean(fn(path(pathInput, obj)))
-  }
-
-  function paths(pathsToSearch, obj) {
-    if (arguments.length === 1) {
-      return _obj => paths(pathsToSearch, _obj)
-    }
-
-    return pathsToSearch.map(singlePath => path(singlePath, obj))
+    return obj => Boolean(fn(path(pathInput)(obj)))
   }
 
   function pick(propsToPick, input) {
@@ -1708,10 +1556,6 @@
 
   function propSatisfies(predicate, property) {
     return obj => predicate(prop(property, obj))
-  }
-
-  function props(propsToPick) {
-  	return obj => propsToPick.map(prop => obj[prop])
   }
 
   function reject(predicate, list) {
@@ -2077,15 +1921,6 @@
     return willReturn
   }
 
-  function unless(predicate, whenFalseFn) {
-  	return input => {
-    if (predicate(input)) {
-      return input
-    }
-
-    return whenFalseFn(input)
-  }}
-
   function unwind(property) {
   	return obj => {
   		return obj[property].map(x => ({
@@ -2130,18 +1965,6 @@
   }
   }
 
-  function zipObj(keys, values) {
-    if (arguments.length === 1) {
-      return yHolder => zipObj(keys, yHolder)
-    }
-
-    return take(values.length).reduce((prev, xInstance, i) => {
-      prev[xInstance] = values[i];
-
-      return prev
-    }, {})
-  }
-
   function zipWith(fn, x) {
   	return y => take(x.length > y.length ? y.length : x.length).map((xInstance, i) =>
       fn(xInstance, y[i]),
@@ -2158,7 +1981,7 @@
   exports.any = any;
   exports.anyPass = anyPass;
   exports.append = append;
-  exports.assocFn = assocFn;
+  exports.assoc = assoc;
   exports.assocPath = assocPath;
   exports.checkObjectWithSpec = checkObjectWithSpec;
   exports.clone = clone;
@@ -2175,17 +1998,12 @@
   exports.drop = drop;
   exports.dropLast = dropLast;
   exports.dropLastWhile = dropLastWhile;
-  exports.dropRepeats = dropRepeats;
-  exports.dropRepeatsBy = dropRepeatsBy;
-  exports.dropRepeatsWith = dropRepeatsWith;
   exports.dropWhile = dropWhile;
   exports.endsWith = endsWith;
   exports.eqBy = eqBy;
   exports.eqProps = eqProps;
   exports.equals = equals;
   exports.evolve = evolve;
-  exports.evolveArray = evolveArray;
-  exports.evolveObject = evolveObject;
   exports.filter = filter;
   exports.filterArray = filterArray;
   exports.filterObject = filterObject;
@@ -2218,22 +2036,18 @@
   exports.maxBy = maxBy;
   exports.merge = merge;
   exports.mergeAll = mergeAll;
+  exports.mergeTypes = mergeTypes;
   exports.minBy = minBy;
+  exports.modifyPath = modifyPath;
   exports.none = none;
-  exports.nth = nth;
   exports.objOf = objOf;
-  exports.of = of;
   exports.omit = omit;
-  exports.partial = partial;
   exports.partition = partition;
   exports.partitionArray = partitionArray;
   exports.partitionObject = partitionObject;
   exports.path = path;
-  exports.pathEq = pathEq;
   exports.pathFn = pathFn;
-  exports.pathOr = pathOr;
   exports.pathSatisfies = pathSatisfies;
-  exports.paths = paths;
   exports.pick = pick;
   exports.pickAll = pickAll;
   exports.pickBy = pickBy;
@@ -2246,7 +2060,6 @@
   exports.propFn = propFn;
   exports.propOr = propOr;
   exports.propSatisfies = propSatisfies;
-  exports.props = props;
   exports.reduce = reduce;
   exports.reject = reject;
   exports.removeIndex = removeIndex;
@@ -2276,13 +2089,11 @@
   exports.uniq = uniq;
   exports.uniqBy = uniqBy;
   exports.uniqWith = uniqWith;
-  exports.unless = unless;
   exports.unwind = unwind;
   exports.update = update;
   exports.when = when;
   exports.without = without;
   exports.zip = zip;
-  exports.zipObj = zipObj;
   exports.zipWith = zipWith;
 
 }));

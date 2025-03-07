@@ -1,8 +1,5 @@
-import { cloneList } from './_internals/cloneList.js'
 import { createPath } from './_internals/createPath.js'
-import { isArray } from './_internals/isArray.js'
-import { isIndexInteger } from './_internals/isInteger.js'
-import { assocFn } from './assoc.js'
+import { assoc } from './assoc.js'
 
 export function assocPath(path, newValue){
 	return (input) => {
@@ -13,30 +10,18 @@ export function assocPath(path, newValue){
 
   const index = pathArrValue[0]
   if (pathArrValue.length > 1) {
-    const condition =
-      typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
-
-    const nextInput = condition
-      ? isIndexInteger(pathArrValue[1])
-        ? []
-        : {}
+    const nextInput = typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
+      ? {}
       : input[index]
 
-    newValue = assocPathFn(
+    newValue = assocPath(
       Array.prototype.slice.call(pathArrValue, 1),
-      newValue,
+      newValue)(
       nextInput,
     )
   }
 
-  if (isIndexInteger(index) && isArray(input)) {
-    const arr = cloneList(input)
-    arr[index] = newValue
-
-    return arr
-  }
-
-  return assocFn(index, newValue, input)
+  return assoc(index, newValue)(input)
 }
 }
 
