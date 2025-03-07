@@ -1,5 +1,5 @@
 export function checkObjectWithSpec(conditions) {
-	return function(input) {
+	return (input) => {
 	let shouldProceed = true
   for (const prop in conditions) {
     if (!shouldProceed) {

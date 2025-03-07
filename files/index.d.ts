@@ -1765,38 +1765,6 @@ export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArr
 export function isNotEmpty(value: any): boolean;
 
 /*
-Method: nth
-
-Explanation: Curried version of `input[index]`.
-
-Example:
-
-```
-const list = [1, 2, 3]
-const str = 'foo'
-
-const result = [
-  R.nth(2, list),
-  R.nth(6, list),
-  R.nth(0, str),
-]
-// => [3, undefined, 'f']
-```
-
-Categories: List, String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function nth(index: number, input: string): string;	
-export function nth<T>(index: number, input: T[]): T | undefined;	
-export function nth(n: number): {
-  <T>(input: T[]): T | undefined;
-  (input: string): string;
-};
-
-/*
 Method: objOf
 
 Explanation: It creates an object with a single key-value pair.
@@ -1845,73 +1813,6 @@ export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends 
 export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
 export function omit<T>(names: string): (obj: unknown) => T;
 export function omit<T>(names: string, obj: unknown): T;
-
-/*
-Method: of
-
-Explanation:
-
-Example:
-
-```
-R.of(null); // => [null]
-R.of([42]); // => [[42]]
-```
-
-Categories:
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function of<T>(x: T): T[];
-
-/*
-Method: partial
-
-Explanation: It is very similar to `R.curry`, but you can pass initial arguments when you create the curried function.
-
-`R.partial` will keep returning a function until all the arguments that the function `fn` expects are passed.
-The name comes from the fact that you partially inject the inputs.
-
-Example:
-
-```
-const fn = (title, firstName, lastName) => {
-  return title + ' ' + firstName + ' ' + lastName + '!'
-}
-
-const canPassAnyNumberOfArguments = R.partial(fn, 'Hello')
-const ramdaStyle = R.partial(fn, ['Hello'])
-
-const finalFn = canPassAnyNumberOfArguments('Foo')
-
-finalFn('Bar') // =>  'Hello, Foo Bar!'
-```
-
-Categories: Logic
-
-Notes: Rambda's partial doesn't need the input arguments to be wrapped as array.
-
-*/
-// @SINGLE_MARKER
-export function partial<V0, V1, T>(fn: (x0: V0, x1: V1) => T, args: [V0]): (x1: V1) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0, V1]): (x2: V2) => T;
-export function partial<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V0]): (x1: V1, x2: V2) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0, V1, V2],
-): (x2: V3) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0, V1],
-): (x2: V2, x3: V3) => T;
-export function partial<V0, V1, V2, V3, T>(
-  fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
-  args: [V0],
-): (x1: V1, x2: V2, x3: V3) => T;
-export function partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
-
 
 /*
 Method: partition
@@ -3975,7 +3876,7 @@ const obj = {
   a: 1,
   b: [2, 3],
 }
-const result = R.unwind('b', obj)
+const result = R.unwind('b')(obj)
 const expected = [{a:1, b:2}, {a:1, b:3}]
 // => `result` is equal to `expected`
 ```
