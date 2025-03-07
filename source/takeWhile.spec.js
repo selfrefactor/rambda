@@ -16,8 +16,3 @@ test('always false', () => {
   const result = takeWhile(x => 0, list)
   expect(result).toEqual([])
 })
-
-test('with string', () => {
-  const result = takeWhile(x => x !== 'b', 'foobar')
-  expect(result).toBe('foo')
-})

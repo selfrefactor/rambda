@@ -1,16 +1,10 @@
 import { dropLastWhile } from './dropLastWhile.js'
 
 const list = [1, 2, 3, 4, 5]
-const str = 'foobar'
 
 test('with list', () => {
   const result = dropLastWhile(x => x >= 3, list)
   expect(result).toEqual([1, 2])
-})
-
-test('with string', () => {
-  const result = dropLastWhile(x => x !== 'b')(str)
-  expect(result).toBe('foob')
 })
 
 test('with empty list', () => {

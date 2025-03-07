@@ -1,30 +1,25 @@
-import { dropWhile } from 'rambda'
+import { dropWhile, piped } from 'rambda'
 
-const list = [1, 2, 3, 4]
+const list = [1, 2, 3]
 
 describe('R.dropWhile', () => {
   it('happy', () => {
-    const result = dropWhile(x => x > 2, list)
-
+    const result = piped(
+			list,
+			dropWhile(x => x > 1)
+		)
+		
     result // $ExpectType number[]
   })
-  it('curried require explicit type', () => {
-    const result = dropWhile<number>(x => x > 2)(list)
-
+  it('with index', () => {
+    const result = piped(
+			list,
+			dropWhile((x, i) => {
+				i // $ExpectType number
+				return x + i > 2
+			})
+		)
+		
     result // $ExpectType number[]
-  })
-})
-
-describe('with string as iterable', () => {
-  const str = 'foobar'
-  it('happy', () => {
-    const result = dropWhile(x => x !== 'b', str)
-
-    result // $ExpectType string
-  })
-  it('curried require explicit type', () => {
-    const result = dropWhile(x => x !== 'b')(str)
-
-    result // $ExpectType string
   })
 })

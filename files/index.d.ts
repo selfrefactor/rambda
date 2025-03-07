@@ -665,14 +665,11 @@ export function drop<T>(howMany: number): {
   (input: T[]): T[];
   (input: readonly T[]): T[];
 };
-export function drop(howMany: number, input: string): string;
-export function drop<T>(howMany: number, input: T[]): T[];
-export function drop<T>(howMany: number, input: readonly T[]): T[];
 
 /*
 Method: dropLast
 
-Explanation: It returns `howMany` items dropped from the end of list or string `input`.
+Explanation: It returns `howMany` items dropped from  the end of list or string `input`.
 
 Example:
 
@@ -692,9 +689,6 @@ export function dropLast<T>(howMany: number): {
   (input: T[]): T[];
   (input: readonly T[]): T[];
 };
-export function dropLast(howMany: number, input: string): string;
-export function dropLast<T>(howMany: number, input: T[]): T[];
-export function dropLast<T>(howMany: number, input: readonly T[]): T[];
 
 /*
 Method: endsWith
@@ -2856,7 +2850,7 @@ Example:
 const howMany = 2
 
 const result = [
-  R.take(howMany, [1, 2, 3]),
+  R.take(howMany)([1, 2, 3]),
   R.take(howMany, 'foobar'),
 ]
 // => [[1, 2], 'fo']
@@ -2868,8 +2862,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function take<T>(howMany: number, input: T): T extends string ? string : T;
-export function take<T>(howMany: number) : (input: T) => T extends string ? string : T;
+export function take<T>(howMany: number): {
+  (input: string): string;
+  (input: T[]): T[];
+  (input: readonly T[]): T[];
+};
 
 /*
 Method: takeLast
@@ -2882,8 +2879,8 @@ Example:
 const howMany = 2
 
 const result = [
-  R.takeLast(howMany, [1, 2, 3]),
-  R.takeLast(howMany, 'foobar'),
+  R.takeLast(howMany)([1, 2, 3]),
+  R.takeLast(howMany)('foobar'),
 ]
 // => [[2, 3], 'ar']
 ```
@@ -2894,8 +2891,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLast<T>(howMany: number, input: T): T extends string ? string : T;
-export function takeLast<T>(howMany: number) : (input: T) => T extends string ? string : T;
+export function takeLast<T>(howMany: number): {
+  (input: string): string;
+  (input: T[]): T[];
+  (input: readonly T[]): T[];
+};
 
 /*
 Method: tap
@@ -3337,7 +3337,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLastWhile(predicate: (x: string) => boolean): (input: string) => string;
 export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 
 /*
@@ -3395,8 +3394,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLastWhile(predicate: (x: string) => boolean): (iterable: string) => string;
-export function dropLastWhile<T>(predicate: (x: T) => boolean): <T>(iterable: T[]) => T[];
+export function dropLastWhile<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function dropLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 
 /*
 Method: dropRepeatsWith
@@ -3440,8 +3439,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile(fn: Predicate<string>): (iterable: string) => string;
-export function dropWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
+export function dropWhile<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+
 
 /*
 Method: takeWhile
@@ -3458,14 +3458,15 @@ const result = R.takeWhile(predicate)(list)
 // => [1, 2]
 ```
 
-Categories: List, String
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile(fn: Predicate<string>): (iterable: string) => string;
-export function takeWhile<T>(fn: Predicate<T>): (iterable: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+
 
 /*
 Method: eqProps
