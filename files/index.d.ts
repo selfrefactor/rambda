@@ -1686,15 +1686,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-// export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
-// export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
-// export function omit<T>(names: string): (obj: unknown) => T;
-// export function omit<T>(names: string, obj: unknown): T;
-export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<
+export function omit<
 	S extends string,
-	K extends PickStringToPickPath<K>
->(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
+	Keys extends PickStringToPickPath<S>,
+>(propsToPick: S): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
+export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /*
 Method: partition

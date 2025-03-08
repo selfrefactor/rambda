@@ -1,11 +1,11 @@
 import { createPath } from './_internals/createPath.js'
 
-export function _includes(a, list) {
+export function _includes(x, list) {
   let index = -1
   const { length } = list
 
   while (++index < length) {
-    if (String(list[index])=== String(a)) {
+    if (String(list[index])=== String(x)) {
       return true
     }
   }
@@ -16,7 +16,7 @@ export function _includes(a, list) {
 
 export function omit(propsToOmit) {
 	return obj => {
-  if (!obj === null) {
+  if (!obj) {
     return undefined
   }
 

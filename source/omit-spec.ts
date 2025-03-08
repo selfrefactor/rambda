@@ -1,34 +1,22 @@
-import { omit } from 'rambda'
+import { omit, piped } from 'rambda'
 
-describe('R.omit with array as props input', () => {
-  it('allow Typescript to infer object type', () => {
-    const input = { a: 'foo', b: 2, c: 3, d: 4 }
-    const result = omit(['b', 'c'], input)
+const input = { a: 'foo', b: 2, c: 3 }
 
-    result.a // $ExpectType string
-    result.d // $ExpectType number
-
-    const curriedResult = omit(['b', 'c'])(input)
-
-    curriedResult.a // $ExpectType string
-    curriedResult.d // $ExpectType number
+describe('R.omit', () => {
+  it('with string as input', () => {
+		let result = piped(
+			input,
+			omit('a,b')
+		)
+    result.c // $ExpectType number
   })
-})
-
-describe('R.omit with string as props input', () => {
-  it('require explicit return type', () => {
-    interface Output {
-      a: string
-      d: number
-    }
-    const input = { a: 'foo', b: 2, c: 3, d: 4 }
-    const result = omit<Output>('b,c', input)
-
-    result.a // $ExpectType string
-    result.d // $ExpectType number
-
-    const curriedResult = omit<Output>('b,c')(input)
-    curriedResult.a // $ExpectType string
-    curriedResult.d // $ExpectType number
+  it('with array as input', () => {
+		let result = piped(
+			input,
+			omit(
+				['a', 'b']
+			)
+		)
+    result.c // $ExpectType number
   })
 })
