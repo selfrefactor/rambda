@@ -1,26 +1,26 @@
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy
+https:developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync
+https:developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy
 ===
-https://bundlejs.com
+https:bundlejs.com
 ===
-https://rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
+https:rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
 ===
 
-https://github.com/selfrefactor/rambda/discussions/758
+https:github.com/selfrefactor/rambda/discussions/758
 
 export function splitEvery(sliceLength: number): {
   (input: string): string[];
   <T>(input: T[]): (T[])[];
 };
 ---
-https://github.com/radashi-org/radashi/pull/357/files
+https:github.com/radashi-org/radashi/pull/357/files
 isEmptyObject
 ---
 let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
 	let instructions = pluck('Instructions' as any, recipes)
 ---
-https://github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
+https:github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
 ---
 ---
 ---
@@ -30,66 +30,66 @@ instead of
 
   
 
-https://github.com/ramda/types/pull/127/files
+https:github.com/ramda/types/pull/127/files
 
 cneck
-  // expect(withNumber).toEqual(withNumberExpected)
+   expect(withNumber).toEqual(withNumberExpected)
 
-https://github.com/ramda/ramda/pull/3441/files
-https://github.com/ramda/types/pull/122/files
+https:github.com/ramda/ramda/pull/3441/files
+https:github.com/ramda/types/pull/122/files
 
-https://github.com/ramda/types/pull/129/files#diff-d9fac8353ad9864266cabb1f64898d7290f9c71bac877858f72feeaef3c55351
+https:github.com/ramda/types/pull/129/files#diff-d9fac8353ad9864266cabb1f64898d7290f9c71bac877858f72feeaef3c55351
 
-https://github.com/selfrefactor/rambda/pull/744
+https:github.com/selfrefactor/rambda/pull/744
 
-https://github.com/ramda/types/pull/127/files
-https://github.com/ramda/types/pull/122/files
+https:github.com/ramda/types/pull/127/files
+https:github.com/ramda/types/pull/122/files
 ---
-https://github.com/remeda/remeda/pull/1002/files
+https:github.com/remeda/remeda/pull/1002/files
 
-https://remedajs.com/docs/#fromKeys
-https://remedajs.com/docs/#omitBy
+https:remedajs.com/docs/#fromKeys
+https:remedajs.com/docs/#omitBy
 
-	https://github.com/ramda/types/pull/110/files
+	https:github.com/ramda/types/pull/110/files
 ---
-https://arethetypeswrong.github.io
-https://badgen.net/npm
+https:arethetypeswrong.github.io
+https:badgen.net/npm
 ---
 stats
-![Alt](https://repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
+![Alt](https:repobeats.axiom.co/api/embed/6f9f2aa57a6f1ed67156cea07e8cff86a94ef7b8.svg "Repobeats analytics image")
 ---
 ## ABOVE IS IN PROGRESS
 
 npx publint > files/report
 
-https://github.com/selfrefactor/rambda/pull/737
+https:github.com/selfrefactor/rambda/pull/737
 
 ## ABOVE SHOULD BE DONE
 
 ## deepUpdate
 
 R.middle
-https://github.com/ramda/types/pull/73/files
-https://github.com/ramda/types/pull/72/files
-https://github.com/ramda/types/pull/129/files
-https://publint.dev/rambda@9.2.1
-https://arethetypeswrong.github.io/?p=ramda%400.30.1
+https:github.com/ramda/types/pull/73/files
+https:github.com/ramda/types/pull/72/files
+https:github.com/ramda/types/pull/129/files
+https:publint.dev/rambda@9.2.1
+https:arethetypeswrong.github.io/?p=ramda%400.30.1
 
-https://github.com/denoland/std/blob/main/collections/associate_by_test.ts
-https://github.com/denoland/std/blob/main/collections/reduce_groups_test.ts
-https://github.com/denoland/std/blob/main/collections/permutations_test.ts
-https://github.com/denoland/std/blob/main/collections/partition_entries_test.ts
-https://github.com/denoland/std/blob/main/collections/map_values_test.ts
-https://github.com/denoland/std/blob/main/collections/map_keys_test.ts
-https://github.com/denoland/std/blob/main/collections/join_to_string_test.ts
-https://github.com/denoland/std/blob/main/collections/sum_of_test.ts
+https:github.com/denoland/std/blob/main/collections/associate_by_test.ts
+https:github.com/denoland/std/blob/main/collections/reduce_groups_test.ts
+https:github.com/denoland/std/blob/main/collections/permutations_test.ts
+https:github.com/denoland/std/blob/main/collections/partition_entries_test.ts
+https:github.com/denoland/std/blob/main/collections/map_values_test.ts
+https:github.com/denoland/std/blob/main/collections/map_keys_test.ts
+https:github.com/denoland/std/blob/main/collections/join_to_string_test.ts
+https:github.com/denoland/std/blob/main/collections/sum_of_test.ts
 ---
 
-https://rubyapi.org/3.4/o/array#method-i-one-3F
+https:rubyapi.org/3.4/o/array#method-i-one-3F
 ---
-https://zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
+https:zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
 ---
-bench against https://romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
+bench against https:romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
 ---
 
 ---
@@ -123,7 +123,7 @@ return result
 
 ---
 fix pluck and others where Record is used wrong
-// import { pipe, pluck, prop } from "ramda"
+ import { pipe, pluck, prop } from "ramda"
 import { pipe, pluck, prop } from "rambdax"
 
 export const parseDatabase = pipe( pluck('doc'), pluck('dePart') )
@@ -133,24 +133,24 @@ export const parseDatabase: (input: DbOrigin[]) => string[] = pipe( pluck('doc')
 
 ---
 
-https://github.com/toss/es-toolkit/issues/91
+https:github.com/toss/es-toolkit/issues/91
 
 ## const pickedObject = pickDeep(object, [
 
 
-## https://github.com/ramda/ramda/issues/3390
+## https:github.com/ramda/ramda/issues/3390
 
-## https://tokens2css.nanools.com/
+## https:tokens2css.nanools.com/
 
 ---
-https://codescene.io/projects/61343/jobs/3120520/results/code/hotspots/biomarkers?name=rambda-scripts%2Fsrc%2Fpopulate-readme-data%2Fcreate-method-data.ts
+https:codescene.io/projects/61343/jobs/3120520/results/code/hotspots/biomarkers?name=rambda-scripts%2Fsrc%2Fpopulate-readme-data%2Fcreate-method-data.ts
 
-https://github.com/marketplace/actions/todo-to-issue
+https:github.com/marketplace/actions/todo-to-issue
 
-https://app.deepsource.com/gh/selfrefactor
+https:app.deepsource.com/gh/selfrefactor
 ---
 
-## https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+## https:developer.mozilla.org/en-US/docs/Web/API/structuredClone
 
 R.partition ts
 
@@ -162,7 +162,7 @@ predicate: (value: Item) => value is Narrowed
 
 ---
 R.cycle
-https://www.pythoncheatsheet.org/modules/itertools-module
+https:www.pythoncheatsheet.org/modules/itertools-module
 
 R.Flatten
 orama/packages/orama/src/types.ts
@@ -183,18 +183,18 @@ R.pickAllWith - maybe
 
 RA.template: compound strings with tagged template literals
 
-## https://github.com/char0n/ramda-adjunct/issues/975
+## https:github.com/char0n/ramda-adjunct/issues/975
 
 Fix compact type for objects
 
-## https://github.com/char0n/ramda-adjunct/pull/1611/files
+## https:github.com/char0n/ramda-adjunct/pull/1611/files
 
 ---
 
-## https://github.com/smartprocure/futil-js?tab=readme-ov-file#cascadepropkey
+## https:github.com/smartprocure/futil-js?tab=readme-ov-file#cascadepropkey
 
 apply to allPass
-https://github.com/selfrefactor/rambda/pull/695/files
+https:github.com/selfrefactor/rambda/pull/695/files
 
 - Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
 
@@ -208,39 +208,39 @@ handling errors out of the box:
 ===
 REFS:
 
-https://github.com/selfrefactor/rambda/issues/638
-https://github.com/ramda/ramda/pull/3430/files
-https://github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
-https://docs.retool.com/workflows/guides/blocks/javascript
-https://snyk.io/advisor/npm-package/ramda
-https://github.com/rogerfar/curray/blob/master/src/index.ts
-https://radash-docs.vercel.app/docs/typed/is-symbol
-https://radash-docs.vercel.app/docs/async/defer
-https://radash-docs.vercel.app/docs/array/counting
-https://www.matthewtao.com/blog/post/ramda-curry-by-source-code
+https:github.com/selfrefactor/rambda/issues/638
+https:github.com/ramda/ramda/pull/3430/files
+https:github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
+https:docs.retool.com/workflows/guides/blocks/javascript
+https:snyk.io/advisor/npm-package/ramda
+https:github.com/rogerfar/curray/blob/master/src/index.ts
+https:radash-docs.vercel.app/docs/typed/is-symbol
+https:radash-docs.vercel.app/docs/async/defer
+https:radash-docs.vercel.app/docs/array/counting
+https:www.matthewtao.com/blog/post/ramda-curry-by-source-code
 
 can wait:
 
-https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59219/files
-https://github.com/ramda/ramda/pull/3270
-https://tutorial.docusaurus.io/docs/tutorial-basics/create-a-page
-https://www.reddit.com/r/typescript/comments/10cw9ju/ramda_and_typescript_issues/
-https://ramdajs.com/docs/#ascend
-https://vitepress.dev/
-https://vitepress.dev/guide/getting-started
-https://github.com/unional/type-plus/blob/main/type-plus/ts/functional/compose.spec.ts
-https://github.com/MathisBullinger/froebel/blob/main/pipe.test.ts
-https://github.com/tinylibs/tinybench
-https://github.com/gustavoguichard/string-ts/blob/main/src/primitives.ts
-https://github.com/ramda/ramda/pull/3376/files
+https:github.com/DefinitelyTyped/DefinitelyTyped/pull/59219/files
+https:github.com/ramda/ramda/pull/3270
+https:tutorial.docusaurus.io/docs/tutorial-basics/create-a-page
+https:www.reddit.com/r/typescript/comments/10cw9ju/ramda_and_typescript_issues/
+https:ramdajs.com/docs/#ascend
+https:vitepress.dev/
+https:vitepress.dev/guide/getting-started
+https:github.com/unional/type-plus/blob/main/type-plus/ts/functional/compose.spec.ts
+https:github.com/MathisBullinger/froebel/blob/main/pipe.test.ts
+https:github.com/tinylibs/tinybench
+https:github.com/gustavoguichard/string-ts/blob/main/src/primitives.ts
+https:github.com/ramda/ramda/pull/3376/files
 
 frozen:
 
-https://devblogs.microsoft.com/typescript/announcing-typescript-4-7-rc/#package-json-exports-imports-and-self-referencing
-https://github.com/flybondi/ramda-land/blob/master/src/rename-keys.js
-https://ramdajs.com/docs/#collectBy
-https://ramdajs.com/docs/#thunkify
-https://github.com/ts-essentials/ts-essentials/blob/master/lib/any-array/index.ts
+https:devblogs.microsoft.com/typescript/announcing-typescript-4-7-rc/#package-json-exports-imports-and-self-referencing
+https:github.com/flybondi/ramda-land/blob/master/src/rename-keys.js
+https:ramdajs.com/docs/#collectBy
+https:ramdajs.com/docs/#thunkify
+https:github.com/ts-essentials/ts-essentials/blob/master/lib/any-array/index.ts
 
 
 - remove .nojekyll in project root
@@ -255,12 +255,12 @@ import {filter} from 'rambda'
 
 function dropEmpty<T>(input: T[] | Dictionary<T>) {
   if (input instanceof Array) {
-    // <-- this check is necessary to calm down the TS compiler ... @_@
-    return filter<T>(Boolean, input) // <-- notice the same
+     <-- this check is necessary to calm down the TS compiler ... @_@
+    return filter<T>(Boolean, input)  <-- notice the same
   } else {
-    return filter<T>(Boolean, input) // <-- code...
+    return filter<T>(Boolean, input)  <-- code...
   }
-  // return filter<T>(Boolean, input)
+   return filter<T>(Boolean, input)
 }
 
 describe('R.dropEmpty', () => {
@@ -268,7 +268,7 @@ describe('R.dropEmpty', () => {
     const list = [1, 2, 3, '']
     const result: any = dropEmpty(list)
 
-    result // $ExpectType any
+    result  $ExpectType any
   })
 })
 
@@ -285,7 +285,7 @@ export type Equal<X, Y> =
   (<T>() => T extends Y ? 1 : 2) ? true : false
 export type NotEqual<X, Y> = true extends Equal<X, Y> ? false : true
 
-// https://stackoverflow.com/questions/49927523/disallow-call-with-any/49928360#49928360
+ https:stackoverflow.com/questions/49927523/disallow-call-with-any/49928360#49928360
 export type IsAny<T> = 0 extends (1 & T) ? true : false
 export type NotAny<T> = true extends IsAny<T> ? false : true
 
@@ -309,7 +309,7 @@ export type IsNotNever<T> = [T] extends [never] ? false : true;
 ===
 export function append<T>(xToAppend: T): (iterable: T[]) => T[]; is added for consistency and as a fallback just in case as there is no spec to cover this case
 ===
-// cannot be tested with `let list = []` because of implicit any
+ cannot be tested with `let list = []` because of implicit any
 ===
 ===
     "moduleResolution":"node",
@@ -321,16 +321,16 @@ test('remeda test', () => {
   const list: MyTestType[] = [{ value: 'aaaa' }, { value: 'bbb' }]
   
   let result = createPipe<MyTestType[], MyTestType[]>(filterRemeda((x) => x.value.includes('a')))(list)
-  result // $ExpectType MyTestType[]
+  result  $ExpectType MyTestType[]
 })
 
 ===
 still issue with order of rambda.js
 ===
-https://emanuelef.github.io/daily-stars-explorer/#/selfrefactor/rambda
+https:emanuelef.github.io/daily-stars-explorer/#/selfrefactor/rambda
 ===
-https://gitdiagram.com/selfrefactor/rambda
-https://typehero.dev/explore/medium - ref
+https:gitdiagram.com/selfrefactor/rambda
+https:typehero.dev/explore/medium - ref
 ===
 # Explanation of scripts
 ![Visualization of the codebase](./diagram.svg)
@@ -355,7 +355,7 @@ It lints and commits. Useful for faster deploy.
 
 ## github
 
-https://github.com/cli/cli#installation
+https:github.com/cli/cli#installation
 
 It makes a Github release. It expects user to be logged with Github.
 
@@ -366,6 +366,68 @@ It makes a Github release. It expects user to be logged with Github.
 yarn build:step && WITH_INITIAL_STEP=ON METHOD=modify yarn run:ramda:test
 
 build output and run ramda test agains rambda method
+===
+
+type IsTupleRestOnly<T> = T extends readonly []
+  ? true
+  : T extends readonly [unknown?, ...infer Tail]
+    ? EqualTypes<Readonly<T>, Readonly<Tail>>
+    : false;
+
+type TupleParts<
+  T,
+  PrefixRequired extends Array<unknown> = [],
+  PrefixOptionals extends Array<unknown> = [],
+  Suffix extends Array<unknown> = [],
+> = T extends readonly [infer Head, ...infer Tail]
+  ? TupleParts<Tail, [...PrefixRequired, Head], PrefixOptionals, Suffix>
+  : T extends readonly [...infer Head, infer Tail]
+    ? TupleParts<Head, PrefixRequired, PrefixOptionals, [Tail, ...Suffix]>
+    : 
+      IsTupleRestOnly<T> extends true
+      ? 
+        T extends ReadonlyArray<infer Item>
+        ? {
+            prefix: [...PrefixRequired, ...Partial<PrefixOptionals>];
+            required: PrefixRequired;
+            optional: PrefixOptionals;
+            item: Item;
+            suffix: Suffix;
+          }
+        : never
+      : 
+        T extends readonly [(infer OptionalHead)?, ...infer Tail]
+        ? TupleParts<
+            Tail,
+            PrefixRequired,
+            [...PrefixOptionals, OptionalHead],
+            Suffix
+          >
+        : never;
+type PickFromArray<T, Keys extends ReadonlyArray<keyof T>> = MergeTypes<
+  Pick<
+    T,
+    TupleParts<Keys>["required"][number] | TupleParts<Keys>["suffix"][number]
+  > &
+    Partial<
+      Pick<T, TupleParts<Keys>["optional"][number] | TupleParts<Keys>["item"]>
+    >
+>;
+
+ export function pick<
+   T extends object,
+   Keys extends ReadonlyArray<keyof T>,
+ 	S extends string,
+ 	U extends PickStringToPickPath<S>,
+ >(keys: S): (data: T) => MergeTypes<OptionalToRequired<PickFromArray<T, Keys>>>;
+
+ export function pick<
+   T extends object,
+   const Keys extends ReadonlyArray<keyof T>,
+ 	const S extends string,
+ 	const U extends PickStringToPickPath<S>,
+ >(keys: Keys): (data: T) => PickFromArray<T, Keys>;
+
 ===
 export type MergeInsertions<T> =
 T extends object

@@ -50,51 +50,6 @@ export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Fun
 type OptionalToRequired<T> = {
 	[P in keyof T]-?: T[P]
 }
-type IsTupleRestOnly<T> = T extends readonly []
-  ? true
-  : T extends readonly [unknown?, ...infer Tail]
-    ? EqualTypes<Readonly<T>, Readonly<Tail>>
-    : false;
-
-type TupleParts<
-  T,
-  PrefixRequired extends Array<unknown> = [],
-  PrefixOptionals extends Array<unknown> = [],
-  Suffix extends Array<unknown> = [],
-> = T extends readonly [infer Head, ...infer Tail]
-  ? TupleParts<Tail, [...PrefixRequired, Head], PrefixOptionals, Suffix>
-  : T extends readonly [...infer Head, infer Tail]
-    ? TupleParts<Head, PrefixRequired, PrefixOptionals, [Tail, ...Suffix]>
-    : 
-      IsTupleRestOnly<T> extends true
-      ? 
-        T extends ReadonlyArray<infer Item>
-        ? {
-            prefix: [...PrefixRequired, ...Partial<PrefixOptionals>];
-            required: PrefixRequired;
-            optional: PrefixOptionals;
-            item: Item;
-            suffix: Suffix;
-          }
-        : never
-      : 
-        T extends readonly [(infer OptionalHead)?, ...infer Tail]
-        ? TupleParts<
-            Tail,
-            PrefixRequired,
-            [...PrefixOptionals, OptionalHead],
-            Suffix
-          >
-        : never;
-type PickFromArray<T, Keys extends ReadonlyArray<keyof T>> = MergeTypes<
-  Pick<
-    T,
-    TupleParts<Keys>["required"][number] | TupleParts<Keys>["suffix"][number]
-  > &
-    Partial<
-      Pick<T, TupleParts<Keys>["optional"][number] | TupleParts<Keys>["item"]>
-    >
->;
 
 export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		? [Head, ...PickStringToPickPath<Tail>]
 	: T extends `${infer Head}` ? [Head]
@@ -2132,20 +2087,11 @@ Categories: Object
 Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 */
 // @SINGLE_MARKER
-// export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 export function pick<
-  T extends object,
-  Keys extends ReadonlyArray<keyof T>,
-	S extends string,
-	U extends PickStringToPickPath<S>,
->(keys: S): (data: T) => MergeTypes<OptionalToRequired<PickFromArray<T, Keys>>>;
-
-export function pick<
-  T extends object,
-  const Keys extends ReadonlyArray<keyof T>,
-	const S extends string,
-	const U extends PickStringToPickPath<S>,
->(keys: Keys): (data: T) => PickFromArray<T, Keys>;
+S extends string,
+K extends PickStringToPickPath<K>,
+>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 
 /*
 Method: pickAll

@@ -11,7 +11,7 @@ describe('R.pick', () => {
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
-  it('with string as input', () => {
+  it('with array as input', () => {
 		let result = piped(
 			input,
 			pick(
