@@ -3704,7 +3704,180 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
+export function pathSatisfies<S, K0 extends keyof S>(
+	predicate: (x: S[K0]) => boolean,
+	path: [K0]
+): (obj: S) => S[K0];
+export function pathSatisfies<S, K0 extends keyof S>(
+	predicate: (x: S[K0]) => boolean,
+	path: `${ K0 }`
+): (obj: S) => S[K0];
+export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0]>(
+	predicate: (x: S[K0][K1]) => boolean,
+	path: [K0, K1]
+): (obj: S) => S[K0][K1];
+export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0]>(
+	predicate: (x: S[K0][K1]) => boolean,
+	path: `${ K0 }.${ K1 }`
+): (obj: S) => S[K0][K1];
+export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0], K2 extends keyof S[K0][K1]>(
+  predicate: (x: S[K0][K1][K2]) => boolean,
+  path: [K0, K1, K2]
+): (obj: S) => S[K0][K1][K2];
+export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0], K2 extends keyof S[K0][K1]>(
+  predicate: (x: S[K0][K1][K2]) => boolean,
+  path: `${K0}.${K1}.${K2}`
+): (obj: S) => S[K0][K1][K2];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2]
+>(
+  predicate: (x: S[K0][K1][K2][K3]) => boolean,
+  path: [K0, K1, K2, K3]
+): (obj: S) => S[K0][K1][K2][K3];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2]
+>(
+  predicate: (x: S[K0][K1][K2][K3]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (obj: S) => S[K0][K1][K2][K3];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
+  path: [K0, K1, K2, K3, K4]
+): (obj: S) => S[K0][K1][K2][K3][K4];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (obj: S) => S[K0][K1][K2][K3][K4];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
+  path: [K0, K1, K2, K3, K4, K5]
+): (obj: S) => S[K0][K1][K2][K3][K4][K5];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (obj: S) => S[K0][K1][K2][K3][K4][K5];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
+  path: [K0, K1, K2, K3, K4, K5, K6]
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
+  path: [K0, K1, K2, K3, K4, K5, K6, K7]
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
+  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+export function pathSatisfies<
+  S,
+  K0 extends keyof S,
+  K1 extends keyof S[K0],
+  K2 extends keyof S[K0][K1],
+  K3 extends keyof S[K0][K1][K2],
+  K4 extends keyof S[K0][K1][K2][K3],
+  K5 extends keyof S[K0][K1][K2][K3][K4],
+  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
 
 /*
 Method: piped
