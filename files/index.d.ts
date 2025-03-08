@@ -970,62 +970,6 @@ Notes:
 export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
 
 /*
-Method: has
-
-Explanation: It returns `true` if `obj` has property `prop`.
-
-Example:
-
-```
-const obj = {a: 1}
-
-const result = [
-  R.has('a', obj),
-  R.has('b', obj)
-]
-// => [true, false]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function has<T>(prop: string, obj: T): boolean;
-export function has(prop: string): <T>(obj: T) => boolean;
-
-/*
-Method: hasPath
-
-Explanation: It will return true, if `input` object has truthy `path`(calculated with `R.path`).
-
-Example:
-
-```
-const path = 'a.b'
-const pathAsArray = ['a', 'b']
-const obj = {a: {b: []}}
-
-const result = [
-  R.hasPath(path, obj),
-  R.hasPath(pathAsArray, obj),
-  R.hasPath('a.c', obj),
-]
-// => [true, true, false]
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function hasPath<T>(
-  path: string | string[]
-): (input: object) => boolean;
-
-/*
 Method: mergeTypes
 
 Explanation: Helper to merge all calculated TypeScript definitions into one definition.
@@ -2140,12 +2084,8 @@ Categories: Object, List
 Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
 */
 // @SINGLE_MARKER
-export function pick<T, K extends string | number | symbol>(propsToPick: K[], input: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<K extends string | number | symbol>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-export function pick<T, U>(propsToPick: string, input: T): U;
-export function pick<T, U>(propsToPick: string): (input: T) => U;
-export function pick<T>(propsToPick: string, input: object): T;
-export function pick<T>(propsToPick: string): (input: object) => T;
+export function pick<K extends PropertyKey>(propsToPick: `{}`): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
 /*
 Method: pickAll
@@ -3687,28 +3627,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
-
-/*
-Method: hasIn
-
-Explanation:
-
-Example:
-
-```
-const result = R.hasIn('a', {a: 1})
-// => true
-```
-
-Categories: String
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function hasIn(searchProperty: string): <T>(obj: T) => boolean;
-export function hasIn<T>(searchProperty: string, obj: T): boolean;
+export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
 /*
 Method: innerJoin
@@ -3733,12 +3652,8 @@ Notes:
 // @SINGLE_MARKER
 export function innerJoin<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
-): (list1: T1[], list2: T2[]) => T1[];
-export function innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
-export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
 
 /*
 Method: pickBy
@@ -3762,7 +3677,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pickBy<T>(pred: ObjPredicate<T>): <U, V extends T>(obj: V) => U;
-export function pickBy<T, U>(pred: ObjPredicate<T>, obj: T): U;
 
 /*
 Method: pathSatisfies
@@ -3787,12 +3701,13 @@ Notes:
 */
 // @SINGLE_MARKER
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
-export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
 
 /*
 Method: piped
 
-Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument. It has much better TypeScript support and it is recomended to use `R.piped` instead of `R.pipe`/`R.compose`.
+Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument. 
+
+It has much better TypeScript support and it is strongly recomended to use `R.piped` instead of `R.pipe`/`R.compose`.
 
 Example:
 
