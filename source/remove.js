@@ -1,24 +1,19 @@
 import { replace } from './replace.js'
-import { type } from './type.js'
+import { isArray } from './_internals/isArray.js'
 
-export function remove(inputs, text) {
-  if (arguments.length === 1) {
-    return textHolder => remove(inputs, textHolder)
-  }
+export function remove(inputs) {
+	return text => {
 
-  if (type(text) !== 'String') {
-    throw new Error(`R.remove requires string not ${type(text)}`)
-  }
-
-  if (type(inputs) !== 'Array') {
-    return replace(inputs, '', text)
+  if (!isArray(inputs)) {
+    return replace(inputs, '')(text)
   }
 
   let textCopy = text
 
   inputs.forEach(singleInput => {
-    textCopy = replace(singleInput, '', textCopy).trim()
+    textCopy = replace(singleInput, '')(textCopy)
   })
 
   return textCopy
+}
 }

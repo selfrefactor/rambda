@@ -2302,7 +2302,7 @@ Example:
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-const result = R.pluck(property, list) 
+const result = R.pluck(property)(list) 
 // => [1, 2]
 ```
 
@@ -2313,7 +2313,6 @@ Notes: pipe
 */
 // @SINGLE_MARKER
 export function pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
-export function pluck<T, K extends keyof T>(property: K, list: T[]): T[K][];
 
 /*
 Method: prepend
