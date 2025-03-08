@@ -2554,6 +2554,13 @@ readable-stream@^3.0.2, readable-stream@^3.1.1, readable-stream@^3.4.0:
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
+remeda@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.21.0.tgz#6b64b9c6e50c6d42cb85833fb8108552729a0893"
+  integrity sha512-ANFqOts3BsvW1MrKOv9SVHG3ly0MzzLa0HIu5qLkiRuEPGPuH9ny3sgd7VdHvC2VOUSN/7RkmabPlAda6JtGgg==
+  dependencies:
+    type-fest "^4.35.0"
+
 request@^2.88.2:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
@@ -3111,6 +3118,11 @@ type-fest@^0.20.2:
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
+
+type-fest@^4.35.0:
+  version "4.37.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.37.0.tgz#7cf008bf77b63a33f7ca014fa2a3f09fd69e8937"
+  integrity sha512-S/5/0kFftkq27FPNye0XM1e2NsnoD/3FS+pBmbjmmtLT6I+i344KoOf7pvXreaFsDamWeaJX55nczA1m5PsBDg==
 
 typedarray@^0.0.6:
   version "0.0.6"
