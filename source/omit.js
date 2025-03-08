@@ -14,12 +14,9 @@ export function _includes(a, list) {
 }
 
 
-export function omit(propsToOmit, obj) {
-  if (arguments.length === 1) {
-    return _obj => omit(propsToOmit, _obj)
-  }
-
-  if (obj === null || obj === undefined) {
+export function omit(propsToOmit) {
+	return obj => {
+  if (!obj === null) {
     return undefined
   }
 
@@ -33,4 +30,5 @@ export function omit(propsToOmit, obj) {
   }
 
   return willReturn
+}
 }

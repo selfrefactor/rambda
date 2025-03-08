@@ -1682,14 +1682,19 @@ const result = [
 
 Categories: Object
 
-Notes: When using this method with `TypeScript`, it is much easier to pass `propsToOmit` as an array. If passing a string, you will need to explicitly declare the output type. 
+Notes:
 
 */
 // @SINGLE_MARKER
-export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
-export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
-export function omit<T>(names: string): (obj: unknown) => T;
-export function omit<T>(names: string, obj: unknown): T;
+// export function omit<const Keys extends PropertyKey[]>(names: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? Omit<U, ElementOf<Keys>> : never;
+// export function omit<U, Keys extends keyof U>(names: Keys[], obj: U): Omit<U, Keys>;
+// export function omit<T>(names: string): (obj: unknown) => T;
+// export function omit<T>(names: string, obj: unknown): T;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
+export function pick<
+	S extends string,
+	K extends PickStringToPickPath<K>
+>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 
 /*
 Method: partition
@@ -2089,8 +2094,8 @@ Notes:  When using this method with `TypeScript`, it is much easier to pass `pro
 // @SINGLE_MARKER
 export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 export function pick<
-S extends string,
-K extends PickStringToPickPath<K>,
+	S extends string,
+	K extends PickStringToPickPath<K>
 >(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 
 /*
@@ -3539,11 +3544,8 @@ const person = {
   name : 'foo',
   age  : 20,
 }
-const result = R.modify(
-	'age' 
-)(
-	x => x + 1, person
-) // => {name: 'foo', age: 21}
+const result = R.modify('age', x => x + 1)(person) 
+// => {name: 'foo', age: 21}
 ```
 
 Categories:
