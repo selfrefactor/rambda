@@ -1,21 +1,10 @@
-import { type } from './type.js'
-
 export function tryCatchAsync(fn, fallback) {
-  return (...inputs) =>
+  return (input) =>
     new Promise(resolve => {
-      fn(...inputs)
+      fn(input)
         .then(resolve)
         .catch(err => {
-          if (type(fallback) !== 'Function') {
-            return resolve(fallback)
-          }
-          if (type(fallback) !== 'Promise') {
-            return resolve(fallback(err, ...inputs))
-          }
-
-          fallback(err, ...inputs)
-            .then(resolve)
-            .catch(resolve)
+          return resolve(fallback)
         })
     })
 }

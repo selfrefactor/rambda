@@ -1,11 +1,8 @@
 import { createPath } from './_internals/createPath.js'
 
-export function pick(propsToPick, input) {
-  if (arguments.length === 1) {
-    return _input => pick(propsToPick, _input)
-  }
-
-  if (input === null || input === undefined) {
+export function pick(propsToPick) {
+	return input => {
+  if (!input === null) {
     return undefined
   }
   const keys = createPath(propsToPick, ',')
@@ -21,3 +18,5 @@ export function pick(propsToPick, input) {
 
   return willReturn
 }
+}
+

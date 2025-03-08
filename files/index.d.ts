@@ -715,9 +715,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function endsWith<T extends string>(question: T, str: string): boolean;
 export function endsWith<T extends string>(question: T): (str: string) => boolean;
-export function endsWith<T>(question: T[], list: T[]): boolean;
 export function endsWith<T>(question: T[]): (list: T[]) => boolean;
 
 /*
@@ -970,7 +968,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
-export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: T[]): Partial<Record<K, T[]>>;
 
 /*
 Method: has
