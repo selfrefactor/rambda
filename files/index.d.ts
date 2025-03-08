@@ -3651,27 +3651,6 @@ export function differenceWith<T1, T2>(
 ): (list2: T2[]) => T1[];
 
 /*
-Method: removeIndex
-
-Explanation: It returns a copy of `list` input with removed `index`. 
-
-Example:
-
-```
-const list = [1, 2, 3, 4]
-const result = R.removeIndex(1, list)
-// => [1, 3, 4]
-```
-
-Categories: List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function removeIndex(index: number): <T>(list: T[]) => T[];
-
-/*
 Method: dropRepeatsBy
 
 Explanation:
@@ -3764,27 +3743,6 @@ export function innerJoin<T1, T2>(
   list1: T1[],
 ): (list2: T2[]) => T1[];
 export function innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: T1[], list2: T2[]): T1[];
-
-/*
-Method: insertAtIndex
-
-Explanation:
-
-Example:
-
-```
-const list = ['a', 'b', 'c', 'd', 'e'];
-const result = R.insertAtIndex(2, 'x', list);
-// => ['a', 'b', 'x', 'c', 'd', 'e']
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function insertAtIndex<T>(index: number, itemToInsert: T): (list: T[]) => T[];
 
 /*
 Method: pickBy

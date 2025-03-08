@@ -12,17 +12,9 @@ describe('R.zipWith', () => {
         return `${x}-${y}`
       },
       list1,
+		)(
       list2,
     )
-
-    result // $ExpectType string[]
-  })
-  it('curried', () => {
-    const result = zipWith((x, y) => {
-      x // $ExpectType unknown
-      y // $ExpectType unknown
-      return `${x}-${y}`
-    })(list1, list2)
 
     result // $ExpectType string[]
   })

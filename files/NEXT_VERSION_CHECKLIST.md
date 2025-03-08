@@ -42,8 +42,8 @@ it('within pipe requires explicit type', () => {
 
 - Remove following methods:
 
--- gte, lte, lt, gt - confusing direction; such functions should not exists
--- always - useful only with `R.ifElse` or `R.cond`, but both of these methods are also removed.
+-- gte, lte, lt, gt
+-- always
 -- ifElse
 -- cond
 -- flip
@@ -65,10 +65,10 @@ it('within pipe requires explicit type', () => {
 -- applyTo
 -- unapply
 -- update
+-- insert
 
 Rename:
 
--- insertAtIndex -> insert
 -- replaceItemAtIndex -> adjust 
 -- checkObjectWithSpec -> where 
 -- getPropertyOrDefault -> propOr 
