@@ -1,10 +1,17 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ❯ source/dissocPath.spec.js (0 test)
+stdout | source/dissocPath.spec.js > update array
+{
+  a: { b: [33m1[39m, c: [33m2[39m, d: { e: [33m3[39m } },
+  f: [ { g: [33m4[39m }, { h: [33m5[39m, j: [36m[Object][39m } ],
+  m: [33m9[39m
+} [33m1[39m
 
- Test Files  1 failed (1)
-      Tests  no tests
-   Start at  11:46:30
-   Duration  447ms (transform 53ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 143ms)
+ ✓ source/dissocPath.spec.js (8 tests) 11ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  14:16:23
+   Duration  538ms (transform 66ms, setup 0ms, collect 56ms, tests 11ms, environment 0ms, prepare 131ms)
 

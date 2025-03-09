@@ -24,7 +24,6 @@ export type Entry<T> = MergeTypes<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof 
 export type Ord = number | string | boolean | Date;
 export type Ordering = -1 | 0 | 1;
 type Path = Array<string> | string;
-type Predicate<T> = (x: T) => boolean;
 type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
     ? T extends undefined ? undefined : T[Extract<P, keyof T>]
     : undefined;
@@ -2290,8 +2289,8 @@ Example:
 
 ```
 const result = [
-  R.prop('x', {x: 100}), 
-  R.prop('x', {a: 1}) 
+  R.prop('x')({x: 100}), 
+  R.prop('x')({a: 1}) 
 ]
 // => [100, undefined]
 ```
@@ -2388,8 +2387,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
-export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
+export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /*
 Method: reduce
@@ -4170,6 +4168,30 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 	op19: (input: S) => T,
 	op20: (input: T) => U,
 ): U;
+
+/*
+Method: update
+
+Explanation: It returns a copy of `list` with updated element at `index` with `newValue`.
+
+Example:
+
+```
+const index = 2
+const newValue = 88
+const list = [1, 2, 3, 4, 5]
+
+const result = R.update(index, newValue, list)
+// => [1, 2, 88, 4, 5]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
 // API_MARKER_END
 // ============================================

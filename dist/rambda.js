@@ -79,20 +79,9 @@ function assoc(prop, newValue) {
   return obj => Object.assign({}, obj, { [prop]: newValue })
 }
 
-function _isInteger(n) {
-  return n << 0 === n
-}
-
-const isInteger = Number.isInteger || _isInteger;
-
-/**
- * Check if `index` is integer even if it is a string.
- */
-const isIndexInteger = index => Number.isInteger(Number(index));
-
 function createPath(path, delimiter = '.') {
   return typeof path === 'string'
-    ? path.split(delimiter).map(x => (isInteger(x) ? Number(x) : x))
+    ? path.split(delimiter).map(x => (Number.isInteger(x) ? Number(x) : x))
     : path
 }
 
@@ -137,30 +126,11 @@ function checkObjectWithSpec(conditions) {
 }
 }
 
-const { isArray } = Array;
-
-function clone(input) {
-  const out = isArray(input) ? Array(input.length) : {};
-  if (input?.getTime) {
-    return new Date(input.getTime())
-  }
-
-  for (const key in input) {
-    const v = input[key];
-    out[key] =
-      typeof v === 'object' && v !== null
-        ? v.getTime
-          ? new Date(v.getTime())
-          : clone(v)
-        : v;
-  }
-
-  return out
-}
-
 function complement(fn) {
   return (...input) => !fn(...input)
 }
+
+const { isArray } = Array;
 
 function reduce(reducer, acc) {
 	return list => {
@@ -664,12 +634,12 @@ function dissoc(prop, obj) {
   return willReturn
 }
 
-function _includes(a, list) {
+function _includes(x, list) {
   let index = -1;
   const { length } = list;
 
   while (++index < length) {
-    if (String(list[index])=== String(a)) {
+    if (String(list[index])=== String(x)) {
       return true
     }
   }
@@ -678,12 +648,9 @@ function _includes(a, list) {
 }
 
 
-function omit(propsToOmit, obj) {
-  if (arguments.length === 1) {
-    return _obj => omit(propsToOmit, _obj)
-  }
-
-  if (obj === null || obj === undefined) {
+function omit(propsToOmit) {
+	return obj => {
+  if (!obj) {
     return undefined
   }
 
@@ -698,8 +665,16 @@ function omit(propsToOmit, obj) {
 
   return willReturn
 }
+}
 
-function pathFn(pathInput, obj) {
+function path(pathInput, obj) {
+  if (arguments.length === 1) {
+    return _obj => path(pathInput, _obj)
+  }
+
+  if (!obj) {
+    return undefined
+  }
   let willReturn = obj;
   let counter = 0;
 
@@ -720,31 +695,6 @@ function pathFn(pathInput, obj) {
   return willReturn
 }
 
-function path(pathInput, obj) {
-  if (arguments.length === 1) {
-    return _obj => path(pathInput, _obj)
-  }
-
-  if (obj === null || obj === undefined) {
-    return undefined
-  }
-
-  return pathFn(pathInput, obj)
-}
-
-function removeIndex(index) {
-	return list => {
-  if (index <= 0) {
-    return list.slice(1)
-  }
-  if (index >= list.length - 1) {
-    return list.slice(0, list.length - 1)
-  }
-
-  return [...list.slice(0, index), ...list.slice(index + 1)]
-}
-}
-
 function update(
   index, newValue, list
 ){
@@ -756,12 +706,16 @@ function update(
   )
 }
 
+function removeIndex(index, list){
+  if (index <= 0) return list.slice(1)
+  if (index >= list.length - 1) return list.slice(0, list.length - 1)
 
-function dissocPath(pathInput, input) {
-  if (arguments.length === 1) {
-    return _obj => dissocPath(pathInput, _obj)
-  }
+  return [ ...list.slice(0, index), ...list.slice(index + 1) ]
+}
 
+
+function dissocPath(pathInput) {	
+	return input =>{
   const pathArrValue = createPath(pathInput);
   // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
   // TODO: add warning that Rambda simply returns input if path is empty
@@ -778,13 +732,12 @@ function dissocPath(pathInput, input) {
   const condition =
     typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
   if (pathArrValue.length > 1) {
-    const nextInput = condition
-      ? isIndexInteger(pathArrValue[1])
-        ? []
-        : {}
+    condition
+      ?
+        {}
       : input[index];
     const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
-    const intermediateResult = dissocPath(nextPathInput, nextInput, input);
+    const intermediateResult = dissocPath(nextPathInput);
     if (isArray(input)) {
       return update(index, intermediateResult, input)
     }
@@ -795,10 +748,11 @@ function dissocPath(pathInput, input) {
     }
   }
   if (isArray(input)) {
-    return removeIndex(index)
+    return removeIndex(index, input)
   }
 
-  return omit([index], input)
+  return omit([index])
+}
 }
 
 function drop(howManyToDrop, listOrString) {
@@ -820,24 +774,16 @@ function dropLast(howManyToDrop, listOrString) {
 }
 
 function dropLastWhile(predicate) {
-	return iterable => {
-  if (iterable.length === 0) {
-    return iterable
-  }
-  const isArray$1 = isArray(iterable);
-
-  if (typeof predicate !== 'function') {
-    throw new Error(`'predicate' is from wrong type ${typeof predicate}`)
-  }
-  if (!isArray$1 && typeof iterable !== 'string') {
-    throw new Error(`'iterable' is from wrong type ${typeof iterable}`)
+	return list => {
+  if (list.length === 0) {
+    return list
   }
 
   const toReturn = [];
-  let counter = iterable.length;
+  let counter = list.length;
 
   while (counter) {
-    const item = iterable[--counter];
+    const item = list[--counter];
     if (!predicate(item)) {
       toReturn.push(item);
       break
@@ -845,20 +791,15 @@ function dropLastWhile(predicate) {
   }
 
   while (counter) {
-    toReturn.push(iterable[--counter]);
+    toReturn.push(list[--counter]);
   }
 
-  return isArray$1 ? toReturn.reverse() : toReturn.reverse().join('')
+  return toReturn.reverse()
 }
 }
 
 function dropWhile(predicate) {
 	return iterable => {
-  const isArray$1 = isArray(iterable);
-  if (!isArray$1 && typeof iterable !== 'string') {
-    throw new Error('`iterable` is neither list nor a string')
-  }
-
   const toReturn = [];
   let counter = 0;
 
@@ -874,7 +815,7 @@ function dropWhile(predicate) {
     toReturn.push(iterable[counter++]);
   }
 
-  return isArray$1 ? toReturn : toReturn.join('')
+  return  toReturn
 }
 }
 
@@ -911,24 +852,12 @@ function eqBy(fn, a) {
   return b => equals(fn(a), fn(b))
 }
 
-function propFn(searchProperty, obj) {
-  if (!obj) {
-    return undefined
-  }
+function prop(searchProperty) {
 
-  return obj[searchProperty]
-}
-
-function prop(searchProperty, obj) {
-  if (arguments.length === 1) {
-    return _obj => prop(searchProperty, _obj)
-  }
-
-  return propFn(searchProperty, obj)
-}
+  return obj => obj ? obj[searchProperty] : undefined}
 
 function eqProps(property, objA) {
-  return objB => equals(prop(property, objA), prop(property, objB))
+  return objB => equals(prop(property), prop(property))
 }
 
 const { keys } = Object;
@@ -1109,6 +1038,16 @@ function fromPairs(listOfPairs) {
   return toReturn
 }
 
+function getPropertyOrDefault(defaultValue, property) {
+	return obj => {
+		if (!obj) {
+			return defaultValue
+		}
+	
+		return defaultTo(defaultValue, obj[property])
+	}
+}
+
 function groupBy(groupFn, list) {
   if (arguments.length === 1) {
     return _list => groupBy(groupFn, _list)
@@ -1129,30 +1068,6 @@ function groupBy(groupFn, list) {
   return result
 }
 
-function has(prop, obj) {
-  if (arguments.length === 1) {
-    return _obj => has(prop, _obj)
-  }
-
-  if (!obj) {
-    return false
-  }
-
-  return Object.hasOwn(obj, prop)
-}
-
-function hasIn(searchProperty, obj) {
-  if (arguments.length === 1) {
-    return _obj => hasIn(searchProperty, _obj)
-  }
-
-  return propFn(searchProperty, obj) !== undefined
-}
-
-function hasPath(pathInput) {
-  return obj => path(pathInput, obj) !== undefined
-}
-
 function head(listOrString) {
   if (typeof listOrString === 'string') {
     return listOrString[0] || ''
@@ -1161,40 +1076,8 @@ function head(listOrString) {
   return listOrString[0]
 }
 
-function indexByPath(pathInput, list) {
-  const toReturn = {};
-  for (let i = 0; i < list.length; i++) {
-    const item = list[i];
-    toReturn[path(pathInput, item)] = item;
-  }
-
-  return toReturn
-}
-
-function indexBy(condition, list) {
-  if (arguments.length === 1) {
-    return _list => indexBy(condition, _list)
-  }
-
-  if (typeof condition === 'string') {
-    return indexByPath(condition, list)
-  }
-
-  const toReturn = {};
-  for (let i = 0; i < list.length; i++) {
-    const item = list[i];
-    toReturn[condition(item)] = item;
-  }
-
-  return toReturn
-}
-
-function indexOf(valueToFind, list) {
-  if (arguments.length === 1) {
-    return _list => _indexOf(valueToFind, _list)
-  }
-
-  return _indexOf(valueToFind, list)
+function indexOf(valueToFind) {
+  return list => _indexOf(valueToFind, list)
 }
 
 function baseSlice(array, start, end) {
@@ -1259,14 +1142,6 @@ function innerJoin(pred, xs) {
   return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
 
-function insertAtIndex(indexToInsert, valueToInsert) {
-	return array => ([
-    ...array.slice(0, indexToInsert),
-    valueToInsert,
-    ...array.slice(indexToInsert),
-  ])
-}
-
 function intersection(listA, listB) {
   if (arguments.length === 1) {
     return _list => intersection(listA, _list)
@@ -1324,7 +1199,7 @@ function map(fn) {
     let index = 0;
     const willReturn = Array(list.length);
     while (index < list.length) {
-      willReturn[index] = fn(list[index]);
+      willReturn[index] = fn(list[index], index);
       index++;
     }
     return willReturn
@@ -1446,12 +1321,9 @@ function pathSatisfies(fn, pathInput) {
   return obj => Boolean(fn(path(pathInput)(obj)))
 }
 
-function pick(propsToPick, input) {
-  if (arguments.length === 1) {
-    return _input => pick(propsToPick, _input)
-  }
-
-  if (input === null || input === undefined) {
+function pick(propsToPick) {
+	return input => {
+  if (!input === null) {
     return undefined
   }
   const keys = createPath(propsToPick, ',');
@@ -1466,6 +1338,7 @@ function pick(propsToPick, input) {
   }
 
   return willReturn
+}
 }
 
 function pickAll(propsToPick) {
@@ -1536,22 +1409,12 @@ function propEq(valueToMatch, propToFind) {
     return false
   }
 
-  return equals(valueToMatch, prop(propToFind, obj))
+  return equals(valueToMatch, prop(propToFind))
 }
-}
-
-function propOr(defaultValue, property) {
-	return obj => {
-		if (!obj) {
-			return defaultValue
-		}
-	
-		return defaultTo(defaultValue, obj[property])
-	}
 }
 
 function propSatisfies(predicate, property) {
-  return obj => predicate(prop(property, obj))
+  return obj => predicate(prop(property))
 }
 
 function reject(predicate, list) {
@@ -1586,16 +1449,6 @@ function replaceItemAtIndex(index, replaceFn) {
 
     return clone
   }
-}
-
-function reverse(listOrString) {
-  if (typeof listOrString === 'string') {
-    return listOrString.split('').reverse().join('')
-  }
-
-  const clone = listOrString.slice();
-
-  return clone.reverse()
 }
 
 function sort(sortFn) {
@@ -1645,14 +1498,6 @@ function sortWith(listOfSortingFns, list) {
   return clone
 }
 
-function split(separator, str) {
-  if (arguments.length === 1) {
-    return _str => split(separator, _str)
-  }
-
-  return str.split(separator)
-}
-
 function splitEvery(sliceLength, listOrString) {
   if (arguments.length === 1) {
     return _listOrString => splitEvery(sliceLength, _listOrString)
@@ -1672,31 +1517,27 @@ function splitEvery(sliceLength, listOrString) {
   return willReturn
 }
 
-function splitWhen(predicate, input) {
-  if (arguments.length === 1) {
-    return _input => splitWhen(predicate, _input)
-  }
-  if (!input) {
-    throw new TypeError(`Cannot read property 'length' of ${input}`)
-  }
+function splitWhen(predicate) {
+	return input => {
 
-  const preFound = [];
-  const postFound = [];
-  let found = false;
-  let counter = -1;
-
-  while (counter++ < input.length - 1) {
-    if (found) {
-      postFound.push(input[counter]);
-    } else if (predicate(input[counter])) {
-      postFound.push(input[counter]);
-      found = true;
-    } else {
-      preFound.push(input[counter]);
-    }
-  }
-
-  return [preFound, postFound]
+		const preFound = [];
+		const postFound = [];
+		let found = false;
+		let counter = -1;
+	
+		while (counter++ < input.length - 1) {
+			if (found) {
+				postFound.push(input[counter]);
+			} else if (predicate(input[counter])) {
+				postFound.push(input[counter]);
+				found = true;
+			} else {
+				preFound.push(input[counter]);
+			}
+		}
+	
+		return [preFound, postFound]
+	}
 }
 
 function startsWith(question, iterable) {
@@ -1795,11 +1636,6 @@ function takeLastWhile(predicate, input) {
 
 function takeWhile(predicate) {
 	return iterable => {
-  const isArray$1 = isArray(iterable);
-  if (!isArray$1 && typeof iterable !== 'string') {
-    throw new Error('`iterable` is neither list nor a string')
-  }
-
   const toReturn = [];
   let counter = 0;
 
@@ -1810,8 +1646,7 @@ function takeWhile(predicate) {
     }
     toReturn.push(item);
   }
-
-  return isArray$1 ? toReturn : toReturn.join('')
+	return toReturn
 }
 }
 
@@ -1839,23 +1674,12 @@ function test(pattern, str) {
   return str.search(pattern) !== -1
 }
 
-function toPairs(obj) {
-  return Object.entries(obj)
-}
-
-const isFunction = x => ['Promise', 'Function'].includes(type(x));
-
 function tryCatch(fn, fallback) {
-  if (!isFunction(fn)) {
-    throw new Error(`R.tryCatch | fn '${fn}'`)
-  }
-  const passFallback = isFunction(fallback);
-
-  return (...inputs) => {
+  return (input) => {
     try {
-      return fn(...inputs)
+      return fn(input)
     } catch (e) {
-      return passFallback ? fallback(e, ...inputs) : fallback
+			return fallback
     }
   }
 }
@@ -1980,7 +1804,6 @@ exports.append = append;
 exports.assoc = assoc;
 exports.assocPath = assocPath;
 exports.checkObjectWithSpec = checkObjectWithSpec;
-exports.clone = clone;
 exports.complement = complement;
 exports.compose = compose;
 exports.concat = concat;
@@ -2010,17 +1833,13 @@ exports.findLastIndex = findLastIndex;
 exports.flatMap = flatMap;
 exports.flatten = flatten;
 exports.fromPairs = fromPairs;
+exports.getPropertyOrDefault = getPropertyOrDefault;
 exports.groupBy = groupBy;
-exports.has = has;
-exports.hasIn = hasIn;
-exports.hasPath = hasPath;
 exports.head = head;
 exports.includes = includes;
-exports.indexBy = indexBy;
 exports.indexOf = indexOf;
 exports.init = init;
 exports.innerJoin = innerJoin;
-exports.insertAtIndex = insertAtIndex;
 exports.intersection = intersection;
 exports.intersperse = intersperse;
 exports.join = join;
@@ -2042,7 +1861,6 @@ exports.partition = partition;
 exports.partitionArray = partitionArray;
 exports.partitionObject = partitionObject;
 exports.path = path;
-exports.pathFn = pathFn;
 exports.pathSatisfies = pathSatisfies;
 exports.pick = pick;
 exports.pickAll = pickAll;
@@ -2053,8 +1871,6 @@ exports.pluck = pluck;
 exports.prepend = prepend;
 exports.prop = prop;
 exports.propEq = propEq;
-exports.propFn = propFn;
-exports.propOr = propOr;
 exports.propSatisfies = propSatisfies;
 exports.reduce = reduce;
 exports.reject = reject;
@@ -2062,11 +1878,9 @@ exports.removeIndex = removeIndex;
 exports.repeat = repeat;
 exports.replace = replace;
 exports.replaceItemAtIndex = replaceItemAtIndex;
-exports.reverse = reverse;
 exports.sort = sort;
 exports.sortBy = sortBy;
 exports.sortWith = sortWith;
-exports.split = split;
 exports.splitEvery = splitEvery;
 exports.splitWhen = splitWhen;
 exports.startsWith = startsWith;
@@ -2078,7 +1892,6 @@ exports.takeLastWhile = takeLastWhile;
 exports.takeWhile = takeWhile;
 exports.tap = tap;
 exports.test = test;
-exports.toPairs = toPairs;
 exports.tryCatch = tryCatch;
 exports.type = type;
 exports.union = union;
@@ -2086,7 +1899,6 @@ exports.uniq = uniq;
 exports.uniqBy = uniqBy;
 exports.uniqWith = uniqWith;
 exports.unwind = unwind;
-exports.update = update;
 exports.when = when;
 exports.without = without;
 exports.zip = zip;

@@ -6354,6 +6354,13 @@ describe('R.path with string as path', () => {
 		result // $ExpectType boolean
 		resultStringInput // $ExpectType boolean
   })
+  it('happy', () => {
+		let result = piped(
+			[1,2,3],
+			path([1])
+		)
+		result // $ExpectType number
+  })
 })
 ```
 

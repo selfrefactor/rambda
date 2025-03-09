@@ -1,15 +1,16 @@
-import { propSatisfies } from 'rambda'
+import { piped, propSatisfies } from 'rambda'
 
 const obj = { a: 1 }
 
 describe('R.propSatisfies', () => {
   it('happy', () => {
-    const result = propSatisfies(x => x > 0, 'a', obj)
-
-    result // $ExpectType boolean
-  })
-  it('curried requires explicit type', () => {
-    const result = propSatisfies<number>(x => x > 0, 'a')(obj)
+    const result = piped(
+			obj,
+			propSatisfies(x => {
+				x // $ExpectType number
+				return x > 0
+			}, 'a')
+		)
 
     result // $ExpectType boolean
   })

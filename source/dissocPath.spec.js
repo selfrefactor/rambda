@@ -1,7 +1,8 @@
 import { dissocPath } from './dissocPath.js'
 
 test('simple example', () => {
-  expect(dissocPath(['foo', 'bar'], { a: 1, foo: { bar: 2 } })).toEqual({
+	let result = dissocPath(['foo', 'bar'])({ a: 1, foo: { bar: 2 } })
+  expect(result).toEqual({
     a: 1,
     foo: {},
   })
@@ -46,13 +47,12 @@ test('update array', () => {
     ],
     m: 9,
   }
-  const result = dissocPath('f.1.i', testInput)
-	console.log(result)
-  // expect(result).toEqual(expected)
+  const result = dissocPath('f.1.i')(testInput)
+  expect(result).toEqual(expected)
 })
 
 test('update object', () => {
-  const result = dissocPath('a.b', testInput)
+  const result = dissocPath('a.b')(testInput)
   const expected = {
     a: {
       c: 2,
@@ -104,7 +104,7 @@ test('leaves an empty object when all properties omitted', () => {
 
 test('accepts empty path', () => {
   expect(
-    dissocPath([], {
+    dissocPath([])({
       a: 1,
       b: 2,
     })).toEqual({
@@ -115,7 +115,7 @@ test('accepts empty path', () => {
 
 test('allow integer to be used as key for object', () => {
   expect(
-    dissocPath([42], {
+    dissocPath([42])({
       42: 3,
       a: 1,
       b: 2,
@@ -155,7 +155,5 @@ test('support remove null/undefined value path', () => {
     a: 1,
     b: 2,
   }
-  const obj2 = dissocPath(['c', 'd'], obj1)
-
-	expect(obj2).toEqual(obj1)
+	expect(dissocPath(['c', 'd'])(obj1)).toEqual(obj1)
 })

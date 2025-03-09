@@ -1,12 +1,10 @@
-import { createPath } from '../src/_internals/createPath.js'
+import { createPath } from './_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
-import { isIndexInteger } from './_internals/isInteger.js'
 import { omit } from './omit.js'
 import { path } from './path.js'
-import { removeIndex } from './removeIndex.js'
 import { cloneList } from './_internals/cloneList.js'
 
-export function update(
+function update(
   index, newValue, list
 ){
   const clone = cloneList(list)
@@ -17,12 +15,16 @@ export function update(
   )
 }
 
+export function removeIndex(index, list){
+  if (index <= 0) return list.slice(1)
+  if (index >= list.length - 1) return list.slice(0, list.length - 1)
 
-export function dissocPath(pathInput, input) {
-  if (arguments.length === 1) {
-    return _obj => dissocPath(pathInput, _obj)
-  }
+  return [ ...list.slice(0, index), ...list.slice(index + 1) ]
+}
 
+
+export function dissocPath(pathInput) {	
+	return input =>{
   const pathArrValue = createPath(pathInput)
   // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
   // TODO: add warning that Rambda simply returns input if path is empty
@@ -40,9 +42,8 @@ export function dissocPath(pathInput, input) {
     typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
   if (pathArrValue.length > 1) {
     const nextInput = condition
-      ? isIndexInteger(pathArrValue[1])
-        ? []
-        : {}
+      ?
+        {}
       : input[index]
     const nextPathInput = Array.prototype.slice.call(pathArrValue, 1)
     const intermediateResult = dissocPath(nextPathInput, nextInput, input)
@@ -60,4 +61,5 @@ export function dissocPath(pathInput, input) {
   }
 
   return omit([index], input)
+}
 }
