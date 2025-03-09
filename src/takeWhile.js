@@ -1,12 +1,6 @@
-import { isArray as isArrayModule } from './_internals/isArray.js'
 
 export function takeWhile(predicate) {
 	return iterable => {
-  const isArray = isArrayModule(iterable)
-  if (!isArray && typeof iterable !== 'string') {
-    throw new Error('`iterable` is neither list nor a string')
-  }
-
   const toReturn = []
   let counter = 0
 
@@ -17,7 +11,6 @@ export function takeWhile(predicate) {
     }
     toReturn.push(item)
   }
-
-  return isArray ? toReturn : toReturn.join('')
+	return toReturn
 }
 }

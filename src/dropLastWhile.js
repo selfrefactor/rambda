@@ -1,24 +1,14 @@
-import { isArray as isArrayMethod } from './_internals/isArray.js'
-
 export function dropLastWhile(predicate) {
-	return iterable => {
-  if (iterable.length === 0) {
-    return iterable
-  }
-  const isArray = isArrayMethod(iterable)
-
-  if (typeof predicate !== 'function') {
-    throw new Error(`'predicate' is from wrong type ${typeof predicate}`)
-  }
-  if (!isArray && typeof iterable !== 'string') {
-    throw new Error(`'iterable' is from wrong type ${typeof iterable}`)
+	return list => {
+  if (list.length === 0) {
+    return list
   }
 
   const toReturn = []
-  let counter = iterable.length
+  let counter = list.length
 
   while (counter) {
-    const item = iterable[--counter]
+    const item = list[--counter]
     if (!predicate(item)) {
       toReturn.push(item)
       break
@@ -26,9 +16,9 @@ export function dropLastWhile(predicate) {
   }
 
   while (counter) {
-    toReturn.push(iterable[--counter])
+    toReturn.push(list[--counter])
   }
 
-  return isArray ? toReturn.reverse() : toReturn.reverse().join('')
+  return toReturn.reverse()
 }
 }
