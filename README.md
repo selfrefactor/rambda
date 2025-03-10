@@ -6972,13 +6972,13 @@ If there is no such property, it returns `undefined`.
 
 ```javascript
 const result = [
-  R.prop('x', {x: 100}), 
-  R.prop('x', {a: 1}) 
+  R.prop('x')({x: 100}), 
+  R.prop('x')({a: 1}) 
 ]
 // => [100, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x'%2C%20%7Bx%3A%20100%7D)%2C%20%0A%20%20R.prop('x'%2C%20%7Ba%3A%201%7D)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x')(%7Bx%3A%20100%7D)%2C%20%0A%20%20R.prop('x')(%7Ba%3A%201%7D)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6999,6 +6999,35 @@ prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 export function prop(searchProperty) {
 
   return obj => obj ? obj[searchProperty] : undefined}
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { piped, prop, map } from 'rambda'
+
+describe('R.prop', () => {
+  it('happy', () => {
+    const result = piped(
+			{a:1},
+			prop('a'),
+		)
+
+    result // $ExpectType number
+  })
+	it('alike R.pluck', () => {
+		const result = piped(
+			[{ a: 1 }, { a: 2 }],
+			map(prop('a')),
+		)
+	
+		result // $ExpectType boolean
+	})
+})
 ```
 
 </details>
@@ -7097,7 +7126,7 @@ test('returns false if called with a null or undefined object', () => {
 
 ```typescript
 
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean
+propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean
 ```
 
 It returns `true` if the object property satisfies a given predicate.
@@ -7118,8 +7147,7 @@ const result = R.propSatisfies(predicate, property, obj)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
-propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
+propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 ```
 
 </details>
@@ -7163,18 +7191,19 @@ test('when false', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { propSatisfies } from 'rambda'
+import { piped, propSatisfies } from 'rambda'
 
 const obj = { a: 1 }
 
 describe('R.propSatisfies', () => {
   it('happy', () => {
-    const result = propSatisfies(x => x > 0, 'a', obj)
-
-    result // $ExpectType boolean
-  })
-  it('curried requires explicit type', () => {
-    const result = propSatisfies<number>(x => x > 0, 'a')(obj)
+    const result = piped(
+			obj,
+			propSatisfies(x => {
+				x // $ExpectType number
+				return x > 0
+			}, 'a')
+		)
 
     result // $ExpectType boolean
   })
@@ -9607,6 +9636,64 @@ const expected = [{a:1, b:2}, {a:1, b:3}]
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%20%5B2%2C%203%5D%2C%0A%7D%0Aconst%20result%20%3D%20R.unwind('b')(obj)%0Aconst%20expected%20%3D%20%5B%7Ba%3A1%2C%20b%3A2%7D%2C%20%7Ba%3A1%2C%20b%3A3%7D%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.unwind</strong> example in Rambda REPL</a>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unwind)
+
+### update
+
+```typescript
+
+update<T>(index: number, newValue: T): (list: T[]) => T[]
+```
+
+It returns a copy of `list` with updated element at `index` with `newValue`.
+
+```javascript
+const index = 2
+const newValue = 88
+const list = [1, 2, 3, 4, 5]
+
+const result = R.update(index, newValue, list)
+// => [1, 2, 88, 4, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+update<T>(index: number, newValue: T): (list: T[]) => T[];
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.update</strong> source</summary>
+
+```javascript
+import { cloneList } from './_internals/cloneList.js'
+
+export function update(index, newValue) {
+	return list => {
+		const clone = cloneList(list)
+		if (index === -1) {
+			return clone.fill(newValue, index)
+		}
+
+		return clone.fill(newValue, index, index + 1)
+	}
+}
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#update)
 
 ### when
 

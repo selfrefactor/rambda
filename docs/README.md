@@ -2368,65 +2368,57 @@ import { createPath } from './_internals/createPath.js'
 import { isArray } from './_internals/isArray.js'
 import { omit } from './omit.js'
 import { path } from './path.js'
-import { cloneList } from './_internals/cloneList.js'
+import { update } from './update.js'
 
-function update(
-  index, newValue, list
-){
-  const clone = cloneList(list)
-  if (index === -1) return clone.fill(newValue, index)
-
-  return clone.fill(
-    newValue, index, index + 1
-  )
-}
-
-export function removeIndex(index, list){
-  if (index <= 0) return list.slice(1)
-  if (index >= list.length - 1) return list.slice(0, list.length - 1)
-
-  return [ ...list.slice(0, index), ...list.slice(index + 1) ]
-}
-
-export function dissocPath(pathInput) {	
-	return input =>{
-  const pathArrValue = createPath(pathInput)
-  // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
-  // TODO: add warning that Rambda simply returns input if path is empty
-  if (pathArrValue.length === 0) {
-    return input
+export function removeIndex(index, list) {
+  if (index <= 0) {
+    return list.slice(1)
+  }
+  if (index >= list.length - 1) {
+    return list.slice(0, list.length - 1)
   }
 
-  const pathResult = path(pathArrValue, input)
-  if (pathResult === undefined) {
-    return input
-  }
+  return [...list.slice(0, index), ...list.slice(index + 1)]
+}
 
-  const index = pathArrValue[0]
-  const condition =
-    typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
-  if (pathArrValue.length > 1) {
-    const nextInput = condition
-      ?
-        {}
-      : input[index]
-    const nextPathInput = Array.prototype.slice.call(pathArrValue, 1)
-    const intermediateResult = dissocPath(nextPathInput, nextInput, input)
+export function dissocPath(pathInput) {
+  return input => {
+    const pathArrValue = createPath(pathInput)
+    if (pathArrValue.length === 0) {
+      return input
+    }
+
+    const pathResult = path(pathArrValue, input)
+    if (pathResult === undefined) {
+      return input
+    }
+
+    const index = pathArrValue[0]
+    const condition =
+      typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
+    if (pathArrValue.length > 1) {
+			const nextInput = condition ?
+      Number.isInteger((pathArrValue[ 1 ])) ?
+        [] :
+        {} :
+      input[ index ]
+      const nextPathInput = Array.prototype.slice.call(pathArrValue, 1)
+      const intermediateResult = dissocPath(nextPathInput)(nextInput)
+      if (isArray(input)) {
+        return update(index, intermediateResult)(input)
+      }
+
+      return {
+        ...input,
+        [index]: intermediateResult,
+      }
+    }
     if (isArray(input)) {
-      return update(index, intermediateResult, input)
+      return removeIndex(index, input)
     }
 
-    return {
-      ...input,
-      [index]: intermediateResult,
-    }
+    return omit([index])(input)
   }
-  if (isArray(input)) {
-    return removeIndex(index, input)
-  }
-
-  return omit([index], input)
-}
 }
 ```
 
@@ -2440,7 +2432,8 @@ export function dissocPath(pathInput) {
 import { dissocPath } from './dissocPath.js'
 
 test('simple example', () => {
-  expect(dissocPath(['foo', 'bar'], { a: 1, foo: { bar: 2 } })).toEqual({
+	let result = dissocPath(['foo', 'bar'])({ a: 1, foo: { bar: 2 } })
+  expect(result).toEqual({
     a: 1,
     foo: {},
   })
@@ -2485,13 +2478,12 @@ test('update array', () => {
     ],
     m: 9,
   }
-  const result = dissocPath('f.1.i', testInput)
-	console.log(result)
-  // expect(result).toEqual(expected)
+  const result = dissocPath('f.1.i')(testInput)
+  expect(result).toEqual(expected)
 })
 
 test('update object', () => {
-  const result = dissocPath('a.b', testInput)
+  const result = dissocPath('a.b')(testInput)
   const expected = {
     a: {
       c: 2,
@@ -2543,7 +2535,7 @@ test('leaves an empty object when all properties omitted', () => {
 
 test('accepts empty path', () => {
   expect(
-    dissocPath([], {
+    dissocPath([])({
       a: 1,
       b: 2,
     })).toEqual({
@@ -2554,7 +2546,7 @@ test('accepts empty path', () => {
 
 test('allow integer to be used as key for object', () => {
   expect(
-    dissocPath([42], {
+    dissocPath([42])({
       42: 3,
       a: 1,
       b: 2,
@@ -2594,9 +2586,7 @@ test('support remove null/undefined value path', () => {
     a: 1,
     b: 2,
   }
-  const obj2 = dissocPath(['c', 'd'], obj1)
-
-	expect(obj2).toEqual(obj1)
+	expect(dissocPath(['c', 'd'])(obj1)).toEqual(obj1)
 })
 ```
 
@@ -9855,169 +9845,6 @@ export function pipe(){
 
 </details>
 
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { Bench } from 'tinybench'
-import { __findHighestArity } from './applySpec.js'
-import { pipe } from './pipe.js'
-
-import * as Ramda from 'ramda'
-import * as Rambda from '../rambda.js'
-import { IS_CI } from './_internals/testUtils.js'
-
-const zaratustra = {
-  title: 'Zaratustra',
-  year: 1956,
-}
-const awardedZaratustra = {
-  ...zaratustra,
-  awards: {
-    number: 1,
-    years: [1956],
-  },
-}
-const awardedDostojevski = {
-  title: 'Idiot',
-  year: 1869,
-  awards: {
-    number: 2,
-    years: [1869, 1870],
-  },
-}
-const awardedDostojevskiToRead = {
-  ...awardedDostojevski,
-  readFlag: true,
-  bookmarkFlag: true,
-}
-const awardedZaratustraToRead = {
-  ...awardedZaratustra,
-  readFlag: true,
-  bookmarkFlag: true,
-  description: 'The essense of Nietzsche philosophy',
-  userRating: 5,
-}
-const awardedBaseValue = {
-  title: '',
-  year: 0,
-  awards: {
-    number: 0,
-    years: [],
-  },
-}
-
-const checkIfMustRead = x => {
-  return x.status === 'must-read'
-}
-const checkIfFamous = x => {
-  return x.status === 'famous'
-}
-const checkReadStatus = x => {
-  return x.readFlag
-}
-const checkBookmarkStatus = x => {
-  return x.bookmarkFlag
-}
-const checkBookToRead = x => {
-  return x.readFlag && x.bookmarkFlag
-}
-const checkHasDescription = x => {
-  return x.description !== undefined
-}
-const checkHasUserRating = x => {
-  return x.userRating !== undefined
-}
-
-const assertType = fn => {
-  return x => {
-    if (fn(x)) {
-      return x
-    }
-    throw new Error('type assertion failed')
-  }
-}
-
-describe('real use cases', () => {
-  it('books', async () => {
-    const applyTest = (R, book) =>
-      R.pipe(
-        R.assoc('status', 'famous'),
-        R.assocPath(['awards', 'number'], 1),
-        R.defaultTo(awardedBaseValue),
-        R.tap(R.anyPass([x => x.awards.number >= 0, x => x.year > 1900])),
-        R.tap(
-          R.both(
-            x => x.awards.number >= 1,
-            x => x.year > 1900,
-          ),
-        ),
-        assertType(R.either(checkIfFamous, checkIfMustRead)),
-        x => ({
-          ...x,
-          readFlag: true,
-          bookmarkFlag: true,
-        }),
-        assertType(R.both(checkReadStatus, checkBookmarkStatus)),
-        assertType(checkBookToRead),
-        x => [x, x],
-        R.dropLast(1),
-        R.difference([awardedDostojevskiToRead]),
-        R.append(awardedZaratustraToRead),
-        R.last,
-        assertType(R.allPass([checkHasDescription, checkHasUserRating])),
-        assertType(R.anyPass([checkHasDescription, checkHasUserRating])),
-        R.dissocPath('description'),
-      )(book)
-    expect(applyTest(Rambda, zaratustra)).toMatchInlineSnapshot(`
-{
-  "awards": {
-    "number": 1,
-    "years": [
-      1956,
-    ],
-  },
-  "bookmarkFlag": true,
-  "readFlag": true,
-  "title": "Zaratustra",
-  "userRating": 5,
-  "year": 1956,
-}
-`)
-    if (IS_CI) {
-      return
-    }
-    const bench = new Bench({ name: 'simple benchmark', iterations: 10_000 })
-
-    bench
-      .add('Rambda', () => {
-        applyTest(Rambda, zaratustra)
-      })
-      .add('R', async () => {
-        applyTest(Ramda, zaratustra)
-      })
-
-    await bench.run()
-
-    console.log(bench.name)
-    console.table(bench.table())
-  })
-})
-
-test('issue #627', () => {
-  expect(__findHighestArity({ len: pipe(Rambda.length) })).toBe(1)
-})
-
-test('with bad input', () => {
-  expect(() => pipe()).toThrowError(
-    `pipe requires at least one argument`,
-  )
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pipe)
 
 ### piped
@@ -10314,11 +10141,6 @@ piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
 	op19: (input: S) => T,
 	op20: (input: T) => U,
 ): U;
-
-// API_MARKER_END
-// ============================================
-
-export as namespace R
 ```
 
 </details>
@@ -10793,13 +10615,13 @@ If there is no such property, it returns `undefined`.
 
 ```javascript
 const result = [
-  R.prop('x', {x: 100}), 
-  R.prop('x', {a: 1}) 
+  R.prop('x')({x: 100}), 
+  R.prop('x')({a: 1}) 
 ]
 // => [100, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x'%2C%20%7Bx%3A%20100%7D)%2C%20%0A%20%20R.prop('x'%2C%20%7Ba%3A%201%7D)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x')(%7Bx%3A%20100%7D)%2C%20%0A%20%20R.prop('x')(%7Ba%3A%201%7D)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10820,6 +10642,35 @@ prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 export function prop(searchProperty) {
 
   return obj => obj ? obj[searchProperty] : undefined}
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { piped, prop, map } from 'rambda'
+
+describe('R.prop', () => {
+  it('happy', () => {
+    const result = piped(
+			{a:1},
+			prop('a'),
+		)
+
+    result // $ExpectType number
+  })
+	it('alike R.pluck', () => {
+		const result = piped(
+			[{ a: 1 }, { a: 2 }],
+			map(prop('a')),
+		)
+	
+		result // $ExpectType boolean
+	})
+})
 ```
 
 </details>
@@ -10918,7 +10769,7 @@ test('returns false if called with a null or undefined object', () => {
 
 ```typescript
 
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean
+propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean
 ```
 
 It returns `true` if the object property satisfies a given predicate.
@@ -10939,8 +10790,7 @@ const result = R.propSatisfies(predicate, property, obj)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
-propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
+propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 ```
 
 </details>
@@ -10984,18 +10834,19 @@ test('when false', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { propSatisfies } from 'rambda'
+import { piped, propSatisfies } from 'rambda'
 
 const obj = { a: 1 }
 
 describe('R.propSatisfies', () => {
   it('happy', () => {
-    const result = propSatisfies(x => x > 0, 'a', obj)
-
-    result // $ExpectType boolean
-  })
-  it('curried requires explicit type', () => {
-    const result = propSatisfies<number>(x => x > 0, 'a')(obj)
+    const result = piped(
+			obj,
+			propSatisfies(x => {
+				x // $ExpectType number
+				return x > 0
+			}, 'a')
+		)
 
     result // $ExpectType boolean
   })
@@ -14466,6 +14317,64 @@ describe('R.unwind', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unwind)
+
+### update
+
+```typescript
+
+update<T>(index: number, newValue: T): (list: T[]) => T[]
+```
+
+It returns a copy of `list` with updated element at `index` with `newValue`.
+
+```javascript
+const index = 2
+const newValue = 88
+const list = [1, 2, 3, 4, 5]
+
+const result = R.update(index, newValue, list)
+// => [1, 2, 88, 4, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+update<T>(index: number, newValue: T): (list: T[]) => T[];
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.update</strong> source</summary>
+
+```javascript
+import { cloneList } from './_internals/cloneList.js'
+
+export function update(index, newValue) {
+	return list => {
+		const clone = cloneList(list)
+		if (index === -1) {
+			return clone.fill(newValue, index)
+		}
+
+		return clone.fill(newValue, index, index + 1)
+	}
+}
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#update)
 
 ### when
 

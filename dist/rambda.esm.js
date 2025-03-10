@@ -79,7 +79,7 @@ function assoc(prop, newValue) {
 
 function createPath(path, delimiter = '.') {
   return typeof path === 'string'
-    ? path.split(delimiter).map(x => (Number.isInteger(x) ? Number(x) : x))
+    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
     : path
 }
 
@@ -693,64 +693,66 @@ function path(pathInput, obj) {
   return willReturn
 }
 
-function update(
-  index, newValue, list
-){
-  const clone = cloneList(list);
-  if (index === -1) return clone.fill(newValue, index)
+function update(index, newValue) {
+	return list => {
+		const clone = cloneList(list);
+		if (index === -1) {
+			return clone.fill(newValue, index)
+		}
 
-  return clone.fill(
-    newValue, index, index + 1
-  )
+		return clone.fill(newValue, index, index + 1)
+	}
 }
 
-function removeIndex(index, list){
-  if (index <= 0) return list.slice(1)
-  if (index >= list.length - 1) return list.slice(0, list.length - 1)
+function removeIndex(index, list) {
+  if (index <= 0) {
+    return list.slice(1)
+  }
+  if (index >= list.length - 1) {
+    return list.slice(0, list.length - 1)
+  }
 
-  return [ ...list.slice(0, index), ...list.slice(index + 1) ]
+  return [...list.slice(0, index), ...list.slice(index + 1)]
 }
 
+function dissocPath(pathInput) {
+  return input => {
+    const pathArrValue = createPath(pathInput);
+    if (pathArrValue.length === 0) {
+      return input
+    }
 
-function dissocPath(pathInput) {	
-	return input =>{
-  const pathArrValue = createPath(pathInput);
-  // this {...input} spread could be done to satisfy ramda specs, but this is done on so many places
-  // TODO: add warning that Rambda simply returns input if path is empty
-  if (pathArrValue.length === 0) {
-    return input
-  }
+    const pathResult = path(pathArrValue, input);
+    if (pathResult === undefined) {
+      return input
+    }
 
-  const pathResult = path(pathArrValue, input);
-  if (pathResult === undefined) {
-    return input
-  }
+    const index = pathArrValue[0];
+    const condition =
+      typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
+    if (pathArrValue.length > 1) {
+			const nextInput = condition ?
+      Number.isInteger((pathArrValue[ 1 ])) ?
+        [] :
+        {} :
+      input[ index ];
+      const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
+      const intermediateResult = dissocPath(nextPathInput)(nextInput);
+      if (isArray(input)) {
+        return update(index, intermediateResult)(input)
+      }
 
-  const index = pathArrValue[0];
-  const condition =
-    typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
-  if (pathArrValue.length > 1) {
-    condition
-      ?
-        {}
-      : input[index];
-    const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
-    const intermediateResult = dissocPath(nextPathInput);
+      return {
+        ...input,
+        [index]: intermediateResult,
+      }
+    }
     if (isArray(input)) {
-      return update(index, intermediateResult, input)
+      return removeIndex(index, input)
     }
 
-    return {
-      ...input,
-      [index]: intermediateResult,
-    }
+    return omit([index])(input)
   }
-  if (isArray(input)) {
-    return removeIndex(index, input)
-  }
-
-  return omit([index])
-}
 }
 
 function drop(howManyToDrop, listOrString) {
@@ -1789,4 +1791,4 @@ function zipWith(fn, x) {
   )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, compose, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, endsWith, eqBy, eqProps, equals, evolve, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeAll, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pickAll, pickBy, pipe, piped, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, splitEvery, splitWhen, startsWith, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unwind, when, without, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, compose, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, endsWith, eqBy, eqProps, equals, evolve, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeAll, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pickAll, pickBy, pipe, piped, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, splitEvery, splitWhen, startsWith, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unwind, update, when, without, zip, zipWith };

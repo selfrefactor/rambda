@@ -94,8 +94,8 @@ This is major revamp of `Rambda` library:
 -- addIndex, addIndexRight
 -- T, F
 -- composeWith
--- mapObjIndexed ?
--- forEachObjIndexed ?
+-- mapObjIndexed
+-- forEachObjIndexed
 -- unnest
 -- ap
 -- length
@@ -173,7 +173,7 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- filter
 -- reject
 -- map
--- mapIndexed
+-- mapObject
 -- toPairs
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda

@@ -24,7 +24,6 @@ export type Entry<T> = MergeTypes<{ readonly [P in keyof T]-?: EntryForKey<T, P>
 export type Ord = number | string | boolean | Date;
 export type Ordering = -1 | 0 | 1;
 type Path = ReadonlyArray<string> | string;
-type Predicate<T> = (x: T) => boolean;
 type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
     ? T extends undefined ? undefined : T[Extract<P, keyof T>]
     : undefined;
@@ -1520,11 +1519,6 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 	op20: (input: T) => U,
 ): U;
 
-// API_MARKER_END
-// ============================================
-
-export as namespace R
-
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
  */
@@ -1557,8 +1551,7 @@ export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolea
 /**
  * It returns `true` if the object property satisfies a given predicate.
  */
-export function propSatisfies<T>(predicate: Predicate<T>, property: string, obj: Record<PropertyKey, T>): boolean;
-export function propSatisfies<T>(predicate: Predicate<T>, property: string): (obj: Record<PropertyKey, T>) => boolean;
+export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
 
@@ -1746,6 +1739,16 @@ export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: reado
  * It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
  */
 export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { readonly [K in S]: T[S][number] };
+
+/**
+ * It returns a copy of `list` with updated element at `index` with `newValue`.
+ */
+export function update<T>(index: number, newValue: T): (list: readonly T[]) => readonly T[];
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
 
 /**
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
