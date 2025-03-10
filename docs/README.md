@@ -4398,7 +4398,7 @@ test('bad inputs difference between Ramda and Rambda', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, map, pipe, piped } from 'rambda'
+import { filter, map, piped } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -4480,6 +4480,73 @@ describe('R.filter with array', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
+
+### filterObject
+
+```typescript
+
+filterObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U
+```
+
+```javascript
+const fn = (val, prop) => {
+  return `${prop}-${val}`
+}
+
+const obj = {a: 1, b: 2}
+
+const result = R.mapObject(fn, obj)
+// => {a: 'a-1', b: 'b-2'}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObject(fn%2C%20obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.filterObject</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+filterObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { filterObject, piped } from 'rambda'
+
+describe('R.filterObject', () => {
+  it('require explicit type', () => {
+    const result = piped(
+			{ a: 1, b: 2 },
+			filterObject<{b: number}>((a) => {
+				a // $ExpectType number
+				return a > 1
+			})
+		)
+		result.b // $ExpectType number
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filterObject)
 
 ### find
 
@@ -6851,50 +6918,37 @@ describe('R.map with array', () => {
 
 ```typescript
 
-mapObject<T, TResult>(
-	fn: (
-		value: T,
-		key: string,
-		obj?: {
-			[key: string]: T
+mapObject<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Value,
+): (data: T) => MappedValues<T, Value>
 ```
 
-It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
-
-> :boom: ?
-
 ```javascript
-const fn = (val, prop) => {
-  return `${prop}-${val}`
-}
-
+const fn = (val, prop) => `${prop}-${val}`
 const obj = {a: 1, b: 2}
 
-const result = R.mapObject(fn, obj)
+const result = R.mapObject(fn)(obj)
 // => {a: 'a-1', b: 'b-2'}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObject(fn%2C%20obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObject(fn)(obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.mapObject</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-mapObject<T, TResult>(
-	fn: (
-		value: T,
-		key: string,
-		obj?: {
-			[key: string]: T;
-		},
-	) => TResult,
-	obj: {
-		[key: string]: T;
-	},
-): {
-	[key: string]: TResult;
-};
+mapObject<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Value,
+): (data: T) => MappedValues<T, Value>;
 ```
 
 </details>
@@ -6947,60 +7001,45 @@ it('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { mapObject } from 'rambda'
+import { mapObject, piped } from 'rambda'
 
 describe('R.mapObject', () => {
-  it('iterable with all three arguments', () => {
-    const result = mapObject(
-      (a, b, c) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        c // $ExpectType Record<PropertyKey, number>
-        return `${a}`
-      },
-      { a: 1, b: 2 },
-    )
-    result // $ExpectType Record<PropertyKey, string>
+  it('iterable with one arguments', () => {
+    const result = piped(
+			{ a: 1 },
+			mapObject((a) => {
+				a // $ExpectType number
+				return `${a}`
+			}),
+		)
+		
+    result // $ExpectType {a: string;}
   })
-  it('iterable with property argument', () => {
-    const result = mapObject(
-      (a, b) => {
-        a // $ExpectType number
-        b // $ExpectType string
-        return a + 2
-      },
-      { a: 1, b: 2 },
-    )
-    result // $ExpectType Record<PropertyKey, number>
+  it('iterable with two three arguments', () => {
+    const result = piped(
+			{ a: 1, b: 'foo' },
+			mapObject((a, b) => {
+				a // $ExpectType string | number
+				b // $ExpectType 'a' | 'b'
+				return `${a}`
+			}),
+		)
+		
+    result // $ExpectType {a: string; b: string;}
   })
-  it('iterable with no property argument', () => {
-    const result = mapObject(
-      a => {
-        a // $ExpectType number
-        return `${a}`
-      },
-      { a: 1, b: 2 },
-    )
-    result // $ExpectType Record<PropertyKey, string>
-  })
-  it('curried requires explicit type', () => {
-    const result = mapObject<number>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Record<PropertyKey, number>
-      return a + 2
-    })({ a: 1, b: 2 })
-    result // $ExpectType Record<PropertyKey, number>
-  })
-  it('curried requires explicit types', () => {
-    const result = mapObject<number, string>((a, b, c) => {
-      a // $ExpectType number
-      b // $ExpectType string
-      c // $ExpectType Record<PropertyKey, number>
-      return `${a}`
-    })({ a: 1, b: 2 })
-    result // $ExpectType Record<PropertyKey, string>
-  })
+	it('iterable with three arguments', () => {
+		const result = piped(
+			{ a: 1, b: 'foo' },
+			mapObject((a, b, c) => {
+				a // $ExpectType string | number
+				b // $ExpectType 'a' | 'b'
+				c // $ExpectType {a: number; b: string;}
+				return `${a}`
+			}),
+		)
+		
+		result // $ExpectType {a: string; b: string;}
+	})
 })
 ```
 

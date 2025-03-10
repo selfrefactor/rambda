@@ -1321,7 +1321,36 @@ export function map<T extends IterableContainer, U>(
 /*
 Method: mapObject
 
-Explanation: It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
+Explanation:
+
+Example:
+
+```
+const fn = (val, prop) => `${prop}-${val}`
+const obj = {a: 1, b: 2}
+
+const result = R.mapObject(fn)(obj)
+// => {a: 'a-1', b: 'b-2'}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObject<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Value,
+): (data: T) => MappedValues<T, Value>;
+
+/*
+Method: filterObject
+
+Explanation: 
 
 Example:
 
@@ -1338,17 +1367,17 @@ const result = R.mapObject(fn, obj)
 
 Categories: Object
 
-Notes: ?
+Notes:
 
 */
 // @SINGLE_MARKER
-export function mapObject<T extends object, Value>(
+export function filterObject<T extends object>(
   valueMapper: (
     value: EnumerableStringKeyedValueOf<T>,
     key: EnumerableStringKeyOf<T>,
     data: T,
-  ) => Value,
-): (data: T) => MappedValues<T, Value>;
+  ) => boolean,
+): <U extends T>(data: T) => U;
 
 /*
 Method: match

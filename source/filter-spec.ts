@@ -1,4 +1,4 @@
-import { filter, map, pipe, piped } from 'rambda'
+import { filter, map, piped } from 'rambda'
 
 const list = [1, 2, 3]
 

@@ -90,10 +90,24 @@ type EvolveValue<V, E> =
       ? EvolveNestedValue<V, E>
       : never;
 
-type 
-AnyFunction = (...args: any[]) => unknown;
-type AnyConstructor = new (...args: any[]) => unknown;
-
+declare const emptyObjectSymbol: unique symbol;
+type EmptyObject = {[emptyObjectSymbol]?: never};
+type EnumerableStringKeyOf<T> =
+Required<T> extends Record<infer K, unknown>
+	? `${Exclude<K, symbol>}`
+	: never;
+type EnumerableStringKeyedValueOf<T> = ValuesOf<{
+	[K in keyof T]-?: K extends symbol ? never : T[K];
+}>;
+type ValuesOf<T> =
+	T extends EmptyObject
+		? T[keyof T]
+		: T extends Record<PropertyKey, infer V>
+			? V
+			: never;
+type MappedValues<T extends object, Value> = MergeTypes<{
+	-readonly [P in keyof T as `${P extends number | string ? P : never}`]: Value;
+}>;
 
 export function T(): boolean;
 
@@ -384,6 +398,14 @@ export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
 
+export function filterObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U;
+
 /**
  * It returns the first element of `list` that satisfy the `predicate`.
  * 
@@ -557,23 +579,13 @@ export function map<T extends IterableContainer, U>(
 	data: T
 ) : Mapped<T, U>;
 
-/**
- * It works the same way as `R.map` does for objects. It is added as Ramda also has this method.
- */
-export function mapObject<T, TResult>(
-	fn: (
-		value: T,
-		key: string,
-		obj?: {
-			[key: string]: T;
-		},
-	) => TResult,
-	obj: {
-		[key: string]: T;
-	},
-): {
-	[key: string]: TResult;
-};
+export function mapObject<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Value,
+): (data: T) => MappedValues<T, Value>;
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
