@@ -1,10 +1,10 @@
 import { add } from './add.js'
 import { filter } from './filter.js'
 import { map } from './map.js'
-import { piped } from './piped.js'
+import { pipe } from './pipe.js'
 
 test('happy', () => {
-  const result = piped(
+  const result = pipe(
     [1, 2, 3],
     filter(x => x > 1),
     map(x => x * 10),

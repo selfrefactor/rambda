@@ -1,8 +1,8 @@
-import { map, piped, tryCatch } from 'rambda'
+import { map, pipe, tryCatch } from 'rambda'
 
 describe('R.tryCatch', () => {
   it('happy', () => {
-    const result = piped(
+    const result = pipe(
       ['{a:1', '{"b": 2}'],
       map(
         tryCatch(x => {

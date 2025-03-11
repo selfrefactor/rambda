@@ -1,10 +1,10 @@
-import { pathSatisfies, piped } from 'rambda'
+import { pathSatisfies, pipe } from 'rambda'
 
 const input = { a: { b: { c: 'bar' } } }
 
 describe('R.pathSatisfies', () => {
   it('happy', () => {
-    const result = piped(
+    const result = pipe(
       input,
       pathSatisfies(
         x => {
@@ -14,7 +14,7 @@ describe('R.pathSatisfies', () => {
         ['a', 'b', 'c'],
       ),
     )
-    const resultStringInput = piped(
+    const resultStringInput = pipe(
       input,
       pathSatisfies(x => {
         x // $ExpectType string

@@ -1,7 +1,4 @@
-import { compose } from './compose.js'
-import { prop } from './prop.js'
 import { sortBy } from './sortBy.js'
-import { toLower } from './toLower.js'
 
 test('happy', () => {
   const input = [{ a: 2 }, { a: 1 }, { a: 1 }, { a: 3 }]
@@ -9,23 +6,4 @@ test('happy', () => {
 
   const result = sortBy(x => x.a)(input)
   expect(result).toEqual(expected)
-})
-
-test('with compose', () => {
-  const alice = {
-    name: 'ALICE',
-    age: 101,
-  }
-  const bob = {
-    name: 'Bob',
-    age: -10,
-  }
-  const clara = {
-    name: 'clara',
-    age: 314.159,
-  }
-  const people = [clara, bob, alice]
-  const sortByNameCaseInsensitive = sortBy(compose(toLower, prop('name')))
-
-  expect(sortByNameCaseInsensitive(people)).toEqual([alice, bob, clara])
 })

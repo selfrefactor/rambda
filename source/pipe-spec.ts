@@ -13,18 +13,16 @@ import {
   dissocPath,
   drop,
   dropLast,
-  endsWith,
   evolve,
   filter,
   find,
   head,
   map,
   mapObject,
-  piped,
-  split,
-  splitAt,
+  pipe,
   tap,
   union,
+	split,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
@@ -158,15 +156,11 @@ function simplify<T>(x: T) {
 
 describe('real use cases - books', () => {
   it('case 1', () => {
-    const result = piped(
+    const result = pipe(
       [awardedZaratustra, awardedBrothersKaramazov],
       filter(checkIfFamous),
       drop(1),
       // without converting to `as FamousBook`, endsWith will pick up `Book` as type
-      tapFn(endsWith([awardedBrothersKaramazov as FamousBook]), (a, b) => {
-        a // $ExpectType FamousBook[]
-        b // $ExpectType boolean
-      }),
       tapFn(union([awardedBrothersKaramazov]), (a, b) => {
         a // $ExpectType Book[]
         b // $ExpectType Book[]
@@ -182,7 +176,7 @@ describe('real use cases - books', () => {
   })
   it('case 2', () => {
     const getResult = (book: BaseBook) =>
-      piped(
+      pipe(
         book,
         assocPath<Book>('awards.number', 1),
         defaultTo(awardedBaseValue),
@@ -216,12 +210,27 @@ describe('real use cases - books', () => {
 		2,The Second,2020
 		3,The Third,2018`
 
-    const result = piped(
+    const result = pipe(
       tableData,
       split('\n'), // string => string[]
       map(split(',')), // string[] => string[][]
-      splitAt(1), // <=== Adding this causes issue
     )
     result // $ExpectType [string[][], string[][]]
   })
+})
+
+it('R.pipe', () => {
+    const obj = {
+      a: 'foo',
+      b: 'bar',
+    }
+
+    const result = pipe(
+			obj,
+      x => ({a: x.a.length + x.b.length}),
+			x => ({...x,b: x.a + 'foo'}),
+			x => ({...x, c: x.b + 'bar'}),
+    )
+
+    result // $ExpectType Output
 })

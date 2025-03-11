@@ -1,8 +1,8 @@
-import { filterObject, piped } from 'rambda'
+import { filterObject, pipe } from 'rambda'
 
 describe('R.filterObject', () => {
   it('require explicit type', () => {
-    const result = piped(
+    const result = pipe(
       { a: 1, b: 2 },
       filterObject<{ b: number }>(a => {
         a // $ExpectType number

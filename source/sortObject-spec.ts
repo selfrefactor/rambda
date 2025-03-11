@@ -1,4 +1,4 @@
-import { piped } from 'rambda'
+import { pipe } from 'rambda'
 import { sortObject } from 'rambdax'
 
 const obj = {
@@ -9,7 +9,7 @@ const obj = {
 
 describe('R.sortObject', () => {
   it('predicate with all arguments', () => {
-    const result = piped(
+    const result = pipe(
 			obj,
 			sortObject((propA, propB, valueA, valueB) => {
 				propA // $ExpectType string
@@ -24,7 +24,7 @@ describe('R.sortObject', () => {
   })
 
   it('predicate with only property arguments', () => {
-		const result = piped(
+		const result = pipe(
 			obj,
 			sortObject((propA, propB) => {
 				propA // $ExpectType string

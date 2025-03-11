@@ -1,4 +1,4 @@
-import { piped, unwind } from 'rambda'
+import { pipe, unwind } from 'rambda'
 
 const obj = {
   a: 1,
@@ -11,8 +11,8 @@ describe('R.unwind', () => {
     result.a // $ExpectType number
     result.b // $ExpectType number
   })
-  it('inside piped', () => {
-    const result = piped(obj, unwind('b'))
+  it('inside pipe', () => {
+    const result = pipe(obj, unwind('b'))
     result.a // $ExpectType number
     result.b // $ExpectType number
   })

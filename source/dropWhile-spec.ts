@@ -1,10 +1,10 @@
-import { dropWhile, piped } from 'rambda'
+import { dropWhile, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
 describe('R.dropWhile', () => {
   it('happy', () => {
-    const result = piped(
+    const result = pipe(
       list,
       dropWhile(x => x > 1),
     )
@@ -12,7 +12,7 @@ describe('R.dropWhile', () => {
     result // $ExpectType number[]
   })
   it('with index', () => {
-    const result = piped(
+    const result = pipe(
       list,
       dropWhile((x, i) => {
         i // $ExpectType number

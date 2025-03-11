@@ -1,4 +1,3 @@
-import { compose } from './compose.js'
 import { identity } from './identity.js'
 import { inc } from './inc.js'
 import { lensProp } from './lensProp.js'
@@ -52,16 +51,6 @@ test("applies function to undefined and adds the property if it doesn't exist", 
     c: 3,
     X: undefined,
   })
-})
-
-test('can be composed', () => {
-  const nestedObj = {
-    a: { b: 1 },
-    c: 2,
-  }
-  const composedLens = compose(lensProp('a'), lensProp('b'))
-
-  expect(view(composedLens, nestedObj)).toBe(1)
 })
 
 test('set s (get s) === s', () => {

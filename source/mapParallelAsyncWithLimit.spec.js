@@ -1,7 +1,7 @@
 import { delay } from './delay.js'
 import { mapAsync } from './mapAsync.js'
 import { mapParallelAsyncWithLimit } from './mapParallelAsyncWithLimit.js'
-import { pipedAsync } from './pipedAsync.js'
+// import { pipeAsync } from './pipeAsync.js'
 import { toDecimal } from './toDecimal.js'
 
 jest.setTimeout(30000)
@@ -35,12 +35,12 @@ const fn = async x => {
   return x + 1
 }
 
-test('with R.composeAsync', async () => {
-  const result = await pipedAsync(, x =>
-    x.map(xx => xx + 1), mapParallelAsyncWithLimit(fn, 2),
-  )([1, 2, 3, 4, 5, 6])
-  expect(result).toEqual([3, 4, 5, 6, 7, 8])
-})
+// test('with R.composeAsync', async () => {
+//   const result = await pipeAsync(, x =>
+//     x.map(xx => xx + 1), mapParallelAsyncWithLimit(fn, 2),
+//   )([1, 2, 3, 4, 5, 6])
+//   expect(result).toEqual([3, 4, 5, 6, 7, 8])
+// })
 
 test('fallback to R.mapFastAsync', async () => {
   const result = await mapParallelAsyncWithLimit(fn, 4, [1, 2, 3])

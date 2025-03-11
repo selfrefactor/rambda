@@ -6,11 +6,11 @@ const list = [
   [3, 4, 5],
 ]
 test('happy', () => {
-  const result = R.piped(list, R.filter(R.allPass([R.includes(2), R.includes(3)])))
+  const result = R.pipe(list, R.filter(R.allPass([R.includes(2), R.includes(3)])))
   expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const result = R.piped(list, R.filter(R.allPass([R.includes(12), R.includes(31)])))
+  const result = R.pipe(list, R.filter(R.allPass([R.includes(12), R.includes(31)])))
   expect(result).toEqual([])
 })

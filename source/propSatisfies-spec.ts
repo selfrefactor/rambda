@@ -1,10 +1,10 @@
-import { piped, propSatisfies } from 'rambda'
+import { pipe, propSatisfies } from 'rambda'
 
 const obj = { a: 1 }
 
 describe('R.propSatisfies', () => {
   it('happy', () => {
-    const result = piped(
+    const result = pipe(
       obj,
       propSatisfies(x => {
         x // $ExpectType number

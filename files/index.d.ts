@@ -120,7 +120,7 @@ It adds `a` and `b`.
 Example:
 
 ```
-const result = R.piped(
+const result = R.pipe(
 	2,
 	R.add(3)
 ) // =>  5
@@ -144,7 +144,7 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 Example:
 
 ```
-const result = R.piped(
+const result = R.pipe(
 	[1, 2, 3],
 	R.replaceItemAtIndex(1, R.add(1))
 ) // => [1, 3, 3]
@@ -169,7 +169,7 @@ Example:
 const list = [ 0, 1, 2, 3, 4 ]
 const predicate = x => x > -1
 
-const result = R.piped(
+const result = R.pipe(
 	list,
 	R.all(predicate)
 ) // => true
@@ -214,7 +214,7 @@ Example:
 
 ```
 const list = [[1, 2, 3, 4], [3, 4, 5]]
-const result = R.piped(
+const result = R.pipe(
 	list,
 	R.filter(R.allPass([R.includes(2), R.includes(3)]))
 ) // => [[1, 2, 3, 4]]
@@ -434,81 +434,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
-
-/*
-Method: compose
-
-Explanation: It performs right-to-left function composition.
-
-Example:
-
-```
-const result = R.compose(
-  R.map(x => x * 2),
-  R.filter(x => x > 2)
-)([1, 2, 3, 4])
-
-// => [6, 8]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R8;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R7;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R6;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R5;
-export function compose<TArgs extends any[], R1, R2, R3, R4>(
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R4;
-export function compose<TArgs extends any[], R1, R2, R3>(
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R3;
-export function compose<TArgs extends any[], R1, R2>(
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R2;
-export function compose<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R1;
 
 /*
 Method: concat
@@ -984,7 +909,7 @@ export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T
 Method: mergeTypes
 
 Explanation: Helper to merge all calculated TypeScript definitions into one definition.
-It returns its input and it is intended to be used as last method inside `R.piped` chain.
+It returns its input and it is intended to be used as last method inside `R.pipe` chain.
 
 Example:
 
@@ -2189,17 +2114,22 @@ export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 /*
 Method: pipe
 
-Explanation: It performs left-to-right function composition.
+Explanation: It performs left-to-right function composition, where first argument is the input for the chain of functions.
+
+This is huge difference from `Ramda.pipe` where input is passed like `R.pipe(...fns)(input)`.
+Here we have `R.pipe(input, ...fns)`.
+
+It has much better TypeScript support than `Ramda.pipe` and this is the reason why `Rambda` goes in this direction.
 
 Example:
 
 ```
 const result = R.pipe(
-  R.filter(val => val > 2),
-  R.map(a => a * 2)
-)([1, 2, 3, 4])
-
-// => [6, 8]
+  [1, 2, 3],
+  R.filter(x => x > 1),
+  R.map(x => x*10),
+)
+// => [20, 30]
 ```
 
 Categories: Logic
@@ -2208,86 +2138,279 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8,
-  f9: (a: R8) => R9,
-  f10: (a: R9) => R10
-): (...args: TArgs) => R10;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8,
-  f9: (a: R8) => R9
-): (...args: TArgs) => R9;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8
-): (...args: TArgs) => R8;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7
-): (...args: TArgs) => R7;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6
-): (...args: TArgs) => R6;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5
-): (...args: TArgs) => R5;
-export function pipe<TArgs extends any[], R1, R2, R3, R4>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4
-): (...args: TArgs) => R4;
-export function pipe<TArgs extends any[], R1, R2, R3>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3
-): (...args: TArgs) => R3;
-export function pipe<TArgs extends any[], R1, R2>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2
-): (...args: TArgs) => R2;
-export function pipe<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R1;
+export function pipe<A, B>(value: A, op1: (input: A) => B): B;
+export function pipe<A, B, C>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+): C;
+export function pipe<A, B, C, D>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+): D;
+export function pipe<A, B, C, D, E>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+): E;
+export function pipe<A, B, C, D, E, F>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+): F;
+export function pipe<A, B, C, D, E, F, G>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+): G;
+export function pipe<A, B, C, D, E, F, G, H>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+): H;
+export function pipe<A, B, C, D, E, F, G, H, I>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+  op8: (input: H) => I,
+): I;
+export function pipe<A, B, C, D, E, F, G, H, I, J>(
+  value: A,
+  op1: (input: A) => B,
+  op2: (input: B) => C,
+  op3: (input: C) => D,
+  op4: (input: D) => E,
+  op5: (input: E) => F,
+  op6: (input: F) => G,
+  op7: (input: G) => H,
+  op8: (input: H) => I,
+  op9: (input: I) => J,
+): J;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+): K;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+): L;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+): M;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+): N;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+): O;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+): P;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+): Q;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+): R;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+  op18: (input: R) => S,
+): S;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+  value: A,
+  op01: (input: A) => B,
+  op02: (input: B) => C,
+  op03: (input: C) => D,
+  op04: (input: D) => E,
+  op05: (input: E) => F,
+  op06: (input: F) => G,
+  op07: (input: G) => H,
+  op08: (input: H) => I,
+  op09: (input: I) => J,
+  op10: (input: J) => K,
+  op11: (input: K) => L,
+  op12: (input: L) => M,
+  op13: (input: M) => N,
+  op14: (input: N) => O,
+  op15: (input: O) => P,
+  op16: (input: P) => Q,
+  op17: (input: Q) => R,
+  op18: (input: R) => S,
+  op19: (input: S) => T,
+): T;
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+	value: A,
+	op01: (input: A) => B,
+	op02: (input: B) => C,
+	op03: (input: C) => D,
+	op04: (input: D) => E,
+	op05: (input: E) => F,
+	op06: (input: F) => G,
+	op07: (input: G) => H,
+	op08: (input: H) => I,
+	op09: (input: I) => J,
+	op10: (input: J) => K,
+	op11: (input: K) => L,
+	op12: (input: L) => M,
+	op13: (input: M) => N,
+	op14: (input: N) => O,
+	op15: (input: O) => P,
+	op16: (input: P) => Q,
+	op17: (input: Q) => R,
+	op18: (input: R) => S,
+	op19: (input: S) => T,
+	op20: (input: T) => U,
+): U;
 
 /*
 Method: pluck
 
 Explanation: It returns list of the values of `property` taken from the all objects inside `list`.
+Basically, this is `R.map(R.prop(property))`.
 
 Example:
 
@@ -2857,14 +2980,14 @@ Method: tap
 
 Explanation: It applies function `fn` to input `x` and returns `x`. 
 
-One use case is debugging in the middle of `R.piped` chain.
+One use case is debugging in the middle of `R.pipe` chain.
 
 Example:
 
 ```
 const list = [1, 2, 3]
 
-R.piped(
+R.pipe(
 	list,
   R.map(x => x * 2)
   R.tap(console.log),
@@ -3841,298 +3964,6 @@ export function pathSatisfies<
 ): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
 
 /*
-Method: piped
-
-Explanation: It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument. 
-
-It has much better TypeScript support and it is strongly recomended to use `R.piped` instead of `R.pipe`/`R.compose`.
-
-Example:
-
-```
-const result = R.piped(
-  [1, 2, 3],
-  R.filter(x => x > 1),
-  R.map(x => x*10),
-)
-// => [20, 30]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function piped<A, B>(value: A, op1: (input: A) => B): B;
-export function piped<A, B, C>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-): C;
-export function piped<A, B, C, D>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-): D;
-export function piped<A, B, C, D, E>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-): E;
-export function piped<A, B, C, D, E, F>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-): F;
-export function piped<A, B, C, D, E, F, G>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-): G;
-export function piped<A, B, C, D, E, F, G, H>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-): H;
-export function piped<A, B, C, D, E, F, G, H, I>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-  op8: (input: H) => I,
-): I;
-export function piped<A, B, C, D, E, F, G, H, I, J>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-  op8: (input: H) => I,
-  op9: (input: I) => J,
-): J;
-export function piped<A, B, C, D, E, F, G, H, I, J, K>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-): K;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-): L;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-): M;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-): N;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-): O;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-): P;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-): Q;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-): R;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-  op18: (input: R) => S,
-): S;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-  op18: (input: R) => S,
-  op19: (input: S) => T,
-): T;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
-	value: A,
-	op01: (input: A) => B,
-	op02: (input: B) => C,
-	op03: (input: C) => D,
-	op04: (input: D) => E,
-	op05: (input: E) => F,
-	op06: (input: F) => G,
-	op07: (input: G) => H,
-	op08: (input: H) => I,
-	op09: (input: I) => J,
-	op10: (input: J) => K,
-	op11: (input: K) => L,
-	op12: (input: L) => M,
-	op13: (input: M) => N,
-	op14: (input: N) => O,
-	op15: (input: O) => P,
-	op16: (input: P) => Q,
-	op17: (input: Q) => R,
-	op18: (input: R) => S,
-	op19: (input: S) => T,
-	op20: (input: T) => U,
-): U;
-
-/*
 Method: update
 
 Explanation: It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -4188,6 +4019,24 @@ Notes:
 // @SINGLE_MARKER
 export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
 export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
+
+/*
+Method: split
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function split(separator: string | RegExp): (str: string) => string[];
 
 // API_MARKER_END
 // ============================================

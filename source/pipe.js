@@ -59,7 +59,7 @@ function _pipe(f, g) {
   }
 }
 
-export function pipe() {
+function pipeFn() {
   if (arguments.length === 0) {
     throw new Error('pipe requires at least one argument')
   }
@@ -71,4 +71,10 @@ export function pipe() {
       arguments[0],
     )(Array.prototype.slice.call(arguments, 1, Number.POSITIVE_INFINITY)),
   )
+}
+
+export function pipe(...inputs) {
+  const [input, ...fnList] = inputs
+
+  return pipeFn(...fnList)(input)
 }

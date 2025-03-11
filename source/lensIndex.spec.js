@@ -1,4 +1,3 @@
-import { compose } from './compose.js'
 import { keys } from './keys.js'
 import { lensIndex } from './lensIndex.js'
 import { over } from './over.js'
@@ -21,13 +20,6 @@ test('sets the list value at the specified index', () => {
 
 test('applies function to the value at the specified list index', () => {
   expect(over(lensIndex(2), keys, testList)).toEqual([{ a: 1 }, { b: 2 }, ['c']])
-})
-
-test('can be composed', () => {
-  const nestedList = [0, [10, 11, 12], 1, 2]
-  const composedLens = compose(lensIndex(1), lensIndex(0))
-
-  expect(view(composedLens, nestedList)).toBe(10)
 })
 
 test('set s (get s) === s', () => {

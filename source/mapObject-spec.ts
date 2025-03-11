@@ -1,8 +1,8 @@
-import { mapObject, piped } from 'rambda'
+import { mapObject, pipe } from 'rambda'
 
 describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
-    const result = piped(
+    const result = pipe(
       { a: 1 },
       mapObject(a => {
         a // $ExpectType number
@@ -13,7 +13,7 @@ describe('R.mapObject', () => {
     result // $ExpectType {a: string;}
   })
   it('iterable with two three arguments', () => {
-    const result = piped(
+    const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {
         a // $ExpectType string | number
@@ -25,7 +25,7 @@ describe('R.mapObject', () => {
     result // $ExpectType {a: string; b: string;}
   })
   it('iterable with three arguments', () => {
-    const result = piped(
+    const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b, c) => {
         a // $ExpectType string | number

@@ -1,9 +1,9 @@
-import { piped, takeWhile } from 'rambda'
+import { pipe, takeWhile } from 'rambda'
 
 const list = [1, 2, 3]
 
 it('R.takeWhile', () => {
-	const result = piped(
+	const result = pipe(
 		list,
 		takeWhile(x => x > 1),
 		takeWhile((x, i) => i + x > 1)

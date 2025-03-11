@@ -1,4 +1,4 @@
-import { map, piped } from 'rambda'
+import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -10,8 +10,8 @@ describe('R.map with array', () => {
     }, list)
     result // $ExpectType boolean[]
   })
-  it('within piped', () => {
-    const result = piped(
+  it('within pipe', () => {
+    const result = pipe(
       list,
       x => x,
       map(x => {

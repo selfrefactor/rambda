@@ -1,4 +1,4 @@
-import { mapcat, piped } from 'rambdax'
+import { mapcat, pipe } from 'rambdax'
 
 describe('R.mapcat', () => {
   it('happy', () => {
@@ -6,7 +6,7 @@ describe('R.mapcat', () => {
       ['f', 'bar'],
       ['baz', 'b'],
     ]
-    const result = piped(
+    const result = pipe(
       listOfLists,
       mapcat(x => {
         x // $ExpectType string

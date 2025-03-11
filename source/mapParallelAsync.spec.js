@@ -2,7 +2,7 @@ import { willFailAssertion } from './_internals/testUtils.js'
 import { delay } from './delay.js'
 import { map } from './map.js'
 import { mapParallelAsync } from './mapParallelAsync.js'
-import { pipedAsync } from './pipedAsync.js'
+import { pipeAsync } from './pipeAsync.js'
 
 test('happy', async () => {
   const fn = async x => {
@@ -14,8 +14,8 @@ test('happy', async () => {
   expect(result).toEqual([11, 12, 13])
 })
 
-test('pipedAsync', async () => {
-  const result = await pipedAsync(
+test('pipeAsync', async () => {
+  const result = await pipeAsync(
     [1, 2, 3],
     mapParallelAsync(async x => {
       await delay(100)

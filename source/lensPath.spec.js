@@ -1,4 +1,3 @@
-import { compose } from './compose.js'
 import { identity } from './identity.js'
 import { inc } from './inc.js'
 import { lensPath } from './lensPath.js'
@@ -65,11 +64,6 @@ test('over', () => {
     ],
     d: 3,
   })
-})
-
-test('compose', () => {
-  const composedLens = compose(lensPath('a'), lensPath('1.b'))
-  expect(view(composedLens, testObj)).toBe(2)
 })
 
 test('set s (get s) === s', () => {
