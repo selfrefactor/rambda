@@ -1,4 +1,4 @@
-import { sortByPath } from 'rambda'
+import { sortByPath } from 'rambdax'
 
 interface Input {
   a: { b: number }

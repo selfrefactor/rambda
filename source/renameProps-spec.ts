@@ -1,4 +1,4 @@
-import { renameProps } from 'rambda'
+import { renameProps } from 'rambdax'
 
 const rules = {
   f: 'foo',

@@ -2644,7 +2644,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
-export function repeat<T>(x: T, timesToRepeat: number): T[];
 
 /*
 Method: replace
