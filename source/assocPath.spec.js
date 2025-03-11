@@ -5,17 +5,17 @@ test('happy', () => {
   const input = {
     a: {
       b: {
-				c: 1
-			}
+        c: 1,
+      },
     },
   }
-  console.log(assocPath(path, 2)(input)	)
+  console.log(assocPath(path, 2)(input))
   expect(assocPath(path, 2)(input)).toEqual({
     a: {
       b: {
-				c: 1,
-				d: 2
-			}
+        c: 1,
+        d: 2,
+      },
     },
   })
 })
@@ -23,7 +23,7 @@ test('happy', () => {
 test("difference with ramda - doesn't overwrite primitive values with keys in the path", () => {
   const obj = { a: 'str' }
   const result = assocPath(['a', 'b'], 42)(obj)
-	console.log(result)
+  console.log(result)
 
   expect(result).toEqual({
     a: {
@@ -55,7 +55,10 @@ test('adds a nested key to a non-empty object', () => {
 
 test('adds a nested key to a nested non-empty object', () => {
   expect(
-    assocPath('b.d', 3)({
+    assocPath(
+      'b.d',
+      3,
+    )({
       a: 1,
       b: { c: 2 },
     }),
@@ -95,7 +98,10 @@ test('assignment is shallow', () => {
 })
 
 test('empty array as path', () => {
-  const result = assocPath([], 3)({
+  const result = assocPath(
+    [],
+    3,
+  )({
     a: 1,
     b: 2,
   })

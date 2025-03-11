@@ -1,16 +1,15 @@
-
 export function takeWhile(predicate) {
-	return iterable => {
-  const toReturn = []
-  let counter = 0
+  return iterable => {
+    const toReturn = []
+    let counter = 0
 
-  while (counter < iterable.length) {
-    const item = iterable[counter++]
-    if (!predicate(item)) {
-      break
+    while (counter < iterable.length) {
+      const item = iterable[counter++]
+      if (!predicate(item)) {
+        break
+      }
+      toReturn.push(item)
     }
-    toReturn.push(item)
+    return toReturn
   }
-	return toReturn
-}
 }

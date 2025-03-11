@@ -5,7 +5,7 @@ export function _includes(x, list) {
   const { length } = list
 
   while (++index < length) {
-    if (String(list[index])=== String(x)) {
+    if (String(list[index]) === String(x)) {
       return true
     }
   }
@@ -13,22 +13,21 @@ export function _includes(x, list) {
   return false
 }
 
-
 export function omit(propsToOmit) {
-	return obj => {
-  if (!obj) {
-    return undefined
-  }
-
-  const propsToOmitValue = createPath(propsToOmit, ',')
-  const willReturn = {}
-
-  for (const key in obj) {
-    if (!_includes(key, propsToOmitValue)) {
-      willReturn[key] = obj[key]
+  return obj => {
+    if (!obj) {
+      return undefined
     }
-  }
 
-  return willReturn
-}
+    const propsToOmitValue = createPath(propsToOmit, ',')
+    const willReturn = {}
+
+    for (const key in obj) {
+      if (!_includes(key, propsToOmitValue)) {
+        willReturn[key] = obj[key]
+      }
+    }
+
+    return willReturn
+  }
 }

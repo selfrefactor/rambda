@@ -1,19 +1,18 @@
-import { replace } from './replace.js'
 import { isArray } from './_internals/isArray.js'
+import { replace } from './replace.js'
 
 export function remove(inputs) {
-	return text => {
+  return text => {
+    if (!isArray(inputs)) {
+      return replace(inputs, '')(text)
+    }
 
-  if (!isArray(inputs)) {
-    return replace(inputs, '')(text)
+    let textCopy = text
+
+    inputs.forEach(singleInput => {
+      textCopy = replace(singleInput, '')(textCopy)
+    })
+
+    return textCopy
   }
-
-  let textCopy = text
-
-  inputs.forEach(singleInput => {
-    textCopy = replace(singleInput, '')(textCopy)
-  })
-
-  return textCopy
-}
 }

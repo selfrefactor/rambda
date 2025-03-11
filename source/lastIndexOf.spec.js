@@ -5,9 +5,7 @@ test('with NaN', () => {
 })
 
 test('will throw with bad input', () => {
-  expect(() => indexOf([], true)).toThrowError(
-    'indexOf is not defined',
-  )
+  expect(() => indexOf([], true)).toThrowError('indexOf is not defined')
 })
 
 test('without list of objects - no R.equals', () => {
@@ -31,6 +29,6 @@ test('list of arrays uses R.equals', () => {
 
 test('with string as iterable', () => {
   expect(() => lastIndexOf('a', 'abc')).toThrowError(
-    'Cannot read property \'indexOf\' of abc',
+    "Cannot read property 'indexOf' of abc",
   )
 })

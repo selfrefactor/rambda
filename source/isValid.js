@@ -161,15 +161,12 @@ export function isValid({ input, schema }) {
           /**
            * 2. rule is like a: [{from: 'string'}]
            */
-          const isValidResult = all(
-            inputPropInstance =>
-              isValid({
-                input: inputPropInstance,
-                schema: currentRule,
-              }),
-						)(
-            inputProp,
-          )
+          const isValidResult = all(inputPropInstance =>
+            isValid({
+              input: inputPropInstance,
+              schema: currentRule,
+            }),
+          )(inputProp)
           boom(isValidResult)
         } else if (flag) {
           /**
@@ -183,9 +180,7 @@ export function isValid({ input, schema }) {
           const isInvalidResult = any(
             inputPropInstance =>
               type(inputPropInstance).toLowerCase() !== actualRule.toLowerCase(),
-					)(
-            inputProp,
-          )
+          )(inputProp)
           boom(!isInvalidResult)
         }
       } else if (ruleType === 'RegExp' && inputPropType === 'String') {

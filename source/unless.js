@@ -1,8 +1,9 @@
 export function unless(predicate, whenFalseFn) {
-	return input => {
-  if (predicate(input)) {
-    return input
-  }
+  return input => {
+    if (predicate(input)) {
+      return input
+    }
 
-  return whenFalseFn(input)
-}}
+    return whenFalseFn(input)
+  }
+}

@@ -64,4 +64,3 @@ test('fallback receives error object', () => {
   expect(willThrow([])).toBe('10')
   expect(willThrow([{}, {}, {}])).toBe('10')
 })
-

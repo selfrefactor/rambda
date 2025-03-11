@@ -103,6 +103,7 @@ This is major revamp of `Rambda` library:
 -- converge
 -- juxt
 -- curry
+-- without
 -- applySpec
 -- applyTo
 -- unapply

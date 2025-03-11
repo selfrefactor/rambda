@@ -1,4 +1,7 @@
 import {
+  path,
+  type MergeTypes,
+  add,
   allPass,
   anyPass,
   append,
@@ -18,13 +21,10 @@ import {
   map,
   mapObject,
   piped,
-  MergeTypes,
   split,
   splitAt,
   tap,
   union,
-	path,
-	add,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
@@ -153,7 +153,7 @@ function tapFn<T, U>(
 }
 
 function simplify<T>(x: T) {
-	return x as MergeTypes<T>
+  return x as MergeTypes<T>
 }
 
 describe('real use cases - books', () => {
@@ -193,21 +193,21 @@ describe('real use cases - books', () => {
         difference([awardedBrothersKaramazovToRead]),
         append(awardedZaratustraToRead),
         head,
-				evolve({
-					year: add(1),
-					mustRead: allPass([checkHasDescription, checkHasUserRating]),
-				}),
+        evolve({
+          year: add(1),
+          mustRead: allPass([checkHasDescription, checkHasUserRating]),
+        }),
         // convertToType<BookWithDescription>(),
         // dissocPath<Book>('description'),
         // convertToType<Record<string, string>>(),
         // mapObject((x) => {
         // 	return x as unknown as number;
         // }),
-				simplify,
-				// path('awards.number'),
+        simplify,
+        // path('awards.number'),
       )
     const result = getResult(zaratustra)
-		type Foo = MergeTypes<typeof result>
+    type Foo = MergeTypes<typeof result>
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {

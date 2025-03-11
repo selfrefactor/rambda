@@ -1417,12 +1417,8 @@ function propSatisfies(predicate, property) {
   return obj => predicate(prop(property))
 }
 
-function reject(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => reject(predicate, _list)
-  }
-
-  return filter(x => !predicate(x), list)
+function reject(predicate) {
+	return list => filter(x => !predicate(x), list)
 }
 
 function repeat(x, timesToRepeat) {
@@ -1791,4 +1787,4 @@ function zipWith(fn, x) {
   )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, compose, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, endsWith, eqBy, eqProps, equals, evolve, filter, filterArray, filterObject, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeAll, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pickAll, pickBy, pipe, piped, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, splitEvery, splitWhen, startsWith, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unwind, update, when, without, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, compose, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, endsWith, eqBy, eqProps, equals, evolve, filter, filterArray, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeAll, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pickAll, pickBy, pipe, piped, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, splitEvery, splitWhen, startsWith, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unwind, update, when, without, zip, zipWith };

@@ -1,7 +1,7 @@
-import { pipedAsync } from './pipedAsync.js'
 import { delay } from './delay.js'
 import { mapAsync } from './mapAsync.js'
 import { mapParallelAsyncWithLimit } from './mapParallelAsyncWithLimit.js'
+import { pipedAsync } from './pipedAsync.js'
 import { toDecimal } from './toDecimal.js'
 
 jest.setTimeout(30000)

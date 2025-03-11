@@ -770,33 +770,18 @@ Explanation: It filters list or object `input` using a `predicate` function.
 Example:
 
 ```
-const list = [3, 4, 3, 2]
-const listPredicate = x => x > 2
-
-const object = {abc: 'fo', xyz: 'bar', baz: 'foo'}
-const objectPredicate = (x, prop) => x.length + prop.length > 5
-
-const result = [
-  R.filter(listPredicate, list),
-  R.filter(objectPredicate, object)
-]
-// => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]
+const predicate = x => x > 1
+const list = [1, 2, 3]
+const result = R.filter(predicate)(list)
+// => [2, 3]
 ```
 
-Categories: List, Object
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function filter<T, S extends T>(
-	predicate: (value: T) => value is S,
-  list: T[],
-): S[];
-export function filter<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
 export function filter<T, S extends T>(
   predicate: (value: T) => value is S,
 ): (list: T[]) => S[];
@@ -806,6 +791,39 @@ export function filter<T>(
 export function filter<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => NonNullable<T>[];
+export function filter<T>(
+	predicate: (value: T) => boolean,
+): (list: T[]) => T[];
+
+/*
+Method: reject
+
+Explanation: Same as `filter`, but it returns the elements that do not satisfy the `predicate`.
+
+Example:
+
+```
+const predicate = x => x > 1
+const list = [1, 2, 3]
+const result = R.reject(predicate)(list)
+// => [1]
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function reject<T, S extends T>(
+  predicate: (value: T) => value is S,
+): (list: T[]) => S[];
+export function reject<T>(
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => (null | undefined)[];
+export function filter<T>(
+	predicate: BooleanConstructor,
+): (list: T[]) => (null | undefined)[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -1350,19 +1368,15 @@ export function mapObject<T extends object, Value>(
 /*
 Method: filterObject
 
-Explanation: 
+Explanation: It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
 
 Example:
 
 ```
-const fn = (val, prop) => {
-  return `${prop}-${val}`
-}
-
-const obj = {a: 1, b: 2}
-
-const result = R.mapObject(fn, obj)
-// => {a: 'a-1', b: 'b-2'}
+const result = R.filterObject(
+	(val, prop) => prop === 'a' || val > 1
+)({a: 1, b: 2, c:3})
+// => {a: 1, c: 3}
 ```
 
 Categories: Object
@@ -1372,6 +1386,34 @@ Notes:
 */
 // @SINGLE_MARKER
 export function filterObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U;
+
+/*
+Method: rejectObject
+
+Explanation: Same as `R.filterObject` but it returns the object with properties that do not satisfy the predicate function.
+
+Example:
+
+```
+const result = R.rejectObject(
+	(val, prop) => prop === 'a' || val > 1
+)({a: 1, b: 2, c:3})
+// => {b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rejectObject<T extends object>(
   valueMapper: (
     value: EnumerableStringKeyedValueOf<T>,
     key: EnumerableStringKeyOf<T>,
@@ -3192,31 +3234,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
-
-/*
-Method: without
-
-Explanation: It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
-
-`R.equals` is used to determine equality.
-
-Example:
-
-```
-const source = [1, 2, 3, 4]
-const matchAgainst = [2, 3]
-
-const result = R.without(matchAgainst, source)
-// => [1, 4]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
 
 /*
 Method: zip

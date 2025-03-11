@@ -1,7 +1,7 @@
 import { delay } from './delay.js'
 import { map } from './map.js'
-import { pipedAsync } from './pipedAsync.js'
 import { mapAsync } from './mapAsync.js'
+import { pipedAsync } from './pipedAsync.js'
 
 const rejectDelay = a =>
   new Promise((_, reject) => {
@@ -23,7 +23,7 @@ test('happy', async () => {
 
 test('with object', async () => {
   const fn = async (x, prop) => {
-		expect(typeof prop).toBe('string')
+    expect(typeof prop).toBe('string')
 
     return x + 1
   }
@@ -40,7 +40,7 @@ test('with object', async () => {
 test('with R.pipedAsync', async () => {
   const result = await pipedAsync(
     [1, 2, 3],
-		map(x => x + 1),
+    map(x => x + 1),
     mapAsync(async x => {
       delay(x)
 

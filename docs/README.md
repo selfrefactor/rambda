@@ -4214,42 +4214,26 @@ describe('R.evolve', () => {
 ```typescript
 
 filter<T, S extends T>(
-	predicate: (value: T) => value is S,
-  list: T[],
-): S[]
+  predicate: (value: T) => value is S,
+): (list: T[]) => S[]
 ```
 
 It filters list or object `input` using a `predicate` function.
 
 ```javascript
-const list = [3, 4, 3, 2]
-const listPredicate = x => x > 2
-
-const object = {abc: 'fo', xyz: 'bar', baz: 'foo'}
-const objectPredicate = (x, prop) => x.length + prop.length > 5
-
-const result = [
-  R.filter(listPredicate, list),
-  R.filter(objectPredicate, object)
-]
-// => [ [3, 4], { xyz: 'bar', baz: 'foo'} ]
+const predicate = x => x > 1
+const list = [1, 2, 3]
+const result = R.filter(predicate)(list)
+// => [2, 3]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B3%2C%204%2C%203%2C%202%5D%0Aconst%20listPredicate%20%3D%20x%20%3D%3E%20x%20%3E%202%0A%0Aconst%20object%20%3D%20%7Babc%3A%20'fo'%2C%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%0Aconst%20objectPredicate%20%3D%20(x%2C%20prop)%20%3D%3E%20x.length%20%2B%20prop.length%20%3E%205%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.filter(listPredicate%2C%20list)%2C%0A%20%20R.filter(objectPredicate%2C%20object)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%20%5B3%2C%204%5D%2C%20%7B%20xyz%3A%20'bar'%2C%20baz%3A%20'foo'%7D%20%5D">Try this <strong>R.filter</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20x%20%3E%201%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20result%20%3D%20R.filter(predicate)(list)%0A%2F%2F%20%3D%3E%20%5B2%2C%203%5D">Try this <strong>R.filter</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-filter<T, S extends T>(
-	predicate: (value: T) => value is S,
-  list: T[],
-): S[];
-filter<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
 filter<T, S extends T>(
   predicate: (value: T) => value is S,
 ): (list: T[]) => S[];
@@ -4494,18 +4478,16 @@ filterObject<T extends object>(
 ): <U extends T>(data: T) => U
 ```
 
+It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
+
 ```javascript
-const fn = (val, prop) => {
-  return `${prop}-${val}`
-}
-
-const obj = {a: 1, b: 2}
-
-const result = R.mapObject(fn, obj)
-// => {a: 'a-1', b: 'b-2'}
+const result = R.filterObject(
+	(val, prop) => prop === 'a' || val > 1
+)({a: 1, b: 2, c:3})
+// => {a: 1, c: 3}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(val%2C%20prop)%20%3D%3E%20%7B%0A%20%20return%20%60%24%7Bprop%7D-%24%7Bval%7D%60%0A%7D%0A%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.mapObject(fn%2C%20obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20'a-1'%2C%20b%3A%20'b-2'%7D">Try this <strong>R.filterObject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.filterObject(%0A%09(val%2C%20prop)%20%3D%3E%20prop%20%3D%3D%3D%20'a'%20%7C%7C%20val%20%3E%201%0A)(%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%201%2C%20c%3A%203%7D">Try this <strong>R.filterObject</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4519,6 +4501,28 @@ filterObject<T extends object>(
     data: T,
   ) => boolean,
 ): <U extends T>(data: T) => U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.filterObject</strong> source</summary>
+
+```javascript
+export function filterObject(predicate) {
+	return obj => {
+  const willReturn = {}
+
+  for (const prop in obj) {
+    if (predicate(obj[prop], prop, obj)) {
+      willReturn[prop] = obj[prop]
+    }
+  }
+
+  return willReturn
+}
+}
 ```
 
 </details>
@@ -11169,104 +11173,56 @@ reject<T>(
 ```javascript
 import { filter } from './filter.js'
 
-export function reject(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => reject(predicate, _list)
-  }
-
-  return filter(x => !predicate(x), list)
+export function reject(predicate) {
+	return list => filter(x => !predicate(x), list)
 }
 ```
 
 </details>
 
-<details>
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reject)
 
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { reject } from './reject.js'
-
-const isOdd = n => n % 2 === 1
-
-test('with array', () => {
-  expect(reject(isOdd)([1, 2, 3, 4])).toEqual([2, 4])
-})
-
-test('with object', () => {
-  const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 4,
-  }
-  expect(reject(isOdd, obj)).toEqual({
-    b: 2,
-    d: 4,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
+### rejectObject
 
 ```typescript
-import { mapIndexed, pipe, piped, reject } from 'rambda'
 
-const list = [1, 2, 3]
+rejectObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U
+```
 
-describe('R.reject with array', () => {
-  it('happy', () => {
-    const result = reject(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
-    result // $ExpectType number[]
-  })
-  it('within piped', () => {
-    const result = piped(
-      list,
-      reject(x => {
-        x // $ExpectType number
-        return x > 1
-      }),
-    )
-    result // $ExpectType number[]
-  })
-  it('rejecting NonNullable', () => {
-    const testList = [1, 2, null, undefined, 3]
-    const result = piped(testList, reject(Boolean))
-    result // $ExpectType (false | "" | 0 | null | undefined)[]
-  })
-  it('rejecting NonNullable - readonly', () => {
-    const testList = [1, 2, null, undefined, 3] as const
-    const result = piped(testList, reject(Boolean))
-    result // $ExpectType (false | "" | 0 | null | undefined)[]
-    // @ts-expect-error
-    result.includes(1)
-  })
-  it('within pipe requires explicit type', () => {
-    pipe(
-      x => x,
-      reject<number>(x => {
-        x // $ExpectType number
-        return x > 1
-      }),
-      reject((x: number) => {
-        x // $ExpectType number
-        return x > 1
-      }),
-    )(list)
-  })
-})
+Same as `R.filterObject` but it returns the object with properties that do not satisfy the predicate function.
+
+```javascript
+const result = R.rejectObject(
+	(val, prop) => prop === 'a' || val > 1
+)({a: 1, b: 2, c:3})
+// => {b: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.rejectObject(%0A%09(val%2C%20prop)%20%3D%3E%20prop%20%3D%3D%3D%20'a'%20%7C%7C%20val%20%3E%201%0A)(%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A3%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%202%7D">Try this <strong>R.rejectObject</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+rejectObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U;
 ```
 
 </details>
 
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#reject)
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#rejectObject)
 
 ### repeat
 

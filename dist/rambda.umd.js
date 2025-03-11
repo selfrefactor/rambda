@@ -1423,12 +1423,8 @@
     return obj => predicate(prop(property))
   }
 
-  function reject(predicate, list) {
-    if (arguments.length === 1) {
-      return _list => reject(predicate, _list)
-    }
-
-    return filter(x => !predicate(x), list)
+  function reject(predicate) {
+  	return list => filter(x => !predicate(x), list)
   }
 
   function repeat(x, timesToRepeat) {
@@ -1831,7 +1827,6 @@
   exports.evolve = evolve;
   exports.filter = filter;
   exports.filterArray = filterArray;
-  exports.filterObject = filterObject;
   exports.find = find;
   exports.findIndex = findIndex;
   exports.findLast = findLast;

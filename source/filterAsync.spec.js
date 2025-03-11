@@ -14,7 +14,7 @@ test('happy', async () => {
 
 test('with object', async () => {
   const predicate = async (x, prop) => {
-		expect(typeof prop).toBe('string')
+    expect(typeof prop).toBe('string')
     await delay(100)
 
     return x % 2 === 1

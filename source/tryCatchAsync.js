@@ -1,5 +1,5 @@
 export function tryCatchAsync(fn, fallback) {
-  return (input) =>
+  return input =>
     new Promise(resolve => {
       fn(input)
         .then(resolve)

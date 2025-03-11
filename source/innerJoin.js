@@ -31,4 +31,3 @@ function _filter(fn, list) {
 export function innerJoin(pred, xs) {
   return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
-

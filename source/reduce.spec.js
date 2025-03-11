@@ -21,11 +21,11 @@ test('with object as iterable', () => {
       a: 1,
       b: 2,
     }),
-  ).toThrowError( ERROR)
+  ).toThrowError(ERROR)
 })
 
 test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, 0, {})).toThrowError( ERROR)
+  expect(() => reduce(reducer, 0, {})).toThrowError(ERROR)
 })
 
 test('returns the accumulator for a null list', () => {

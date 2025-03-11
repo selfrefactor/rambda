@@ -378,14 +378,6 @@ export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(ob
  * It filters list or object `input` using a `predicate` function.
  */
 export function filter<T, S extends T>(
-	predicate: (value: T) => value is S,
-  list: readonly T[],
-): readonly S[];
-export function filter<T>(
-	predicate: (value: T) => boolean,
-  list: readonly T[],
-): readonly T[];
-export function filter<T, S extends T>(
   predicate: (value: T) => value is S,
 ): (list: readonly T[]) => readonly S[];
 export function filter<T>(
@@ -398,6 +390,9 @@ export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: readonly T[]) => readonly T[];
 
+/**
+ * It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
+ */
 export function filterObject<T extends object>(
   valueMapper: (
     value: EnumerableStringKeyedValueOf<T>,
@@ -1583,6 +1578,17 @@ export function reject<T>(
 export function reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: readonly T[]) => readonly T[];
+
+/**
+ * Same as `R.filterObject` but it returns the object with properties that do not satisfy the predicate function.
+ */
+export function rejectObject<T extends object>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => boolean,
+): <U extends T>(data: T) => U;
 
 export function repeat<T>(x: T): (timesToRepeat: number) => readonly T[];
 export function repeat<T>(x: T, timesToRepeat: number): readonly T[];

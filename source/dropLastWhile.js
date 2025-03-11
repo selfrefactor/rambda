@@ -1,24 +1,24 @@
 export function dropLastWhile(predicate) {
-	return list => {
-  if (list.length === 0) {
-    return list
-  }
-
-  const toReturn = []
-  let counter = list.length
-
-  while (counter) {
-    const item = list[--counter]
-    if (!predicate(item)) {
-      toReturn.push(item)
-      break
+  return list => {
+    if (list.length === 0) {
+      return list
     }
-  }
 
-  while (counter) {
-    toReturn.push(list[--counter])
-  }
+    const toReturn = []
+    let counter = list.length
 
-  return toReturn.reverse()
-}
+    while (counter) {
+      const item = list[--counter]
+      if (!predicate(item)) {
+        toReturn.push(item)
+        break
+      }
+    }
+
+    while (counter) {
+      toReturn.push(list[--counter])
+    }
+
+    return toReturn.reverse()
+  }
 }

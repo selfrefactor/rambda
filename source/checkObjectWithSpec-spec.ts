@@ -1,4 +1,4 @@
-import { equals, checkObjectWithSpec } from 'rambda'
+import { checkObjectWithSpec, equals } from 'rambda'
 
 describe('R.checkObjectWithSpec', () => {
   it('happy', () => {

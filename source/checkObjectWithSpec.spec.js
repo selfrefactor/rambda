@@ -1,19 +1,16 @@
-import { equals } from './equals.js'
 import { checkObjectWithSpec } from './checkObjectWithSpec.js'
+import { equals } from './equals.js'
 
 test('when true', () => {
-  const result = checkObjectWithSpec(
-    {
-      a: equals('foo'),
-      b: equals('bar'),
-    })(
-    {
-      a: 'foo',
-      b: 'bar',
-      x: 11,
-      y: 19,
-    },
-  )
+  const result = checkObjectWithSpec({
+    a: equals('foo'),
+    b: equals('bar'),
+  })({
+    a: 'foo',
+    b: 'bar',
+    x: 11,
+    y: 19,
+  })
 
   expect(result).toBeTruthy()
 })

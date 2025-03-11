@@ -1,10 +1,9 @@
 export function when(predicate, whenTrueFn) {
-	return input => {
-		
-  if (!predicate(input)) {
-    return input
-  }
+  return input => {
+    if (!predicate(input)) {
+      return input
+    }
 
-  return whenTrueFn(input)
-}
+    return whenTrueFn(input)
+  }
 }

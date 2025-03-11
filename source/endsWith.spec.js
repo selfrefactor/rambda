@@ -13,4 +13,3 @@ test('use R.equals with array', () => {
   expect(endsWith(list, list)).toBeTruthy()
   expect(endsWith([{ a: 1 }], list)).toBeFalsy()
 })
-
