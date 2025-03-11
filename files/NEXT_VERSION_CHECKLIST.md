@@ -15,9 +15,11 @@ From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order 
 
 - Methods that are already present in standard JavaScript, such as `R.toLower`, `R.length`.
 
+- `R.compose` doesn't have the best possible TypeScript support.
+
 ## The goals of Rambda are
 
-- Build a library that can be useful for TypeScript developers in the context of `R.piped` chain.
+- Build a library that can be useful for TypeScript developers in the context of `R.pipe` chain.
 
 - Methods that are simply to remember only by its name. Complex logic shouldn't be part of utility library, but part of your codebase.
 
@@ -25,21 +27,21 @@ From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order 
 
 ## Main differences
 
-- `R.piped` is the recommended method for TypeScript chaining.
+- `R.pipe` is the recommended method for TypeScript chaining. `R.compose` doesn't exist in `Rambda`.
 
 - All methods that 2 inputs, will have to be called with `R.methodName(input1)(input2)`
 - All methods that 3 inputs, will have to be called with `R.methodName(input1, input2)(input3)`
 
 
-## `R.piped`
+## `R.pipe`
 
-Here is one example why `R.piped` is better than `R.pipe`:
+Here is one example why `R.pipe` is better than `Ramda.pipe`:
 
 ```ts
 const list = [1, 2, 3];
 
 it('within piped', () => {
-	const result = piped(
+	const result = pipe(
 		list,
 		filter((x) => {
 			x; // $ExpectType number
@@ -48,8 +50,8 @@ it('within piped', () => {
 	);
 	result; // $ExpectType number[]
 });
-it('within pipe requires explicit type', () => {
-	pipe(
+it('within Ramda.pipe requires explicit type', () => {
+	Ramda.pipe(
 		(x) => x,
 		filter<number>((x) => {
 			x; // $ExpectType number
@@ -63,11 +65,13 @@ it('within pipe requires explicit type', () => {
 });
 ```
 ===
+CHANGELOG - 10.0.0
+
 This is major revamp of `Rambda` library:
 
-- `R.piped` is the recommended method for TypeScript chaining.
+- `R.pipe` is the recommended method for TypeScript chaining.
 
-- All methods should be useful to work inside `R.piped` chain. If method doesn't have clear use case inside `R.piped`, it is removed as part of this revamp.
+- All methods should be useful to work inside `R.pipe` chain. If method doesn't have clear use case inside `R.pipe`, it is removed as part of this revamp.
 
 - There will be only one way to use each method. For example, `R.add` can be used only with `R.add(1)(2)`, i.e. it doesn't support `R.add(1, 2)`. This helps with testing and also with TypeScript definitions. This aligns with TypeScript focused approach of this library.
 
@@ -75,15 +79,18 @@ This is major revamp of `Rambda` library:
 
 - All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain.
 
-- Optimize many methods to better work in TypeScript context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+- Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
 
-- Add `R.piped` method from `Rambdax` since it works better with TypeScript than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+- Add `R.pipe` supports up to 20 functions, i.e. chain can be 20 functions long.
 
 - `R.chain` is renamed to `R.flatMap`
 - `R.comparator` is renamed to `R.sortingFn`
 
 - Remove following methods:
 
+-- compose
+-- pickBy
+-- pickAll
 -- gte, lte, lt, gt
 -- always
 -- ifElse
@@ -117,7 +124,7 @@ This is major revamp of `Rambda` library:
 
 Rename:
 
--- replaceItemAtIndex -> adjust 
+-- replaceItemAtIndex -> adjust
 -- checkObjectWithSpec -> where 
 -- getPropertyOrDefault -> propOr 
 
@@ -146,7 +153,11 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - For some methods, it is very hard to pick up the correct type in many cases. In these cases, explicit output type is expected.
 
 -- assocPath
--- dissocPath 
+-- dissocPath
+
+- Stop support string inputs for some methods, since it was hard to correctly type them in TypeScript.
+
+-- append/prepend
 
 - Sync with typing of `@types/ramda`:
 
@@ -203,28 +214,18 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- `collectBy` to `groupBy` ? remove
 
 ===
-R.path with string path
-  type SmartGet<T, S> = S extends `${infer F extends string}.${infer R extends string}` ?
-    F extends keyof T ?
-      SmartGet<T[F], R> :
-      undefined : S extends keyof T ?T[S] :undefined
-			
-check naming in fp-ts, as evolve looks like magic. also why radashi uses remove not reject
-https://github.com/toss/es-toolkit - another FP library
-===
 ABOVE IS DONE
 ===
-new version of curry that works with custom function so it works with R.piped
 ===
-partitionAsync
- is removed -
-
-also mapToObjectAsync 
-
-show how all these are not needed if used with pipedasync
+new version of curry that works with custom function so it works with R.pipe
+===
+ABOVE IS IN PROGRESS
+===
+ascend/descend 
 
 move glue to string-fn
 
-utils such as todecimal can be moved to R.util
+utils such as todecimal can be moved to Roza library
 
-ascend/descend 
+https://github.com/toss/es-toolkit - another FP library
+

@@ -1,13 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
-stdout | source/sortObject.spec.js > happy
-{ a: [33m100[39m, c: [33m7[39m, d: [33m4[39m, b: [33m1[39m }
-
- ✓ source/sortObject.spec.js (1 test) 7ms
+ ✓ source/prepend.spec.js (2 tests) 3ms
 
  Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  09:02:17
-   Duration  437ms (transform 39ms, setup 0ms, collect 25ms, tests 7ms, environment 0ms, prepare 97ms)
+      Tests  2 passed (2)
+   Start at  20:32:13
+   Duration  526ms (transform 46ms, setup 0ms, collect 15ms, tests 3ms, environment 0ms, prepare 149ms)
 

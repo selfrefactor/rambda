@@ -55,8 +55,6 @@ export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		
 	: [];
 
 
-export type ObjPredicate<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
-
 export type Partial<T> = { [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
@@ -2059,7 +2057,7 @@ const expected = [
 
 Categories: Object
 
-Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
+Notes: pipe
 */
 // @SINGLE_MARKER
 export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
@@ -2067,49 +2065,6 @@ export function pick<
 	S extends string,
 	K extends PickStringToPickPath<K>
 >(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-
-/*
-Method: pickAll
-
-Explanation: Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`. 
-
-Example:
-
-```
-const obj = {
-  a : 1,
-  b : false,
-  foo: 'cherry'
-}
-const propsToPick = 'a,foo,bar'
-const propsToPickList = ['a', 'foo', 'bar']
-
-const result = [
-  R.pickAll(propsToPick, obj),
-  R.pickAll(propsToPickList, obj),
-  R.pickAll('a,bar', obj),
-  R.pickAll('bar', obj),
-]
-const expected = [
-  {a:1, foo: 'cherry', bar: undefined},
-  {a:1, foo: 'cherry', bar: undefined},
-  {a:1, bar: undefined},
-  {bar: undefined}
-]
-// => `result` is equal to `expected`
-```
-
-Categories: Object
-
-Notes:  When using this method with `TypeScript`, it is much easier to pass `propsToPick` as an array. If passing a string, you will need to explicitly declare the output type.
-
-*/
-// @SINGLE_MARKER
-export function pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
-export function pickAll<T, U>(propsToPicks: string[], input: T): U;
-export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
-export function pickAll<T, U>(propsToPick: string, input: T): U;
-export function pickAll<T, U>(propsToPick: string): (input: T) => U;
 
 /*
 Method: pipe
@@ -3741,29 +3696,6 @@ export function innerJoin<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
-
-/*
-Method: pickBy
-
-Explanation:
-
-Example:
-
-```
-const result = R.pickBy(
-  x => x > 1,
-  {a: 1, b: 2, c: 3}
-)
-// => {b: 2, c: 3}
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function pickBy<T>(pred: ObjPredicate<T>): <U, V extends T>(obj: V) => U;
 
 /*
 Method: pathSatisfies

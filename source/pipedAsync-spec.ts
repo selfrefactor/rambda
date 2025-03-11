@@ -1,8 +1,8 @@
-import { delay, pipeAsync } from 'rambdax'
+import { delay, pipedAsync } from 'rambdax'
 
 describe('R.pipeAsync', () => {
   it('happy', async () => {
-    const result = await pipeAsync(
+    const result = await pipedAsync(
       4 as const,
       async x => {
         x // $ExpectType 4

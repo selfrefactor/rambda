@@ -14,5 +14,5 @@ test('with number', () => {
     [3, 4],
   ]
 
-  expect(pluck(0, input)).toEqual([1, 3])
+  expect(pluck(0)(input)).toEqual([1, 3])
 })

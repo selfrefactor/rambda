@@ -1,10 +1,7 @@
 import { map } from './map.js'
 
-export function pluck(property, list) {
-  if (arguments.length === 1) {
-    return _list => pluck(property, _list)
-  }
-
+export function pluck(property) {
+	return list => {
   const willReturn = []
 
   map(x => {
@@ -14,4 +11,5 @@ export function pluck(property, list) {
   }, list)
 
   return willReturn
+}
 }
