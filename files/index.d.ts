@@ -3318,10 +3318,7 @@ Explanation:
 Example:
 
 ```
-const result = R.takeLastWhile(
-  x => x > 2,
-  [1, 2, 3, 4]
-)
+const result = R.takeLastWhile(x => x > 2)([1, 2, 3, 4])
 // => [3, 4]
 ```
 
@@ -3331,7 +3328,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
+export function takeLastWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
+export function takeLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 
 /*
 Method: evolve
@@ -3458,8 +3456,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function takeWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 export function takeWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
 
 
 /*

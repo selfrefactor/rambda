@@ -1,12 +1,11 @@
-import { uniqWith } from 'rambda'
+import { piped, uniqWith } from 'rambda'
 
 describe('R.uniqWith', () => {
   it('happy', () => {
-    const list = [{ a: 1 }, { a: 1 }]
-
-    const fn = (x: any, y: any) => x.a === y.a
-
-    const result = uniqWith(fn, list)
+		const result = piped(
+			[{ a: 1 }, { a: 1 }],
+			uniqWith((x, y) => x.a === y.a)
+		)
     result // $ExpectType { a: number; }[]
   })
 })
