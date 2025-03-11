@@ -30,13 +30,12 @@ export function partitionArray(predicate, list, indexed = false) {
   return [yes, no]
 }
 
-export function partition(predicate, iterable) {
-  if (arguments.length === 1) {
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!isArray(iterable)) {
-    return partitionObject(predicate, iterable)
-  }
-
-  return partitionArray(predicate, iterable)
+export function partition(predicate) {
+	return iterable => {
+		if (!isArray(iterable)) {
+			return partitionObject(predicate, iterable)
+		}
+	
+		return partitionArray(predicate, iterable)
+	}
 }

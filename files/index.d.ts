@@ -1496,37 +1496,6 @@ export function mergeRight<A, B>(target: A, newProps: B): A & B
 export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /*
-Method: mergeAll
-
-Explanation: It merges all objects of `list` array sequentially and returns the result.
-
-Example:
-
-```
-const list = [
-  {a: 1},
-  {b: 2},
-  {c: 3}
-]
-const result = R.mergeAll(list)
-const expected = {
-  a: 1,
-  b: 2,
-  c: 3
-}
-// => `result` is equal to `expected`
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeAll<T>(list: object[]): T;
-export function mergeAll(list: object[]): object;
-
-/*
 Method: min
 
 Explanation: It returns the lesser value between `x` and `y`.
@@ -1693,8 +1662,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-// export function partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
-// export function partition<T, S extends T>(fn: (x: T) => boolean): (list: T[]) => [T[], T[]];
 export function partition<T, S extends T>(
   predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
 ): (data: ReadonlyArray<T>) => [Array<S>, Array<Exclude<T, S>>];

@@ -91,6 +91,7 @@ This is major revamp of `Rambda` library:
 -- compose
 -- pickBy
 -- pickAll
+-- mergeAll, mergeLeft, mergeDeepLeft, mergeRight, mergeDeepRight
 -- partitionIndexed
 -- gte, lte, lt, gt
 -- always

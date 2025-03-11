@@ -4,7 +4,7 @@ test('with array', () => {
   const predicate = x => x > 2
   const list = [1, 2, 3, 4]
 
-  const result = partition(predicate, list)
+  const result = partition(predicate)(list)
   const expectedResult = [
     [3, 4],
     [1, 2],
@@ -50,7 +50,7 @@ test('readme example', () => {
   }
   const predicate = x => x > 2
 
-  const result = [partition(predicate, list), partition(predicate, obj)]
+  const result = [partition(predicate)(list), partition(predicate)(obj)]
   const expected = [
     [[3], [1, 2]],
     [

@@ -6,7 +6,7 @@ const second = 2
 
 describe('R.minBy', () => {
   it('happy', () => {
-    const result = minBy(compareFn, first, second)
+    const result = minBy(compareFn, first)(second)
     result // $ExpectType 1 | 2
   })
 })
