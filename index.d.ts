@@ -55,8 +55,6 @@ export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		
 	: [];
 
 
-export type ObjPredicate<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
-
 export type Partial<T> = { [P in keyof T]?: T[P]};
 
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
@@ -206,62 +204,6 @@ export function checkObjectWithSpec<T>(spec: T): <U>(testObj: U) => boolean;
 export function complement<T extends any[]>(predicate: (...args: T) => unknown): (...args: T) => boolean;
 
 /**
- * It performs right-to-left function composition.
- */
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
-  f8: (a: R7) => R8,
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R8;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
-  f7: (a: R6) => R7,
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R7;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
-  f6: (a: R5) => R6,
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R6;
-export function compose<TArgs extends any[], R1, R2, R3, R4, R5>(
-  f5: (a: R4) => R5,
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R5;
-export function compose<TArgs extends any[], R1, R2, R3, R4>(
-  f4: (a: R3) => R4,
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R4;
-export function compose<TArgs extends any[], R1, R2, R3>(
-  f3: (a: R2) => R3,
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R3;
-export function compose<TArgs extends any[], R1, R2>(
-  f2: (a: R1) => R2,
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R2;
-export function compose<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R1;
-
-/**
  * It returns a new string or array, which is the result of merging `x` and `y`.
  */
 export function concat<T>(x: T[]): (y: T[]) => T[];
@@ -348,13 +290,6 @@ export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T
 
 export function dropWhile<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
-
-/**
- * When iterable is a string, then it behaves as `String.prototype.endsWith`.
- * When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
- */
-export function endsWith<T extends string>(question: T): (str: string) => boolean;
-export function endsWith<T>(question: T[]): (list: T[]) => boolean;
 
 export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
@@ -637,7 +572,7 @@ export function mergeRight<Output>(target: any): (newProps: any) => Output;
 
 /**
  * Helper to merge all calculated TypeScript definitions into one definition.
- * It returns its input and it is intended to be used as last method inside `R.piped` chain.
+ * It returns its input and it is intended to be used as last method inside `R.pipe` chain.
  */
 export function mergeTypes<T>(x: T): MergeTypes<T>;
 
@@ -1164,120 +1099,33 @@ export function pick<
 >(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
 
 /**
- * Same as `R.pick` but it won't skip the missing props, i.e. it will assign them to `undefined`.
- */
-export function pickAll<T, K extends keyof T>(propsToPicks: K[], input: T): Pick<T, K>;
-export function pickAll<T, U>(propsToPicks: string[], input: T): U;
-export function pickAll(propsToPicks: string[]): <T, U>(input: T) => U;
-export function pickAll<T, U>(propsToPick: string, input: T): U;
-export function pickAll<T, U>(propsToPick: string): (input: T) => U;
-
-export function pickBy<T>(pred: ObjPredicate<T>): <U, V extends T>(obj: V) => U;
-
-/**
- * It performs left-to-right function composition.
- */
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8,
-  f9: (a: R8) => R9,
-  f10: (a: R9) => R10
-): (...args: TArgs) => R10;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8,
-  f9: (a: R8) => R9
-): (...args: TArgs) => R9;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R8>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7,
-  f8: (a: R7) => R8
-): (...args: TArgs) => R8;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6,
-  f7: (a: R6) => R7
-): (...args: TArgs) => R7;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5,
-  f6: (a: R5) => R6
-): (...args: TArgs) => R6;
-export function pipe<TArgs extends any[], R1, R2, R3, R4, R5>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4,
-  f5: (a: R4) => R5
-): (...args: TArgs) => R5;
-export function pipe<TArgs extends any[], R1, R2, R3, R4>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3,
-  f4: (a: R3) => R4
-): (...args: TArgs) => R4;
-export function pipe<TArgs extends any[], R1, R2, R3>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2,
-  f3: (a: R2) => R3
-): (...args: TArgs) => R3;
-export function pipe<TArgs extends any[], R1, R2>(
-  f1: (...args: TArgs) => R1,
-  f2: (a: R1) => R2
-): (...args: TArgs) => R2;
-export function pipe<TArgs extends any[], R1>(
-  f1: (...args: TArgs) => R1
-): (...args: TArgs) => R1;
-
-/**
- * It is basically `R.pipe`, but instead of passing `input` argument as `R.pipe(...)(input)`, you pass it as the first argument.
+ * It performs left-to-right function composition, where first argument is the input for the chain of functions.
  * 
- * It has much better TypeScript support and it is strongly recomended to use `R.piped` instead of `R.pipe`/`R.compose`.
+ * This is huge difference from `Ramda.pipe` where input is passed like `R.pipe(...fns)(input)`.
+ * Here we have `R.pipe(input, ...fns)`.
+ * 
+ * It has much better TypeScript support than `Ramda.pipe` and this is the reason why `Rambda` goes in this direction.
  */
-export function piped<A, B>(value: A, op1: (input: A) => B): B;
-export function piped<A, B, C>(
+export function pipe<A, B>(value: A, op1: (input: A) => B): B;
+export function pipe<A, B, C>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
 ): C;
-export function piped<A, B, C, D>(
+export function pipe<A, B, C, D>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
   op3: (input: C) => D,
 ): D;
-export function piped<A, B, C, D, E>(
+export function pipe<A, B, C, D, E>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
   op3: (input: C) => D,
   op4: (input: D) => E,
 ): E;
-export function piped<A, B, C, D, E, F>(
+export function pipe<A, B, C, D, E, F>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
@@ -1285,7 +1133,7 @@ export function piped<A, B, C, D, E, F>(
   op4: (input: D) => E,
   op5: (input: E) => F,
 ): F;
-export function piped<A, B, C, D, E, F, G>(
+export function pipe<A, B, C, D, E, F, G>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
@@ -1294,7 +1142,7 @@ export function piped<A, B, C, D, E, F, G>(
   op5: (input: E) => F,
   op6: (input: F) => G,
 ): G;
-export function piped<A, B, C, D, E, F, G, H>(
+export function pipe<A, B, C, D, E, F, G, H>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
@@ -1304,7 +1152,7 @@ export function piped<A, B, C, D, E, F, G, H>(
   op6: (input: F) => G,
   op7: (input: G) => H,
 ): H;
-export function piped<A, B, C, D, E, F, G, H, I>(
+export function pipe<A, B, C, D, E, F, G, H, I>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
@@ -1315,7 +1163,7 @@ export function piped<A, B, C, D, E, F, G, H, I>(
   op7: (input: G) => H,
   op8: (input: H) => I,
 ): I;
-export function piped<A, B, C, D, E, F, G, H, I, J>(
+export function pipe<A, B, C, D, E, F, G, H, I, J>(
   value: A,
   op1: (input: A) => B,
   op2: (input: B) => C,
@@ -1327,7 +1175,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J>(
   op8: (input: H) => I,
   op9: (input: I) => J,
 ): J;
-export function piped<A, B, C, D, E, F, G, H, I, J, K>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1340,7 +1188,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K>(
   op09: (input: I) => J,
   op10: (input: J) => K,
 ): K;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1354,7 +1202,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L>(
   op10: (input: J) => K,
   op11: (input: K) => L,
 ): L;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1369,7 +1217,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   op11: (input: K) => L,
   op12: (input: L) => M,
 ): M;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1385,7 +1233,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   op12: (input: L) => M,
   op13: (input: M) => N,
 ): N;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1402,7 +1250,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   op13: (input: M) => N,
   op14: (input: N) => O,
 ): O;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1420,7 +1268,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   op14: (input: N) => O,
   op15: (input: O) => P,
 ): P;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1439,7 +1287,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   op15: (input: O) => P,
   op16: (input: P) => Q,
 ): Q;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1459,7 +1307,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   op16: (input: P) => Q,
   op17: (input: Q) => R,
 ): R;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1480,7 +1328,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
   op17: (input: Q) => R,
   op18: (input: R) => S,
 ): S;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
   value: A,
   op01: (input: A) => B,
   op02: (input: B) => C,
@@ -1502,7 +1350,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
   op18: (input: R) => S,
   op19: (input: S) => T,
 ): T;
-export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
 	value: A,
 	op01: (input: A) => B,
 	op02: (input: B) => C,
@@ -1528,6 +1376,7 @@ export function piped<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T
 
 /**
  * It returns list of the values of `property` taken from the all objects inside `list`.
+ * Basically, this is `R.map(R.prop(property))`.
  */
 export function pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
 
@@ -1591,7 +1440,6 @@ export function rejectObject<T extends object>(
 ): <U extends T>(data: T) => U;
 
 export function repeat<T>(x: T): (timesToRepeat: number) => T[];
-export function repeat<T>(x: T, timesToRepeat: number): T[];
 
 /**
  * It replaces `strOrRegex` found in `str` with `replacer`.
@@ -1617,33 +1465,18 @@ export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
-export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
+
+export function split(separator: string | RegExp): (str: string) => string[];
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
 
 /**
  * It splits `input` into slices of `sliceLength`.
  */
-export function splitEvery<T>(sliceLength: number, input: T[]): (T[])[];
-export function splitEvery(sliceLength: number, input: string): string[];
-export function splitEvery(sliceLength: number): {
-  (input: string): string[];
-  <T>(input: T[]): (T[])[];
-};
-
-/**
- * It splits `list` to two arrays according to a `predicate` function.
- * 
- * The first array contains all members of `list` before `predicate` returns `true`.
- */
-export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
-
-/**
- * When iterable is a string, then it behaves as `String.prototype.startsWith`.
- * When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
- */
-export function startsWith<T extends string>(question: T, input: string): boolean;
-export function startsWith<T extends string>(question: T): (input: string) => boolean;
-export function startsWith<T>(question: T[], input: T[]): boolean;
-export function startsWith<T>(question: T[]): (input: T[]) => boolean;
+export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /**
  * Curried version of `x - y`
@@ -1685,15 +1518,16 @@ export function takeLast<T>(howMany: number): {
   (input: readonly T[]): T[];
 };
 
-export function takeLastWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
+export function takeLastWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
+export function takeLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 
-export function takeWhile<T>(predicate: (x: T) => boolean): <T>(input: T[]) => T[];
 export function takeWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+export function takeWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
 
 /**
  * It applies function `fn` to input `x` and returns `x`.
  * 
- * One use case is debugging in the middle of `R.piped` chain.
+ * One use case is debugging in the middle of `R.pipe` chain.
  */
 export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;
@@ -1754,6 +1588,16 @@ export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
 export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /**
+ * The method returns function that will be called with argument `input`.
+ * 
+ * If `predicate(input)` returns `false`, then the end result will be the outcome of `whenFalse(input)`.
+ * 
+ * In the other case, the final output will be the `input` itself.
+ */
+export function unless<T, U>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => U): (x: T) => T | U;
+export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T): (x: T) => T;
+
+/**
  * It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
  */
 export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { [K in S]: T[S][number] };
@@ -1763,24 +1607,12 @@ export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & {
  */
 export function update<T>(index: number, newValue: T): (list: T[]) => T[];
 
-// API_MARKER_END
-// ============================================
-
-export as namespace R
-
 /**
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
  * If the `predicate` returns `false`, then it will simply return `input`.
  */
 export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => T): (input: T) => T;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
-
-/**
- * It will return a new array, based on all members of `source` list that are not part of `matchAgainst` list.
- * 
- * `R.equals` is used to determine equality.
- */
-export function without<T>(matchAgainst: T[]): (source: T[]) => T[];
 
 /**
  * It will return a new array containing tuples of equally positions items from both `x` and `y` lists.

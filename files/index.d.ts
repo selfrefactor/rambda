@@ -1693,11 +1693,15 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
-export function partition<T>(fn: (a: T) => boolean): <L extends T = T>(list: L[]) => [L[], L[]];
+// export function partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
+// export function partition<T, S extends T>(fn: (x: T) => boolean): (list: T[]) => [T[], T[]];
+export function partition<T, S extends T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
+): (data: ReadonlyArray<T>) => [Array<S>, Array<Exclude<T, S>>];
+export function partition<T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
+): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
 
-export function partition<T, U extends T>(fn: (a: T) => a is U, list: T[]): [U[], Exclude<T, U>[]];
-export function partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
 
 /*
 Method: path

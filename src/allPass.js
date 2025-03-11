@@ -1,5 +1,5 @@
 export function allPass(predicates) {
-  return (input) => {
+  return input => {
     let counter = 0
     while (counter < predicates.length) {
       if (!predicates[counter](input)) {

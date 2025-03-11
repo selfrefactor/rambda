@@ -91,6 +91,7 @@ This is major revamp of `Rambda` library:
 -- compose
 -- pickBy
 -- pickAll
+-- partitionIndexed
 -- gte, lte, lt, gt
 -- always
 -- ifElse
@@ -192,6 +193,7 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- map
 -- mapObject
 -- toPairs
+-- partition
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 

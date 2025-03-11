@@ -1,4 +1,4 @@
-function compare(a, b){
+function compare(a, b) {
   return String(a) === String(b)
 }
 

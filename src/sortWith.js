@@ -9,11 +9,8 @@ function sortHelper(a, b, listOfSortingFns) {
   return result
 }
 
-export function sortWith(listOfSortingFns, list) {
-  if (arguments.length === 1) {
-    return _list => sortWith(listOfSortingFns, _list)
-  }
-
+export function sortWith(listOfSortingFns) {
+	return list => {
   if (Array.isArray(list) === false) {
     return []
   }
@@ -22,4 +19,5 @@ export function sortWith(listOfSortingFns, list) {
   clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
 
   return clone
+}
 }

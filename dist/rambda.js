@@ -17,7 +17,7 @@ function all(predicate) {
 }
 
 function allPass(predicates) {
-  return (input) => {
+  return input => {
     let counter = 0;
     while (counter < predicates.length) {
       if (!predicates[counter](input)) {
@@ -45,7 +45,7 @@ function any(predicate) {
 }
 
 function anyPass(predicates) {
-  return (input) => {
+  return input => {
     let counter = 0;
     while (counter < predicates.length) {
       if (predicates[counter](input)) {
@@ -60,19 +60,13 @@ function anyPass(predicates) {
 
 const cloneList = list => Array.prototype.slice.call(list);
 
-function append(x, input) {
-  if (arguments.length === 1) {
-    return _input => append(x, _input)
-  }
-
-  if (typeof input === 'string') {
-    return input.split('').concat(x)
-  }
-
-  const clone = cloneList(input);
+function append(x) {
+  return list=> {
+		const clone = cloneList(list);
   clone.push(x);
 
   return clone
+	}
 }
 
 function assoc(prop, newValue) {
@@ -85,169 +79,49 @@ function createPath(path, delimiter = '.') {
     : path
 }
 
-function assocPath(path, newValue){
-	return (input) => {
-  const pathArrValue = createPath(path);
-  if (pathArrValue.length === 0) {
-    return newValue
+function assocPath(path, newValue) {
+  return input => {
+    const pathArrValue = createPath(path);
+    if (pathArrValue.length === 0) {
+      return newValue
+    }
+
+    const index = pathArrValue[0];
+    if (pathArrValue.length > 1) {
+      const nextInput =
+        typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
+          ? {}
+          : input[index];
+
+      newValue = assocPath(
+        Array.prototype.slice.call(pathArrValue, 1),
+        newValue,
+      )(nextInput);
+    }
+
+    return assoc(index, newValue)(input)
   }
-
-  const index = pathArrValue[0];
-  if (pathArrValue.length > 1) {
-    const nextInput = typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
-      ? {}
-      : input[index];
-
-    newValue = assocPath(
-      Array.prototype.slice.call(pathArrValue, 1),
-      newValue)(
-      nextInput,
-    );
-  }
-
-  return assoc(index, newValue)(input)
-}
 }
 
 function checkObjectWithSpec(conditions) {
-	return (input) => {
-	let shouldProceed = true;
-  for (const prop in conditions) {
-    if (!shouldProceed) {
-      continue
+  return input => {
+    let shouldProceed = true;
+    for (const prop in conditions) {
+      if (!shouldProceed) {
+        continue
+      }
+      const result = conditions[prop](input[prop]);
+      if (shouldProceed && result === false) {
+        shouldProceed = false;
+      }
     }
-    const result = conditions[prop](input[prop]);
-    if (shouldProceed && result === false) {
-      shouldProceed = false;
-    }
-  }
 
-  return shouldProceed
-}
+    return shouldProceed
+  }
 }
 
 function complement(fn) {
   return (...input) => !fn(...input)
-}
-
-const { isArray } = Array;
-
-function reduce(reducer, acc) {
-	return list => {
-
-		if (list == null) {
-			return acc
-		}
-		if (!isArray(list)) {
-			throw new TypeError('reduce: list must be array or iterable')
-		}
-		let index = 0;
-		const len = list.length;
-	
-		while (index < len) {
-			acc = reducer(acc, list[index], index, list);
-			index++;
-		}
-	
-		return acc
-	}
-}
-
-function _arity(n, fn){
-  switch (n){
-  case 0:
-    return function (){
-      return fn.apply(this, arguments)
-    }
-  case 1:
-    return function (a0){
-      return fn.apply(this, arguments)
-    }
-  case 2:
-    return function (a0, a1){
-      return fn.apply(this, arguments)
-    }
-  case 3:
-    return function (
-      a0, a1, a2
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 4:
-    return function (
-      a0, a1, a2, a3
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 5:
-    return function (
-      a0, a1, a2, a3, a4
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 6:
-    return function (
-      a0, a1, a2, a3, a4, a5
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 7:
-    return function (
-      a0, a1, a2, a3, a4, a5, a6
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 8:
-    return function (
-      a0, a1, a2, a3, a4, a5, a6, a7
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 9:
-    return function (
-      a0, a1, a2, a3, a4, a5, a6, a7, a8
-    ){
-      return fn.apply(this, arguments)
-    }
-  case 10:
-    return function (
-      a0, a1, a2, a3, a4, a5, a6, a7, a8, a9
-    ){
-      return fn.apply(this, arguments)
-    }
-  default:
-    throw new Error('First argument to _arity must be a non-negative integer no greater than ten')
-  }
-}
-
-function _pipe(f, g){
-  return function (){
-    return g.call(this, f.apply(this, arguments))
-  }
-}
-
-function pipe(){
-  if (arguments.length === 0){
-    throw new Error('pipe requires at least one argument')
-  }
-
-  return _arity(arguments[ 0 ].length,
-    reduce(
-      _pipe,
-      arguments[ 0 ],
-		)(
-      Array.prototype.slice.call(
-        arguments, 1, Infinity
-      )
-    ))
-}
-
-function compose() {
-  if (arguments.length === 0) {
-    throw new Error('compose requires at least one argument')
-  }
-
-  return pipe.apply(this, Array.prototype.slice.call(arguments, 0).reverse())
 }
 
 function concat(x, y) {
@@ -257,6 +131,8 @@ function concat(x, y) {
 
   return typeof x === 'string' ? `${x}${y}` : [...x, ...y]
 }
+
+const { isArray } = Array;
 
 function count(predicate, list) {
   if (arguments.length === 1) {
@@ -601,19 +477,19 @@ function difference(a, b) {
 }
 
 function differenceWithFn(fn, a) {
-	return (b) =>  {
-  const willReturn = [];
-  const [first, second] = a.length >= b.length ? [a, b] : [b, a];
+  return b => {
+    const willReturn = [];
+    const [first, second] = a.length >= b.length ? [a, b] : [b, a];
 
-  first.forEach(item => {
-    const hasItem = second.some(secondItem => fn(item, secondItem));
-    if (!hasItem && _indexOf(item, willReturn) === -1) {
-      willReturn.push(item);
-    }
-  });
+    first.forEach(item => {
+      const hasItem = second.some(secondItem => fn(item, secondItem));
+      if (!hasItem && _indexOf(item, willReturn) === -1) {
+        willReturn.push(item);
+      }
+    });
 
-  return willReturn
-}
+    return willReturn
+  }
 }
 
 function dissoc(prop, obj) {
@@ -639,7 +515,7 @@ function _includes(x, list) {
   const { length } = list;
 
   while (++index < length) {
-    if (String(list[index])=== String(x)) {
+    if (String(list[index]) === String(x)) {
       return true
     }
   }
@@ -647,24 +523,23 @@ function _includes(x, list) {
   return false
 }
 
-
 function omit(propsToOmit) {
-	return obj => {
-  if (!obj) {
-    return undefined
-  }
-
-  const propsToOmitValue = createPath(propsToOmit, ',');
-  const willReturn = {};
-
-  for (const key in obj) {
-    if (!_includes(key, propsToOmitValue)) {
-      willReturn[key] = obj[key];
+  return obj => {
+    if (!obj) {
+      return undefined
     }
-  }
 
-  return willReturn
-}
+    const propsToOmitValue = createPath(propsToOmit, ',');
+    const willReturn = {};
+
+    for (const key in obj) {
+      if (!_includes(key, propsToOmitValue)) {
+        willReturn[key] = obj[key];
+      }
+    }
+
+    return willReturn
+  }
 }
 
 function path(pathInput, obj) {
@@ -696,14 +571,14 @@ function path(pathInput, obj) {
 }
 
 function update(index, newValue) {
-	return list => {
-		const clone = cloneList(list);
-		if (index === -1) {
-			return clone.fill(newValue, index)
-		}
+  return list => {
+    const clone = cloneList(list);
+    if (index === -1) {
+      return clone.fill(newValue, index)
+    }
 
-		return clone.fill(newValue, index, index + 1)
-	}
+    return clone.fill(newValue, index, index + 1)
+  }
 }
 
 function removeIndex(index, list) {
@@ -733,11 +608,11 @@ function dissocPath(pathInput) {
     const condition =
       typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
     if (pathArrValue.length > 1) {
-			const nextInput = condition ?
-      Number.isInteger((pathArrValue[ 1 ])) ?
-        [] :
-        {} :
-      input[ index ];
+      const nextInput = condition
+        ? Number.isInteger(pathArrValue[1])
+          ? []
+          : {}
+        : input[index];
       const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
       const intermediateResult = dissocPath(nextPathInput)(nextInput);
       if (isArray(input)) {
@@ -776,78 +651,49 @@ function dropLast(howManyToDrop, listOrString) {
 }
 
 function dropLastWhile(predicate) {
-	return list => {
-  if (list.length === 0) {
-    return list
-  }
-
-  const toReturn = [];
-  let counter = list.length;
-
-  while (counter) {
-    const item = list[--counter];
-    if (!predicate(item)) {
-      toReturn.push(item);
-      break
+  return list => {
+    if (list.length === 0) {
+      return list
     }
-  }
 
-  while (counter) {
-    toReturn.push(list[--counter]);
-  }
+    const toReturn = [];
+    let counter = list.length;
 
-  return toReturn.reverse()
-}
+    while (counter) {
+      const item = list[--counter];
+      if (!predicate(item)) {
+        toReturn.push(item);
+        break
+      }
+    }
+
+    while (counter) {
+      toReturn.push(list[--counter]);
+    }
+
+    return toReturn.reverse()
+  }
 }
 
 function dropWhile(predicate) {
-	return iterable => {
-  const toReturn = [];
-  let counter = 0;
+  return iterable => {
+    const toReturn = [];
+    let counter = 0;
 
-  while (counter < iterable.length) {
-    const item = iterable[counter++];
-    if (!predicate(item)) {
-      toReturn.push(item);
-      break
-    }
-  }
-
-  while (counter < iterable.length) {
-    toReturn.push(iterable[counter++]);
-  }
-
-  return  toReturn
-}
-}
-
-function endsWith(target, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => endsWith(target, _iterable)
-  }
-
-  if (typeof iterable === 'string') {
-    return iterable.endsWith(target)
-  }
-  if (!isArray(target)) {
-    return false
-  }
-
-  const diff = iterable.length - target.length;
-  let correct = true;
-  const filtered = target.filter((x, index) => {
-    if (!correct) {
-      return false
-    }
-    const result = equals(x, iterable[index + diff]);
-    if (!result) {
-      correct = false;
+    while (counter < iterable.length) {
+      const item = iterable[counter++];
+      if (!predicate(item)) {
+        toReturn.push(item);
+        break
+      }
     }
 
-    return result
-  });
+    while (counter < iterable.length) {
+      toReturn.push(iterable[counter++]);
+    }
 
-  return filtered.length === target.length
+    return toReturn
+  }
 }
 
 function eqBy(fn, a) {
@@ -855,8 +701,8 @@ function eqBy(fn, a) {
 }
 
 function prop(searchProperty) {
-
-  return obj => obj ? obj[searchProperty] : undefined}
+  return obj => (obj ? obj[searchProperty] : undefined)
+}
 
 function eqProps(property, objA) {
   return objB => equals(prop(property), prop(property))
@@ -865,41 +711,42 @@ function eqProps(property, objA) {
 const { keys } = Object;
 
 function mapObject(fn) {
-	return obj => {
-		let index = 0;
-		const objKeys = keys(obj);
-		const len = objKeys.length;
-		const willReturn = {};
-	
-		while (index < len) {
-			const key = objKeys[index];
-			willReturn[key] = fn(obj[key], key, obj);
-			index++;
-		}
-	
-		return willReturn
-	}
+  return obj => {
+    let index = 0;
+    const objKeys = keys(obj);
+    const len = objKeys.length;
+    const willReturn = {};
+
+    while (index < len) {
+      const key = objKeys[index];
+      willReturn[key] = fn(obj[key], key, obj);
+      index++;
+    }
+
+    return willReturn
+  }
 }
 
 function evolve(rules) {
-	return obj => mapObject((x, prop) => {
-    if (type(x) === 'Object') {
-      const typeRule = type(rules[prop]);
-      if (typeRule === 'Function') {
-        return rules[prop](x)
+  return obj =>
+    mapObject((x, prop) => {
+      if (type(x) === 'Object') {
+        const typeRule = type(rules[prop]);
+        if (typeRule === 'Function') {
+          return rules[prop](x)
+        }
+        if (typeRule === 'Object') {
+          return evolve(rules[prop])
+        }
+
+        return x
       }
-      if (typeRule === 'Object') {
-        return evolve(rules[prop])
+      if (type(rules[prop]) === 'Function') {
+        return rules[prop](x)
       }
 
       return x
-    }
-    if (type(rules[prop]) === 'Function') {
-      return rules[prop](x)
-    }
-
-    return x
-  })(obj)
+    })(obj)
 }
 
 function filterObject(predicate, obj) {
@@ -1041,13 +888,13 @@ function fromPairs(listOfPairs) {
 }
 
 function getPropertyOrDefault(defaultValue, property) {
-	return obj => {
-		if (!obj) {
-			return defaultValue
-		}
-	
-		return defaultTo(defaultValue, obj[property])
-	}
+  return obj => {
+    if (!obj) {
+      return defaultValue
+    }
+
+    return defaultTo(defaultValue, obj[property])
+  }
 }
 
 function groupBy(groupFn, list) {
@@ -1219,11 +1066,12 @@ function match(pattern, input) {
 }
 
 function maxBy(compareFn, x) {
-  return y => compareFn(y) > compareFn(x) ? y : x
+  return y => (compareFn(y) > compareFn(x) ? y : x)
 }
 
 function merge(target) {
-	return objectWithNewProps => Object.assign({}, target || {}, objectWithNewProps || {})
+  return objectWithNewProps =>
+    Object.assign({}, target || {}, objectWithNewProps || {})
 }
 
 function mergeAll(arr) {
@@ -1237,41 +1085,41 @@ function mergeTypes(x) {
 }
 
 function minBy(compareFn, x) {
-  return y => compareFn(y) < compareFn(x) ? y : x
+  return y => (compareFn(y) < compareFn(x) ? y : x)
 }
 
 function modifyPath(pathInput, fn) {
-	return object => {
-		const path$1 = createPath(pathInput);
-		if (path$1.length === 1) {
-			return {
-				...object,
-				[path$1[0]]: fn(object[path$1[0]]),
-			}
-		}
-		if (path(path$1)(object) === undefined) {
-			return object
-		}
-	
-		const val = modifyPath(Array.prototype.slice.call(path$1, 1), fn, object[path$1[0]]);
-		if (val === object[path$1[0]]) {
-			return object
-		}
-	
-		return assoc(path$1[0], val)(object)
-	}
+  return object => {
+    const path$1 = createPath(pathInput);
+    if (path$1.length === 1) {
+      return {
+        ...object,
+        [path$1[0]]: fn(object[path$1[0]]),
+      }
+    }
+    if (path(path$1)(object) === undefined) {
+      return object
+    }
+
+    const val = modifyPath(Array.prototype.slice.call(path$1, 1), fn, object[path$1[0]]);
+    if (val === object[path$1[0]]) {
+      return object
+    }
+
+    return assoc(path$1[0], val)(object)
+  }
 }
 
 function none(predicate) {
-	return list => {
-  for (let i = 0; i < list.length; i++) {
-    if (predicate(list[i])) {
-      return false
+  return list => {
+    for (let i = 0; i < list.length; i++) {
+      if (predicate(list[i])) {
+        return false
+      }
     }
-  }
 
-  return true
-}
+    return true
+  }
 }
 
 function objOf(key) {
@@ -1324,95 +1172,144 @@ function pathSatisfies(fn, pathInput) {
 }
 
 function pick(propsToPick) {
-	return input => {
-  if (!input === null) {
-    return undefined
-  }
-  const keys = createPath(propsToPick, ',');
-  const willReturn = {};
-  let counter = 0;
-
-  while (counter < keys.length) {
-    if (keys[counter] in input) {
-      willReturn[keys[counter]] = input[keys[counter]];
+  return input => {
+    if (!input === null) {
+      return undefined
     }
-    counter++;
-  }
+    const keys = createPath(propsToPick, ',');
+    const willReturn = {};
+    let counter = 0;
 
-  return willReturn
-}
-}
-
-function pickAll(propsToPick) {
-	return obj => {
-  if (obj === null || obj === undefined) {
-    return undefined
-  }
-  const keysValue = createPath(propsToPick, ',');
-  const willReturn = {};
-  let counter = 0;
-
-  while (counter < keysValue.length) {
-    if (keysValue[counter] in obj) {
-      willReturn[keysValue[counter]] = obj[keysValue[counter]];
-    } else {
-      willReturn[keysValue[counter]] = undefined;
+    while (counter < keys.length) {
+      if (keys[counter] in input) {
+        willReturn[keys[counter]] = input[keys[counter]];
+      }
+      counter++;
     }
-    counter++;
-  }
 
-  return willReturn
-}
+    return willReturn
+  }
 }
 
-function pickBy(predicate, obj) {
-  if (arguments.length === 1) {
-    return _obj => pickBy(predicate, _obj)
-  }
-  return Object.keys(obj).reduce((accum, key) => {
-    if (predicate(obj[key], key, obj)) {
-      accum[key] = obj[key];
+function reduce(reducer, acc) {
+  return list => {
+    if (list == null) {
+      return acc
     }
-    return accum
-  }, {})
+    if (!isArray(list)) {
+      throw new TypeError('reduce: list must be array or iterable')
+    }
+    let index = 0;
+    const len = list.length;
+
+    while (index < len) {
+      acc = reducer(acc, list[index], index, list);
+      index++;
+    }
+
+    return acc
+  }
 }
 
-function piped(...inputs) {
+function _arity(n, fn) {
+  switch (n) {
+    case 0:
+      return function () {
+        return fn.apply(this, arguments)
+      }
+    case 1:
+      return function (a0) {
+        return fn.apply(this, arguments)
+      }
+    case 2:
+      return function (a0, a1) {
+        return fn.apply(this, arguments)
+      }
+    case 3:
+      return function (a0, a1, a2) {
+        return fn.apply(this, arguments)
+      }
+    case 4:
+      return function (a0, a1, a2, a3) {
+        return fn.apply(this, arguments)
+      }
+    case 5:
+      return function (a0, a1, a2, a3, a4) {
+        return fn.apply(this, arguments)
+      }
+    case 6:
+      return function (a0, a1, a2, a3, a4, a5) {
+        return fn.apply(this, arguments)
+      }
+    case 7:
+      return function (a0, a1, a2, a3, a4, a5, a6) {
+        return fn.apply(this, arguments)
+      }
+    case 8:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7) {
+        return fn.apply(this, arguments)
+      }
+    case 9:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
+        return fn.apply(this, arguments)
+      }
+    case 10:
+      return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+        return fn.apply(this, arguments)
+      }
+    default:
+      throw new Error(
+        'First argument to _arity must be a non-negative integer no greater than ten',
+      )
+  }
+}
+
+function _pipe(f, g) {
+  return function () {
+    return g.call(this, f.apply(this, arguments))
+  }
+}
+
+function pipeFn() {
+  if (arguments.length === 0) {
+    throw new Error('pipe requires at least one argument')
+  }
+
+  return _arity(
+    arguments[0].length,
+    reduce(
+      _pipe,
+      arguments[0],
+    )(Array.prototype.slice.call(arguments, 1, Number.POSITIVE_INFINITY)),
+  )
+}
+
+function pipe(...inputs) {
   const [input, ...fnList] = inputs;
 
-  return pipe(...fnList)(input)
+  return pipeFn(...fnList)(input)
 }
 
-function pluck(property, list) {
-  if (arguments.length === 1) {
-    return _list => pluck(property, _list)
-  }
-
+function pluck(property) {
+	return list => {
   const willReturn = [];
 
   return willReturn
 }
+}
 
-function prepend(x, input) {
-  if (arguments.length === 1) {
-    return _input => prepend(x, _input)
-  }
-
-  if (typeof input === 'string') {
-    return [x].concat(input.split(''))
-  }
-
-  return [x].concat(input)
+function prepend(x) {
+  return list=> [x].concat(list)
 }
 
 function propEq(valueToMatch, propToFind) {
-	return obj => {
-  if (!obj) {
-    return false
-  }
+  return obj => {
+    if (!obj) {
+      return false
+    }
 
-  return equals(valueToMatch, prop(propToFind))
-}
+    return equals(valueToMatch, prop(propToFind))
+  }
 }
 
 function propSatisfies(predicate, property) {
@@ -1420,19 +1317,15 @@ function propSatisfies(predicate, property) {
 }
 
 function reject(predicate) {
-	return list => filter(x => !predicate(x), list)
+  return list => filter(x => !predicate(x), list)
 }
 
-function repeat(x, timesToRepeat) {
-  if (arguments.length === 1) {
-    return _timesToRepeat => repeat(x, _timesToRepeat)
-  }
-
-  return Array(timesToRepeat).fill(x)
+function repeat(timesToRepeat) {
+  return x => Array(timesToRepeat).fill(x)
 }
 
 function replace(pattern, replacer) {
-  return (str) => str.replace(pattern, replacer)
+  return str => str.replace(pattern, replacer)
 }
 
 function replaceItemAtIndex(index, replaceFn) {
@@ -1454,20 +1347,20 @@ function sort(sortFn) {
 }
 
 function sortBy(sortFn) {
-	return list => {
-  const clone = cloneList(list);
+  return list => {
+    const clone = cloneList(list);
 
-  return clone.sort((a, b) => {
-    const aSortResult = sortFn(a);
-    const bSortResult = sortFn(b);
+    return clone.sort((a, b) => {
+      const aSortResult = sortFn(a);
+      const bSortResult = sortFn(b);
 
-    if (aSortResult === bSortResult) {
-      return 0
-    }
+      if (aSortResult === bSortResult) {
+        return 0
+      }
 
-    return aSortResult < bSortResult ? -1 : 1
-  })
-}
+      return aSortResult < bSortResult ? -1 : 1
+    })
+  }
 }
 
 function sortHelper(a, b, listOfSortingFns) {
@@ -1481,11 +1374,8 @@ function sortHelper(a, b, listOfSortingFns) {
   return result
 }
 
-function sortWith(listOfSortingFns, list) {
-  if (arguments.length === 1) {
-    return _list => sortWith(listOfSortingFns, _list)
-  }
-
+function sortWith(listOfSortingFns) {
+	return list => {
   if (Array.isArray(list) === false) {
     return []
   }
@@ -1495,12 +1385,14 @@ function sortWith(listOfSortingFns, list) {
 
   return clone
 }
+}
 
-function splitEvery(sliceLength, listOrString) {
-  if (arguments.length === 1) {
-    return _listOrString => splitEvery(sliceLength, _listOrString)
-  }
+function split(separator){
+	return str => str.split(separator)
+}
 
+function splitEvery(sliceLength) {
+	return list => {
   if (sliceLength < 1) {
     throw new Error('First argument to splitEvery must be a positive integer')
   }
@@ -1508,201 +1400,136 @@ function splitEvery(sliceLength, listOrString) {
   const willReturn = [];
   let counter = 0;
 
-  while (counter < listOrString.length) {
-    willReturn.push(listOrString.slice(counter, (counter += sliceLength)));
+  while (counter < list.length) {
+    willReturn.push(list.slice(counter, (counter += sliceLength)));
   }
 
   return willReturn
 }
-
-function splitWhen(predicate) {
-	return input => {
-
-		const preFound = [];
-		const postFound = [];
-		let found = false;
-		let counter = -1;
-	
-		while (counter++ < input.length - 1) {
-			if (found) {
-				postFound.push(input[counter]);
-			} else if (predicate(input[counter])) {
-				postFound.push(input[counter]);
-				found = true;
-			} else {
-				preFound.push(input[counter]);
-			}
-		}
-	
-		return [preFound, postFound]
-	}
 }
 
-function startsWith(question, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => startsWith(question, _iterable)
-  }
-
-  if (typeof iterable === 'string') {
-    return iterable.startsWith(question)
-  }
-  if (!isArray(question)) {
-    return false
-  }
-
-  let correct = true;
-  const filtered = question.filter((x, index) => {
-    if (!correct) {
-      return false
-    }
-    const result = equals(x, iterable[index]);
-    if (!result) {
-      correct = false;
-    }
-
-    return result
-  });
-
-  return filtered.length === question.length
-}
-
-function symmetricDifference(x, y) {
-  if (arguments.length === 1) {
-    return _y => symmetricDifference(x, _y)
-  }
-
-  return concat(
-    filter(value => !includes(value, y), x),
-    filter(value => !includes(value, x), y),
-  )
+function symmetricDifference(x) {
+	return y =>  concat(
+			filter(value => !includes(value)(y), x),
+			filter(value => !includes(value)(x), y),
+		)
+	
 }
 
 function tail(listOrString) {
-  return drop(1, listOrString)
+  return drop(1)(listOrString)
 }
 
-function take(numberOfItems){
-	return input => {
-	if (howMany < 0) return input.slice()
-	if (typeof input === 'string') return input.slice(0, howMany)
+function take(numberOfItems) {
+  return input => {
+    if (numberOfItems < 0) {
+      return input.slice()
+    }
+    if (typeof input === 'string') {
+      return input.slice(0, numberOfItems)
+    }
 
-	return baseSlice(
-		input, 0, howMany
-	)
-}
+    return baseSlice(input, 0, numberOfItems)
+  }
 }
 
 function takeLast(numberOfItems) {
+  return input => {
+    const len = input.length;
+    if (numberOfItems < 0) {
+      return input.slice()
+    }
+    let numValue = numberOfItems > len ? len : numberOfItems;
+
+    if (typeof input === 'string') {
+      return input.slice(len - numValue)
+    }
+
+    numValue = len - numValue;
+
+    return baseSlice(input, numValue, len)
+  }
+}
+
+function takeLastWhile(predicate) {
 	return input => {
-		const len = input.length;
-		if (numberOfItems < 0) {
-			return input.slice()
-		}
-		let numValue = numberOfItems > len ? len : numberOfItems;
-	
-		if (typeof input === 'string') {
-			return input.slice(len - numValue)
+		if (input.length === 0) {
+			return input
 		}
 	
-		numValue = len - numValue;
+		const toReturn = [];
+		let counter = input.length;
 	
-		return baseSlice(input, numValue, len)
+		while (counter) {
+			const item = input[--counter];
+			if (!predicate(item)) {
+				break
+			}
+			toReturn.push(item);
+		}
+	
+		return toReturn.reverse() 
 	}
 }
 
-function takeLastWhile(predicate, input) {
-  if (arguments.length === 1) {
-    return _input => takeLastWhile(predicate, _input)
-  }
-  if (input.length === 0) {
-    return input
-  }
-
-  const toReturn = [];
-  let counter = input.length;
-
-  while (counter) {
-    const item = input[--counter];
-    if (!predicate(item)) {
-      break
-    }
-    toReturn.push(item);
-  }
-
-  return isArray(input) ? toReturn.reverse() : toReturn.reverse().join('')
-}
-
 function takeWhile(predicate) {
-	return iterable => {
-  const toReturn = [];
-  let counter = 0;
+  return iterable => {
+    const toReturn = [];
+    let counter = 0;
 
-  while (counter < iterable.length) {
-    const item = iterable[counter++];
-    if (!predicate(item)) {
-      break
+    while (counter < iterable.length) {
+      const item = iterable[counter++];
+      if (!predicate(item)) {
+        break
+      }
+      toReturn.push(item);
     }
-    toReturn.push(item);
+    return toReturn
   }
-	return toReturn
-}
 }
 
-function tap(fn, x) {
-  if (arguments.length === 1) {
-    return _x => tap(fn, _x)
-  }
-
+function tap(fn) {
+	return x => {
   fn(x);
 
   return x
 }
+}
 
-function test(pattern, str) {
-  if (arguments.length === 1) {
-    return _str => test(pattern, _str)
-  }
-
-  if (typeof pattern === 'string') {
-    throw new TypeError(
-      `R.test requires a value of type RegExp as its first argument; received "${pattern}"`,
-    )
-  }
-
-  return str.search(pattern) !== -1
+function test(pattern) {
+	return str => str.search(pattern) !== -1
 }
 
 function tryCatch(fn, fallback) {
-  return (input) => {
+  return input => {
     try {
       return fn(input)
     } catch (e) {
-			return fallback
+      return fallback
     }
   }
 }
 
 function union(x) {
-	return y => {
-  const toReturn = cloneList(x);
+  return y => {
+    const toReturn = cloneList(x);
 
-  y.forEach(yInstance => {
-    if (!includes(yInstance, x)) {
-      toReturn.push(yInstance);
-    }
-  });
+    y.forEach(yInstance => {
+      if (!includes(yInstance, x)) {
+        toReturn.push(yInstance);
+      }
+    });
 
-  return toReturn
-}
-}
-
-function uniqBy(fn, list) {
-  if (arguments.length === 1) {
-    return _list => uniqBy(fn, _list)
+    return toReturn
   }
-  const set = new _Set();
+}
 
-  return list.filter(item => set.checkUniqueness(fn(item)))
+function uniqBy(fn) {
+	return list => {
+		const set = new _Set();
+
+		return list.filter(item => set.checkUniqueness(fn(item)))
+	}
 }
 
 function includesWith(predicate, target, list) {
@@ -1720,11 +1547,8 @@ function includesWith(predicate, target, list) {
   return willReturn
 }
 
-function uniqWith(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => uniqWith(predicate, _list)
-  }
-
+function uniqWith(predicate) {
+	return list => {
   let index = -1;
   const willReturn = [];
 
@@ -1738,55 +1562,55 @@ function uniqWith(predicate, list) {
 
   return willReturn
 }
+}
+
+function unless(predicate, whenFalseFn) {
+  return input => {
+    if (predicate(input)) {
+      return input
+    }
+
+    return whenFalseFn(input)
+  }
+}
 
 function unwind(property) {
-	return obj => {
-		return obj[property].map(x => ({
-			...obj,
-			[property]: x,
-		}))
-	}
+  return obj => {
+    return obj[property].map(x => ({
+      ...obj,
+      [property]: x,
+    }))
+  }
 }
 
 function when(predicate, whenTrueFn) {
-	return input => {
-		
-  if (!predicate(input)) {
-    return input
+  return input => {
+    if (!predicate(input)) {
+      return input
+    }
+
+    return whenTrueFn(input)
   }
-
-  return whenTrueFn(input)
-}
-}
-
-function without(matchAgainst, source) {
-  if (source === undefined) {
-    return _source => without(matchAgainst, _source)
-  }
-
-  return reduce(
-    (prev, current) =>
-      _indexOf(current, matchAgainst) > -1 ? prev : prev.concat(current),
-    [])
 }
 
 function zip(left) {
-	return (right) => {
-  const result = [];
-  const length = Math.min(left.length, right.length);
+  return right => {
+    const result = [];
+    const length = Math.min(left.length, right.length);
 
-  for (let i = 0; i < length; i++) {
-    result[i] = [left[i], right[i]];
+    for (let i = 0; i < length; i++) {
+      result[i] = [left[i], right[i]];
+    }
+
+    return result
   }
-
-  return result
-}
 }
 
 function zipWith(fn, x) {
-	return y => take(x.length > y.length ? y.length : x.length).map((xInstance, i) =>
-    fn(xInstance, y[i]),
-  )
+  return y =>
+    take(x.length > y.length ? y.length : x.length).map((xInstance, i) =>
+      fn(xInstance, y[i]),
+    )
 }
 
 exports._arity = _arity;
@@ -1803,7 +1627,6 @@ exports.assoc = assoc;
 exports.assocPath = assocPath;
 exports.checkObjectWithSpec = checkObjectWithSpec;
 exports.complement = complement;
-exports.compose = compose;
 exports.concat = concat;
 exports.count = count;
 exports.countBy = countBy;
@@ -1816,7 +1639,6 @@ exports.drop = drop;
 exports.dropLast = dropLast;
 exports.dropLastWhile = dropLastWhile;
 exports.dropWhile = dropWhile;
-exports.endsWith = endsWith;
 exports.eqBy = eqBy;
 exports.eqProps = eqProps;
 exports.equals = equals;
@@ -1860,10 +1682,7 @@ exports.partitionObject = partitionObject;
 exports.path = path;
 exports.pathSatisfies = pathSatisfies;
 exports.pick = pick;
-exports.pickAll = pickAll;
-exports.pickBy = pickBy;
 exports.pipe = pipe;
-exports.piped = piped;
 exports.pluck = pluck;
 exports.prepend = prepend;
 exports.prop = prop;
@@ -1878,9 +1697,8 @@ exports.replaceItemAtIndex = replaceItemAtIndex;
 exports.sort = sort;
 exports.sortBy = sortBy;
 exports.sortWith = sortWith;
+exports.split = split;
 exports.splitEvery = splitEvery;
-exports.splitWhen = splitWhen;
-exports.startsWith = startsWith;
 exports.symmetricDifference = symmetricDifference;
 exports.tail = tail;
 exports.take = take;
@@ -1895,9 +1713,9 @@ exports.union = union;
 exports.uniq = uniq;
 exports.uniqBy = uniqBy;
 exports.uniqWith = uniqWith;
+exports.unless = unless;
 exports.unwind = unwind;
 exports.update = update;
 exports.when = when;
-exports.without = without;
 exports.zip = zip;
 exports.zipWith = zipWith;

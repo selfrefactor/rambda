@@ -1,4 +1,4 @@
-import {baseSlice} from './_internals/baseSlice.js'
+import { baseSlice } from './_internals/baseSlice.js'
 
 export function init(input) {
   if (typeof input === 'string') {

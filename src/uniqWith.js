@@ -13,11 +13,8 @@ function includesWith(predicate, target, list) {
   return willReturn
 }
 
-export function uniqWith(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => uniqWith(predicate, _list)
-  }
-
+export function uniqWith(predicate) {
+	return list => {
   let index = -1
   const willReturn = []
 
@@ -30,4 +27,5 @@ export function uniqWith(predicate, list) {
   }
 
   return willReturn
+}
 }

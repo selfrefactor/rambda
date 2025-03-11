@@ -1,3 +1,3 @@
 export function prop(searchProperty) {
-
-  return obj => obj ? obj[searchProperty] : undefined}
+  return obj => (obj ? obj[searchProperty] : undefined)
+}

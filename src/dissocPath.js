@@ -31,11 +31,11 @@ export function dissocPath(pathInput) {
     const condition =
       typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
     if (pathArrValue.length > 1) {
-			const nextInput = condition ?
-      Number.isInteger((pathArrValue[ 1 ])) ?
-        [] :
-        {} :
-      input[ index ]
+      const nextInput = condition
+        ? Number.isInteger(pathArrValue[1])
+          ? []
+          : {}
+        : input[index]
       const nextPathInput = Array.prototype.slice.call(pathArrValue, 1)
       const intermediateResult = dissocPath(nextPathInput)(nextInput)
       if (isArray(input)) {

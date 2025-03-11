@@ -1,10 +1,9 @@
-
 export function tryCatch(fn, fallback) {
-  return (input) => {
+  return input => {
     try {
       return fn(input)
     } catch (e) {
-			return fallback
+      return fallback
     }
   }
 }
