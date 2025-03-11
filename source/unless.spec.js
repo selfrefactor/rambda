@@ -8,16 +8,3 @@ test('happy', () => {
   expect(safeInc(1)).toBe(2)
 })
 
-test('curried', () => {
-  const safeIncCurried = unless(isNil)(inc)
-  expect(safeIncCurried(null)).toBeNull()
-})
-
-test('with 3 inputs', () => {
-  const result = unless(
-    x => x.startsWith('/'),
-    x => x.concat('/'),
-    '/api',
-  )
-  expect(result).toBe('/api')
-})

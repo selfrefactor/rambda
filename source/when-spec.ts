@@ -6,6 +6,6 @@ const whenTrueFn = (x: number) => String(x)
 describe('R.when', () => {
   it('happy', () => {
     const result = when(predicate, whenTrueFn)(1)
-    result // $ExpectType string | 1
+    result // $ExpectType string | number
   })
 })

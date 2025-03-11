@@ -7,7 +7,7 @@ const obj = {
 
 describe('R.unwind', () => {
   it('happy', () => {
-    const result = unwind('b', obj)
+    const result = unwind('b')(obj)
     result.a // $ExpectType number
     result.b // $ExpectType number
   })
