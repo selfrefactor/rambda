@@ -1,11 +1,19 @@
-import { flatMap } from 'rambda'
-
-const list = [1, 2, 3]
-const fn = (x: number) => [`${x}`, `${x}`]
+import { flatMap, pipe } from 'rambda'
 
 describe('R.flatMap', () => {
-  it('without passing type', () => {
-    const curriedResult = flatMap(fn)(list)
-    curriedResult // $ExpectType string[]
+  it('happy', () => {
+    const listOfLists: string[][] = [
+      ['f', 'bar'],
+      ['baz', 'b'],
+    ]
+    const result = pipe(
+      listOfLists,
+			x => x,
+      flatMap(x => {
+        x // $ExpectType string
+        return Number(x)+1
+      }),
+    )
+    result // $ExpectType number[]
   })
 })

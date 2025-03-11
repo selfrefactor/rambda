@@ -10,7 +10,7 @@ test('fallback', () => {
 })
 
 test('with string', () => {
-  expect(match('a', 'foo')).toEqual([])
+  expect(match('a')('foo')).toEqual([])
   expect(equals(match('o', 'foo'), ['o'])).toBeTruthy()
 })
 

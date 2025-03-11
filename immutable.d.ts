@@ -559,12 +559,6 @@ export function merge<A, B>(target: A, newProps: B): A & B
 export function merge<Output>(target: any): (newProps: any) => Output;
 
 /**
- * It merges all objects of `list` array sequentially and returns the result.
- */
-export function mergeAll<T>(list: readonly object[]): T;
-export function mergeAll(list: readonly object[]): object;
-
-/**
  * It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
  */
 export function mergeRight<A, B>(target: A, newProps: B): A & B
@@ -741,11 +735,12 @@ export function omit<const Keys extends readonly PropertyKey[]>(propsToPick: Key
 /**
  * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
  */
-export function partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: readonly L[]) => readonly [readonly U[], readonly Exclude<L, U>[]];
-export function partition<T>(fn: (a: T) => boolean): <L extends T = T>(list: readonly L[]) => readonly [readonly L[], readonly L[]];
-
-export function partition<T, U extends T>(fn: (a: T) => a is U, list: readonly T[]): readonly [readonly U[], readonly Exclude<T, U>[]];
-export function partition<T>(fn: (a: T) => boolean, list: readonly T[]): readonly [readonly T[], readonly T[]];
+export function partition<T, S extends T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
+): (data: ReadonlyArray<T>) => readonly [ReadonlyArray<S>, ReadonlyArray<Exclude<T, S>>];
+export function partition<T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
+): (data: ReadonlyArray<T>) => readonly [ReadonlyArray<T>, ReadonlyArray<T>];
 
 /**
  * If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.

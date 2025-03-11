@@ -386,7 +386,7 @@ export function both<Args extends any[]>(firstPredicate: (...args: Args) => bool
 /*
 Method: flatMap
 
-Explanation: It combines `map` with `flatten` logic.
+Explanation: It maps `fn` over `list` and then flatten the result by one-level.
 
 Example:
 
@@ -394,7 +394,7 @@ Example:
 const duplicate = n => [ n, n ]
 const list = [ 1, 2, 3 ]
 
-const result = flatMap(duplicate, list)
+const result = R.flatMap(duplicate, list)
 // => [ 1, 1, 2, 2, 3, 3 ]
 ```
 
@@ -404,7 +404,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function flatMap<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
+export function flatMap<T, U extends unknown>(transformFn: (x: T extends any[] ? T[number]: never) => U): (listOfLists: T[]) => U[];
 
 /*
 Method: complement
@@ -1093,7 +1093,7 @@ Example:
 ```
 const list = [ 0, 1, 2, 3 ]
 const separator = 10
-const result = intersperse(separator, list)
+const result = R.intersperse(separator)(list)
 // => [0, 10, 1, 10, 2, 10, 3]
 ```
 
@@ -1103,7 +1103,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function intersperse<T>(separator: T, list: T[]): T[];
 export function intersperse<T>(separator: T): (list: T[]) => T[];
 
 /*

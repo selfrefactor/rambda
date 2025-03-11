@@ -1,7 +1,8 @@
-import { mapcat } from './mapcat.js'
+// import { mapcat } from './mapcat.js'
+import { flatMap } from './flatMap.js'
 
 test('happy', () => {
-  const result = mapcat(x => x.toUpperCase())([
+  const result = flatMap(x => x.toUpperCase())([
     ['a', 'b'],
     ['c', 'd'],
     ['e', 'f'],

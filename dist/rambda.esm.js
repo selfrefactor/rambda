@@ -1072,12 +1072,6 @@ function merge(target) {
     Object.assign({}, target || {}, objectWithNewProps || {})
 }
 
-function mergeAll(arr) {
-  let willReturn = {};
-
-  return willReturn
-}
-
 function mergeTypes(x) {
   return x
 }
@@ -1154,15 +1148,14 @@ function partitionArray(predicate, list, indexed = false) {
   return [yes, no]
 }
 
-function partition(predicate, iterable) {
-  if (arguments.length === 1) {
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!isArray(iterable)) {
-    return partitionObject(predicate, iterable)
-  }
-
-  return partitionArray(predicate, iterable)
+function partition(predicate) {
+	return iterable => {
+		if (!isArray(iterable)) {
+			return partitionObject(predicate, iterable)
+		}
+	
+		return partitionArray(predicate, iterable)
+	}
 }
 
 function pathSatisfies(fn, pathInput) {
@@ -1611,4 +1604,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, evolve, filter, filterArray, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeAll, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pipe, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, add, all, allPass, any, anyPass, append, assoc, assocPath, checkObjectWithSpec, complement, concat, count, countBy, defaultTo, difference, differenceWithFn, dissoc, dissocPath, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, evolve, filter, filterArray, find, findIndex, findLast, findLastIndex, flatMap, flatten, fromPairs, getPropertyOrDefault, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapObject, match, maxBy, merge, mergeTypes, minBy, modifyPath, none, objOf, omit, partition, partitionArray, partitionObject, path, pathSatisfies, pick, pipe, pluck, prepend, prop, propEq, propSatisfies, reduce, reject, removeIndex, repeat, replace, replaceItemAtIndex, sort, sortBy, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

@@ -1074,12 +1074,6 @@ function merge(target) {
     Object.assign({}, target || {}, objectWithNewProps || {})
 }
 
-function mergeAll(arr) {
-  let willReturn = {};
-
-  return willReturn
-}
-
 function mergeTypes(x) {
   return x
 }
@@ -1156,15 +1150,14 @@ function partitionArray(predicate, list, indexed = false) {
   return [yes, no]
 }
 
-function partition(predicate, iterable) {
-  if (arguments.length === 1) {
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!isArray(iterable)) {
-    return partitionObject(predicate, iterable)
-  }
-
-  return partitionArray(predicate, iterable)
+function partition(predicate) {
+	return iterable => {
+		if (!isArray(iterable)) {
+			return partitionObject(predicate, iterable)
+		}
+	
+		return partitionArray(predicate, iterable)
+	}
 }
 
 function pathSatisfies(fn, pathInput) {
@@ -1669,7 +1662,6 @@ exports.mapObject = mapObject;
 exports.match = match;
 exports.maxBy = maxBy;
 exports.merge = merge;
-exports.mergeAll = mergeAll;
 exports.mergeTypes = mergeTypes;
 exports.minBy = minBy;
 exports.modifyPath = modifyPath;

@@ -5227,143 +5227,6 @@ Same as `R.mergeRight`.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
 
-### mergeAll
-
-```typescript
-
-mergeAll<T>(list: object[]): T
-```
-
-It merges all objects of `list` array sequentially and returns the result.
-
-```javascript
-const list = [
-  {a: 1},
-  {b: 2},
-  {c: 3}
-]
-const result = R.mergeAll(list)
-const expected = {
-  a: 1,
-  b: 2,
-  c: 3
-}
-// => `result` is equal to `expected`
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Bb%3A%202%7D%2C%0A%20%20%7Bc%3A%203%7D%0A%5D%0Aconst%20result%20%3D%20R.mergeAll(list)%0Aconst%20expected%20%3D%20%7B%0A%20%20a%3A%201%2C%0A%20%20b%3A%202%2C%0A%20%20c%3A%203%0A%7D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.mergeAll</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-mergeAll<T>(list: object[]): T;
-mergeAll(list: object[]): object;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.mergeAll</strong> source</summary>
-
-```javascript
-import { map } from './map.js'
-import { merge } from './merge.js'
-
-export function mergeAll(arr) {
-  let willReturn = {}
-  map(val => {
-    willReturn = merge(willReturn, val)
-  }, arr)
-
-  return willReturn
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { mergeAll } from './mergeAll.js'
-
-test('case 1', () => {
-  const arr = [{ a: 1 }, { b: 2 }, { c: 3 }]
-  const expectedResult = {
-    a: 1,
-    b: 2,
-    c: 3,
-  }
-  expect(mergeAll(arr)).toEqual(expectedResult)
-})
-
-test('case 2', () => {
-  expect(mergeAll([{ foo: 1 }, { bar: 2 }, { baz: 3 }])).toEqual({
-    foo: 1,
-    bar: 2,
-    baz: 3,
-  })
-})
-
-describe('acts as if nil values are simply empty objects', () => {
-  it('if the first object is nil', () => {
-    expect(mergeAll([null, { foo: 1 }, { foo: 2 }, { bar: 2 }])).toEqual({
-      foo: 2,
-      bar: 2,
-    })
-  })
-
-  it('if the last object is nil', () => {
-    expect(mergeAll([{ foo: 1 }, { foo: 2 }, { bar: 2 }, undefined])).toEqual({
-      foo: 2,
-      bar: 2,
-    })
-  })
-
-  it('if an intermediate object is nil', () => {
-    expect(mergeAll([{ foo: 1 }, { foo: 2 }, null, { bar: 2 }])).toEqual({
-      foo: 2,
-      bar: 2,
-    })
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mergeAll } from 'rambda'
-
-describe('R.mergeAll', () => {
-  it('with passing type', () => {
-    interface Output {
-      foo: number
-      bar: number
-    }
-    const result = mergeAll<Output>([{ foo: 1 }, { bar: 2 }])
-    result.foo // $ExpectType number
-    result.bar // $ExpectType number
-  })
-
-  it('without passing type', () => {
-    const result = mergeAll([{ foo: 1 }, { bar: 2 }])
-    result // $ExpectType unknown
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeAll)
-
 ### mergeRight
 
 It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
@@ -5569,24 +5432,14 @@ test('when false curried', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { none } from 'rambda'
+import { none, pipe } from 'rambda'
 
 describe('R.none', () => {
   it('happy', () => {
-    const result = none(
-      x => {
-        x // $ExpectType number
-        return x > 0
-      },
-      [1, 2, 3],
-    )
-    result // $ExpectType boolean
-  })
-  it('curried needs a type', () => {
-    const result = none<number>(x => {
-      x // $ExpectType number
-      return x > 0
-    })([1, 2, 3])
+    const result = pipe(
+			[1, 2, 3],
+			none(x => x > 0),
+		)
     result // $ExpectType boolean
   })
 })
@@ -5803,7 +5656,9 @@ describe('R.omit', () => {
 
 ```typescript
 
-partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]]
+partition<T, S extends T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
+): (data: ReadonlyArray<T>) => [Array<S>, Array<Exclude<T, S>>]
 ```
 
 It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
@@ -5831,11 +5686,12 @@ const expected = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-partition<T, U extends T>(fn: (a: T) => a is U): <L extends T = T>(list: L[]) => [U[], Exclude<L, U>[]];
-partition<T>(fn: (a: T) => boolean): <L extends T = T>(list: L[]) => [L[], L[]];
-
-partition<T, U extends T>(fn: (a: T) => a is U, list: T[]): [U[], Exclude<T, U>[]];
-partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
+partition<T, S extends T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
+): (data: ReadonlyArray<T>) => [Array<S>, Array<Exclude<T, S>>];
+partition<T>(
+  predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
+): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
 ```
 
 </details>
@@ -5877,15 +5733,14 @@ export function partitionArray(predicate, list, indexed = false) {
   return [yes, no]
 }
 
-export function partition(predicate, iterable) {
-  if (arguments.length === 1) {
-    return listHolder => partition(predicate, listHolder)
-  }
-  if (!isArray(iterable)) {
-    return partitionObject(predicate, iterable)
-  }
-
-  return partitionArray(predicate, iterable)
+export function partition(predicate) {
+	return iterable => {
+		if (!isArray(iterable)) {
+			return partitionObject(predicate, iterable)
+		}
+	
+		return partitionArray(predicate, iterable)
+	}
 }
 ```
 
@@ -5902,7 +5757,7 @@ test('with array', () => {
   const predicate = x => x > 2
   const list = [1, 2, 3, 4]
 
-  const result = partition(predicate, list)
+  const result = partition(predicate)(list)
   const expectedResult = [
     [3, 4],
     [1, 2],
@@ -5948,7 +5803,7 @@ test('readme example', () => {
   }
   const predicate = x => x > 2
 
-  const result = [partition(predicate, list), partition(predicate, obj)]
+  const result = [partition(predicate)(list), partition(predicate)(obj)]
   const expected = [
     [[3], [1, 2]],
     [
@@ -5970,20 +5825,45 @@ test('readme example', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { partition } from 'rambda'
+import { partition, pipe } from 'rambda'
 
 describe('R.partition', () => {
-  it('with array', () => {
+	it('happy', () => {
     const predicate = (x: number) => {
       return x > 2
     }
     const list = [1, 2, 3, 4]
 
-    const result = partition(predicate, list)
-    const curriedResult = partition(predicate)(list)
+    const result = pipe(list, partition(predicate))
     result // $ExpectType [number[], number[]]
-    curriedResult // $ExpectType [number[], number[]]
-  })
+	})
+	it('with simple object', () => {
+		let result = pipe(
+			[{a: 1}, {a: 2}, {a: 3}, {a: 4}],
+			partition(x => x.a > 2)
+		)
+		result // $ExpectType [{ a: number; }[], { a: number; }[]]
+	})
+	it('with complex object', () => {
+		interface Foo {
+			a: number
+		}
+		interface Bar {
+			b: number
+		}
+		let list1: (Foo|Bar)[] = [
+			{a: 1},
+			{b: 2},
+			{a: 3},
+			{b: 4},
+		]
+		let filterFoo = (x: Foo|Bar): x is Foo => 'a' in x
+		let result = pipe(
+			list1,
+			partition(filterFoo)
+		)
+		result // $ExpectType [Foo[], Bar[]]
+})
 })
 ```
 

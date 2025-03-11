@@ -2,15 +2,7 @@ import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
-describe('R.map with array', () => {
-  it('happy', () => {
-    const result = map(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
-    result // $ExpectType boolean[]
-  })
-  it('within pipe', () => {
+it('R.map', () => {
     const result = pipe(
       list,
       x => x,
@@ -20,5 +12,4 @@ describe('R.map with array', () => {
       }),
     )
     result // $ExpectType string[]
-  })
 })

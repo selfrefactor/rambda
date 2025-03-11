@@ -1,10 +1,9 @@
-import { lastIndexOf } from 'rambda'
-
-const list = [1, 2, 3]
+import { lastIndexOf, pipe } from 'rambda'
 
 describe('R.lastIndexOf', () => {
-  it('happy', () => {
-    const result = lastIndexOf(2)(list)
+    const result = pipe(
+			[{a: 1}, {a: 2}, {a: 3}],
+			lastIndexOf({a: 2})
+		)
     result // $ExpectType number
-  })
 })
