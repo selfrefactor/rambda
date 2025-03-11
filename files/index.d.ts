@@ -712,34 +712,6 @@ export function dropLast<T>(howMany: number): {
 };
 
 /*
-Method: endsWith
-
-Explanation: When iterable is a string, then it behaves as `String.prototype.endsWith`.
-When iterable is a list, then it uses R.equals to determine if the target list ends in the same way as the given target.
-
-Example:
-
-```
-const str = 'foo-bar'
-const list = [{a:1}, {a:2}, {a:3}]
-
-const result = [
-  R.endsWith('bar', str),
-  R.endsWith([{a:1}, {a:2}], list)
-]
-// => [true, true]
-```
-
-Categories: String, List
-
-Notes: 
-
-*/
-// @SINGLE_MARKER
-export function endsWith<T extends string>(question: T): (str: string) => boolean;
-export function endsWith<T>(question: T[]): (list: T[]) => boolean;
-
-/*
 Method: equals
 
 Explanation: It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -2654,7 +2626,7 @@ Example:
 const result = R.sortWith([
     (a, b) => a.a === b.a ? 0 : a.a > b.a ? 1 : -1,
     (a, b) => a.b === b.b ? 0 : a.b > b.b ? 1 : -1,
-], [
+])([
   {a: 1, b: 2},
   {a: 2, b: 1},
   {a: 2, b: 2},
@@ -2676,7 +2648,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
-export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: T[]): T[];
 
 /*
 Method: splitEvery
@@ -2698,48 +2669,13 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-Categories: List, String
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function splitEvery<T>(sliceLength: number, input: T[]): (T[])[];
-export function splitEvery(sliceLength: number, input: string): string[];
-export function splitEvery(sliceLength: number): {
-  (input: string): string[];
-  <T>(input: T[]): (T[])[];
-};
-
-/*
-Method: startsWith
-
-Explanation: When iterable is a string, then it behaves as `String.prototype.startsWith`.
-When iterable is a list, then it uses R.equals to determine if the target list starts in the same way as the given target.
-
-Example:
-
-```
-const str = 'foo-bar'
-const list = [{a:1}, {a:2}, {a:3}]
-
-const result = [
-  R.startsWith('foo', str),
-  R.startsWith([{a:1}, {a:2}], list)
-]
-// => [true, true]
-```
-
-Categories: String, List
-
-Notes: It doesn't work with arrays unlike its corresponding **Ramda** method.
-
-*/
-// @SINGLE_MARKER
-export function startsWith<T extends string>(question: T, input: string): boolean;
-export function startsWith<T extends string>(question: T): (input: string) => boolean;
-export function startsWith<T>(question: T[], input: T[]): boolean;
-export function startsWith<T>(question: T[]): (input: T[]) => boolean;
+export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /*
 Method: subtract
@@ -3285,30 +3221,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-
-
-/*
-Method: splitWhen
-
-Explanation: It splits `list` to two arrays according to a `predicate` function. 
-
-The first array contains all members of `list` before `predicate` returns `true`.
-
-Example:
-
-```
-const list = [1, 2, 1, 2]
-const result = R.splitWhen(R.equals(2), list)
-// => [[1], [2, 1, 2]]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function splitWhen<T>(predicate: Predicate<T>): <U>(list: U[]) => (U[])[];
 
 /*
 Method: takeLastWhile

@@ -1,5 +1,6 @@
-import { ascend, prop } from '../rambda.js'
 import { sortWith } from './sortWith.js'
+import { ascend } from './ascend.js'
+import { prop } from './prop.js'
 
 const albums = [
   {
@@ -77,7 +78,7 @@ const albums = [
 ]
 
 test('sorts by a simple property of the objects', () => {
-  const sortedAlbums = sortWith([ascend(prop('title'))], albums)
+  const sortedAlbums = sortWith([ascend(prop('title'))])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('A Farewell to Kings')
   expect(sortedAlbums[11].title).toBe('Timeout')
@@ -85,7 +86,7 @@ test('sorts by a simple property of the objects', () => {
 
 test('sorts by multiple properties of the objects', () => {
   const sortedAlbums = sortWith(
-    [ascend(prop('score')), ascend(prop('title'))],
+    [ascend(prop('score')), ascend(prop('title'))])(
     albums,
   )
   expect(sortedAlbums).toHaveLength(albums.length)
@@ -96,7 +97,7 @@ test('sorts by multiple properties of the objects', () => {
 
 test('sorts by 3 properties of the objects', () => {
   const sortedAlbums = sortWith(
-    [ascend(prop('genre')), ascend(prop('score')), ascend(prop('title'))],
+    [ascend(prop('genre')), ascend(prop('score')), ascend(prop('title'))])(
     albums,
   )
   expect(sortedAlbums).toHaveLength(albums.length)
@@ -107,33 +108,11 @@ test('sorts by 3 properties of the objects', () => {
 
 test('sorts by multiple properties using ascend and descend', () => {
   const sortedAlbums = sortWith(
-    [ascend(prop('score')), ascend(prop('title'))],
+    [ascend(prop('score')), ascend(prop('title'))])(
     albums,
   )
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Five Leaves Left')
   expect(sortedAlbums[1].title).toBe('In Times of Desparation')
   expect(sortedAlbums[11].title).toBe('Romance with the Unseen')
-})
-
-test('sorts only arrays not primitives', () => {
-  const result = sortWith(
-    [
-      (a, b) => (a.a === b.a ? 0 : a.a > b.a ? 1 : -1),
-      (a, b) => (a.b === b.b ? 0 : a.b > b.b ? 1 : -1),
-    ],
-    [
-      { a: 1, b: 2 },
-      { a: 2, b: 1 },
-      { a: 2, b: 2 },
-      { a: 1, b: 1 },
-    ],
-  )
-  const expected = [
-    { a: 1, b: 1 },
-    { a: 1, b: 2 },
-    { a: 2, b: 1 },
-    { a: 2, b: 2 },
-  ]
-  expect(result).toEqual(expected)
 })

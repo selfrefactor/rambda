@@ -7727,7 +7727,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortObject<T>(predicate: SortObjectPredicate<T>, input: { [key: string]: T }): { [keyOutput: string]: T };
 export function sortObject<T>(predicate: SortObjectPredicate<T>): (input: { [key: string]: T }) => { [keyOutput: string]: T };
 
 /*

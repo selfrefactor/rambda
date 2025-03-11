@@ -89,6 +89,7 @@ This is major revamp of `Rambda` library:
 -- ifElse
 -- cond
 -- flip
+-- splitWhen
 -- binary
 -- bind
 -- addIndex, addIndexRight
@@ -104,6 +105,10 @@ This is major revamp of `Rambda` library:
 -- juxt
 -- curry
 -- without
+-- endsWith/startsWith
+-- identical
+-- move
+-- toLower/toUpper
 -- applySpec
 -- applyTo
 -- unapply

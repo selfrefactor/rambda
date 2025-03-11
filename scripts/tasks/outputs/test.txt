@@ -1,17 +1,13 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
-stdout | source/dissocPath.spec.js > update array
-{
-  a: { b: [33m1[39m, c: [33m2[39m, d: { e: [33m3[39m } },
-  f: [ { g: [33m4[39m }, { h: [33m5[39m, j: [36m[Object][39m } ],
-  m: [33m9[39m
-} [33m1[39m
+stdout | source/sortObject.spec.js > happy
+{ a: [33m100[39m, c: [33m7[39m, d: [33m4[39m, b: [33m1[39m }
 
- ✓ source/dissocPath.spec.js (8 tests) 11ms
+ ✓ source/sortObject.spec.js (1 test) 7ms
 
  Test Files  1 passed (1)
-      Tests  8 passed (8)
-   Start at  14:16:23
-   Duration  538ms (transform 66ms, setup 0ms, collect 56ms, tests 11ms, environment 0ms, prepare 131ms)
+      Tests  1 passed (1)
+   Start at  09:02:17
+   Duration  437ms (transform 39ms, setup 0ms, collect 25ms, tests 7ms, environment 0ms, prepare 97ms)
 
