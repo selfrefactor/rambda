@@ -95,6 +95,8 @@ There are some exceptions and these methods can be called with `R.methodName(inp
 
 - Remove following methods:
 
+-- assoc, assocPath, dissoc, dissocPath
+-- divide, multiply, subtract
 -- compose
 -- pickBy
 -- fromPairs

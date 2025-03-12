@@ -1,17 +1,12 @@
-import { count } from 'rambda'
+import { count, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 const predicate = (x: number) => x > 1
 
-describe('R.count', () => {
-  it('happy', () => {
-    const result = count(predicate, list)
-
+it('R.count', () => {
+    const result = pipe(
+			list,
+			count(predicate)
+		)
     result // $ExpectType number
-  })
-  it('curried', () => {
-    const result = count(predicate)(list)
-
-    result // $ExpectType number
-  })
 })

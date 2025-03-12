@@ -1,9 +1,5 @@
-export function dropLast(howManyToDrop, listOrString) {
-  if (arguments.length === 1) {
-    return _listOrString => dropLast(howManyToDrop, _listOrString)
-  }
-
-  return howManyToDrop > 0
-    ? listOrString.slice(0, -howManyToDrop)
-    : listOrString.slice()
+export function dropLast(numberItems) {
+	return list => numberItems > 0
+    ? list.slice(0, -numberItems)
+    : list.slice()
 }

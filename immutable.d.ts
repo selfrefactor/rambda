@@ -7,6 +7,9 @@ export type EqualTypes<X, Y> =
 export type NonEmptyArray<T> = readonly [T, ...readonly T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...readonly T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
+
+
+
 export type Mapped<T extends IterableContainer, K> = { readonly
   -readonly [P in keyof T]: K;
 };
@@ -172,26 +175,6 @@ export function append<T>(el: T): (list: readonly T[]) => readonly T[];
 export function append<T>(el: T): (list: readonly T[]) => readonly T[];
 
 /**
- * It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
- */
-export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) => U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
-
-/**
- * It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
- */
-export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
-
-/**
- * It returns a function with `input` argument.
- * 
- * This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
- */
-export function both<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
-export function both<Args extends readonly any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
-export function both<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
-export function both<Args extends readonly any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
-
-/**
  * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
  */
 export function checkObjectWithSpec<T>(spec: T): <U>(testObj: U) => boolean;
@@ -237,8 +220,7 @@ export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) 
  * 
  * `R.equals` is used to determine equality.
  */
-export function difference<T>(a: readonly T[], b: readonly T[]): readonly T[];
-export function difference<T extends unknown>(a: readonly T[]): <U extends unknown>(b: readonly U[]) => EqualTypes<U, T> extends true ? readonly T[] : never
+export function difference<T extends unknown>(a: readonly T[]): <U extends unknown>(b: readonly U[]) => EqualTypes<U, T> extends true ? readonly T[] : never;
 
 export function differenceWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
@@ -254,42 +236,24 @@ export function differenceWith<T1, T2>(
 ): (list2: readonly T2[]) => readonly T1[];
 
 /**
- * It returns a new object that does not contain property `prop`.
- */
-export function dissoc<K extends PropertyKey>(prop: K): <U extends { readonly [P in K]?: any}>(obj: string extends keyof U ? U : undefined extends U[K] ? U : never) => U;
-export function dissoc<U, K extends keyof U>(prop: string extends keyof U ? K : undefined extends U[K] ? K : never, obj: U): U;
-
-export function dissocPath<T>(path: Path): (obj: unknown) => T;
-
-export function divide(x: number): (y: number) => number;
-
-/**
  * It returns `howMany` items dropped from beginning of list or string `input`.
  */
-export function drop<T>(howMany: number): {
-  (input: string): string;
-  (input: readonly T[]): readonly T[];
-  (input: readonly T[]): readonly T[];
-};
+export function drop<T>(howMany: number): (list: readonly T[]) => readonly T[];
 
 /**
  * It returns `howMany` items dropped from  the end of list or string `input`.
  */
-export function dropLast<T>(howMany: number): {
-  (input: string): string;
-  (input: readonly T[]): readonly T[];
-  (input: readonly T[]): readonly T[];
-};
+export function dropLast<T>(howMany: number): (list: readonly T[]) => readonly T[];
 
-export function dropLastWhile<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 export function dropLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: readonly T[]) => readonly T[];
+export function dropLastWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => readonly T[];
 
 export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: readonly T[]) => readonly T[];
 
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 
-export function dropWhile<T>(predicate: (x: T, y: T) => boolean): (list: readonly T[]) => readonly T[];
 export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: readonly T[]) => readonly T[];
+export function dropWhile<T>(predicate: (x: T) => boolean): (list: readonly T[]) => readonly T[];
 
 export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
@@ -1398,6 +1362,17 @@ export function propOr<T, P extends string>(defaultValue: T, property: P): (obj:
  */
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
+/**
+ * It returns list of numbers between `startInclusive` to `endExclusive` markers.
+ */
+export function range(startInclusive: number, endExclusive: number): readonly number[];
+export function range(startInclusive: number): (endExclusive: number) => readonly number[];
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
+
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
 
 /**
@@ -1457,11 +1432,6 @@ export function sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>): (list: 
 
 export function split(separator: string | RegExp): (str: string) => readonly string[];
 
-// API_MARKER_END
-// ============================================
-
-export as namespace R
-
 /**
  * It splits `input` into slices of `sliceLength`.
  */
@@ -1480,7 +1450,6 @@ export function sum(list: readonly number[]): number;
  * 
  * `R.equals` is used to determine equality.
  */
-export function symmetricDifference<T>(x: readonly T[], y: readonly T[]): readonly T[];
 export function symmetricDifference<T>(x: readonly T[]): <T>(y: readonly T[]) => readonly T[];
 
 /**

@@ -1,17 +1,13 @@
-import { difference } from 'rambda'
+import { difference, pipe } from 'rambda'
 
 const list1 = [1, 2, 3]
 const list2 = [1, 2, 4]
 
-describe('R.difference', () => {
-  it('happy', () => {
-    const result = difference(list1, list2)
+it('R.difference', () => {
+    const result = pipe(
+			list1,
+			difference(list2)
+		)
 
     result // $ExpectType number[]
-  })
-  it('curried', () => {
-    const result = difference(list1)(list2)
-
-    result // $ExpectType number[]
-  })
 })

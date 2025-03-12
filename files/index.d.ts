@@ -7,6 +7,9 @@ export type EqualTypes<X, Y> =
 export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
+
+
+
 export type Mapped<T extends IterableContainer, K> = {
   -readonly [P in keyof T]: K;
 };
@@ -309,81 +312,6 @@ export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /*
-Method: assoc
-
-Explanation: It makes a shallow clone of `obj` with setting or overriding the property `prop` with `newValue`.
-
-Example:
-
-```
-R.assoc('c', 3)({a: 1, b: 2})
-// => {a: 1, b: 2, c: 3}
-```
-
-Categories: Object
-
-Notes: This copies and flattens prototype properties
-onto the new object as well. All non-primitive properties are copied by
-reference.
-
-*/
-// @SINGLE_MARKER
-export function assoc<T, K extends PropertyKey>(prop: K, val: T): <U>(obj: U) => U extends Record<K, any> ? U[K] extends T ? U : Record<K, T> & Omit<U, K> : U & Record<K, T>;
-
-/*
-Method: assocPath
-
-Explanation: It makes a shallow clone of `obj` with setting or overriding with `newValue` the property found with `path`.
-
-Example:
-
-```
-const path = 'b.c'
-const newValue = 2
-const obj = { a: 1 }
-
-const result = R.assocPath(path, newValue, obj)
-// => { a : 1, b : { c : 2 }}
-```
-
-Categories: Object
-
-Notes: pipe
-
-*/
-// @SINGLE_MARKER
-export function assocPath<T>(path: Path, val: unknown): (obj: unknown) => T;
-
-/*
-Method: both
-
-Explanation: It returns a function with `input` argument. 
-
-This function will return `true`, if both `firstCondition` and `secondCondition` return `true` when `input` is passed as their argument.
-
-Example:
-
-```
-const firstCondition = x => x > 10
-const secondCondition = x => x < 20
-const fn = R.both(firstCondition, secondCondition)
-
-const result = [fn(15), fn(30)]
-// => [true, false]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function both<T, RT1 extends T>(firstPredicate: (a: T) => a is RT1): <RT2 extends T>(secondPredicate: (a: T) => a is RT2) => (a: T) => a is RT1 & RT2;
-export function both<Args extends any[]>(firstPredicate: (...args: Args) => boolean): (secondPredicate: (...args: Args) => boolean) => (...args: Args) => boolean;
-export function both<T, RT1 extends T, RT2 extends T>(firstPredicate: (a: T) => a is RT1, secondPredicate: (a: T) => a is RT2): (a: T) => a is RT1 & RT2;
-export function both<Args extends any[]>(firstPredicate: (...args: Args) => boolean, secondPredicate: (...args: Args) => boolean): (...args: Args) => boolean;
-
-/*
 Method: flatMap
 
 Explanation: It maps `fn` over `list` and then flatten the result by one-level.
@@ -523,68 +451,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function difference<T>(a: T[], b: T[]): T[];
-export function difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never
-
-/*
-Method: dissoc
-
-Explanation: It returns a new object that does not contain property `prop`.
-
-Example:
-
-```
-R.dissoc('b', {a: 1, b: 2, c: 3})
-// => {a: 1, c: 3}
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function dissoc<K extends PropertyKey>(prop: K): <U extends { [P in K]?: any}>(obj: string extends keyof U ? U : undefined extends U[K] ? U : never) => U;
-export function dissoc<U, K extends keyof U>(prop: string extends keyof U ? K : undefined extends U[K] ? K : never, obj: U): U;
-
-/*
-Method: dissocPath
-
-Explanation:
-
-Example:
-
-```
-const result = R.dissocPath(['a', 'b'])({a: {b: 1, c: 2}})
-// => {a: {c: 2}}
-```
-
-Categories:
-
-Notes: pipe
-
-*/
-// @SINGLE_MARKER
-export function dissocPath<T>(path: Path): (obj: unknown) => T;
-
-/*
-Method: divide
-
-Explanation:
-
-Example:
-
-```
-R.divide(71)(100) // => 0.71
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function divide(x: number): (y: number) => number;
+export function difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never;
 
 /*
 Method: drop
@@ -595,20 +462,15 @@ Example:
 
 ```
 R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
-R.drop(2, 'foobar')  // => 'obar'
 ```
 
-Categories: List, String
+Categories: List
 
 Notes:
 
 */
 // @SINGLE_MARKER
-export function drop<T>(howMany: number): {
-  (input: string): string;
-  (input: T[]): T[];
-  (input: readonly T[]): T[];
-};
+export function drop<T>(howMany: number): (list: T[]) => T[];
 
 /*
 Method: dropLast
@@ -618,8 +480,7 @@ Explanation: It returns `howMany` items dropped from  the end of list or string 
 Example:
 
 ```
-R.dropLast(2, ['foo', 'bar', 'baz']) // => ['foo']
-R.dropLast(2, 'foobar')  // => 'foob'
+R.dropLast(2)(['foo', 'bar', 'baz']) // => ['foo']
 ```
 
 Categories: List, String
@@ -628,11 +489,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLast<T>(howMany: number): {
-  (input: string): string;
-  (input: T[]): T[];
-  (input: readonly T[]): T[];
-};
+export function dropLast<T>(howMany: number): (list: T[]) => T[];
 
 /*
 Method: equals
@@ -2784,7 +2641,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(x: T[], y: T[]): T[];
 export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
 
 /*
@@ -3338,8 +3194,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropLastWhile<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 export function dropLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+export function dropLastWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: dropRepeatsWith
@@ -3383,8 +3239,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
+export function dropWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: takeWhile

@@ -73,40 +73,6 @@
   	}
   }
 
-  function assoc(prop, newValue) {
-    return obj => Object.assign({}, obj, { [prop]: newValue })
-  }
-
-  function createPath(path, delimiter = '.') {
-    return typeof path === 'string'
-      ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-      : path
-  }
-
-  function assocPath(path, newValue) {
-    return input => {
-      const pathArrValue = createPath(path);
-      if (pathArrValue.length === 0) {
-        return newValue
-      }
-
-      const index = pathArrValue[0];
-      if (pathArrValue.length > 1) {
-        const nextInput =
-          typeof input !== 'object' || input === null || !Object.hasOwn(input, index)
-            ? {}
-            : input[index];
-
-        newValue = assocPath(
-          Array.prototype.slice.call(pathArrValue, 1),
-          newValue,
-        )(nextInput);
-      }
-
-      return assoc(index, newValue)(input)
-    }
-  }
-
   function checkObjectWithSpec(conditions) {
     return input => {
       let shouldProceed = true;
@@ -128,25 +94,20 @@
     return (...input) => !fn(...input)
   }
 
-  function concat(x, y) {
-    if (arguments.length === 1) {
-      return _y => concat(x, _y)
-    }
-
-    return typeof x === 'string' ? `${x}${y}` : [...x, ...y]
+  function concat(x) {
+    return y => typeof x === 'string' ? `${x}${y}` : [...x, ...y]
   }
 
   const { isArray } = Array;
 
-  function count(predicate, list) {
-    if (arguments.length === 1) {
-      return _list => count(predicate, _list)
-    }
+  function count(predicate, ) {
+   return list => {
     if (!isArray(list)) {
       return 0
     }
 
     return list.filter(x => predicate(x)).length
+  }
   }
 
   function countBy(fn, list) {
@@ -496,146 +457,6 @@
     }
   }
 
-  function dissoc(prop, obj) {
-    if (arguments.length === 1) {
-      return _obj => dissoc(prop, _obj)
-    }
-
-    if (obj === null || obj === undefined) {
-      return {}
-    }
-
-    const willReturn = {};
-    for (const p in obj) {
-      willReturn[p] = obj[p];
-    }
-    delete willReturn[prop];
-
-    return willReturn
-  }
-
-  function _includes(x, list) {
-    let index = -1;
-    const { length } = list;
-
-    while (++index < length) {
-      if (String(list[index]) === String(x)) {
-        return true
-      }
-    }
-
-    return false
-  }
-
-  function omit(propsToOmit) {
-    return obj => {
-      if (!obj) {
-        return undefined
-      }
-
-      const propsToOmitValue = createPath(propsToOmit, ',');
-      const willReturn = {};
-
-      for (const key in obj) {
-        if (!_includes(key, propsToOmitValue)) {
-          willReturn[key] = obj[key];
-        }
-      }
-
-      return willReturn
-    }
-  }
-
-  function path(pathInput, obj) {
-    if (arguments.length === 1) {
-      return _obj => path(pathInput, _obj)
-    }
-
-    if (!obj) {
-      return undefined
-    }
-    let willReturn = obj;
-    let counter = 0;
-
-    const pathArrValue = createPath(pathInput);
-
-    while (counter < pathArrValue.length) {
-      if (willReturn === null || willReturn === undefined) {
-        return undefined
-      }
-      if (willReturn[pathArrValue[counter]] === null) {
-        return undefined
-      }
-
-      willReturn = willReturn[pathArrValue[counter]];
-      counter++;
-    }
-
-    return willReturn
-  }
-
-  function update(index, newValue) {
-    return list => {
-      const clone = cloneList(list);
-      if (index === -1) {
-        return clone.fill(newValue, index)
-      }
-
-      return clone.fill(newValue, index, index + 1)
-    }
-  }
-
-  function removeIndex(index, list) {
-    if (index <= 0) {
-      return list.slice(1)
-    }
-    if (index >= list.length - 1) {
-      return list.slice(0, list.length - 1)
-    }
-
-    return [...list.slice(0, index), ...list.slice(index + 1)]
-  }
-
-  function dissocPath(pathInput) {
-    return input => {
-      const pathArrValue = createPath(pathInput);
-      if (pathArrValue.length === 0) {
-        return input
-      }
-
-      const pathResult = path(pathArrValue, input);
-      if (pathResult === undefined) {
-        return input
-      }
-
-      const index = pathArrValue[0];
-      const condition =
-        typeof input !== 'object' || input === null || !Object.hasOwn(input, index);
-      if (pathArrValue.length > 1) {
-        const nextInput = condition
-          ? Number.isInteger(pathArrValue[1])
-            ? []
-            : {}
-          : input[index];
-        const nextPathInput = Array.prototype.slice.call(pathArrValue, 1);
-        const intermediateResult = dissocPath(nextPathInput)(nextInput);
-        if (isArray(input)) {
-          return update(index, intermediateResult)(input)
-        }
-
-        return {
-          ...input,
-          [index]: intermediateResult,
-        }
-      }
-      if (isArray(input)) {
-        return removeIndex(index, input)
-      }
-
-      return omit([index])(input)
-    }
-  }
-
   function drop(howManyToDrop, listOrString) {
     if (arguments.length === 1) {
       return _list => drop(howManyToDrop, _list)
@@ -644,14 +465,10 @@
     return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
   }
 
-  function dropLast(howManyToDrop, listOrString) {
-    if (arguments.length === 1) {
-      return _listOrString => dropLast(howManyToDrop, _listOrString)
-    }
-
-    return howManyToDrop > 0
-      ? listOrString.slice(0, -howManyToDrop)
-      : listOrString.slice()
+  function dropLast(numberItems) {
+  	return list => numberItems > 0
+      ? list.slice(0, -numberItems)
+      : list.slice()
   }
 
   function dropLastWhile(predicate) {
@@ -665,7 +482,7 @@
 
       while (counter) {
         const item = list[--counter];
-        if (!predicate(item)) {
+        if (!predicate(item, counter)) {
           toReturn.push(item);
           break
         }
@@ -686,7 +503,7 @@
 
       while (counter < iterable.length) {
         const item = iterable[counter++];
-        if (!predicate(item)) {
+        if (!predicate(item, counter)) {
           toReturn.push(item);
           break
         }
@@ -1038,6 +855,44 @@
     return y => (compareFn(y) < compareFn(x) ? y : x)
   }
 
+  function createPath(path, delimiter = '.') {
+    return typeof path === 'string'
+      ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+      : path
+  }
+
+  function path(pathInput, obj) {
+    if (arguments.length === 1) {
+      return _obj => path(pathInput, _obj)
+    }
+
+    if (!obj) {
+      return undefined
+    }
+    let willReturn = obj;
+    let counter = 0;
+
+    const pathArrValue = createPath(pathInput);
+
+    while (counter < pathArrValue.length) {
+      if (willReturn === null || willReturn === undefined) {
+        return undefined
+      }
+      if (willReturn[pathArrValue[counter]] === null) {
+        return undefined
+      }
+
+      willReturn = willReturn[pathArrValue[counter]];
+      counter++;
+    }
+
+    return willReturn
+  }
+
+  function assoc(prop, newValue) {
+    return obj => Object.assign({}, obj, { [prop]: newValue })
+  }
+
   function modifyPath(pathInput, fn) {
     return object => {
       const path$1 = createPath(pathInput);
@@ -1074,6 +929,38 @@
 
   function objOf(key) {
     return value => ({ [key]: value })
+  }
+
+  function _includes(x, list) {
+    let index = -1;
+    const { length } = list;
+
+    while (++index < length) {
+      if (String(list[index]) === String(x)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function omit(propsToOmit) {
+    return obj => {
+      if (!obj) {
+        return undefined
+      }
+
+      const propsToOmitValue = createPath(propsToOmit, ',');
+      const willReturn = {};
+
+      for (const key in obj) {
+        if (!_includes(key, propsToOmitValue)) {
+          willReturn[key] = obj[key];
+        }
+      }
+
+      return willReturn
+    }
   }
 
   function partitionObject(predicate, iterable) {
@@ -1275,6 +1162,25 @@
     return obj => predicate(prop(property))
   }
 
+  function range(start, end){
+    if (arguments.length === 1) return _end => range(start, _end)
+
+    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
+      throw new TypeError('Both arguments to range must be numbers')
+    }
+
+    if (end < start) return []
+
+    const len = end - start;
+    const willReturn = Array(len);
+
+    for (let i = 0; i < len; i++){
+      willReturn[ i ] = start + i;
+    }
+
+    return willReturn
+  }
+
   function reject(predicate) {
     return list => filter(x => !predicate(x))
   }
@@ -1301,25 +1207,25 @@
     }
   }
 
-  function sort(sortFn) {
-    return list => cloneList(list).sort(sortFn)
+  function sort(sortFn, list){
+    if (arguments.length === 1) return _list => sort(sortFn, _list)
+
+    return cloneList(list).sort(sortFn)
   }
 
-  function sortBy(sortFn) {
-    return list => {
-      const clone = cloneList(list);
+  function sortBy(sortFn, list){
+    if (arguments.length === 1) return _list => sortBy(sortFn, _list)
 
-      return clone.sort((a, b) => {
-        const aSortResult = sortFn(a);
-        const bSortResult = sortFn(b);
+    const clone = cloneList(list);
 
-        if (aSortResult === bSortResult) {
-          return 0
-        }
+    return clone.sort((a, b) => {
+      const aSortResult = sortFn(a);
+      const bSortResult = sortFn(b);
 
-        return aSortResult < bSortResult ? -1 : 1
-      })
-    }
+      if (aSortResult === bSortResult) return 0
+
+      return aSortResult < bSortResult ? -1 : 1
+    })
   }
 
   function sortHelper(a, b, listOfSortingFns) {
@@ -1369,9 +1275,7 @@
 
   function symmetricDifference(x) {
   	return y =>  concat(
-  			filter(value => !includes(value)(y)),
-  			filter(value => !includes(value)(x)),
-  		)
+  			filter(value => !includes(value)(y)))
   	
   }
 
@@ -1542,6 +1446,17 @@
     }
   }
 
+  function update(index, newValue) {
+    return list => {
+      const clone = cloneList(list);
+      if (index === -1) {
+        return clone.fill(newValue, index)
+      }
+
+      return clone.fill(newValue, index, index + 1)
+    }
+  }
+
   function when(predicate, whenTrueFn) {
     return input => {
       if (!predicate(input)) {
@@ -1582,8 +1497,6 @@
   exports.any = any;
   exports.anyPass = anyPass;
   exports.append = append;
-  exports.assoc = assoc;
-  exports.assocPath = assocPath;
   exports.checkObjectWithSpec = checkObjectWithSpec;
   exports.complement = complement;
   exports.concat = concat;
@@ -1592,8 +1505,6 @@
   exports.defaultTo = defaultTo;
   exports.difference = difference;
   exports.differenceWithFn = differenceWithFn;
-  exports.dissoc = dissoc;
-  exports.dissocPath = dissocPath;
   exports.drop = drop;
   exports.dropLast = dropLast;
   exports.dropLastWhile = dropLastWhile;
@@ -1646,9 +1557,9 @@
   exports.propEq = propEq;
   exports.propOr = propOr;
   exports.propSatisfies = propSatisfies;
+  exports.range = range;
   exports.reduce = reduce;
   exports.reject = reject;
-  exports.removeIndex = removeIndex;
   exports.repeat = repeat;
   exports.replace = replace;
   exports.replaceItemAtIndex = replaceItemAtIndex;
