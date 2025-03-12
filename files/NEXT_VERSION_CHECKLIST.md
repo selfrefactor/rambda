@@ -83,6 +83,8 @@ There are some exceptions and these methods can be called with `R.methodName(inp
 
 -- equals
 -- range
+-- sort
+-- sortBy
 
 - Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
 

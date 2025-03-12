@@ -3328,7 +3328,7 @@ Example:
 const list = [1, 2, 3, 4, 5];
 const predicate = x => x >= 3
 
-const result = dropLastWhile(predicate, list);
+const result = dropLastWhile(predicate)(list);
 // => [1, 2]
 ```
 
@@ -3383,9 +3383,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropWhile<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function dropWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
-
 
 /*
 Method: takeWhile

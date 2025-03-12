@@ -9,7 +9,7 @@ export function dropLastWhile(predicate) {
 
     while (counter) {
       const item = list[--counter]
-      if (!predicate(item)) {
+      if (!predicate(item, counter)) {
         toReturn.push(item)
         break
       }

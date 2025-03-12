@@ -5,7 +5,7 @@ export function dropWhile(predicate) {
 
     while (counter < iterable.length) {
       const item = iterable[counter++]
-      if (!predicate(item)) {
+      if (!predicate(item, counter)) {
         toReturn.push(item)
         break
       }
