@@ -824,7 +824,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLastIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
 export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
@@ -846,39 +845,11 @@ const result = R.flatten([
 
 Categories: List
 
-Notes:
+Notes: pipe
 
 */
 // @SINGLE_MARKER
 export function flatten<T>(list: any[]): T[];
-
-/*
-Method: fromPairs
-
-Explanation: It transforms a `listOfPairs` to an object.
-
-Example:
-
-```
-const listOfPairs = [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', [ 3, 4 ] ] ]
-const expected = {
-  a : 1,
-  b : 2,
-  c : [ 3, 4 ],
-}
-
-const result = R.fromPairs(listOfPairs)
-// => `result` is equal to `expected`
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function fromPairs<V>(listOfPairs: ([number, V])[]): { [index: number]: V };
-export function fromPairs<V>(listOfPairs: ([string, V])[]): { [index: string]: V };
 
 /*
 Method: groupBy
@@ -952,7 +923,6 @@ export function head<T>(listOrString: T): T extends string ? string :
 						T extends unknown[] ? T[number] : 
 							undefined;
 
-
 /*
 Method: ifElse
 
@@ -998,7 +968,7 @@ Example:
 ```
 const result = [
   R.includes('oo', 'foo'),
-  R.includes({a: 1}, [{a: 1}])
+  R.includes({a: 1})([{a: 1}])
 ]
 // => [true, true ]
 ```
@@ -2449,8 +2419,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.getPropertyOrDefault(defaultValue, property)(obj),
-  R.getPropertyOrDefault(defaultValue, 'foo')(obj)
+  R.propOr(defaultValue, property)(obj),
+  R.propOr(defaultValue, 'foo')(obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -2461,7 +2431,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function getPropertyOrDefault<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
+export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
 
 /*
 Method: propSatisfies

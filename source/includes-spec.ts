@@ -1,20 +1,19 @@
-import { includes } from 'rambda'
-
-const list = [{ a: { b: '1' } }, { a: { c: '2' } }, { a: { b: '3' } }]
+import { includes, pipe } from 'rambda'
 
 describe('R.includes', () => {
-  it('happy', () => {
-    const result = includes({ a: { b: '1' } }, list)
-    result // $ExpectType boolean
-    const result2 = includes('oo', ['f', 'oo'])
-    result2 // $ExpectType boolean
+	it('happy', () => {
+		const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
+		let result = pipe(
+			list,
+			includes({ a: { b: '1' } })
+		)
+		result // $ExpectType boolean
   })
   it('with string', () => {
-    const str = 'foo' as 'foo' | 'bar'
-    const result = includes('oo', str)
-    const curriedResult = includes('oo')(str)
-
-    result // $ExpectType boolean
-    curriedResult // $ExpectType boolean
+		let result = pipe(
+			'foo',
+			includes('bar')
+		)
+		result // $ExpectType boolean
   })
 })

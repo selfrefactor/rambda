@@ -90,6 +90,7 @@ This is major revamp of `Rambda` library:
 
 -- compose
 -- pickBy
+-- fromPairs
 -- pickAll
 -- mergeAll, mergeLeft, mergeDeepLeft, mergeRight, mergeDeepRight
 -- partitionIndexed
@@ -128,7 +129,6 @@ Rename:
 
 -- replaceItemAtIndex -> adjust
 -- checkObjectWithSpec -> where 
--- getPropertyOrDefault -> propOr 
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
