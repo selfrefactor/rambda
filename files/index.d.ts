@@ -4103,6 +4103,30 @@ export function mapAsync<T extends IterableContainer, U>(
   data: T
 ): Promise<Mapped<T, U>>;
 
+/*
+Method: mapObjectAsync
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: Async, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapObjectAsync<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Promise<Value>,
+): (data: T) => Promise<MappedValues<T, Value>>;
+
 // API_MARKER_END
 // ============================================
 
