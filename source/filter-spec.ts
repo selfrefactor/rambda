@@ -3,13 +3,6 @@ import { filter, map, pipe } from 'rambda'
 const list = [1, 2, 3]
 
 describe('R.filter with array', () => {
-  it('happy', () => {
-    const result = filter(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
-    result // $ExpectType number[]
-  })
   it('within pipe', () => {
     const result = pipe(
       list,

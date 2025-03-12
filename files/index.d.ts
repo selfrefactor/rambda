@@ -746,7 +746,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function find<T>(predicate: (x: T) => boolean, list: T[]): T | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
@@ -762,7 +761,7 @@ Example:
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.findIndex(predicate, list)
+const result = R.findIndex(predicate)(list)
 // => 1
 ```
 
@@ -772,7 +771,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findIndex<T>(predicate: (x: T) => boolean, list: T[]): number;
 export function findIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 
 /*
@@ -788,7 +786,7 @@ Example:
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 0}, {foo: 1}]
 
-const result = R.findLast(predicate, list)
+const result = R.findLast(predicate)(list)
 // => {foo: 1}
 ```
 
@@ -798,7 +796,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function findLast<T>(fn: (x: T) => boolean, list: T[]): T | undefined;
 export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
@@ -981,6 +978,32 @@ Notes:
 // @SINGLE_MARKER
 export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
+
+/*
+Method: excludes
+
+Explanation: Opposite of `R.includes`
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const result = [
+  R.excludes('ar')('foo'),
+  R.excludes({a: 2})([{a: 1}])
+]
+// => [true, true ]
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function excludes<T extends string>(valueToFind: T): (input: string) => boolean;
+export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /*
 Method: indexOf
