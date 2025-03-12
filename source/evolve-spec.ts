@@ -1,7 +1,6 @@
-import { add, evolve } from 'rambda'
+import { add, evolve, pipe } from 'rambda'
 
-describe('R.evolve', () => {
-  it('happy', () => {
+it('R.evolve', () => {
     const input = {
       foo: 2,
       nested: {
@@ -16,20 +15,11 @@ describe('R.evolve', () => {
         bar: add(1),
       },
     }
-    const result = evolve(rules, input)
-    const curriedResult = evolve(rules)(input)
-
+    const result = pipe(
+			input,
+			evolve(rules)
+		)
     result.nested.a // $ExpectType number
-    curriedResult.nested.a // $ExpectType number
     result.nested.bar // $ExpectType number
     result.foo // $ExpectType number
-  })
-  it('with array', () => {
-    const rules = [String, String]
-    const input = [100, 1400]
-    const result = evolve(rules, input)
-    const curriedResult = evolve(rules)(input)
-    result // $ExpectType string[]
-    curriedResult // $ExpectType string[]
-  })
 })
