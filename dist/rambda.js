@@ -749,57 +749,47 @@ function evolve(rules) {
     })(obj)
 }
 
-function filterObject(predicate, obj) {
-  const willReturn = {};
-
-  for (const prop in obj) {
-    if (predicate(obj[prop], prop, obj)) {
-      willReturn[prop] = obj[prop];
-    }
-  }
-
-  return willReturn
+function excludes(valueToFind) {
+  return iterable => includes(valueToFind, iterable) === false
 }
 
-function filterArray(predicate, list, indexed = false) {
-  let index = 0;
+function filter(predicate) {
+	return list => {
+  if (!iterable) {
+    throw new Error('Incorrect iterable input')
+  }
+	let index = 0;
   const len = list.length;
   const willReturn = [];
 
   while (index < len) {
-    const predicateResult = indexed
-      ? predicate(list[index], index)
-      : predicate(list[index]);
-    if (predicateResult) {
+    if (predicate(list[index], index)) {
       willReturn.push(list[index]);
     }
 
     index++;
   }
-
+	
   return willReturn
+	}
 }
 
-function filter(predicate, iterable) {
-  if (arguments.length === 1) {
-    return _iterable => filter(predicate, _iterable)
-  }
-  if (!iterable) {
-    throw new Error('Incorrect iterable input')
-  }
+function filterObject(predicate) {
+  return obj => {
+    const willReturn = {};
 
-  if (isArray(iterable)) {
-    return filterArray(predicate, iterable, false)
-  }
+    for (const prop in obj) {
+      if (predicate(obj[prop], prop, obj)) {
+        willReturn[prop] = obj[prop];
+      }
+    }
 
-  return filterObject(predicate, iterable)
+    return willReturn
+  }
 }
 
-function find(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => find(predicate, _list)
-  }
-
+function find(predicate) {
+	return list => {
   let index = 0;
   const len = list.length;
 
@@ -812,12 +802,10 @@ function find(predicate, list) {
     index++;
   }
 }
+}
 
-function findIndex(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => findIndex(predicate, _list)
-  }
-
+function findIndex(predicate) {
+	return list => {
   const len = list.length;
   let index = -1;
 
@@ -829,12 +817,10 @@ function findIndex(predicate, list) {
 
   return -1
 }
+}
 
-function findLast(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => findLast(predicate, _list)
-  }
-
+function findLast(predicate) {
+	return list => {
   let index = list.length;
 
   while (--index >= 0) {
@@ -845,12 +831,10 @@ function findLast(predicate, list) {
 
   return undefined
 }
+}
 
-function findLastIndex(fn, list) {
-  if (arguments.length === 1) {
-    return _list => findLastIndex(fn, _list)
-  }
-
+function findLastIndex(fn) {
+	return list => {
   let index = list.length;
 
   while (--index >= 0) {
@@ -860,6 +844,7 @@ function findLastIndex(fn, list) {
   }
 
   return -1
+}
 }
 
 function flatMap(fn) {
@@ -878,23 +863,6 @@ function flatten(list, input) {
   }
 
   return willReturn
-}
-
-function fromPairs(listOfPairs) {
-  const toReturn = {};
-  listOfPairs.forEach(([prop, value]) => (toReturn[prop] = value));
-
-  return toReturn
-}
-
-function getPropertyOrDefault(defaultValue, property) {
-  return obj => {
-    if (!obj) {
-      return defaultValue
-    }
-
-    return defaultTo(defaultValue, obj[property])
-  }
 }
 
 function groupBy(groupFn, list) {
@@ -991,19 +959,12 @@ function innerJoin(pred, xs) {
   return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
 
-function intersection(listA, listB) {
-  if (arguments.length === 1) {
-    return _list => intersection(listA, _list)
-  }
-
-  return filter(x => includes(x, listA), listB)
+function intersection(listA) {
+  return listB =>filter(x => includes(x)(listA))(listB)
 }
 
-function intersperse(separator, list) {
-  if (arguments.length === 1) {
-    return _list => intersperse(separator, _list)
-  }
-
+function intersperse(separator) {
+	return list => {
   let index = -1;
   const len = list.length;
   const willReturn = [];
@@ -1018,13 +979,10 @@ function intersperse(separator, list) {
 
   return willReturn
 }
+}
 
-function join(glue, list) {
-  if (arguments.length === 1) {
-    return _list => join(glue, _list)
-  }
-
-  return list.join(glue)
+function join(glue) {
+  return list=> list.join(glue)
 }
 
 function last(listOrString) {
@@ -1035,12 +993,8 @@ function last(listOrString) {
   return listOrString[listOrString.length - 1]
 }
 
-function lastIndexOf(valueToFind, list) {
-  if (arguments.length === 1) {
-    return _list => _lastIndexOf(valueToFind, _list)
-  }
-
-  return _lastIndexOf(valueToFind, list)
+function lastIndexOf(valueToFind) {
+  return list => _lastIndexOf(valueToFind, list)
 }
 
 function map(fn) {
@@ -1055,14 +1009,12 @@ function map(fn) {
   }
 }
 
-function match(pattern, input) {
-  if (arguments.length === 1) {
-    return _input => match(pattern, _input)
-  }
-
-  const willReturn = input.match(pattern);
-
-  return willReturn === null ? [] : willReturn
+function match(pattern) {
+	return input => {
+		const willReturn = input.match(pattern);
+	
+		return willReturn === null ? [] : willReturn
+	}
 }
 
 function maxBy(compareFn, x) {
@@ -1305,12 +1257,22 @@ function propEq(valueToMatch, propToFind) {
   }
 }
 
+function propOr(defaultValue, property) {
+  return obj => {
+    if (!obj) {
+      return defaultValue
+    }
+
+    return defaultTo(defaultValue, obj[property])
+  }
+}
+
 function propSatisfies(predicate, property) {
   return obj => predicate(prop(property))
 }
 
 function reject(predicate) {
-  return list => filter(x => !predicate(x), list)
+  return list => filter(x => !predicate(x))
 }
 
 function repeat(timesToRepeat) {
@@ -1403,8 +1365,8 @@ function splitEvery(sliceLength) {
 
 function symmetricDifference(x) {
 	return y =>  concat(
-			filter(value => !includes(value)(y), x),
-			filter(value => !includes(value)(x), y),
+			filter(value => !includes(value)(y)),
+			filter(value => !includes(value)(x)),
 		)
 	
 }
@@ -1636,16 +1598,15 @@ exports.eqBy = eqBy;
 exports.eqProps = eqProps;
 exports.equals = equals;
 exports.evolve = evolve;
+exports.excludes = excludes;
 exports.filter = filter;
-exports.filterArray = filterArray;
+exports.filterObject = filterObject;
 exports.find = find;
 exports.findIndex = findIndex;
 exports.findLast = findLast;
 exports.findLastIndex = findLastIndex;
 exports.flatMap = flatMap;
 exports.flatten = flatten;
-exports.fromPairs = fromPairs;
-exports.getPropertyOrDefault = getPropertyOrDefault;
 exports.groupBy = groupBy;
 exports.head = head;
 exports.includes = includes;
@@ -1679,6 +1640,7 @@ exports.pluck = pluck;
 exports.prepend = prepend;
 exports.prop = prop;
 exports.propEq = propEq;
+exports.propOr = propOr;
 exports.propSatisfies = propSatisfies;
 exports.reduce = reduce;
 exports.reject = reject;

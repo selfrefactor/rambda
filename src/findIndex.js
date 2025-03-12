@@ -1,8 +1,5 @@
-export function findIndex(predicate, list) {
-  if (arguments.length === 1) {
-    return _list => findIndex(predicate, _list)
-  }
-
+export function findIndex(predicate) {
+	return list => {
   const len = list.length
   let index = -1
 
@@ -13,4 +10,5 @@ export function findIndex(predicate, list) {
   }
 
   return -1
+}
 }

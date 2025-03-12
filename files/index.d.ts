@@ -3932,6 +3932,27 @@ Notes:
 // @SINGLE_MARKER
 export function split(separator: string | RegExp): (str: string) => string[];
 
+/*
+Method: range
+
+Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
+
+Example:
+
+```
+R.range(0, 5)
+// => [0, 1, 2, 3, 4]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function range(startInclusive: number, endExclusive: number): number[];
+export function range(startInclusive: number): (endExclusive: number) => number[];
+
 // API_MARKER_END
 // ============================================
 

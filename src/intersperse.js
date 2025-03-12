@@ -1,8 +1,5 @@
-export function intersperse(separator, list) {
-  if (arguments.length === 1) {
-    return _list => intersperse(separator, _list)
-  }
-
+export function intersperse(separator) {
+	return list => {
   let index = -1
   const len = list.length
   const willReturn = []
@@ -16,4 +13,5 @@ export function intersperse(separator, list) {
   }
 
   return willReturn
+}
 }

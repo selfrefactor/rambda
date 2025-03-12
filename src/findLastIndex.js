@@ -1,8 +1,5 @@
-export function findLastIndex(fn, list) {
-  if (arguments.length === 1) {
-    return _list => findLastIndex(fn, _list)
-  }
-
+export function findLastIndex(fn) {
+	return list => {
   let index = list.length
 
   while (--index >= 0) {
@@ -12,4 +9,5 @@ export function findLastIndex(fn, list) {
   }
 
   return -1
+}
 }

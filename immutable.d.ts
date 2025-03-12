@@ -310,6 +310,14 @@ export function equals<T>(x: T): (y: T) => boolean;
 export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
 /**
+ * Opposite of `R.includes`
+ * 
+ * `R.equals` is used to determine equality.
+ */
+export function excludes<T extends string>(valueToFind: T): (input: string) => boolean;
+export function excludes<T>(valueToFind: T): (input: readonly T[]) => boolean;
+
+/**
  * It filters list or object `input` using a `predicate` function.
  */
 export function filter<T, S extends T>(
@@ -341,7 +349,6 @@ export function filterObject<T extends object>(
  * 
  * If there is no such element, it returns `undefined`.
  */
-export function find<T>(predicate: (x: T) => boolean, list: readonly T[]): T | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
@@ -349,7 +356,6 @@ export function find<T>(predicate: (x: T) => boolean): (list: readonly T[]) => T
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
 export function findIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /**
@@ -357,7 +363,6 @@ export function findIndex<T>(predicate: (x: T) => boolean): (list: readonly T[])
  * 
  * If there is no such element, then `undefined` is returned.
  */
-export function findLast<T>(fn: (x: T) => boolean, list: readonly T[]): T | undefined;
 export function findLast<T>(fn: (x: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
@@ -365,29 +370,17 @@ export function findLast<T>(fn: (x: T) => boolean): (list: readonly T[]) => T | 
  * 
  * If there is no such element, then `-1` is returned.
  */
-export function findLastIndex<T>(predicate: (x: T) => boolean, list: readonly T[]): number;
 export function findLastIndex<T>(predicate: (x: T) => boolean): (list: readonly T[]) => number;
 
 /**
- * It combines `map` with `flatten` logic.
+ * It maps `fn` over `list` and then flatten the result by one-level.
  */
-export function flatMap<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => readonly U[];
+export function flatMap<T, U extends unknown>(transformFn: (x: T extends readonly any[] ? T[number]: never) => U): (listOfLists: readonly T[]) => readonly U[];
 
 /**
  * It deeply flattens an array.
  */
 export function flatten<T>(list: readonly any[]): readonly T[];
-
-/**
- * It transforms a `listOfPairs` to an object.
- */
-export function fromPairs<V>(listOfPairs: readonly ((readonly [number, V]))[]): { readonly [index: number]: V };
-export function fromPairs<V>(listOfPairs: readonly ((readonly [string, V]))[]): { readonly [index: string]: V };
-
-/**
- * It returns either `defaultValue` or the value of `property` in `obj`.
- */
-export function getPropertyOrDefault<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
@@ -454,7 +447,6 @@ export function intersection<T>(listA: readonly T[]): (listB: readonly T[]) => r
 /**
  * It adds a `separator` between members of `list`.
  */
-export function intersperse<T>(separator: T, list: readonly T[]): readonly T[];
 export function intersperse<T>(separator: T): (list: readonly T[]) => readonly T[];
 
 export function isNotEmpty<T>(value: readonly T[]): value is NonEmptyArray<T>;
@@ -1398,6 +1390,8 @@ export function propEq<T>(val: T): {
 };
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
+
+export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
 
 /**
  * It returns `true` if the object property satisfies a given predicate.
