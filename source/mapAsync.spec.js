@@ -11,30 +11,15 @@ const rejectDelay = a =>
   })
 
 test('happy', async () => {
+	let indexes = []
   const fn = async (x, prop) => {
     await delay(100)
-    expect(typeof prop).toBe('number')
-
+		indexes.push(prop)
     return x + 1
   }
-  const result = await mapAsync(fn, [1, 2, 3])
+  const result = await mapAsync(fn)([1, 2, 3])
   expect(result).toEqual([2, 3, 4])
-})
-
-test('with object', async () => {
-  const fn = async (x, prop) => {
-    expect(typeof prop).toBe('string')
-
-    return x + 1
-  }
-  const result = await mapAsync(fn, {
-    a: 1,
-    b: 2,
-  })
-  expect(result).toEqual({
-    a: 2,
-    b: 3,
-  })
+	expect(indexes).toEqual([0, 1, 2])
 })
 
 test('with R.pipeAsync', async () => {

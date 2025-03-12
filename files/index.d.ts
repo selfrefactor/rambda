@@ -1059,9 +1059,9 @@ const result = [
 // => [ [2, 4], {a: 'a-1', b: 'b-2'}]
 ```
 
-Categories: List, Object
+Categories: List
 
-Notes: Unlike Ramda's `map`, here property and input object are passed as arguments to `fn`, when `iterable` is an object.
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -4063,6 +4063,45 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn18: (x: Awaited<S>) => T,
   fn19: (x: Awaited<T>) => U,
 ): U;
+
+/*
+Method: mapAsync
+
+Explanation: Sequential asynchronous mapping with `fn` over members of `list`.
+
+Example:
+
+```
+async function fn(x){
+  await R.delay(1000)
+
+  return x+1
+}
+
+const result = await R.mapAsync(fn, [1, 2, 3])
+// `result` resolves after 3 seconds to `[2, 3, 4]`
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
 
 // API_MARKER_END
 // ============================================

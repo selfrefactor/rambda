@@ -229,6 +229,9 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 ===
 ABOVE IS DONE
 ===
+npm version premajor --preid alpha
+npm version prerelease --preid beta
+
     npm version premajor changes 23.1.6 to 24.0.0-0
 
 From that point on, you can increase the prerelease version number using the command npm version prerelease.
