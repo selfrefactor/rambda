@@ -97,6 +97,7 @@ There are some exceptions and these methods can be called with `R.methodName(inp
 
 -- assoc, assocPath, dissoc, dissocPath
 -- divide, multiply, subtract
+-- add
 -- compose
 -- pickBy
 -- fromPairs
@@ -228,16 +229,31 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 ===
 ABOVE IS DONE
 ===
+    npm version premajor changes 23.1.6 to 24.0.0-0
+
+From that point on, you can increase the prerelease version number using the command npm version prerelease.
+
+    npm version prerelease changes 24.0.0-alpha.0 to 24.0.0-alpha.1
+    npm version prerelease changes 23.2.0-alpha.0 to 23.2.0-alpha.1
+
+Then, when you’re ready for the actual release, you use the regular npm version command:
+
+    npm version major changes 24.0.0-alpha.1 to 24.0.0
+		===
+
+initial part README.md is here
 ===
-new version of curry that works with custom function so it works with R.pipe
+Link to old version of README.md for benchmarking reference -
 ===
 ABOVE IS IN PROGRESS
+===
 ===
 ascend/descend 
 
 move glue to string-fn
 
-utils such as todecimal can be moved to Roza library
+
+utils such as todecimal, mapParallelAsync can be moved to Roza library
 
 https://github.com/toss/es-toolkit - another FP library
 

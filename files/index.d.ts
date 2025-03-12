@@ -3808,6 +3808,262 @@ Notes:
 export function range(startInclusive: number, endExclusive: number): number[];
 export function range(startInclusive: number): (endExclusive: number) => number[];
 
+/*
+Method: pipeAsync
+
+Explanation: It accepts input as first argument and series of functions as next arguments. It is same as `R.pipe` but with support for asynchronous functions.
+
+Example:
+
+```
+const result = await R.pipeAsync(
+  100,
+  async x => {
+    await R.delay(100)
+    return x + 2
+  },
+  R.add(2),
+  async x => {
+    const delayed = await R.delay(100)
+    return delayed + x
+  }
+)
+// `result` resolves to `RAMBDAX_DELAY104`
+```
+
+Categories: Async
+
+*/
+// @SINGLE_MARKER
+export function pipeAsync<A, B>(input: A, fn0: (x: Awaited<A>) => B) : B;
+export function pipeAsync<A, B, C>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C) : C;
+export function pipeAsync<A, B, C, D>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D) : D;
+export function pipeAsync<A, B, C, D, E>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E) : E;
+export function pipeAsync<A, B, C, D, E, F>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F) : F;
+export function pipeAsync<A, B, C, D, E, F, G>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G) : G;
+export function pipeAsync<A, B, C, D, E, F, G, H>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H) : H;
+export function pipeAsync<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H, fn7: (x: Awaited<H>) => I) : I;
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+) : J;
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+): K;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+): L;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+): M;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+): N;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+): O;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+): P;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+): Q;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+): R;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+): S;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+  fn18: (x: Awaited<S>) => T,
+): T;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+  fn18: (x: Awaited<S>) => T,
+  fn19: (x: Awaited<T>) => U,
+): U;
+
 // API_MARKER_END
 // ============================================
 
