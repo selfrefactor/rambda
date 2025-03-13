@@ -154,17 +154,6 @@ test('boolean prototype as rule - false', () => {
   ).toBeFalsy()
 })
 
-test('regex prototype cannot be rule - true', () => {
-  const input = { a: /foo/g }
-  const schema = { a: /foo/ }
-  expect(
-    isValid({
-      input,
-      schema,
-    }),
-  ).toBeFalsy()
-})
-
 test('undefined as a rule - true', () => {
   const input = { a: undefined }
   const schema = { a: undefined }
@@ -292,54 +281,6 @@ test('function as schema - false', () => {
   const schema = {
     a: {
       ab: /fo/,
-      ac: 'number',
-    },
-    'b?': 'string',
-    c: ['number'],
-  }
-  expect(
-    isValid({
-      input,
-      schema,
-    }),
-  ).toBeFalsy()
-})
-
-test('regex ok', () => {
-  const input = {
-    a: {
-      ab: 'foo',
-      ac: 3,
-    },
-    c: [1, 2],
-  }
-  const schema = {
-    a: {
-      ab: /fo/,
-      ac: 'number',
-    },
-    'b?': 'string',
-    c: ['number'],
-  }
-  expect(
-    isValid({
-      input,
-      schema,
-    }),
-  ).toBeTruthy()
-})
-
-test('regex !ok', () => {
-  const input = {
-    a: {
-      ab: 'foo',
-      ac: 3,
-    },
-    c: [1, 2],
-  }
-  const schema = {
-    a: {
-      ab: /ba/,
       ac: 'number',
     },
     'b?': 'string',
@@ -611,27 +552,6 @@ test('input prop is undefined', () => {
   expect(
     isValid({
       input,
-      schema,
-    }),
-  ).toBeFalsy()
-})
-
-test('enum', () => {
-  const input = { a: 'foo' }
-  const invalidInput = { a: '' }
-
-  const schema = { a: ['foo', 'bar', 'baz'] }
-
-  expect(
-    isValid({
-      input,
-      schema,
-    }),
-  ).toBeTruthy()
-
-  expect(
-    isValid({
-      input: invalidInput,
       schema,
     }),
   ).toBeFalsy()

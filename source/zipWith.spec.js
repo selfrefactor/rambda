@@ -1,4 +1,5 @@
 import { zipWith } from './zipWith.js'
+
 const add = (x, y) => x + y
 const list1 = [1, 2, 3]
 const list2 = [10, 20, 30, 40]

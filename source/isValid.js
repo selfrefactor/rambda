@@ -183,8 +183,6 @@ export function isValid({ input, schema }) {
           )(inputProp)
           boom(!isInvalidResult)
         }
-      } else if (ruleType === 'RegExp' && inputPropType === 'String') {
-        boom(test(rule, inputProp))
       } else {
         boom(false)
       }

@@ -26,9 +26,3 @@ test('list of arrays uses R.equals', () => {
   expect(lastIndexOf([2, 3, 4])(listOfLists)).toBe(2)
   expect(lastIndexOf([2, 3, 5])(listOfLists)).toBe(-1)
 })
-
-test('with string as iterable', () => {
-  expect(() => lastIndexOf('a', 'abc')).toThrowError(
-    "Cannot read property 'indexOf' of abc",
-  )
-})

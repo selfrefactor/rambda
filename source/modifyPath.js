@@ -3,7 +3,6 @@ import { path as pathModule } from './path.js'
 
 function assoc(prop, newValue) {
   return obj => Object.assign({}, obj, { [prop]: newValue })
-}
 
 export function modifyPath(pathInput, fn) {
   return object => {

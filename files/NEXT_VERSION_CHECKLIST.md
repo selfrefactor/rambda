@@ -90,10 +90,12 @@ This is major revamp of `Rambda` library:
 
 - Remove following methods:
 
+-- Lenses - `R.lens`, `R.lensProp`, `R.lensPath`, `R.view`, `R.set`, `R.over`
 -- assoc, assocPath, dissoc, dissocPath
 -- divide, multiply, subtract
 -- add
 -- compose
+-- difference, differenceWith
 -- pickBy
 -- fromPairs
 -- pickAll

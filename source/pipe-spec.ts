@@ -1,16 +1,10 @@
 import {
-  path,
   type MergeTypes,
   add,
   allPass,
-  anyPass,
   append,
-  assoc,
-  assocPath,
-  both,
   defaultTo,
   difference,
-  dissocPath,
   drop,
   dropLast,
   evolve,
@@ -178,9 +172,7 @@ describe('real use cases - books', () => {
     const getResult = (book: BaseBook) =>
       pipe(
         book,
-        assocPath<Book>('awards.number', 1),
         defaultTo(awardedBaseValue),
-        tap(anyPass([x => x.awards.number > 1, x => x.year > 1900])),
         assertType(checkBookToRead),
         x => [x],
         dropLast(1),

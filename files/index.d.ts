@@ -48,11 +48,6 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
     : never;
 
 
-export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
-type OptionalToRequired<T> = {
-	[P in keyof T]-?: T[P]
-}
-
 export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		? [Head, ...PickStringToPickPath<Tail>]
 	: T extends `${infer Head}` ? [Head]
 	: [];
@@ -429,31 +424,6 @@ export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
 export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
 
 /*
-Method: difference
-
-Explanation: It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
-
-`R.equals` is used to determine equality.
-
-Example:
-
-```
-const a = [ 1, 2, 3, 4 ]
-const b = [ 3, 4, 5, 6 ]
-
-const result = R.difference(a, b)
-// => [ 1, 2 ]
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never;
-
-/*
 Method: drop
 
 Explanation: It returns `howMany` items dropped from beginning of list or string `input`.
@@ -821,7 +791,7 @@ Example:
 
 ```
 const result = [
-  R.includes('oo', 'foo'),
+  R.includes('oo')('foo'),
   R.includes({a: 1})([{a: 1}])
 ]
 // => [true, true ]
@@ -3409,41 +3379,6 @@ export function modify<K extends string, A, P>(
   prop: K,
   fn: (a: A) => P,
 ): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
-
-/*
-Method: differenceWith
-
-Explanation:
-
-Example:
-
-```
-const result = R.differenceWith(
-  (a, b) => a.x === b.x,
-  [{x: 1}, {x: 2}],
-  [{x: 1}, {x: 3}]
-)
-// => [{x: 2}]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-  list2: T2[],
-): T1[];
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-): (list1: T1[], list2: T2[]) => T1[];
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
 
 /*
 Method: dropRepeatsBy

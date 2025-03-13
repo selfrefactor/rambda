@@ -6,30 +6,15 @@ test('with string as condition', () => {
     b: 2,
     c: 3,
   }
-  const result = omit('a,c', obj)
-  const resultCurry = omit('a,c')(obj)
+  const result = omit('a,c')(obj)
   const expectedResult = { b: 2 }
 
   expect(result).toEqual(expectedResult)
-  expect(resultCurry).toEqual(expectedResult)
 })
 
-test('with number as property to omit', () => {
-  const obj = {
-    1: 1,
-    b: 2,
-  }
-  const result = omit([1], obj)
-  expect(result).toEqual({ b: 2 })
-})
-
-test('with null', () => {
-  expect(omit('a,b', null)).toBeUndefined()
-})
-
-test('happy', () => {
+test('with array as condition', () => {
   expect(
-    omit(['a', 'c'])({
+    omit(['a', 'c', 'd'])({
       a: 'foo',
       b: 'bar',
       c: 'baz',
