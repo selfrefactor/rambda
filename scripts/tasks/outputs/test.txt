@@ -1,12 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ❯ source/mapcat.spec.js (1 test | 1 failed) 8ms
-   × happy 7ms
-     → x.toUpperCase is not a function
+ ✓ source/mapObjectAsync.spec.js (1 test) 204ms
 
- Test Files  1 failed (1)
-      Tests  1 failed (1)
-   Start at  22:25:40
-   Duration  462ms (transform 40ms, setup 0ms, collect 17ms, tests 8ms, environment 0ms, prepare 99ms)
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  07:30:39
+   Duration  709ms (transform 50ms, setup 0ms, collect 27ms, tests 204ms, environment 0ms, prepare 126ms)
 

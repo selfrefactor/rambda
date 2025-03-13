@@ -1,4 +1,3 @@
-import { add } from './add.js'
 import { delay } from './delay.js'
 import { pipeAsync } from './pipeAsync.js'
 
@@ -14,7 +13,6 @@ const fn2 = async x => {
 }
 
 test('happy', async () => {
-  const result = await pipeAsync(1, fn1, add(2), fn2)
-
+  const result = await pipeAsync(1, fn1, x => x + 2, fn2)
   expect(result).toBe(8)
 })

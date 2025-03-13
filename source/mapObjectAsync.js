@@ -1,11 +1,10 @@
-export function mapAsync(fn) {
-	return async list => {
-		const willReturn = []
-    let i = 0
-    for (const a of list) {
-      willReturn.push(await fn(a, i++))
-    }
-
-    return willReturn
+export function mapObjectAsync(fn) {
+	return async obj => {
+		const willReturn = {}
+		for (const prop in obj){
+			willReturn[ prop ] = await fn(obj[ prop ], prop)
+		}
+	
+		return willReturn
 	}
 }
