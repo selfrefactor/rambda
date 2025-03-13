@@ -5,17 +5,6 @@ interface Input {
 }
 
 describe('R.sortBy', () => {
-  it('passing type to sort function', () => {
-    function fn(x: any): number {
-      return x.a
-    }
-
-    const input = [{ a: 2 }, { a: 1 }, { a: 0 }]
-    const result = sortBy(fn, input)
-
-    result // $ExpectType { a: number; }[]
-    result[0].a // $ExpectType number
-  })
   it('passing type to sort function and list', () => {
     function fn(x: Input): number {
       return x.a

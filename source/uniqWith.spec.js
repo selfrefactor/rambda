@@ -1,5 +1,3 @@
-import { uniqWith as uniqWithRamda } from 'ramda'
-
 import { uniqWith } from './uniqWith.js'
 
 const list = [{ a: 1 }, { a: 1 }]
@@ -7,7 +5,7 @@ const list = [{ a: 1 }, { a: 1 }]
 test('happy', () => {
   const fn = (x, y) => x.a === y.a
 
-  const result = uniqWith(fn, list)
+  const result = uniqWith(fn)(list)
   expect(result).toEqual([{ a: 1 }])
 })
 
@@ -15,9 +13,7 @@ test('with list of strings', () => {
   const fn = (x, y) => x.length === y.length
   const list = ['0', '11', '222', '33', '4', '55']
   const result = uniqWith(fn)(list)
-  const resultRamda = uniqWithRamda(fn, list)
   expect(result).toEqual(['0', '11', '222'])
-  expect(resultRamda).toEqual(['0', '11', '222'])
 })
 
 test('should return items that are not equal to themselves', () => {
@@ -40,7 +36,7 @@ test('should return items that are not equal to themselves', () => {
       return false
     }
     return errorA.id === errorB.id
-  }, data)
+  })( data)
 
   expect(result).toEqual(expectedResult)
 })

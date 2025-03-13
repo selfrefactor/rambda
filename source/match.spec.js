@@ -1,4 +1,4 @@
-import { equals } from './equals.js'
+import { equalsFn } from './equals.js'
 import { match } from './match.js'
 
 test('happy', () => {
@@ -11,7 +11,7 @@ test('fallback', () => {
 
 test('with string', () => {
   expect(match('a')('foo')).toEqual([])
-  expect(equals(match('o', 'foo'), ['o'])).toBeTruthy()
+  expect(equalsFn(match('o', 'foo'), ['o'])).toBeTruthy()
 })
 
 test('throwing', () => {

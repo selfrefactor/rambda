@@ -11,7 +11,7 @@ test('happy', () => {
     foo: 2,
     nested: { bar: { z: 3 } },
   }
-  const result = evolve(rules, input)
+  const result = evolve(rules)(input)
   expect(result).toEqual({
     a: 1,
     foo: 3,
@@ -58,7 +58,7 @@ test('is recursive', () => {
       third: 4,
     },
   }
-  const result = evolve(rules, object)
+  const result = evolve(rules)(object)
   expect(result).toEqual(expected)
 })
 
@@ -75,6 +75,6 @@ test('ignores primitive values', () => {
     n: 0,
     m: 1,
   }
-  const result = evolve(rules, object)
+  const result = evolve(rules)(object)
   expect(result).toEqual(expected)
 })

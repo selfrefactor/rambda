@@ -2508,7 +2508,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
 export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 
@@ -3805,7 +3804,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(startInclusive: number, endExclusive: number): number[];
 export function range(startInclusive: number): (endExclusive: number) => number[];
 
 /*

@@ -18,7 +18,6 @@ test('when true', () => {
 test('when false | early exit', () => {
   let counter = 0
   const equalsFn = expected => input => {
-    console.log(expected, 'expected')
     counter++
 
     return input === expected

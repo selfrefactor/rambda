@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/mapObjectAsync.spec.js (1 test) 204ms
+ ✓ source/evolve.spec.js (4 tests) 8ms
 
  Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  07:30:39
-   Duration  709ms (transform 50ms, setup 0ms, collect 27ms, tests 204ms, environment 0ms, prepare 126ms)
+      Tests  4 passed (4)
+   Start at  21:32:13
+   Duration  922ms (transform 266ms, setup 0ms, collect 476ms, tests 8ms, environment 0ms, prepare 132ms)
 

@@ -1,4 +1,4 @@
-import { equals } from './equals.js'
+import { equalsFn } from './equals.js'
 import { prop } from './prop.js'
 
 export function propEq(valueToMatch, propToFind) {
@@ -7,6 +7,6 @@ export function propEq(valueToMatch, propToFind) {
       return false
     }
 
-    return equals(valueToMatch, prop(propToFind, obj))
+    return equalsFn(valueToMatch, prop(propToFind, obj))
   }
 }
