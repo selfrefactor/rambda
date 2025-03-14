@@ -9,5 +9,5 @@ test('with array', () => {
 test('with non-positive count', () => {
   expect(dropLast(0)([1, 2, 3])).toEqual([1, 2, 3])
   expect(dropLast(-1)( [1, 2, 3])).toEqual([1, 2, 3])
-  expect(dropLast(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
 })

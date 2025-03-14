@@ -1,5 +1,6 @@
-import { add } from '../rambda.js'
 import { evolve } from './evolve.js'
+
+let add = x => y => x + y
 
 test('happy', () => {
   const rules = {

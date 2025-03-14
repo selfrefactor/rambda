@@ -1,4 +1,3 @@
-import { add } from './add.js'
 import { filter } from './filter.js'
 import { map } from './map.js'
 import { pipe } from './pipe.js'
@@ -8,7 +7,7 @@ test('happy', () => {
     [1, 2, 3],
     filter(x => x > 1),
     map(x => x * 10),
-    map(add(1)),
+    map(x=> x + 1),
   )
   const expectedResult = [21, 31]
 
