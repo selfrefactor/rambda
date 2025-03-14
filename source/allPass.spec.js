@@ -1,4 +1,6 @@
-import * as R from '../rambda.js'
+import { pipe } from './pipe.js'
+import { filter } from './filter.js'
+import { includes } from './includes.js'
 import { allPass } from './allPass.js'
 
 const list = [
@@ -6,11 +8,11 @@ const list = [
   [3, 4, 5],
 ]
 test('happy', () => {
-  const result = R.pipe(list, R.filter(R.allPass([R.includes(2), R.includes(3)])))
+  const result = pipe(list, filter(allPass([includes(2), includes(3)])))
   expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const result = R.pipe(list, R.filter(R.allPass([R.includes(12), R.includes(31)])))
+  const result = pipe(list, filter(allPass([includes(12), includes(31)])))
   expect(result).toEqual([])
 })

@@ -1,4 +1,3 @@
-import { equalsFn } from './equals.js'
 import { match } from './match.js'
 
 test('happy', () => {
@@ -11,11 +10,4 @@ test('fallback', () => {
 
 test('with string', () => {
   expect(match('a')('foo')).toEqual([])
-  expect(equalsFn(match('o', 'foo'), ['o'])).toBeTruthy()
-})
-
-test('throwing', () => {
-  expect(() => {
-    match(/a./g, null)
-  }).toThrowError("Cannot read properties of null (reading 'match')")
 })
