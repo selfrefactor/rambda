@@ -1,7 +1,5 @@
-export function countBy(fn, list) {
-  if (arguments.length === 1) {
-    return _list => countBy(fn, _list)
-  }
+export function countBy(fn) {
+	return list => {
   const willReturn = {}
 
   list.forEach(item => {
@@ -14,4 +12,5 @@ export function countBy(fn, list) {
   })
 
   return willReturn
+}
 }

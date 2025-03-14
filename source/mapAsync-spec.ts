@@ -17,5 +17,5 @@ it('R.mapAsync', async () => {
 			return x + 1
 		})
 	)
-	result // $ExpectType number[]	
+	result // $ExpectType number[]
 })

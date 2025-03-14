@@ -3283,7 +3283,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
+export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
 
 /*
 Method: unwind
