@@ -195,7 +195,7 @@ export function count<T>(predicate: (x: T) => boolean): (list: readonly T[]) => 
 /**
  * It counts elements in a list after each instance of the input list is passed through `transformFn` function.
  */
-export function countBy<T>(fn: (a: T) => string | number, list: readonly T[]): { readonly [index: string]: number };
+export function countBy<T>(fn: (a: T) => string | number): (list: readonly T[]) => { readonly [index: string]: number };
 
 /**
  * It decrements a number.
@@ -867,181 +867,6 @@ export function path<
     K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
 >(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
 
-export function pathSatisfies<S, K0 extends keyof S>(
-	predicate: (x: S[K0]) => boolean,
-	path: readonly [K0]
-): (obj: S) => S[K0];
-export function pathSatisfies<S, K0 extends keyof S>(
-	predicate: (x: S[K0]) => boolean,
-	path: `${ K0 }`
-): (obj: S) => S[K0];
-export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0]>(
-	predicate: (x: S[K0][K1]) => boolean,
-	path: readonly [K0, K1]
-): (obj: S) => S[K0][K1];
-export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0]>(
-	predicate: (x: S[K0][K1]) => boolean,
-	path: `${ K0 }.${ K1 }`
-): (obj: S) => S[K0][K1];
-export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0], K2 extends keyof S[K0][K1]>(
-  predicate: (x: S[K0][K1][K2]) => boolean,
-  path: readonly [K0, K1, K2]
-): (obj: S) => S[K0][K1][K2];
-export function pathSatisfies<S, K0 extends keyof S, K1 extends keyof S[K0], K2 extends keyof S[K0][K1]>(
-  predicate: (x: S[K0][K1][K2]) => boolean,
-  path: `${K0}.${K1}.${K2}`
-): (obj: S) => S[K0][K1][K2];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2]
->(
-  predicate: (x: S[K0][K1][K2][K3]) => boolean,
-  path: readonly [K0, K1, K2, K3]
-): (obj: S) => S[K0][K1][K2][K3];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2]
->(
-  predicate: (x: S[K0][K1][K2][K3]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}`
-): (obj: S) => S[K0][K1][K2][K3];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
-  path: readonly [K0, K1, K2, K3, K4]
-): (obj: S) => S[K0][K1][K2][K3][K4];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
-): (obj: S) => S[K0][K1][K2][K3][K4];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
-  path: readonly [K0, K1, K2, K3, K4, K5]
-): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
-): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
-  path: readonly [K0, K1, K2, K3, K4, K5, K6]
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
-  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7]
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
-  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7, K8]
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
-export function pathSatisfies<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(
-  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
-): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
-
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.
  * 
@@ -1635,8 +1460,6 @@ export function rejectObject<T extends object>(
   ) => boolean,
 ): <U extends T>(data: T) => U;
 
-export function repeat<T>(x: T): (timesToRepeat: number) => readonly T[];
-
 /**
  * It replaces `strOrRegex` found in `str` with `replacer`.
  */
@@ -1810,4 +1633,7 @@ export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U
  */
 export function zip<K>(x: readonly K[]): <V>(y: readonly V[]) => readonly KeyValuePair<K, V>[];
 
-export function zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: readonly T[]): (list2: readonly U[]) => readonly TResult[];
+export function zipWith<T, U, TResult>(
+  fn: (x: T, y: U) => TResult,
+  list1: readonly T[],
+): (list2: readonly U[]) => readonly TResult[];

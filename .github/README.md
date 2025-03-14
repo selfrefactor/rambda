@@ -438,28 +438,18 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { any } from 'rambda'
+import { any, pipe } from 'rambda'
 
-describe('R.any', () => {
-  it('happy', () => {
-    const result = any(
-      x => {
-        x // $ExpectType number
-        return x > 2
-      },
-      [1, 2, 3],
-    )
-    result // $ExpectType boolean
-  })
-
-  it('when curried needs a type', () => {
-    const result = any<number>(x => {
-      x // $ExpectType number
-      return x > 2
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
-})
+it('R.any', () => {
+	let result= pipe(
+		[1, 2, 3],
+		any(x => {
+			x // $ExpectType number
+			return x > 2
+		})
+	)
+	result // $ExpectType boolean
+	})
 ```
 
 </details>
@@ -931,7 +921,7 @@ const result = R.count(x => x.a !== undefined, list)
 
 ```typescript
 
-countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number }
+countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number }
 ```
 
 It counts elements in a list after each instance of the input list is passed through `transformFn` function.
@@ -951,7 +941,7 @@ const expected = { a: 2, b: 2, c: 2 }
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
+countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
 ```
 
 </details>
@@ -961,10 +951,8 @@ countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number 
 <summary><strong>R.countBy</strong> source</summary>
 
 ```javascript
-export function countBy(fn, list) {
-  if (arguments.length === 1) {
-    return _list => countBy(fn, _list)
-  }
+export function countBy(fn) {
+	return list => {
   const willReturn = {}
 
   list.forEach(item => {
@@ -977,6 +965,7 @@ export function countBy(fn, list) {
   })
 
   return willReturn
+}
 }
 ```
 
@@ -992,7 +981,7 @@ import { countBy } from './countBy.js'
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
 test('happy', () => {
-  const result = countBy(x => x.toLowerCase(), list)
+  const result = countBy(x => x.toLowerCase())(list)
   expect(result).toEqual({
     a: 2,
     b: 2,
@@ -1008,22 +997,18 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { countBy } from 'rambda'
+import { countBy, pipe } from 'rambda'
 
-const transformFn = (x: string) => x.toLowerCase()
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
-describe('R.countBy', () => {
-  it('happy', () => {
-    const result = countBy(transformFn, list)
-
-    result // $ExpectType { [index: string]: number; }
-  })
-  it('curried', () => {
-    const result = countBy(transformFn)(list)
-
-    result // $ExpectType { [index: string]: number; }
-  })
+it('R.countBy', () => {
+	let result = pipe(
+		list,
+		countBy((x) => x.toLowerCase())
+	)
+	result.a // $ExpectType number
+	result.foo // $ExpectType number
+	result // $ExpectType { [index: string]: number; }
 })
 ```
 
@@ -1300,14 +1285,14 @@ import { dropLast } from './dropLast.js'
 
 test('with array', () => {
   expect(dropLast(2)(['foo', 'bar', 'baz'])).toEqual(['foo'])
-  expect(dropLast(3, ['foo', 'bar', 'baz'])).toEqual([])
-  expect(dropLast(4, ['foo', 'bar', 'baz'])).toEqual([])
+  expect(dropLast(3)( ['foo', 'bar', 'baz'])).toEqual([])
+  expect(dropLast(4)(['foo', 'bar', 'baz'])).toEqual([])
 })
 
 test('with non-positive count', () => {
-  expect(dropLast(0, [1, 2, 3])).toEqual([1, 2, 3])
-  expect(dropLast(-1, [1, 2, 3])).toEqual([1, 2, 3])
-  expect(dropLast(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(0)([1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(-1)( [1, 2, 3])).toEqual([1, 2, 3])
+  expect(dropLast(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
 })
 ```
 
@@ -1960,8 +1945,9 @@ export function evolve(rules) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { add } from '../rambda.js'
 import { evolve } from './evolve.js'
+
+let add = x => y => x + y
 
 test('happy', () => {
   const rules = {
@@ -2179,13 +2165,6 @@ test('happy', () => {
   const isEven = n => n % 2 === 0
 
   expect(filter(isEven)([1, 2, 3, 4])).toEqual([2, 4])
-  expect(
-    filter(isEven)({
-      a: 1,
-      b: 2,
-      d: 3,
-    }),
-  ).toEqual({ b: 2 })
 })
 ```
 
@@ -3947,7 +3926,7 @@ it('R.mapAsync', async () => {
 			return x + 1
 		})
 	)
-	result // $ExpectType number[]	
+	result // $ExpectType number[]
 })
 ```
 
@@ -4054,32 +4033,32 @@ describe('R.mapObject', () => {
       }),
     )
 
-    result // $ExpectType {a: string;}
+    result // $ExpectType { a: string; }
   })
   it('iterable with two three arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {
         a // $ExpectType string | number
-        b // $ExpectType 'a' | 'b'
+        b // $ExpectType "a" | "b"
         return `${a}`
       }),
     )
 
-    result // $ExpectType {a: string; b: string;}
+    result // $ExpectType { a: string; b: string; }
   })
   it('iterable with three arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b, c) => {
         a // $ExpectType string | number
-        b // $ExpectType 'a' | 'b'
-        c // $ExpectType {a: number; b: string;}
+				b // $ExpectType "a" | "b"
+        c // $ExpectType { a: number; b: string; }
         return `${a}`
       }),
     )
 
-    result // $ExpectType {a: string; b: string;}
+    result // $ExpectType { a: string; b: string; }
   })
 })
 ```
@@ -4192,8 +4171,8 @@ it('R.mapObjectAsync', async () => {
 			return x + 1
 		})
 	)
-	result.a // $ExpectType number	
-	result.b // $ExpectType number	
+	result.a // $ExpectType number
+	result.b // $ExpectType number
 })
 ```
 
@@ -4591,11 +4570,11 @@ import { none } from './none.js'
 const isEven = n => n % 2 === 0
 
 test('when true', () => {
-  expect(none(isEven, [1, 3, 5, 7])).toBeTruthy()
+  expect(none(isEven)([1, 3, 5, 7])).toBeTruthy()
 })
 
-test('when false curried', () => {
-  expect(none(input => input > 1, [1, 2, 3])).toBeFalsy()
+test('when false', () => {
+  expect(none(input => input > 1)([1, 2, 3])).toBeFalsy()
 })
 ```
 
@@ -5322,7 +5301,7 @@ describe('R.path with string as path', () => {
   it('happy', () => {
     const result = pipe(input, path(['a', 'b']))
     const resultStringInput = pipe(input, path('a.b.c'))
-    result // $ExpectType boolean
+    result.c // $ExpectType boolean
     resultStringInput // $ExpectType boolean
   })
   it('happy', () => {
@@ -5335,21 +5314,6 @@ describe('R.path with string as path', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#path)
-
-### pathSatisfies
-
-```javascript
-const result = R.pathSatisfies(
-  x => x > 0,
-  ['a', 'b', 'c'],
-  {a: {b: {c: 1}}}
-)
-// => true
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pathSatisfies(%0A%20%20x%20%3D%3E%20x%20%3E%200%2C%0A%20%20%5B'a'%2C%20'b'%2C%20'c'%5D%2C%0A%20%20%7Ba%3A%20%7Bb%3A%20%7Bc%3A%201%7D%7D%7D%0A)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.pathSatisfies</strong> example in Rambda REPL</a>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#pathSatisfies)
 
 ### pick
 
@@ -5589,17 +5553,15 @@ pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
 <summary><strong>R.pluck</strong> source</summary>
 
 ```javascript
-import { map } from './map.js'
-
 export function pluck(property) {
 	return list => {
   const willReturn = []
 
-  map(x => {
+  list.forEach(x => {
     if (x[property] !== undefined) {
       willReturn.push(x[property])
     }
-  }, list)
+  })
 
   return willReturn
 }
@@ -5621,15 +5583,6 @@ test('happy', () => {
 
 test('with undefined', () => {
   expect(pluck(undefined)([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([])
-})
-
-test('with number', () => {
-  const input = [
-    [1, 2],
-    [3, 4],
-  ]
-
-  expect(pluck(0)(input)).toEqual([1, 3])
 })
 ```
 
@@ -5775,7 +5728,7 @@ describe('R.prop', () => {
   it('alike R.pluck', () => {
     const result = pipe([{ a: 1 }, { a: 2 }], map(prop('a')))
 
-    result // $ExpectType boolean
+    result // $ExpectType number[]
   })
 })
 ```
@@ -5831,7 +5784,6 @@ propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 ```javascript
 import { equalsFn } from './equals.js'
-import { prop } from './prop.js'
 
 export function propEq(valueToMatch, propToFind) {
   return obj => {
@@ -5839,7 +5791,7 @@ export function propEq(valueToMatch, propToFind) {
       return false
     }
 
-    return equalsFn(valueToMatch, prop(propToFind, obj))
+    return equalsFn(valueToMatch, obj[propToFind])
   }
 }
 ```
@@ -5851,20 +5803,21 @@ export function propEq(valueToMatch, propToFind) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { BAR, FOO } from './_internals/testUtils.js'
 import { propEq } from './propEq.js'
+
+const FOO = 'foo'
+const BAR = 'bar'
 
 test('happy', () => {
   const obj = { [FOO]: BAR }
   expect(propEq(BAR, FOO)(obj)).toBeTruthy()
   expect(propEq(1, FOO)(obj)).toBeFalsy()
-  expect(propEq(1)(FOO)(obj)).toBeFalsy()
-  expect(propEq(1, 1, null)).toBeFalsy()
+  expect(propEq(1, 1)(null)).toBeFalsy()
 })
 
 test('returns false if called with a null or undefined object', () => {
-  expect(propEq('name', 'Abby', null)).toBeFalsy()
-  expect(propEq('name', 'Abby', undefined)).toBeFalsy()
+  expect(propEq('name', 'Abby')(null)).toBeFalsy()
+  expect(propEq('name', 'Abby')(undefined)).toBeFalsy()
 })
 ```
 
@@ -6051,12 +6004,6 @@ test('end range is bigger than start range', () => {
   expect(range(7)(3)).toEqual([])
   expect(range(5)(5)).toEqual([])
 })
-
-test('with bad input', () => {
-  const throwMessage = 'Both arguments to range must be numbers'
-  expect(() => range('a')(6)).toThrowWithMessage(Error, throwMessage)
-  expect(() => range(6)('z')).toThrowWithMessage(Error, throwMessage)
-})
 ```
 
 </details>
@@ -6204,84 +6151,6 @@ rejectObject<T extends object>(
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#rejectObject)
 
-### repeat
-
-```typescript
-
-repeat<T>(x: T): (timesToRepeat: number) => T[]
-```
-
-```javascript
-R.repeat('foo', 3)
-// => ['foo', 'foo', 'foo']
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.repeat('foo'%2C%203)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'foo'%2C%20'foo'%5D">Try this <strong>R.repeat</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-repeat<T>(x: T): (timesToRepeat: number) => T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.repeat</strong> source</summary>
-
-```javascript
-export function repeat(timesToRepeat) {
-  return x => Array(timesToRepeat).fill(x)
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { repeat } from './repeat.js'
-
-test('repeat', () => {
-  expect(repeat('')(3)).toEqual(['', '', ''])
-  expect(repeat('foo', 3)).toEqual(['foo', 'foo', 'foo'])
-
-  const obj = {}
-  const arr = repeat(obj, 3)
-
-  expect(arr).toEqual([{}, {}, {}])
-
-  expect(arr[0] === arr[1]).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { repeat } from 'rambda'
-
-describe('R.repeat', () => {
-  it('happy', () => {
-		const result = repeat(4)(7)
-
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#repeat)
-
 ### replace
 
 ```typescript
@@ -6331,23 +6200,8 @@ export function replace(pattern, replacer) {
 import { replace } from './replace.js'
 
 test('happy', () => {
-  expect(replace(/\s/g, '|', 'foo bar baz')).toBe('foo|bar|baz')
-})
-
-test('with function as replacer input', () => {
-  expect(
-    replace(
-      /\s/g,
-      (match, offset, str) => {
-        expect(match).toBe(' ')
-        expect([3, 7].includes(offset)).toBeTruthy()
-        expect(str).toBe('foo bar baz')
-
-        return '|'
-      },
-      'foo bar baz',
-    ),
-  ).toBe('foo|bar|baz')
+  expect(replace(/\s/g, '|')('foo bar baz')).toBe('foo|bar|baz')
+  expect(replace('a', '|')('foo bar baz')).toBe('foo b|r baz')
 })
 ```
 
@@ -6438,24 +6292,25 @@ export function replaceItemAtIndex(index, replaceFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { add } from './add.js'
 import { replaceItemAtIndex } from './replaceItemAtIndex.js'
+
+let add10 = x => x + 10
 
 const list = [0, 1, 2]
 const expected = [0, 11, 2]
 
 test('happy', () => {
-  expect(replaceItemAtIndex(1, add(10))(list)).toEqual(expected)
+  expect(replaceItemAtIndex(1, add10)(list)).toEqual(expected)
 })
 
 test('with negative index', () => {
-  expect(replaceItemAtIndex(-2, add(10))(list)).toEqual(expected)
+  expect(replaceItemAtIndex(-2, add10)(list)).toEqual(expected)
 })
 
 test('when index is out of bounds', () => {
   const list = [0, 1, 2, 3]
-  expect(replaceItemAtIndex(4, add(1))(list)).toEqual(list)
-  expect(replaceItemAtIndex(-5, add(1))(list)).toEqual(list)
+  expect(replaceItemAtIndex(4, add10)(list)).toEqual(list)
+  expect(replaceItemAtIndex(-5, add10)(list)).toEqual(list)
 })
 ```
 
@@ -6534,11 +6389,8 @@ test('sort', () => {
 test("it doesn't mutate", () => {
   const list = ['foo', 'bar', 'baz']
 
-  expect(sort(fn, list)).toEqual(['bar', 'baz', 'foo'])
-
-  expect(list[0]).toBe('foo')
-  expect(list[1]).toBe('bar')
-  expect(list[2]).toBe('baz')
+  expect(sort(fn)(list)).toEqual(['bar', 'baz', 'foo'])
+	expect(list).toEqual(['foo', 'bar', 'baz'])
 })
 ```
 
@@ -8054,14 +7906,11 @@ export function unless(predicate, whenFalseFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { inc } from './inc.js'
-import { isNil } from './isNil.js'
 import { unless } from './unless.js'
 
 test('happy', () => {
-  const safeInc = unless(isNil, inc)
-  expect(safeInc(null)).toBeNull()
-  expect(safeInc(1)).toBe(2)
+	expect(unless(x => x > 10, x => x + 1)(20)).toEqual(20)
+	expect(unless(x => x > 10, x => x + 1)(5)).toEqual(6)
 })
 ```
 
@@ -8296,14 +8145,13 @@ export function when(predicate, whenTrueFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { add } from './add.js'
 import { when } from './when.js'
 
 const predicate = x => typeof x === 'number'
 
 test('happy', () => {
-  const fn = when(predicate, add(11))
-  expect(fn(11)).toBe(22)
+  const fn = when(predicate, x => x + 1)
+  expect(fn(11)).toBe(12)
   expect(fn('foo')).toBe('foo')
 })
 ```
@@ -8457,7 +8305,10 @@ describe('R.zip', () => {
 
 ```typescript
 
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[]
+zipWith<T, U, TResult>(
+  fn: (x: T, y: U) => TResult,
+  list1: readonly T[],
+): (list2: readonly U[]) => TResult[]
 ```
 
 ```javascript
@@ -8475,7 +8326,10 @@ const result = R.zipWith(R.add, list1)(list2)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+zipWith<T, U, TResult>(
+  fn: (x: T, y: U) => TResult,
+  list1: readonly T[],
+): (list2: readonly U[]) => TResult[];
 ```
 
 </details>
@@ -8527,19 +8381,22 @@ test('when second list is longer', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { zipWith } from 'rambda'
+import { pipe, zipWith } from 'rambda'
 
 const list1 = [1, 2]
 const list2 = [10, 20, 30]
 
 describe('R.zipWith', () => {
   it('happy', () => {
-    const result = zipWith((x, y) => {
-      x // $ExpectType number
-      y // $ExpectType number
-      return `${x}-${y}`
-    }, list1)(list2)
-
+    const result = pipe(
+			list2,
+			zipWith((x, y) => {
+				x // $ExpectType number
+				y // $ExpectType number
+				return `${x}-${y}`
+			}, list1)
+		)
+		
     result // $ExpectType string[]
   })
 })

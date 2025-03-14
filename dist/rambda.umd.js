@@ -4,10 +4,6 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.R = {}));
 })(this, (function (exports) { 'use strict';
 
-  function add(a) {
-    return b => Number(a) + Number(b)
-  }
-
   function all(predicate) {
     return list => {
       for (let i = 0; i < list.length; i++) {
@@ -110,10 +106,8 @@
   }
   }
 
-  function countBy(fn, list) {
-    if (arguments.length === 1) {
-      return _list => countBy(fn, _list)
-    }
+  function countBy(fn) {
+  	return list => {
     const willReturn = {};
 
     list.forEach(item => {
@@ -127,6 +121,7 @@
 
     return willReturn
   }
+  }
 
   function isFalsy(input) {
     return input === undefined || input === null || Number.isNaN(input) === true
@@ -138,323 +133,6 @@
     }
 
     return isFalsy(input) ? defaultArgument : input
-  }
-
-  function type(input) {
-    if (input === null) {
-      return 'Null'
-    }
-    if (input === undefined) {
-      return 'Undefined'
-    }
-    if (Number.isNaN(input)) {
-      return 'NaN'
-    }
-    const typeResult = Object.prototype.toString.call(input).slice(8, -1);
-
-    return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
-  }
-
-  function _lastIndexOf(valueToFind, list) {
-    if (!isArray(list)) {
-      throw new Error(`Cannot read property 'indexOf' of ${list}`)
-    }
-
-    const typeOfValue = type(valueToFind);
-    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-      return list.lastIndexOf(valueToFind)
-    }
-
-    const { length } = list;
-    let index = length;
-    let foundIndex = -1;
-
-    while (--index > -1 && foundIndex === -1) {
-      if (equals(list[index], valueToFind)) {
-        foundIndex = index;
-      }
-    }
-
-    return foundIndex
-  }
-
-  function _indexOf(valueToFind, list) {
-    if (!isArray(list)) {
-      throw new Error(`Cannot read property 'indexOf' of ${list}`)
-    }
-
-    const typeOfValue = type(valueToFind);
-    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-      return list.indexOf(valueToFind)
-    }
-
-    let index = -1;
-    let foundIndex = -1;
-    const { length } = list;
-
-    while (++index < length && foundIndex === -1) {
-      if (equals(list[index], valueToFind)) {
-        foundIndex = index;
-      }
-    }
-
-    return foundIndex
-  }
-
-  function _arrayFromIterator(iter) {
-    const list = [];
-    let next;
-    while (!(next = iter.next()).done) {
-      list.push(next.value);
-    }
-
-    return list
-  }
-
-  function _compareSets(a, b) {
-    if (a.size !== b.size) {
-      return false
-    }
-
-    const aList = _arrayFromIterator(a.values());
-    const bList = _arrayFromIterator(b.values());
-
-    const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
-
-    return filtered.length === 0
-  }
-
-  function compareErrors(a, b) {
-    if (a.message !== b.message) {
-      return false
-    }
-    if (a.toString !== b.toString) {
-      return false
-    }
-
-    return a.toString() === b.toString()
-  }
-
-  function parseDate(maybeDate) {
-    if (!maybeDate.toDateString) {
-      return [false]
-    }
-
-    return [true, maybeDate.getTime()]
-  }
-
-  function parseRegex(maybeRegex) {
-    if (maybeRegex.constructor !== RegExp) {
-      return [false]
-    }
-
-    return [true, maybeRegex.toString()]
-  }
-
-  function equals(a, b) {
-    if (arguments.length === 1) {
-      return _b => equals(a, _b)
-    }
-
-    if (Object.is(a, b)) {
-      return true
-    }
-
-    const aType = type(a);
-
-    if (aType !== type(b)) {
-      return false
-    }
-    if (aType === 'Function') {
-      return a.name === undefined ? false : a.name === b.name
-    }
-
-    if (['NaN', 'Null', 'Undefined'].includes(aType)) {
-      return true
-    }
-
-    if (['BigInt', 'Number'].includes(aType)) {
-      if (Object.is(-0, a) !== Object.is(-0, b)) {
-        return false
-      }
-
-      return a.toString() === b.toString()
-    }
-
-    if (['Boolean', 'String'].includes(aType)) {
-      return a.toString() === b.toString()
-    }
-
-    if (aType === 'Array') {
-      const aClone = Array.from(a);
-      const bClone = Array.from(b);
-
-      if (aClone.toString() !== bClone.toString()) {
-        return false
-      }
-
-      let loopArrayFlag = true;
-      aClone.forEach((aCloneInstance, aCloneIndex) => {
-        if (loopArrayFlag) {
-          if (
-            aCloneInstance !== bClone[aCloneIndex] &&
-            !equals(aCloneInstance, bClone[aCloneIndex])
-          ) {
-            loopArrayFlag = false;
-          }
-        }
-      });
-
-      return loopArrayFlag
-    }
-
-    const aRegex = parseRegex(a);
-    const bRegex = parseRegex(b);
-
-    if (aRegex[0]) {
-      return bRegex[0] ? aRegex[1] === bRegex[1] : false
-    }
-    if (bRegex[0]) {
-      return false
-    }
-
-    const aDate = parseDate(a);
-    const bDate = parseDate(b);
-
-    if (aDate[0]) {
-      return bDate[0] ? aDate[1] === bDate[1] : false
-    }
-    if (bDate[0]) {
-      return false
-    }
-
-    if (a instanceof Error) {
-      if (!(b instanceof Error)) {
-        return false
-      }
-
-      return compareErrors(a, b)
-    }
-
-    if (aType === 'Set') {
-      return _compareSets(a, b)
-    }
-
-    if (aType === 'Object') {
-      const aKeys = Object.keys(a);
-
-      if (aKeys.length !== Object.keys(b).length) {
-        return false
-      }
-
-      let loopObjectFlag = true;
-      aKeys.forEach(aKeyInstance => {
-        if (loopObjectFlag) {
-          const aValue = a[aKeyInstance];
-          const bValue = b[aKeyInstance];
-
-          if (aValue !== bValue && !equals(aValue, bValue)) {
-            loopObjectFlag = false;
-          }
-        }
-      });
-
-      return loopObjectFlag
-    }
-
-    return false
-  }
-
-  function includes(valueToFind, iterable) {
-    if (arguments.length === 1) {
-      return _iterable => includes(valueToFind, _iterable)
-    }
-    if (typeof iterable === 'string') {
-      return iterable.includes(valueToFind)
-    }
-    if (!iterable) {
-      throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
-    }
-    if (!isArray(iterable)) {
-      return false
-    }
-
-    return _indexOf(valueToFind, iterable) > -1
-  }
-
-  class _Set {
-    constructor() {
-      this.set = new Set();
-      this.items = {};
-    }
-
-    checkUniqueness(item) {
-      const type$1 = type(item);
-      if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
-        if (type$1 in this.items) {
-          return false
-        }
-        this.items[type$1] = true;
-
-        return true
-      }
-      if (!['Object', 'Array'].includes(type$1)) {
-        const prevSize = this.set.size;
-        this.set.add(item);
-
-        return this.set.size !== prevSize
-      }
-
-      if (!(type$1 in this.items)) {
-        this.items[type$1] = [item];
-
-        return true
-      }
-
-      if (_indexOf(item, this.items[type$1]) === -1) {
-        this.items[type$1].push(item);
-
-        return true
-      }
-
-      return false
-    }
-  }
-
-  function uniq(list) {
-    const set = new _Set();
-    const willReturn = [];
-    list.forEach(item => {
-      if (set.checkUniqueness(item)) {
-        willReturn.push(item);
-      }
-    });
-
-    return willReturn
-  }
-
-  function difference(a, b) {
-    if (arguments.length === 1) {
-      return _b => difference(a, _b)
-    }
-
-    return uniq(a).filter(aInstance => !includes(aInstance, b))
-  }
-
-  function differenceWithFn(fn, a) {
-    return b => {
-      const willReturn = [];
-      const [first, second] = a.length >= b.length ? [a, b] : [b, a];
-
-      first.forEach(item => {
-        const hasItem = second.some(secondItem => fn(item, secondItem));
-        if (!hasItem && _indexOf(item, willReturn) === -1) {
-          willReturn.push(item);
-        }
-      });
-
-      return willReturn
-    }
   }
 
   function drop(howManyToDrop, listOrString) {
@@ -517,8 +195,231 @@
     }
   }
 
+  function type(input) {
+    if (input === null) {
+      return 'Null'
+    }
+    if (input === undefined) {
+      return 'Undefined'
+    }
+    if (Number.isNaN(input)) {
+      return 'NaN'
+    }
+    const typeResult = Object.prototype.toString.call(input).slice(8, -1);
+    return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
+  }
+
+  function _lastIndexOf(valueToFind, list) {
+    if (!isArray(list)) {
+      throw new Error(`Cannot read property 'indexOf' of ${list}`)
+    }
+
+    const typeOfValue = type(valueToFind);
+    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
+      return list.lastIndexOf(valueToFind)
+    }
+
+    const { length } = list;
+    let index = length;
+    let foundIndex = -1;
+
+    while (--index > -1 && foundIndex === -1) {
+      if (equalsFn(list[index], valueToFind)) {
+        foundIndex = index;
+      }
+    }
+
+    return foundIndex
+  }
+
+  function _indexOf(valueToFind, list) {
+    if (!isArray(list)) {
+      throw new Error(`Cannot read property 'indexOf' of ${list}`)
+    }
+
+    const typeOfValue = type(valueToFind);
+    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
+      return list.indexOf(valueToFind)
+    }
+
+    let index = -1;
+    let foundIndex = -1;
+    const { length } = list;
+
+    while (++index < length && foundIndex === -1) {
+      if (equalsFn(list[index], valueToFind)) {
+        foundIndex = index;
+      }
+    }
+
+    return foundIndex
+  }
+
+  function _arrayFromIterator(iter) {
+    const list = [];
+    let next;
+    while (!(next = iter.next()).done) {
+      list.push(next.value);
+    }
+
+    return list
+  }
+
+  function _compareSets(a, b) {
+    if (a.size !== b.size) {
+      return false
+    }
+
+    const aList = _arrayFromIterator(a.values());
+    const bList = _arrayFromIterator(b.values());
+
+    const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
+
+    return filtered.length === 0
+  }
+
+  function compareErrors(a, b) {
+    if (a.message !== b.message) {
+      return false
+    }
+    if (a.toString !== b.toString) {
+      return false
+    }
+
+    return a.toString() === b.toString()
+  }
+
+  function parseDate(maybeDate) {
+    if (!maybeDate.toDateString) {
+      return [false]
+    }
+
+    return [true, maybeDate.getTime()]
+  }
+
+  function parseRegex(maybeRegex) {
+    if (maybeRegex.constructor !== RegExp) {
+      return [false]
+    }
+
+    return [true, maybeRegex.toString()]
+  }
+
+  function equalsFn(a, b) {
+  	if (Object.is(a, b)) {
+      return true
+    }
+
+    const aType = type(a);
+
+    if (aType !== type(b)) {
+      return false
+    }
+    if (aType === 'Function') {
+      return a.name === undefined ? false : a.name === b.name
+    }
+
+    if (['NaN', 'Null', 'Undefined'].includes(aType)) {
+      return true
+    }
+
+    if (['BigInt', 'Number'].includes(aType)) {
+      if (Object.is(-0, a) !== Object.is(-0, b)) {
+        return false
+      }
+
+      return a.toString() === b.toString()
+    }
+
+    if (['Boolean', 'String'].includes(aType)) {
+      return a.toString() === b.toString()
+    }
+
+    if (aType === 'Array') {
+      const aClone = Array.from(a);
+      const bClone = Array.from(b);
+
+      if (aClone.toString() !== bClone.toString()) {
+        return false
+      }
+
+      let loopArrayFlag = true;
+      aClone.forEach((aCloneInstance, aCloneIndex) => {
+        if (loopArrayFlag) {
+          if (
+            aCloneInstance !== bClone[aCloneIndex] &&
+            !equalsFn(aCloneInstance, bClone[aCloneIndex])
+          ) {
+            loopArrayFlag = false;
+          }
+        }
+      });
+
+      return loopArrayFlag
+    }
+
+    const aRegex = parseRegex(a);
+    const bRegex = parseRegex(b);
+
+    if (aRegex[0]) {
+      return bRegex[0] ? aRegex[1] === bRegex[1] : false
+    }
+    if (bRegex[0]) {
+      return false
+    }
+
+    const aDate = parseDate(a);
+    const bDate = parseDate(b);
+
+    if (aDate[0]) {
+      return bDate[0] ? aDate[1] === bDate[1] : false
+    }
+    if (bDate[0]) {
+      return false
+    }
+
+    if (a instanceof Error) {
+      if (!(b instanceof Error)) {
+        return false
+      }
+
+      return compareErrors(a, b)
+    }
+
+    if (aType === 'Set') {
+      return _compareSets(a, b)
+    }
+
+    if (aType === 'Object') {
+      const aKeys = Object.keys(a);
+
+      if (aKeys.length !== Object.keys(b).length) {
+        return false
+      }
+
+      let loopObjectFlag = true;
+      aKeys.forEach(aKeyInstance => {
+        if (loopObjectFlag) {
+          const aValue = a[aKeyInstance];
+          const bValue = b[aKeyInstance];
+
+          if (aValue !== bValue && !equalsFn(aValue, bValue)) {
+            loopObjectFlag = false;
+          }
+        }
+      });
+
+      return loopObjectFlag
+    }
+
+    return false
+  }
+  function equals(a) {
+  	return b => equalsFn(a, b)
+  }
+
   function eqBy(fn, a) {
-    return b => equals(fn(a), fn(b))
+    return b => equalsFn(fn(a), fn(b))
   }
 
   function prop(searchProperty) {
@@ -526,7 +427,7 @@
   }
 
   function eqProps(property, objA) {
-    return objB => equals(prop(property), prop(property))
+    return objB => equalsFn(prop(property)(objA), prop(property)(objB))
   }
 
   const { keys } = Object;
@@ -548,16 +449,15 @@
     }
   }
 
-  function evolve(rules) {
-    return obj =>
-      mapObject((x, prop) => {
+  function evolveFn(rules, obj) {
+      return mapObject((x, prop) => {
         if (type(x) === 'Object') {
           const typeRule = type(rules[prop]);
           if (typeRule === 'Function') {
             return rules[prop](x)
           }
           if (typeRule === 'Object') {
-            return evolve(rules[prop])
+            return evolveFn(rules[prop], x)
           }
 
           return x
@@ -570,13 +470,34 @@
       })(obj)
   }
 
+  function evolve(rules) {
+    return obj =>	evolveFn(rules, obj)
+  		}
+
+  function includes(valueToFind) {
+  	return iterable => 
+  	{
+    if (typeof iterable === 'string') {
+      return iterable.includes(valueToFind)
+    }
+    if (!iterable) {
+      throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
+    }
+    if (!isArray(iterable)) {
+      return false
+    }
+
+    return _indexOf(valueToFind, iterable) > -1
+  }
+  }
+
   function excludes(valueToFind) {
-    return iterable => includes(valueToFind, iterable) === false
+    return iterable => !includes(valueToFind)(iterable)
   }
 
   function filter(predicate) {
   	return list => {
-    if (!iterable) {
+    if (!list) {
       throw new Error('Incorrect iterable input')
     }
   	let index = 0;
@@ -830,6 +751,29 @@
     }
   }
 
+  function mapAsync(fn) {
+  	return async list => {
+  		const willReturn = [];
+      let i = 0;
+      for (const a of list) {
+        willReturn.push(await fn(a, i++));
+      }
+
+      return willReturn
+  	}
+  }
+
+  function mapObjectAsync(fn) {
+  	return async obj => {
+  		const willReturn = {};
+  		for (const prop in obj){
+  			willReturn[ prop ] = await fn(obj[ prop ], prop);
+  		}
+  	
+  		return willReturn
+  	}
+  }
+
   function match(pattern) {
   	return input => {
   		const willReturn = input.match(pattern);
@@ -893,26 +837,28 @@
     return obj => Object.assign({}, obj, { [prop]: newValue })
   }
 
-  function modifyPath(pathInput, fn) {
-    return object => {
+  function modifyPathFn(pathInput, fn, obj) {
       const path$1 = createPath(pathInput);
       if (path$1.length === 1) {
         return {
-          ...object,
-          [path$1[0]]: fn(object[path$1[0]]),
+          ...obj,
+          [path$1[0]]: fn(obj[path$1[0]]),
         }
       }
-      if (path(path$1)(object) === undefined) {
-        return object
+      if (path(path$1)(obj) === undefined) {
+        return obj
       }
 
-      const val = modifyPath(Array.prototype.slice.call(path$1, 1), fn, object[path$1[0]]);
-      if (val === object[path$1[0]]) {
-        return object
+      const val = modifyPathFn(Array.prototype.slice.call(path$1, 1), fn, obj[path$1[0]]);
+      if (val === obj[path$1[0]]) {
+        return obj
       }
 
-      return assoc(path$1[0], val)(object)
-    }
+      return assoc(path$1[0], val)(obj)
+  }
+
+  function modifyPath(pathInput, fn) {
+    return obj => modifyPathFn(pathInput, fn, obj)
   }
 
   function none(predicate) {
@@ -1001,10 +947,6 @@
   	
   		return partitionArray(predicate, iterable)
   	}
-  }
-
-  function pathSatisfies(fn, pathInput) {
-    return obj => Boolean(fn(path(pathInput)(obj)))
   }
 
   function pick(propsToPick) {
@@ -1126,9 +1068,24 @@
     return pipeFn(...fnList)(input)
   }
 
+  async function pipeAsync(input, ...fnList) {
+  		let willReturn = input;
+  		for (const fn of fnList) {
+  			const initialResult = fn(willReturn);
+  			willReturn = type(initialResult) === 'Promise' ? await initialResult : initialResult;
+      }
+  		return willReturn
+  }
+
   function pluck(property) {
   	return list => {
     const willReturn = [];
+
+    list.forEach(x => {
+      if (x[property] !== undefined) {
+        willReturn.push(x[property]);
+      }
+    });
 
     return willReturn
   }
@@ -1144,7 +1101,7 @@
         return false
       }
 
-      return equals(valueToMatch, prop(propToFind))
+      return equalsFn(valueToMatch, obj[propToFind])
     }
   }
 
@@ -1162,9 +1119,8 @@
     return obj => predicate(prop(property))
   }
 
-  function range(start, end){
-    if (arguments.length === 1) return _end => range(start, _end)
-
+  function range(start){
+  	return end => {
     if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))){
       throw new TypeError('Both arguments to range must be numbers')
     }
@@ -1180,13 +1136,10 @@
 
     return willReturn
   }
+  }
 
   function reject(predicate) {
     return list => filter(x => !predicate(x))
-  }
-
-  function repeat(timesToRepeat) {
-    return x => Array(timesToRepeat).fill(x)
   }
 
   function replace(pattern, replacer) {
@@ -1207,15 +1160,12 @@
     }
   }
 
-  function sort(sortFn, list){
-    if (arguments.length === 1) return _list => sort(sortFn, _list)
-
-    return cloneList(list).sort(sortFn)
+  function sort(sortFn){
+    return list => cloneList(list).sort(sortFn)
   }
 
-  function sortBy(sortFn, list){
-    if (arguments.length === 1) return _list => sortBy(sortFn, _list)
-
+  function sortBy(sortFn){
+  	return list => {
     const clone = cloneList(list);
 
     return clone.sort((a, b) => {
@@ -1226,6 +1176,7 @@
 
       return aSortResult < bSortResult ? -1 : 1
     })
+  }
   }
 
   function sortHelper(a, b, listOfSortingFns) {
@@ -1274,9 +1225,10 @@
   }
 
   function symmetricDifference(x) {
-  	return y =>  concat(
-  			filter(value => !includes(value)(y)))
-  	
+    return y => [
+      ...filter(value => !includes(value)(y))(x),
+      ...filter(value => !includes(value)(x))(y),
+    ]
   }
 
   function tail(listOrString) {
@@ -1378,13 +1330,64 @@
       const toReturn = cloneList(x);
 
       y.forEach(yInstance => {
-        if (!includes(yInstance, x)) {
+        if (!includes(yInstance)(x)) {
           toReturn.push(yInstance);
         }
       });
 
       return toReturn
     }
+  }
+
+  class _Set {
+    constructor() {
+      this.set = new Set();
+      this.items = {};
+    }
+
+    checkUniqueness(item) {
+      const type$1 = type(item);
+      if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
+        if (type$1 in this.items) {
+          return false
+        }
+        this.items[type$1] = true;
+
+        return true
+      }
+      if (!['Object', 'Array'].includes(type$1)) {
+        const prevSize = this.set.size;
+        this.set.add(item);
+
+        return this.set.size !== prevSize
+      }
+
+      if (!(type$1 in this.items)) {
+        this.items[type$1] = [item];
+
+        return true
+      }
+
+      if (_indexOf(item, this.items[type$1]) === -1) {
+        this.items[type$1].push(item);
+
+        return true
+      }
+
+      return false
+    }
+  }
+
+  function uniq(list) {
+    const set = new _Set();
+    const willReturn = [];
+    list.forEach(item => {
+      if (set.checkUniqueness(item)) {
+        willReturn.push(item);
+      }
+    });
+
+    return willReturn
   }
 
   function uniqBy(fn) {
@@ -1482,7 +1485,7 @@
 
   function zipWith(fn, x) {
     return y =>
-      take(x.length > y.length ? y.length : x.length).map((xInstance, i) =>
+      take(x.length > y.length ? y.length : x.length)(x).map((xInstance, i) =>
         fn(xInstance, y[i]),
       )
   }
@@ -1491,7 +1494,6 @@
   exports._includes = _includes;
   exports._indexOf = _indexOf;
   exports._lastIndexOf = _lastIndexOf;
-  exports.add = add;
   exports.all = all;
   exports.allPass = allPass;
   exports.any = any;
@@ -1503,8 +1505,6 @@
   exports.count = count;
   exports.countBy = countBy;
   exports.defaultTo = defaultTo;
-  exports.difference = difference;
-  exports.differenceWithFn = differenceWithFn;
   exports.drop = drop;
   exports.dropLast = dropLast;
   exports.dropLastWhile = dropLastWhile;
@@ -1512,7 +1512,9 @@
   exports.eqBy = eqBy;
   exports.eqProps = eqProps;
   exports.equals = equals;
+  exports.equalsFn = equalsFn;
   exports.evolve = evolve;
+  exports.evolveFn = evolveFn;
   exports.excludes = excludes;
   exports.filter = filter;
   exports.filterObject = filterObject;
@@ -1534,7 +1536,9 @@
   exports.last = last;
   exports.lastIndexOf = lastIndexOf;
   exports.map = map;
+  exports.mapAsync = mapAsync;
   exports.mapObject = mapObject;
+  exports.mapObjectAsync = mapObjectAsync;
   exports.match = match;
   exports.maxBy = maxBy;
   exports.merge = merge;
@@ -1548,9 +1552,9 @@
   exports.partitionArray = partitionArray;
   exports.partitionObject = partitionObject;
   exports.path = path;
-  exports.pathSatisfies = pathSatisfies;
   exports.pick = pick;
   exports.pipe = pipe;
+  exports.pipeAsync = pipeAsync;
   exports.pluck = pluck;
   exports.prepend = prepend;
   exports.prop = prop;
@@ -1560,7 +1564,6 @@
   exports.range = range;
   exports.reduce = reduce;
   exports.reject = reject;
-  exports.repeat = repeat;
   exports.replace = replace;
   exports.replaceItemAtIndex = replaceItemAtIndex;
   exports.sort = sort;

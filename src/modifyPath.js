@@ -3,25 +3,28 @@ import { path as pathModule } from './path.js'
 
 function assoc(prop, newValue) {
   return obj => Object.assign({}, obj, { [prop]: newValue })
+}
 
-export function modifyPath(pathInput, fn) {
-  return object => {
+function modifyPathFn(pathInput, fn, obj) {
     const path = createPath(pathInput)
     if (path.length === 1) {
       return {
-        ...object,
-        [path[0]]: fn(object[path[0]]),
+        ...obj,
+        [path[0]]: fn(obj[path[0]]),
       }
     }
-    if (pathModule(path)(object) === undefined) {
-      return object
+    if (pathModule(path)(obj) === undefined) {
+      return obj
     }
 
-    const val = modifyPath(Array.prototype.slice.call(path, 1), fn, object[path[0]])
-    if (val === object[path[0]]) {
-      return object
+    const val = modifyPathFn(Array.prototype.slice.call(path, 1), fn, obj[path[0]])
+    if (val === obj[path[0]]) {
+      return obj
     }
 
-    return assoc(path[0], val)(object)
-  }
+    return assoc(path[0], val)(obj)
+}
+
+export function modifyPath(pathInput, fn) {
+  return obj => modifyPathFn(pathInput, fn, obj)
 }
