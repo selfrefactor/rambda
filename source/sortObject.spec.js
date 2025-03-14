@@ -20,6 +20,5 @@ test('happy', () => {
 		d: 4,
 		b: 1,
 	}
-	console.log(result)
 	expect(result).toEqual(expected)
 })

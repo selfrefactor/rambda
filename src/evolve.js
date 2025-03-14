@@ -1,16 +1,15 @@
 import { mapObject } from './mapObject.js'
 import { type } from './type.js'
 
-export function evolve(rules) {
-  return obj =>
-    mapObject((x, prop) => {
+export function evolveFn(rules, obj) {
+    return mapObject((x, prop) => {
       if (type(x) === 'Object') {
         const typeRule = type(rules[prop])
         if (typeRule === 'Function') {
           return rules[prop](x)
         }
         if (typeRule === 'Object') {
-          return evolve(rules[prop], x)
+          return evolveFn(rules[prop], x)
         }
 
         return x
@@ -22,3 +21,7 @@ export function evolve(rules) {
       return x
     })(obj)
 }
+
+export function evolve(rules) {
+  return obj =>	evolveFn(rules, obj)
+		}

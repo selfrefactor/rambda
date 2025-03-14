@@ -118,6 +118,7 @@ This is major revamp of `Rambda` library:
 -- ap
 -- length
 -- call
+-- repeat
 -- converge
 -- juxt
 -- curry
@@ -247,6 +248,7 @@ Link to old version of README.md for benchmarking reference -
 ===
 ABOVE IS IN PROGRESS
 ===
+remove prop()() internally
 ===
 ascend/descend 
 

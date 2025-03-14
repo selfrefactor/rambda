@@ -16,7 +16,7 @@ export function _lastIndexOf(valueToFind, list) {
   let foundIndex = -1
 
   while (--index > -1 && foundIndex === -1) {
-    if (equals(list[index], valueToFind)) {
+    if (equalsFn(list[index], valueToFind)) {
       foundIndex = index
     }
   }
@@ -39,7 +39,7 @@ export function _indexOf(valueToFind, list) {
   const { length } = list
 
   while (++index < length && foundIndex === -1) {
-    if (equals(list[index], valueToFind)) {
+    if (equalsFn(list[index], valueToFind)) {
       foundIndex = index
     }
   }
@@ -97,12 +97,8 @@ function parseRegex(maybeRegex) {
   return [true, maybeRegex.toString()]
 }
 
-export function equals(a, b) {
-  if (arguments.length === 1) {
-    return _b => equals(a, _b)
-  }
-
-  if (Object.is(a, b)) {
+export function equalsFn(a, b) {
+	if (Object.is(a, b)) {
     return true
   }
 
@@ -144,7 +140,7 @@ export function equals(a, b) {
       if (loopArrayFlag) {
         if (
           aCloneInstance !== bClone[aCloneIndex] &&
-          !equals(aCloneInstance, bClone[aCloneIndex])
+          !equalsFn(aCloneInstance, bClone[aCloneIndex])
         ) {
           loopArrayFlag = false
         }
@@ -199,7 +195,7 @@ export function equals(a, b) {
         const aValue = a[aKeyInstance]
         const bValue = b[aKeyInstance]
 
-        if (aValue !== bValue && !equals(aValue, bValue)) {
+        if (aValue !== bValue && !equalsFn(aValue, bValue)) {
           loopObjectFlag = false
         }
       }
@@ -209,4 +205,7 @@ export function equals(a, b) {
   }
 
   return false
+}
+export function equals(a) {
+	return b => equalsFn(a, b)
 }

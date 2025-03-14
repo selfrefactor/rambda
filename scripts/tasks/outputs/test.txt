@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/allPass.spec.js (2 tests) 4ms
+ ✓ source/maxBy.spec.js (1 test) 3ms
 
  Test Files  1 passed (1)
-      Tests  2 passed (2)
-   Start at  07:05:38
-   Duration  394ms (transform 53ms, setup 0ms, collect 53ms, tests 4ms, environment 0ms, prepare 97ms)
+      Tests  1 passed (1)
+   Start at  07:24:35
+   Duration  387ms (transform 36ms, setup 0ms, collect 13ms, tests 3ms, environment 0ms, prepare 98ms)
 

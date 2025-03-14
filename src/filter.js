@@ -1,6 +1,6 @@
 export function filter(predicate) {
 	return list => {
-  if (!iterable) {
+  if (!list) {
     throw new Error('Incorrect iterable input')
   }
 	let index = 0

@@ -6,7 +6,7 @@ export function union(x) {
     const toReturn = cloneList(x)
 
     y.forEach(yInstance => {
-      if (!includes(yInstance, x)) {
+      if (!includes(yInstance)(x)) {
         toReturn.push(yInstance)
       }
     })

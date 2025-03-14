@@ -1,6 +1,6 @@
-import { equals } from './equals.js'
+import { equalsFn } from './equals.js'
 import { prop } from './prop.js'
 
 export function eqProps(property, objA) {
-  return objB => equals(prop(property, objA), prop(property, objB))
+  return objB => equalsFn(prop(property)(objA), prop(property)(objB))
 }

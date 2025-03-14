@@ -9,6 +9,5 @@ export function type(input) {
     return 'NaN'
   }
   const typeResult = Object.prototype.toString.call(input).slice(8, -1)
-
   return typeResult === 'AsyncFunction' ? 'Promise' : typeResult
 }

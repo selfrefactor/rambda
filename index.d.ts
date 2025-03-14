@@ -48,11 +48,6 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
     : never;
 
 
-export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
-type OptionalToRequired<T> = {
-	[P in keyof T]-?: T[P]
-}
-
 export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		? [Head, ...PickStringToPickPath<Tail>]
 	: T extends `${infer Head}` ? [Head]
 	: [];
@@ -214,26 +209,6 @@ export function dec(x: number): number;
  */
 export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
 export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
-
-/**
- * It returns the uniq set of all elements in the first list `a` not contained in the second list `b`.
- * 
- * `R.equals` is used to determine equality.
- */
-export function difference<T extends unknown>(a: T[]): <U extends unknown>(b: U[]) => EqualTypes<U, T> extends true ? T[] : never;
-
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-  list2: T2[],
-): T1[];
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-): (list1: T1[], list2: T2[]) => T1[];
-export function differenceWith<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
 
 /**
  * It returns `howMany` items dropped from beginning of list or string `input`.
@@ -465,6 +440,24 @@ export function map<T extends IterableContainer, U>(
 	data: T
 ) : Mapped<T, U>;
 
+/**
+ * Sequential asynchronous mapping with `fn` over members of `list`.
+ */
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+export function mapAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+
 export function mapObject<T extends object, Value>(
   valueMapper: (
     value: EnumerableStringKeyedValueOf<T>,
@@ -472,6 +465,19 @@ export function mapObject<T extends object, Value>(
     data: T,
   ) => Value,
 ): (data: T) => MappedValues<T, Value>;
+
+export function mapObjectAsync<T extends object, Value>(
+  valueMapper: (
+    value: EnumerableStringKeyedValueOf<T>,
+    key: EnumerableStringKeyOf<T>,
+    data: T,
+  ) => Promise<Value>,
+): (data: T) => Promise<MappedValues<T, Value>>;
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -1326,6 +1332,238 @@ export function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T,
 ): U;
 
 /**
+ * It accepts input as first argument and series of functions as next arguments. It is same as `R.pipe` but with support for asynchronous functions.
+ */
+export function pipeAsync<A, B>(input: A, fn0: (x: Awaited<A>) => B) : B;
+export function pipeAsync<A, B, C>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C) : C;
+export function pipeAsync<A, B, C, D>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D) : D;
+export function pipeAsync<A, B, C, D, E>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E) : E;
+export function pipeAsync<A, B, C, D, E, F>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F) : F;
+export function pipeAsync<A, B, C, D, E, F, G>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G) : G;
+export function pipeAsync<A, B, C, D, E, F, G, H>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H) : H;
+export function pipeAsync<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H, fn7: (x: Awaited<H>) => I) : I;
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+) : J;
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+): K;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+): L;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+): M;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+): N;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+): O;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+): P;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+): Q;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+): R;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+): S;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+  fn18: (x: Awaited<S>) => T,
+): T;
+
+export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+  input: A,
+  fn0: (x: Awaited<A>) => B,
+  fn1: (x: Awaited<B>) => C,
+  fn2: (x: Awaited<C>) => D,
+  fn3: (x: Awaited<D>) => E,
+  fn4: (x: Awaited<E>) => F,
+  fn5: (x: Awaited<F>) => G,
+  fn6: (x: Awaited<G>) => H,
+  fn7: (x: Awaited<H>) => I,
+  fn8: (x: Awaited<I>) => J,
+  fn9: (x: Awaited<J>) => K,
+  fn10: (x: Awaited<K>) => L,
+  fn11: (x: Awaited<L>) => M,
+  fn12: (x: Awaited<M>) => N,
+  fn13: (x: Awaited<N>) => O,
+  fn14: (x: Awaited<O>) => P,
+  fn15: (x: Awaited<P>) => Q,
+  fn16: (x: Awaited<Q>) => R,
+  fn17: (x: Awaited<R>) => S,
+  fn18: (x: Awaited<S>) => T,
+  fn19: (x: Awaited<T>) => U,
+): U;
+
+/**
  * It returns list of the values of `property` taken from the all objects inside `list`.
  * Basically, this is `R.map(R.prop(property))`.
  */
@@ -1365,13 +1603,7 @@ export function propSatisfies<T>(predicate: (x: T) => boolean, property: string)
 /**
  * It returns list of numbers between `startInclusive` to `endExclusive` markers.
  */
-export function range(startInclusive: number, endExclusive: number): number[];
 export function range(startInclusive: number): (endExclusive: number) => number[];
-
-// API_MARKER_END
-// ============================================
-
-export as namespace R
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
@@ -1424,7 +1656,6 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 /**
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
  */
-export function sortBy<T>(sortFn: (a: T) => Ord, list: T[]): T[];
 export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
 export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
 

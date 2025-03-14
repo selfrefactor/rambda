@@ -2371,26 +2371,6 @@ export function reject<T>(
 ): (list: T[]) => T[];
 
 /*
-Method: repeat
-
-Explanation: 
-
-Example:
-
-```
-R.repeat('foo', 3)
-// => ['foo', 'foo', 'foo']
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function repeat<T>(x: T): (timesToRepeat: number) => T[];
-
-/*
 Method: replace
  
 Explanation: It replaces `strOrRegex` found in `str` with `replacer`.
