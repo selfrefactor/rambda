@@ -6,7 +6,7 @@ describe('R.path with string as path', () => {
   it('happy', () => {
     const result = pipe(input, path(['a', 'b']))
     const resultStringInput = pipe(input, path('a.b.c'))
-    result // $ExpectType boolean
+    result.c // $ExpectType boolean
     resultStringInput // $ExpectType boolean
   })
   it('happy', () => {

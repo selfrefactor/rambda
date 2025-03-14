@@ -9,6 +9,6 @@ describe('R.prop', () => {
   it('alike R.pluck', () => {
     const result = pipe([{ a: 1 }, { a: 2 }], map(prop('a')))
 
-    result // $ExpectType boolean
+    result // $ExpectType number[]
   })
 })

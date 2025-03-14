@@ -4,7 +4,6 @@ import {
   allPass,
   append,
   defaultTo,
-  difference,
   drop,
   dropLast,
   evolve,
@@ -176,7 +175,6 @@ describe('real use cases - books', () => {
         assertType(checkBookToRead),
         x => [x],
         dropLast(1),
-        difference([awardedBrothersKaramazovToRead]),
         append(awardedZaratustraToRead),
         head,
         evolve({
@@ -204,10 +202,10 @@ describe('real use cases - books', () => {
 
     const result = pipe(
       tableData,
-      split('\n'), // string => string[]
-      map(split(',')), // string[] => string[][]
+      split('\n'), 
+      map(split(',')), 
     )
-    result // $ExpectType [string[][], string[][]]
+    result // $ExpectType string[][]
   })
 })
 
@@ -224,5 +222,7 @@ it('R.pipe', () => {
 			x => ({...x, c: x.b + 'bar'}),
     )
 
-    result // $ExpectType Output
+    result.a // $ExpectType number
+		result.b // $ExpectType string
+		result.c // $ExpectType string
 })

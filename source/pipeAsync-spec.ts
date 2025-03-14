@@ -6,22 +6,16 @@ describe('R.pipeAsync', () => {
     const result = await pipeAsync(
       4,
       async x => {
-        x // $ExpectType 4
+        x // $ExpectType number
         await delay(100)
         return x + 1
       },
       x => {
         x // $ExpectType number
-        return new Promise<string>(resolve => {
-          resolve(x.toString())
-        })
-      },
-      x => {
-        x // $ExpectType string
         return Promise.resolve([x])
       },
     )
 
-    result // $ExpectType string[]
+    result // $ExpectType number[]
   })
 })

@@ -15,6 +15,6 @@ it('R.mapObjectAsync', async () => {
 			return x + 1
 		})
 	)
-	result.a // $ExpectType number	
-	result.b // $ExpectType number	
+	result.a // $ExpectType number
+	result.b // $ExpectType number
 })
