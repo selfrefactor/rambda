@@ -793,68 +793,6 @@ function minBy(compareFn, x) {
   return y => (compareFn(y) < compareFn(x) ? y : x)
 }
 
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string'
-    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-    : path
-}
-
-function path(pathInput, obj) {
-  if (arguments.length === 1) {
-    return _obj => path(pathInput, _obj)
-  }
-
-  if (!obj) {
-    return undefined
-  }
-  let willReturn = obj;
-  let counter = 0;
-
-  const pathArrValue = createPath(pathInput);
-
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
-      return undefined
-    }
-    if (willReturn[pathArrValue[counter]] === null) {
-      return undefined
-    }
-
-    willReturn = willReturn[pathArrValue[counter]];
-    counter++;
-  }
-
-  return willReturn
-}
-
-function assoc(prop, newValue) {
-  return obj => Object.assign({}, obj, { [prop]: newValue })
-}
-
-function modifyPathFn(pathInput, fn, obj) {
-    const path$1 = createPath(pathInput);
-    if (path$1.length === 1) {
-      return {
-        ...obj,
-        [path$1[0]]: fn(obj[path$1[0]]),
-      }
-    }
-    if (path(path$1)(obj) === undefined) {
-      return obj
-    }
-
-    const val = modifyPathFn(Array.prototype.slice.call(path$1, 1), fn, obj[path$1[0]]);
-    if (val === obj[path$1[0]]) {
-      return obj
-    }
-
-    return assoc(path$1[0], val)(obj)
-}
-
-function modifyPath(pathInput, fn) {
-  return obj => modifyPathFn(pathInput, fn, obj)
-}
-
 function none(predicate) {
   return list => {
     for (let i = 0; i < list.length; i++) {
@@ -869,6 +807,12 @@ function none(predicate) {
 
 function objOf(key) {
   return value => ({ [key]: value })
+}
+
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string'
+    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+    : path
 }
 
 function _includes(x, list) {
@@ -941,6 +885,34 @@ function partition(predicate) {
 	
 		return partitionArray(predicate, iterable)
 	}
+}
+
+function path(pathInput, obj) {
+  if (arguments.length === 1) {
+    return _obj => path(pathInput, _obj)
+  }
+
+  if (!obj) {
+    return undefined
+  }
+  let willReturn = obj;
+  let counter = 0;
+
+  const pathArrValue = createPath(pathInput);
+
+  while (counter < pathArrValue.length) {
+    if (willReturn === null || willReturn === undefined) {
+      return undefined
+    }
+    if (willReturn[pathArrValue[counter]] === null) {
+      return undefined
+    }
+
+    willReturn = willReturn[pathArrValue[counter]];
+    counter++;
+  }
+
+  return willReturn
 }
 
 function pick(propsToPick) {
@@ -1538,7 +1510,6 @@ exports.maxBy = maxBy;
 exports.merge = merge;
 exports.mergeTypes = mergeTypes;
 exports.minBy = minBy;
-exports.modifyPath = modifyPath;
 exports.none = none;
 exports.objOf = objOf;
 exports.omit = omit;

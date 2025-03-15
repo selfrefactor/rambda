@@ -8,15 +8,13 @@ export type NonEmptyArray<T> = [T, ...T[]];
 export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
-
-
 export type Mapped<T extends IterableContainer, K> = {
   -readonly [P in keyof T]: K;
 };
 
 export type ElementOf<Type extends readonly any[]> = Type[number];
 export type MergeTypes<T> = {[KeyType in keyof T]: T[KeyType]} & {};
-export type Simplify<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
+export type MergeTypesAlternative<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
 
 export type EntryForKey<T, Key extends keyof T> = Key extends number | string
   ? [key: `${Key}`, value: Required<T>[Key]]
@@ -26,15 +24,12 @@ export type Entry<T> = MergeTypes<{ [P in keyof T]-?: EntryForKey<T, P> }[keyof 
 
 export type Ord = number | string | boolean | Date;
 export type Ordering = -1 | 0 | 1;
-type Path = Array<string> | string;
-type Prop<T, P extends keyof never> = P extends keyof Exclude<T, undefined>
-    ? T extends undefined ? undefined : T[Extract<P, keyof T>]
-    : undefined;
 
 interface KeyValuePair<K, V> extends Array<K | V> {
   0: K;
   1: V;
 }
+
 export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
   Keys extends [infer K, ...infer Rest]
@@ -53,13 +48,9 @@ export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		
 	: [];
 
 
-export type Partial<T> = { [P in keyof T]?: T[P]};
-
 type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
-
 type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
 };
-
 type Evolve<O extends Evolvable<E>, E extends Evolver> = {   [P in keyof O]: P extends keyof E
                   ? EvolveValue<O[P], E[P]>
                   : O[P];
@@ -104,31 +95,8 @@ type ValuesOf<T> =
 type MappedValues<T extends object, Value> = MergeTypes<{
 	-readonly [P in keyof T as `${P extends number | string ? P : never}`]: Value;
 }>;
+
 // API_MARKER
-
-/*
-Method: add
-
-Explanation:
-
-It adds `a` and `b`.
-
-Example:
-
-```
-const result = R.pipe(
-	2,
-	R.add(3)
-) // =>  5
-```
-
-Categories: Number
-
-Notes: It doesn't work with strings, as the inputs are parsed to numbers before calculation.
-
-*/
-// @SINGLE_MARKER
-export function add(a: number): (b: number) => number;
 
 /*
 Method: replaceItemAtIndex
@@ -189,7 +157,7 @@ Example:
 ```
 const list = [1, 2, 3]
 const predicate = x => x * x > 8
-R.any(fn, list)
+R.any(fn)(list)
 // => true
 ```
 
@@ -317,7 +285,7 @@ Example:
 const duplicate = n => [ n, n ]
 const list = [ 1, 2, 3 ]
 
-const result = R.flatMap(duplicate, list)
+const result = R.flatMap(duplicate)(list)
 // => [ 1, 1, 2, 2, 3, 3 ]
 ```
 
@@ -339,11 +307,11 @@ The return value of `inverted` is the negative boolean value of `origin(input)`.
 Example:
 
 ```
-const origin = x => x > 5
-const inverted = complement(origin)
+const fn = x => x > 5
+const inverted = complement(fn)
 
 const result = [
-  origin(7),
+  fn(7),
   inverted(7)
 ] => [ true, false ]
 ```
@@ -1206,7 +1174,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function max<T extends Ord>(x: T, y: T): T;
 export function max<T extends Ord>(x: T): (y: T) => T;
 
 /*
@@ -1228,9 +1195,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function maxBy<T>(compareFn: (input: T) => Ord, x: T, y: T): T;
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
-export function maxBy<T>(compareFn: (input: T) => Ord): (x: T) => (y: T) => T;
 
 /*
 Method: mean
