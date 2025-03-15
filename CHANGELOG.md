@@ -1,18 +1,89 @@
 10.0.0
 
-- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+CHANGELOG - 10.0.0
 
-- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+This is major revamp of `Rambda` library:
 
-_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+- `R.pipe` is the recommended method for TypeScript chaining.
 
-- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+- All methods should be useful to work inside `R.pipe` chain. If method doesn't have clear use case inside `R.pipe`, it is removed as part of this revamp.
+
+- There will be only one way to use each method. For example, `R.add` can be used only with `R.add(1)(2)`, i.e. it doesn't support `R.add(1, 2)`. This helps with testing and also with TypeScript definitions. This aligns with TypeScript focused approach of this library.
+
+- Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
+
+- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain. 
+
+-- sortBy
+
+- Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
+
+- Add `R.pipe` supports up to 20 functions, i.e. chain can be 20 functions long.
+
+- `R.chain` is renamed to `R.flatMap`
+- `R.comparator` is renamed to `R.sortingFn`
+
+- Remove following methods:
+
+-- Lenses - `R.lens`, `R.lensProp`, `R.lensPath`, `R.view`, `R.set`, `R.over`
+-- T, F
+-- add
+-- addIndex, addIndexRight
+-- always
+-- ap
+-- applySpec
+-- applyTo
+-- assoc, assocPath, dissoc, dissocPath
+-- binary
+-- bind
+-- call
+-- collectBy
+-- compose
+-- composeWith
+-- cond
+-- converge
+-- curry
+-- difference, differenceWith
+-- divide, multiply, subtract
+-- endsWith/startsWith
+-- flip
+-- forEachObjIndexed
+-- fromPairs
+-- gte, lte, lt, gt
+-- identical
+-- ifElse
+-- insert
+-- juxt
+-- length
+-- mapObjIndexed
+-- mergeAll, mergeLeft, mergeDeepLeft, mergeDeepRight
+-- move
+-- partitionIndexed
+-- pickAll
+-- pickBy
+-- repeat
+-- splitWhen
+-- toLower/toUpper
+-- unapply
+-- unnest
+-- update
+-- without
+
+Rename:
+
+-- replaceItemAtIndex -> adjust
+-- checkObjectWithSpec -> where 
+
+_ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
+
+-- R.map
+-- R.mapIndexed
+-- R.filter
+-- R.reject
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` with TypeScript - now it require explicit definition of expected return type.
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
-
-- Take typings of `R.filter/R.map` from `Remeda`.
-
-- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
 
 - Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
@@ -25,10 +96,14 @@ _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is
 - head/last - empty array as input will return `undefined`, but `never`
 - assocPath - stop supporting curring of type `(x)(y)(z)`
 
-- Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+- For some methods, it is very hard to pick up the correct type in many cases. In these cases, explicit output type is expected.
 
 -- assocPath
--- dissocPath 
+-- dissocPath
+
+- Stop support string inputs for some methods, since it was hard to correctly type them in TypeScript.
+
+-- append/prepend
 
 - Sync with typing of `@types/ramda`:
 
@@ -45,26 +120,46 @@ _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is
 -- forEach
 -- keys
 -- map
--- mapObjIndexed
 -- mergeAll
--- mergeWith
 -- modify
 -- modifyPath
 -- omit
 -- partition
+-- pluck
 -- prepend
+-- propEq
 -- where
 -- whereAny
 
 - Sync with typing of `remeda`:
 
 -- filter
+-- reject
 -- map
+-- mapObject
 -- toPairs
+-- partition
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 
 - Replace Record<string> with Record<PropertyKey>
+
+- Improve TypeScript definitions of:
+
+-- objOf
+-- pluck
+-- mergeWith
+
+- Change `Jest` with `Vitest`.
+
+- Remove `Babel` dependency in `Rollup` build setup.
+
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
+- Renamed methods: 
+
+-- `chain` to `flatMap`
+-- `mapObjIndexed` to `mapObject`
 
 9.4.2
 

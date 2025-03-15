@@ -607,11 +607,8 @@
     return willReturn
   }
 
-  function groupBy(groupFn, list) {
-    if (arguments.length === 1) {
-      return _list => groupBy(groupFn, _list)
-    }
-
+  function groupBy(groupFn) {
+  	return list => {
     const result = {};
     for (let i = 0; i < list.length; i++) {
       const item = list[i];
@@ -625,6 +622,7 @@
     }
 
     return result
+  }
   }
 
   function head(listOrString) {

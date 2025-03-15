@@ -1,4 +1,5 @@
 import {equalsFn } from './equals.js'
+import {equalsFn } from 'ramda'
 
 test('compare functions', () => {
   function foo() {}

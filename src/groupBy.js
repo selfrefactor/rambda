@@ -1,8 +1,5 @@
-export function groupBy(groupFn, list) {
-  if (arguments.length === 1) {
-    return _list => groupBy(groupFn, _list)
-  }
-
+export function groupBy(groupFn) {
+	return list => {
   const result = {}
   for (let i = 0; i < list.length; i++) {
     const item = list[i]
@@ -16,4 +13,5 @@ export function groupBy(groupFn, list) {
   }
 
   return result
+}
 }

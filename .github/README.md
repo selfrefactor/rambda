@@ -1,6 +1,8 @@
 # Rambda
 
-`Rambda` is TypeScript-focused alternative to the popular functional programming library **Ramda** alternative. It also has better speed and smaller size. - [Documentation](https://selfrefactor.github.io/rambda/#/)
+`Rambda` is TypeScript-focused utility library similar to `Remeda` and `Lodash`. 
+
+Initially it started as faster alternative to functional programming library `Ramda`, but in order to address many TypeScript issues, now `Rambda` takes a separate path. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
@@ -11,9 +13,9 @@
 ## ❯ Example use
 
 ```javascript
-import { piped, map, filter } from 'rambda'
+import { pipe, map, filter } from 'rambda'
 
-const result = piped(
+const result = pipe(
 	[1, 2, 3, 4],
   filter(x => x > 2),
   map(x => x * 2),
@@ -23,66 +25,109 @@ const result = piped(
 
 You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
 
-* [Differences between Rambda and Ramda](#differences-between-rambda-and-ramda)
 * [API](#api)
 * [Changelog](#-changelog)
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-example-use)
 
-## ❯ Rambda's advantages
+## ❯ Rambda's features
 
-### TypeScript included
+## ❯ Goals
 
-TypeScript definitions are included in the library, in comparison to **Ramda**, where you need to additionally install `@types/ramda`.
+### Typescript focus
 
-Still, you need to be aware that functional programming features in `TypeScript` are in development, which means that using **R.compose/R.pipe** can be problematic.
+Mixing `Functional Programming` and `TypeScript` is not easy.
 
-undefined
+One way to solve this is to focus what can be actually achieved and refrain from what is not possible.
 
-### Understandable source code due to little usage of internals
+### `R.pipe` as the main way to use Rambda
 
-`Ramda` uses a lot of internals, which hides a lot of logic. Reading the full source code of a method can be challenging.
+- All methods are meant to be used as part of `R.pipe` chain
 
-### Better VSCode experience
+- This is the main purpose of functional programming, i.e. to pass data through a chain of functions.
 
-If the project is written in Javascript, then `go to source definition` action will lead you to actual implementation of the method.
+- Having `R.pipe(input, ...fns)` helps TypeScript to infer the types of the input and the output.
+
+Here is one example why `R.pipe` is better than `Ramda.pipe`:
+
+```ts
+const list = [1, 2, 3];
+
+it('within pipe', () => {
+	const result = pipe(
+		list,
+		filter((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+	);
+	result; // $ExpectType number[]
+});
+it('within Ramda.pipe requires explicit types', () => {
+	Ramda.pipe(
+		(x) => x,
+		filter<number>((x) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+		filter((x: number) => {
+			x; // $ExpectType number
+			return x > 1;
+		}),
+	)(list);
+});
+```
+
+### Keep only the most useful methods
+
+The idea is to give `TypeScript` users only the most useful methods and let them implement the rest. No magic logic methods that are hard to remember. You shouldn't need to read the documentation to understand what a method does. Its name and signature should be enough.
+
+- Methods that are simply to remember only by its name. Complex logic shouldn't be part of utility library, but part of your codebase.
+
+- Keep only methods which are both useful and which behaviour is obvious from its name. For example, `R.innerJoin` is kept, but `R.identical`, `R.move` is removed. Methods such as `R.toLower`, `R.length` provide little value. Such method are omitted from Rambda on purpose.
+
+- Some generic methods such as `curry` and `assoc` is not easy to be expressed in TypeScript. For this reason `Rambda` omits such methods.
+
+- No `R.cond` or `R.ifElse` as they make the chain less readable.
+
+- No `R.length` as it adds very little value.
+
+- No `R.difference` as user must remember the order of the inputs, i.e. which is compared to and which is compared against.
+
+### One way to use each method
+
+Because of the focus on `R.pipe`, there is only one way to use each method. This helps with testing and also with TypeScript definitions.
+
+- All methods that 2 inputs, will have to be called with `R.methodName(input1)(input2)`
+- All methods that 3 inputs, will have to be called with `R.methodName(input1, input2)(input3)`
 
 ### Immutable TS definitions
 
 You can use immutable version of Rambda definitions, which is linted with ESLint `functional/prefer-readonly-type` plugin.
 
 ```
-import {add} from 'rambda/immutable'
+import {filter} from 'rambda/immutable'
 ```
 
-### Deno support
-
-Latest version of **Ramba** available for `Deno` users is 3 years old. This is not the case with **Rambda** as most of recent releases are available for `Deno` users.
-
-Also, `Rambda` provides you with included TS definitions:
+### Deno support 
 
 ```
-// Deno extension(https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
-// is installed and initialized
 import * as R from "https://deno.land/x/rambda/mod.ts";
-import * as Ramda from "https://deno.land/x/ramda/mod.ts";
 
-R.add(1)('foo') // => will trigger warning in VSCode as it should
-Ramda.add(1)('foo') // => will not trigger warning in VSCode
+R.filter(x => x > 1)([1, 2, 3])
 ```
 
-### Dot notation for `R.path`, `R.paths`, `R.assocPath` and `R.lensPath`
+### Dot notation for `R.path`
 
-Standard usage of `R.path` is `R.path(['a', 'b'], {a: {b: 1} })`.
+Standard usage of `R.path` is `R.path(['a', 'b'])({a: {b: 1} })`.
 
 In **Rambda** you have the choice to use dot notation(which is arguably more readable):
 
 ```
-R.path('a.b', {a: {b: 1} })
+R.path('a.b')({a: {b: 1} })
 ```
 
-Please note that since path input is turned into array, i.e. if you want `R.path(['a','1', 'b'], {a: {'1': {b: 2}}})` to return `2`, you will have to pass array path, not string path. If you pass `a.1.b`, it will turn path input to `['a', 1, 'b']`.
-The other side effect is in `R.assocPath` and `R.dissocPath`, where inputs such as `['a', '1', 'b']` will be turned into `['a', 1, 'b']`.
+Please note that since path input is turned into array, i.e. if you want `R.path(['a','1', 'b'])({a: {'1': {b: 2}}})` to return `2`, you will have to pass array path, not string path. If you pass `a.1.b`, it will turn path input to `['a', 1, 'b']`.
 
 ### Comma notation for `R.pick` and `R.omit`
 
@@ -93,59 +138,12 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-### Speed
+### Fast performance compared to Ramda
 
-**Rambda** is generally more performant than `Ramda` as the [benchmarks](#-benchmarks) can prove that.
+Since `Rambda` methods doesn't use so many internals, it is faster than `Ramda`.
+Prior to version `10`, benchmark summary was included, but now the main selling point is the TypeScript focus, not performance so this is no longer included.
 
-### Support
-
-One of the main issues with `Ramda` is the slow process of releasing new versions. This is not the case with **Rambda** as releases are made on regular basis.
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-advantages)
-
-## ❯ Install
-
-- **yarn add rambda**
-
-- For UMD usage either use `./dist/rambda.umd.js` or the following CDN link:
-
-```
-https://unpkg.com/rambda@CURRENT_VERSION/dist/rambda.umd.js
-```
-
-- with deno
-
-```
-import {add} from "https://deno.land/x/rambda/mod.ts";
-```
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-install)
-
-## Differences between Rambda and Ramda
-
-- Rambda's **type** detects async functions and unresolved `Promises`. The returned values are `'Async'` and `'Promise'`.
-
-- Rambda's **type** handles *NaN* input, in which case it returns `NaN`.
-
-- Rambda's **forEach** can iterate over objects not only arrays.
-
-- Rambda's **map**, **filter**, **partition** when they iterate over objects, they pass property and input object as predicate's argument.
-
-- Rambda's **filter** returns empty array with bad input(`null` or `undefined`), while Ramda throws.
-
-- Ramda's **clamp** work with strings, while Rambda's method work only with numbers.
-
-- Ramda's **indexOf/lastIndexOf** work with strings and lists, while Rambda's method work only with lists as iterable input.
-
-- Error handling, when wrong inputs are provided, may not be the same. This difference will be better documented once all brute force tests are completed.
-
-- TypeScript definitions between `rambda` and `@types/ramda` may vary.
-
-{{suggestPR}}
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-differences-between-rambda-and-ramda)
-
-## Benchmarks
-TODO
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
 
 ## API
 
@@ -1637,6 +1635,7 @@ export function equals(a) {
 
 ```javascript
 import {equalsFn } from './equals.js'
+import {equalsFn } from 'ramda'
 
 test('compare functions', () => {
   function foo() {}
@@ -8410,19 +8409,90 @@ describe('R.zipWith', () => {
 
 10.0.0
 
-- Optimize many methods to better work in TS context with `R.pipe/R.compose`. The focus was passing objects through the `pipe/compose` chain.
+CHANGELOG - 10.0.0
 
-- Add `R.piped` method from `Rambdax` since it works better with TS than `R.pipe` and `R.compose`. It supports up to 20 function inputs.
+This is major revamp of `Rambda` library:
 
-_ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is no longer supported in TypeScript as it has multiple issues when using inside pipes. Instead `R.mapObject` and `R.filterObject` are taken from `Rambdax` so users can migrate their code.
+- `R.pipe` is the recommended method for TypeScript chaining.
 
-- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` - now it require explicit definition of expected return type.
+- All methods should be useful to work inside `R.pipe` chain. If method doesn't have clear use case inside `R.pipe`, it is removed as part of this revamp.
+
+- There will be only one way to use each method. For example, `R.add` can be used only with `R.add(1)(2)`, i.e. it doesn't support `R.add(1, 2)`. This helps with testing and also with TypeScript definitions. This aligns with TypeScript focused approach of this library.
+
+- Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
+
+- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain. 
+
+-- sortBy
+
+- Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
+
+- Add `R.pipe` supports up to 20 functions, i.e. chain can be 20 functions long.
+
+- `R.chain` is renamed to `R.flatMap`
+- `R.comparator` is renamed to `R.sortingFn`
+
+- Remove following methods:
+
+-- Lenses - `R.lens`, `R.lensProp`, `R.lensPath`, `R.view`, `R.set`, `R.over`
+-- T, F
+-- add
+-- addIndex, addIndexRight
+-- always
+-- ap
+-- applySpec
+-- applyTo
+-- assoc, assocPath, dissoc, dissocPath
+-- binary
+-- bind
+-- call
+-- collectBy
+-- compose
+-- composeWith
+-- cond
+-- converge
+-- curry
+-- difference, differenceWith
+-- divide, multiply, subtract
+-- endsWith/startsWith
+-- flip
+-- forEachObjIndexed
+-- fromPairs
+-- gte, lte, lt, gt
+-- identical
+-- ifElse
+-- insert
+-- juxt
+-- length
+-- mapObjIndexed
+-- mergeAll, mergeLeft, mergeDeepLeft, mergeDeepRight
+-- move
+-- partitionIndexed
+-- pickAll
+-- pickBy
+-- repeat
+-- splitWhen
+-- toLower/toUpper
+-- unapply
+-- unnest
+-- update
+-- without
+
+Rename:
+
+-- replaceItemAtIndex -> adjust
+-- checkObjectWithSpec -> where 
+
+_ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
+
+-- R.map
+-- R.mapIndexed
+-- R.filter
+-- R.reject
+
+- Regarding using string as path input in `R.omit`, `R.pick` and `R.path` with TypeScript - now it require explicit definition of expected return type.
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
-
-- Take typings of `R.filter/R.map` from `Remeda`.
-
-- Simplify typing for non-curried methods. The goal is to make typings more readable and easier to understand and maintain. The main goal of Rambda methods is to be used inside `R.piped` chain. 
 
 - Remove use of `Dictionary` custom interface and use more appropriate `Record<PropertyType, ...>`
 
@@ -8435,10 +8505,14 @@ _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is
 - head/last - empty array as input will return `undefined`, but `never`
 - assocPath - stop supporting curring of type `(x)(y)(z)`
 
-- Require explicit output type(s) as it is very hard to pick up the correct type in many cases.
+- For some methods, it is very hard to pick up the correct type in many cases. In these cases, explicit output type is expected.
 
 -- assocPath
--- dissocPath 
+-- dissocPath
+
+- Stop support string inputs for some methods, since it was hard to correctly type them in TypeScript.
+
+-- append/prepend
 
 - Sync with typing of `@types/ramda`:
 
@@ -8455,26 +8529,46 @@ _ Regarding using object as input `R.map` and `R.filter` in TypeScript - this is
 -- forEach
 -- keys
 -- map
--- mapObjIndexed
 -- mergeAll
--- mergeWith
 -- modify
 -- modifyPath
 -- omit
 -- partition
+-- pluck
 -- prepend
+-- propEq
 -- where
 -- whereAny
 
 - Sync with typing of `remeda`:
 
 -- filter
+-- reject
 -- map
+-- mapObject
 -- toPairs
+-- partition
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
 
 - Replace Record<string> with Record<PropertyKey>
+
+- Improve TypeScript definitions of:
+
+-- objOf
+-- pluck
+-- mergeWith
+
+- Change `Jest` with `Vitest`.
+
+- Remove `Babel` dependency in `Rollup` build setup.
+
+- Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
+
+- Renamed methods: 
+
+-- `chain` to `flatMap`
+-- `mapObjIndexed` to `mapObject`
 
 9.4.2
 

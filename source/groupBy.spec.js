@@ -44,5 +44,4 @@ test('groupBy', () => {
   }
 
   expect(groupBy(prop('age'))(list)).toEqual(expectedResult)
-  expect(groupBy(prop('age'), list)).toEqual(expectedResult)
 })
