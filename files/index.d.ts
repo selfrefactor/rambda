@@ -346,25 +346,6 @@ export function concat<T>(x: T[]): (y: T[]) => T[];
 export function concat(x: string): (y: string) => string;
 
 /*
-Method: dec
-
-Explanation: It decrements a number.
-
-Example:
-
-```
-const result = R.dec(2) // => 1
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function dec(x: number): number;
-
-/*
 Method: defaultTo
 
 Explanation:
@@ -375,31 +356,30 @@ Else, it returns the first truthy `inputArguments` instance(from left to right).
 Example:
 
 ```
-R.defaultTo('foo', 'bar') // => 'bar'
-R.defaultTo('foo', undefined) // => 'foo'
+R.defaultTo('foo')('bar') // => 'bar'
+R.defaultTo('foo'))(undefined) // => 'foo'
 
-// Important - emtpy string is not falsy value(same as Ramda)
-R.defaultTo('foo', '') // => 'foo'
+// Important - emtpy string is not falsy value
+R.defaultTo('foo')('') // => 'foo'
 ```
 
 Categories: Logic
 
-Notes: pipe | Rambda's **defaultTo** accept indefinite number of arguments when non curried, i.e. `R.defaultTo(2, foo, bar, baz)`.
+Notes: pipe
 
 */
 // @SINGLE_MARKER
-export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
-export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
+export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
 
 /*
 Method: drop
 
-Explanation: It returns `howMany` items dropped from beginning of list or string `input`.
+Explanation: It returns `howMany` items dropped from beginning of list.
 
 Example:
 
 ```
-R.drop(2, ['foo', 'bar', 'baz']) // => ['baz']
+R.drop(2)(['foo', 'bar', 'baz']) // => ['baz']
 ```
 
 Categories: List
@@ -413,12 +393,11 @@ export function drop<T>(howMany: number): (list: T[]) => T[];
 /*
 Method: dropLast
 
-Explanation: It returns `howMany` items dropped from  the end of list or string `input`.
+Explanation: It returns `howMany` items dropped from the end of list.
 
 Example:
 
 ```
-R.dropLast(2)(['foo', 'bar', 'baz']) // => ['foo']
 ```
 
 Categories: List, String
@@ -531,7 +510,7 @@ Example:
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 'bar'}, {foo: 1}]
 
-const result = R.find(predicate, list)
+const result = R.find(predicate)(list)
 // => {foo: 1}
 ```
 
@@ -606,7 +585,7 @@ Example:
 const predicate = x => R.type(x.foo) === 'Number'
 const list = [{foo: 0}, {foo: 1}]
 
-const result = R.findLastIndex(predicate, list)
+const result = R.findLastIndex(predicate)(list)
 // => 1
 ```
 
@@ -622,11 +601,12 @@ export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => n
 Method: flatten
 
 Explanation: It deeply flattens an array.
+You must pass expected output type as a type argument.
 
 Example:
 
 ```
-const result = R.flatten([
+const result = R.flatten<number>([
   1, 
   2, 
   [3, 30, [300]], 
@@ -637,7 +617,7 @@ const result = R.flatten([
 
 Categories: List
 
-Notes: pipe
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -714,39 +694,6 @@ export function head<T>(listOrString: T): T extends string ? string :
 					T extends [infer F, ...infer R] ? F : 
 						T extends unknown[] ? T[number] : 
 							undefined;
-
-/*
-Method: ifElse
-
-Explanation: It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`. 
-
-When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
-
-Example:
-
-```
-const fn = R.ifElse(
- x => x>10,
- x => x*2,
- x => x*10
-)
-
-const result = [ fn(8), fn(18) ]
-// => [80, 36]
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
-  pred: (a: T) => a is TFiltered,
-  onTrue: (a: TFiltered) => TOnTrueResult,
-  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
-): (a: T) => TOnTrueResult | TOnFalseResult;
-export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /*
 Method: includes
