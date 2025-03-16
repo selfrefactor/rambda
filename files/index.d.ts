@@ -96,6 +96,28 @@ type MappedValues<T extends object, Value> = MergeTypes<{
 	-readonly [P in keyof T as `${P extends number | string ? P : never}`]: Value;
 }>;
 
+type SimpleMerge<Destination, Source> = {
+	[Key in keyof Destination as Key extends keyof Source ? never : Key]: Destination[Key];
+} & Source;
+
+type OmitIndexSignature<ObjectType> = {
+	[KeyType in keyof ObjectType as {} extends Record<KeyType, unknown>
+		? never
+		: KeyType]: ObjectType[KeyType];
+};
+
+type PickIndexSignature<ObjectType> = {
+	[KeyType in keyof ObjectType as {} extends Record<KeyType, unknown>
+		? KeyType
+		: never]: ObjectType[KeyType];
+};
+
+type Merge<Destination, Source> =
+MergeTypes<
+SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
+& SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
+>;
+
 // API_MARKER
 
 /*
@@ -805,7 +827,7 @@ Example:
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
 
-const result = R.intersection(listA, listB)
+const result = R.intersection(listA)(listB)
 // => [{ id : 3 }, { id : 4 }]
 ```
 
@@ -815,7 +837,6 @@ Notes: There is slight difference between Rambda and Ramda implementation. Ramda
 
 */
 // @SINGLE_MARKER
-export function intersection<T>(listA: T[], listB: T[]): T[];
 export function intersection<T>(listA: T[]): (listB: T[]) => T[];
 
 /*
@@ -857,7 +878,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function join<T>(glue: string, list: T[]): string;
 export function join<T>(glue: string): (list: T[]) => string;
 
 /*
@@ -904,8 +924,8 @@ Example:
 ```
 const list = [1, 2, 3, 1, 2, 3]
 const result = [
-  R.lastIndexOf(2, list),
-  R.lastIndexOf(4, list),
+  R.lastIndexOf(2)(list),
+  R.lastIndexOf(4)(list),
 ]
 // => [4, -1]
 ```
@@ -916,7 +936,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function lastIndexOf<T>(target: T, list: T[]): number;
 export function lastIndexOf<T>(target: T): (list: T[]) => number;
 
 /*
@@ -930,18 +949,12 @@ Example:
 
 ```
 const fn = x => x * 2
-const fnWhenObject = (val, prop)=>{
-  return `${prop}-${val}`
-}
 
 const iterable = [1, 2]
 const obj = {a: 1, b: 2}
 
-const result = [ 
-  R.map(fn, iterable),
-  R.map(fnWhenObject, obj)
-]
-// => [ [2, 4], {a: 'a-1', b: 'b-2'}]
+const result = R.map(fn)(iterable),
+// => [2, 4]
 ```
 
 Categories: List
@@ -1071,57 +1084,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp, str: string): string[];
 export function match(regExpression: RegExp): (str: string) => string[];
-
-/*
-Method: mathMod
-
-Explanation: `R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
-
-Example:
-
-```
-const result = [
-  R.mathMod(-17, 5),
-  R.mathMod(17, 5),
-  R.mathMod(17, -5),  
-  R.mathMod(17, 0)   
-]
-// => [3, 2, NaN, NaN]
-```
-
-Categories: Number
-
-Notes: Explanation is taken from `Ramda` documentation site.
-
-*/
-// @SINGLE_MARKER
-export function mathMod(x: number, y: number): number;
-export function mathMod(x: number): (y: number) => number;
-
-/*
-Method: max
-
-Explanation: It returns the greater value between `x` and `y`.
-
-Example:
-
-```
-const result = [
-  R.max(5, 7),  
-  R.max('bar', 'foo'),  
-]
-// => [7, 'foo']
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function max<T extends Ord>(x: T): (y: T) => T;
 
 /*
 Method: maxBy
@@ -1145,48 +1108,9 @@ Notes:
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 
 /*
-Method: mean
-
-Explanation: It returns the mean value of `list` input.
-
-Example:
-
-```
-R.mean([ 2, 7 ])
-// => 4.5
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mean(list: number[]): number;
-
-/*
-Method: median
-
-Explanation: It returns the median value of `list` input.
-
-Example:
-
-```
-R.median([ 7, 2, 10, 9 ]) // => 8
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function median(list: number[]): number;
-
-/*
 Method: merge
 
-Explanation: Same as `R.mergeRight`.
+Explanation: It creates a copy of `target` object with overwritten `newProps` properties.
 
 Example:
 
@@ -1199,55 +1123,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<A, B>(target: A, newProps: B): A & B
-export function merge<Output>(target: any): (newProps: any) => Output;
-
-/*
-Method: mergeRight
-
-Explanation: It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
-
-Example:
-
-```
-const target = { 'foo': 0, 'bar': 1 }
-const newProps = { 'foo': 7 }
-
-const result = R.mergeRight(target, newProps)
-// => { 'foo': 7, 'bar': 1 }
-```
-
-Categories: Object
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function mergeRight<A, B>(target: A, newProps: B): A & B
-export function mergeRight<Output>(target: any): (newProps: any) => Output;
-
-/*
-Method: min
-
-Explanation: It returns the lesser value between `x` and `y`.
-
-Example:
-
-```
-const result = [
-  R.min(5, 7),  
-  R.min('bar', 'foo'),  
-]
-// => [5, 'bar']
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function min<T extends Ord>(x: T): (y: T) => T;
+export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
 
 /*
 Method: minBy
