@@ -23,7 +23,6 @@ test('with json parse', () => {
   expect(tryCatch(bad, 1)()).toBe(1)
 })
 
-
 test('when fn is used', () => {
   const fn = prop('x')
 

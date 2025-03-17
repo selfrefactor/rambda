@@ -10,7 +10,7 @@ export function remove(inputs) {
     let textCopy = text
 
     inputs.forEach(singleInput => {
-      textCopy = (replace(singleInput, '')(textCopy)).trim()
+      textCopy = replace(singleInput, '')(textCopy).trim()
     })
 
     return textCopy

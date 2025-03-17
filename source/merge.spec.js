@@ -6,7 +6,7 @@ const obj = {
 }
 
 test('happy', () => {
-  expect(merge(obj)( { bar: 20 })).toEqual({
+  expect(merge(obj)({ bar: 20 })).toEqual({
     foo: 1,
     bar: 20,
   })

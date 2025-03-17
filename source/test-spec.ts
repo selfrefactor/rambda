@@ -4,7 +4,7 @@ const input = 'foo   '
 const regex = /foo/
 
 it('R.test', () => {
-	const result = test(regex)(input)
+  const result = test(regex)(input)
 
-	result // $ExpectType boolean
+  result // $ExpectType boolean
 })

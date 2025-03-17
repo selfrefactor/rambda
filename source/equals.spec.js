@@ -1,4 +1,4 @@
-import {equalsFn } from './equals.js'
+import { equalsFn } from './equals.js'
 
 test('compare functions', () => {
   function foo() {}
@@ -188,7 +188,7 @@ test('compare simple sets', () => {
 })
 
 test('various examples', () => {
-  expect(equalsFn([1, 2, 3],[1, 2, 3])).toBeTruthy()
-  expect(equalsFn([1, 2, 3],[1, 2])).toBeFalsy()
-  expect(equalsFn({},{})).toBeTruthy()
+  expect(equalsFn([1, 2, 3], [1, 2, 3])).toBeTruthy()
+  expect(equalsFn([1, 2, 3], [1, 2])).toBeFalsy()
+  expect(equalsFn({}, {})).toBeTruthy()
 })

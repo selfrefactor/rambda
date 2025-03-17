@@ -2,7 +2,7 @@ import { union } from 'rambda'
 
 describe('R.union', () => {
   it('happy', () => {
-    const result = union([1, 2])( [2, 3])
+    const result = union([1, 2])([2, 3])
 
     result // $ExpectType number[]
   })

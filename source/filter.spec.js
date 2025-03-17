@@ -5,4 +5,3 @@ test('happy', () => {
 
   expect(filter(isEven)([1, 2, 3, 4])).toEqual([2, 4])
 })
-

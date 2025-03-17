@@ -1,5 +1,5 @@
-import { delay } from 'rambdax'
 import { pipeAsync } from 'rambda'
+import { delay } from 'rambdax'
 
 describe('R.pipeAsync', () => {
   it('happy', async () => {

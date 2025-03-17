@@ -1,4 +1,4 @@
-import {range} from 'rambda'
+import { range } from 'rambda'
 
 describe('R.range', () => {
   it('curried', () => {

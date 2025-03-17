@@ -36,7 +36,7 @@ test('should return items that are not equal to themselves', () => {
       return false
     }
     return errorA.id === errorB.id
-  })( data)
+  })(data)
 
   expect(result).toEqual(expectedResult)
 })

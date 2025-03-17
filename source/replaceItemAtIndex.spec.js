@@ -1,6 +1,6 @@
 import { replaceItemAtIndex } from './replaceItemAtIndex.js'
 
-let add10 = x => x + 10
+const add10 = x => x + 10
 
 const list = [0, 1, 2]
 const expected = [0, 11, 2]

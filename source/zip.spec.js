@@ -23,7 +23,7 @@ test('should truncate result to length of shorted input list', () => {
     [1, 'A'],
     [2, 'B'],
   ]
-  const actualA = zip([1, 2])( array2)
+  const actualA = zip([1, 2])(array2)
   expect(actualA).toEqual(expectedA)
 
   const expectedB = [

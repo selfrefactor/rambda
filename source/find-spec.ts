@@ -5,10 +5,7 @@ const list = [1, 2, 3]
 describe('R.find', () => {
   it('happy', () => {
     const predicate = (x: number) => x > 2
-		let result = pipe(
-			list,
-			find(predicate)
-		)
-		result // $ExpectType number | undefined
+    const result = pipe(list, find(predicate))
+    result // $ExpectType number | undefined
   })
 })

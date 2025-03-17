@@ -29,7 +29,7 @@ describe('R.mapObject', () => {
       { a: 1, b: 'foo' },
       mapObject((a, b, c) => {
         a // $ExpectType string | number
-				b // $ExpectType "a" | "b"
+        b // $ExpectType "a" | "b"
         c // $ExpectType { a: number; b: string; }
         return `${a}`
       }),

@@ -31,11 +31,11 @@ export function partitionArray(predicate, list, indexed = false) {
 }
 
 export function partition(predicate) {
-	return iterable => {
-		if (!isArray(iterable)) {
-			return partitionObject(predicate, iterable)
-		}
-	
-		return partitionArray(predicate, iterable)
-	}
+  return iterable => {
+    if (!isArray(iterable)) {
+      return partitionObject(predicate, iterable)
+    }
+
+    return partitionArray(predicate, iterable)
+  }
 }

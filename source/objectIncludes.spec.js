@@ -1,10 +1,10 @@
 import { objectIncludes } from './objectIncludes.js'
 
 test('when true', () => {
-  const condition = { a : 1 }
+  const condition = { a: 1 }
   const input = {
-    a : 1,
-    b : 2,
+    a: 1,
+    b: 2,
   }
 
   const result = objectIncludes(condition)(input)
@@ -14,8 +14,8 @@ test('when true', () => {
 })
 
 test('when false', () => {
-  const condition = { a : 1 }
-  const input = { b : 2 }
+  const condition = { a: 1 }
+  const input = { b: 2 }
 
   const result = objectIncludes(condition)(input)
   const expectedResult = false
@@ -24,10 +24,10 @@ test('when false', () => {
 })
 
 test('with nested object', () => {
-  const condition = { a : { b : 1 } }
+  const condition = { a: { b: 1 } }
   const input = {
-    a : { b : 1 },
-    c : 2,
+    a: { b: 1 },
+    c: 2,
   }
 
   const result = objectIncludes(condition)(input)
@@ -37,7 +37,9 @@ test('with nested object', () => {
 })
 
 test('with wrong input', () => {
-  const condition = { a : { b : 1 } }
+  const condition = { a: { b: 1 } }
 
-  expect(() => objectIncludes(condition)(null)).toThrowErrorMatchingInlineSnapshot(`[TypeError: Cannot read properties of null (reading 'a')]`)
+  expect(() => objectIncludes(condition)(null)).toThrowErrorMatchingInlineSnapshot(
+    `[TypeError: Cannot read properties of null (reading 'a')]`,
+  )
 })

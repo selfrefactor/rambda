@@ -1,6 +1,6 @@
-import { sortWith } from './sortWith.js'
 import { ascend } from './ascend.js'
 import { prop } from './prop.js'
+import { sortWith } from './sortWith.js'
 
 const albums = [
   {
@@ -85,8 +85,7 @@ test('sorts by a simple property of the objects', () => {
 })
 
 test('sorts by multiple properties of the objects', () => {
-  const sortedAlbums = sortWith(
-    [ascend(prop('score')), ascend(prop('title'))])(
+  const sortedAlbums = sortWith([ascend(prop('score')), ascend(prop('title'))])(
     albums,
   )
   expect(sortedAlbums).toHaveLength(albums.length)
@@ -96,10 +95,11 @@ test('sorts by multiple properties of the objects', () => {
 })
 
 test('sorts by 3 properties of the objects', () => {
-  const sortedAlbums = sortWith(
-    [ascend(prop('genre')), ascend(prop('score')), ascend(prop('title'))])(
-    albums,
-  )
+  const sortedAlbums = sortWith([
+    ascend(prop('genre')),
+    ascend(prop('score')),
+    ascend(prop('title')),
+  ])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Art of the Fugue')
   expect(sortedAlbums[1].title).toBe('Goldberg Variations')
@@ -107,8 +107,7 @@ test('sorts by 3 properties of the objects', () => {
 })
 
 test('sorts by multiple properties using ascend and descend', () => {
-  const sortedAlbums = sortWith(
-    [ascend(prop('score')), ascend(prop('title'))])(
+  const sortedAlbums = sortWith([ascend(prop('score')), ascend(prop('title'))])(
     albums,
   )
   expect(sortedAlbums).toHaveLength(albums.length)

@@ -14,4 +14,3 @@ test('with list of strings as path', () => {
 test('with string as path - curried', () => {
   expect(sortByPath('a.b')(list)).toEqual(sorted)
 })
-

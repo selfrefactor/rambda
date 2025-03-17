@@ -8,10 +8,10 @@ describe('R.flatMap', () => {
     ]
     const result = pipe(
       listOfLists,
-			x => x,
+      x => x,
       flatMap(x => {
         x // $ExpectType string
-        return Number(x)+1
+        return Number(x) + 1
       }),
     )
     result // $ExpectType number[]

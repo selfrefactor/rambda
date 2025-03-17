@@ -13,9 +13,9 @@ import {
   map,
   mapObject,
   pipe,
+  split,
   tap,
   union,
-	split,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
@@ -200,29 +200,25 @@ describe('real use cases - books', () => {
 		2,The Second,2020
 		3,The Third,2018`
 
-    const result = pipe(
-      tableData,
-      split('\n'), 
-      map(split(',')), 
-    )
+    const result = pipe(tableData, split('\n'), map(split(',')))
     result // $ExpectType string[][]
   })
 })
 
 it('R.pipe', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
+  const obj = {
+    a: 'foo',
+    b: 'bar',
+  }
 
-    const result = pipe(
-			obj,
-      x => ({a: x.a.length + x.b.length}),
-			x => ({...x,b: x.a + 'foo'}),
-			x => ({...x, c: x.b + 'bar'}),
-    )
+  const result = pipe(
+    obj,
+    x => ({ a: x.a.length + x.b.length }),
+    x => ({ ...x, b: x.a + 'foo' }),
+    x => ({ ...x, c: x.b + 'bar' }),
+  )
 
-    result.a // $ExpectType number
-		result.b // $ExpectType string
-		result.c // $ExpectType string
+  result.a // $ExpectType number
+  result.b // $ExpectType string
+  result.c // $ExpectType string
 })

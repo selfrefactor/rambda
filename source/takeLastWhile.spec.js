@@ -19,4 +19,3 @@ test('predicate is always false', () => {
   const result = takeLastWhile(predicate)(list)
   expect(result).toEqual([])
 })
-

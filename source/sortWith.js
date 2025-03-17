@@ -10,14 +10,14 @@ function sortHelper(a, b, listOfSortingFns) {
 }
 
 export function sortWith(listOfSortingFns) {
-	return list => {
-  if (Array.isArray(list) === false) {
-    return []
+  return list => {
+    if (Array.isArray(list) === false) {
+      return []
+    }
+
+    const clone = list.slice()
+    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
+
+    return clone
   }
-
-  const clone = list.slice()
-  clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
-
-  return clone
-}
 }

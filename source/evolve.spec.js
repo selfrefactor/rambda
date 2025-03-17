@@ -1,6 +1,6 @@
 import { evolve } from './evolve.js'
 
-let add = x => y => x + y
+const add = x => y => x + y
 
 test('happy', () => {
   const rules = {

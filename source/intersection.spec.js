@@ -16,6 +16,6 @@ test('intersection with objects', () => {
 test('order is the same as in Ramda', () => {
   const list = ['a', 'b', 'c', 'd']
 
-  expect(intersection(list)( ['b', 'c'])).toEqual(['b', 'c'])
+  expect(intersection(list)(['b', 'c'])).toEqual(['b', 'c'])
   expect(intersection(list)(['c', 'b'])).toEqual(['c', 'b'])
 })

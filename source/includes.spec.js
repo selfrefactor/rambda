@@ -11,7 +11,7 @@ test('with array as iterable', () => {
   const arr = [1, 2, 3]
 
   expect(includes(2)(arr)).toBeTruthy()
-  expect(includes(4)( arr)).toBeFalsy()
+  expect(includes(4)(arr)).toBeFalsy()
 })
 
 test('with list of objects as iterable', () => {

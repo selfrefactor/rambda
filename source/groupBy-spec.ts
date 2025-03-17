@@ -5,10 +5,7 @@ describe('R.groupBy', () => {
     const groupByFn = (x: string) => String(x.length)
     const list = ['foo', 'bar']
 
-    const result = pipe(
-			list,
-			groupBy(groupByFn)
-		) 
+    const result = pipe(list, groupBy(groupByFn))
     result // $ExpectType Partial<Record<string, string[]>>
   })
 })

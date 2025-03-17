@@ -10,5 +10,5 @@ test("it doesn't mutate", () => {
   const list = ['foo', 'bar', 'baz']
 
   expect(sort(fn)(list)).toEqual(['bar', 'baz', 'foo'])
-	expect(list).toEqual(['foo', 'bar', 'baz'])
+  expect(list).toEqual(['foo', 'bar', 'baz'])
 })
