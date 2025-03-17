@@ -1,12 +1,12 @@
 import { isArray } from './_internals/isArray.js'
-import { updateFn } from './update.js'
+import { update } from './update.js'
 
 function modifyFn(
   property, fn, list
 ){
   if (list[ property ] === undefined) return list
   if (isArray(list)){
-    return updateFn(
+    return update(
       property, fn(list[ property ]))(list
     )
   }
@@ -17,7 +17,7 @@ function modifyFn(
   }
 }
 
-export function modify (property, fn){
+export function modifyProp (property, fn){
 	return obj => modifyFn(property, fn, obj)
 }
 
