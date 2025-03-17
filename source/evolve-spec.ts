@@ -1,21 +1,23 @@
-import { add, evolve, pipe } from 'rambda'
+import {  evolve, pipe } from 'rambda'
 
 it('R.evolve', () => {
   const input = {
     foo: 2,
+		baz: 'baz',
     nested: {
       a: 1,
       bar: 3,
     },
   }
-  const rules = {
-    foo: add(1),
-    nested: {
-      a: add(-1),
-      bar: add(1),
-    },
-  }
-  const result = pipe(input, evolve(rules))
+  const result = pipe(input, 
+		evolve({
+			foo: x => x + 1,
+			nested: {
+				a: x => x + 1,
+				bar: x => x + 1,
+			},
+		})
+	)
   result.nested.a // $ExpectType number
   result.nested.bar // $ExpectType number
   result.foo // $ExpectType number

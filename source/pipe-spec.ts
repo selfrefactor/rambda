@@ -1,6 +1,5 @@
 import {
   type MergeTypes,
-  add,
   allPass,
   append,
   defaultTo,
@@ -178,7 +177,7 @@ describe('real use cases - books', () => {
         append(awardedZaratustraToRead),
         head,
         evolve({
-          year: add(1),
+          year: x => x + 1,
           mustRead: allPass([checkHasDescription, checkHasUserRating]),
         }),
         // convertToType<BookWithDescription>(),

@@ -45,36 +45,6 @@ export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		
 	: T extends `${infer Head}` ? [Head]
 	: [];
 
-
-type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
-type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
-};
-type Evolve<O extends Evolvable<E>, E extends Evolver> = {   [P in keyof O]: P extends keyof E
-                  ? EvolveValue<O[P], E[P]>
-                  : O[P];
-};
-
-type Evolved<A> =
-    A extends (value: infer V) => any
-    ? V
-    : A extends Evolver
-      ? Evolvable<A>
-      : never;
-
-type EvolveNestedValue<O, E extends Evolver> =
-    O extends object
-    ? O extends Evolvable<E>
-      ? Evolve<O, E>
-      : never
-    : never;
-
-type EvolveValue<V, E> =
-    E extends (value: V) => any
-    ? ReturnType<E>
-    : E extends Evolver
-      ? EvolveNestedValue<V, E>
-      : never;
-
 declare const emptyObjectSymbol: unique symbol;
 type EmptyObject = {[emptyObjectSymbol]?: never};
 type EnumerableStringKeyOf<T> =
@@ -115,6 +85,18 @@ MergeTypes<
 SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
 & SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
 >;
+
+type IsPlainObject<T> = T extends object
+  ? T extends any[]
+    ? false
+    : true
+  : false;
+
+type EvolveSpec<T> = {
+  [P in keyof T]?: IsPlainObject<T[P]> extends true
+    ? EvolveSpec<T[P]> | ((value: T[P]) => T[P])
+    : (value: T[P]) => T[P];
+};
 
 // API_MARKER
 
@@ -2864,31 +2846,34 @@ Explanation: It takes object of functions as set of rules. These `rules` are app
 Example:
 
 ```
-const rules = {
-  foo : add(1),
-  bar : add(-1),
-}
 const input = {
-  a   : 1,
-  foo : 2,
-  bar : 3,
+	foo: 2,
+	baz: 'baz',
+	nested: {
+		a: 1,
+		bar: 3,
+	},
 }
-const result = R.evolve(rules)(input)
-const expected = {
-  a   : 1,
-  foo : 3,
-  bar : 2,
-})
-// => `result` is equal to `expected`
+const result = R.pipe(
+	input, 
+	evolve({
+		foo: x => x + 1,
+		nested: {
+			a: x => x + 1,
+			bar: x => x + 1,
+		},
+	})
+)
+// => result is { foo: 3, baz: 'baz', nested: { a: 2, bar: 4 } }
 ```
 
-Categories: Object
+Categories: Object, Logic
 
 Notes: 
 
 */
 // @SINGLE_MARKER
-export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+export function evolve<T>(rules: EvolveSpec<T>): (obj: T) => T;
 
 /*
 Method: dropLastWhile
