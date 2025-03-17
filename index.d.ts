@@ -4,8 +4,6 @@ export type EqualTypes<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends
   (<T>() => T extends Y ? 1 : 2) ? true : false
 
-export type NonEmptyArray<T> = [T, ...T[]];
-export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
 export type Mapped<T extends IterableContainer, K> = {
@@ -30,7 +28,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   1: V;
 }
 
-export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
+export type Functor<A> = { map: <B>(fn: (x: A) => B) => Functor<B>; [key: string]: any };
 export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
   Keys extends [infer K, ...infer Rest]
     ? K extends keyof U
@@ -96,8 +94,28 @@ type MappedValues<T extends object, Value> = MergeTypes<{
 	-readonly [P in keyof T as `${P extends number | string ? P : never}`]: Value;
 }>;
 
+type SimpleMerge<Destination, Source> = {
+	[Key in keyof Destination as Key extends keyof Source ? never : Key]: Destination[Key];
+} & Source;
 
-export function T(): boolean;
+type OmitIndexSignature<ObjectType> = {
+	[KeyType in keyof ObjectType as {} extends Record<KeyType, unknown>
+		? never
+		: KeyType]: ObjectType[KeyType];
+};
+
+type PickIndexSignature<ObjectType> = {
+	[KeyType in keyof ObjectType as {} extends Record<KeyType, unknown>
+		? KeyType
+		: never]: ObjectType[KeyType];
+};
+
+type Merge<Destination, Source> =
+MergeTypes<
+SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
+& SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
+>;
+
 
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
@@ -182,35 +200,29 @@ export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
 /**
  * It counts elements in a list after each instance of the input list is passed through `transformFn` function.
  */
-export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
-
-/**
- * It decrements a number.
- */
-export function dec(x: number): number;
+export function countBy<T>(fn: (x: T) => string | number): (list: T[]) => { [index: string]: number };
 
 /**
  * It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
  * 
  * Else, it returns the first truthy `inputArguments` instance(from left to right).
  */
-export function defaultTo<T>(defaultValue: T, input: T | null | undefined): T;
-export function defaultTo<T>(defaultValue: T): <U>(input: U | null | undefined) => EqualTypes<U, T> extends true ? T : never
+export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
 
 /**
- * It returns `howMany` items dropped from beginning of list or string `input`.
+ * It returns `howMany` items dropped from beginning of list.
  */
 export function drop<T>(howMany: number): (list: T[]) => T[];
 
 /**
- * It returns `howMany` items dropped from  the end of list or string `input`.
+ * It returns `howMany` items dropped from the end of list.
  */
 export function dropLast<T>(howMany: number): (list: T[]) => T[];
 
 export function dropLastWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 export function dropLastWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 
-export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
+export function dropRepeatsBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
 
 export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
@@ -222,7 +234,7 @@ export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 /**
  * It returns `true` if property `prop` in `obj1` is equal to property `prop` in `obj2` according to `R.equals`.
  */
-export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+export function eqProps<T, K extends keyof T>(prop: K, obj1: T): (obj2: T) => boolean;
 
 /**
  * It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -305,13 +317,14 @@ export function flatMap<T, U extends unknown>(transformFn: (x: T extends any[] ?
 
 /**
  * It deeply flattens an array.
+ * You must pass expected output type as a type argument.
  */
 export function flatten<T>(list: any[]): T[];
 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
  */
-export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
+export function groupBy<T, K extends string = string>(fn: (x: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
 
 /**
  * It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
@@ -324,18 +337,6 @@ export function head<T>(listOrString: T): T extends string ? string :
 					T extends [infer F, ...infer R] ? F : 
 						T extends unknown[] ? T[number] : 
 							undefined;
-
-/**
- * It expects `condition`, `onTrue` and `onFalse` functions as inputs and it returns a new function with example name of `fn`.
- * 
- * When `fn`` is called with `input` argument, it will return either `onTrue(input)` or `onFalse(input)` depending on `condition(input)` evaluation.
- */
-export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
-  pred: (a: T) => a is TFiltered,
-  onTrue: (a: TFiltered) => TOnTrueResult,
-  onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
-): (a: T) => TOnTrueResult | TOnFalseResult;
-export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /**
  * If `input` is string, then this method work as native `String.includes`.
@@ -367,7 +368,6 @@ export function innerJoin<T1, T2>(
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
-export function intersection<T>(listA: T[], listB: T[]): T[];
 export function intersection<T>(listA: T[]): (listB: T[]) => T[];
 
 /**
@@ -375,14 +375,9 @@ export function intersection<T>(listA: T[]): (listB: T[]) => T[];
  */
 export function intersperse<T>(separator: T): (list: T[]) => T[];
 
-export function isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>;
-export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
-export function isNotEmpty(value: any): boolean;
-
 /**
  * It returns a string of all `list` instances joined with a `glue`.
  */
-export function join<T>(glue: string, list: T[]): string;
 export function join<T>(glue: string): (list: T[]) => string;
 
 /**
@@ -404,7 +399,6 @@ export function last<T>(listOrString: T): T extends string ? string :
  * 
  * If there is no such index, then `-1` is returned.
  */
-export function lastIndexOf<T>(target: T, list: T[]): number;
 export function lastIndexOf<T>(target: T): (list: T[]) => number;
 
 /**
@@ -469,19 +463,7 @@ export as namespace R
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
-export function match(regExpression: RegExp, str: string): string[];
 export function match(regExpression: RegExp): (str: string) => string[];
-
-/**
- * `R.mathMod` behaves like the modulo operator should mathematically, unlike the `%` operator (and by extension, `R.modulo`). So while `-17 % 5` is `-2`, `mathMod(-17, 5)` is `3`.
- */
-export function mathMod(x: number, y: number): number;
-export function mathMod(x: number): (y: number) => number;
-
-/**
- * It returns the greater value between `x` and `y`.
- */
-export function max<T extends Ord>(x: T): (y: T) => T;
 
 /**
  * It returns the greater value between `x` and `y` according to `compareFn` function.
@@ -489,37 +471,15 @@ export function max<T extends Ord>(x: T): (y: T) => T;
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 
 /**
- * It returns the mean value of `list` input.
+ * It creates a copy of `target` object with overwritten `newProps` properties.
  */
-export function mean(list: number[]): number;
-
-/**
- * It returns the median value of `list` input.
- */
-export function median(list: number[]): number;
-
-/**
- * Same as `R.mergeRight`.
- */
-export function merge<A, B>(target: A, newProps: B): A & B
-export function merge<Output>(target: any): (newProps: any) => Output;
-
-/**
- * It creates a copy of `target` object with overwritten `newProps` properties. Previously known as `R.merge` but renamed after Ramda did the same.
- */
-export function mergeRight<A, B>(target: A, newProps: B): A & B
-export function mergeRight<Output>(target: any): (newProps: any) => Output;
+export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
 
 /**
  * Helper to merge all calculated TypeScript definitions into one definition.
  * It returns its input and it is intended to be used as last method inside `R.pipe` chain.
  */
 export function mergeTypes<T>(x: T): MergeTypes<T>;
-
-/**
- * It returns the lesser value between `x` and `y`.
- */
-export function min<T extends Ord>(x: T): (y: T) => T;
 
 /**
  * It returns the lesser value between `x` and `y` according to `compareFn` function.
@@ -529,10 +489,10 @@ export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 /**
  * It changes a property with the result of transformer function.
  */
-export function modify<K extends string, A, P>(
+export function modifyProp<T, K extends keyof T>(
   prop: K,
-  fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+  fn: (x: T[K]) => T[K],
+): (target: T) => T;
 
 /**
  * It returns `true`, if all members of array `list` returns `false`, when applied as argument to `predicate` function.
@@ -549,7 +509,7 @@ export function objOf<T, K extends PropertyKey>(key: K): (value: T) => { [P in K
  * 
  * `R.equals` is used to determine equality.
  */
-export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
+export function objectIncludes<T>(specification: T): (obj: Partial<T>) => boolean;
 
 /**
  * It returns a partial copy of an `obj` without `propsToOmit` properties.
@@ -557,8 +517,14 @@ export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
 export function omit<
 	S extends string,
 	Keys extends PickStringToPickPath<S>,
->(propsToPick: S): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
-export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
+>(propsToPick: S): <U extends Partial<Record<ElementOf<Keys>, any>>>(
+	obj: ElementOf<Keys> extends keyof U ? U : never
+) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
+export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <
+	U extends Partial<Record<ElementOf<Keys>, any>>
+>(
+	obj: ElementOf<Keys> extends keyof U ? U : never
+) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /**
  * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
@@ -1374,6 +1340,9 @@ export function propEq<T>(val: T): {
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
+/**
+ * It returns either `defaultValue` or the value of `property` in `obj`.
+ */
 export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
 
 /**
@@ -1429,14 +1398,12 @@ export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (l
 /**
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
  */
-export function sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
 export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 
 /**
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
  */
-export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
-export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
+export function sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
 
@@ -1446,14 +1413,6 @@ export function split(separator: string | RegExp): (str: string) => string[];
  * It splits `input` into slices of `sliceLength`.
  */
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
-
-/**
- * Curried version of `x - y`
- */
-export function subtract(x: number, y: number): number;
-export function subtract(x: number): (y: number) => number;
-
-export function sum(list: number[]): number;
 
 /**
  * It returns a merged list of `x` and `y` with all equal elements removed.
@@ -1497,25 +1456,15 @@ export function takeWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
  * 
  * One use case is debugging in the middle of `R.pipe` chain.
  */
-export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;
 
 /**
  * It determines whether `str` matches `regExpression`.
  */
 export function test(regExpression: RegExp): (str: string) => boolean;
-export function test(regExpression: RegExp, str: string): boolean;
 
 /**
- * It returns the result of applying function `fn` over members of range array.
- * 
- * The range array includes numbers between `0` and `howMany`(exclusive).
- */
-export function times<T>(fn: (i: number) => T, howMany: number): T[];
-export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
-
-/**
- * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
+ * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
  */
 export function tryCatch<T, U>(
   fn: (input: T) => U,
@@ -1546,14 +1495,14 @@ export function uniq<T>(list: T[]): T[];
  * 
  * `R.equals` is used to determine equality.
  */
-export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
+export function uniqBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element in `list` according to `predicate` function.
  * 
  * This predicate should return true, if two elements are equal.
  */
-export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function uniqWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /**
  * The method returns function that will be called with argument `input`.
@@ -1579,8 +1528,8 @@ export function update<T>(index: number, newValue: T): (list: T[]) => T[];
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
  * If the `predicate` returns `false`, then it will simply return `input`.
  */
-export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => T): (input: T) => T;
-export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
+export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => T): (input: T) => T;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => U): (input: T) => T | U;
 
 /**
  * It will return a new array containing tuples of equally positions items from both `x` and `y` lists.

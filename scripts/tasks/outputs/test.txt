@@ -1,10 +1,11 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/evolve.spec.js (4 tests) 8ms
+ ✓ source/objectIncludes.spec.js (4 tests) 14ms
 
+  Snapshots  1 updated 
  Test Files  1 passed (1)
       Tests  4 passed (4)
-   Start at  07:45:55
-   Duration  476ms (transform 47ms, setup 0ms, collect 42ms, tests 8ms, environment 0ms, prepare 116ms)
+   Start at  18:04:36
+   Duration  418ms (transform 55ms, setup 0ms, collect 41ms, tests 14ms, environment 0ms, prepare 105ms)
 

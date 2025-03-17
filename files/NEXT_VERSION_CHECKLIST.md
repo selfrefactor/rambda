@@ -18,9 +18,8 @@ From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order 
 - `R.compose` doesn't have the best possible TypeScript support.
 
 
-
 ===
-
+https://jsr.io/@rambda/rambda
 ===
 ABOVE IS DONE
 ===

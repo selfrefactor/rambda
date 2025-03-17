@@ -4,8 +4,6 @@ export type EqualTypes<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends
   (<T>() => T extends Y ? 1 : 2) ? true : false
 
-export type NonEmptyArray<T> = [T, ...T[]];
-export type ReadonlyNonEmptyArray<T> = readonly [T, ...T[]];
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
 export type Mapped<T extends IterableContainer, K> = {
@@ -30,7 +28,7 @@ interface KeyValuePair<K, V> extends Array<K | V> {
   1: V;
 }
 
-export type Functor<A> = { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
+export type Functor<A> = { map: <B>(fn: (x: A) => B) => Functor<B>; [key: string]: any };
 export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
   Keys extends [infer K, ...infer Rest]
     ? K extends keyof U
@@ -666,7 +664,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
+export function groupBy<T, K extends string = string>(fn: (x: T) => K): (list: T[]) => Partial<Record<K, T[]>>;
 
 /*
 Method: mergeTypes
@@ -1170,26 +1168,6 @@ Notes:
 export function none<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
-Method: notEmpty
-
-Explanation: 
-
-Example:
-
-```
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function isNotEmpty<T>(value: T[]): value is NonEmptyArray<T>;
-export function isNotEmpty<T>(value: readonly T[]): value is ReadonlyNonEmptyArray<T>;
-export function isNotEmpty(value: any): boolean;
-
-/*
 Method: objOf
 
 Explanation: It creates an object with a single key-value pair.
@@ -1237,8 +1215,14 @@ Notes:
 export function omit<
 	S extends string,
 	Keys extends PickStringToPickPath<S>,
->(propsToPick: S): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
-export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <U extends Partial<Record<ElementOf<Keys>, any>>>(obj: ElementOf<Keys> extends keyof U ? U : never) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
+>(propsToPick: S): <U extends Partial<Record<ElementOf<Keys>, any>>>(
+	obj: ElementOf<Keys> extends keyof U ? U : never
+) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
+export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <
+	U extends Partial<Record<ElementOf<Keys>, any>>
+>(
+	obj: ElementOf<Keys> extends keyof U ? U : never
+) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /*
 Method: partition
@@ -1275,7 +1259,6 @@ export function partition<T, S extends T>(
 export function partition<T>(
   predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
 ): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
-
 
 /*
 Method: path
@@ -1708,10 +1691,10 @@ const propsToPick = 'a,foo'
 const propsToPickList = ['a', 'foo']
 
 const result = [
-  R.pick(propsToPick, obj),
-  R.pick(propsToPickList, obj),
-  R.pick('a,bar', obj),
-  R.pick('bar', obj),
+  R.pick(propsToPick)(obj),
+  R.pick(propsToPickList)(obj),
+  R.pick('a,bar')(obj),
+  R.pick('bar')(obj),
 ]
 
 const expected = [
@@ -2115,8 +2098,8 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch, obj),
-  R.propEq(propToFind, valueToMatch, secondObj)
+  R.propEq(propToFind, valueToMatch)(obj),
+  R.propEq(propToFind, valueToMatch)(secondObj)
 ]
 // => [true, false]
 ```
@@ -2135,7 +2118,7 @@ export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<
 export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /*
-Method: getPropertyOrDefault
+Method: propOr
 
 Explanation: It returns either `defaultValue` or the value of `property` in `obj`.
 
@@ -2222,8 +2205,8 @@ const obj = {a: 1, b: 2}
 const predicate = x => x > 1
 
 const result = [
-  R.reject(predicate, list),
-  R.reject(predicate, obj)
+  R.reject(predicate)(list),
+  R.reject(predicate)(obj)
 ]
 // => [[1], {a: 1}]
 ```
@@ -2303,7 +2286,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sort<T>(sortFn: (a: T, b: T) => number, list: T[]): T[];
 export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 
 /*
@@ -2336,8 +2318,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortBy<T>(sortFn: (a: T) => Ord): (list: T[]) => T[];
-export function sortBy(sortFn: (a: any) => Ord): <T>(list: T[]) => T[];
+export function sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
 /*
 Method: sortWith
@@ -2402,50 +2383,6 @@ Notes:
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /*
-Method: subtract
-
-Explanation: Curried version of `x - y`
-
-Example:
-
-```
-const x = 3
-const y = 1
-
-const result = R.subtract(x, y) 
-// => 2
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function subtract(x: number, y: number): number;
-export function subtract(x: number): (y: number) => number;
-
-/*
-Method: sum
-
-Explanation:
-
-Example:
-
-```
-R.sum([1, 2, 3, 4, 5]) 
-// => 15
-```
-
-Categories: List
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function sum(list: number[]): number;
-
-/*
 Method: symmetricDifference
 
 Explanation: It returns a merged list of `x` and `y` with all equal elements removed.
@@ -2469,28 +2406,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
-
-/*
-Method: T
-
-Explanation:
-
-
-
-Example:
-
-```
-R.T() 
-// => true
-```
-
-Categories: Logic
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function T(): boolean;
 
 /*
 Method: tail
@@ -2602,7 +2517,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tap<T>(fn: (x: T) => void, input: T): T;
 export function tap<T>(fn: (x: T) => void): (input: T) => T;
 
 /*
@@ -2613,7 +2527,7 @@ Explanation: It determines whether `str` matches `regExpression`.
 Example:
 
 ```
-R.test(/^f/, 'foo')
+R.test(/^f/)('foo')
 // => true
 ```
 
@@ -2624,38 +2538,11 @@ Notes:
 */
 // @SINGLE_MARKER
 export function test(regExpression: RegExp): (str: string) => boolean;
-export function test(regExpression: RegExp, str: string): boolean;
-
-/*
-Method: times
-
-Explanation: It returns the result of applying function `fn` over members of range array.
-
-The range array includes numbers between `0` and `howMany`(exclusive).
-
-Example:
-
-```
-const fn = x => x * 2
-const howMany = 5
-
-R.times(fn, howMany)
-// => [0, 2, 4, 6, 8]
-```
-
-Categories:
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function times<T>(fn: (i: number) => T, howMany: number): T[];
-export function times<T>(fn: (i: number) => T): (howMany: number) => T[];
 
 /*
 Method: tryCatch
 
-Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result. Note that `fn` can be value or asynchronous/synchronous function(unlike `Ramda` where fallback can only be a synchronous function).
+Explanation: It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
 
 Example:
 
@@ -2787,7 +2674,7 @@ const expected = [
 
 const predicate = (x,y) => x.title === y.title
 
-const result = R.uniqWith(predicate, list)
+const result = R.uniqWith(predicate)(list)
 // => `result` is equal to `expected`
 ```
 
@@ -2797,7 +2684,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqWith<T, U>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
+export function uniqWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => T[];
 
 /*
 Method: when
@@ -2833,8 +2720,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => T): (input: T) => T;
-export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (a: T) => U): (input: T) => T | U;
+export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => T): (input: T) => T;
+export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => U): (input: T) => T | U;
 
 /*
 Method: checkObjectWithSpec
@@ -2892,7 +2779,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function objectIncludes<T>(specification: T): <U>(obj: U) => boolean;
+export function objectIncludes<T>(specification: T): (obj: Partial<T>) => boolean;
 
 /*
 Method: zip
@@ -3096,7 +2983,6 @@ Notes:
 export function takeWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 export function takeWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
 
-
 /*
 Method: eqProps
 
@@ -3117,7 +3003,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+export function eqProps<T, K extends keyof T>(prop: K, obj1: T): (obj2: T) => boolean;
 
 /*
 Method: count
@@ -3128,7 +3014,7 @@ Example:
 
 ```
 const list = [{a: 1}, 1, {a:2}]
-const result = R.count(x => x.a !== undefined, list)
+const result = R.count(x => x.a !== undefined)(list)
 // => 2
 ```
 
@@ -3150,7 +3036,7 @@ Example:
 ```
 const list = [ 'a', 'A', 'b', 'B', 'c', 'C' ]
 
-const result = countBy(R.toLower, list)
+const result = countBy(x => x.toLowerCase())( list)
 const expected = { a: 2, b: 2, c: 2 }
 // => `result` is equal to `expected`
 ```
@@ -3161,7 +3047,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
+export function countBy<T>(fn: (x: T) => string | number): (list: T[]) => { [index: string]: number };
 
 /*
 Method: unwind
@@ -3212,10 +3098,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function uniqBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
+export function uniqBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
 
 /*
-Method: modify
+Method: modifyProp
 
 Explanation: It changes a property with the result of transformer function.
 
@@ -3226,7 +3112,7 @@ const person = {
   name : 'foo',
   age  : 20,
 }
-const result = R.modify('age', x => x + 1)(person) 
+const result = R.modifyProp('age', x => x + 1)(person) 
 // => {name: 'foo', age: 21}
 ```
 
@@ -3236,10 +3122,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function modify<K extends string, A, P>(
+export function modifyProp<T, K extends keyof T>(
   prop: K,
-  fn: (a: A) => P,
-): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
+  fn: (x: T[K]) => T[K],
+): (target: T) => T;
 
 /*
 Method: dropRepeatsBy
@@ -3262,7 +3148,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function dropRepeatsBy<T, U>(fn: (a: T) => U): (list: T[]) => T[];
+export function dropRepeatsBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
 
 /*
 Method: eqBy
@@ -3883,7 +3769,7 @@ async function fn(x){
   return x+1
 }
 
-const result = await R.mapAsync(fn, [1, 2, 3])
+const result = await R.mapAsync(fn)([1, 2, 3])
 // `result` resolves after 3 seconds to `[2, 3, 4]`
 ```
 
