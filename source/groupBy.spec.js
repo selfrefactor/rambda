@@ -1,47 +1,22 @@
 import { groupBy } from './groupBy.js'
-import { prop } from './prop.js'
 
-test('groupBy', () => {
-  const list = [
-    {
-      age: 12,
-      name: 'john',
-    },
-    {
-      age: 12,
-      name: 'jack',
-    },
-    {
-      age: 24,
-      name: 'mary',
-    },
-    {
-      age: 24,
-      name: 'steve',
-    },
-  ]
-  const expectedResult = {
-    12: [
-      {
-        age: 12,
-        name: 'john',
-      },
-      {
-        age: 12,
-        name: 'jack',
-      },
-    ],
-    24: [
-      {
-        age: 24,
-        name: 'mary',
-      },
-      {
-        age: 24,
-        name: 'steve',
-      },
-    ],
-  }
-
-  expect(groupBy(prop('age'))(list)).toEqual(expectedResult)
+test('with list', () => {
+  const inventory = [
+		{ name: "asparagus", type: "vegetables", quantity: 9 },
+		{ name: "bananas", type: "fruit", quantity: 5 },
+		{ name: "goat", type: "meat", quantity: 23 },
+		{ name: "cherries", type: "fruit", quantity: 12 },
+		{ name: "fish", type: "meat", quantity: 22 },
+	];
+  const result = groupBy(
+		({ quantity }) =>
+			quantity < 6 ? "restock" : "sufficient"
+	
+	)(inventory)
+	expect(result.restock).toEqual([
+		{ name: "bananas", type: "fruit", quantity: 5 },
+	]);
+	expect(result.sufficient[0]).toEqual(
+		{ name: "asparagus", type: "vegetables", quantity: 9 }
+	);
 })
