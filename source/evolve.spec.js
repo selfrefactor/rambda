@@ -3,12 +3,11 @@ import { evolve } from './evolve.js'
 test('happy', () => {
   const rules = {
     foo: x => x + 1,
-    nested: { bar: x => Object.keys(x).length },
   }
   const input = {
     a: 1,
     foo: 2,
-    nested: { bar: { z: 3 } },
+		nested: { bar: { z: 3 } },
   }
   const result = evolve(rules)(input)
   expect(result).toEqual({

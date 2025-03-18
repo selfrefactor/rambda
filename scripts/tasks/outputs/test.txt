@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/mapParallelAsync.spec.js (2 tests) 205ms
+ ✓ source/ascend.spec.js (2 tests) 4ms
 
  Test Files  1 passed (1)
       Tests  2 passed (2)
-   Start at  07:26:39
-   Duration  789ms (transform 41ms, setup 0ms, collect 27ms, tests 205ms, environment 0ms, prepare 95ms)
+   Start at  19:41:44
+   Duration  615ms (transform 58ms, setup 0ms, collect 35ms, tests 4ms, environment 0ms, prepare 132ms)
 

@@ -44,8 +44,6 @@ Link to old version of README.md for benchmarking reference -
 ===
 ABOVE IS IN PROGRESS
 ===
-remove prop()() internally
-===
 ascend/descend 
 
 move glue to string-fn

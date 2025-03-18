@@ -2830,7 +2830,7 @@ export function takeLastWhile<T>(predicate: (x: T, index: number) => boolean): (
 Method: evolve
 
 Explanation: It takes object of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
-It doesn't support nested properties due to TypeScript definitions.
+It doesn't support nested rules, i.e rules are only one level deep.
 
 Example:
 
@@ -3839,6 +3839,54 @@ Notes:
 // @SINGLE_MARKER
 export function sortObject<T, K extends string & keyof T>(predicate: (aProp: string, bProp: string, aValue: T[K], bValue: T[K]) => number): (obj: T) => T;
 export function sortObject<T>(predicate: (aProp: string, bProp: string) => number): (obj: T) => T;
+
+/*
+Method: ascend
+
+Explanation: Helper function to be used with `R.sort` to sort list in ascending order.
+
+
+Example:
+
+```
+const result = R.pipe(
+	[{a: 1}, {a: 2}, {a: 0}],
+	R.sort(R.ascend(R.prop('a')))
+)
+// => [{a: 0}, {a: 1}, {a: 2}]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
+
+/*
+Method: descend
+
+Explanation: Helper function to be used with `R.sort` to sort list in descending order.
+
+Example:
+
+```
+const result = R.pipe(
+	[{a: 1}, {a: 2}, {a: 0}],
+	R.sort(R.descend(R.prop('a')))
+)
+// => [{a: 2}, {a: 1}, {a: 0}]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
+
 
 // API_MARKER_END
 // ============================================
