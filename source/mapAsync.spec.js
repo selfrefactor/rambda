@@ -23,6 +23,7 @@ test('happy', async () => {
 })
 
 test('with R.pipeAsync', async () => {
+	const fn = async x => x + 1
   const result = await pipeAsync(
     [1, 2, 3],
     map(x => x + 1),
@@ -31,9 +32,10 @@ test('with R.pipeAsync', async () => {
 
       return x
     }),
+		mapAsync(fn),
     map(x => x * 10),
   )
-  expect(result).toEqual([20, 30, 40])
+  expect(result).toEqual([30, 40, 50])
 })
 
 test('error', async () => {

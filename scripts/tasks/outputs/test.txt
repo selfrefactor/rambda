@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/groupBy.spec.js (1 test) 3ms
+ ✓ source/fromKeys.spec.js (1 test) 3ms
 
  Test Files  1 passed (1)
       Tests  1 passed (1)
-   Start at  20:31:40
-   Duration  370ms (transform 31ms, setup 0ms, collect 16ms, tests 3ms, environment 0ms, prepare 100ms)
+   Start at  22:15:08
+   Duration  369ms (transform 38ms, setup 0ms, collect 14ms, tests 3ms, environment 0ms, prepare 107ms)
 

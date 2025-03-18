@@ -1195,6 +1195,28 @@ export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <
 ) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /*
+Method: fromKeys
+
+Explanation:
+
+Example:
+
+```
+const result = R.fromKeys(['a', 'b', 'c'], x => x + 1)
+// => {a: 'a1', b: 'b1', c: 'c1'}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function fromKeys<const K extends readonly PropertyKey[], V>(
+	mapper: (key: K[number]) => V
+): (keys: K) => { [P in K[number]]: V };
+
+/*
 Method: partition
 
 Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.

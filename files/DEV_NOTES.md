@@ -1,53 +1,21 @@
 
-https:developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy
 ===
 https:bundlejs.com
 ===
-https:rubyapi.org/3.4/o/hash#method-i-invert suggest that namespace with list/obj can help with naming 
-===
-
-https:github.com/selfrefactor/rambda/discussions/758
 
 export function splitEvery(sliceLength: number): {
   (input: string): string[];
   <T>(input: T[]): (T[])[];
 };
 ---
-https:github.com/radashi-org/radashi/pull/357/files
-isEmptyObject
 ---
-let recipes = await readJson(resolve(__dirname, '../assets/recipes.json'))
-	let instructions = pluck('Instructions' as any, recipes)
+
+
+
+
+
 ---
-https:github.com/radashi-org/radashi/blob/main/package.json - to look for `exports` field
----
----
----
-  const filesContent = await mapAsync(async (x) => readJson(x), ALL_WORDS_PATHS.inputs)
-instead of
-  const filesContent = await mapAsync(readJson, ALL_WORDS_PATHS.inputs)
 
-  
-
-https:github.com/ramda/types/pull/127/files
-
-cneck
-   expect(withNumber).toEqual(withNumberExpected)
-
-https:github.com/ramda/ramda/pull/3441/files
-https:github.com/ramda/types/pull/122/files
-
-https:github.com/ramda/types/pull/129/files#diff-d9fac8353ad9864266cabb1f64898d7290f9c71bac877858f72feeaef3c55351
-
-https:github.com/selfrefactor/rambda/pull/744
-
-https:github.com/ramda/types/pull/127/files
-https:github.com/ramda/types/pull/122/files
----
-https:github.com/remeda/remeda/pull/1002/files
-
-https:remedajs.com/docs/#fromKeys
-https:remedajs.com/docs/#omitBy
 
 	https:github.com/ramda/types/pull/110/files
 ---
