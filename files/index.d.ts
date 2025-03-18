@@ -86,18 +86,6 @@ SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
 & SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
 >;
 
-type IsPlainObject<T> = T extends object
-  ? T extends any[]
-    ? false
-    : true
-  : false;
-
-type EvolveSpec<T> = {
-  [P in keyof T]?: IsPlainObject<T[P]> extends true
-    ? EvolveSpec<T[P]> | ((value: T[P]) => T[P])
-    : (value: T[P]) => T[P];
-};
-
 // API_MARKER
 
 /*
@@ -2842,6 +2830,7 @@ export function takeLastWhile<T>(predicate: (x: T, index: number) => boolean): (
 Method: evolve
 
 Explanation: It takes object of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+It doesn't support nested properties due to TypeScript definitions.
 
 Example:
 
@@ -2849,22 +2838,14 @@ Example:
 const input = {
 	foo: 2,
 	baz: 'baz',
-	nested: {
-		a: 1,
-		bar: 3,
-	},
 }
 const result = R.pipe(
 	input, 
 	evolve({
 		foo: x => x + 1,
-		nested: {
-			a: x => x + 1,
-			bar: x => x + 1,
-		},
 	})
 )
-// => result is { foo: 3, baz: 'baz', nested: { a: 2, bar: 4 } }
+// => result is { foo: 3, baz: 'baz' }
 ```
 
 Categories: Object, Logic
@@ -2873,7 +2854,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function evolve<T>(rules: EvolveSpec<T>): (obj: T) => T;
+export function evolve<T>(rules: {
+	[K in keyof T]?: (x: T[K]) => T[K]
+}): (obj: T) => T;
 
 /*
 Method: dropLastWhile

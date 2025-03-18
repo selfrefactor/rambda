@@ -11,6 +11,8 @@ import {
   head,
   map,
   mapObject,
+  path,
+  pick,
   pipe,
   split,
   tap,
@@ -178,7 +180,6 @@ describe('real use cases - books', () => {
         head,
         evolve({
           year: x => x + 1,
-          mustRead: allPass([checkHasDescription, checkHasUserRating]),
         }),
         // convertToType<BookWithDescription>(),
         // dissocPath<Book>('description'),
@@ -187,7 +188,7 @@ describe('real use cases - books', () => {
         // 	return x as unknown as number;
         // }),
         simplify,
-        // path('awards.number'),
+        pick('year'),
       )
     const result = getResult(zaratustra)
     type Foo = MergeTypes<typeof result>
