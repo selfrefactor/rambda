@@ -3,3 +3,4 @@
 coverage
 node_modules
 source/lint-output.txt
+scripts/tasks/outputs/test.txt
