@@ -3780,6 +3780,37 @@ export function mapAsync<T extends IterableContainer, U>(
 ): Promise<Mapped<T, U>>;
 
 /*
+Method: mapParallelAsync
+
+Explanation: Wrapper around `Promise.all` for asynchronous mapping with `fn` over members of `list`.
+
+Example:
+
+```
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+
+/*
 Method: mapObjectAsync
 
 Explanation:
@@ -3802,6 +3833,29 @@ export function mapObjectAsync<T extends object, Value>(
     data: T,
   ) => Promise<Value>,
 ): (data: T) => Promise<MappedValues<T, Value>>;
+
+/*
+Method: sortObject
+
+Explanation: It returns a sorted version of `input` object.
+
+Example:
+
+```
+const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
+
+const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+// => {b: 4, c: 2, a: 1}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortObject<T, K extends string & keyof T>(predicate: (aProp: string, bProp: string, aValue: T[K], bValue: T[K]) => number): (obj: T) => T;
+export function sortObject<T>(predicate: (aProp: string, bProp: string) => number): (obj: T) => T;
 
 // API_MARKER_END
 // ============================================

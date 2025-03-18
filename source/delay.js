@@ -1,4 +1,4 @@
-export const DELAY = 'RAMBDAX_DELAY'
+export const DELAY = 'RAMBDA_DELAY'
 
 export function delay(ms) {
   return new Promise(resolve => {

@@ -1,5 +1,4 @@
-import { pipe } from 'rambda'
-import { sortObject } from 'rambdax'
+import { sortObject, pipe } from 'rambda'
 
 const obj = {
   c: 1,
@@ -20,7 +19,7 @@ describe('R.sortObject', () => {
       }),
     )
 
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { c: number; a: number; b: number; }
   })
 
   it('predicate with only property arguments', () => {
@@ -32,7 +31,6 @@ describe('R.sortObject', () => {
         return propA > propB ? -1 : 1
       }),
     )
-
-    result // $ExpectType { [keyOutput: string]: number; }
+    result // $ExpectType { c: number; a: number; b: number; }
   })
 })
