@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/addProp.spec.js (1 test) 3ms
+ ✓ source/mapKeys.spec.js (1 test) 4ms
 
  Test Files  1 passed (1)
       Tests  1 passed (1)
-   Start at  08:46:13
-   Duration  392ms (transform 30ms, setup 0ms, collect 14ms, tests 3ms, environment 0ms, prepare 89ms)
+   Start at  21:13:32
+   Duration  417ms (transform 34ms, setup 0ms, collect 19ms, tests 4ms, environment 0ms, prepare 111ms)
 

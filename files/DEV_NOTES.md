@@ -34,19 +34,9 @@ npx publint > files/report
 https:publint.dev/rambda@9.2.1
 https:arethetypeswrong.github.io/?p=ramda%400.30.1
 
-https:github.com/denoland/std/blob/main/collections/map_values_test.ts
-https:github.com/denoland/std/blob/main/collections/map_keys_test.ts
-https:github.com/denoland/std/blob/main/collections/join_to_string_test.ts
-https:github.com/denoland/std/blob/main/collections/sum_of_test.ts
 ---
 
-https:rubyapi.org/3.4/o/array#method-i-one-3F
 ---
-https:zuplo.com/blog/2024/10/10/unlocking-the-power-of-json-patch
----
-bench against https:romgrk.com/posts/optimizing-javascript#3-avoid-arrayobject-methods
----
-
 ---
 
 export const getTestData = <K extends keyof TestData>(key: K) => {

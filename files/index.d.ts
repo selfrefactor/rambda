@@ -3963,6 +3963,28 @@ Notes:
 export function permutations<T>(list: T[]): T[][];
 
 /*
+Method: mapKeys
+
+Explanation: It returns a randomized copy of array.
+
+Example:
+
+```
+const result = R.shuffle(
+	[1, 2, 3]
+)
+// => [3, 1, 2] or [2, 3, 1] or ...
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapKeys<T>(fn: (prop: string, value: T) => string): (obj: Record<string, T>) => Record<string, T>;
+
+/*
 Method: shuffle
 
 Explanation: It returns a randomized copy of array.
