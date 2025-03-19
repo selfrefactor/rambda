@@ -17,7 +17,6 @@ export function splitEvery(sliceLength: number): {
 ---
 
 
-	https:github.com/ramda/types/pull/110/files
 ---
 https:arethetypeswrong.github.io
 https:badgen.net/npm
@@ -29,23 +28,12 @@ stats
 
 npx publint > files/report
 
-https:github.com/selfrefactor/rambda/pull/737
 
 ## ABOVE SHOULD BE DONE
 
-## deepUpdate
-
-R.middle
-https:github.com/ramda/types/pull/73/files
-https:github.com/ramda/types/pull/72/files
-https:github.com/ramda/types/pull/129/files
 https:publint.dev/rambda@9.2.1
 https:arethetypeswrong.github.io/?p=ramda%400.30.1
 
-https:github.com/denoland/std/blob/main/collections/associate_by_test.ts
-https:github.com/denoland/std/blob/main/collections/reduce_groups_test.ts
-https:github.com/denoland/std/blob/main/collections/permutations_test.ts
-https:github.com/denoland/std/blob/main/collections/partition_entries_test.ts
 https:github.com/denoland/std/blob/main/collections/map_values_test.ts
 https:github.com/denoland/std/blob/main/collections/map_keys_test.ts
 https:github.com/denoland/std/blob/main/collections/join_to_string_test.ts

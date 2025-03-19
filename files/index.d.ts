@@ -3940,6 +3940,50 @@ export function addProp<T extends object, P extends PropertyKey, V extends unkno
 	value: V
 ): (obj: T) => MergeTypes<T & Record<P, V>>;
 
+/*
+Method: permutations
+
+Explanation:
+
+Example:
+
+```
+const result = R.permutations(
+	[1, 2]
+)
+// => [[1, 2], [2, 1]]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function permutations<T>(list: T[]): T[][];
+
+/*
+Method: shuffle
+
+Explanation: It returns a randomized copy of array.
+
+Example:
+
+```
+const result = R.shuffle(
+	[1, 2, 3]
+)
+// => [3, 1, 2] or [2, 3, 1] or ...
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function shuffle<T>(list: T[]): T[];
+
 // API_MARKER_END
 // ============================================
 

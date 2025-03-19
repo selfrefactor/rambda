@@ -1,13 +1,13 @@
-export function shuffle(arrayRaw) {
-  const array = arrayRaw.concat()
-  let counter = array.length
+export function shuffle(listInput) {
+  const list = cloneList(listInput)
+  let counter = list.length
   while (counter > 0) {
     const index = Math.floor(Math.random() * counter)
     counter--
-    const temp = array[counter]
-    array[counter] = array[index]
-    array[index] = temp
+    const temp = list[counter]
+    list[counter] = list[index]
+    list[index] = temp
   }
 
-  return array
+  return list
 }
