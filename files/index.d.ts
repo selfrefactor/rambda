@@ -1145,7 +1145,7 @@ Explanation: It creates an object with a single key-value pair.
 Example:
 
 ```
-const result = R.objOf('foo', 'bar')
+const result = R.objOf('foo')('bar')
 // => {foo: 'bar'}
 ```
 
@@ -3914,6 +3914,31 @@ Notes:
 // @SINGLE_MARKER
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
 
+/*
+Method: addProp
+
+Explanation: It adds new key-value pair to the object.
+
+Example:
+
+```
+const result = R.pipe(
+	{ a: 1, b: 'foo' }, 
+	R.addProp('c', 3)
+)
+// => { a: 1, b: 'foo', c: 3 }
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function addProp<T extends object, P extends PropertyKey, V extends unknown>(
+	prop: P,
+	value: V
+): (obj: T) => MergeTypes<T & Record<P, V>>;
 
 // API_MARKER_END
 // ============================================
