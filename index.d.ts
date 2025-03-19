@@ -476,6 +476,12 @@ export function curry(fn: AnyFunction): (...a: any[]) => any;
 export function curryN(length: number, fn: AnyFunction): (...a: any[]) => any;
 
 /**
+ * It returns a debounced equivalent of the provided function, with the specified wait time.
+ */
+export function debounce<T, U>(fn: (input: T) => U, ms: number, immediate?: boolean): (input: T) => void
+
+
+/**
  * It decrements a number.
  */
 export function dec(x: number): number;

@@ -619,6 +619,24 @@ function countBy(fn, list) {
   return willReturn;
 }
 
+function debounce(func, ms, immediate = false) {
+  let timeout;
+  return function (...input) {
+    const later = function () {
+      timeout = null;
+      if (!immediate) {
+        return func.apply(null, input);
+      }
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, ms);
+    if (callNow) {
+      return func.apply(null, input);
+    }
+  };
+}
+
 const dec = x => x - 1;
 
 function isFalsy(input) {
@@ -2540,6 +2558,7 @@ exports.countBy = countBy;
 exports.createCompareFunction = createCompareFunction;
 exports.curry = curry;
 exports.curryN = curryN;
+exports.debounce = debounce;
 exports.dec = dec;
 exports.defaultTo = defaultTo;
 exports.descend = descend;
