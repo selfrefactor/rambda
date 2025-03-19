@@ -1195,15 +1195,17 @@ export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <
 ) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /*
-Method: fromKeys
+Method: createObjectFromKeys
 
 Explanation:
 
 Example:
 
 ```
-const result = R.fromKeys(['a', 'b', 'c'], x => x + 1)
-// => {a: 'a1', b: 'b1', c: 'c1'}
+const result = R.createObjectFromKeys(
+	(x, index) => `${x}-${index}`
+)(['a', 'b', 'c'])
+// => {a: 'a-0', b: 'b-1', c: 'c-2'}
 ```
 
 Categories: Object
@@ -1212,8 +1214,11 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function fromKeys<const K extends readonly PropertyKey[], V>(
-	mapper: (key: K[number]) => V
+export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
+	fn: (key: K[number]) => V
+): (keys: K) => { [P in K[number]]: V };
+export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
+	fn: (key: K[number], index: number) => V
 ): (keys: K) => { [P in K[number]]: V };
 
 /*

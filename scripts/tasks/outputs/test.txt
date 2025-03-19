@@ -1,10 +1,10 @@
 
  RUN  v3.0.5 /home/we/repos/rambda
 
- ✓ source/fromKeys.spec.js (1 test) 3ms
+ ✓ source/createObjectFromKeys.spec.js (1 test) 3ms
 
  Test Files  1 passed (1)
       Tests  1 passed (1)
-   Start at  22:15:08
-   Duration  369ms (transform 38ms, setup 0ms, collect 14ms, tests 3ms, environment 0ms, prepare 107ms)
+   Start at  06:52:25
+   Duration  367ms (transform 29ms, setup 0ms, collect 14ms, tests 3ms, environment 0ms, prepare 110ms)
 
