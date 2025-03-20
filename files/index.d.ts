@@ -1234,8 +1234,8 @@ const obj = {a: 1, b: 2, c: 3}
 const predicate = x => x > 2
 
 const result = [
-  R.partition(predicate, list),
-  R.partition(predicate, obj)
+  R.partition(predicate)(list),
+  R.partition(predicate)(obj)
 ]
 const expected = [
   [[3], [1, 2]],
@@ -1244,7 +1244,7 @@ const expected = [
 // `result` is equal to `expected`
 ```
 
-Categories: List, Object
+Categories: List
 
 Notes:
 
@@ -1256,6 +1256,42 @@ export function partition<T, S extends T>(
 export function partition<T>(
   predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
 ): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
+
+/*
+Method: partitionObject
+
+Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
+
+Example:
+
+```
+const list = [1, 2, 3]
+const obj = {a: 1, b: 2, c: 3}
+const predicate = x => x > 2
+
+const result = [
+  R.partition(predicate)(list),
+  R.partition(predicate)(obj)
+]
+const expected = [
+  [[3], [1, 2]],
+  [{c: 3},  {a: 1, b: 2}],
+]
+// `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function partitionObject<T extends unknown, S extends T>(
+  predicate: (value: T, prop: string, obj: Record<string, T>) => value is S,
+): (obj: Record<string, T>) => [Record<string, S>, Record<string, Exclude<T, S>>];
+export function partitionObject<T extends unknown>(
+  predicate: (value: T, prop: string, obj: Record<string, T>) => boolean,
+): (obj: Record<string, T>) => [Record<string, T>, Record<string, T>];
 
 /*
 Method: path
