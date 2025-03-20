@@ -1,19 +1,6 @@
-import { partition } from './partition.js'
+import { partitionObject } from './partitionObject.js'
 
-test('with array', () => {
-  const predicate = x => x > 2
-  const list = [1, 2, 3, 4]
-
-  const result = partition(predicate)(list)
-  const expectedResult = [
-    [3, 4],
-    [1, 2],
-  ]
-
-  expect(result).toEqual(expectedResult)
-})
-
-test('with object', () => {
+test('happy', () => {
   const predicate = (value, prop) => {
     expect(typeof prop).toBe('string')
 
@@ -26,7 +13,7 @@ test('with object', () => {
     d: 4,
   }
 
-  const result = partition(predicate)(hash)
+  const result = partitionObject(predicate)(hash)
   const expectedResult = [
     {
       c: 3,
