@@ -47,24 +47,7 @@ if (!value) return null
 return value
 }
 
-export function findNth <T extends unknown>(
-predicate: (input: T) => boolean
-list: T[]
-nth: number
-): {value: T, index: number} | null {
-let counter = 0
-let result: {value: T, index: number} | null = null
-input.list.forEach((value, index) => {
-if(result) return
-if (input.predicate(value)){
-counter++
-}
-if (counter === input.nth){
-result = {value, index}
-}
-})
-return result
-}
+
 
 ---
 splitWith

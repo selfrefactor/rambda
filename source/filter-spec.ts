@@ -1,4 +1,4 @@
-import { filter, map, pipe } from 'rambda'
+import { filter, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -20,16 +20,13 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-
-    const testList = [{ a: 1 }, { a: 2 }, { a: 3 }]
-    const filterBar = (x: unknown): x is Bar => {
+		type T = Foo | Bar
+    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] 
+    const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(
       testList,
-      map((x, i) => {
-        return { a: x.a, b: `${i}` }
-      }),
       filter(filterBar),
     )
     result // $ExpectType Bar[]
@@ -41,16 +38,13 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-
-    const testList = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
-    const filterBar = (x: unknown): x is Bar => {
+		type T = Foo | Bar
+    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+    const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(
       testList,
-      map((x, i) => {
-        return { a: x.a, b: `${i}` }
-      }),
       filter(filterBar),
     )
     result // $ExpectType Bar[]

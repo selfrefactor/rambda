@@ -77,6 +77,9 @@ This is major revamp of `Rambda` library:
 -- R.ascend/R.descend
 -- R.shuffle
 -- R.permutations
+-- R.compact
+-- R.rejectObject
+-- R.findNth
 -- R.combinations
 -- R.rangeDescending
 

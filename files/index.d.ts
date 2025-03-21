@@ -496,14 +496,14 @@ Notes:
 // @SINGLE_MARKER
 export function reject<T, S extends T>(
   predicate: (value: T) => value is S,
-): (list: T[]) => S[];
+): (list: T[]) => Exclude<T, S>[];
 export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => (null | undefined)[];
-export function filter<T>(
+export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => (null | undefined)[];
-export function filter<T>(
+export function reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
 
