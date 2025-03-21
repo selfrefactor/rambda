@@ -1,4 +1,4 @@
-import { partitionObject, pipe } from 'rambda'
+import { compact, partitionObject, pipe } from 'rambda'
 
 describe('R.partition', () => {
   it('happy', () => {
@@ -24,5 +24,18 @@ describe('R.partition', () => {
     const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
     const result = pipe(obj, partitionObject(filterFoo))
     result // $ExpectType [Record<string, Foo>, Record<string, Bar>]
+
+		let foo = pipe(
+			{
+				a: [ undefined, '', 'a', 'b', 'c'],
+				b: [1,2, null, 0, undefined, 3],
+				c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
+			},
+			x => ({
+				a: compact(x.a),
+				b: compact(x.b),
+				c: compact(x.c)
+			})
+		)
   })
 })

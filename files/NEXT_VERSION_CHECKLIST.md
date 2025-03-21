@@ -1,3 +1,5 @@
+umd is needed for repl
+===
 # Differences between Rambda and Ramda
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.

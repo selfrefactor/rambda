@@ -67,76 +67,12 @@ return result
 }
 
 ---
-fix pluck and others where Record is used wrong
- import { pipe, pluck, prop } from "ramda"
-import { pipe, pluck, prop } from "rambdax"
-
-export const parseDatabase = pipe( pluck('doc'), pluck('dePart') )
-
-but this works
-export const parseDatabase: (input: DbOrigin[]) => string[] = pipe( pluck('doc'), pluck('dePart') )
-
----
-
-https:github.com/toss/es-toolkit/issues/91
-
-## const pickedObject = pickDeep(object, [
-
-
-## https:github.com/ramda/ramda/issues/3390
-
-## https:tokens2css.nanools.com/
-
----
-https:codescene.io/projects/61343/jobs/3120520/results/code/hotspots/biomarkers?name=rambda-scripts%2Fsrc%2Fpopulate-readme-data%2Fcreate-method-data.ts
-
-https:github.com/marketplace/actions/todo-to-issue
-
-https:app.deepsource.com/gh/selfrefactor
----
-
-## https:developer.mozilla.org/en-US/docs/Web/API/structuredClone
-
-R.partition ts
-
-namespace partition {
-declare function partition(
-list: Item[],
-predicate: (value: Item) => value is Narrowed
-): [Narrowed[], Exclude[]];
-
----
-R.cycle
-https:www.pythoncheatsheet.org/modules/itertools-module
-
-R.Flatten
-orama/packages/orama/src/types.ts
-
-## import { invert } from 'lodash'
-
-R.range(start,end+1) should support desc
-
-but range is one example that this is not FP
-
-to keep it simply - R.rangeDescending
-
 splitWith
-R.pickWith
-R.pickAllWith - maybe
 
-## R.findInObject
 
-RA.template: compound strings with tagged template literals
-
-## https:github.com/char0n/ramda-adjunct/issues/975
-
-Fix compact type for objects
-
-## https:github.com/char0n/ramda-adjunct/pull/1611/files
 
 ---
 
-## https:github.com/smartprocure/futil-js?tab=readme-ov-file#cascadepropkey
 
 apply to allPass
 https:github.com/selfrefactor/rambda/pull/695/files

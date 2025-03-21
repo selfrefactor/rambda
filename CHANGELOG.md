@@ -14,8 +14,6 @@ This is major revamp of `Rambda` library:
 
 - All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain. 
 
--- sortBy
-
 - Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
 
 - Add `R.pipe` supports up to 20 functions, i.e. chain can be 20 functions long.
@@ -69,7 +67,20 @@ This is major revamp of `Rambda` library:
 -- update
 -- without
 
-Rename:
+- Add following methods:
+
+-- R.pipeAsync
+-- R.addProp
+-- R.createObjectFromKeys
+-- R.mapAsync
+-- R.mapParallelAsync
+-- R.ascend/R.descend
+-- R.shuffle
+-- R.permutations
+-- R.combinations
+-- R.rangeDescending
+
+- Rename following methods:
 
 -- replaceItemAtIndex -> adjust
 -- checkObjectWithSpec -> where 
@@ -98,14 +109,11 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - head/last - empty array as input will return `undefined`, but `never`
 - assocPath - stop supporting curring of type `(x)(y)(z)`
 
-- For some methods, it is very hard to pick up the correct type in many cases. In these cases, explicit output type is expected.
-
--- assocPath
--- dissocPath
-
 - Stop support string inputs for some methods, since it was hard to correctly type them in TypeScript.
 
 -- append/prepend
+
+- Change `R.range` to work with `endIndex` included instead of `endIndex` excluded, i.e. `R.range(0, 2)` will return `[0, 1, 2]` instead of `[0, 1]`. This is done because `R.rangeDescending` is added and users would wonder if end or start index is excluded.
 
 - Sync with typing of `@types/ramda`:
 

@@ -4,6 +4,26 @@ export type EqualTypes<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends
   (<T>() => T extends Y ? 1 : 2) ? true : false
 
+export type FlattenObject<T extends object> = object extends T
+  ? object
+  : {
+        [K in keyof T]-?: (
+          x: NonNullable<T[K]> extends infer V
+            ? V extends object
+              ? V extends readonly any[]
+                ? never 
+                : Flatten<V> extends infer FV
+                  ? {
+                      [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
+                    }
+                  : never 
+              : Pick<T, K>
+            : never 
+        ) => void
+      } extends Record<keyof T, (y: infer O) => void>
+    ? O 
+    : never;
+
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
 export type Mapped<T extends IterableContainer, K> = {
@@ -1224,23 +1244,17 @@ export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
 /*
 Method: partition
 
-Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
+Explanation: It will return array of two arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
 
 Example:
 
 ```
 const list = [1, 2, 3]
-const obj = {a: 1, b: 2, c: 3}
 const predicate = x => x > 2
 
-const result = [
-  R.partition(predicate)(list),
-  R.partition(predicate)(obj)
-]
-const expected = [
-  [[3], [1, 2]],
-  [{c: 3},  {a: 1, b: 2}],
-]
+const result = R.partition(predicate)(list)
+
+const expected = [[3], [1, 2]]
 // `result` is equal to `expected`
 ```
 
@@ -1260,23 +1274,17 @@ export function partition<T>(
 /*
 Method: partitionObject
 
-Explanation: It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
+Explanation: It returns an array containing two objects. The first object holds all properties of the input object for which the predicate returns true, while the second object holds those that do not.
 
 Example:
 
 ```
-const list = [1, 2, 3]
 const obj = {a: 1, b: 2, c: 3}
 const predicate = x => x > 2
 
-const result = [
-  R.partition(predicate)(list),
-  R.partition(predicate)(obj)
-]
-const expected = [
-  [[3], [1, 2]],
-  [{c: 3},  {a: 1, b: 2}],
-]
+const result = R.partition(predicate)(obj)
+
+const expected = [{c: 3},  {a: 1, b: 2}]
 // `result` is equal to `expected`
 ```
 
@@ -3513,13 +3521,13 @@ export function split(separator: string | RegExp): (str: string) => string[];
 /*
 Method: range
 
-Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
+Explanation: It returns list of numbers between `startInclusive` to `endInclusive` markers.
 
 Example:
 
 ```
-R.range(0, 5)
-// => [0, 1, 2, 3, 4]
+R.range(0)(5)
+// => [0, 1, 2, 3, 4, 5]
 ```
 
 Categories: Number
@@ -3529,6 +3537,26 @@ Notes:
 */
 // @SINGLE_MARKER
 export function range(startInclusive: number): (endExclusive: number) => number[];
+
+/*
+Method: rangeDescending
+
+Explanation: Same as `R.range` but in descending order.
+
+Example:
+
+```
+R.rangeDescending(5, 0)
+// => [5, 4, 3, 2, 1, 0]
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rangeDescending(startInclusive: number): (endExclusive: number) => number[];
 
 /*
 Method: pipeAsync
@@ -4041,6 +4069,44 @@ Notes:
 */
 // @SINGLE_MARKER
 export function shuffle<T>(list: T[]): T[];
+
+/*
+Method: compact
+
+Explanation: It removes `null` and `undefined` members from list or object input.
+
+Example:
+
+```
+const result = R.pipe(
+	{
+		a: [ undefined, '', 'a', 'b', 'c'],
+		b: [1,2, null, 0, undefined, 3],
+		c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
+	},
+	x => ({
+		a: R.compact(x.a),
+		b: R.compact(x.b),
+		c: R.compact(x.c)
+	})
+)
+// => { a: ['a', 'b', 'c'], b: [1, 2, 3], c: { a: 1, b: 2, c: 0, f: false } }
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function compact<T>(list: T[]): Array<NonNullable<T>>;
+export function compact<T extends object>(record: T): {
+  [K in keyof T as Exclude<T[K], null | undefined> extends never
+    ? never
+    : K
+  ]: Exclude<T[K], null | undefined>
+};
+
 
 // API_MARKER_END
 // ============================================
