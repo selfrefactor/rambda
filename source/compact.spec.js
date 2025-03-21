@@ -1,5 +1,5 @@
-import { compact } from './compact'
-import { pipe } from './pipe'
+import { compact } from './compact.js'
+import { pipe } from './pipe.js'
 
 test('happy', () => {
   const result = pipe(

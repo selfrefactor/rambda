@@ -25,7 +25,7 @@ test('when returns true', () => {
   expect(anyPass(conditionArr)(obj)).toBeTruthy()
 })
 
-test('when returns false + curry', () => {
+test('when returns false', () => {
   const conditionArr = [val => val.a === 2, val => val.b === 3]
 
   expect(anyPass(conditionArr)(obj)).toBeFalsy()

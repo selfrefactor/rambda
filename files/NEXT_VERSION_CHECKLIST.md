@@ -1,24 +1,5 @@
-export function findNth <T extends unknown>(
-predicate: (input: T) => boolean
-list: T[]
-nth: number
-): {value: T, index: number} | null {
-let counter = 0
-let result: {value: T, index: number} | null = null
-input.list.forEach((value, index) => {
-if(result) return
-if (input.predicate(value)){
-counter++
-}
-if (counter === input.nth){
-result = {value, index}
-}
-})
-return result
-}
+Link to old version of README.md for benchmarking reference -
 
-umd is needed for repl
-===
 # Differences between Rambda and Ramda
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
@@ -59,18 +40,8 @@ Then, when you’re ready for the actual release, you use the regular npm versio
     npm version major changes 24.0.0-alpha.1 to 24.0.0
 		===
 
-initial part README.md is here
 ===
-Link to old version of README.md for benchmarking reference -
 ===
 ABOVE IS IN PROGRESS
 ===
-ascend/descend 
-
 move glue to string-fn
-
-
-utils such as todecimal, mapParallelAsync can be moved to Roza library
-
-https://github.com/toss/es-toolkit - another FP library
-

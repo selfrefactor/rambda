@@ -533,6 +533,29 @@ Notes:
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
+Method: findNth
+
+Explanation: It returns the `nth` element of `list` that satisfy the `predicate` function.
+
+Example:
+
+```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 0}, {foo: 1}, {foo: 2}, {foo: 3}]
+
+const result = R.findNth(predicate, 2)(list)
+// => {foo: 2}
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function findNth<T>(predicate: (x: T) => boolean, nth: number): (list: T[]) => T | undefined;
+
+/*
 Method: findIndex
 
 Explanation: It returns the index of the first element of `list` satisfying the `predicate` function.
@@ -4029,15 +4052,17 @@ export function permutations<T>(list: T[]): T[][];
 /*
 Method: mapKeys
 
-Explanation: It returns a randomized copy of array.
+Explanation: It returns a copy of `obj` with keys transformed by `fn`.
 
 Example:
 
 ```
-const result = R.shuffle(
-	[1, 2, 3]
+const result = R.mapKeys(
+	(key, value) => key.toUpperCase()+value
+	)(
+	{ a: 1, b: 2 }
 )
-// => [3, 1, 2] or [2, 3, 1] or ...
+// => { A1: 1, B2: 2 }
 ```
 
 Categories: List

@@ -1,10 +1,10 @@
 
- RUN  v3.0.5 /home/we/repos/rambda
+ RUN  v3.1.0-beta.2 /home/we/repos/rambda
 
- ✓ source/compact.spec.js (1 test) 4ms
+ ✓ source/findNth.spec.js (2 tests) 5ms
 
  Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  06:54:24
-   Duration  433ms (transform 49ms, setup 0ms, collect 46ms, tests 4ms, environment 0ms, prepare 106ms)
+      Tests  2 passed (2)
+   Start at  21:41:18
+   Duration  414ms (transform 40ms, setup 0ms, collect 18ms, tests 5ms, environment 0ms, prepare 104ms)
 

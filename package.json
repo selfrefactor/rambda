@@ -14,8 +14,6 @@
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
     "test": "vitest run --watch -u",
-    "x": "vitest run --watch source/and.spec.js",
-    "test:cover": "vitest run --coverage",
     "test:typings": "dtslint --localTs ./node_modules/typescript/lib --expectOnly ./source",
     "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
     "deps": "run dep:next",
@@ -31,16 +29,17 @@
   "devDependencies": {
     "@definitelytyped/dtslint": "0.0.182",
     "@types/mocha": "10.0.10",
-    "@vitest/coverage-v8": "^3.0.5",
+    "@vitest/coverage-v8": "3.1.0-beta.2",
     "helpers-fn": "2.0.0",
     "lodash": "4.17.21",
+    "radashi": "^12.4.0",
     "rambdax": "11.3.1",
-    "ramda": "^0.30.1",
-    "remeda": "^2.21.0",
-    "rollup": "4.34.4",
+    "ramda": "0.30.1",
+    "remeda": "2.21.2",
+    "rollup": "4.36.0",
     "types-ramda": "0.30.1",
-    "typescript": "5.8.0-dev.20250206",
-    "vitest": "3.0.5"
+    "typescript": "5.9.0-dev.20250321",
+    "vitest": "3.1.0-beta.2"
   },
   "jest": {
     "testEnvironment": "node",

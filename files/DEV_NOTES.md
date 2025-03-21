@@ -1,4 +1,6 @@
+check wrong import
 
+from './[a-zA-Z]+'
 ===
 https:bundlejs.com
 ===

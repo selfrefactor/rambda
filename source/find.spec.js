@@ -8,7 +8,7 @@ test('happy', () => {
   expect(find(fn)(list)).toEqual({ a: 2 })
 })
 
-test('with curry', () => {
+test('nothing is found', () => {
   const fn = propEq(4, 'a')
   expect(find(fn)(list)).toBeUndefined()
 })

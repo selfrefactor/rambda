@@ -15,7 +15,7 @@ test('maps then flattens one level', () => {
   expect(flatMap(duplicate)([1, 2, 3])).toEqual([1, 1, 2, 2, 3, 3])
 })
 
-test('maps then flattens one level - curry', () => {
+test('maps then flattens one level', () => {
   expect(flatMap(duplicate)([1, 2, 3])).toEqual([1, 1, 2, 2, 3, 3])
 })
 
