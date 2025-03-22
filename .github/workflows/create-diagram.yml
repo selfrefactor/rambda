@@ -1,0 +1,18 @@
+name: Repo Visuals
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+jobs:
+  repo-visuals:
+    name: repo-visuals
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Update diagram
+        uses: githubocto/repo-visualizer@0.4.0
+        with:
+          output_file: "repo-visualizer.svg"
+          excluded_paths: ".vscode"

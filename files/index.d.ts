@@ -4114,6 +4114,30 @@ export function compact<T extends object>(record: T): {
   ]: Exclude<T[K], null | undefined>
 };
 
+/*
+Method: interpolate
+
+Explanation: It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
+
+Example:
+
+```
+const inputWithTags = 'foo is {{bar}} even {{a}} more'
+const templateArguments = {"bar":"BAR", a: 1}
+
+const result = R.interpolate(inputWithTags, templateArguments)
+const expected = 'foo is BAR even 1 more'
+// => `result` is equal to `expected`
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
+
 
 // API_MARKER_END
 // ============================================

@@ -1,11 +1,10 @@
 
  RUN  v3.1.0-beta.2 /home/we/repos/rambda
 
- ✓ source/partition.spec.js (1 test) 5ms
- ✓ source/partitionObject.spec.js (1 test) 4ms
+ ✓ source/interpolate.spec.js (1 test) 4ms
 
- Test Files  2 passed (2)
-      Tests  2 passed (2)
-   Start at  08:02:54
-   Duration  394ms (transform 44ms, setup 0ms, collect 33ms, tests 9ms, environment 1ms, prepare 271ms)
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  11:03:38
+   Duration  491ms (transform 47ms, setup 0ms, collect 37ms, tests 4ms, environment 0ms, prepare 141ms)
 

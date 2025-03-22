@@ -57,7 +57,9 @@ describe('R.filter with array', () => {
   it('filtering NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType (1 | 2 | 3)[]
+    result.includes(1)
+    // @ts-expect-error
+    result.includes(4)
     // @ts-expect-error
     result.includes(undefined) 
     // @ts-expect-error

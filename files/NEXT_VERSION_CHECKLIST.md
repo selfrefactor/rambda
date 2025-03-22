@@ -1,23 +1,4 @@
-Link to old version of README.md for benchmarking reference -
-
-# Differences between Rambda and Ramda
-
-Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
-From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order to address some of the issues that Ramda has.
-
-## Ramda issues
-
-- Typescript support - this is the main reason for the divergence. Most of design decisions in Rambda are made with Typescript in mind.
-
-- Methods that imply side-effect, which is not FP oriented, e.g. `R.forEach`.
-
-- Naming of methods that doesn't match developer's expectation, such as `R.chain`, which should be called `flatMap`.
-
-- Naming of methods is sometimes too generic to be remembered such as `R.update`, `R.modify`, `R.where`.
-
-- Methods that are already present in standard JavaScript, such as `R.toLower`, `R.length`.
-
-- `R.compose` doesn't have the best possible TypeScript support.
+number of similar methods and number of missing methods
 
 
 ===

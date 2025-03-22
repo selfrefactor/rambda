@@ -39,3 +39,11 @@ Edit `files/index.d.ts` and make the fix.
 ### Typescript errors in tests
 
 use `// @ts-expect-error` when you write a test that is expected to fail.
+
+# Explanation of scripts
+
+## out
+
+It runs prebuild process that includes building documentation and `dist` folder.
+
+
