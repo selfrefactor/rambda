@@ -206,7 +206,7 @@ const result = fn(input)
 
 Categories: Logic
 
-Notes: Function accepts only one input, but in Ramda it accepts indefinite number of arguments.
+Notes:
 
 */
 // @SINGLE_MARKER
