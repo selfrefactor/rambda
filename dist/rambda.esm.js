@@ -736,6 +736,36 @@ function innerJoin(pred, xs) {
   return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
 
+const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g);
+const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '');
+
+const replace$1 = ({ inputHolder, prop, replacer }) => {
+  const regexBase = `{{${prop}}}`;
+  const regex = new RegExp(regexBase, 'g');
+  return inputHolder.replace(regex, replacer)
+};
+
+function interpolate(input) {
+  return templateInput => {
+    const occurrences = getOccurrences(input);
+    if (occurrences === null) {
+      return input
+    }
+    let inputHolder = input;
+
+    for (const occurrence of occurrences) {
+      const prop = getOccurrenceProp(occurrence);
+      inputHolder = replace$1({
+        inputHolder,
+        prop,
+        replacer: templateInput[prop],
+      });
+    }
+
+    return inputHolder
+  }
+}
+
 function intersection(listA) {
   return listB => filter(x => includes(x)(listA))(listB)
 }
@@ -961,10 +991,11 @@ function partition(predicate) {
   }
 }
 
-function partitionObject(predicate, iterable) {
+function partitionObject(predicate) {
+	return obj => {
   const yes = {};
   const no = {};
-  Object.entries(iterable).forEach(([prop, value]) => {
+  Object.entries(obj).forEach(([prop, value]) => {
     if (predicate(value, prop)) {
       yes[prop] = value;
     } else {
@@ -973,6 +1004,7 @@ function partitionObject(predicate, iterable) {
   });
 
   return [yes, no]
+}
 }
 
 function path(pathInput, obj) {
@@ -1626,4 +1658,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, all, allPass, any, anyPass, append, ascend, checkObjectWithSpec, compact, complement, concat, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, groupBy, head, includes, indexOf, init, innerJoin, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, rangeDescending, reduce, reject, rejectObject, replace, replaceItemAtIndex, shuffle, sort, sortBy, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, all, allPass, any, anyPass, append, ascend, checkObjectWithSpec, compact, complement, concat, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, groupBy, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, rangeDescending, reduce, reject, rejectObject, replace, replaceItemAtIndex, shuffle, sort, sortBy, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

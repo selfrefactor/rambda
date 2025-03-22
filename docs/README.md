@@ -143,6 +143,32 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 Since `Rambda` methods doesn't use so many internals, it is faster than `Ramda`.
 Prior to version `10`, benchmark summary was included, but now the main selling point is the TypeScript focus, not performance so this is no longer included.
 
+### Differences between Rambda and Ramda
+
+Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
+
+Documentation site of `Rambda` version `9.4.2` is available [here](https://selfrefactor.github.io/rambda-v9/).
+
+From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order to address some of the issues that Ramda has.
+
+<details>
+<summary>
+	Ramda issues
+</summary>
+
+-- Typescript support - this is the main reason for the divergence. Most of design decisions in Rambda are made with Typescript in mind.
+
+-- Methods that imply side-effect, which is not FP oriented, e.g. `R.forEach`.
+
+-- Naming of methods that doesn't match developer's expectation, such as `R.chain`, which should be called `flatMap`.
+
+-- Naming of methods is sometimes too generic to be remembered such as `R.update`, `R.modify`, `R.where`.
+
+-- Methods that are already present in standard JavaScript, such as `R.toLower`, `R.length`.
+
+-- `R.compose` doesn't have the best possible TypeScript support.
+</details>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
 
 ## API
@@ -221,7 +247,7 @@ import { addProp, pipe } from 'rambda'
 it('R.addProp', () => {
 	const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
 	result.a // $ExpectType number
-	result.b // $ExpectType number
+	result.b // $ExpectType string
 	result.c // $ExpectType number
 })
 ```
@@ -1032,7 +1058,7 @@ describe('R.checkObjectWithSpec', () => {
 
 ```typescript
 
-compact<T>(list: T[]): Array<NonNullable<T>>
+compact<T>(list: T[]): Array<StrictNonNullable<T>>
 ```
 
 It removes `null` and `undefined` members from list or object input.
@@ -1060,18 +1086,13 @@ const result = R.pipe(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-compact<T>(list: T[]): Array<NonNullable<T>>;
+compact<T>(list: T[]): Array<StrictNonNullable<T>>;
 compact<T extends object>(record: T): {
   [K in keyof T as Exclude<T[K], null | undefined> extends never
     ? never
     : K
   ]: Exclude<T[K], null | undefined>
 };
-
-// API_MARKER_END
-// ============================================
-
-export as namespace R
 ```
 
 </details>
@@ -1136,7 +1157,7 @@ import { compact, pipe } from 'rambda'
 it('R.compact', () => {
 		let result = pipe(
 			{
-				a: [ undefined, '', 'a', 'b', 'c', 0, false, null ],
+				a: [ undefined, '', 'a', 'b', 'c', null ],
 				b: [1,2, null, 0, undefined, 3],
 				c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
 			},
@@ -3013,10 +3034,10 @@ filter<T, S extends T>(
 ): (list: T[]) => S[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => NonNullable<T>[];
+): (list: readonly T[]) => StrictNonNullable<T>[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => NonNullable<T>[];
+): (list: T[]) => StrictNonNullable<T>[];
 filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -3074,7 +3095,7 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, pipe } from 'rambda'
+import { filter, mergeTypes, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -3133,7 +3154,11 @@ describe('R.filter with array', () => {
   it('filtering NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
+    result.includes(1)
+    // @ts-expect-error
+    result.includes(4)
+    // @ts-expect-error
+    result.includes(undefined) 
     // @ts-expect-error
     result.includes(null)
   })
@@ -4569,6 +4594,119 @@ test('readme example', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
+
+### interpolate
+
+```typescript
+
+interpolate(inputWithTags: string): (templateArguments: object) => string
+```
+
+It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
+
+```javascript
+const inputWithTags = 'foo is {{bar}} even {{a}} more'
+const templateArguments = {"bar":"BAR", a: 1}
+
+const result = R.interpolate(inputWithTags, templateArguments)
+const expected = 'foo is BAR even 1 more'
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20inputWithTags%20%3D%20'foo%20is%20%7B%7Bbar%7D%7D%20even%20%7B%7Ba%7D%7D%20more'%0Aconst%20templateArguments%20%3D%20%7B%22bar%22%3A%22BAR%22%2C%20a%3A%201%7D%0A%0Aconst%20result%20%3D%20R.interpolate(inputWithTags%2C%20templateArguments)%0Aconst%20expected%20%3D%20'foo%20is%20BAR%20even%201%20more'%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.interpolate</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+interpolate(inputWithTags: string): (templateArguments: object) => string;
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.interpolate</strong> source</summary>
+
+```javascript
+const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g)
+const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '')
+
+const replace = ({ inputHolder, prop, replacer }) => {
+  const regexBase = `{{${prop}}}`
+  const regex = new RegExp(regexBase, 'g')
+  return inputHolder.replace(regex, replacer)
+}
+
+export function interpolate(input) {
+  return templateInput => {
+    const occurrences = getOccurrences(input)
+    if (occurrences === null) {
+      return input
+    }
+    let inputHolder = input
+
+    for (const occurrence of occurrences) {
+      const prop = getOccurrenceProp(occurrence)
+      inputHolder = replace({
+        inputHolder,
+        prop,
+        replacer: templateInput[prop],
+      })
+    }
+
+    return inputHolder
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { interpolate } from './interpolate.js'
+import { pipe } from './pipe.js'
+
+test('happy', () => {
+  const result = pipe(
+		{ name: 'John', age: 30 },
+		interpolate('My name is {{name}} and I am {{age}} years old')
+	)
+	expect(result).toBe('My name is John and I am 30 years old')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { interpolate } from 'rambda'
+
+const templateInput = 'foo {{x}} baz'
+const templateArguments = { x: 'led zeppelin' }
+
+it('R.interpolate', () => {
+	const result = interpolate(templateInput)(templateArguments)
+
+	result // $ExpectType string
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#interpolate)
 
 ### intersection
 
@@ -6653,25 +6791,10 @@ import { partition } from './partition.js'
 
 test('happy', () => {
   const list = [1, 2, 3]
-  const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
-  }
   const predicate = x => x > 2
 
-  const result = [partition(predicate)(list), partition(predicate)(obj)]
-  const expected = [
-    [[3], [1, 2]],
-    [
-      { c: 3 },
-      {
-        a: 1,
-        b: 2,
-      },
-    ],
-  ]
-  expect(result).toEqual(expected)
+  const result = partition(predicate)(list)
+  expect(result).toEqual([[3], [1, 2]])
 })
 ```
 
@@ -6763,10 +6886,11 @@ partitionObject<T extends unknown>(
 <summary><strong>R.partitionObject</strong> source</summary>
 
 ```javascript
-export function partitionObject(predicate, iterable) {
+export function partitionObject(predicate) {
+	return obj => {
   const yes = {}
   const no = {}
-  Object.entries(iterable).forEach(([prop, value]) => {
+  Object.entries(obj).forEach(([prop, value]) => {
     if (predicate(value, prop)) {
       yes[prop] = value
     } else {
@@ -6775,6 +6899,7 @@ export function partitionObject(predicate, iterable) {
   })
 
   return [yes, no]
+}
 }
 ```
 
@@ -6813,29 +6938,6 @@ test('happy', () => {
   ]
 
   expect(result).toEqual(expectedResult)
-})
-
-test('readme example', () => {
-  const list = [1, 2, 3]
-  const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
-  }
-  const predicate = x => x > 2
-
-  const result = [partition(predicate)(list), partition(predicate)(obj)]
-  const expected = [
-    [[3], [1, 2]],
-    [
-      { c: 3 },
-      {
-        a: 1,
-        b: 2,
-      },
-    ],
-  ]
-  expect(result).toEqual(expected)
 })
 ```
 

@@ -60,6 +60,13 @@ https:arethetypeswrong.github.io/?p=ramda%400.30.1
 ---
 
 ---
+faster isobject
+const _isObject = x => {
+  if (x != null && typeof x === 'object') {
+    return Object.prototype.toString.call(x) === '[object Object]'
+  }
+  return false
+}
 ---
 
 ===

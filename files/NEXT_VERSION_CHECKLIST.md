@@ -1,6 +1,6 @@
 number of similar methods and number of missing methods
 
-
+no need for 2 redamesrd
 ===
 https://jsr.io/@rambda/rambda
 ===
@@ -25,4 +25,6 @@ Then, when you’re ready for the actual release, you use the regular npm versio
 ===
 ABOVE IS IN PROGRESS
 ===
-move glue to string-fn
+use functor as a word
+https://github.com/hemanth/functional-programming-jargon?utm_source=hackernewsletter&utm_medium=email&utm_term=code#functor
+

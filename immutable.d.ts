@@ -1,28 +1,8 @@
-export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date"
+export type RambdaTypes = "Object" | "Number" | "Boolean" | "String" | "Null" | "Array" | "RegExp" | "NaN" | "Function" | "Undefined" | "Async" | "Promise" | "Symbol" | "Set" | "Error" | "Map" | "WeakMap" | "Generator" | "GeneratorFunction" | "BigInt" | "ArrayBuffer" | "Date";
 
 export type EqualTypes<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends
-  (<T>() => T extends Y ? 1 : 2) ? true : false
-
-export type FlattenObject<T extends object> = object extends T
-  ? object
-  : { readonly
-        [K in keyof T]-?: (
-          x: NonNullable<T[K]> extends infer V
-            ? V extends object
-              ? V extends readonly any[]
-                ? never 
-                : Flatten<V> extends infer FV
-                  ? { readonly
-                      [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
-                    }
-                  : never 
-              : Pick<T, K>
-            : never 
-        ) => void
-      } extends Record<keyof T, (y: infer O) => void>
-    ? O 
-    : never;
+  (<T>() => T extends Y ? 1 : 2) ? true : false;
 
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
@@ -102,9 +82,11 @@ type PickIndexSignature<ObjectType> = { readonly
 
 type Merge<Destination, Source> =
 MergeTypes<
-SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
-& SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
+	SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
+	& SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
 >;
+
+type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
 
 /**
@@ -185,19 +167,13 @@ export function checkObjectWithSpec<T>(spec: T): <U>(testObj: U) => boolean;
 /**
  * It removes `null` and `undefined` members from list or object input.
  */
-export function compact<T>(list: readonly T[]): ReadonlyArray<NonNullable<T>>;
+export function compact<T>(list: readonly T[]): ReadonlyArray<StrictNonNullable<T>>;
 export function compact<T extends object>(record: T): { readonly
   [K in keyof T as Exclude<T[K], null | undefined> extends never
     ? never
     : K
   ]: Exclude<T[K], null | undefined>
 };
-
-
-// API_MARKER_END
-// ============================================
-
-export as namespace R
 
 /**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -298,10 +274,10 @@ export function filter<T, S extends T>(
 ): (list: readonly T[]) => readonly S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => readonly NonNullable<T>[];
+): (list: readonly T[]) => readonly StrictNonNullable<T>[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => readonly NonNullable<T>[];
+): (list: readonly T[]) => readonly StrictNonNullable<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: readonly T[]) => readonly T[];
@@ -404,6 +380,17 @@ export function innerJoin<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: readonly T1[],
 ): (list2: readonly T2[]) => readonly T1[];
+
+/**
+ * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
+ */
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
+
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
 
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.

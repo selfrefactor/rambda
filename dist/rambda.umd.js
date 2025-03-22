@@ -742,6 +742,36 @@
     return ys => _filter(x => _includesWith(pred, x, ys), xs)
   }
 
+  const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g);
+  const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '');
+
+  const replace$1 = ({ inputHolder, prop, replacer }) => {
+    const regexBase = `{{${prop}}}`;
+    const regex = new RegExp(regexBase, 'g');
+    return inputHolder.replace(regex, replacer)
+  };
+
+  function interpolate(input) {
+    return templateInput => {
+      const occurrences = getOccurrences(input);
+      if (occurrences === null) {
+        return input
+      }
+      let inputHolder = input;
+
+      for (const occurrence of occurrences) {
+        const prop = getOccurrenceProp(occurrence);
+        inputHolder = replace$1({
+          inputHolder,
+          prop,
+          replacer: templateInput[prop],
+        });
+      }
+
+      return inputHolder
+    }
+  }
+
   function intersection(listA) {
     return listB => filter(x => includes(x)(listA))(listB)
   }
@@ -967,10 +997,11 @@
     }
   }
 
-  function partitionObject(predicate, iterable) {
+  function partitionObject(predicate) {
+  	return obj => {
     const yes = {};
     const no = {};
-    Object.entries(iterable).forEach(([prop, value]) => {
+    Object.entries(obj).forEach(([prop, value]) => {
       if (predicate(value, prop)) {
         yes[prop] = value;
       } else {
@@ -979,6 +1010,7 @@
     });
 
     return [yes, no]
+  }
   }
 
   function path(pathInput, obj) {
@@ -1678,6 +1710,7 @@
   exports.indexOf = indexOf;
   exports.init = init;
   exports.innerJoin = innerJoin;
+  exports.interpolate = interpolate;
   exports.intersection = intersection;
   exports.intersperse = intersperse;
   exports.join = join;

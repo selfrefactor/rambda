@@ -1,7 +1,8 @@
-export function partitionObject(predicate, iterable) {
+export function partitionObject(predicate) {
+	return obj => {
   const yes = {}
   const no = {}
-  Object.entries(iterable).forEach(([prop, value]) => {
+  Object.entries(obj).forEach(([prop, value]) => {
     if (predicate(value, prop)) {
       yes[prop] = value
     } else {
@@ -10,4 +11,5 @@ export function partitionObject(predicate, iterable) {
   })
 
   return [yes, no]
+}
 }
