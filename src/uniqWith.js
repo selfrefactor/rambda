@@ -14,18 +14,18 @@ function includesWith(predicate, target, list) {
 }
 
 export function uniqWith(predicate) {
-	return list => {
-  let index = -1
-  const willReturn = []
+  return list => {
+    let index = -1
+    const willReturn = []
 
-  while (++index < list.length) {
-    const value = list[index]
+    while (++index < list.length) {
+      const value = list[index]
 
-    if (!includesWith(predicate, value, willReturn)) {
-      willReturn.push(value)
+      if (!includesWith(predicate, value, willReturn)) {
+        willReturn.push(value)
+      }
     }
-  }
 
-  return willReturn
-}
+    return willReturn
+  }
 }

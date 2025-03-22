@@ -23,7 +23,7 @@ it('R.createObjectFromKeys', () => {
   it('without "as const"', () => {
     const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
     result.a // $ExpectType number
-    result.b // $ExpectType number
+    result.b // $ExpectType string
     result.c // $ExpectType number
   })
 })

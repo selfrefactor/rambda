@@ -98,7 +98,7 @@ function parseRegex(maybeRegex) {
 }
 
 export function equalsFn(a, b) {
-	if (Object.is(a, b)) {
+  if (Object.is(a, b)) {
     return true
   }
 
@@ -207,5 +207,5 @@ export function equalsFn(a, b) {
   return false
 }
 export function equals(a) {
-	return b => equalsFn(a, b)
+  return b => equalsFn(a, b)
 }

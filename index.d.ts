@@ -4,6 +4,26 @@ export type EqualTypes<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends
   (<T>() => T extends Y ? 1 : 2) ? true : false
 
+export type FlattenObject<T extends object> = object extends T
+  ? object
+  : {
+        [K in keyof T]-?: (
+          x: NonNullable<T[K]> extends infer V
+            ? V extends object
+              ? V extends readonly any[]
+                ? never 
+                : Flatten<V> extends infer FV
+                  ? {
+                      [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
+                    }
+                  : never 
+              : Pick<T, K>
+            : never 
+        ) => void
+      } extends Record<keyof T, (y: infer O) => void>
+    ? O 
+    : never;
+
 export type IterableContainer<T = unknown> = ReadonlyArray<T> | readonly [];
 
 export type Mapped<T extends IterableContainer, K> = {
@@ -44,36 +64,6 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
 export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		? [Head, ...PickStringToPickPath<Tail>]
 	: T extends `${infer Head}` ? [Head]
 	: [];
-
-
-type Evolvable<E extends Evolver> = {[P in keyof E]?: Evolved<E[P]>};
-type Evolver<T extends Evolvable<any> = any> = {   [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
-};
-type Evolve<O extends Evolvable<E>, E extends Evolver> = {   [P in keyof O]: P extends keyof E
-                  ? EvolveValue<O[P], E[P]>
-                  : O[P];
-};
-
-type Evolved<A> =
-    A extends (value: infer V) => any
-    ? V
-    : A extends Evolver
-      ? Evolvable<A>
-      : never;
-
-type EvolveNestedValue<O, E extends Evolver> =
-    O extends object
-    ? O extends Evolvable<E>
-      ? Evolve<O, E>
-      : never
-    : never;
-
-type EvolveValue<V, E> =
-    E extends (value: V) => any
-    ? ReturnType<E>
-    : E extends Evolver
-      ? EvolveNestedValue<V, E>
-      : never;
 
 declare const emptyObjectSymbol: unique symbol;
 type EmptyObject = {[emptyObjectSymbol]?: never};
@@ -116,6 +106,14 @@ SimpleMerge<PickIndexSignature<Destination>, PickIndexSignature<Source>>
 & SimpleMerge<OmitIndexSignature<Destination>, OmitIndexSignature<Source>>
 >;
 
+
+/**
+ * It adds new key-value pair to the object.
+ */
+export function addProp<T extends object, P extends PropertyKey, V extends unknown>(
+	prop: P,
+	value: V
+): (obj: T) => MergeTypes<T & Record<P, V>>;
 
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
@@ -175,9 +173,31 @@ export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /**
+ * Helper function to be used with `R.sort` to sort list in ascending order.
+ */
+export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
+
+/**
  * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
  */
 export function checkObjectWithSpec<T>(spec: T): <U>(testObj: U) => boolean;
+
+/**
+ * It removes `null` and `undefined` members from list or object input.
+ */
+export function compact<T>(list: T[]): Array<NonNullable<T>>;
+export function compact<T extends object>(record: T): {
+  [K in keyof T as Exclude<T[K], null | undefined> extends never
+    ? never
+    : K
+  ]: Exclude<T[K], null | undefined>
+};
+
+
+// API_MARKER_END
+// ============================================
+
+export as namespace R
 
 /**
  * It returns `inverted` version of `origin` function that accept `input` as argument.
@@ -202,12 +222,24 @@ export function count<T>(predicate: (x: T) => boolean): (list: T[]) => number;
  */
 export function countBy<T>(fn: (x: T) => string | number): (list: T[]) => { [index: string]: number };
 
+export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
+	fn: (key: K[number]) => V
+): (keys: K) => { [P in K[number]]: V };
+export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
+	fn: (key: K[number], index: number) => V
+): (keys: K) => { [P in K[number]]: V };
+
 /**
  * It returns `defaultValue`, if all of `inputArguments` are `undefined`, `null` or `NaN`.
  * 
  * Else, it returns the first truthy `inputArguments` instance(from left to right).
  */
 export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
+
+/**
+ * Helper function to be used with `R.sort` to sort list in descending order.
+ */
+export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
 
 /**
  * It returns `howMany` items dropped from beginning of list.
@@ -244,8 +276,11 @@ export function equals<T>(x: T): (y: T) => boolean;
 
 /**
  * It takes object of functions as set of rules. These `rules` are applied to the `iterable` input to produce the result.
+ * It doesn't support nested rules, i.e rules are only one level deep.
  */
-export function evolve<E extends Evolver>(rules: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
+export function evolve<T>(rules: {
+	[K in keyof T]?: (x: T[K]) => T[K]
+}): (obj: T) => T;
 
 /**
  * Opposite of `R.includes`
@@ -309,6 +344,11 @@ export function findLast<T>(fn: (x: T) => boolean): (list: T[]) => T | undefined
  * If there is no such element, then `-1` is returned.
  */
 export function findLastIndex<T>(predicate: (x: T) => boolean): (list: T[]) => number;
+
+/**
+ * It returns the `nth` element of `list` that satisfy the `predicate` function.
+ */
+export function findNth<T>(predicate: (x: T) => boolean, nth: number): (list: T[]) => T | undefined;
 
 /**
  * It maps `fn` over `list` and then flatten the result by one-level.
@@ -439,6 +479,11 @@ export function mapAsync<T extends IterableContainer, U>(
   data: T
 ): Promise<Mapped<T, U>>;
 
+/**
+ * It returns a copy of `obj` with keys transformed by `fn`.
+ */
+export function mapKeys<T>(fn: (prop: string, value: T) => string): (obj: Record<string, T>) => Record<string, T>;
+
 export function mapObject<T extends object, Value>(
   valueMapper: (
     value: EnumerableStringKeyedValueOf<T>,
@@ -455,10 +500,23 @@ export function mapObjectAsync<T extends object, Value>(
   ) => Promise<Value>,
 ): (data: T) => Promise<MappedValues<T, Value>>;
 
-// API_MARKER_END
-// ============================================
-
-export as namespace R
+/**
+ * Wrapper around `Promise.all` for asynchronous mapping with `fn` over members of `list`.
+ */
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number]) => Promise<U>,
+  data: T
+): Promise<Mapped<T, U>>;
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -527,7 +585,7 @@ export function omit<const Keys extends PropertyKey[]>(propsToPick: Keys): <
 ) => ElementOf<Keys> extends keyof U ? MergeTypes<Omit<U, ElementOf<Keys>>> : never;
 
 /**
- * It will return array of two objects/arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
+ * It will return array of two arrays according to `predicate` function. The first member holds all instances of `input` that pass the `predicate` function, while the second member - those who doesn't.
  */
 export function partition<T, S extends T>(
   predicate: (value: T, index: number, data: ReadonlyArray<T>) => value is S,
@@ -535,6 +593,16 @@ export function partition<T, S extends T>(
 export function partition<T>(
   predicate: (value: T, index: number, data: ReadonlyArray<T>) => boolean,
 ): (data: ReadonlyArray<T>) => [Array<T>, Array<T>];
+
+/**
+ * It returns an array containing two objects. The first object holds all properties of the input object for which the predicate returns true, while the second object holds those that do not.
+ */
+export function partitionObject<T extends unknown, S extends T>(
+  predicate: (value: T, prop: string, obj: Record<string, T>) => value is S,
+): (obj: Record<string, T>) => [Record<string, S>, Record<string, Exclude<T, S>>];
+export function partitionObject<T extends unknown>(
+  predicate: (value: T, prop: string, obj: Record<string, T>) => boolean,
+): (obj: Record<string, T>) => [Record<string, T>, Record<string, T>];
 
 /**
  * If `pathToSearch` is `'a.b'` then it will return `1` if `obj` is `{a:{b:1}}`.
@@ -788,6 +856,8 @@ export function path<
     K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
     K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
 >(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+
+export function permutations<T>(list: T[]): T[][];
 
 /**
  * It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -1351,9 +1421,14 @@ export function propOr<T, P extends string>(defaultValue: T, property: P): (obj:
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /**
- * It returns list of numbers between `startInclusive` to `endExclusive` markers.
+ * It returns list of numbers between `startInclusive` to `endInclusive` markers.
  */
 export function range(startInclusive: number): (endExclusive: number) => number[];
+
+/**
+ * Same as `R.range` but in descending order.
+ */
+export function rangeDescending(startInclusive: number): (endExclusive: number) => number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
@@ -1396,6 +1471,11 @@ export function replace(strOrRegex: RegExp | string, replacer: RegExp | string):
 export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 /**
+ * It returns a randomized copy of array.
+ */
+export function shuffle<T>(list: T[]): T[];
+
+/**
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
  */
 export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
@@ -1404,6 +1484,12 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
  * It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
  */
 export function sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
+
+/**
+ * It returns a sorted version of `input` object.
+ */
+export function sortObject<T, K extends string & keyof T>(predicate: (aProp: string, bProp: string, aValue: T[K], bValue: T[K]) => number): (obj: T) => T;
+export function sortObject<T>(predicate: (aProp: string, bProp: string) => number): (obj: T) => T;
 
 export function sortWith<T>(fns: Array<(a: T, b: T) => number>): (list: T[]) => T[];
 

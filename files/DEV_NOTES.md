@@ -1,6 +1,3 @@
-check wrong import
-
-from './[a-zA-Z]+'
 ===
 https:bundlejs.com
 ===
@@ -11,7 +8,31 @@ export function splitEvery(sliceLength: number): {
 };
 ---
 ---
+REF
 
+check wrong import
+
+from './[a-zA-Z]+'
+
+export type FlattenObject<T extends object> = object extends T
+  ? object
+  : {
+        [K in keyof T]-?: (
+          x: NonNullable<T[K]> extends infer V
+            ? V extends object
+              ? V extends readonly any[]
+                ? never 
+                : Flatten<V> extends infer FV
+                  ? {
+                      [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
+                    }
+                  : never 
+              : Pick<T, K>
+            : never 
+        ) => void
+      } extends Record<keyof T, (y: infer O) => void>
+    ? O 
+    : never;
 
 
 
@@ -41,40 +62,9 @@ https:arethetypeswrong.github.io/?p=ramda%400.30.1
 ---
 ---
 
-export const getTestData = <K extends keyof TestData>(key: K) => {
-if (!TEST_DATA) return null
-const value = TEST_DATA[key]
-if (!value) return null
-
-return value
-}
-
-
-
----
-splitWith
-
-
-
----
-
-
-apply to allPass
-https:github.com/selfrefactor/rambda/pull/695/files
-
-- Revert changes in `R.anyPass` introduced in `8.4.0` release. The reason is that the change was breaking the library older than `5.2.0` TypeScript.
-
-## in other words, this should be done once there is significant amount of users on `5.2.0` and above
-
-## try omitPath as method instead of multiple paths
-
-handling errors out of the box:
-
-## const [err, result] = R.safePipe
 ===
 REFS:
 
-https:github.com/selfrefactor/rambda/issues/638
 https:github.com/ramda/ramda/pull/3430/files
 https:github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
 https:docs.retool.com/workflows/guides/blocks/javascript

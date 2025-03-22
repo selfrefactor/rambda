@@ -1,4 +1,4 @@
-export function find(predicate) {
+export function findNth(predicate, nth) {
   return list => {
     let index = 0
     const len = list.length
@@ -6,7 +6,8 @@ export function find(predicate) {
     while (index < len) {
       const x = list[index]
       if (predicate(x)) {
-        return x
+				if (nth === 0) return x
+				nth--
       }
 
       index++

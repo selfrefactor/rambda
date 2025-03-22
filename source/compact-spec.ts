@@ -3,7 +3,7 @@ import { compact, pipe } from 'rambda'
 it('R.compact', () => {
 		let result = pipe(
 			{
-				a: [ undefined, '', 'a', 'b', 'c', 0, false, null ],
+				a: [ undefined, '', 'a', 'b', 'c', null ],
 				b: [1,2, null, 0, undefined, 3],
 				c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
 			},

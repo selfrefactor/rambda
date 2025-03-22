@@ -1,4 +1,4 @@
-import { filter, pipe } from 'rambda'
+import { filter, mergeTypes, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -57,7 +57,9 @@ describe('R.filter with array', () => {
   it('filtering NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType NonNullable<1 | 2 | 3 | null | undefined>[]
+    result // $ExpectType (1 | 2 | 3)[]
+    // @ts-expect-error
+    result.includes(undefined) 
     // @ts-expect-error
     result.includes(null)
   })
