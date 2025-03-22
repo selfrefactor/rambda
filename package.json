@@ -7,7 +7,7 @@
     "build:main": "rollup rambda.js --file dist/rambda.js --format cjs",
     "build:esm": "rollup rambda.js --file dist/rambda.esm.js --format es",
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
-    "immutable": "cd ../rambda-scripts && yarn immutable:rambda",
+    "immutable": "cd ../rambda-scripts && yarn immutable",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "lint": "cd source && run lint:folder > lint-output.txt",

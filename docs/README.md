@@ -557,8 +557,6 @@ anyPass<T, TF1 extends T, TF2 extends T>(
 
 It accepts list of `predicates` and returns a function. This function with its `input` will return `true`, if any of `predicates` returns `true` for this `input`.
 
-> :boom: Function accepts only one input, but in Ramda it accepts indefinite number of arguments.
-
 ```javascript
 const isBig = x => x > 20
 const isOdd = x => x % 2 === 1
@@ -591,26 +589,8 @@ anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
 anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
   predicates: [(a: T) => a is TF1, (a: T) => a is TF2, (a: T) => a is TF3, (a: T) => a is TF4],
 ): (a: T) => a is TF1 | TF2 | TF3 | TF4;
-anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
-  predicates: [
-    (a: T) => a is TF1,
-    (a: T) => a is TF2,
-    (a: T) => a is TF3,
-    (a: T) => a is TF4,
-    (a: T) => a is TF5
-  ],
-): (a: T) => a is TF1 | TF2 | TF3 | TF4 | TF5;
-anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
-  predicates: [
-    (a: T) => a is TF1,
-    (a: T) => a is TF2,
-    (a: T) => a is TF3,
-    (a: T) => a is TF4,
-    (a: T) => a is TF5,
-    (a: T) => a is TF6
-  ],
-): (a: T) => a is TF1 | TF2 | TF3 | TF4 | TF5 | TF6;
-anyPass<F extends (...args: any[]) => boolean>(predicates: readonly F[]): F;
+...
+...
 ```
 
 </details>
@@ -3041,6 +3021,8 @@ filter<T>(
 filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
+...
+...
 ```
 
 </details>
@@ -5185,6 +5167,8 @@ map<T extends IterableContainer, U>(
   fn: (value: T[number]) => U,
 	data: T
 ) : Mapped<T, U>;
+...
+...
 ```
 
 </details>
@@ -5294,6 +5278,8 @@ mapAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
   data: T
 ): Promise<Mapped<T, U>>;
+...
+...
 ```
 
 </details>
@@ -5768,6 +5754,8 @@ mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
   data: T
 ): Promise<Mapped<T, U>>;
+...
+...
 ```
 
 </details>
@@ -7029,239 +7017,8 @@ path<
   K1 extends string & keyof S[K0],
   K2 extends string & keyof S[K0][K1]
 >(path: `${K0}.${K1}.${K2}`): (obj: S) => S[K0][K1][K2];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2]
->(path: [K0, K1, K2, K3]): (obj: S) => S[K0][K1][K2][K3];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2]
->(path: `${K0}.${K1}.${K2}.${K3}`): (obj: S) => S[K0][K1][K2][K3];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4]): (obj: S) => S[K0][K1][K2][K3][K4];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3]
->(path: `${K0}.${K1}.${K2}.${K3}.${K4}`): (obj: S) => S[K0][K1][K2][K3][K4];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4]
->(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
->(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
->(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
-path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
-path<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
-path<S, K0 extends keyof S>(path: [K0]): (obj: S) => S[K0];
-path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1]): (obj: S) => S[K0][K1];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1]
->(path: [K0, K1, K2]): (obj: S) => S[K0][K1][K2];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2]
->(path: [K0, K1, K2, K3]): (obj: S) => S[K0][K1][K2][K3];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4]): (obj: S) => S[K0][K1][K2][K3][K4];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7];
-path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5],
-    K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
-    K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+...
+...
 ```
 
 </details>
@@ -7659,254 +7416,8 @@ pipe<A, B, C, D, E>(
   op3: (input: C) => D,
   op4: (input: D) => E,
 ): E;
-pipe<A, B, C, D, E, F>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-): F;
-pipe<A, B, C, D, E, F, G>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-): G;
-pipe<A, B, C, D, E, F, G, H>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-): H;
-pipe<A, B, C, D, E, F, G, H, I>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-  op8: (input: H) => I,
-): I;
-pipe<A, B, C, D, E, F, G, H, I, J>(
-  value: A,
-  op1: (input: A) => B,
-  op2: (input: B) => C,
-  op3: (input: C) => D,
-  op4: (input: D) => E,
-  op5: (input: E) => F,
-  op6: (input: F) => G,
-  op7: (input: G) => H,
-  op8: (input: H) => I,
-  op9: (input: I) => J,
-): J;
-pipe<A, B, C, D, E, F, G, H, I, J, K>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-): K;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-): L;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-): M;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-): N;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-): O;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-): P;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-): Q;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-): R;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-  op18: (input: R) => S,
-): S;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
-  value: A,
-  op01: (input: A) => B,
-  op02: (input: B) => C,
-  op03: (input: C) => D,
-  op04: (input: D) => E,
-  op05: (input: E) => F,
-  op06: (input: F) => G,
-  op07: (input: G) => H,
-  op08: (input: H) => I,
-  op09: (input: I) => J,
-  op10: (input: J) => K,
-  op11: (input: K) => L,
-  op12: (input: L) => M,
-  op13: (input: M) => N,
-  op14: (input: N) => O,
-  op15: (input: O) => P,
-  op16: (input: P) => Q,
-  op17: (input: Q) => R,
-  op18: (input: R) => S,
-  op19: (input: S) => T,
-): T;
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
-	value: A,
-	op01: (input: A) => B,
-	op02: (input: B) => C,
-	op03: (input: C) => D,
-	op04: (input: D) => E,
-	op05: (input: E) => F,
-	op06: (input: F) => G,
-	op07: (input: G) => H,
-	op08: (input: H) => I,
-	op09: (input: I) => J,
-	op10: (input: J) => K,
-	op11: (input: K) => L,
-	op12: (input: L) => M,
-	op13: (input: M) => N,
-	op14: (input: N) => O,
-	op15: (input: O) => P,
-	op16: (input: P) => Q,
-	op17: (input: Q) => R,
-	op18: (input: R) => S,
-	op19: (input: S) => T,
-	op20: (input: T) => U,
-): U;
+...
+...
 ```
 
 </details>
@@ -8295,230 +7806,8 @@ pipeAsync<A, B>(input: A, fn0: (x: Awaited<A>) => B) : B;
 pipeAsync<A, B, C>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C) : C;
 pipeAsync<A, B, C, D>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D) : D;
 pipeAsync<A, B, C, D, E>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E) : E;
-pipeAsync<A, B, C, D, E, F>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F) : F;
-pipeAsync<A, B, C, D, E, F, G>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G) : G;
-pipeAsync<A, B, C, D, E, F, G, H>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H) : H;
-pipeAsync<A, B, C, D, E, F, G, H, I>(input: A, fn0: (x: Awaited<A>) => B, fn1: (x: Awaited<B>) => C, fn2: (x: Awaited<C>) => D, fn3: (x: Awaited<D>) => E, fn4: (x: Awaited<E>) => F, fn5: (x: Awaited<F>) => G, fn6: (x: Awaited<G>) => H, fn7: (x: Awaited<H>) => I) : I;
-pipeAsync<A, B, C, D, E, F, G, H, I, J>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-) : J;
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-): K;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-): L;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-): M;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-): N;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-): O;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-): P;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-  fn15: (x: Awaited<P>) => Q,
-): Q;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-  fn15: (x: Awaited<P>) => Q,
-  fn16: (x: Awaited<Q>) => R,
-): R;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-  fn15: (x: Awaited<P>) => Q,
-  fn16: (x: Awaited<Q>) => R,
-  fn17: (x: Awaited<R>) => S,
-): S;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-  fn15: (x: Awaited<P>) => Q,
-  fn16: (x: Awaited<Q>) => R,
-  fn17: (x: Awaited<R>) => S,
-  fn18: (x: Awaited<S>) => T,
-): T;
-
-pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
-  input: A,
-  fn0: (x: Awaited<A>) => B,
-  fn1: (x: Awaited<B>) => C,
-  fn2: (x: Awaited<C>) => D,
-  fn3: (x: Awaited<D>) => E,
-  fn4: (x: Awaited<E>) => F,
-  fn5: (x: Awaited<F>) => G,
-  fn6: (x: Awaited<G>) => H,
-  fn7: (x: Awaited<H>) => I,
-  fn8: (x: Awaited<I>) => J,
-  fn9: (x: Awaited<J>) => K,
-  fn10: (x: Awaited<K>) => L,
-  fn11: (x: Awaited<L>) => M,
-  fn12: (x: Awaited<M>) => N,
-  fn13: (x: Awaited<N>) => O,
-  fn14: (x: Awaited<O>) => P,
-  fn15: (x: Awaited<P>) => Q,
-  fn16: (x: Awaited<Q>) => R,
-  fn17: (x: Awaited<R>) => S,
-  fn18: (x: Awaited<S>) => T,
-  fn19: (x: Awaited<T>) => U,
-): U;
+...
+...
 ```
 
 </details>
@@ -8859,7 +8148,8 @@ propEq<T>(val: T): {
   <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
 };
 propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
+...
+...
 ```
 
 </details>
@@ -9406,6 +8696,8 @@ reject<T>(
 reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
+...
+...
 ```
 
 </details>
@@ -10774,6 +10066,8 @@ take<T>(howMany: number): {
   (input: T[]): T[];
   (input: readonly T[]): T[];
 };
+...
+...
 ```
 
 </details>
@@ -10865,6 +10159,8 @@ takeLast<T>(howMany: number): {
   (input: T[]): T[];
   (input: readonly T[]): T[];
 };
+...
+...
 ```
 
 </details>
