@@ -1,10 +1,11 @@
 
  RUN  v3.1.0-beta.2 /home/we/repos/rambda
 
- ✓ source/findNth.spec.js (2 tests) 5ms
+ ✓ source/partition.spec.js (1 test) 5ms
+ ✓ source/partitionObject.spec.js (1 test) 4ms
 
- Test Files  1 passed (1)
+ Test Files  2 passed (2)
       Tests  2 passed (2)
-   Start at  21:41:18
-   Duration  414ms (transform 40ms, setup 0ms, collect 18ms, tests 5ms, environment 0ms, prepare 104ms)
+   Start at  08:02:54
+   Duration  394ms (transform 44ms, setup 0ms, collect 33ms, tests 9ms, environment 1ms, prepare 271ms)
 
