@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ '23' ]
+        node-version: [ '21', '23' ]
 
     steps:
     - uses: actions/checkout@v2
