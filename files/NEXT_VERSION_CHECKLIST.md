@@ -1,8 +1,12 @@
-skip methods with long TS
+export function findKey<T extends Record<any, any>>(
+  obj: T,
+  predicate: (value: T[keyof T], key: keyof T, obj: T) => boolean
+): keyof T | undefined {
+  const keys = Object.keys(obj) as Array<keyof T>;
 
-number of similar methods and number of missing methods
+  return keys.find(key => predicate(obj[key], key, obj));
+}
 
-no need for 2 redamesrd
 ===
 https://jsr.io/@rambda/rambda
 ===
