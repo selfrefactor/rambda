@@ -4,8 +4,8 @@
   "scripts": {
     "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
     "build": "yarn build:main && yarn build:web && yarn build:esm",
-    "build:main": "rollup rambda.js --file dist/rambda.js --format cjs",
-    "build:esm": "rollup rambda.js --file dist/rambda.esm.js --format es",
+    "build:main": "rollup rambda.js --file dist/rambda.cjs --format cjs",
+    "build:esm": "rollup rambda.js --file dist/rambda.js --format es",
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
     "immutable": "cd ../rambda-scripts && yarn immutable",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
@@ -25,6 +25,15 @@
   "depFn": [
     "@definitelytyped/dtslint"
   ],
+	"type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/rambda.js",
+      "require": "./dist/rambda.cjs"
+    }
+  },
+  "main": "dist/rambda.cjs",
+  "module": "dist/rambda.js",
   "dependencies": {},
   "devDependencies": {
     "@definitelytyped/dtslint": "0.0.182",
@@ -67,6 +76,7 @@
     "generics",
     "lodash",
     "ramda",
+    "remeda",
     "stdlib",
     "toolkit",
     "ts",
@@ -89,8 +99,6 @@
     "immutable.js"
   ],
   "sideEffects": false,
-  "main": "./dist/rambda.js",
   "umd": "./dist/rambda.umd.js",
-  "module": "./rambda.js",
   "types": "./index.d.ts"
 }

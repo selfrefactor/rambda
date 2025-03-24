@@ -1,6 +1,6 @@
 # Rambda
 
-`Rambda` is TypeScript-focused utility library similar to `Remeda` and `Lodash`. 
+`Rambda` is TypeScript-focused utility library similar to `Remeda`, `Ramda` and `Radashi`. 
 
 Initially it started as faster alternative to functional programming library `Ramda`, but in order to address many TypeScript issues, now `Rambda` takes a separate path. - [Documentation](https://selfrefactor.github.io/rambda/#/)
 
@@ -150,6 +150,8 @@ Up until version `9.4.2`, the aim of Rambda was to match as much as possible the
 Documentation site of `Rambda` version `9.4.2` is available [here](https://selfrefactor.github.io/rambda-v9/).
 
 From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order to address some of the issues that Ramda has.
+
+Currently, `Rambda` includes 32 methods that differ from `Ramda` and shares 83 methods with it.
 
 <details>
 <summary>
@@ -3939,8 +3941,24 @@ groupBy<T, K extends string = string>(fn: (x: T) => K): (list: T[]) => Partial<R
 <summary><strong>R.groupBy</strong> source</summary>
 
 ```javascript
+export function groupByFallback(groupFn, list) {
+    const result = {}
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i]
+      const key = groupFn(item)
+
+      if (!result[key]) {
+        result[key] = []
+      }
+
+      result[key].push(item)
+    }
+
+    return result
+}
+
 export function groupBy(groupFn) {
-  return iterable => Object.groupBy(iterable,groupFn)
+  return iterable => Object.groupBy ? Object.groupBy(iterable,groupFn) : groupByFallback(groupFn, iterable)
 }
 ```
 

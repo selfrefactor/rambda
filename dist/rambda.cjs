@@ -1,3 +1,5 @@
+'use strict';
+
 function addProp(key, value) {
   return obj => ({ ...obj, [key]: value })
 }
@@ -658,8 +660,25 @@ function flatten(list, input) {
   return willReturn
 }
 
+function groupByFallback(groupFn, list) {
+    const result = {};
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i];
+      const key = groupFn(item);
+
+      if (!result[key]) {
+        result[key] = [];
+      }
+
+      result[key].push(item);
+    }
+
+    return result
+}
+
+
 function groupBy(groupFn) {
-  return iterable => Object.groupBy(iterable,groupFn)
+  return iterable => Object.groupBy ? Object.groupBy(iterable,groupFn) : groupByFallback(groupFn, iterable)
 }
 
 function head(listOrString) {
@@ -1658,4 +1677,119 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, all, allPass, any, anyPass, append, ascend, checkObjectWithSpec, compact, complement, concat, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, groupBy, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, rangeDescending, reduce, reject, rejectObject, replace, replaceItemAtIndex, shuffle, sort, sortBy, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+exports._arity = _arity;
+exports._includes = _includes;
+exports._indexOf = _indexOf;
+exports._lastIndexOf = _lastIndexOf;
+exports.addProp = addProp;
+exports.all = all;
+exports.allPass = allPass;
+exports.any = any;
+exports.anyPass = anyPass;
+exports.append = append;
+exports.ascend = ascend;
+exports.checkObjectWithSpec = checkObjectWithSpec;
+exports.compact = compact;
+exports.complement = complement;
+exports.concat = concat;
+exports.count = count;
+exports.countBy = countBy;
+exports.createCompareFunction = createCompareFunction;
+exports.createObjectFromKeys = createObjectFromKeys;
+exports.defaultTo = defaultTo;
+exports.descend = descend;
+exports.drop = drop;
+exports.dropLast = dropLast;
+exports.dropLastWhile = dropLastWhile;
+exports.dropWhile = dropWhile;
+exports.eqBy = eqBy;
+exports.eqProps = eqProps;
+exports.equals = equals;
+exports.equalsFn = equalsFn;
+exports.evolve = evolve;
+exports.excludes = excludes;
+exports.filter = filter;
+exports.filterObject = filterObject;
+exports.find = find;
+exports.findIndex = findIndex;
+exports.findLast = findLast;
+exports.findLastIndex = findLastIndex;
+exports.findNth = findNth;
+exports.flatMap = flatMap;
+exports.flatten = flatten;
+exports.groupBy = groupBy;
+exports.groupByFallback = groupByFallback;
+exports.head = head;
+exports.includes = includes;
+exports.indexOf = indexOf;
+exports.init = init;
+exports.innerJoin = innerJoin;
+exports.interpolate = interpolate;
+exports.intersection = intersection;
+exports.intersperse = intersperse;
+exports.join = join;
+exports.last = last;
+exports.lastIndexOf = lastIndexOf;
+exports.map = map;
+exports.mapAsync = mapAsync;
+exports.mapKeys = mapKeys;
+exports.mapObject = mapObject;
+exports.mapObjectAsync = mapObjectAsync;
+exports.mapParallelAsync = mapParallelAsync;
+exports.match = match;
+exports.maxBy = maxBy;
+exports.merge = merge;
+exports.mergeTypes = mergeTypes;
+exports.minBy = minBy;
+exports.modifyProp = modifyProp;
+exports.none = none;
+exports.objOf = objOf;
+exports.objectIncludes = objectIncludes;
+exports.omit = omit;
+exports.partition = partition;
+exports.partitionObject = partitionObject;
+exports.path = path;
+exports.permutations = permutations;
+exports.pick = pick;
+exports.pipe = pipe;
+exports.pipeAsync = pipeAsync;
+exports.pluck = pluck;
+exports.prepend = prepend;
+exports.prop = prop;
+exports.propEq = propEq;
+exports.propOr = propOr;
+exports.propSatisfies = propSatisfies;
+exports.range = range;
+exports.rangeDescending = rangeDescending;
+exports.reduce = reduce;
+exports.reject = reject;
+exports.rejectObject = rejectObject;
+exports.replace = replace;
+exports.replaceItemAtIndex = replaceItemAtIndex;
+exports.shuffle = shuffle;
+exports.sort = sort;
+exports.sortBy = sortBy;
+exports.sortObject = sortObject;
+exports.sortWith = sortWith;
+exports.split = split;
+exports.splitEvery = splitEvery;
+exports.symmetricDifference = symmetricDifference;
+exports.tail = tail;
+exports.take = take;
+exports.takeLast = takeLast;
+exports.takeLastWhile = takeLastWhile;
+exports.takeWhile = takeWhile;
+exports.tap = tap;
+exports.test = test;
+exports.tryCatch = tryCatch;
+exports.type = type;
+exports.union = union;
+exports.uniq = uniq;
+exports.uniqBy = uniqBy;
+exports.uniqWith = uniqWith;
+exports.unless = unless;
+exports.unwind = unwind;
+exports.update = update;
+exports.when = when;
+exports.zip = zip;
+exports.zipWith = zipWith;
