@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "10.0.0-alpha.0",
+  "version": "10.0.0-beta.0",
   "scripts": {
     "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
     "build": "yarn build:main && yarn build:web && yarn build:esm",
@@ -25,7 +25,7 @@
   "depFn": [
     "@definitelytyped/dtslint"
   ],
-	"type": "module",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/rambda.js",
