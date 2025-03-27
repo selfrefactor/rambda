@@ -532,6 +532,11 @@ export function mergeTypes<T>(x: T): MergeTypes<T>;
 export function minBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 
 /**
+ * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
+ */
+export function modifyItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: readonly T[]) => readonly T[];
+
+/**
  * It changes a property with the result of transformer function.
  */
 export function modifyProp<T, K extends keyof T>(
@@ -1408,14 +1413,10 @@ export function propOr<T, P extends string>(defaultValue: T, property: P): (obj:
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /**
- * It returns list of numbers between `startInclusive` to `endInclusive` markers.
+ * It returns list of numbers between `startInclusive` to `endExclusive` markers.
+ * If `start` is greater than `end`, then the result will be in descending order.
  */
 export function range(startInclusive: number): (endExclusive: number) => readonly number[];
-
-/**
- * Same as `R.range` but in descending order.
- */
-export function rangeDescending(startInclusive: number): (endExclusive: number) => readonly number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: readonly T[]) => TResult;
 
@@ -1451,11 +1452,6 @@ export function rejectObject<T extends object>(
  * It replaces `strOrRegex` found in `str` with `replacer`.
  */
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
-
-/**
- * It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
- */
-export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: readonly T[]) => readonly T[];
 
 /**
  * It returns a randomized copy of array.

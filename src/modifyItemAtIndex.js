@@ -1,6 +1,6 @@
 import { cloneList } from './_internals/cloneList.js'
 
-export function replaceItemAtIndex(index, replaceFn) {
+export function modifyItemAtIndex(index, replaceFn) {
   return list => {
     const actualIndex = index < 0 ? list.length + index : index
     if (index >= list.length || actualIndex < 0) {

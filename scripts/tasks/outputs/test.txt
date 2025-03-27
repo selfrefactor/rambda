@@ -1,10 +1,10 @@
 
  RUN  v3.1.0-beta.2 /home/we/repos/rambda
 
- ✓ source/interpolate.spec.js (1 test) 4ms
+ ✓ source/range.spec.js (1 test) 4ms
 
  Test Files  1 passed (1)
       Tests  1 passed (1)
-   Start at  11:03:38
-   Duration  491ms (transform 47ms, setup 0ms, collect 37ms, tests 4ms, environment 0ms, prepare 141ms)
+   Start at  20:42:03
+   Duration  352ms (transform 32ms, setup 0ms, collect 16ms, tests 4ms, environment 0ms, prepare 92ms)
 

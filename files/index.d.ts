@@ -91,7 +91,7 @@ type StrictNonNullable<T> = Exclude<T, null | undefined>;
 // API_MARKER
 
 /*
-Method: replaceItemAtIndex
+Method: modifyItemAtIndex
 
 Explanation:
 
@@ -102,7 +102,7 @@ Example:
 ```
 const result = R.pipe(
 	[1, 2, 3],
-	R.replaceItemAtIndex(1, R.add(1))
+	R.modifyItemAtIndex(1, R.add(1))
 ) // => [1, 3, 3]
 ```
 
@@ -112,7 +112,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
+export function modifyItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
 
 /*
 Method: all
@@ -3526,13 +3526,14 @@ export function split(separator: string | RegExp): (str: string) => string[];
 /*
 Method: range
 
-Explanation: It returns list of numbers between `startInclusive` to `endInclusive` markers.
+Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
+If `start` is greater than `end`, then the result will be in descending order.
 
 Example:
 
 ```
-R.range(0)(5)
-// => [0, 1, 2, 3, 4, 5]
+[R.range(0)(5), R.range(5)(0)]
+// => [[0, 1, 2, 3, 4], [5, 4, 3, 2, 1]]
 ```
 
 Categories: Number
@@ -3542,26 +3543,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function range(startInclusive: number): (endExclusive: number) => number[];
-
-/*
-Method: rangeDescending
-
-Explanation: Same as `R.range` but in descending order.
-
-Example:
-
-```
-R.rangeDescending(5, 0)
-// => [5, 4, 3, 2, 1, 0]
-```
-
-Categories: Number
-
-Notes:
-
-*/
-// @SINGLE_MARKER
-export function rangeDescending(startInclusive: number): (endExclusive: number) => number[];
 
 /*
 Method: pipeAsync

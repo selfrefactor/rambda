@@ -903,6 +903,20 @@
     return y => (compareFn(y) < compareFn(x) ? y : x)
   }
 
+  function modifyItemAtIndex(index, replaceFn) {
+    return list => {
+      const actualIndex = index < 0 ? list.length + index : index;
+      if (index >= list.length || actualIndex < 0) {
+        return list
+      }
+
+      const clone = cloneList$1(list);
+      clone[actualIndex] = replaceFn(clone[actualIndex]);
+
+      return clone
+    }
+  }
+
   function update(index, newValue) {
     return list => {
       const clone = cloneList$1(list);
@@ -1272,42 +1286,33 @@
     return obj => predicate(obj[property])
   }
 
+  function rangeDescending(start, end) {
+  	const len = start - end;
+  	const willReturn = Array(len);
+
+  	for (let i = 0; i < len; i++) {
+  		willReturn[i] = start - i;
+  	}
+
+  	return willReturn
+  }
+
   function range(start) {
     return end => {
       if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
         throw new TypeError('Both arguments to range must be numbers')
       }
 
-      if (end <= start) {
+      if (end === start) {
         return []
       }
+  		if (end < start) return rangeDescending(start,end)
 
       const len = end - start;
       const willReturn = Array(len);
 
-      for (let i = 0; i < len + 1; i++) {
+      for (let i = 0; i < len; i++) {
         willReturn[i] = start + i;
-      }
-
-      return willReturn
-    }
-  }
-
-  function rangeDescending(start) {
-    return end => {
-      if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-        throw new TypeError('Both arguments to range must be numbers')
-      }
-
-      if (end >= start) {
-        return []
-      }
-
-      const len = start - end;
-      const willReturn = Array(len);
-
-      for (let i = 0; i < len + 1; i++) {
-        willReturn[i] = start - i;
       }
 
       return willReturn
@@ -1316,20 +1321,6 @@
 
   function replace(pattern, replacer) {
     return str => str.replace(pattern, replacer)
-  }
-
-  function replaceItemAtIndex(index, replaceFn) {
-    return list => {
-      const actualIndex = index < 0 ? list.length + index : index;
-      if (index >= list.length || actualIndex < 0) {
-        return list
-      }
-
-      const clone = cloneList$1(list);
-      clone[actualIndex] = replaceFn(clone[actualIndex]);
-
-      return clone
-    }
   }
 
   function shuffle(listInput) {
@@ -1745,6 +1736,7 @@
   exports.merge = merge;
   exports.mergeTypes = mergeTypes;
   exports.minBy = minBy;
+  exports.modifyItemAtIndex = modifyItemAtIndex;
   exports.modifyProp = modifyProp;
   exports.none = none;
   exports.objOf = objOf;
@@ -1764,12 +1756,10 @@
   exports.propOr = propOr;
   exports.propSatisfies = propSatisfies;
   exports.range = range;
-  exports.rangeDescending = rangeDescending;
   exports.reduce = reduce;
   exports.reject = reject;
   exports.rejectObject = rejectObject;
   exports.replace = replace;
-  exports.replaceItemAtIndex = replaceItemAtIndex;
   exports.shuffle = shuffle;
   exports.sort = sort;
   exports.sortBy = sortBy;

@@ -6153,6 +6153,89 @@ test('happy', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#minBy)
 
+### modifyItemAtIndex
+
+```typescript
+
+modifyItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[]
+```
+
+It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
+
+```javascript
+const result = R.pipe(
+	[1, 2, 3],
+	R.modifyItemAtIndex(1, R.add(1))
+) // => [1, 3, 3]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.modifyItemAtIndex(1%2C%20R.add(1))%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.modifyItemAtIndex</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+modifyItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.modifyItemAtIndex</strong> source</summary>
+
+```javascript
+import { cloneList } from './_internals/cloneList.js'
+
+export function modifyItemAtIndex(index, replaceFn) {
+  return list => {
+    const actualIndex = index < 0 ? list.length + index : index
+    if (index >= list.length || actualIndex < 0) {
+      return list
+    }
+
+    const clone = cloneList(list)
+    clone[actualIndex] = replaceFn(clone[actualIndex])
+
+    return clone
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { modifyItemAtIndex } from './modifyItemAtIndex.js'
+
+const add10 = x => x + 10
+
+const list = [0, 1, 2]
+const expected = [0, 11, 2]
+
+test('happy', () => {
+  expect(modifyItemAtIndex(1, add10)(list)).toEqual(expected)
+})
+
+test('with negative index', () => {
+  expect(modifyItemAtIndex(-2, add10)(list)).toEqual(expected)
+})
+
+test('when index is out of bounds', () => {
+  const list = [0, 1, 2, 3]
+  expect(modifyItemAtIndex(4, add10)(list)).toEqual(list)
+  expect(modifyItemAtIndex(-5, add10)(list)).toEqual(list)
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyItemAtIndex)
+
 ### modifyProp
 
 ```typescript
@@ -8409,14 +8492,15 @@ describe('R.propSatisfies', () => {
 range(startInclusive: number): (endExclusive: number) => number[]
 ```
 
-It returns list of numbers between `startInclusive` to `endInclusive` markers.
+It returns list of numbers between `startInclusive` to `endExclusive` markers.
+If `start` is greater than `end`, then the result will be in descending order.
 
 ```javascript
-R.range(0)(5)
-// => [0, 1, 2, 3, 4, 5]
+[R.range(0)(5), R.range(5)(0)]
+// => [[0, 1, 2, 3, 4], [5, 4, 3, 2, 1]]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.range(0)(5)%0A%2F%2F%20%3D%3E%20%5B0%2C%201%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.range</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5BR.range(0)(5)%2C%20R.range(5)(0)%5D%0A%2F%2F%20%3D%3E%20%5B%5B0%2C%201%2C%202%2C%203%2C%204%5D%2C%20%5B5%2C%204%2C%203%2C%202%2C%201%5D%5D">Try this <strong>R.range</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8433,42 +8517,33 @@ range(startInclusive: number): (endExclusive: number) => number[];
 <summary><strong>R.range</strong> source</summary>
 
 ```javascript
+function rangeDescending(start, end) {
+	const len = start - end
+	const willReturn = Array(len)
+
+	for (let i = 0; i < len; i++) {
+		willReturn[i] = start - i
+	}
+
+	return willReturn
+}
+
 export function range(start) {
   return end => {
     if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
       throw new TypeError('Both arguments to range must be numbers')
     }
 
-    if (end <= start) {
+    if (end === start) {
       return []
     }
+		if (end < start) return rangeDescending(start,end)
 
     const len = end - start
     const willReturn = Array(len)
 
-    for (let i = 0; i < len + 1; i++) {
+    for (let i = 0; i < len; i++) {
       willReturn[i] = start + i
-    }
-
-    return willReturn
-  }
-}
-
-export function rangeDescending(start) {
-  return end => {
-    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-      throw new TypeError('Both arguments to range must be numbers')
-    }
-
-    if (end >= start) {
-      return []
-    }
-
-    const len = start - end
-    const willReturn = Array(len)
-
-    for (let i = 0; i < len + 1; i++) {
-      willReturn[i] = start - i
     }
 
     return willReturn
@@ -8483,24 +8558,12 @@ export function rangeDescending(start) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { range, rangeDescending } from './range.js'
+import { range } from './range.js'
 
 test('happy', () => {
-  expect(range(0)(10)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-})
-
-test('end range is bigger than start range', () => {
-  expect(range(7)(3)).toEqual([])
-  expect(range(5)(5)).toEqual([])
-})
-
-test('descending', () => {
-	expect(rangeDescending(5)(0)).toEqual([5, 4, 3, 2, 1, 0])
-})
-
-test('descending end range is bigger than start range', () => {
-	expect(rangeDescending(3)(7)).toEqual([])
-	expect(rangeDescending(5)(5)).toEqual([])
+  expect(range(0)(5)).toEqual([0, 1, 2, 3, 4])
+	expect(range(7)(3)).toEqual([7, 6, 5, 4])
+	expect(range(5)(5)).toEqual([])
 })
 ```
 
@@ -8525,34 +8588,6 @@ describe('R.range', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
-
-### rangeDescending
-
-```typescript
-
-rangeDescending(startInclusive: number): (endExclusive: number) => number[]
-```
-
-Same as `R.range` but in descending order.
-
-```javascript
-R.rangeDescending(5, 0)
-// => [5, 4, 3, 2, 1, 0]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.rangeDescending(5%2C%200)%0A%2F%2F%20%3D%3E%20%5B5%2C%204%2C%203%2C%202%2C%201%2C%200%5D">Try this <strong>R.rangeDescending</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-rangeDescending(startInclusive: number): (endExclusive: number) => number[];
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#rangeDescending)
 
 ### reduce
 
@@ -9025,89 +9060,6 @@ describe('R.replace', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
-
-### replaceItemAtIndex
-
-```typescript
-
-replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[]
-```
-
-It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
-
-```javascript
-const result = R.pipe(
-	[1, 2, 3],
-	R.replaceItemAtIndex(1, R.add(1))
-) // => [1, 3, 3]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.replaceItemAtIndex(1%2C%20R.add(1))%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.replaceItemAtIndex</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-replaceItemAtIndex<T>(index: number, replaceFn: (x: T) => T): (list: T[]) => T[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.replaceItemAtIndex</strong> source</summary>
-
-```javascript
-import { cloneList } from './_internals/cloneList.js'
-
-export function replaceItemAtIndex(index, replaceFn) {
-  return list => {
-    const actualIndex = index < 0 ? list.length + index : index
-    if (index >= list.length || actualIndex < 0) {
-      return list
-    }
-
-    const clone = cloneList(list)
-    clone[actualIndex] = replaceFn(clone[actualIndex])
-
-    return clone
-  }
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { replaceItemAtIndex } from './replaceItemAtIndex.js'
-
-const add10 = x => x + 10
-
-const list = [0, 1, 2]
-const expected = [0, 11, 2]
-
-test('happy', () => {
-  expect(replaceItemAtIndex(1, add10)(list)).toEqual(expected)
-})
-
-test('with negative index', () => {
-  expect(replaceItemAtIndex(-2, add10)(list)).toEqual(expected)
-})
-
-test('when index is out of bounds', () => {
-  const list = [0, 1, 2, 3]
-  expect(replaceItemAtIndex(4, add10)(list)).toEqual(list)
-  expect(replaceItemAtIndex(-5, add10)(list)).toEqual(list)
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replaceItemAtIndex)
 
 ### shuffle
 
