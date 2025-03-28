@@ -72,19 +72,10 @@ const _isObject = x => {
 ===
 REFS:
 
-https:github.com/ramda/ramda/pull/3430/files
-https:github.com/thi-ng/umbrella/blob/develop/packages/arrays/src/ends-with.ts
-https:docs.retool.com/workflows/guides/blocks/javascript
-https:snyk.io/advisor/npm-package/ramda
-https:github.com/rogerfar/curray/blob/master/src/index.ts
-https:radash-docs.vercel.app/docs/typed/is-symbol
-https:radash-docs.vercel.app/docs/async/defer
-https:radash-docs.vercel.app/docs/array/counting
 https:www.matthewtao.com/blog/post/ramda-curry-by-source-code
 
 can wait:
 
-https:github.com/DefinitelyTyped/DefinitelyTyped/pull/59219/files
 https:github.com/ramda/ramda/pull/3270
 https:tutorial.docusaurus.io/docs/tutorial-basics/create-a-page
 https:www.reddit.com/r/typescript/comments/10cw9ju/ramda_and_typescript_issues/

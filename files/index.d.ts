@@ -2766,6 +2766,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function when<T, U extends T>(predicate: (x: T) => x is U, whenTrueFn: (x: U) => T): (input: T) => T;
 export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => T): (input: T) => T;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => U): (input: T) => T | U;
 

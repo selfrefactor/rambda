@@ -85,10 +85,12 @@ This is major revamp of `Rambda` library:
 
 - Rename following methods:
 
--- replaceItemAtIndex -> adjust
+-- modifyItemAtIndex -> adjust
 -- checkObjectWithSpec -> where 
 -- objectIncludes -> whereEq
 -- modify -> modifyProp
+-- chain -> flatMap
+-- mapObjIndexed -> mapObject
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
@@ -116,7 +118,7 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 -- append/prepend
 
-- Change `R.range` to work with `endIndex` included instead of `endIndex` excluded, i.e. `R.range(0, 2)` will return `[0, 1, 2]` instead of `[0, 1]`. This is done because `R.rangeDescending` is added and users would wonder if end or start index is excluded.
+- Change `R.range` to work with descending order.
 
 - Sync with typing of `@types/ramda`:
 
@@ -168,11 +170,6 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Remove `Babel` dependency in `Rollup` build setup.
 
 - Revert adding stopper logic in `R.reduce` - https://github.com/selfrefactor/rambda/pull/630
-
-- Renamed methods: 
-
--- `chain` to `flatMap`
--- `mapObjIndexed` to `mapObject`
 
 9.4.2
 
