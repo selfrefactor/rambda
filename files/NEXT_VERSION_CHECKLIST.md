@@ -1,3 +1,20 @@
+map list of Objects which Create property from fn
+
+let list = [
+	{a: 1, b: 2},
+	{a: 3, b: 4},
+]
+
+const result = mapObjectWithDecorate({
+	property: 'c',
+	fn: (x) => x.a + x.b,
+	list,
+})
+// result => [
+// 	{a: 1, b: 2, c: 3},
+// 	{a: 3, b: 4, c: 7},
+// ]
+
 ===
 https://jsr.io/@rambda/rambda
 ===
