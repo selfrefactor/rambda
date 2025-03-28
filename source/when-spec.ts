@@ -1,10 +1,17 @@
-import { flattenObject, head, mapObjectWithDecorate, pipe, tap, when } from 'rambda'
+import { flattenObject, head, mapObjectWithDecorate, pipe, sortByPath, tap, when } from 'rambda'
 
 function notNull<T>(a: T | null | undefined): a is T {
   return a != null
 }
 
 describe('R.when', () => {
+	it('happy', () => {
+		let sortByPathResult = pipe(
+			[{a: {b: 1}}, {a: {b: 2}}],
+			sortByPath('a.b'),
+		)
+		sortByPathResult // $ExpectType { a: { b: number; }; }[]
+	})
   it('happy', () => {
 		let foo = pipe(
 			[
@@ -13,11 +20,11 @@ describe('R.when', () => {
 			],
 			mapObjectWithDecorate(
 				'c',
-				(x) => x.a + x.b,
+				(x) => String(x.a + x.b),
 			)
 				
 		)
-		foo // $ExpectType { a: number; b: number; c: number; }[]
+		foo // $ExpectType { a: number; b: number; c: string; }[]
 		let flattenResult =
 		pipe(
 			{ a: { b: 1,
