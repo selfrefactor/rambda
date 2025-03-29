@@ -1,50 +1,20 @@
-import { isArray } from './_internals/isArray.js'
-
-export function filterObject(predicate, obj){
-  const willReturn = {}
-
-  for (const prop in obj){
-    if (predicate(
-      obj[ prop ], prop, obj
-    )){
-      willReturn[ prop ] = obj[ prop ]
+export function filter(predicate) {
+  return list => {
+    if (!list) {
+      throw new Error('Incorrect iterable input')
     }
-  }
+    let index = 0
+    const len = list.length
+    const willReturn = []
 
-  return willReturn
-}
+    while (index < len) {
+      if (predicate(list[index], index)) {
+        willReturn.push(list[index])
+      }
 
-export function filterArray(
-  predicate, list, indexed = false
-){
-  let index = 0
-  const len = list.length
-  const willReturn = []
-
-  while (index < len){
-    const predicateResult = indexed ?
-      predicate(list[ index ], index) :
-      predicate(list[ index ])
-    if (predicateResult){
-      willReturn.push(list[ index ])
+      index++
     }
 
-    index++
+    return willReturn
   }
-
-  return willReturn
-}
-
-export function filter(predicate, iterable){
-  if (arguments.length === 1)
-    return _iterable => filter(predicate, _iterable)
-  if (!iterable){
-    throw new Error('Incorrect iterable input')
-  }
-
-  if (isArray(iterable)) return filterArray(
-    predicate, iterable, false
-  )
-
-  return filterObject(predicate, iterable)
 }

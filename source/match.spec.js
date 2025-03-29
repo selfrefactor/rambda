@@ -1,8 +1,7 @@
-import { equals } from './equals.js'
 import { match } from './match.js'
 
 test('happy', () => {
-  expect(match(/a./g)('foo bar baz')).toEqual([ 'ar', 'az' ])
+  expect(match(/a./g)('foo bar baz')).toEqual(['ar', 'az'])
 })
 
 test('fallback', () => {
@@ -10,12 +9,5 @@ test('fallback', () => {
 })
 
 test('with string', () => {
-  expect(match('a', 'foo')).toEqual([])
-  expect(equals(match('o', 'foo'), [ 'o' ])).toBeTrue()
-})
-
-test('throwing', () => {
-  expect(() => {
-    match(/a./g, null)
-  }).toThrowErrorMatchingInlineSnapshot('"Cannot read properties of null (reading \'match\')"')
+  expect(match('a')('foo')).toEqual([])
 })

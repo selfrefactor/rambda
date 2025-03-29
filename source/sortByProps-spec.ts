@@ -1,6 +1,6 @@
-import {sortByProps} from 'rambda'
+import { sortByProps } from 'rambdax'
 
-const list = [{a: {b: 3}}, {a: {b: 2}}, {a: {b: 1}}]
+const list = [{ a: { b: 3 } }, { a: { b: 2 } }, { a: { b: 1 } }]
 
 describe('R.sortByProps', () => {
   it('happy', () => {

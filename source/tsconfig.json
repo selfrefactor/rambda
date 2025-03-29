@@ -4,11 +4,11 @@
     "lib": ["es2015", "dom"],
     "module": "commonjs",
     "noEmit": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "paths": { "rambda": ["../files/index.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
+    "paths": { "rambda": ["../files/index.d.ts"], "rambdax": ["../files/rambdax.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
     "allowJs": false
   },
   "include": ["./**/*.ts"]

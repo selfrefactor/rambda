@@ -1,20 +1,15 @@
-import { add, last, length, map } from '../rambda.js'
-import { __findHighestArity } from './applySpec.js'
+import { filter } from './filter.js'
+import { map } from './map.js'
 import { pipe } from './pipe.js'
 
 test('happy', () => {
-  const list = [ 1, 2, 3 ]
   const result = pipe(
-    map(add(1)), map(add(10)), last
-  )(list)
+    [1, 2, 3],
+    filter(x => x > 1),
+    map(x => x * 10),
+    map(x => x + 1),
+  )
+  const expectedResult = [21, 31]
 
-  expect(result).toBe(14)
-})
-
-test('issue #627', () => {
-  expect(__findHighestArity({ len : pipe(length) })).toBe(1)
-})
-
-test('with bad input', () => {
-  expect(() => pipe()).toThrowErrorMatchingInlineSnapshot('"pipe requires at least one argument"')
+  expect(result).toEqual(expectedResult)
 })

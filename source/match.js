@@ -1,7 +1,7 @@
-export function match(pattern, input){
-  if (arguments.length === 1) return _input => match(pattern, _input)
+export function match(pattern) {
+  return input => {
+    const willReturn = input.match(pattern)
 
-  const willReturn = input.match(pattern)
-
-  return willReturn === null ? [] : willReturn
+    return willReturn === null ? [] : willReturn
+  }
 }

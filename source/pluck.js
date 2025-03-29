@@ -1,15 +1,13 @@
-import { map } from './map.js'
+export function pluck(property) {
+  return list => {
+    const willReturn = []
 
-export function pluck(property, list){
-  if (arguments.length === 1) return _list => pluck(property, _list)
+    list.forEach(x => {
+      if (x[property] !== undefined) {
+        willReturn.push(x[property])
+      }
+    })
 
-  const willReturn = []
-
-  map(x => {
-    if (x[ property ] !== undefined){
-      willReturn.push(x[ property ])
-    }
-  }, list)
-
-  return willReturn
+    return willReturn
+  }
 }

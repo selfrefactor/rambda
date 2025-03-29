@@ -1,39 +1,32 @@
-import {partition} from 'rambda'
+import { partition, pipe } from 'rambda'
 
 describe('R.partition', () => {
-  it('with array', () => {
+  it('happy', () => {
     const predicate = (x: number) => {
       return x > 2
     }
     const list = [1, 2, 3, 4]
 
-    const result = partition(predicate, list)
-    const curriedResult = partition(predicate)(list)
+    const result = pipe(list, partition(predicate))
     result // $ExpectType [number[], number[]]
-    curriedResult // $ExpectType [number[], number[]]
   })
-
-  /*
-    revert to old version of `dtslint` and `R.partition` typing
-    as there is diff between VSCode types(correct) and dtslint(incorrect)
-    
-    it('with object', () => {
-      const predicate = (value: number, prop?: string) => {
-        return value > 2
-      }
-      const hash = {
-        a: 1,
-        b: 2,
-        c: 3,
-        d: 4,
-      }
-  
-      const result = partition(predicate, hash)
-      const curriedResult = partition(predicate)(hash)
-      result[0] // $xExpectType { [key: string]: number; }
-      result[1] // $xExpectType { [key: string]: number; }
-      curriedResult[0] // $xExpectType { [key: string]: number; }
-      curriedResult[1] // $xExpectType { [key: string]: number; }
-    })
-    */
+  it('with simple object', () => {
+    const result = pipe(
+      [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }],
+      partition(x => x.a > 2),
+    )
+    result // $ExpectType [{ a: number; }[], { a: number; }[]]
+  })
+  it('with complex object', () => {
+    interface Foo {
+      a: number
+    }
+    interface Bar {
+      b: number
+    }
+    const list1: (Foo | Bar)[] = [{ a: 1 }, { b: 2 }, { a: 3 }, { b: 4 }]
+    const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
+    const result = pipe(list1, partition(filterFoo))
+    result // $ExpectType [Foo[], Bar[]]
+  })
 })

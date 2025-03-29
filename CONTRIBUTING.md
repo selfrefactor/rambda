@@ -29,19 +29,8 @@ Before opening PR, you need:
 
 > It is known that definitions of **R.compose/R.pipe** are far from perfect. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no obvious solution to it.
 
-### Run Jest
+### Run Test
 
-Running `jest --watch` is possible but as they are many tests, I am unsure that this is the best option.
-
-I'd suggest to temporarily change the file name in `package.json`
-
-```json
-  "scripts":{
-    "dev": "jest source/foo.spec.js --watch"
-  }
-```
-
-and then run `yarn dev`.
 
 ### Typescript definitions and method description
 
@@ -50,3 +39,11 @@ Edit `files/index.d.ts` and make the fix.
 ### Typescript errors in tests
 
 use `// @ts-expect-error` when you write a test that is expected to fail.
+
+# Explanation of scripts
+
+## out
+
+It runs prebuild process that includes building documentation and `dist` folder.
+
+

@@ -9,17 +9,17 @@ test('with null', () => {
 })
 
 test('with NaN', () => {
-  expect(defaultTo('foo')(NaN)).toBe('foo')
+  expect(defaultTo('foo')(Number.NaN)).toBe('foo')
 })
 
 test('with empty string', () => {
-  expect(defaultTo('foo', '')).toBe('')
+  expect(defaultTo('foo')('')).toBe('')
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toBeFalse()
+  expect(defaultTo('foo')(false)).toBeFalsy()
 })
 
 test('when inputArgument passes initial check', () => {
-  expect(defaultTo('foo', 'bar')).toBe('bar')
+  expect(defaultTo('foo')('bar')).toBe('bar')
 })

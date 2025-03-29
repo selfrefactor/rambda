@@ -1,12 +1,10 @@
 import { cloneList } from './_internals/cloneList.js'
 
-export function append(x, input){
-  if (arguments.length === 1) return _input => append(x, _input)
+export function append(x) {
+  return list => {
+    const clone = cloneList(list)
+    clone.push(x)
 
-  if (typeof input === 'string') return input.split('').concat(x)
-
-  const clone = cloneList(input)
-  clone.push(x)
-
-  return clone
+    return clone
+  }
 }

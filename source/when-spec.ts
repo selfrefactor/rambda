@@ -1,23 +1,35 @@
-import {when} from 'rambda'
+import { head, pipe, tap, when } from 'rambda'
 
-const predicate = (x: number) => x > 2
-const whenTrueFn = (x: number) => String(x)
+function notNull<T>(a: T | null | undefined): a is T {
+  return a != null
+}
 
 describe('R.when', () => {
   it('happy', () => {
-    const result = when(predicate, whenTrueFn, 1)
-    result // $ExpectType string | 1
-  })
+    const result = pipe(
+      1,
+      when(
+        x => x > 2,
+        x => x,
+      ),
+      tap(x => {
+        x // $ExpectType number
+      }),
+      when(
+        x => x > 2,
+        x => String(x),
+      ),
+    )
 
-  it('curry 1', () => {
-    const fn = when(predicate, whenTrueFn)
-    const result = fn(1)
     result // $ExpectType string | number
   })
 
-  it('curry 2 require explicit types', () => {
-    const fn = when<number, string>(predicate)(whenTrueFn)
-    const result = fn(1)
-    result // $ExpectType string | number
+	it('with assertion of type', () => {
+    const result = pipe(
+      [1, null, 2, 3],
+      head,
+      when(notNull, x => x + 1),
+    )
+    result // $ExpectType number | null
   })
 })

@@ -1,18 +1,33 @@
 import { createPath } from './_internals/createPath.js'
-import { includes } from './_internals/includes.js'
 
-export function omit(propsToOmit, obj){
-  if (arguments.length === 1) return _obj => omit(propsToOmit, _obj)
+export function _includes(x, list) {
+  let index = -1
+  const { length } = list
 
-  if (obj === null || obj === undefined)
-    return undefined
+  while (++index < length) {
+    if (String(list[index]) === String(x)) {
+      return true
+    }
+  }
 
-  const propsToOmitValue = createPath(propsToOmit, ',')
-  const willReturn = {}
+  return false
+}
 
-  for (const key in obj)
-    if (!includes(key, propsToOmitValue))
-      willReturn[ key ] = obj[ key ]
+export function omit(propsToOmit) {
+  return obj => {
+    if (!obj) {
+      return undefined
+    }
 
-  return willReturn
+    const propsToOmitValue = createPath(propsToOmit, ',')
+    const willReturn = {}
+
+    for (const key in obj) {
+      if (!_includes(key, propsToOmitValue)) {
+        willReturn[key] = obj[key]
+      }
+    }
+
+    return willReturn
+  }
 }

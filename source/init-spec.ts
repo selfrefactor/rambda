@@ -1,4 +1,4 @@
-import {init} from 'rambda'
+import { init } from 'rambda'
 
 describe('R.init', () => {
   it('with string', () => {

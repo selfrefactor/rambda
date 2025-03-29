@@ -1,22 +1,12 @@
-import {any} from 'rambda'
+import { any, pipe } from 'rambda'
 
-describe('R.any', () => {
-  it('happy', () => {
-    const result = any(
-      x => {
-        x // $ExpectType number
-        return x > 2
-      },
-      [1, 2, 3]
-    )
-    result // $ExpectType boolean
-  })
-
-  it('when curried needs a type', () => {
-    const result = any<number>(x => {
+it('R.any', () => {
+  const result = pipe(
+    [1, 2, 3],
+    any(x => {
       x // $ExpectType number
       return x > 2
-    })([1, 2, 3])
-    result // $ExpectType boolean
-  })
+    }),
+  )
+  result // $ExpectType boolean
 })

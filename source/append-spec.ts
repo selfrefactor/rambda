@@ -1,58 +1,14 @@
-import {append, prepend} from 'rambda'
+import { append, pipe, prepend } from 'rambda'
 
 const listOfNumbers = [1, 2, 3]
-const listOfNumbersAndStrings = [1, 'b', 3]
 
 describe('R.append/R.prepend', () => {
-  describe("with the same primitive type as the array's elements", () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      append('d', listOfNumbers)
-      // @ts-expect-error
-      prepend('d', listOfNumbers)
-      append(4, listOfNumbers) // $ExpectType number[]
-      prepend(4, listOfNumbers) // $ExpectType number[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      append('d')(listOfNumbers)
-      append(4)(listOfNumbers) // $ExpectType number[]
-      prepend(4)(listOfNumbers) // $ExpectType number[]
-    })
+  it('happy', () => {
+    const result = pipe(listOfNumbers, append(4), prepend(0))
+    result // $ExpectType number[]
   })
-
-  describe("with a subtype of the array's elements", () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      append(true, listOfNumbersAndStrings)
-      append(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
-      prepend(4, listOfNumbersAndStrings) // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      append(true)(listOfNumbersAndStrings)
-      append(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
-      prepend(4)(listOfNumbersAndStrings) // $ExpectType (string | number)[]
-    })
-  })
-
-  describe("expanding the type of the array's elements", () => {
-    it('uncurried', () => {
-      // @ts-expect-error
-      append('d', listOfNumbers)
-      append<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
-      prepend<string | number>('d', listOfNumbers) // $ExpectType (string | number)[]
-    })
-
-    it('curried', () => {
-      // @ts-expect-error
-      append('d')(listOfNumbers)
-      const appendD = append('d')
-      appendD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
-      const prependD = prepend('d')
-      prependD<string | number>(listOfNumbers) // $ExpectType (string | number)[]
-    })
+  it('with object', () => {
+    const result = pipe([{ a: 1 }], append({ a: 10 }), prepend({ a: 20 }))
+    result // $ExpectType { a: number; }[]
   })
 })

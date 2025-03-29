@@ -1,4 +1,4 @@
-import {uniq} from 'rambda'
+import { uniq } from 'rambda'
 
 describe('R.uniq', () => {
   it('happy', () => {

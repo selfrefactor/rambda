@@ -1,13 +1,11 @@
-function includesWith(
-  predicate, target, list
-){
+function includesWith(predicate, target, list) {
   let willReturn = false
   let index = -1
 
-  while (++index < list.length && !willReturn){
-    const value = list[ index ]
+  while (++index < list.length && !willReturn) {
+    const value = list[index]
 
-    if (predicate(target, value)){
+    if (predicate(target, value)) {
       willReturn = true
     }
   }
@@ -15,21 +13,19 @@ function includesWith(
   return willReturn
 }
 
-export function uniqWith(predicate, list){
-  if (arguments.length === 1) return _list => uniqWith(predicate, _list)
+export function uniqWith(predicate) {
+  return list => {
+    let index = -1
+    const willReturn = []
 
-  let index = -1
-  const willReturn = []
+    while (++index < list.length) {
+      const value = list[index]
 
-  while (++index < list.length){
-    const value = list[ index ]
-
-    if (!includesWith(
-      predicate, value, willReturn
-    )){
-      willReturn.push(value)
+      if (!includesWith(predicate, value, willReturn)) {
+        willReturn.push(value)
+      }
     }
-  }
 
-  return willReturn
+    return willReturn
+  }
 }

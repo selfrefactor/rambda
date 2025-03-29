@@ -1,12 +1,9 @@
-import {defaultTo} from 'rambda'
+import { defaultTo, pipe } from 'rambda'
 
-describe('R.defaultTo with Ramda spec', () => {
+describe('R.defaultTo', () => {
   it('happy', () => {
-    const result = defaultTo('foo', '')
-    result // $ExpectType "" | "foo"
-  })
-  it('with explicit type', () => {
-    const result = defaultTo<string>('foo', null)
+    const result = pipe('bar' as unknown, defaultTo('foo'))
+
     result // $ExpectType string
   })
 })

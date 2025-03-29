@@ -1,8 +1,6 @@
-import {join} from 'rambda'
+import { join, pipe } from 'rambda'
 
-describe('R.join', () => {
-  it('happy', () => {
-    const result = join('|', [1, 2, 3])
-    result // $ExpectType string
-  })
+it('R.join', () => {
+  const result = pipe([1, 2, 3], join('|'))
+  result // $ExpectType string
 })

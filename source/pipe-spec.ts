@@ -1,114 +1,224 @@
 import {
-  add,
-  subtract,
-  pipe,
-  map,
+  type MergeTypes,
+  allPass,
+  append,
+  defaultTo,
+  drop,
+  dropLast,
+  evolve,
   filter,
-  identity,
-  dissoc,
-  inc,
-  negate,
+  find,
+  head,
+  map,
+  mapObject,
+  path,
+  pick,
+  pipe,
+  split,
+  tap,
+  union,
 } from 'rambda'
+type IsNotNever<T> = [T] extends [never] ? false : true
+type Expect<T extends true> = T
 
-interface Input {
-  a: string,
-  b: string,
+interface BaseBook {
+  title: string
+  year: number
+  description?: string
+  userRating?: number
 }
-interface Output {
-  c: string,
+interface Book extends BaseBook {
+  awards: {
+    number: number
+    years?: number[]
+  }
+  status?: Status
+}
+interface MustReadBook extends Book {
+  status: 'must-read'
+}
+interface FamousBook extends Book {
+  status: 'famous'
+}
+interface BookWithBookmarkStatus extends Book {
+  bookmarkFlag: boolean
+}
+interface BookWithReadStatus extends Book {
+  readFlag: boolean
+}
+type BookToRead = BookWithBookmarkStatus & BookWithReadStatus
+interface BookWithDescription extends Book {
+  description: string
+}
+interface BookWithUserRating extends Book {
+  userRating: number
+}
+type BookWithDetails = BookWithDescription & BookWithUserRating
+
+const zaratustra: BaseBook = {
+  title: 'Zaratustra',
+  year: 1956,
+}
+const brothersKaramazov = {
+  title: 'Brothers Karamazov',
+  year: 1880,
 }
 
-describe('R.pipe with explicit types', () => {
-  it('with explicit types - complex', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
-    interface AfterInput {
-      a: number,
-    }
-    interface BeforeOutput {
-      b: string,
-    }
+const awardedZaratustra: Book = {
+  ...zaratustra,
+  awards: {
+    number: 1,
+    years: [1956],
+  },
+}
+const awardedBrothersKaramazov: Book = {
+  ...brothersKaramazov,
+  awards: {
+    number: 2,
+    years: [1869, 1870],
+  },
+}
+const awardedBrothersKaramazovToRead: BookToRead = {
+  ...awardedBrothersKaramazov,
+  readFlag: true,
+  bookmarkFlag: true,
+}
+const awardedZaratustraToRead: BookToRead = {
+  ...awardedZaratustra,
+  readFlag: true,
+  bookmarkFlag: true,
+}
+const awardedBaseValue: Book = {
+  title: '',
+  year: 0,
+  awards: {
+    number: 0,
+    years: [],
+  },
+}
 
-    const result = pipe<Input[], AfterInput, BeforeOutput, Output>(
-      x => ({a: x.a.length + x.b.length}),
-      x => ({b: x.a + 'foo'}),
-      x => ({c: x.b + 'bar'})
-    )(obj)
+type Status = 'famous' | 'can be skipped' | 'must-read'
 
-    result // $ExpectType Output
+function checkIfMustRead(x: Book): x is MustReadBook {
+  return (x as MustReadBook).status === 'must-read'
+}
+function checkIfFamous(x: Book): x is FamousBook {
+  return (x as FamousBook).status === 'famous'
+}
+function checkReadStatus(x: Book): x is BookWithReadStatus {
+  return (x as BookWithReadStatus).readFlag
+}
+function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus {
+  return (x as BookWithBookmarkStatus).bookmarkFlag
+}
+function checkBookToRead(x: Book): x is BookToRead {
+  return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag
+}
+function checkHasDescription(x: Book): x is BookWithDescription {
+  return (x as BookWithDescription).description !== undefined
+}
+function checkHasUserRating(x: Book): x is BookWithUserRating {
+  return (x as BookWithUserRating).userRating !== undefined
+}
+
+function assertType<T, U extends T>(fn: (x: T) => x is U) {
+  return (x: T) => {
+    if (fn(x)) {
+      return x
+    }
+    throw new Error('type assertion failed')
+  }
+}
+function convertToType<T>() {
+  return <U>(x: U) => x as unknown as T
+}
+
+function tapFn<T, U>(
+  transformFn: (x: T) => U,
+  fn: (a: T, b: U) => void,
+): (x: T) => T {
+  return x => {
+    const result = transformFn(x)
+    fn(x, result)
+    return x
+  }
+}
+
+function simplify<T>(x: T) {
+  return x as MergeTypes<T>
+}
+
+describe('real use cases - books', () => {
+  it('case 1', () => {
+    const result = pipe(
+      [awardedZaratustra, awardedBrothersKaramazov],
+      filter(checkIfFamous),
+      drop(1),
+      // without converting to `as FamousBook`, endsWith will pick up `Book` as type
+      tapFn(union([awardedBrothersKaramazov]), (a, b) => {
+        a // $ExpectType Book[]
+        b // $ExpectType Book[]
+      }),
+      find(x => {
+        x // $ExpectType Book
+        return x.title === 'Brothers Karamazov'
+      }),
+      x => [x],
+      filter(Boolean),
+    )
+    const final: Expect<IsNotNever<typeof result>> = true
   })
-  it('with explicit types - correct', () => {
-    const obj = {
-      a: 'foo',
-      b: 'bar',
-    }
-
-    const result = pipe<Input[], Output, Output>(input => {
-      input // $ExpectType Input
-      return input as unknown as Output
-    }, identity)(obj)
-    result // $ExpectType Output
+  it('case 2', () => {
+    const getResult = (book: BaseBook) =>
+      pipe(
+        book,
+        defaultTo(awardedBaseValue),
+        assertType(checkBookToRead),
+        x => [x],
+        dropLast(1),
+        append(awardedZaratustraToRead),
+        head,
+        evolve({
+          year: x => x + 1,
+        }),
+        // convertToType<BookWithDescription>(),
+        // dissocPath<Book>('description'),
+        // convertToType<Record<string, string>>(),
+        // mapObject((x) => {
+        // 	return x as unknown as number;
+        // }),
+        simplify,
+        pick('year'),
+      )
+    const result = getResult(zaratustra)
+    type Foo = MergeTypes<typeof result>
+    const final: Expect<IsNotNever<typeof result>> = true
   })
-  it('with explicit types - wrong', () => {
-    const obj: Input = {
-      a: 'foo',
-      b: 'bar',
-    }
+  it('case 3', () => {
+    const tableData = `id,title,year
+		1,The First,2001
+		2,The Second,2020
+		3,The Third,2018`
 
-    // @ts-expect-error
-    pipe<string, number, Output>(identity, dissoc('b'))(obj)
+    const result = pipe(tableData, split('\n'), map(split(',')))
+    result // $ExpectType string[][]
   })
 })
 
-describe('R.pipe', () => {
-  it('happy', () => {
-    const result = pipe(subtract(11), add(1), add(1))(1)
-    result // $ExpectType number
-  })
-  it('happy - more complex', () => {
-    const result = pipe(
-      (x: string) => x.length + 1,
-      (x: number) => x + 1
-    )('foo')
-    result // $ExpectType number
-  })
+it('R.pipe', () => {
+  const obj = {
+    a: 'foo',
+    b: 'bar',
+  }
 
-  it('with R.filter', () => {
-    const result = pipe(
-      filter<number>(x => x > 2),
-      map(add(1))
-    )([1, 2, 3])
-    result // $ExpectType number[]
-  })
+  const result = pipe(
+    obj,
+    x => ({ a: x.a.length + x.b.length }),
+    x => ({ ...x, b: x.a + 'foo' }),
+    x => ({ ...x, c: x.b + 'bar' }),
+  )
 
-  it('with native filter', () => {
-    const result = pipe(
-      (list: number[]) => list.filter(x => x > 2),
-      (list: number[]) => {
-        list // $ExpectType number[]
-        return list
-      },
-      map(add(1))
-    )([1, 2, 3])
-
-    result // $ExpectType number[]
-  })
-
-  it('with void', () => {
-    const result = pipe(
-      () => {},
-      () => {}
-    )()
-    result // $ExpectType void
-  })
-})
-
-describe('R.pipe - @types/ramda tests', () => {
-  test('complex', () => {
-    const fn = pipe(Math.pow, negate, inc, inc, inc, inc, inc, inc, inc, inc)
-    const result = fn(3, 4)
-    result // $ExpectType number
-  })
+  result.a // $ExpectType number
+  result.b // $ExpectType string
+  result.c // $ExpectType string
 })

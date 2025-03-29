@@ -1,16 +1,10 @@
-import {splitEvery} from 'rambda'
+import { pipe, splitEvery } from 'rambda'
 
 const list = [1, 2, 3, 4, 5, 6, 7]
 
 describe('R.splitEvery', () => {
   it('happy', () => {
-    const result = splitEvery(3, list)
-
-    result // $ExpectType number[][]
-  })
-  it('curried', () => {
-    const result = splitEvery(3)(list)
-
+    const result = pipe(list, splitEvery(3))
     result // $ExpectType number[][]
   })
 })

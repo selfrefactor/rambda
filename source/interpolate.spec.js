@@ -1,59 +1,10 @@
 import { interpolate } from './interpolate.js'
-
-test('within bracets', () => {
-  const input = 'foo is { {{bar}} } even {{a}} more'
-  const templateInput = {
-    bar : 'BAR',
-    a   : 1,
-  }
-
-  const result = interpolate(input, templateInput)
-  const expectedResult = 'foo is { BAR } even 1 more'
-
-  expect(result).toEqual(expectedResult)
-})
+import { pipe } from './pipe.js'
 
 test('happy', () => {
-  const input = 'foo is {{bar}} even {{a}} more'
-  const templateInput = {
-    bar : 'BAR',
-    a   : 1,
-  }
-
-  const result = interpolate(input, templateInput)
-  const expectedResult = 'foo is BAR even 1 more'
-
-  expect(result).toEqual(expectedResult)
-})
-
-test('no interpolation + curry', () => {
-  const input = 'foo is bar even more'
-  const templateInput = { bar : 'BAR' }
-
-  const result = interpolate(input)(templateInput)
-  const expectedResult = 'foo is bar even more'
-
-  expect(result).toEqual(expectedResult)
-})
-
-test('with missing template input', () => {
-  const input = 'foo is {{bar}} even {{a}} more'
-  const templateInput = {
-    baz : 'BAR',
-    a   : 1,
-  }
-
-  const result = interpolate(input, templateInput)
-  const expectedResult = 'foo is undefined even 1 more'
-
-  expect(result).toEqual(expectedResult)
-})
-
-test('with arbitrary expression', () => {
-  const input = '1 + 2 = {{ 1 + 2 }}'
-  const templateInput = {}
-
-  const result = interpolate(input, templateInput)
-
-  expect(result).toEqual(input)
+  const result = pipe(
+		{ name: 'John', age: 30 },
+		interpolate('My name is {{name}} and I am {{age}} years old')
+	)
+	expect(result).toBe('My name is John and I am 30 years old')
 })

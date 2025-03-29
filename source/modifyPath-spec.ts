@@ -1,17 +1,20 @@
-import {modifyPath} from 'rambda'
+import { modifyPath, pipe } from 'rambda'
 
-const obj = {a: {b: {c: 1}}}
+const obj = { a: { b: { c: 1 } } }
 
 describe('R.modifyPath', () => {
-  it('happy', () => {
-    const result = modifyPath('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Record<string, unknown>
+  it('array path', () => {
+    const result = pipe(
+      obj,
+      modifyPath(['a', 'b', 'c'], (x: number) => String(x)),
+    )
+    result.a.b.c // $ExpectType string
   })
-  it('explicit return type', () => {
-    interface Foo extends Record<string, unknown> {
-      a: 1,
-    }
-    const result = modifyPath<Foo>('a.b.c', (x: number) => x + 1, obj)
-    result // $ExpectType Foo
+  it('string path', () => {
+    const result = pipe(
+      obj,
+      modifyPath('a.b.c', (x: number) => String(x)),
+    )
+    result.a.b.c // $ExpectType string
   })
 })

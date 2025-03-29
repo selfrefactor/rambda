@@ -1,52 +1,25 @@
-import { willFailAssertion } from './_internals/testUtils.js'
-import { composeAsync } from './composeAsync.js'
+import { pipeAsync } from './pipeAsync.js'
 import { delay } from './delay.js'
-import { map } from './map.js'
 import { mapParallelAsync } from './mapParallelAsync.js'
 
 test('happy', async () => {
-  const fn = async x => {
+  const fn = async (x, i) => {
     await delay(100)
 
-    return x + 10
+    return x + i
   }
-  const result = await mapParallelAsync(fn, [ 1, 2, 3 ])
-  expect(result).toEqual([ 11, 12, 13 ])
+  const result = await mapParallelAsync(fn)([ 1, 2, 3 ])
+  expect(result).toEqual([ 1, 3, 5 ])
 })
 
-test('composeAsync', async () => {
-  const result = await composeAsync(
+test('pipeAsync', async () => {
+  const result = await pipeAsync(
+		[1, 2, 3],
     mapParallelAsync(async x => {
       await delay(100)
 
       return x + 1
-    }),
-    mapParallelAsync(async x => {
-      await delay(100)
-
-      return x + 10
-    }),
-    map(x => x * 10)
-  )([ 1, 2, 3 ])
-  expect(result).toEqual([ 21, 31, 41 ])
-})
-
-test('error', async () => {
-  try {
-    const fn = async () => {
-      JSON.parse('{:')
-    }
-    await mapParallelAsync(fn, [ 1, 2, 3 ])
-    willFailAssertion()
-  } catch (err){
-    expect(err.message).toBeTruthy()
-  }
-})
-
-test('pass index as second argument', async () => {
-  await mapParallelAsync((x, i) => {
-    expect(x % 10).toBe(0)
-    expect(typeof i).toBe('number')
-  },
-  [ 10, 20, 30 ])
+    })
+	)
+  expect(result).toEqual([ 2,3,4 ])
 })

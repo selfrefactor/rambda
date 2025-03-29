@@ -1,11 +1,5 @@
-import { curry } from './curry.js'
-import { equals } from './equals.js'
-import { prop } from './prop.js'
+import { equalsFn } from './equals.js'
 
-function eqPropsFn(
-  property, objA, objB
-){
-  return equals(prop(property, objA), prop(property, objB))
+export function eqProps(property, objA) {
+  return objB => equalsFn( objA[property], objB[property] )
 }
-
-export const eqProps = curry(eqPropsFn)

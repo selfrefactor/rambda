@@ -1,4 +1,4 @@
-import {type} from 'rambda'
+import { type } from 'rambda'
 
 describe('R.type', () => {
   it('happy', () => {

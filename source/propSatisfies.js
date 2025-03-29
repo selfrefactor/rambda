@@ -1,10 +1,3 @@
-import { curry } from './curry.js'
-import { prop } from './prop.js'
-
-function propSatisfiesFn(
-  predicate, property, obj
-){
-  return predicate(prop(property, obj))
+export function propSatisfies(predicate, property) {
+  return obj => predicate(obj[property])
 }
-
-export const propSatisfies = curry(propSatisfiesFn)

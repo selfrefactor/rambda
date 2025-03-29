@@ -1,44 +1,68 @@
-import {filter} from 'rambda'
+import { filter, mergeTypes, pipe } from 'rambda'
 
 const list = [1, 2, 3]
-const obj = {a: 1, b: 2}
 
 describe('R.filter with array', () => {
-  it('happy', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    }, list)
+  it('within pipe', () => {
+    const result = pipe(
+      list,
+      filter(x => {
+        x // $ExpectType number
+        return x > 1
+      }),
+    )
     result // $ExpectType number[]
   })
-  it('curried', () => {
-    const result = filter<number>(x => {
-      x // $ExpectType number
-      return x > 1
-    })(list)
+  it('narrowing type', () => {
+    interface Foo {
+      a: number
+    }
+    interface Bar extends Foo {
+      b: string
+    }
+		type T = Foo | Bar
+    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] 
+    const filterBar = (x: T): x is Bar => {
+      return typeof (x as Bar).b === 'string'
+    }
+    const result = pipe(
+      testList,
+      filter(filterBar),
+    )
+    result // $ExpectType Bar[]
+  })
+  it('narrowing type - readonly', () => {
+    interface Foo {
+      a: number
+    }
+    interface Bar extends Foo {
+      b: string
+    }
+		type T = Foo | Bar
+    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+    const filterBar = (x: T): x is Bar => {
+      return typeof (x as Bar).b === 'string'
+    }
+    const result = pipe(
+      testList,
+      filter(filterBar),
+    )
+    result // $ExpectType Bar[]
+  })
+  it('filtering NonNullable', () => {
+    const testList = [1, 2, null, undefined, 3]
+    const result = pipe(testList, filter(Boolean))
     result // $ExpectType number[]
   })
-})
-
-describe('R.filter with objects', () => {
-  it('happy', () => {
-    const result = filter<number>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    }, obj)
-    result // $ExpectType Dictionary<number>
-  })
-  it('curried version requires second dummy type', () => {
-    const result = filter<number, any>((val, prop, origin) => {
-      val // $ExpectType number
-      prop // $ExpectType string
-      origin // $ExpectType Dictionary<number>
-
-      return val > 1
-    })(obj)
-    result // $ExpectType Dictionary<number>
+  it('filtering NonNullable - readonly', () => {
+    const testList = [1, 2, null, undefined, 3] as const
+    const result = pipe(testList, filter(Boolean))
+    result.includes(1)
+    // @ts-expect-error
+    result.includes(4)
+    // @ts-expect-error
+    result.includes(undefined) 
+    // @ts-expect-error
+    result.includes(null)
   })
 })

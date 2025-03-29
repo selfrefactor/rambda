@@ -1,17 +1,13 @@
-import {countBy} from 'rambda'
+import { countBy, pipe } from 'rambda'
 
-const transformFn = (x: string) => x.toLowerCase()
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
-describe('R.countBy', () => {
-  it('happy', () => {
-    const result = countBy(transformFn, list)
-
-    result // $ExpectType Record<string, number>
-  })
-  it('curried', () => {
-    const result = countBy(transformFn)(list)
-
-    result // $ExpectType Record<string, number>
-  })
+it('R.countBy', () => {
+  const result = pipe(
+    list,
+    countBy(x => x.toLowerCase()),
+  )
+  result.a // $ExpectType number
+  result.foo // $ExpectType number
+  result // $ExpectType { [index: string]: number; }
 })

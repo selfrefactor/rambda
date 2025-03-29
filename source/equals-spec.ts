@@ -1,4 +1,4 @@
-import {equals} from 'rambda'
+import { equals } from 'rambda'
 
 describe('R.equals', () => {
   it('happy', () => {
@@ -6,8 +6,8 @@ describe('R.equals', () => {
     result // $ExpectType boolean
   })
   it('with object', () => {
-    const foo = {a: 1}
-    const bar = {a: 2}
+    const foo = { a: 1 }
+    const bar = { a: 2 }
     const result = equals(foo, bar)
     result // $ExpectType boolean
   })

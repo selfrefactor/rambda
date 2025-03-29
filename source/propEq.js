@@ -1,13 +1,11 @@
-import { curry } from './curry.js'
-import { equals } from './equals.js'
-import { prop } from './prop.js'
+import { equalsFn } from './equals.js'
 
-function propEqFn(
-  valueToMatch, propToFind, obj
-){
-  if (!obj) return false
+export function propEq(valueToMatch, propToFind) {
+  return obj => {
+    if (!obj) {
+      return false
+    }
 
-  return equals(valueToMatch, prop(propToFind, obj))
+    return equalsFn(valueToMatch, obj[propToFind])
+  }
 }
-
-export const propEq = curry(propEqFn)
