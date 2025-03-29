@@ -121,204 +121,6 @@ export type FlattenObject<T extends object> = object extends T
       } extends Record<keyof T, (y: infer O) => void>
     ? O 
     : never;
-
-export function flattenObject<T extends object>(obj: T): FlattenObject<T>;
-
-export function mapObjectWithDecorate<
-  T extends object,
-  K extends string,
-  R
->(
-	property: K,
-  fn: (input: T) => R
-): (list: T[]) =>   MergeTypes<T & { [P in K]: R }>[]
-
-
-export function sortByPath<S, K0 extends string & keyof S>(
-  path: [K0],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<S, K0 extends string & keyof S>(
-  path: `${K0}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
-  path: [K0, K1],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
-  path: `${K0}.${K1}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1]
->(
-  path: [K0, K1, K2],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1]
->(
-  path: `${K0}.${K1}.${K2}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2]
->(
-  path: [K0, K1, K2, K3],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2]
->(
-  path: `${K0}.${K1}.${K2}.${K3}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3]
->(
-  path: [K0, K1, K2, K3, K4],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3]
->(
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4]
->(
-  path: [K0, K1, K2, K3, K4, K5],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4]
->(
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
->(
-  path: [K0, K1, K2, K3, K4, K5, K6],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
->(
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
->(
-  path: [K0, K1, K2, K3, K4, K5, K6, K7],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
->(
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`,
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(
-  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8],
-  descending?: boolean
-): (list: S[]) => S[];
-export function sortByPath<
-  S,
-  K0 extends string & keyof S,
-  K1 extends string & keyof S[K0],
-  K2 extends string & keyof S[K0][K1],
-  K3 extends string & keyof S[K0][K1][K2],
-  K4 extends string & keyof S[K0][K1][K2][K3],
-  K5 extends string & keyof S[K0][K1][K2][K3][K4],
-  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
-  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
-  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
->(
-  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`,
-  descending?: boolean
-): (list: S[]) => S[];
-
 // API_MARKER
 
 /*
@@ -1230,6 +1032,44 @@ export function mapObject<T extends object, Value>(
     data: T,
   ) => Value,
 ): (data: T) => MappedValues<T, Value>;
+
+/*
+Method: addPropToObjects
+
+Explanation: It receives list of objects and add new property to each item. 
+
+The value is based on result of `fn` function, which receives the current object as argument.
+
+Example:
+
+```
+const result = R.pipe(
+	[
+		{a: 1, b: 2},
+		{a: 3, b: 4},
+	],
+	R.addPropToObjects(
+		'c',
+		(x) => String(x.a + x.b),
+	)
+)
+// => [{a: 1, b: 2, c: '3'}, {a: 3, b: 4, c: '7'}]
+```
+
+Categories: Object, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function addPropToObjects<
+  T extends object,
+  K extends string,
+  R
+>(
+	property: K,
+  fn: (input: T) => R
+): (list: T[]) => MergeTypes<T & { [P in K]: R }>[];
 
 /*
 Method: filterObject
@@ -2580,7 +2420,7 @@ const list = [
 ]
 const sortFn = x => x.a
 
-const result = R.sortBy(sortFn, list)
+const result = R.sortBy(sortFn)(list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -2598,27 +2438,13 @@ Notes:
 export function sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
 /*
-Method: sortBy
+Method: sortByDescending
 
-Explanation: It returns copy of `list` sorted by `sortFn` function, where `sortFn` function returns a value to compare, i.e. it doesn't need to return only `-1`, `0` or `1`.
+Explanation:
 
 Example:
 
 ```
-const list = [
-  {a: 2},
-  {a: 3},
-  {a: 1}
-]
-const sortFn = x => x.a
-
-const result = R.sortBy(sortFn, list)
-const expected = [
-  {a: 1},
-  {a: 2},
-  {a: 3}
-]
-// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2627,9 +2453,373 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortByPathx<T>(
-	path: string
-): (list: T[]) => T[];
+export function sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+
+/*
+Method: sortByPath
+
+Explanation: It sorts `list` by the value of `path` property.
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortByPath<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S[];
+export function sortByPath<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S[];
+export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S[];
+export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: [K0, K1, K2]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: [K0, K1, K2, K3]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: [K0, K1, K2, K3, K4]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: [K0, K1, K2, K3, K4, K5]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: S[]) => S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: S[]) => S[];
+
+/*
+Method: sortByPathDescending
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sortByPathDescending<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S[];
+export function sortByPathDescending<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S[];
+export function sortByPathDescending<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S[];
+export function sortByPathDescending<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: [K0, K1, K2]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: [K0, K1, K2, K3]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: [K0, K1, K2, K3, K4]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: [K0, K1, K2, K3, K4, K5]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: S[]) => S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: S[]) => S[];
 
 /*
 Method: sortWith
@@ -4300,6 +4490,28 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapKeys<T>(fn: (prop: string, value: T) => string): (obj: Record<string, T>) => Record<string, T>;
+
+/*
+Method: flattenObject
+
+Explanation: It transforms object to object where each value is represented with its path.
+
+Example:
+
+```
+const result = R.flattenObject(
+	[1, 2, 3]
+)
+// => [3, 1, 2] or [2, 3, 1] or ...
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function flattenObject<T extends object>(obj: T): FlattenObject<T>;
 
 /*
 Method: shuffle
