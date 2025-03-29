@@ -27,10 +27,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/rambda.js",
-      "require": "./dist/rambda.cjs"
-    }
+		"require": {
+      "types": "./index.d.ts",
+      "default": "./dist/rambda.cjs"
+    },
+    "types": "./index.d.ts",
+    "default": "./dist/rambda.js"
   },
   "main": "dist/rambda.cjs",
   "module": "dist/rambda.js",
