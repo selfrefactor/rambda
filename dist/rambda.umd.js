@@ -8,6 +8,35 @@
     return obj => ({ ...obj, [key]: value })
   }
 
+  function mapFn(
+  	fn, list
+  ){
+  	let index = 0;
+  	const willReturn = Array(list.length);
+  	while (index < list.length) {
+  		willReturn[index] = fn(list[index], index);
+  		index++;
+  	}
+  	return willReturn
+  }
+
+  function map(fn) {
+    return list => mapFn(fn, list)
+  }
+
+  function addPropToObjects (
+  	property, 
+  	fn
+  ){
+  	return listOfObjects => mapFn(
+  		(obj) => ({
+  			...(obj),
+  			[property]: fn(obj)
+  		}), 
+  		listOfObjects
+  	)
+  }
+
   function all(predicate) {
     return list => {
       for (let i = 0; i < list.length; i++) {
@@ -207,12 +236,8 @@
     return input === undefined || input === null || Number.isNaN(input) === true
   }
 
-  function defaultTo(defaultArgument, input) {
-    if (arguments.length === 1) {
-      return _input => defaultTo(defaultArgument, _input)
-    }
-
-    return isFalsy(input) ? defaultArgument : input
+  function defaultTo(defaultArgument) {
+    return input => isFalsy(input) ? defaultArgument : input
   }
 
   function descend(getFunction) {
@@ -224,12 +249,8 @@
     }
   }
 
-  function drop(howManyToDrop, listOrString) {
-    if (arguments.length === 1) {
-      return _list => drop(howManyToDrop, _list)
-    }
-
-    return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+  function drop(howManyToDrop, ) {
+    return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
   }
 
   function dropLast(numberItems) {
@@ -664,6 +685,81 @@
     return willReturn
   }
 
+  function flattenObjectHelper(obj, accumulator = []){
+    const willReturn = {};
+    Object.keys(obj).forEach(key => {
+      const typeIs = type(obj[ key ]);
+      if (typeIs === 'Object'){
+        const [ flatResultValue, flatResultPath ] = flattenObjectHelper(obj[ key ],
+          [ ...accumulator, key ]);
+        willReturn[ flatResultPath.join('.') ] = flatResultValue;
+
+        return
+      } else if (accumulator.length > 0){
+        const finalKey = [ ...accumulator, key ].join('.');
+        willReturn[ finalKey ] = obj[ key ];
+
+        return
+      }
+      willReturn[ key ] = obj[ key ];
+    });
+    if (accumulator.length > 0) return [ willReturn, accumulator ]
+
+    return willReturn
+  }
+
+  function transformFlatObject(obj){
+    const willReturn = {};
+
+    const transformFlatObjectFn = objLocal => {
+      const willReturnLocal = {};
+      Object.keys(objLocal).forEach(key => {
+        const typeIs = type(objLocal[ key ]);
+        if (typeIs === 'Object'){
+          transformFlatObjectFn(objLocal[ key ]);
+
+          return
+        }
+        willReturnLocal[ key ] = objLocal[ key ];
+        willReturn[ key ] = objLocal[ key ];
+      });
+
+      return willReturnLocal
+    };
+
+    Object.keys(obj).forEach(key => {
+      const typeIs = type(obj[ key ]);
+      if (typeIs === 'Object'){
+        transformFlatObjectFn(obj[ key ]);
+
+        return
+      }
+      willReturn[ key ] = obj[ key ];
+    });
+
+    return willReturn
+  }
+
+  function flattenObject(obj){
+    const willReturn = {};
+
+    Object.keys(obj).forEach(key => {
+      const typeIs = type(obj[ key ]);
+      if (typeIs === 'Object'){
+        const flatObject = flattenObjectHelper(obj[ key ]);
+        const transformed = transformFlatObject(flatObject);
+
+        Object.keys(transformed).forEach(keyTransformed => {
+          willReturn[ `${ key }.${ keyTransformed }` ] = transformed[ keyTransformed ];
+        });
+      } else {
+        willReturn[ key ] = obj[ key ];
+      }
+    });
+
+    return willReturn
+  }
+
   function groupByFallback(groupFn, list) {
       const result = {};
       for (let i = 0; i < list.length; i++) {
@@ -825,18 +921,6 @@
 
   function lastIndexOf(valueToFind) {
     return list => _lastIndexOf(valueToFind, list)
-  }
-
-  function map(fn) {
-    return list => {
-      let index = 0;
-      const willReturn = Array(list.length);
-      while (index < list.length) {
-        willReturn[index] = fn(list[index], index);
-        index++;
-      }
-      return willReturn
-    }
   }
 
   function mapAsync(fn) {
@@ -1044,32 +1128,34 @@
   }
   }
 
-  function path(pathInput, obj) {
-    if (arguments.length === 1) {
-      return _obj => path(pathInput, _obj)
-    }
+  function path(pathInput) {
+  	return (obj)  => {
+  		if (!obj) {
+  			return undefined
+  		}
+  		let willReturn = obj;
+  		let counter = 0;
+  	
+  		const pathArrValue = createPath(pathInput);
+  	
+  		while (counter < pathArrValue.length) {
+  			if (willReturn === null || willReturn === undefined) {
+  				return undefined
+  			}
+  			if (willReturn[pathArrValue[counter]] === null) {
+  				return undefined
+  			}
+  	
+  			willReturn = willReturn[pathArrValue[counter]];
+  			counter++;
+  		}
+  	
+  		return willReturn
+  	}
+  }
 
-    if (!obj) {
-      return undefined
-    }
-    let willReturn = obj;
-    let counter = 0;
-
-    const pathArrValue = createPath(pathInput);
-
-    while (counter < pathArrValue.length) {
-      if (willReturn === null || willReturn === undefined) {
-        return undefined
-      }
-      if (willReturn[pathArrValue[counter]] === null) {
-        return undefined
-      }
-
-      willReturn = willReturn[pathArrValue[counter]];
-      counter++;
-    }
-
-    return willReturn
+  function pathSatisfies(fn, pathInput) {
+    return obj => Boolean(fn(path(pathInput)(obj)))
   }
 
   /**
@@ -1341,21 +1427,42 @@
     return list => cloneList$1(list).sort(sortFn)
   }
 
+  function sortByFn (
+  	sortFn,
+  	list,
+  	descending
+  ){
+  	const clone = cloneList$1(list);
+
+  	return clone.sort((a, b) => {
+  		const aSortResult = sortFn(a);
+  		const bSortResult = sortFn(b);
+
+  		if (aSortResult === bSortResult) {
+  			return 0
+  		}
+  		if(
+  			descending
+  		) return aSortResult > bSortResult ? -1 : 1
+
+  		return aSortResult < bSortResult ? -1 : 1
+  	})
+  }
+
   function sortBy(sortFn) {
-    return list => {
-      const clone = cloneList$1(list);
+    return list => sortByFn(sortFn, list, false)
+  }
 
-      return clone.sort((a, b) => {
-        const aSortResult = sortFn(a);
-        const bSortResult = sortFn(b);
+  function sortByDescending(sortFn) {
+    return list => sortByFn(sortFn, list, true)
+  }
 
-        if (aSortResult === bSortResult) {
-          return 0
-        }
+  function sortByPath(sortPath) {
+    return list => sortBy(path(sortPath))(list)
+  }
 
-        return aSortResult < bSortResult ? -1 : 1
-      })
-    }
+  function sortByPathDescending(sortPath) {
+    return list => sortByDescending(path(sortPath))(list)
   }
 
   function sortObject(predicate) {
@@ -1677,6 +1784,7 @@
   exports._indexOf = _indexOf;
   exports._lastIndexOf = _lastIndexOf;
   exports.addProp = addProp;
+  exports.addPropToObjects = addPropToObjects;
   exports.all = all;
   exports.allPass = allPass;
   exports.any = any;
@@ -1712,6 +1820,8 @@
   exports.findNth = findNth;
   exports.flatMap = flatMap;
   exports.flatten = flatten;
+  exports.flattenObject = flattenObject;
+  exports.flattenObjectHelper = flattenObjectHelper;
   exports.groupBy = groupBy;
   exports.groupByFallback = groupByFallback;
   exports.head = head;
@@ -1727,6 +1837,7 @@
   exports.lastIndexOf = lastIndexOf;
   exports.map = map;
   exports.mapAsync = mapAsync;
+  exports.mapFn = mapFn;
   exports.mapKeys = mapKeys;
   exports.mapObject = mapObject;
   exports.mapObjectAsync = mapObjectAsync;
@@ -1745,6 +1856,7 @@
   exports.partition = partition;
   exports.partitionObject = partitionObject;
   exports.path = path;
+  exports.pathSatisfies = pathSatisfies;
   exports.permutations = permutations;
   exports.pick = pick;
   exports.pipe = pipe;
@@ -1763,6 +1875,10 @@
   exports.shuffle = shuffle;
   exports.sort = sort;
   exports.sortBy = sortBy;
+  exports.sortByDescending = sortByDescending;
+  exports.sortByFn = sortByFn;
+  exports.sortByPath = sortByPath;
+  exports.sortByPathDescending = sortByPathDescending;
   exports.sortObject = sortObject;
   exports.sortWith = sortWith;
   exports.split = split;
@@ -1775,6 +1891,7 @@
   exports.takeWhile = takeWhile;
   exports.tap = tap;
   exports.test = test;
+  exports.transformFlatObject = transformFlatObject;
   exports.tryCatch = tryCatch;
   exports.type = type;
   exports.union = union;

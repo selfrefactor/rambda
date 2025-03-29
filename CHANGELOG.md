@@ -81,7 +81,11 @@ This is major revamp of `Rambda` library:
 -- R.rejectObject
 -- R.findNth
 -- R.combinations
--- R.rangeDescending
+-- R.sortByPath
+-- R.sortByPathDescending
+-- R.sortByDescending
+-- R.flattenObject
+-- R.addPropToObjects
 
 - Rename following methods:
 

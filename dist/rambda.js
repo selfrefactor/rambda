@@ -2,6 +2,35 @@ function addProp(key, value) {
   return obj => ({ ...obj, [key]: value })
 }
 
+function mapFn(
+	fn, list
+){
+	let index = 0;
+	const willReturn = Array(list.length);
+	while (index < list.length) {
+		willReturn[index] = fn(list[index], index);
+		index++;
+	}
+	return willReturn
+}
+
+function map(fn) {
+  return list => mapFn(fn, list)
+}
+
+function addPropToObjects (
+	property, 
+	fn
+){
+	return listOfObjects => mapFn(
+		(obj) => ({
+			...(obj),
+			[property]: fn(obj)
+		}), 
+		listOfObjects
+	)
+}
+
 function all(predicate) {
   return list => {
     for (let i = 0; i < list.length; i++) {
@@ -201,12 +230,8 @@ function isFalsy(input) {
   return input === undefined || input === null || Number.isNaN(input) === true
 }
 
-function defaultTo(defaultArgument, input) {
-  if (arguments.length === 1) {
-    return _input => defaultTo(defaultArgument, _input)
-  }
-
-  return isFalsy(input) ? defaultArgument : input
+function defaultTo(defaultArgument) {
+  return input => isFalsy(input) ? defaultArgument : input
 }
 
 function descend(getFunction) {
@@ -218,12 +243,8 @@ function descend(getFunction) {
   }
 }
 
-function drop(howManyToDrop, listOrString) {
-  if (arguments.length === 1) {
-    return _list => drop(howManyToDrop, _list)
-  }
-
-  return listOrString.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+function drop(howManyToDrop, ) {
+  return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
 
 function dropLast(numberItems) {
@@ -658,6 +679,81 @@ function flatten(list, input) {
   return willReturn
 }
 
+function flattenObjectHelper(obj, accumulator = []){
+  const willReturn = {};
+  Object.keys(obj).forEach(key => {
+    const typeIs = type(obj[ key ]);
+    if (typeIs === 'Object'){
+      const [ flatResultValue, flatResultPath ] = flattenObjectHelper(obj[ key ],
+        [ ...accumulator, key ]);
+      willReturn[ flatResultPath.join('.') ] = flatResultValue;
+
+      return
+    } else if (accumulator.length > 0){
+      const finalKey = [ ...accumulator, key ].join('.');
+      willReturn[ finalKey ] = obj[ key ];
+
+      return
+    }
+    willReturn[ key ] = obj[ key ];
+  });
+  if (accumulator.length > 0) return [ willReturn, accumulator ]
+
+  return willReturn
+}
+
+function transformFlatObject(obj){
+  const willReturn = {};
+
+  const transformFlatObjectFn = objLocal => {
+    const willReturnLocal = {};
+    Object.keys(objLocal).forEach(key => {
+      const typeIs = type(objLocal[ key ]);
+      if (typeIs === 'Object'){
+        transformFlatObjectFn(objLocal[ key ]);
+
+        return
+      }
+      willReturnLocal[ key ] = objLocal[ key ];
+      willReturn[ key ] = objLocal[ key ];
+    });
+
+    return willReturnLocal
+  };
+
+  Object.keys(obj).forEach(key => {
+    const typeIs = type(obj[ key ]);
+    if (typeIs === 'Object'){
+      transformFlatObjectFn(obj[ key ]);
+
+      return
+    }
+    willReturn[ key ] = obj[ key ];
+  });
+
+  return willReturn
+}
+
+function flattenObject(obj){
+  const willReturn = {};
+
+  Object.keys(obj).forEach(key => {
+    const typeIs = type(obj[ key ]);
+    if (typeIs === 'Object'){
+      const flatObject = flattenObjectHelper(obj[ key ]);
+      const transformed = transformFlatObject(flatObject);
+
+      Object.keys(transformed).forEach(keyTransformed => {
+        willReturn[ `${ key }.${ keyTransformed }` ] = transformed[ keyTransformed ];
+      });
+    } else {
+      willReturn[ key ] = obj[ key ];
+    }
+  });
+
+  return willReturn
+}
+
 function groupByFallback(groupFn, list) {
     const result = {};
     for (let i = 0; i < list.length; i++) {
@@ -819,18 +915,6 @@ function last(listOrString) {
 
 function lastIndexOf(valueToFind) {
   return list => _lastIndexOf(valueToFind, list)
-}
-
-function map(fn) {
-  return list => {
-    let index = 0;
-    const willReturn = Array(list.length);
-    while (index < list.length) {
-      willReturn[index] = fn(list[index], index);
-      index++;
-    }
-    return willReturn
-  }
 }
 
 function mapAsync(fn) {
@@ -1038,32 +1122,34 @@ function partitionObject(predicate) {
 }
 }
 
-function path(pathInput, obj) {
-  if (arguments.length === 1) {
-    return _obj => path(pathInput, _obj)
-  }
+function path(pathInput) {
+	return (obj)  => {
+		if (!obj) {
+			return undefined
+		}
+		let willReturn = obj;
+		let counter = 0;
+	
+		const pathArrValue = createPath(pathInput);
+	
+		while (counter < pathArrValue.length) {
+			if (willReturn === null || willReturn === undefined) {
+				return undefined
+			}
+			if (willReturn[pathArrValue[counter]] === null) {
+				return undefined
+			}
+	
+			willReturn = willReturn[pathArrValue[counter]];
+			counter++;
+		}
+	
+		return willReturn
+	}
+}
 
-  if (!obj) {
-    return undefined
-  }
-  let willReturn = obj;
-  let counter = 0;
-
-  const pathArrValue = createPath(pathInput);
-
-  while (counter < pathArrValue.length) {
-    if (willReturn === null || willReturn === undefined) {
-      return undefined
-    }
-    if (willReturn[pathArrValue[counter]] === null) {
-      return undefined
-    }
-
-    willReturn = willReturn[pathArrValue[counter]];
-    counter++;
-  }
-
-  return willReturn
+function pathSatisfies(fn, pathInput) {
+  return obj => Boolean(fn(path(pathInput)(obj)))
 }
 
 /**
@@ -1335,21 +1421,42 @@ function sort(sortFn) {
   return list => cloneList$1(list).sort(sortFn)
 }
 
+function sortByFn (
+	sortFn,
+	list,
+	descending
+){
+	const clone = cloneList$1(list);
+
+	return clone.sort((a, b) => {
+		const aSortResult = sortFn(a);
+		const bSortResult = sortFn(b);
+
+		if (aSortResult === bSortResult) {
+			return 0
+		}
+		if(
+			descending
+		) return aSortResult > bSortResult ? -1 : 1
+
+		return aSortResult < bSortResult ? -1 : 1
+	})
+}
+
 function sortBy(sortFn) {
-  return list => {
-    const clone = cloneList$1(list);
+  return list => sortByFn(sortFn, list, false)
+}
 
-    return clone.sort((a, b) => {
-      const aSortResult = sortFn(a);
-      const bSortResult = sortFn(b);
+function sortByDescending(sortFn) {
+  return list => sortByFn(sortFn, list, true)
+}
 
-      if (aSortResult === bSortResult) {
-        return 0
-      }
+function sortByPath(sortPath) {
+  return list => sortBy(path(sortPath))(list)
+}
 
-      return aSortResult < bSortResult ? -1 : 1
-    })
-  }
+function sortByPathDescending(sortPath) {
+  return list => sortByDescending(path(sortPath))(list)
 }
 
 function sortObject(predicate) {
@@ -1666,4 +1773,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, all, allPass, any, anyPass, append, ascend, checkObjectWithSpec, compact, complement, concat, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, checkObjectWithSpec, compact, complement, concat, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

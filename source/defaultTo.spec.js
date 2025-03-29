@@ -13,13 +13,13 @@ test('with NaN', () => {
 })
 
 test('with empty string', () => {
-  expect(defaultTo('foo', '')).toBe('')
+  expect(defaultTo('foo')('')).toBe('')
 })
 
 test('with false', () => {
-  expect(defaultTo('foo', false)).toBeFalsy()
+  expect(defaultTo('foo')(false)).toBeFalsy()
 })
 
 test('when inputArgument passes initial check', () => {
-  expect(defaultTo('foo', 'bar')).toBe('bar')
+  expect(defaultTo('foo')('bar')).toBe('bar')
 })

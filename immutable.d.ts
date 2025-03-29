@@ -41,7 +41,7 @@ export type DeepModify<Keys extends readonly PropertyKey[], U, T> =
     : never;
 
 
-export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` 		? readonly [Head, ...PickStringToPickPath<Tail>]
+export type PickStringToPickPath<T> = T extends `${infer Head},${infer Tail}` ? readonly [Head, ...PickStringToPickPath<Tail>]
 	: T extends `${infer Head}` ? readonly [Head]
 	: readonly [];
 
@@ -88,6 +88,39 @@ MergeTypes<
 
 type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
+type Flatten<T> = T extends object
+	? T extends readonly any[]
+		? T
+		: { readonly
+				[K in keyof T]-?: NonNullable<T[K]> extends infer V
+					? V extends object
+						? V extends readonly any[]
+							? never 
+							: Flatten<V>
+						: V
+					: never 
+			}
+	: T;
+
+export type FlattenObject<T extends object> = object extends T
+  ? object
+  : { readonly
+        [K in keyof T]-?: (
+          x: NonNullable<T[K]> extends infer V
+            ? V extends object
+              ? V extends readonly any[]
+                ? never 
+                : Flatten<V> extends infer FV
+                  ? { readonly
+                      [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
+                    }
+                  : never 
+              : Pick<T, K>
+            : never 
+        ) => void
+      } extends Record<keyof T, (y: infer O) => void>
+    ? O 
+    : never;
 
 /**
  * It adds new key-value pair to the object.
@@ -96,6 +129,20 @@ export function addProp<T extends object, P extends PropertyKey, V extends unkno
 	prop: P,
 	value: V
 ): (obj: T) => MergeTypes<T & Record<P, V>>;
+
+/**
+ * It receives list of objects and add new property to each item.
+ * 
+ * The value is based on result of `fn` function, which receives the current object as argument.
+ */
+export function addPropToObjects<
+  T extends object,
+  K extends string,
+  R
+>(
+	property: K,
+  fn: (input: T) => R
+): (list: readonly T[]) => readonly MergeTypes<T & { readonly [P in K]: R }>[];
 
 /**
  * It returns `true`, if all members of array `list` returns `true`, when applied as argument to `predicate` function.
@@ -336,6 +383,11 @@ export function flatMap<T, U extends unknown>(transformFn: (x: T extends readonl
  * You must pass expected output type as a type argument.
  */
 export function flatten<T>(list: readonly any[]): readonly T[];
+
+/**
+ * It transforms object to object where each value is represented with its path.
+ */
+export function flattenObject<T extends object>(obj: T): FlattenObject<T>;
 
 /**
  * It splits `list` according to a provided `groupFn` function and returns an object.
@@ -848,6 +900,191 @@ export function path<
     K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
     K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
 >(path: readonly [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8];
+
+export function pathSatisfies<S, K0 extends string & keyof S>(
+  predicate: (x: S[K0]) => boolean,
+  path: readonly [K0]
+): (obj: S) => boolean;
+export function pathSatisfies<S, K0 extends string & keyof S>(
+  predicate: (x: S[K0]) => boolean,
+  path: `${K0}`
+): (obj: S) => boolean;
+export function pathSatisfies<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  predicate: (x: S[K0][K1]) => boolean,
+  path: readonly [K0, K1]
+): (obj: S) => boolean;
+export function pathSatisfies<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  predicate: (x: S[K0][K1]) => boolean,
+  path: `${K0}.${K1}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  predicate: (x: S[K0][K1][K2]) => boolean,
+  path: readonly [K0, K1, K2]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  predicate: (x: S[K0][K1][K2]) => boolean,
+  path: `${K0}.${K1}.${K2}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  predicate: (x: S[K0][K1][K2][K3]) => boolean,
+  path: readonly [K0, K1, K2, K3]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  predicate: (x: S[K0][K1][K2][K3]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
+  path: readonly [K0, K1, K2, K3, K4]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
+  path: readonly [K0, K1, K2, K3, K4, K5]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
+  path: readonly [K0, K1, K2, K3, K4, K5, K6]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (obj: S) => boolean;
+export function pathSatisfies<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  predicate: (x: S[K0][K1][K2][K3][K4][K5][K6][K7][K8]) => boolean,
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (obj: S) => boolean;
 
 export function permutations<T>(list: readonly T[]): readonly T[][];
 
@@ -1468,6 +1705,345 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) =>
  */
 export function sortBy<T>(sortFn: (x: T) => Ord): (list: readonly T[]) => readonly T[];
 
+export function sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: readonly T[]) => readonly T[];
+
+/**
+ * It sorts `list` by the value of `path` property.
+ */
+export function sortByPath<S, K0 extends string & keyof S>(
+  path: readonly [K0]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: readonly [K0, K1]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: readonly [K0, K1, K2]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: readonly [K0, K1, K2, K3]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: readonly [K0, K1, K2, K3, K4]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: readonly S[]) => readonly S[];
+export function sortByPath<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: readonly S[]) => readonly S[];
+
+export function sortByPathDescending<S, K0 extends string & keyof S>(
+  path: readonly [K0]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: readonly [K0, K1]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: readonly [K0, K1, K2]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: readonly [K0, K1, K2, K3]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: readonly [K0, K1, K2, K3, K4]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: readonly [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: readonly S[]) => readonly S[];
+export function sortByPathDescending<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: readonly S[]) => readonly S[];
+
 /**
  * It returns a sorted version of `input` object.
  */
@@ -1586,7 +2162,7 @@ export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T
 /**
  * It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
  */
-export function unwind<S extends string>(prop: S): <T>(obj: T) => Omit<T, S> & { readonly [K in S]: T[S][number] };
+export function unwind<S extends string>(prop: S): <T>(obj: T) => MergeTypes<Omit<T, S> & { readonly [K in S]: T[S][number] }>;
 
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.
@@ -1597,6 +2173,7 @@ export function update<T>(index: number, newValue: T): (list: readonly T[]) => r
  * It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
  * If the `predicate` returns `false`, then it will simply return `input`.
  */
+export function when<T, U extends T>(predicate: (x: T) => x is U, whenTrueFn: (x: U) => T): (input: T) => T;
 export function when<T>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => T): (input: T) => T;
 export function when<T, U>(predicate: (x: T) => boolean, whenTrueFn: (x: T) => U): (input: T) => T | U;
 
