@@ -1902,7 +1902,7 @@ test('with array', () => {
 test('with non-positive count', () => {
   expect(drop(0)([1, 2, 3])).toEqual([1, 2, 3])
   expect(drop(-1)([1, 2, 3])).toEqual([1, 2, 3])
-  expect(drop(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(drop(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
 })
 ```
 
@@ -8805,7 +8805,7 @@ export function propOr(defaultValue, property) {
       return defaultValue
     }
 
-    return defaultTo(defaultValue, obj[property])
+    return defaultTo(defaultValue)(obj[property])
   }
 }
 ```
@@ -12913,8 +12913,6 @@ const result = piped(
 9.4.1
 
 - Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
-
-9.4.1
 
 - Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 

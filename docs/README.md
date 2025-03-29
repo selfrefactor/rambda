@@ -1902,7 +1902,7 @@ test('with array', () => {
 test('with non-positive count', () => {
   expect(drop(0)([1, 2, 3])).toEqual([1, 2, 3])
   expect(drop(-1)([1, 2, 3])).toEqual([1, 2, 3])
-  expect(drop(Number.NEGATIVE_INFINITY, [1, 2, 3])).toEqual([1, 2, 3])
+  expect(drop(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
 })
 ```
 
@@ -8805,7 +8805,7 @@ export function propOr(defaultValue, property) {
       return defaultValue
     }
 
-    return defaultTo(defaultValue, obj[property])
+    return defaultTo(defaultValue)(obj[property])
   }
 }
 ```

@@ -1360,7 +1360,7 @@ function propOr(defaultValue, property) {
       return defaultValue
     }
 
-    return defaultTo(defaultValue, obj[property])
+    return defaultTo(defaultValue)(obj[property])
   }
 }
 
