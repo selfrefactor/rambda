@@ -4599,5 +4599,3 @@ export function interpolate(inputWithTags: string): (templateArguments: object) 
 
 // API_MARKER_END
 // ============================================
-
-export as namespace R
