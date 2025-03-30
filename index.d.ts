@@ -440,9 +440,7 @@ export function interpolate(inputWithTags: string): (templateArguments: object) 
 
 
 // API_MARKER_END
-// ============================================
-
-export as namespace R
+// ===========================================
 
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.

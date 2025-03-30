@@ -124,6 +124,8 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 
 - Change `R.range` to work with descending order.
 
+- Remove `rambda/immutable` as import option as it is hard to support in the new context.
+
 - Sync with typing of `@types/ramda`:
 
 -- allPass

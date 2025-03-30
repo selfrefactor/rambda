@@ -101,14 +101,6 @@ Because of the focus on `R.pipe`, there is only one way to use each method. This
 - All methods that 2 inputs, will have to be called with `R.methodName(input1)(input2)`
 - All methods that 3 inputs, will have to be called with `R.methodName(input1, input2)(input3)`
 
-### Immutable TS definitions
-
-You can use immutable version of Rambda definitions, which is linted with ESLint `functional/prefer-readonly-type` plugin.
-
-```
-import {filter} from 'rambda/immutable'
-```
-
 ### Deno support 
 
 ```

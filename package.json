@@ -2,12 +2,11 @@
   "name": "rambda",
   "version": "10.0.0-beta.3",
   "scripts": {
-    "out": "yarn populatedocs && yarn populatereadme && yarn immutable && yarn build && yarn create-docsify",
+    "out": "yarn populatedocs && yarn populatereadme && yarn build && yarn create-docsify",
     "build": "yarn build:main && yarn build:web && yarn build:esm",
     "build:main": "rollup rambda.js --file dist/rambda.cjs --format cjs",
     "build:esm": "rollup rambda.js --file dist/rambda.js --format es",
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
-    "immutable": "cd ../rambda-scripts && yarn immutable",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "lint": "cd source && run lint:folder > lint-output.txt",
@@ -94,9 +93,7 @@
     "src",
     "CHANGELOG.md",
     "index.d.ts",
-    "immutable.d.ts",
-    "rambda.js",
-    "immutable.js"
+    "rambda.js"
   ],
   "sideEffects": false,
   "umd": "./dist/rambda.umd.js",

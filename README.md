@@ -4953,9 +4953,7 @@ const expected = 'foo is BAR even 1 more'
 interpolate(inputWithTags: string): (templateArguments: object) => string;
 
 // API_MARKER_END
-// ============================================
-
-export as namespace R
+// ===========================================
 ```
 
 </details>
