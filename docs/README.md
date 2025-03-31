@@ -101,14 +101,6 @@ Because of the focus on `R.pipe`, there is only one way to use each method. This
 - All methods that 2 inputs, will have to be called with `R.methodName(input1)(input2)`
 - All methods that 3 inputs, will have to be called with `R.methodName(input1, input2)(input3)`
 
-### Immutable TS definitions
-
-You can use immutable version of Rambda definitions, which is linted with ESLint `functional/prefer-readonly-type` plugin.
-
-```
-import {filter} from 'rambda/immutable'
-```
-
 ### Deno support 
 
 ```
@@ -9549,6 +9541,8 @@ shuffle<T>(list: T[]): T[];
 <summary><strong>R.shuffle</strong> source</summary>
 
 ```javascript
+import { cloneList } from './_internals/cloneList.js'
+
 export function shuffle(listInput) {
   const list = cloneList(listInput)
   let counter = list.length
@@ -12839,6 +12833,8 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 -- append/prepend
 
 - Change `R.range` to work with descending order.
+
+- Remove `rambda/immutable` as import option as it is hard to support in the new context.
 
 - Sync with typing of `@types/ramda`:
 

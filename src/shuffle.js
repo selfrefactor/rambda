@@ -1,3 +1,5 @@
+import { cloneList } from './_internals/cloneList.js'
+
 export function shuffle(listInput) {
   const list = cloneList(listInput)
   let counter = list.length

@@ -87,11 +87,11 @@ function anyPass(predicates) {
   }
 }
 
-const cloneList$1 = list => Array.prototype.slice.call(list);
+const cloneList = list => Array.prototype.slice.call(list);
 
 function append(x) {
   return list => {
-    const clone = cloneList$1(list);
+    const clone = cloneList(list);
     clone.push(x);
 
     return clone
@@ -990,7 +990,7 @@ function modifyItemAtIndex(index, replaceFn) {
       return list
     }
 
-    const clone = cloneList$1(list);
+    const clone = cloneList(list);
     clone[actualIndex] = replaceFn(clone[actualIndex]);
 
     return clone
@@ -999,7 +999,7 @@ function modifyItemAtIndex(index, replaceFn) {
 
 function update(index, newValue) {
   return list => {
-    const clone = cloneList$1(list);
+    const clone = cloneList(list);
     if (index === -1) {
       return clone.fill(newValue, index)
     }
@@ -1160,7 +1160,7 @@ function pathSatisfies(fn, pathInput) {
  */
 function permutations(inputArray) {
   const result = [];
-  const array = cloneList$1(inputArray);
+  const array = cloneList(inputArray);
   const k = array.length;
   if (k === 0) {
     return result;
@@ -1420,7 +1420,7 @@ function shuffle(listInput) {
 }
 
 function sort(sortFn) {
-  return list => cloneList$1(list).sort(sortFn)
+  return list => cloneList(list).sort(sortFn)
 }
 
 function sortByFn (
@@ -1428,7 +1428,7 @@ function sortByFn (
 	list,
 	descending
 ){
-	const clone = cloneList$1(list);
+	const clone = cloneList(list);
 
 	return clone.sort((a, b) => {
 		const aSortResult = sortFn(a);
@@ -1623,7 +1623,7 @@ function tryCatch(fn, fallback) {
 
 function union(x) {
   return y => {
-    const toReturn = cloneList$1(x);
+    const toReturn = cloneList(x);
 
     y.forEach(yInstance => {
       if (!includes(yInstance)(x)) {
