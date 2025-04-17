@@ -1,8 +1,7 @@
-https://jsr.io/@rambda/rambda
 ===
 ABOVE IS DONE
 ===
-    npm version prerelease 
+npx jsr publish
 ABOVE IS IN PROGRESS
 ===
 use functor as a word
