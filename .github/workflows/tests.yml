@@ -17,5 +17,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install
+    - run: yarn lint:typings
     - run: yarn test:ci
     - run: yarn test:typings
