@@ -10,6 +10,7 @@
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "lint": "cd source && run lint:folder > lint-output.txt",
+    "lint:typings": "tsc",
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
     "test": "vitest run --watch -u",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@definitelytyped/dtslint": "0.0.182",
     "@types/mocha": "10.0.10",
+    "@types/node": "^22.14.1",
     "@vitest/coverage-v8": "3.1.0-beta.2",
     "helpers-fn": "2.0.0",
     "lodash": "4.17.21",
