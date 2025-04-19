@@ -12706,9 +12706,11 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-10.0.0
+10.0.1
 
-CHANGELOG - 10.0.0
+- Fix issue with `R.unwind`/`R.pick` typings - [Issue #766](https://github.com/selfrefactor/rambda/issues/766)
+
+10.0.0
 
 This is major revamp of `Rambda` library:
 
@@ -12904,7 +12906,7 @@ const result = piped(
 
 9.4.1
 
-- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #750](https://github.com/selfrefactor/rambda/issues/757)
+- Fix bug with `R.differenceWith` when two arrays has same length - [Issue #757](https://github.com/selfrefactor/rambda/issues/757)
 
 - Allow path input to not be transformed when string numbers are there - [Issue #750](https://github.com/selfrefactor/rambda/issues/750)
 
