@@ -7808,10 +7808,7 @@ const expected = [
 
 ```typescript
 pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-pick<
-	S extends string,
-	K extends PickStringToPickPath<K>
->(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
+pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
 ```
 
 </details>
@@ -8222,6 +8219,7 @@ function assertType<T, U extends T>(fn: (x: T) => x is U) {
 function convertToType<T>() {
   return <U>(x: U) => x as unknown as T
 }
+const convertToType = <T>(x: unknown)=> x as unknown as T
 
 function tapFn<T, U>(
   transformFn: (x: T) => U,
@@ -12156,7 +12154,7 @@ describe('R.unless', () => {
 
 ```typescript
 
-unwind<S extends string>(prop: S): <T>(obj: T) => MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>
+unwind<S extends string>(prop: S): <T extends Record<S, readonly any[]>>(obj: T) => Array<MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>>
 ```
 
 It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
@@ -12178,7 +12176,7 @@ const expected = [{a:1, b:2}, {a:1, b:3}]
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-unwind<S extends string>(prop: S): <T>(obj: T) => MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>;
+unwind<S extends string>(prop: S): <T extends Record<S, readonly any[]>>(obj: T) => Array<MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>>;
 ```
 
 </details>
@@ -12246,12 +12244,12 @@ const obj = {
 
 describe('R.unwind', () => {
   it('happy', () => {
-    const result = unwind('b')(obj)
+    const [result] = unwind('b')(obj)
     result.a // $ExpectType number
     result.b // $ExpectType number
   })
   it('inside pipe', () => {
-    const result = pipe(obj, unwind('b'))
+    const [result] = pipe(obj, unwind('b'))
     result.a // $ExpectType number
     result.b // $ExpectType number
   })

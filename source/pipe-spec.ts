@@ -132,6 +132,8 @@ function assertType<T, U extends T>(fn: (x: T) => x is U) {
 function convertToType<T>() {
   return <U>(x: U) => x as unknown as T
 }
+const convertToType = <T>(x: unknown)=> x as unknown as T
+
 
 function tapFn<T, U>(
   transformFn: (x: T) => U,

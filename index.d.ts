@@ -1094,10 +1094,7 @@ export function permutations<T>(list: T[]): T[][];
  * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
 export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<
-	S extends string,
-	K extends PickStringToPickPath<K>
->(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
+export function pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
 
 /**
  * It performs left-to-right function composition, where first argument is the input for the chain of functions.
@@ -2160,7 +2157,7 @@ export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T
 /**
  * It takes an object and a property name. The method will return a list of objects, where each object is a shallow copy of the input object, but with the property array unwound.
  */
-export function unwind<S extends string>(prop: S): <T>(obj: T) => MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>;
+export function unwind<S extends string>(prop: S): <T extends Record<S, readonly any[]>>(obj: T) => Array<MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>>;
 
 /**
  * It returns a copy of `list` with updated element at `index` with `newValue`.

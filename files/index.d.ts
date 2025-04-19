@@ -1829,10 +1829,7 @@ Notes: pipe
 */
 // @SINGLE_MARKER
 export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<
-	S extends string,
-	K extends PickStringToPickPath<K>
->(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
+export function pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
 
 /*
 Method: pipe
@@ -3572,7 +3569,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function unwind<S extends string>(prop: S): <T>(obj: T) => MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>;
+export function unwind<S extends string>(prop: S): <T extends Record<S, readonly any[]>>(obj: T) => Array<MergeTypes<Omit<T, S> & { [K in S]: T[S][number] }>>;
 
 /*
 Method: uniqBy
