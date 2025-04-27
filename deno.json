@@ -8,6 +8,9 @@
   "publish": {
     "include": [
       "src",
+			"rambda.js",
+			"index.d.ts",
+			"index.d.cts",
 			"mod.ts",
       "LICENSE.md",
       "README.md"
