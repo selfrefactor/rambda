@@ -4570,6 +4570,43 @@ export function compact<T extends object>(record: T): {
 };
 
 /*
+Method: convertToType
+
+Explanation: It helps to convert a value to a specific type.
+It is useful when you have to overcome TypeScript's type inference. 
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function convertToType<T>(x: unknown) : T;
+
+/*
+Method: assertType
+
+Explanation: It helps to make sure that input is from specific type. Similar to `R.convertToType`, but it actually checks the type of the input value. If `fn` input returns falsy value, then the function will throw an error.
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+
+/*
 Method: interpolate
 
 Explanation: It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.

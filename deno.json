@@ -1,0 +1,19 @@
+{
+  "name": "@rambda/rambda",
+  "version": "10.0.2",
+  "exports": "./mod.ts",
+  "imports": {
+    "rambda": "./mod.ts"
+  },
+  "publish": {
+    "include": [
+      "src",
+			"rambda.js",
+			"index.d.ts",
+			"index.d.cts",
+			"mod.ts",
+      "LICENSE.md",
+      "README.md"
+    ]
+  }
+}

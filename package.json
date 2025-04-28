@@ -28,7 +28,7 @@
   "type": "module",
   "exports": {
     "require": {
-      "types": "./index.d.ts",
+      "types": "./index.d.cts",
       "default": "./dist/rambda.cjs"
     },
     "types": "./index.d.ts",
@@ -95,9 +95,10 @@
     "src",
     "CHANGELOG.md",
     "index.d.ts",
+    "index.d.cts",
     "rambda.js"
   ],
   "sideEffects": false,
   "umd": "./dist/rambda.umd.js",
-  "types": "./index.d.ts"
+  "types": "./index.d.cts"
 }

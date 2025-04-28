@@ -1,6 +1,8 @@
 ===
 ABOVE IS DONE
 ===
+mapProp
+
 function assertType<T, U extends T>(fn: (x: T) => x is U) {
   return (x: T) => {
     if (fn(x)) {

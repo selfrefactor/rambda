@@ -115,6 +115,15 @@ function ascend(getFunction) {
 }
 }
 
+function assertType(fn) {
+  return (x) => {
+    if (fn(x)) {
+      return x
+    }
+    throw new Error('type assertion failed in R.assertType')
+  }
+}
+
 function checkObjectWithSpec(conditions) {
   return input => {
     let shouldProceed = true;
@@ -188,6 +197,10 @@ function complement(fn) {
 
 function concat(x) {
   return y => (typeof x === 'string' ? `${x}${y}` : [...x, ...y])
+}
+
+function convertToType(x) {
+  return x
 }
 
 function count(predicate) {
@@ -1787,10 +1800,12 @@ exports.any = any;
 exports.anyPass = anyPass;
 exports.append = append;
 exports.ascend = ascend;
+exports.assertType = assertType;
 exports.checkObjectWithSpec = checkObjectWithSpec;
 exports.compact = compact;
 exports.complement = complement;
 exports.concat = concat;
+exports.convertToType = convertToType;
 exports.count = count;
 exports.countBy = countBy;
 exports.createCompareFunction = createCompareFunction;
