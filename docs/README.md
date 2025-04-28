@@ -1021,6 +1021,102 @@ it('R.ascend', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#ascend)
 
+### assertType
+
+```typescript
+
+assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U
+```
+
+It helps to make sure that input is from specific type. Similar to `R.convertToType`, but it actually checks the type of the input value. If `fn` input returns falsy value, then the function will throw an error.
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.assertType</strong> source</summary>
+
+```javascript
+export function assertType(fn) {
+  return (x) => {
+    if (fn(x)) {
+      return x
+    }
+    throw new Error('type assertion failed in R.assertType')
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { assertType } from './assertType.js'
+
+test('happy', () => {
+  const result = pipe(
+		[1, 2, 3],
+		assertType((x) => x.length === 3),
+	)
+	expect(result).toEqual([1, 2, 3])
+})
+
+test('throw', () => {
+	expect(() => {
+		pipe(
+			[1, 2, 3],
+			assertType((x) => x.length === 4),
+		)
+	}).toThrow('type assertion failed in R.assertType')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, assertType } from 'rambda'
+
+type Book = {
+	title: string
+	year: number
+}
+
+type BookToRead = Book & {
+	bookmarkFlag: boolean
+}
+
+function isBookToRead(book: Book): book is BookToRead {
+	return (book as BookToRead).bookmarkFlag !== undefined 
+}
+
+it('R.assertType', () => {
+	const result = pipe(
+		{ title: 'Book1', year: 2020, bookmarkFlag: true },
+		assertType(isBookToRead),
+	)
+	result // $ExpectType BookToRead
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#assertType)
+
 ### checkObjectWithSpec
 
 ```typescript
@@ -1428,6 +1524,73 @@ it('R.concat', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#concat)
+
+### convertToType
+
+```typescript
+
+convertToType<T>(x: unknown) : T
+```
+
+It helps to convert a value to a specific type.
+It is useful when you have to overcome TypeScript's type inference.
+
+```javascript
+const result = R.pipe(
+	[1, 2, 3],
+	convertToType<string[]>
+)
+// => result is of type string[]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09convertToType%3Cstring%5B%5D%3E%0A)%0A%2F%2F%20%3D%3E%20result%20is%20of%20type%20string%5B%5D">Try this <strong>R.convertToType</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+convertToType<T>(x: unknown) : T;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.convertToType</strong> source</summary>
+
+```javascript
+export function convertToType(x) {
+  return x
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { convertToType, pipe } from 'rambda'
+
+const list = [1, 2, 3]
+
+it('R.convertToType', () => {
+  const result = pipe(list, 
+		convertToType<string[]>,
+		x => {
+			x // $ExpectType string[]
+			return x 
+		}
+	)
+  result // $ExpectType string[]
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#convertToType)
 
 ### count
 
@@ -8219,7 +8382,7 @@ function assertType<T, U extends T>(fn: (x: T) => x is U) {
 function convertToType<T>() {
   return <U>(x: U) => x as unknown as T
 }
-const convertToType = <T>(x: unknown)=> x as unknown as T
+// const convertToType = <T>(x: unknown)=> x as unknown as T
 
 function tapFn<T, U>(
   transformFn: (x: T) => U,
@@ -12705,6 +12868,14 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+10.1.0
+
+- Add `R.assertType` and `R.convertToType` methods
+
+- Fix issue with exports in old Node.js versions - [Discussion #768](https://github.com/selfrefactor/rambda/discussions/768)
+
+- Fix `deno` release as it was not possible for users to import version `10.0.0`
 
 10.0.1
 
