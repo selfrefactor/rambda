@@ -1,3 +1,11 @@
+10.1.0
+
+- Add `R.assertType` and `R.convertToType` methods
+
+- Fix issue with exports in old Node.js versions - [Discussion #768](https://github.com/selfrefactor/rambda/discussions/768)
+
+- Fix `deno` release as it was not possible for users to import version `10.0.0`
+
 10.0.1
 
 - Fix issue with `R.unwind`/`R.pick` typings - [Issue #766](https://github.com/selfrefactor/rambda/issues/766)
