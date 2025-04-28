@@ -1536,16 +1536,6 @@ convertToType<T>(x: unknown) : T
 It helps to convert a value to a specific type.
 It is useful when you have to overcome TypeScript's type inference.
 
-```javascript
-const result = R.pipe(
-	[1, 2, 3],
-	convertToType<string[]>
-)
-// => result is of type string[]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09convertToType%3Cstring%5B%5D%3E%0A)%0A%2F%2F%20%3D%3E%20result%20is%20of%20type%20string%5B%5D">Try this <strong>R.convertToType</strong> example in Rambda REPL</a>
-
 <details>
 
 <summary>All TypeScript definitions</summary>

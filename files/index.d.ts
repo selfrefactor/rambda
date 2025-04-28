@@ -4578,11 +4578,6 @@ It is useful when you have to overcome TypeScript's type inference.
 Example:
 
 ```
-const result = R.pipe(
-	[1, 2, 3],
-	convertToType<string[]>
-)
-// => result is of type string[]
 ```
 
 Categories:
