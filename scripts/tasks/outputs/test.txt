@@ -1,10 +1,10 @@
 
- RUN  v3.1.0-beta.2 /home/we/repos/rambda
+ RUN  v3.1.1 /home/we/repos/rambda
 
- ✓ source/propOr.spec.js (1 test) 7ms
+ ✓ source/assertType.spec.js (2 tests) 5ms
 
  Test Files  1 passed (1)
-      Tests  1 passed (1)
-   Start at  21:28:18
-   Duration  694ms (transform 105ms, setup 0ms, collect 37ms, tests 7ms, environment 0ms, prepare 252ms)
+      Tests  2 passed (2)
+   Start at  09:27:05
+   Duration  418ms (transform 52ms, setup 0ms, collect 31ms, tests 5ms, environment 0ms, prepare 106ms)
 

@@ -1,4 +1,5 @@
 import { assertType } from './assertType.js'
+import { pipe } from './pipe.js'
 
 test('happy', () => {
   const result = pipe(
