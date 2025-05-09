@@ -1008,6 +1008,66 @@ function modifyItemAtIndex(index, replaceFn) {
   }
 }
 
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string'
+    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+    : path
+}
+
+function path(pathInput) {
+	return (obj)  => {
+		if (!obj) {
+			return undefined
+		}
+		let willReturn = obj;
+		let counter = 0;
+	
+		const pathArrValue = createPath(pathInput);
+	
+		while (counter < pathArrValue.length) {
+			if (willReturn === null || willReturn === undefined) {
+				return undefined
+			}
+			if (willReturn[pathArrValue[counter]] === null) {
+				return undefined
+			}
+	
+			willReturn = willReturn[pathArrValue[counter]];
+			counter++;
+		}
+	
+		return willReturn
+	}
+}
+
+function assoc(prop, newValue) {
+  return obj => Object.assign({}, obj, { [prop]: newValue })
+}
+
+function modifyPathFn(pathInput, fn, obj) {
+  const path$1 = createPath(pathInput);
+  if (path$1.length === 1) {
+    return {
+      ...obj,
+      [path$1[0]]: fn(obj[path$1[0]]),
+    }
+  }
+  if (path(path$1)(obj) === undefined) {
+    return obj
+  }
+
+  const val = modifyPathFn(Array.prototype.slice.call(path$1, 1), fn, obj[path$1[0]]);
+  if (val === obj[path$1[0]]) {
+    return obj
+  }
+
+  return assoc(path$1[0], val)(obj)
+}
+
+function modifyPath(pathInput, fn) {
+  return obj => modifyPathFn(pathInput, fn, obj)
+}
+
 function update(index, newValue) {
   return list => {
     const clone = cloneList(list);
@@ -1061,12 +1121,6 @@ function objectIncludes(condition) {
 
     return Object.keys(result).length === Object.keys(condition).length
   }
-}
-
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string'
-    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-    : path
 }
 
 function _includes(x, list) {
@@ -1133,32 +1187,6 @@ function partitionObject(predicate) {
 
   return [yes, no]
 }
-}
-
-function path(pathInput) {
-	return (obj)  => {
-		if (!obj) {
-			return undefined
-		}
-		let willReturn = obj;
-		let counter = 0;
-	
-		const pathArrValue = createPath(pathInput);
-	
-		while (counter < pathArrValue.length) {
-			if (willReturn === null || willReturn === undefined) {
-				return undefined
-			}
-			if (willReturn[pathArrValue[counter]] === null) {
-				return undefined
-			}
-	
-			willReturn = willReturn[pathArrValue[counter]];
-			counter++;
-		}
-	
-		return willReturn
-	}
 }
 
 function pathSatisfies(fn, pathInput) {
@@ -1786,4 +1814,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

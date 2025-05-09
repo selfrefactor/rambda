@@ -6714,6 +6714,135 @@ test('when index is out of bounds', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyItemAtIndex)
 
+### modifyPath
+
+```typescript
+
+modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T
+```
+
+It changes a property of object on the base of provided path and transformer function.
+
+```javascript
+const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+// => {a:{b: {c:2}}}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T;
+modifyPath<
+  K0 extends keyof U,
+  U,
+  T
+>(path: [K0], fn: (value: U[K0]) => T): (obj: U) => DeepModify<[K0], U, T>;
+modifyPath<
+  K0 extends string & keyof U,
+  U,
+  T
+>(path: `${K0}`, fn: (value: U[K0]) => T): (obj: U) => DeepModify<[K0], U, T>;
+modifyPath<
+  K0 extends keyof U,
+  K1 extends keyof U[K0],
+  U,
+  T
+>(path: [K0, K1], fn: (value: U[K0][K1]) => T): (obj: U) => DeepModify<[K0, K1], U, T>;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.modifyPath</strong> source</summary>
+
+```javascript
+import { createPath } from './_internals/createPath.js'
+import { path as pathModule } from './path.js'
+
+function assoc(prop, newValue) {
+  return obj => Object.assign({}, obj, { [prop]: newValue })
+}
+
+function modifyPathFn(pathInput, fn, obj) {
+  const path = createPath(pathInput)
+  if (path.length === 1) {
+    return {
+      ...obj,
+      [path[0]]: fn(obj[path[0]]),
+    }
+  }
+  if (pathModule(path)(obj) === undefined) {
+    return obj
+  }
+
+  const val = modifyPathFn(Array.prototype.slice.call(path, 1), fn, obj[path[0]])
+  if (val === obj[path[0]]) {
+    return obj
+  }
+
+  return assoc(path[0], val)(obj)
+}
+
+export function modifyPath(pathInput, fn) {
+  return obj => modifyPathFn(pathInput, fn, obj)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { modifyPath } from './modifyPath.js'
+
+test('happy', () => {
+  const result = modifyPath('a.b.c', x => x + 1)({ a: { b: { c: 1 } } })
+  expect(result).toEqual({ a: { b: { c: 2 } } })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { modifyPath, pipe } from 'rambda'
+
+const obj = { a: { b: { c: 1 } } }
+
+describe('R.modifyPath', () => {
+  it('array path', () => {
+    const result = pipe(
+      obj,
+      modifyPath(['a', 'b', 'c'], (x: number) => String(x)),
+    )
+    result.a.b.c // $ExpectType string
+  })
+  it('string path', () => {
+    const result = pipe(
+      obj,
+      modifyPath('a.b.c', (x: number) => String(x)),
+    )
+    result.a.b.c // $ExpectType string
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#modifyPath)
+
 ### modifyProp
 
 ```typescript
