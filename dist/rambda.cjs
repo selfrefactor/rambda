@@ -1010,6 +1010,66 @@ function modifyItemAtIndex(index, replaceFn) {
   }
 }
 
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string'
+    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+    : path
+}
+
+function path(pathInput) {
+	return (obj)  => {
+		if (!obj) {
+			return undefined
+		}
+		let willReturn = obj;
+		let counter = 0;
+	
+		const pathArrValue = createPath(pathInput);
+	
+		while (counter < pathArrValue.length) {
+			if (willReturn === null || willReturn === undefined) {
+				return undefined
+			}
+			if (willReturn[pathArrValue[counter]] === null) {
+				return undefined
+			}
+	
+			willReturn = willReturn[pathArrValue[counter]];
+			counter++;
+		}
+	
+		return willReturn
+	}
+}
+
+function assoc(prop, newValue) {
+  return obj => Object.assign({}, obj, { [prop]: newValue })
+}
+
+function modifyPathFn(pathInput, fn, obj) {
+  const path$1 = createPath(pathInput);
+  if (path$1.length === 1) {
+    return {
+      ...obj,
+      [path$1[0]]: fn(obj[path$1[0]]),
+    }
+  }
+  if (path(path$1)(obj) === undefined) {
+    return obj
+  }
+
+  const val = modifyPathFn(Array.prototype.slice.call(path$1, 1), fn, obj[path$1[0]]);
+  if (val === obj[path$1[0]]) {
+    return obj
+  }
+
+  return assoc(path$1[0], val)(obj)
+}
+
+function modifyPath(pathInput, fn) {
+  return obj => modifyPathFn(pathInput, fn, obj)
+}
+
 function update(index, newValue) {
   return list => {
     const clone = cloneList(list);
@@ -1063,12 +1123,6 @@ function objectIncludes(condition) {
 
     return Object.keys(result).length === Object.keys(condition).length
   }
-}
-
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string'
-    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-    : path
 }
 
 function _includes(x, list) {
@@ -1135,32 +1189,6 @@ function partitionObject(predicate) {
 
   return [yes, no]
 }
-}
-
-function path(pathInput) {
-	return (obj)  => {
-		if (!obj) {
-			return undefined
-		}
-		let willReturn = obj;
-		let counter = 0;
-	
-		const pathArrValue = createPath(pathInput);
-	
-		while (counter < pathArrValue.length) {
-			if (willReturn === null || willReturn === undefined) {
-				return undefined
-			}
-			if (willReturn[pathArrValue[counter]] === null) {
-				return undefined
-			}
-	
-			willReturn = willReturn[pathArrValue[counter]];
-			counter++;
-		}
-	
-		return willReturn
-	}
 }
 
 function pathSatisfies(fn, pathInput) {
@@ -1859,6 +1887,7 @@ exports.merge = merge;
 exports.mergeTypes = mergeTypes;
 exports.minBy = minBy;
 exports.modifyItemAtIndex = modifyItemAtIndex;
+exports.modifyPath = modifyPath;
 exports.modifyProp = modifyProp;
 exports.none = none;
 exports.objOf = objOf;
