@@ -1671,8 +1671,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-// ...existing code...
-
 export function modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T;
 export function modifyPath<
   K0 extends keyof U,
