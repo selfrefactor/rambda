@@ -1,7 +1,7 @@
 import {
   type MergeTypes,
-  allPass,
   append,
+  assertType,
   defaultTo,
   drop,
   dropLast,
@@ -10,12 +10,9 @@ import {
   find,
   head,
   map,
-  mapObject,
-  path,
   pick,
   pipe,
   split,
-  tap,
   union,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
@@ -34,12 +31,6 @@ interface Book extends BaseBook {
   }
   status?: Status
 }
-interface MustReadBook extends Book {
-  status: 'must-read'
-}
-interface FamousBook extends Book {
-  status: 'famous'
-}
 interface BookWithBookmarkStatus extends Book {
   bookmarkFlag: boolean
 }
@@ -47,14 +38,13 @@ interface BookWithReadStatus extends Book {
   readFlag: boolean
 }
 type BookToRead = BookWithBookmarkStatus & BookWithReadStatus
-interface BookWithDescription extends Book {
-  description: string
+type FamousBook = Book & {
+	status: 'famous'
 }
-interface BookWithUserRating extends Book {
-  userRating: number
-}
-type BookWithDetails = BookWithDescription & BookWithUserRating
 
+const checkIfFamous = (x: Book): x is FamousBook => {
+	return x.status === 'famous'
+}
 const zaratustra: BaseBook = {
   title: 'Zaratustra',
   year: 1956,
@@ -78,11 +68,6 @@ const awardedBrothersKaramazov: Book = {
     years: [1869, 1870],
   },
 }
-const awardedBrothersKaramazovToRead: BookToRead = {
-  ...awardedBrothersKaramazov,
-  readFlag: true,
-  bookmarkFlag: true,
-}
 const awardedZaratustraToRead: BookToRead = {
   ...awardedZaratustra,
   readFlag: true,
@@ -99,41 +84,9 @@ const awardedBaseValue: Book = {
 
 type Status = 'famous' | 'can be skipped' | 'must-read'
 
-function checkIfMustRead(x: Book): x is MustReadBook {
-  return (x as MustReadBook).status === 'must-read'
-}
-function checkIfFamous(x: Book): x is FamousBook {
-  return (x as FamousBook).status === 'famous'
-}
-function checkReadStatus(x: Book): x is BookWithReadStatus {
-  return (x as BookWithReadStatus).readFlag
-}
-function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus {
-  return (x as BookWithBookmarkStatus).bookmarkFlag
-}
 function checkBookToRead(x: Book): x is BookToRead {
   return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag
 }
-function checkHasDescription(x: Book): x is BookWithDescription {
-  return (x as BookWithDescription).description !== undefined
-}
-function checkHasUserRating(x: Book): x is BookWithUserRating {
-  return (x as BookWithUserRating).userRating !== undefined
-}
-
-function assertType<T, U extends T>(fn: (x: T) => x is U) {
-  return (x: T) => {
-    if (fn(x)) {
-      return x
-    }
-    throw new Error('type assertion failed')
-  }
-}
-function convertToType<T>() {
-  return <U>(x: U) => x as unknown as T
-}
-// const convertToType = <T>(x: unknown)=> x as unknown as T
-
 
 function tapFn<T, U>(
   transformFn: (x: T) => U,
@@ -183,17 +136,10 @@ describe('real use cases - books', () => {
         evolve({
           year: x => x + 1,
         }),
-        // convertToType<BookWithDescription>(),
-        // dissocPath<Book>('description'),
-        // convertToType<Record<string, string>>(),
-        // mapObject((x) => {
-        // 	return x as unknown as number;
-        // }),
         simplify,
         pick('year'),
       )
     const result = getResult(zaratustra)
-    type Foo = MergeTypes<typeof result>
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {

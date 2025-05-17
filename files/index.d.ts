@@ -1034,6 +1034,42 @@ export function mapObject<T extends object, Value>(
 ): (data: T) => MappedValues<T, Value>;
 
 /*
+Method: mapPropObject
+
+Explanation: It maps over a property of object that is a list. 
+
+Example:
+
+```
+
+const result = pipe(
+	{ a: [1,2,3], b: 'foo' },
+	mapPropObject(x => {
+		x // $ExpectType { a: number; b: string; }
+		return {
+			a: x,
+			flag: x > 2,
+		}
+	}, 'a'),
+)
+// => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (
+    value: T[K][number],
+    data: T[K],
+  ) => Value,
+	prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>;
+
+/*
 Method: addPropToObjects
 
 Explanation: It receives list of objects and add new property to each item. 
