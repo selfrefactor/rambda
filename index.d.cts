@@ -567,6 +567,17 @@ export function mapParallelAsync<T extends IterableContainer, U>(
 ): Promise<Mapped<T, U>>;
 
 /**
+ * It maps over a property of object that is a list.
+ */
+export function mapPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (
+    value: T[K][number],
+    data: T[K],
+  ) => Value,
+	prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>;
+
+/**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
 export function match(regExpression: RegExp): (str: string) => string[];
