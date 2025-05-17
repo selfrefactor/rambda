@@ -6066,7 +6066,7 @@ it('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { mapObject, pipe } from 'rambda'
+import { mapObject, mapProp, pipe } from 'rambda'
 
 describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
@@ -6076,6 +6076,20 @@ describe('R.mapObject', () => {
         a // $ExpectType number
         return `${a}`
       }),
+    )
+
+    result // $ExpectType { a: string; }
+  })
+  it('iterable with one arguments', () => {
+    const result = pipe(
+      { a: [1,2,3], b: 'foo' },
+      mapProp(a => {
+        a // $ExpectType number
+        return {
+					a,
+					flag: a > 2,
+				}
+      }, 'a'),
     )
 
     result // $ExpectType { a: string; }
@@ -6303,6 +6317,129 @@ test('pipeAsync', async () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapParallelAsync)
+
+### mapPropObject
+
+```typescript
+
+mapPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (
+    value: T[K][number],
+    data: T[K],
+  ) => Value,
+	prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+```
+
+It maps over a property of object that is a list.
+
+```javascript
+const result = pipe(
+	{ a: [1,2,3], b: 'foo' },
+	mapPropObject(x => {
+		x // $ExpectType { a: number; b: string; }
+		return {
+			a: x,
+			flag: x > 2,
+		}
+	}, 'a'),
+)
+// => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20pipe(%0A%09%7B%20a%3A%20%5B1%2C2%2C3%5D%2C%20b%3A%20'foo'%20%7D%2C%0A%09mapPropObject(x%20%3D%3E%20%7B%0A%09%09x%20%2F%2F%20%24ExpectType%20%7B%20a%3A%20number%3B%20b%3A%20string%3B%20%7D%0A%09%09return%20%7B%0A%09%09%09a%3A%20x%2C%0A%09%09%09flag%3A%20x%20%3E%202%2C%0A%09%09%7D%0A%09%7D%2C%20'a')%2C%0A)%0A%2F%2F%20%3D%3E%20%7B%20a%3A%20%5B%7B%20a%3A%201%2C%20flag%3A%20false%20%7D%2C%7B%20a%3A%202%2C%20flag%3A%20false%20%7D%2C%20%7B%20a%3A%203%2C%20flag%3A%20true%20%7D%5D%2C%20b%3A%20'foo'%20%7D">Try this <strong>R.mapPropObject</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+mapPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (
+    value: T[K][number],
+    data: T[K],
+  ) => Value,
+	prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mapPropObject</strong> source</summary>
+
+```javascript
+export function mapPropObject(fn, prop) {
+  return obj => {
+		if (!Array.isArray(obj[prop])) return obj
+			
+			return {
+				...obj,
+				[prop]: obj[prop].map(fn)
+			}
+		}
+ 	 }
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mapPropObject } from './mapPropObject.js'
+import { pipe } from './pipe.js'
+
+it('happy', () => {
+  const result = pipe(
+    { a: [1, 2, 3], b: 'foo' },
+    mapPropObject(x => ({ a: x, flag: x > 2 }), 'a'),
+  )
+
+  expect(result).toEqual({
+    a: [
+      { a: 1, flag: false },
+      { a: 2, flag: false },
+      { a: 3, flag: true },
+    ],
+    b: 'foo',
+  })
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import {  mapPropObject, pipe } from 'rambda'
+
+describe('R.mapPropObject', () => {
+  it('iterable with one arguments', () => {
+    const result = pipe(
+      { a: [1,2,3], b: 'foo' },
+      mapPropObject(x => {
+        x // $ExpectType { a: number; b: string; }
+        return {
+          a: x,
+          flag: x > 2,
+        }
+      }, 'a'),
+    )
+
+    result.a // $ExpectType { a: number; flag: boolean; }[]
+		result.b // $ExpectType string
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapPropObject)
 
 ### match
 
@@ -8370,8 +8507,8 @@ test('happy', () => {
 ```typescript
 import {
   type MergeTypes,
-  allPass,
   append,
+  assertType,
   defaultTo,
   drop,
   dropLast,
@@ -8380,12 +8517,9 @@ import {
   find,
   head,
   map,
-  mapObject,
-  path,
   pick,
   pipe,
   split,
-  tap,
   union,
 } from 'rambda'
 type IsNotNever<T> = [T] extends [never] ? false : true
@@ -8404,12 +8538,6 @@ interface Book extends BaseBook {
   }
   status?: Status
 }
-interface MustReadBook extends Book {
-  status: 'must-read'
-}
-interface FamousBook extends Book {
-  status: 'famous'
-}
 interface BookWithBookmarkStatus extends Book {
   bookmarkFlag: boolean
 }
@@ -8417,14 +8545,13 @@ interface BookWithReadStatus extends Book {
   readFlag: boolean
 }
 type BookToRead = BookWithBookmarkStatus & BookWithReadStatus
-interface BookWithDescription extends Book {
-  description: string
+type FamousBook = Book & {
+	status: 'famous'
 }
-interface BookWithUserRating extends Book {
-  userRating: number
-}
-type BookWithDetails = BookWithDescription & BookWithUserRating
 
+const checkIfFamous = (x: Book): x is FamousBook => {
+	return x.status === 'famous'
+}
 const zaratustra: BaseBook = {
   title: 'Zaratustra',
   year: 1956,
@@ -8448,11 +8575,6 @@ const awardedBrothersKaramazov: Book = {
     years: [1869, 1870],
   },
 }
-const awardedBrothersKaramazovToRead: BookToRead = {
-  ...awardedBrothersKaramazov,
-  readFlag: true,
-  bookmarkFlag: true,
-}
 const awardedZaratustraToRead: BookToRead = {
   ...awardedZaratustra,
   readFlag: true,
@@ -8469,40 +8591,9 @@ const awardedBaseValue: Book = {
 
 type Status = 'famous' | 'can be skipped' | 'must-read'
 
-function checkIfMustRead(x: Book): x is MustReadBook {
-  return (x as MustReadBook).status === 'must-read'
-}
-function checkIfFamous(x: Book): x is FamousBook {
-  return (x as FamousBook).status === 'famous'
-}
-function checkReadStatus(x: Book): x is BookWithReadStatus {
-  return (x as BookWithReadStatus).readFlag
-}
-function checkBookmarkStatus(x: Book): x is BookWithBookmarkStatus {
-  return (x as BookWithBookmarkStatus).bookmarkFlag
-}
 function checkBookToRead(x: Book): x is BookToRead {
   return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag
 }
-function checkHasDescription(x: Book): x is BookWithDescription {
-  return (x as BookWithDescription).description !== undefined
-}
-function checkHasUserRating(x: Book): x is BookWithUserRating {
-  return (x as BookWithUserRating).userRating !== undefined
-}
-
-function assertType<T, U extends T>(fn: (x: T) => x is U) {
-  return (x: T) => {
-    if (fn(x)) {
-      return x
-    }
-    throw new Error('type assertion failed')
-  }
-}
-function convertToType<T>() {
-  return <U>(x: U) => x as unknown as T
-}
-// const convertToType = <T>(x: unknown)=> x as unknown as T
 
 function tapFn<T, U>(
   transformFn: (x: T) => U,
@@ -8552,17 +8643,10 @@ describe('real use cases - books', () => {
         evolve({
           year: x => x + 1,
         }),
-        // convertToType<BookWithDescription>(),
-        // dissocPath<Book>('description'),
-        // convertToType<Record<string, string>>(),
-        // mapObject((x) => {
-        // 	return x as unknown as number;
-        // }),
         simplify,
         pick('year'),
       )
     const result = getResult(zaratustra)
-    type Foo = MergeTypes<typeof result>
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {

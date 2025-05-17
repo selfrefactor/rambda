@@ -971,6 +971,17 @@ function mapParallelAsync(fn) {
   return async list =>  Promise.all(list.map((x, i) => fn(x, i)))
 }
 
+function mapPropObject(fn, prop) {
+  return obj => {
+		if (!Array.isArray(obj[prop])) return obj
+			
+			return {
+				...obj,
+				[prop]: obj[prop].map(fn)
+			}
+		}
+ 	 }
+
 function match(pattern) {
   return input => {
     const willReturn = input.match(pattern);
@@ -1881,6 +1892,7 @@ exports.mapKeys = mapKeys;
 exports.mapObject = mapObject;
 exports.mapObjectAsync = mapObjectAsync;
 exports.mapParallelAsync = mapParallelAsync;
+exports.mapPropObject = mapPropObject;
 exports.match = match;
 exports.maxBy = maxBy;
 exports.merge = merge;
