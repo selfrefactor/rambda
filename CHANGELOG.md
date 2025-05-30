@@ -1,3 +1,7 @@
+10.4.0
+
+Add `R.duplicateBy`
+
 10.3.0
 
 Add `R.mapPropObject`

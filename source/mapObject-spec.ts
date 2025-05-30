@@ -1,4 +1,4 @@
-import { mapObject, mapProp, pipe } from 'rambda'
+import { mapObject, pipe } from 'rambda'
 
 describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
@@ -15,18 +15,15 @@ describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
-      mapProp(a => {
+      mapObject(a => {
         a // $ExpectType number
-        return {
-					a,
-					flag: a > 2,
-				}
-      }, 'a'),
+        return typeof a as string
+      }),
     )
 
-    result // $ExpectType { a: string; }
+    result // $ExpectType { a: string; b: string; }
   })
-  it('iterable with two three arguments', () => {
+  it('iterable with two arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {
