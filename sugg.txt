@@ -1,0 +1,104 @@
+Suggested new methods for Rambda library:
+
+1. `isEmpty` - A type-safe way to check if a value is empty:
+```typescript
+export function isEmpty<T>(value: T): boolean;
+```
+This would handle:
+- Empty arrays
+- Empty objects
+- Empty strings
+- null/undefined
+- Empty maps/sets
+
+2. `isNotEmpty` - The inverse of isEmpty:
+```typescript
+export function isNotEmpty<T>(value: T): boolean;
+```
+
+3. `defaultToDeep` - A deep version of defaultTo that handles nested objects:
+```typescript
+export function defaultToDeep<T>(defaultValue: T): (input: unknown) => T;
+```
+
+4. `pickByType` - Pick properties of a specific type from an object:
+```typescript
+export function pickByType<T, U>(type: string): (obj: T) => Partial<T>;
+```
+
+5. `groupByKey` - Group array items by a specific key:
+```typescript
+export function groupByKey<T, K extends keyof T>(key: K): (list: T[]) => Record<T[K] & string, T[]>;
+```
+
+6. `mapKeysDeep` - Recursively map object keys:
+```typescript
+export function mapKeysDeep<T>(fn: (key: string) => string): (obj: T) => T;
+```
+
+7. `filterByType` - Filter array items by type:
+```typescript
+export function filterByType<T, U extends T>(type: string): (list: T[]) => U[];
+```
+
+8. `mergeDeep` - Deep merge objects:
+```typescript
+export function mergeDeep<T>(source: Partial<T>): (target: T) => T;
+```
+
+9. `partitionByType` - Partition array items by type:
+```typescript
+export function partitionByType<T>(type: string): (list: T[]) => [T[], T[]];
+```
+
+10. `mapValuesDeep` - Recursively map object values:
+```typescript
+export function mapValuesDeep<T>(fn: (value: any) => any): (obj: T) => T;
+```
+
+11. `pickByPath` - Pick properties by path pattern:
+```typescript
+export function pickByPath<T>(pathPattern: string): (obj: T) => Partial<T>;
+```
+
+12. `omitByPath` - Omit properties by path pattern:
+```typescript
+export function omitByPath<T>(pathPattern: string): (obj: T) => Partial<T>;
+```
+
+13. `mapAsyncParallel` - Parallel version of mapAsync with concurrency control:
+```typescript
+export function mapAsyncParallel<T, U>(
+  concurrency: number,
+  fn: (value: T) => Promise<U>
+): (list: T[]) => Promise<U[]>;
+```
+
+14. `groupByMultiple` - Group by multiple keys:
+```typescript
+export function groupByMultiple<T, K extends keyof T>(
+  keys: K[]
+): (list: T[]) => Record<string, T[]>;
+```
+
+15. `sortByMultiple` - Sort by multiple criteria:
+```typescript
+export function sortByMultiple<T>(
+  criteria: Array<(a: T, b: T) => number>
+): (list: T[]) => T[];
+```
+
+These suggestions are based on:
+1. Common use cases in TypeScript projects
+2. Working well within `R.pipe` chains
+3. Having clear, single-purpose functionality
+4. Being type-safe
+5. Following the library's focus on object manipulation and array operations
+6. Complementing existing methods
+
+The suggestions avoid methods that:
+1. Have confusing or ambiguous behavior
+2. Don't work well in pipe chains
+3. Have multiple ways to be used
+4. Are better suited as part of application code
+5. Have complex TypeScript definitions that would be hard to maintain 

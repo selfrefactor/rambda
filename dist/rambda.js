@@ -969,6 +969,17 @@ function mapParallelAsync(fn) {
   return async list =>  Promise.all(list.map((x, i) => fn(x, i)))
 }
 
+function mapPropObject(fn, prop) {
+  return obj => {
+		if (!Array.isArray(obj[prop])) return obj
+			
+			return {
+				...obj,
+				[prop]: obj[prop].map(fn)
+			}
+		}
+ 	 }
+
 function match(pattern) {
   return input => {
     const willReturn = input.match(pattern);
@@ -1814,4 +1825,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
