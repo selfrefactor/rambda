@@ -1461,6 +1461,17 @@
     return str => str.replace(pattern, replacer)
   }
 
+  function replaceAll(patterns, replacer) {
+    return input => {
+      let text = input;
+      patterns.forEach(singlePattern => {
+        text = text.replace(singlePattern, replacer);
+      });
+
+      return text
+    }
+  }
+
   function shuffle(listInput) {
     const list = cloneList(listInput);
     let counter = list.length;
@@ -1928,6 +1939,7 @@
   exports.reject = reject;
   exports.rejectObject = rejectObject;
   exports.replace = replace;
+  exports.replaceAll = replaceAll;
   exports.shuffle = shuffle;
   exports.sort = sort;
   exports.sortBy = sortBy;

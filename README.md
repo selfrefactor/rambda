@@ -6066,7 +6066,7 @@ it('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { mapObject, mapProp, pipe } from 'rambda'
+import { mapObject, pipe } from 'rambda'
 
 describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
@@ -6083,18 +6083,15 @@ describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
-      mapProp(a => {
+      mapObject(a => {
         a // $ExpectType number
-        return {
-					a,
-					flag: a > 2,
-				}
-      }, 'a'),
+        return typeof a as string
+      }),
     )
 
-    result // $ExpectType { a: string; }
+    result // $ExpectType { a: string; b: string; }
   })
-  it('iterable with two three arguments', () => {
+  it('iterable with two arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {
@@ -9873,6 +9870,98 @@ describe('R.replace', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replace)
 
+### replaceAll
+
+```typescript
+
+replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string
+```
+
+Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+
+```javascript
+const result = [
+	R.replaceAll(['o', /a/g], '|1|')('foa'),
+]
+// => 'f|1||1|'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%09R.replaceAll(%5B'o'%2C%20%2Fa%2Fg%5D%2C%20'%7C1%7C')('foa')%2C%0A%5D%0A%2F%2F%20%3D%3E%20'f%7C1%7C%7C1%7C'">Try this <strong>R.replaceAll</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.replaceAll</strong> source</summary>
+
+```javascript
+export function replaceAll(patterns, replacer) {
+  return input => {
+    let text = input
+    patterns.forEach(singlePattern => {
+      text = text.replace(singlePattern, replacer)
+    })
+
+    return text
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { replaceAll } from './replaceAll.js'
+
+const replacer = '|'
+const patterns = [/foo/g, 'bar']
+const input = 'foo bar baz foo bar'
+
+test('happy', () => {
+  const result = replaceAll(patterns, replacer)(input)
+  const expected = '| | baz | bar'
+
+  expect(result).toEqual(expected)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, replaceAll } from 'rambda'
+
+const str = 'foo bar foo'
+const replacer = 'bar'
+const patterns = [/foo/g, 'bar']
+
+describe('R.replaceAll', () => {
+  it('happy', () => {
+    const result = pipe(str, replaceAll(patterns, replacer))
+
+    result // $ExpectType string
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#replaceAll)
+
 ### shuffle
 
 ```typescript
@@ -13072,6 +13161,12 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+10.4.0
+
+Add `R.duplicateBy`
+
+Restore `R.replaceAll`
 
 10.3.0
 

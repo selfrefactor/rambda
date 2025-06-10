@@ -1825,6 +1825,11 @@ export function rejectObject<T extends object>(
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
 
 /**
+ * Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+ */
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+
+/**
  * It returns a randomized copy of array.
  */
 export function shuffle<T>(list: T[]): T[];

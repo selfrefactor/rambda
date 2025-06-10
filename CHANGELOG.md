@@ -2,6 +2,8 @@
 
 Add `R.duplicateBy`
 
+Restore `R.replaceAll`
+
 10.3.0
 
 Add `R.mapPropObject`

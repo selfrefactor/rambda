@@ -1,12 +1,12 @@
-import { replaceAll } from 'rambdax'
+import { pipe, replaceAll } from 'rambda'
 
 const str = 'foo bar foo'
 const replacer = 'bar'
 const patterns = [/foo/g, 'bar']
 
 describe('R.replaceAll', () => {
-  it('curried 1', () => {
-    const result = replaceAll(patterns, replacer)(str)
+  it('happy', () => {
+    const result = pipe(str, replaceAll(patterns, replacer))
 
     result // $ExpectType string
   })

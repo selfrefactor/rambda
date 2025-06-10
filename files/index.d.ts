@@ -2403,6 +2403,28 @@ Notes:
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
 
 /*
+Method: replaceAll
+ 
+Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+
+Example:
+
+```
+const result = [
+	R.replaceAll(['o', /a/g], '|1|')('foa'),
+]
+// => 'f|1||1|'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
+
+/*
 Method: sort
 
 Explanation: It returns copy of `list` sorted by `sortFn` function, where `sortFn` needs to return only `-1`, `0` or `1`.
