@@ -5,7 +5,7 @@ describe('R.mapPropObject', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
       mapPropObject(x => {
-        x // $ExpectType { a: number; b: string; }
+        x // $ExpectType number
         return {
           a: x,
           flag: x > 2,

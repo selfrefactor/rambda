@@ -16,7 +16,7 @@ describe('R.mapObject', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
       mapObject(a => {
-        a // $ExpectType number
+        a // $ExpectType string | number[]
         return typeof a as string
       }),
     )
