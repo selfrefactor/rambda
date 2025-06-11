@@ -1,9 +1,19 @@
 {
   "name": "@rambda/rambda",
   "version": "10.2.0",
-  "license": "MIT",
   "exports": "./mod.ts",
-	"publish": {
-    "include": ["src", "LICENSE.md", "README.md", "CHANGELOG.md", "mod.ts", "index.d.ts", "rambda.js"]
+  "imports": {
+    "rambda": "./mod.ts"
+  },
+  "publish": {
+    "include": [
+      "src",
+			"rambda.js",
+			"index.d.ts",
+			"index.d.cts",
+			"mod.ts",
+      "LICENSE.md",
+      "README.md"
+    ]
   }
 }

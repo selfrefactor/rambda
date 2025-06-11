@@ -1,3 +1,19 @@
+10.4.0
+
+Add `R.duplicateBy`
+
+Add `R.filterAsync`
+
+Restore `R.replaceAll`
+
+10.3.0
+
+Add `R.mapPropObject`
+
+10.2.0
+
+Add `R.modifyPath`
+
 10.1.0
 
 - Add `R.assertType` and `R.convertToType` methods

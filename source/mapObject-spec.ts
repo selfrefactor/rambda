@@ -12,7 +12,18 @@ describe('R.mapObject', () => {
 
     result // $ExpectType { a: string; }
   })
-  it('iterable with two three arguments', () => {
+  it('iterable with one arguments', () => {
+    const result = pipe(
+      { a: [1,2,3], b: 'foo' },
+      mapObject(a => {
+        a // $ExpectType string | number[]
+        return typeof a as string
+      }),
+    )
+
+    result // $ExpectType { a: string; b: string; }
+  })
+  it('iterable with two arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {

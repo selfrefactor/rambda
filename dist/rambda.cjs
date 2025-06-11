@@ -971,6 +971,17 @@ function mapParallelAsync(fn) {
   return async list =>  Promise.all(list.map((x, i) => fn(x, i)))
 }
 
+function mapPropObject(fn, prop) {
+  return obj => {
+		if (!Array.isArray(obj[prop])) return obj
+			
+			return {
+				...obj,
+				[prop]: obj[prop].map(fn)
+			}
+		}
+ 	 }
+
 function match(pattern) {
   return input => {
     const willReturn = input.match(pattern);
@@ -1446,6 +1457,17 @@ function replace(pattern, replacer) {
   return str => str.replace(pattern, replacer)
 }
 
+function replaceAll(patterns, replacer) {
+  return input => {
+    let text = input;
+    patterns.forEach(singlePattern => {
+      text = text.replace(singlePattern, replacer);
+    });
+
+    return text
+  }
+}
+
 function shuffle(listInput) {
   const list = cloneList(listInput);
   let counter = list.length;
@@ -1881,6 +1903,7 @@ exports.mapKeys = mapKeys;
 exports.mapObject = mapObject;
 exports.mapObjectAsync = mapObjectAsync;
 exports.mapParallelAsync = mapParallelAsync;
+exports.mapPropObject = mapPropObject;
 exports.match = match;
 exports.maxBy = maxBy;
 exports.merge = merge;
@@ -1912,6 +1935,7 @@ exports.reduce = reduce;
 exports.reject = reject;
 exports.rejectObject = rejectObject;
 exports.replace = replace;
+exports.replaceAll = replaceAll;
 exports.shuffle = shuffle;
 exports.sort = sort;
 exports.sortBy = sortBy;

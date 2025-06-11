@@ -1034,6 +1034,44 @@ export function mapObject<T extends object, Value>(
 ): (data: T) => MappedValues<T, Value>;
 
 /*
+Method: mapPropObject
+
+Explanation: It maps over a property of object that is a list. 
+
+Example:
+
+```
+
+const result = pipe(
+	{ a: [1,2,3], b: 'foo' },
+	mapPropObject(x => {
+		x // $ExpectType { a: number; b: string; }
+		return {
+			a: x,
+			flag: x > 2,
+		}
+	}, 'a'),
+)
+// => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mapPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (
+    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
+    data: T[K],
+  ) => Value,
+    prop: K,
+): (data: T) => T[K] extends ReadonlyArray<any>
+  ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+  : never;
+	
+/*
 Method: addPropToObjects
 
 Explanation: It receives list of objects and add new property to each item. 
@@ -2365,6 +2403,28 @@ Notes:
 */
 // @SINGLE_MARKER
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
+
+/*
+Method: replaceAll
+ 
+Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
+
+Example:
+
+```
+const result = [
+	R.replaceAll(['o', /a/g], '|1|')('foa'),
+]
+// => 'f|1||1|'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function replaceAll(patterns: (RegExp | string)[], replacer: string): (input: string) => string;
 
 /*
 Method: sort
