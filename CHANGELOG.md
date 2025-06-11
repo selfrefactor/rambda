@@ -2,6 +2,8 @@
 
 Add `R.duplicateBy`
 
+Add `R.filterAsync`
+
 Restore `R.replaceAll`
 
 10.3.0

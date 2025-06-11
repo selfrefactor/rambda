@@ -6321,11 +6321,13 @@ test('pipeAsync', async () => {
 
 mapPropObject<T extends object, K extends keyof T, Value>(
   valueMapper: (
-    value: T[K][number],
+    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
     data: T[K],
   ) => Value,
-	prop: K,
-): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+    prop: K,
+): (data: T) => T[K] extends ReadonlyArray<any>
+  ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+  : never
 ```
 
 It maps over a property of object that is a list.
@@ -6353,11 +6355,13 @@ const result = pipe(
 ```typescript
 mapPropObject<T extends object, K extends keyof T, Value>(
   valueMapper: (
-    value: T[K][number],
+    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
     data: T[K],
   ) => Value,
-	prop: K,
-): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>;
+    prop: K,
+): (data: T) => T[K] extends ReadonlyArray<any>
+  ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+  : never;
 ```
 
 </details>
@@ -13165,6 +13169,8 @@ describe('R.zipWith', () => {
 10.4.0
 
 Add `R.duplicateBy`
+
+Add `R.filterAsync`
 
 Restore `R.replaceAll`
 

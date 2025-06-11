@@ -571,11 +571,13 @@ export function mapParallelAsync<T extends IterableContainer, U>(
  */
 export function mapPropObject<T extends object, K extends keyof T, Value>(
   valueMapper: (
-    value: T[K][number],
+    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
     data: T[K],
   ) => Value,
-	prop: K,
-): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value[] }>;
+    prop: K,
+): (data: T) => T[K] extends ReadonlyArray<any>
+  ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+  : never;
 
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
