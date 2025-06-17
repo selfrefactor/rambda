@@ -29,8 +29,13 @@ Before opening PR, you need:
 
 > It is known that definitions of **R.compose/R.pipe** are far from perfect. The issue has been [previously discussed](https://github.com/selfrefactor/rambda/issues/466) but there is no obvious solution to it.
 
-### Run Test
+## Release process
 
+### Deno
+
+npx jsr publish
+
+deno.json
 
 ### Typescript definitions and method description
 

@@ -4,6 +4,8 @@ Add `R.duplicateBy`
 
 Add `R.filterAsync`
 
+Add `R.indexBy`
+
 Restore `R.replaceAll`
 
 10.3.0
