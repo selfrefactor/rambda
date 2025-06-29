@@ -1,8 +1,6 @@
 # Rambda
 
-`Rambda` is TypeScript-focused utility library similar to `Remeda`, `Ramda` and `Radashi`. 
-
-Initially it started as faster alternative to functional programming library `Ramda`, but in order to address many TypeScript issues, now `Rambda` takes a separate path. - [Documentation](https://selfrefactor.github.io/rambda/#/)
+`Rambda` is TypeScript-focused utility library similar to `Remeda`, `Ramda` and `Radashi`. - [Documentation site](https://selfrefactor.github.io/rambda/#/)
 
 ![Commit activity](https://img.shields.io/github/commit-activity/y/selfrefactor/rambda)
 ![Library size](https://img.shields.io/bundlephobia/minzip/rambda)
@@ -130,38 +128,13 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 // No space allowed between properties
 ```
 
-### Fast performance compared to Ramda
-
-Since `Rambda` methods doesn't use so many internals, it is faster than `Ramda`.
-Prior to version `10`, benchmark summary was included, but now the main selling point is the TypeScript focus, not performance so this is no longer included.
-
 ### Differences between Rambda and Ramda
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
 
-Documentation site of `Rambda` version `9.4.2` is available [here](https://selfrefactor.github.io/rambda-v9/).
+You can find documentation site of **Rambda** version **9.4.2** is [here](https://selfrefactor.github.io/rambda-v9/).
 
-From version `10.0.0` onwards, Rambda will start to diverge from Ramda in order to address some of the issues that Ramda has.
-
-Currently, `Rambda` includes 32 methods that differ from `Ramda` and shares 83 methods with it.
-
-<details>
-<summary>
-	Ramda issues
-</summary>
-
--- Typescript support - this is the main reason for the divergence. Most of design decisions in Rambda are made with Typescript in mind.
-
--- Methods that imply side-effect, which is not FP oriented, e.g. `R.forEach`.
-
--- Naming of methods that doesn't match developer's expectation, such as `R.chain`, which should be called `flatMap`.
-
--- Naming of methods is sometimes too generic to be remembered such as `R.update`, `R.modify`, `R.where`.
-
--- Methods that are already present in standard JavaScript, such as `R.toLower`, `R.length`.
-
--- `R.compose` doesn't have the best possible TypeScript support.
-</details>
+From version `10.0.0` onwards, **Rambda** is no longer aiming to be drop-in replacement for *Ramda*.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
 
@@ -13171,6 +13144,8 @@ describe('R.zipWith', () => {
 Add `R.duplicateBy`
 
 Add `R.filterAsync`
+
+Add `R.indexBy`
 
 Restore `R.replaceAll`
 
