@@ -182,7 +182,7 @@ Example:
 ```
 const list = [1, 2, 3]
 const predicate = x => x * x > 8
-R.any(fn)(list)
+R.any(predicate)(list)
 // => true
 ```
 
