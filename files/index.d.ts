@@ -95,10 +95,10 @@ type Flatten<T> = T extends object
 				[K in keyof T]-?: NonNullable<T[K]> extends infer V
 					? V extends object
 						? V extends readonly any[]
-							? never 
+							? never
 							: Flatten<V>
 						: V
-					: never 
+					: never
 			}
 	: T;
 
@@ -109,17 +109,17 @@ export type FlattenObject<T extends object> = object extends T
           x: NonNullable<T[K]> extends infer V
             ? V extends object
               ? V extends readonly any[]
-                ? never 
+                ? never
                 : Flatten<V> extends infer FV
                   ? {
                       [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
                     }
-                  : never 
+                  : never
               : Pick<T, K>
-            : never 
+            : never
         ) => void
       } extends Record<keyof T, (y: infer O) => void>
-    ? O 
+    ? O
     : never;
 // API_MARKER
 
@@ -233,7 +233,7 @@ const fn = R.anyPass(
   [isBig, isOdd]
 )
 
-const result = fn(input) 
+const result = fn(input)
 // => true
 ```
 
@@ -541,7 +541,7 @@ const result = R.find(predicate)(list)
 
 Categories: List
 
-Notes: 
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -564,7 +564,7 @@ const result = R.findNth(predicate, 2)(list)
 
 Categories: List
 
-Notes: 
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -655,9 +655,9 @@ Example:
 
 ```
 const result = R.flatten<number>([
-  1, 
-  2, 
-  [3, 30, [300]], 
+  1,
+  2,
+  [3, 30, [300]],
   [4]
 ])
 // => [ 1, 2, 3, 30, 300, 4 ]
@@ -705,7 +705,7 @@ Example:
 ```
 ```
 
-Categories: 
+Categories:
 
 Notes:
 
@@ -723,7 +723,7 @@ Example:
 ```
 const result = [
   R.head([1, 2, 3]),
-  R.head('foo') 
+  R.head('foo')
 ]
 // => [1, 'f']
 ```
@@ -734,13 +734,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function head<T>(listOrString: T): T extends string ? string : 
-	T extends [] ? undefined: 
-		T extends readonly [infer F, ...infer R] ? F : 
+export function head<T>(listOrString: T): T extends string ? string :
+	T extends [] ? undefined:
+		T extends readonly [infer F, ...infer R] ? F :
 			T extends readonly [infer F] ? F :
 				T extends [infer F] ? F :
-					T extends [infer F, ...infer R] ? F : 
-						T extends unknown[] ? T[number] : 
+					T extends [infer F, ...infer R] ? F :
+						T extends unknown[] ? T[number] :
 							undefined;
 
 /*
@@ -827,7 +827,7 @@ Example:
 
 ```
 const result = [
-  R.init([1, 2, 3]) , 
+  R.init([1, 2, 3]) ,
   R.init('foo')  // => 'fo'
 ]
 // => [[1, 2], 'fo']
@@ -859,7 +859,7 @@ const result = R.intersection(listA)(listB)
 
 Categories: List
 
-Notes: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]". 
+Notes: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]".
 
 */
 // @SINGLE_MARKER
@@ -927,13 +927,13 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function last<T>(listOrString: T): T extends string ? string : 
-  T extends [] ? undefined : 
-    T extends readonly [...infer R, infer L] ? L : 
+export function last<T>(listOrString: T): T extends string ? string :
+  T extends [] ? undefined :
+    T extends readonly [...infer R, infer L] ? L :
       T extends readonly [infer L] ? L :
         T extends [infer L] ? L :
-          T extends [...infer R, infer L] ? L : 
-            T extends unknown[] ? T[number] : 
+          T extends [...infer R, infer L] ? L :
+            T extends unknown[] ? T[number] :
               undefined;
 
 /*
@@ -969,7 +969,7 @@ Method: map
 
 Explanation: It returns the result of looping through `iterable` with `fn`.
 
-It works with both array and object. 
+It works with both array and object.
 
 Example:
 
@@ -1036,7 +1036,7 @@ export function mapObject<T extends object, Value>(
 /*
 Method: mapPropObject
 
-Explanation: It maps over a property of object that is a list. 
+Explanation: It maps over a property of object that is a list.
 
 Example:
 
@@ -1070,11 +1070,11 @@ export function mapPropObject<T extends object, K extends keyof T, Value>(
 ): (data: T) => T[K] extends ReadonlyArray<any>
   ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
   : never;
-	
+
 /*
 Method: addPropToObjects
 
-Explanation: It receives list of objects and add new property to each item. 
+Explanation: It receives list of objects and add new property to each item.
 
 The value is based on result of `fn` function, which receives the current object as argument.
 
@@ -1304,8 +1304,8 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj), 
-  R.omit(propsToOmitList, obj) 
+  R.omit(propsToOmit, obj),
+  R.omit(propsToOmitList, obj)
 ]
 // => [{b: 2}, {b: 2}]
 ```
@@ -2174,7 +2174,7 @@ Example:
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-const result = R.pluck(property)(list) 
+const result = R.pluck(property)(list)
 // => [1, 2]
 ```
 
@@ -2185,6 +2185,10 @@ Notes: pipe
 */
 // @SINGLE_MARKER
 export function pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
+export function pluck<K extends PropertyKey>(prop: K): {
+  <U extends O[keyof O], UK extends keyof U, O extends Record<string, any>>(obj: K extends UK ? O : never): { [OK in keyof O]: O[OK][K] };
+  <U extends readonly unknown[] | Record<K, any>>(list: readonly U[]): U extends readonly (infer T)[] ? T[] : U extends Record<K, infer T> ? T[] : never;
+};
 
 /*
 Method: prepend
@@ -2218,8 +2222,8 @@ Example:
 
 ```
 const result = [
-  R.prop('x')({x: 100}), 
-  R.prop('x')({a: 1}) 
+  R.prop('x')({x: 100}),
+  R.prop('x')({a: 1})
 ]
 // => [100, undefined]
 ```
@@ -2321,7 +2325,7 @@ export function propSatisfies<T>(predicate: (x: T) => boolean, property: string)
 /*
 Method: reduce
 
-Explanation: 
+Explanation:
 
 Example:
 
@@ -2383,7 +2387,7 @@ export function reject<T>(
 
 /*
 Method: replace
- 
+
 Explanation: It replaces `strOrRegex` found in `str` with `replacer`.
 
 Example:
@@ -2406,7 +2410,7 @@ export function replace(strOrRegex: RegExp | string, replacer: RegExp | string):
 
 /*
 Method: replaceAll
- 
+
 Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
 
 Example:
@@ -2696,7 +2700,7 @@ export function sortByPath<
 /*
 Method: sortByPathDescending
 
-Explanation: 
+Explanation:
 
 Example:
 
@@ -2879,7 +2883,7 @@ export function sortByPathDescending<
 /*
 Method: sortWith
 
-Explanation: 
+Explanation:
 
 Example:
 
@@ -2919,8 +2923,8 @@ Example:
 
 ```
 const result = [
-  R.splitEvery(2, [1, 2, 3]), 
-  R.splitEvery(3, 'foobar') 
+  R.splitEvery(2, [1, 2, 3]),
+  R.splitEvery(3, 'foobar')
 ]
 
 const expected = [
@@ -2972,8 +2976,8 @@ Example:
 
 ```
 const result = [
-  R.tail([1, 2, 3]),  
-  R.tail('foo') 
+  R.tail([1, 2, 3]),
+  R.tail('foo')
 ]
 // => [[2, 3], 'oo']
 ```
@@ -3049,7 +3053,7 @@ export function takeLast<T>(howMany: number): {
 /*
 Method: tap
 
-Explanation: It applies function `fn` to input `x` and returns `x`. 
+Explanation: It applies function `fn` to input `x` and returns `x`.
 
 One use case is debugging in the middle of `R.pipe` chain.
 
@@ -3161,7 +3165,7 @@ export function type(x: any): RambdaTypes;
 /*
 Method: union
 
-Explanation: It takes two lists and return a new list containing a merger of both list with removed duplicates. 
+Explanation: It takes two lists and return a new list containing a merger of both list with removed duplicates.
 
 `R.equals` is used to compare for duplication.
 
@@ -3174,7 +3178,7 @@ const result = R.union([1,2,3], [3,4,5]);
 
 Categories: List
 
-Notes: 
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3245,7 +3249,7 @@ export function uniqWith<T>(predicate: (x: T, y: T) => boolean): (list: T[]) => 
 /*
 Method: when
 
-Explanation: It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`. 
+Explanation: It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
 If the `predicate` returns `false`, then it will simply return `input`.
 
 Example:
@@ -3298,7 +3302,7 @@ const input = {
   c : 11,
 }
 
-const result = condition(input) 
+const result = condition(input)
 // => true
 ```
 
@@ -3341,7 +3345,7 @@ export function objectIncludes<T>(specification: T): (obj: Partial<T>) => boolea
 /*
 Method: zip
 
-Explanation: It will return a new array containing tuples of equally positions items from both `x` and `y` lists. 
+Explanation: It will return a new array containing tuples of equally positions items from both `x` and `y` lists.
 
 The returned list will be truncated to match the length of the shortest supplied list.
 
@@ -3395,7 +3399,7 @@ export function zipWith<T, U, TResult>(
 /*
 Method: takeLastWhile
 
-Explanation: 
+Explanation:
 
 Example:
 
@@ -3427,7 +3431,7 @@ const input = {
 	baz: 'baz',
 }
 const result = R.pipe(
-	input, 
+	input,
 	evolve({
 		foo: x => x + 1,
 	})
@@ -3437,7 +3441,7 @@ const result = R.pipe(
 
 Categories: Object, Logic
 
-Notes: 
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3549,7 +3553,7 @@ Example:
 const obj1 = {a: 1, b:2}
 const obj2 = {a: 1, b:3}
 const result = R.eqProps('a', obj1)(obj2)
-// => true 
+// => true
 ```
 
 Categories: Object
@@ -3649,7 +3653,7 @@ const result = R.uniqBy(x => x, list)
 
 Categories: List
 
-Notes: 
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -3667,7 +3671,7 @@ const person = {
   name : 'foo',
   age  : 20,
 }
-const result = R.modifyProp('age', x => x + 1)(person) 
+const result = R.modifyProp('age', x => x + 1)(person)
 // => {name: 'foo', age: 21}
 ```
 
@@ -4018,7 +4022,7 @@ export function unless<T>(predicate: (x: T) => boolean, whenFalseFn: (x: T) => T
 /*
 Method: split
 
-Explanation: 
+Explanation:
 
 Example:
 
@@ -4483,7 +4487,7 @@ Example:
 
 ```
 const result = R.pipe(
-	{ a: 1, b: 'foo' }, 
+	{ a: 1, b: 'foo' },
 	R.addProp('c', 3)
 )
 // => { a: 1, b: 'foo', c: 3 }
@@ -4631,7 +4635,7 @@ export function compact<T extends object>(record: T): {
 Method: convertToType
 
 Explanation: It helps to convert a value to a specific type.
-It is useful when you have to overcome TypeScript's type inference. 
+It is useful when you have to overcome TypeScript's type inference.
 
 Example:
 

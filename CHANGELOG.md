@@ -1,5 +1,7 @@
 10.4.0
 
+fix r.pluck
+
 Add `R.duplicateBy`
 
 Add `R.filterAsync`
@@ -40,7 +42,7 @@ This is major revamp of `Rambda` library:
 
 - Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
 
-- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain. 
+- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain.
 
 - Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
 
@@ -118,7 +120,7 @@ This is major revamp of `Rambda` library:
 - Rename following methods:
 
 -- modifyItemAtIndex -> adjust
--- checkObjectWithSpec -> where 
+-- checkObjectWithSpec -> where
 -- objectIncludes -> whereEq
 -- modify -> modifyProp
 -- chain -> flatMap
@@ -242,7 +244,7 @@ const result = piped(
 
 - Add `R.isNotEmpty` as it is new method in `Ramda`
 
-- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before 
+- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before
 
 9.2.1
 
@@ -252,7 +254,7 @@ const result = piped(
 
 - `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)
 
-- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726 
+- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726
 
 9.1.1
 
@@ -328,7 +330,7 @@ Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` 
 
 - Fix cannot compare errors in `Deno` with `R.equals` - [Issue #704](https://github.com/selfrefactor/rambda/issues/704).
 
-- Fix cannot compare `BigInt` with `R.equals` 
+- Fix cannot compare `BigInt` with `R.equals`
 
 8.3.0
 
@@ -413,7 +415,7 @@ Add the following methods:
 
 7.2.1
 
-- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript. 
+- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript.
 
 - Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
 
@@ -507,11 +509,11 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`.
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior. 
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
 
 - Remove unused typing for `R.chain`.
 
@@ -539,7 +541,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 - Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
 
-- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609) 
+- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609)
 
 6.9.0
 
@@ -554,7 +556,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 - R.symmetricDifference
 - R.union
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086. 
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086.
 
 6.8.3
 
