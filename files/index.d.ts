@@ -3660,6 +3660,28 @@ Notes:
 export function uniqBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
 
 /*
+Method: duplicateBy
+
+Explanation:
+
+Example:
+
+```
+const list = [{a:1}, {a:2}, {a:1}]
+const result = R.duplicateBy(x => x, list)
+
+// => [{a:1}]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
+
+/*
 Method: modifyProp
 
 Explanation: It changes a property with the result of transformer function.

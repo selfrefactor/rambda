@@ -1,6 +1,6 @@
 10.4.0
 
-fix r.pluck
+fix `R.pluck`
 
 Add `R.duplicateBy`
 
