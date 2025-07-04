@@ -1034,6 +1034,32 @@ export function mapObject<T extends object, Value>(
 ): (data: T) => MappedValues<T, Value>;
 
 /*
+Method: transformPropObject
+
+Explanation:
+
+Example:
+
+```
+const fn = (x) => x > 2
+const obj = {a: 1, b: 2}
+
+const result = R.transformPropObject(fn, 'a')(obj)
+// => {a: false, b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
+
+/*
 Method: mapPropObject
 
 Explanation: It maps over a property of object that is a list.
