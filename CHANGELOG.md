@@ -1,6 +1,6 @@
-10.4.0
+10.3.0
 
-fix `R.pluck`
+Fix `R.pluck`
 
 Add `R.duplicateBy`
 
@@ -10,7 +10,7 @@ Add `R.indexBy`
 
 Restore `R.replaceAll`
 
-10.3.0
+Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`
 
 Add `R.mapPropObject`
 

@@ -76,6 +76,8 @@ it('within Ramda.pipe requires explicit types', () => {
 });
 ```
 
+IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+
 ### Keep only the most useful methods
 
 The idea is to give `TypeScript` users only the most useful methods and let them implement the rest. No magic logic methods that are hard to remember. You shouldn't need to read the documentation to understand what a method does. Its name and signature should be enough.
@@ -5809,16 +5811,6 @@ mapAsync<T extends IterableContainer, U>(
 mapAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-...
-...
 ```
 
 </details>
@@ -5904,14 +5896,12 @@ test('error', async () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { mapAsync, pipeAsync } from 'rambda'
-import { delay } from 'rambdax'
+import { mapAsync, pipeAsync, map } from 'rambda'
 
 const list = ['a', 'bc', 'def']
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 it('R.mapAsync', async () => {
-	const fn = async (x:unknown) => x as number + 1
-
   const result = await pipeAsync(
     list,
     mapAsync(async x => {
@@ -5920,7 +5910,7 @@ it('R.mapAsync', async () => {
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
-		mapAsync(fn),
+		map(x => x +1),
     mapAsync(async x => {
       await delay(100)
       return x + 1
@@ -6296,16 +6286,6 @@ mapParallelAsync<T extends IterableContainer, U>(
 mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-...
-...
 ```
 
 </details>
@@ -13228,9 +13208,9 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-10.4.0
+10.3.0
 
-fix `R.pluck`
+Fix `R.pluck`
 
 Add `R.duplicateBy`
 
@@ -13240,7 +13220,7 @@ Add `R.indexBy`
 
 Restore `R.replaceAll`
 
-10.3.0
+Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`
 
 Add `R.mapPropObject`
 
