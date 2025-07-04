@@ -95,10 +95,10 @@ type Flatten<T> = T extends object
 				[K in keyof T]-?: NonNullable<T[K]> extends infer V
 					? V extends object
 						? V extends readonly any[]
-							? never 
+							? never
 							: Flatten<V>
 						: V
-					: never 
+					: never
 			}
 	: T;
 
@@ -109,17 +109,17 @@ export type FlattenObject<T extends object> = object extends T
           x: NonNullable<T[K]> extends infer V
             ? V extends object
               ? V extends readonly any[]
-                ? never 
+                ? never
                 : Flatten<V> extends infer FV
                   ? {
                       [P in keyof FV as `${Extract<K, string>}.${Extract<P, string>}`]: FV[P]
                     }
-                  : never 
+                  : never
               : Pick<T, K>
-            : never 
+            : never
         ) => void
       } extends Record<keyof T, (y: infer O) => void>
-    ? O 
+    ? O
     : never;
 
 /**
@@ -295,6 +295,8 @@ export function dropRepeatsWith<T>(predicate: (x: T, y: T) => boolean): (list: T
 export function dropWhile<T>(predicate: (x: T, index: number) => boolean): (list: T[]) => T[];
 export function dropWhile<T>(predicate: (x: T) => boolean): (list: T[]) => T[];
 
+export function duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
+
 export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
 /**
@@ -408,13 +410,13 @@ export function groupBy<T, K extends string = string>(fn: (x: T) => K): (list: T
 /**
  * It returns the first element of list or string `input`. It returns `undefined` if array has length of 0.
  */
-export function head<T>(listOrString: T): T extends string ? string : 
-	T extends [] ? undefined: 
-		T extends readonly [infer F, ...infer R] ? F : 
+export function head<T>(listOrString: T): T extends string ? string :
+	T extends [] ? undefined:
+		T extends readonly [infer F, ...infer R] ? F :
 			T extends readonly [infer F] ? F :
 				T extends [infer F] ? F :
-					T extends [infer F, ...infer R] ? F : 
-						T extends unknown[] ? T[number] : 
+					T extends [infer F, ...infer R] ? F :
+						T extends unknown[] ? T[number] :
 							undefined;
 
 /**
@@ -451,7 +453,7 @@ export function interpolate(inputWithTags: string): (templateArguments: object) 
 
 
 // API_MARKER_END
-// ===========================================
+// ============================================
 
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -471,13 +473,13 @@ export function join<T>(glue: string): (list: T[]) => string;
 /**
  * It returns the last element of `input`, as the `input` can be either a string or an array. It returns `undefined` if array has length of 0.
  */
-export function last<T>(listOrString: T): T extends string ? string : 
-  T extends [] ? undefined : 
-    T extends readonly [...infer R, infer L] ? L : 
+export function last<T>(listOrString: T): T extends string ? string :
+  T extends [] ? undefined :
+    T extends readonly [...infer R, infer L] ? L :
       T extends readonly [infer L] ? L :
         T extends [infer L] ? L :
-          T extends [...infer R, infer L] ? L : 
-            T extends unknown[] ? T[number] : 
+          T extends [...infer R, infer L] ? L :
+            T extends unknown[] ? T[number] :
               undefined;
 
 /**
@@ -1750,6 +1752,10 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
  * Basically, this is `R.map(R.prop(property))`.
  */
 export function pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
+export function pluck<K extends PropertyKey>(prop: K): {
+  <U extends O[keyof O], UK extends keyof U, O extends Record<string, any>>(obj: K extends UK ? O : never): { [OK in keyof O]: O[OK][K] };
+  <U extends readonly unknown[] | Record<K, any>>(list: readonly U[]): U extends readonly (infer T)[] ? T[] : U extends Record<K, infer T> ? T[] : never;
+};
 
 /**
  * It adds element `x` at the beginning of `list`.

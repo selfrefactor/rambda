@@ -535,6 +535,53 @@ function equals(a) {
   return b => equalsFn(a, b)
 }
 
+class _Set {
+  constructor() {
+    this.set = new Set();
+    this.items = {};
+  }
+
+  checkUniqueness(item) {
+    const type$1 = type(item);
+    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
+      if (type$1 in this.items) {
+        return false
+      }
+      this.items[type$1] = true;
+
+      return true
+    }
+    if (!['Object', 'Array'].includes(type$1)) {
+      const prevSize = this.set.size;
+      this.set.add(item);
+
+      return this.set.size !== prevSize
+    }
+
+    if (!(type$1 in this.items)) {
+      this.items[type$1] = [item];
+
+      return true
+    }
+
+    if (_indexOf(item, this.items[type$1]) === -1) {
+      this.items[type$1].push(item);
+
+      return true
+    }
+
+    return false
+  }
+}
+
+function duplicateBy(fn) {
+  return list => {
+    const set = new _Set();
+
+    return list.filter(item => !set.checkUniqueness(fn(item)))
+  }
+}
+
 function eqBy(fn, a) {
   return b => equalsFn(fn(a), fn(b))
 }
@@ -1698,45 +1745,6 @@ function union(x) {
   }
 }
 
-class _Set {
-  constructor() {
-    this.set = new Set();
-    this.items = {};
-  }
-
-  checkUniqueness(item) {
-    const type$1 = type(item);
-    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
-      if (type$1 in this.items) {
-        return false
-      }
-      this.items[type$1] = true;
-
-      return true
-    }
-    if (!['Object', 'Array'].includes(type$1)) {
-      const prevSize = this.set.size;
-      this.set.add(item);
-
-      return this.set.size !== prevSize
-    }
-
-    if (!(type$1 in this.items)) {
-      this.items[type$1] = [item];
-
-      return true
-    }
-
-    if (_indexOf(item, this.items[type$1]) === -1) {
-      this.items[type$1].push(item);
-
-      return true
-    }
-
-    return false
-  }
-}
-
 function uniq(list) {
   const set = new _Set();
   const willReturn = [];
@@ -1866,6 +1874,7 @@ exports.drop = drop;
 exports.dropLast = dropLast;
 exports.dropLastWhile = dropLastWhile;
 exports.dropWhile = dropWhile;
+exports.duplicateBy = duplicateBy;
 exports.eqBy = eqBy;
 exports.eqProps = eqProps;
 exports.equals = equals;

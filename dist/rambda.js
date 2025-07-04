@@ -533,6 +533,53 @@ function equals(a) {
   return b => equalsFn(a, b)
 }
 
+class _Set {
+  constructor() {
+    this.set = new Set();
+    this.items = {};
+  }
+
+  checkUniqueness(item) {
+    const type$1 = type(item);
+    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
+      if (type$1 in this.items) {
+        return false
+      }
+      this.items[type$1] = true;
+
+      return true
+    }
+    if (!['Object', 'Array'].includes(type$1)) {
+      const prevSize = this.set.size;
+      this.set.add(item);
+
+      return this.set.size !== prevSize
+    }
+
+    if (!(type$1 in this.items)) {
+      this.items[type$1] = [item];
+
+      return true
+    }
+
+    if (_indexOf(item, this.items[type$1]) === -1) {
+      this.items[type$1].push(item);
+
+      return true
+    }
+
+    return false
+  }
+}
+
+function duplicateBy(fn) {
+  return list => {
+    const set = new _Set();
+
+    return list.filter(item => !set.checkUniqueness(fn(item)))
+  }
+}
+
 function eqBy(fn, a) {
   return b => equalsFn(fn(a), fn(b))
 }
@@ -1696,45 +1743,6 @@ function union(x) {
   }
 }
 
-class _Set {
-  constructor() {
-    this.set = new Set();
-    this.items = {};
-  }
-
-  checkUniqueness(item) {
-    const type$1 = type(item);
-    if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
-      if (type$1 in this.items) {
-        return false
-      }
-      this.items[type$1] = true;
-
-      return true
-    }
-    if (!['Object', 'Array'].includes(type$1)) {
-      const prevSize = this.set.size;
-      this.set.add(item);
-
-      return this.set.size !== prevSize
-    }
-
-    if (!(type$1 in this.items)) {
-      this.items[type$1] = [item];
-
-      return true
-    }
-
-    if (_indexOf(item, this.items[type$1]) === -1) {
-      this.items[type$1].push(item);
-
-      return true
-    }
-
-    return false
-  }
-}
-
 function uniq(list) {
   const set = new _Set();
   const willReturn = [];
@@ -1836,4 +1844,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

@@ -21,7 +21,7 @@ const result = pipe(
 // => [6, 8]
 ```
 
-You can test this example in <a href="https://rambda.now.sh?const%20result%20%3D%20R.compose(%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%0A)(%5B1%2C%202%2C%203%2C%204%5D)%0A%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
+You can test this example in <a href="https://rambda.now.sh/?const%20result%20%3D%20R.pipe(%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A)%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
 
 * [API](#api)
 * [Changelog](#-changelog)
@@ -154,13 +154,13 @@ It adds new key-value pair to the object.
 
 ```javascript
 const result = R.pipe(
-	{ a: 1, b: 'foo' }, 
+	{ a: 1, b: 'foo' },
 	R.addProp('c', 3)
 )
 // => { a: 1, b: 'foo', c: 3 }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%7B%20a%3A%201%2C%20b%3A%20'foo'%20%7D%2C%20%0A%09R.addProp('c'%2C%203)%0A)%0A%2F%2F%20%3D%3E%20%7B%20a%3A%201%2C%20b%3A%20'foo'%2C%20c%3A%203%20%7D">Try this <strong>R.addProp</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%7B%20a%3A%201%2C%20b%3A%20'foo'%20%7D%2C%0A%09R.addProp('c'%2C%203)%0A)%0A%2F%2F%20%3D%3E%20%7B%20a%3A%201%2C%20b%3A%20'foo'%2C%20c%3A%203%20%7D">Try this <strong>R.addProp</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -237,7 +237,7 @@ addPropToObjects<
 ): (list: T[]) => MergeTypes<T & { [P in K]: R }>[]
 ```
 
-It receives list of objects and add new property to each item. 
+It receives list of objects and add new property to each item.
 
 The value is based on result of `fn` function, which receives the current object as argument.
 
@@ -661,11 +661,11 @@ const fn = R.anyPass(
   [isBig, isOdd]
 )
 
-const result = fn(input) 
+const result = fn(input)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isBig%20%3D%20x%20%3D%3E%20x%20%3E%2020%0Aconst%20isOdd%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0Aconst%20input%20%3D%2011%0A%0Aconst%20fn%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)%0A%0Aconst%20result%20%3D%20fn(input)%20%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.anyPass</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20isBig%20%3D%20x%20%3D%3E%20x%20%3E%2020%0Aconst%20isOdd%20%3D%20x%20%3D%3E%20x%20%25%202%20%3D%3D%3D%201%0Aconst%20input%20%3D%2011%0A%0Aconst%20fn%20%3D%20R.anyPass(%0A%20%20%5BisBig%2C%20isOdd%5D%0A)%0A%0Aconst%20result%20%3D%20fn(input)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.anyPass</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -1111,11 +1111,11 @@ const input = {
   c : 11,
 }
 
-const result = condition(input) 
+const result = condition(input)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20condition%20%3D%20R.checkObjectWithSpec(%7B%0A%20%20a%20%3A%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20%22string%22%2C%0A%20%20b%20%3A%20x%20%3D%3E%20x%20%3D%3D%3D%204%0A%7D)%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%3A%20%22foo%22%2C%0A%20%20b%20%3A%204%2C%0A%20%20c%20%3A%2011%2C%0A%7D%0A%0Aconst%20result%20%3D%20condition(input)%20%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.checkObjectWithSpec</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20condition%20%3D%20R.checkObjectWithSpec(%7B%0A%20%20a%20%3A%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20%22string%22%2C%0A%20%20b%20%3A%20x%20%3D%3E%20x%20%3D%3D%3D%204%0A%7D)%0Aconst%20input%20%3D%20%7B%0A%20%20a%20%3A%20%22foo%22%2C%0A%20%20b%20%3A%204%2C%0A%20%20c%20%3A%2011%2C%0A%7D%0A%0Aconst%20result%20%3D%20condition(input)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.checkObjectWithSpec</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2359,6 +2359,76 @@ describe('R.dropWhile', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#dropWhile)
 
+### duplicateBy
+
+```typescript
+
+duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[]
+```
+
+```javascript
+const list = [{a:1}, {a:2}, {a:1}]
+const result = R.duplicateBy(x => x, list)
+
+// => [{a:1}]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.duplicateBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%5D">Try this <strong>R.duplicateBy</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.duplicateBy</strong> source</summary>
+
+```javascript
+import { _Set } from '../src/_internals/set.js'
+
+export function duplicateBy(fn) {
+  return list => {
+    const set = new _Set()
+
+    return list.filter(item => !set.checkUniqueness(fn(item)))
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { duplicateBy } from './duplicateBy.js'
+
+test('happy', () => {
+  expect(duplicateBy(Math.abs)([-2, -1, 0, 1, 2])).toEqual([1,2])
+})
+
+test('returns an empty array for an empty array', () => {
+  expect(duplicateBy(Math.abs)([])).toEqual([])
+})
+
+test('uses R.uniq', () => {
+  const list = [{ a: 1 }, { a: 2 }, { a: 1 }]
+  const expected = [{ a: 1 }]
+  expect(duplicateBy(x => x)(list)).toEqual(expected)
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#duplicateBy)
+
 ### eqBy
 
 ```typescript
@@ -3023,7 +3093,7 @@ const input = {
 	baz: 'baz',
 }
 const result = R.pipe(
-	input, 
+	input,
 	evolve({
 		foo: x => x + 1,
 	})
@@ -3031,7 +3101,7 @@ const result = R.pipe(
 // => result is { foo: 3, baz: 'baz' }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%09foo%3A%202%2C%0A%09baz%3A%20'baz'%2C%0A%7D%0Aconst%20result%20%3D%20R.pipe(%0A%09input%2C%20%0A%09evolve(%7B%0A%09%09foo%3A%20x%20%3D%3E%20x%20%2B%201%2C%0A%09%7D)%0A)%0A%2F%2F%20%3D%3E%20result%20is%20%7B%20foo%3A%203%2C%20baz%3A%20'baz'%20%7D">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%09foo%3A%202%2C%0A%09baz%3A%20'baz'%2C%0A%7D%0Aconst%20result%20%3D%20R.pipe(%0A%09input%2C%0A%09evolve(%7B%0A%09%09foo%3A%20x%20%3D%3E%20x%20%2B%201%2C%0A%09%7D)%0A)%0A%2F%2F%20%3D%3E%20result%20is%20%7B%20foo%3A%203%2C%20baz%3A%20'baz'%20%7D">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4043,15 +4113,15 @@ You must pass expected output type as a type argument.
 
 ```javascript
 const result = R.flatten<number>([
-  1, 
-  2, 
-  [3, 30, [300]], 
+  1,
+  2,
+  [3, 30, [300]],
   [4]
 ])
 // => [ 1, 2, 3, 30, 300, 4 ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.flatten%3Cnumber%3E(%5B%0A%20%201%2C%20%0A%20%202%2C%20%0A%20%20%5B3%2C%2030%2C%20%5B300%5D%5D%2C%20%0A%20%20%5B4%5D%0A%5D)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%203%2C%2030%2C%20300%2C%204%20%5D">Try this <strong>R.flatten</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.flatten%3Cnumber%3E(%5B%0A%20%201%2C%0A%20%202%2C%0A%20%20%5B3%2C%2030%2C%20%5B300%5D%5D%2C%0A%20%20%5B4%5D%0A%5D)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%203%2C%2030%2C%20300%2C%204%20%5D">Try this <strong>R.flatten</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4470,13 +4540,13 @@ describe('R.groupBy', () => {
 
 ```typescript
 
-head<T>(listOrString: T): T extends string ? string : 
-	T extends [] ? undefined: 
-		T extends readonly [infer F, ...infer R] ? F : 
+head<T>(listOrString: T): T extends string ? string :
+	T extends [] ? undefined:
+		T extends readonly [infer F, ...infer R] ? F :
 			T extends readonly [infer F] ? F :
 				T extends [infer F] ? F :
-					T extends [infer F, ...infer R] ? F : 
-						T extends unknown[] ? T[number] : 
+					T extends [infer F, ...infer R] ? F :
+						T extends unknown[] ? T[number] :
 							undefined
 ```
 
@@ -4485,25 +4555,25 @@ It returns the first element of list or string `input`. It returns `undefined` i
 ```javascript
 const result = [
   R.head([1, 2, 3]),
-  R.head('foo') 
+  R.head('foo')
 ]
 // => [1, 'f']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.head(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.head('foo')%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'f'%5D">Try this <strong>R.head</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.head(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.head('foo')%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'f'%5D">Try this <strong>R.head</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-head<T>(listOrString: T): T extends string ? string : 
-	T extends [] ? undefined: 
-		T extends readonly [infer F, ...infer R] ? F : 
+head<T>(listOrString: T): T extends string ? string :
+	T extends [] ? undefined:
+		T extends readonly [infer F, ...infer R] ? F :
 			T extends readonly [infer F] ? F :
 				T extends [infer F] ? F :
-					T extends [infer F, ...infer R] ? F : 
-						T extends unknown[] ? T[number] : 
+					T extends [infer F, ...infer R] ? F :
+						T extends unknown[] ? T[number] :
 							undefined;
 ```
 
@@ -4828,13 +4898,13 @@ It returns all but the last element of list or string `input`.
 
 ```javascript
 const result = [
-  R.init([1, 2, 3]) , 
+  R.init([1, 2, 3]) ,
   R.init('foo')  // => 'fo'
 ]
 // => [[1, 2], 'fo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.init(%5B1%2C%202%2C%203%5D)%20%2C%20%0A%20%20R.init('foo')%20%20%2F%2F%20%3D%3E%20'fo'%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.init</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.init(%5B1%2C%202%2C%203%5D)%20%2C%0A%20%20R.init('foo')%20%20%2F%2F%20%3D%3E%20'fo'%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.init</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5072,7 +5142,7 @@ const expected = 'foo is BAR even 1 more'
 interpolate(inputWithTags: string): (templateArguments: object) => string;
 
 // API_MARKER_END
-// ===========================================
+// ============================================
 ```
 
 </details>
@@ -5409,13 +5479,13 @@ it('R.join', () => {
 
 ```typescript
 
-last<T>(listOrString: T): T extends string ? string : 
-  T extends [] ? undefined : 
-    T extends readonly [...infer R, infer L] ? L : 
+last<T>(listOrString: T): T extends string ? string :
+  T extends [] ? undefined :
+    T extends readonly [...infer R, infer L] ? L :
       T extends readonly [infer L] ? L :
         T extends [infer L] ? L :
-          T extends [...infer R, infer L] ? L : 
-            T extends unknown[] ? T[number] : 
+          T extends [...infer R, infer L] ? L :
+            T extends unknown[] ? T[number] :
               undefined
 ```
 
@@ -5436,13 +5506,13 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-last<T>(listOrString: T): T extends string ? string : 
-  T extends [] ? undefined : 
-    T extends readonly [...infer R, infer L] ? L : 
+last<T>(listOrString: T): T extends string ? string :
+  T extends [] ? undefined :
+    T extends readonly [...infer R, infer L] ? L :
       T extends readonly [infer L] ? L :
         T extends [infer L] ? L :
-          T extends [...infer R, infer L] ? L : 
-            T extends unknown[] ? T[number] : 
+          T extends [...infer R, infer L] ? L :
+            T extends unknown[] ? T[number] :
               undefined;
 ```
 
@@ -6971,11 +7041,11 @@ const person = {
   name : 'foo',
   age  : 20,
 }
-const result = R.modifyProp('age', x => x + 1)(person) 
+const result = R.modifyProp('age', x => x + 1)(person)
 // => {name: 'foo', age: 21}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20person%20%3D%20%7B%0A%20%20name%20%3A%20'foo'%2C%0A%20%20age%20%20%3A%2020%2C%0A%7D%0Aconst%20result%20%3D%20R.modifyProp('age'%2C%20x%20%3D%3E%20x%20%2B%201)(person)%20%0A%2F%2F%20%3D%3E%20%7Bname%3A%20'foo'%2C%20age%3A%2021%7D">Try this <strong>R.modifyProp</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20person%20%3D%20%7B%0A%20%20name%20%3A%20'foo'%2C%0A%20%20age%20%20%3A%2020%2C%0A%7D%0Aconst%20result%20%3D%20R.modifyProp('age'%2C%20x%20%3D%3E%20x%20%2B%201)(person)%0A%2F%2F%20%3D%3E%20%7Bname%3A%20'foo'%2C%20age%3A%2021%7D">Try this <strong>R.modifyProp</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7398,13 +7468,13 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj), 
-  R.omit(propsToOmitList, obj) 
+  R.omit(propsToOmit, obj),
+  R.omit(propsToOmitList, obj)
 ]
 // => [{b: 2}, {b: 2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%20%0A%20%20R.omit(propsToOmitList%2C%20obj)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%0A%20%20R.omit(propsToOmitList%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8794,11 +8864,11 @@ Basically, this is `R.map(R.prop(property))`.
 const list = [{a: 1}, {a: 2}, {b: 3}]
 const property = 'a'
 
-const result = R.pluck(property)(list) 
+const result = R.pluck(property)(list)
 // => [1, 2]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20R.pluck(property)(list)%20%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.pluck</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A%201%7D%2C%20%7Ba%3A%202%7D%2C%20%7Bb%3A%203%7D%5D%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20R.pluck(property)(list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%5D">Try this <strong>R.pluck</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8806,6 +8876,12 @@ const result = R.pluck(property)(list)
 
 ```typescript
 pluck<T, K extends keyof T>(property: K): (list: T[]) => T[K][];
+pluck<K extends PropertyKey>(prop: K): {
+  <U extends O[keyof O], UK extends keyof U, O extends Record<string, any>>(obj: K extends UK ? O : never): { [OK in keyof O]: O[OK][K] };
+  <U extends readonly unknown[] | Record<K, any>>(list: readonly U[]): U extends readonly (infer T)[] ? T[] : U extends Record<K, infer T> ? T[] : never;
+};
+...
+...
 ```
 
 </details>
@@ -8855,16 +8931,29 @@ test('with undefined', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { pipe, pluck } from 'rambda'
+import { pipe, pluck } from "rambda";
 
-it('R.pluck', () => {
+it("R.pluck", () => {
   const input = [
-    { a: 1, b: 'foo' },
-    { a: 2, b: 'bar' },
-  ]
-  const result = pipe(input, pluck('b'))
-  result // $ExpectType string[]
-})
+    { a: 1, b: "foo" },
+    { a: 2, b: "bar" },
+  ];
+  const result = pipe(input, pluck("b"));
+  result; // $ExpectType string[]
+});
+
+it("R.pluck without R.pipe", () => {
+  interface Content {
+    text: string;
+  }
+  const content: Content[] = [
+    {
+      text: "foo",
+    },
+  ];
+  const sentences = pluck("text")(content);
+  sentences; // $ExpectType string[]
+});
 ```
 
 </details>
@@ -8943,13 +9032,13 @@ If there is no such property, it returns `undefined`.
 
 ```javascript
 const result = [
-  R.prop('x')({x: 100}), 
-  R.prop('x')({a: 1}) 
+  R.prop('x')({x: 100}),
+  R.prop('x')({a: 1})
 ]
 // => [100, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x')(%7Bx%3A%20100%7D)%2C%20%0A%20%20R.prop('x')(%7Ba%3A%201%7D)%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.prop('x')(%7Bx%3A%20100%7D)%2C%0A%20%20R.prop('x')(%7Ba%3A%201%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5B100%2C%20undefined%5D">Try this <strong>R.prop</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10829,8 +10918,8 @@ It splits `input` into slices of `sliceLength`.
 
 ```javascript
 const result = [
-  R.splitEvery(2, [1, 2, 3]), 
-  R.splitEvery(3, 'foobar') 
+  R.splitEvery(2, [1, 2, 3]),
+  R.splitEvery(3, 'foobar')
 ]
 
 const expected = [
@@ -10840,7 +10929,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2%2C%20%5B1%2C%202%2C%203%5D)%2C%20%0A%20%20R.splitEvery(3%2C%20'foobar')%20%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2%2C%20%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.splitEvery(3%2C%20'foobar')%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11022,13 +11111,13 @@ It returns all but the first element of `input`.
 
 ```javascript
 const result = [
-  R.tail([1, 2, 3]),  
-  R.tail('foo') 
+  R.tail([1, 2, 3]),
+  R.tail('foo')
 ]
 // => [[2, 3], 'oo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.tail(%5B1%2C%202%2C%203%5D)%2C%20%20%0A%20%20R.tail('foo')%20%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%203%5D%2C%20'oo'%5D">Try this <strong>R.tail</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.tail(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.tail('foo')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%203%5D%2C%20'oo'%5D">Try this <strong>R.tail</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11491,7 +11580,7 @@ it('R.takeWhile', () => {
 tap<T>(fn: (x: T) => void): (input: T) => T
 ```
 
-It applies function `fn` to input `x` and returns `x`. 
+It applies function `fn` to input `x` and returns `x`.
 
 One use case is debugging in the middle of `R.pipe` chain.
 
@@ -12005,7 +12094,7 @@ describe('R.type', () => {
 union<T>(x: T[]): (y: T[]) => T[]
 ```
 
-It takes two lists and return a new list containing a merger of both list with removed duplicates. 
+It takes two lists and return a new list containing a merger of both list with removed duplicates.
 
 `R.equals` is used to compare for duplication.
 
@@ -12790,7 +12879,7 @@ test('with negative index', () => {
 when<T, U extends T>(predicate: (x: T) => x is U, whenTrueFn: (x: U) => T): (input: T) => T
 ```
 
-It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`. 
+It pass `input` to `predicate` function and if the result is `true`, it will return the result of `whenTrueFn(input)`.
 If the `predicate` returns `false`, then it will simply return `input`.
 
 ```javascript
@@ -12917,7 +13006,7 @@ describe('R.when', () => {
 zip<K>(x: K[]): <V>(y: V[]) => KeyValuePair<K, V>[]
 ```
 
-It will return a new array containing tuples of equally positions items from both `x` and `y` lists. 
+It will return a new array containing tuples of equally positions items from both `x` and `y` lists.
 
 The returned list will be truncated to match the length of the shortest supplied list.
 
@@ -13141,6 +13230,8 @@ describe('R.zipWith', () => {
 
 10.4.0
 
+fix `R.pluck`
+
 Add `R.duplicateBy`
 
 Add `R.filterAsync`
@@ -13181,7 +13272,7 @@ This is major revamp of `Rambda` library:
 
 - Confusing methods are removed. For example, `R.cond` and `R.ifElse` are removed as their usage inside `R.piped` makes the whole chain less readable. Such logic should be part of your codebase, not part of external library.
 
-- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain. 
+- All methods that expect more than 1 input, will have to be called with `R.methodName(input1)(input2)` or `R.methodName(input1, input2)(input3)`. This is to make TypeScript definitions easier to maintain.
 
 - Optimize many methods to better work in TypeScript context with `R.pipe`. The focus was passing objects through the `R.pipe` chain.
 
@@ -13193,83 +13284,149 @@ This is major revamp of `Rambda` library:
 - Remove following methods:
 
 -- Lenses - `R.lens`, `R.lensProp`, `R.lensPath`, `R.view`, `R.set`, `R.over`
+
 -- T, F
+
 -- add
+
 -- addIndex, addIndexRight
+
 -- always
+
 -- ap
+
 -- applySpec
+
 -- applyTo
+
 -- assoc, assocPath, dissoc, dissocPath
+
 -- binary
+
 -- bind
+
 -- call
+
 -- collectBy
+
 -- compose
+
 -- composeWith
+
 -- cond
+
 -- converge
+
 -- curry
+
 -- difference, differenceWith
+
 -- divide, multiply, subtract
+
 -- endsWith/startsWith
+
 -- flip
+
 -- forEachObjIndexed
+
 -- fromPairs
+
 -- gte, lte, lt, gt
+
 -- identical
+
 -- ifElse
+
 -- insert
+
 -- juxt
+
 -- length
+
 -- mapObjIndexed
+
 -- mergeAll, mergeLeft, mergeDeepLeft, mergeDeepRight
+
 -- move
+
 -- partitionIndexed
+
 -- pickAll
+
 -- pickBy
+
 -- repeat
+
 -- splitWhen
+
 -- toLower/toUpper
+
 -- unapply
+
 -- unnest
+
 -- update
+
 -- without
 
 - Add following methods:
 
 -- R.pipeAsync
+
 -- R.addProp
+
 -- R.createObjectFromKeys
+
 -- R.mapAsync
+
 -- R.mapParallelAsync
+
 -- R.ascend/R.descend
+
 -- R.shuffle
+
 -- R.permutations
+
 -- R.compact
+
 -- R.rejectObject
+
 -- R.findNth
+
 -- R.combinations
+
 -- R.sortByPath
+
 -- R.sortByPathDescending
+
 -- R.sortByDescending
+
 -- R.flattenObject
+
 -- R.addPropToObjects
 
 - Rename following methods:
 
 -- modifyItemAtIndex -> adjust
--- checkObjectWithSpec -> where 
+
+-- checkObjectWithSpec -> where
+
 -- objectIncludes -> whereEq
+
 -- modify -> modifyProp
+
 -- chain -> flatMap
+
 -- mapObjIndexed -> mapObject
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
 -- R.map
+
 -- R.mapIndexed
+
 -- R.filter
+
 -- R.reject
 
 - Regarding using string as path input in `R.omit`, `R.pick` and `R.path` with TypeScript - now it require explicit definition of expected return type.
@@ -13298,36 +13455,63 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Sync with typing of `@types/ramda`:
 
 -- allPass
+
 -- anyPass
+
 -- append
+
 -- both
+
 -- countBy
+
 -- drop
+
 -- dropLast
+
 -- dropRepeatsBy
+
 -- either
+
 -- filter
+
 -- forEach
+
 -- keys
+
 -- map
+
 -- mergeAll
+
 -- modify
+
 -- modifyPath
+
 -- omit
+
 -- partition
+
 -- pluck
+
 -- prepend
+
 -- propEq
+
 -- where
+
 -- whereAny
 
 - Sync with typing of `remeda`:
 
 -- filter
+
 -- reject
+
 -- map
+
 -- mapObject
+
 -- toPairs
+
 -- partition
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
@@ -13337,7 +13521,9 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Improve TypeScript definitions of:
 
 -- objOf
+
 -- pluck
+
 -- mergeWith
 
 - Change `Jest` with `Vitest`.
@@ -13383,7 +13569,7 @@ const result = piped(
 
 - Add `R.isNotEmpty` as it is new method in `Ramda`
 
-- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before 
+- Fix `R.head`/`R.last` TS definition - It returns `undefined` if array has length of 0. Before
 
 9.2.1
 
@@ -13393,7 +13579,7 @@ const result = piped(
 
 - `R.once` TS type definition miss to context argument and its type - [Issue #728](https://github.com/selfrefactor/rambda/issues/728)
 
-- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726 
+- Fix implementation of `R.unless` function - https://github.com/selfrefactor/rambda/pull/726
 
 9.1.1
 
@@ -13469,7 +13655,7 @@ Breaking change in TS definitions of `lenses` as now they are synced to `Ramda` 
 
 - Fix cannot compare errors in `Deno` with `R.equals` - [Issue #704](https://github.com/selfrefactor/rambda/issues/704).
 
-- Fix cannot compare `BigInt` with `R.equals` 
+- Fix cannot compare `BigInt` with `R.equals`
 
 8.3.0
 
@@ -13553,7 +13739,7 @@ Add the following methods:
 
 7.2.1
 
-- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript. 
+- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript.
 
 - Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
 
@@ -13647,11 +13833,11 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 -- R.toUpper
 
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`. 
+- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`.
 
 - Add `R.apply`, `R.bind` and `R.unapply`
 
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior. 
+- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
 
 - Remove unused typing for `R.chain`.
 
@@ -13679,7 +13865,7 @@ There are several other changes in `@types/ramda` as stated in [this comment](ht
 
 - Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
 
-- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609) 
+- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609)
 
 6.9.0
 
@@ -13694,7 +13880,7 @@ Fixing `R.uniq` was done by improving `R.indexOf` which has performance implicat
 - R.symmetricDifference
 - R.union
 
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086. 
+- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086.
 
 6.8.3
 

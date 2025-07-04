@@ -54,83 +54,149 @@ This is major revamp of `Rambda` library:
 - Remove following methods:
 
 -- Lenses - `R.lens`, `R.lensProp`, `R.lensPath`, `R.view`, `R.set`, `R.over`
+
 -- T, F
+
 -- add
+
 -- addIndex, addIndexRight
+
 -- always
+
 -- ap
+
 -- applySpec
+
 -- applyTo
+
 -- assoc, assocPath, dissoc, dissocPath
+
 -- binary
+
 -- bind
+
 -- call
+
 -- collectBy
+
 -- compose
+
 -- composeWith
+
 -- cond
+
 -- converge
+
 -- curry
+
 -- difference, differenceWith
+
 -- divide, multiply, subtract
+
 -- endsWith/startsWith
+
 -- flip
+
 -- forEachObjIndexed
+
 -- fromPairs
+
 -- gte, lte, lt, gt
+
 -- identical
+
 -- ifElse
+
 -- insert
+
 -- juxt
+
 -- length
+
 -- mapObjIndexed
+
 -- mergeAll, mergeLeft, mergeDeepLeft, mergeDeepRight
+
 -- move
+
 -- partitionIndexed
+
 -- pickAll
+
 -- pickBy
+
 -- repeat
+
 -- splitWhen
+
 -- toLower/toUpper
+
 -- unapply
+
 -- unnest
+
 -- update
+
 -- without
 
 - Add following methods:
 
 -- R.pipeAsync
+
 -- R.addProp
+
 -- R.createObjectFromKeys
+
 -- R.mapAsync
+
 -- R.mapParallelAsync
+
 -- R.ascend/R.descend
+
 -- R.shuffle
+
 -- R.permutations
+
 -- R.compact
+
 -- R.rejectObject
+
 -- R.findNth
+
 -- R.combinations
+
 -- R.sortByPath
+
 -- R.sortByPathDescending
+
 -- R.sortByDescending
+
 -- R.flattenObject
+
 -- R.addPropToObjects
 
 - Rename following methods:
 
 -- modifyItemAtIndex -> adjust
+
 -- checkObjectWithSpec -> where
+
 -- objectIncludes -> whereEq
+
 -- modify -> modifyProp
+
 -- chain -> flatMap
+
 -- mapObjIndexed -> mapObject
 
 _ Regarding using object as input with TypeScript in methods such as `R.map/filter` - this feature is no longer supported in TypeScript as it has multiple issues when using inside pipes. In JS, it still works as before. Following methods are affected:
 
 -- R.map
+
 -- R.mapIndexed
+
 -- R.filter
+
 -- R.reject
 
 - Regarding using string as path input in `R.omit`, `R.pick` and `R.path` with TypeScript - now it require explicit definition of expected return type.
@@ -159,36 +225,63 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Sync with typing of `@types/ramda`:
 
 -- allPass
+
 -- anyPass
+
 -- append
+
 -- both
+
 -- countBy
+
 -- drop
+
 -- dropLast
+
 -- dropRepeatsBy
+
 -- either
+
 -- filter
+
 -- forEach
+
 -- keys
+
 -- map
+
 -- mergeAll
+
 -- modify
+
 -- modifyPath
+
 -- omit
+
 -- partition
+
 -- pluck
+
 -- prepend
+
 -- propEq
+
 -- where
+
 -- whereAny
 
 - Sync with typing of `remeda`:
 
 -- filter
+
 -- reject
+
 -- map
+
 -- mapObject
+
 -- toPairs
+
 -- partition
 
 - Publish to JSR registry - https://jsr.io/@rambda/rambda
@@ -198,7 +291,9 @@ _ Regarding using object as input with TypeScript in methods such as `R.map/filt
 - Improve TypeScript definitions of:
 
 -- objOf
+
 -- pluck
+
 -- mergeWith
 
 - Change `Jest` with `Vitest`.
