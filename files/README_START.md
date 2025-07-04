@@ -11,14 +11,14 @@
 ## {{bullet}} Example use
 
 ```javascript
-import { pipe, map, filter } from 'rambda'
+import { pipe, filter, map } from 'rambda'
 
 const result = pipe(
-	[1, 2, 3, 4],
+  [1, 2, 3, 4],
   filter(x => x > 2),
   map(x => x * 2),
 )
-// => [6, 8]
+//=> [6, 8]
 ```
 
 You can test this example in <a href="https://rambda.now.sh/?const%20result%20%3D%20R.pipe(%0A%20%20%5B1%2C%202%2C%203%2C%204%5D%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%202)%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%2C%0A)%0A%2F%2F%20%3D%3E%20%5B6%2C%208%5D">Rambda's REPL</a>
