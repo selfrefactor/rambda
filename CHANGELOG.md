@@ -1,12 +1,12 @@
 10.3.0
 
-Fix `R.pluck`
+- Fix `R.pluck` to work without `R.pipe`
 
-Add `R.duplicateBy`
+- Add `R.duplicateBy`
 
-Add `R.filterAsync`
+- Add `R.filterAsync`
 
-Add `R.indexBy`
+- Add `R.indexBy`
 
 Restore `R.replaceAll`
 

@@ -4355,6 +4355,26 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
 ): U;
 
 /*
+Method: filterAsync
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>;
+
+/*
 Method: mapAsync
 
 Explanation: Sequential asynchronous mapping with `fn` over members of `list`.
@@ -4709,6 +4729,28 @@ const expected = 'foo is BAR even 1 more'
 ```
 
 Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function interpolate(inputWithTags: string): (templateArguments: object) => string;
+
+/*
+Method: indexBy
+
+Explanation: It transforms list of objects to object using specified property as the base for the returned object.
+
+Example:
+
+```
+const result = R.indexBy(
+	'id'
+)([{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}])
+// => {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
+```
+
+Categories: List, Object
 
 Notes:
 
