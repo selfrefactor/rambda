@@ -135,7 +135,7 @@ Example:
 ```
 const result = R.pipe(
 	[1, 2, 3],
-	R.modifyItemAtIndex(1, R.add(1))
+	R.modifyItemAtIndex(1, x => x + 1)
 ) // => [1, 3, 3]
 ```
 
@@ -3281,21 +3281,19 @@ If the `predicate` returns `false`, then it will simply return `input`.
 Example:
 ```
 const predicate = x => typeof x === 'number'
-const whenTrueFn = R.add(11)
-
-const fn = when(predicate, whenTrueResult)
+const fn = R.when(predicate)(x => x + 1)
 
 const positiveInput = 88
 const negativeInput = 'foo'
 
 const result = [
   fn(positiveInput),
-  fn(positiveInput),
+  fn(negativeInput),
 ]
 
 const expected = [
-  99,
-  'foo',
+  89,
+  'foo1',
 ]
 // => `result` is equal to `expected`
 ```
@@ -3407,7 +3405,7 @@ Example:
 const list1 = [ 10, 20, 30, 40 ]
 const list2 = [ 100, 200 ]
 
-const result = R.zipWith(R.add, list1)(list2)
+const result = R.zipWith((x, y) => x + y, list1)(list2)
 // => [110, 220]
 ```
 
@@ -3672,7 +3670,7 @@ Example:
 
 ```
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.uniqBy(x => x, list)
+const result = R.uniqBy(x => x)(list)
 
 // => [{a:1}, {a:2}]
 ```
@@ -4022,7 +4020,7 @@ const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
-const result = R.update(index, newValue, list)
+const result = R.update(index, newValue)(list)
 // => [1, 2, 88, 4, 5]
 ```
 
@@ -4120,7 +4118,7 @@ const result = await R.pipeAsync(
     await R.delay(100)
     return x + 2
   },
-  R.add(2),
+  x => x +2,
   async x => {
     const delayed = await R.delay(100)
     return delayed + x
