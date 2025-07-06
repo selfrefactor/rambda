@@ -4794,7 +4794,7 @@ Notes:
 // @SINGLE_MARKER
 export function indexBy<T, K extends keyof T>(
   property: K
-): (list: readonly T[]) => Record<T[K] & (string | number), T>;
+): (list: readonly T[]) => Record<string, T>;
 export function indexBy<T, K extends keyof T>(
   property: K
 ): (list: T[]) => Record<string, T>;
