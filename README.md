@@ -7007,11 +7007,11 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 ```javascript
 const result = R.pipe(
 	[1, 2, 3],
-	R.modifyItemAtIndex(1, R.add(1))
+	R.modifyItemAtIndex(1, x => x + 1)
 ) // => [1, 3, 3]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.modifyItemAtIndex(1%2C%20R.add(1))%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.modifyItemAtIndex</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.modifyItemAtIndex(1%2C%20x%20%3D%3E%20x%20%2B%201)%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.modifyItemAtIndex</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8926,7 +8926,7 @@ const result = await R.pipeAsync(
     await R.delay(100)
     return x + 2
   },
-  R.add(2),
+  x => x +2,
   async x => {
     const delayed = await R.delay(100)
     return delayed + x
@@ -8935,7 +8935,7 @@ const result = await R.pipeAsync(
 // `result` resolves to `RAMBDAX_DELAY104`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20await%20R.pipeAsync(%0A%20%20100%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20await%20R.delay(100)%0A%20%20%20%20return%20x%20%2B%202%0A%20%20%7D%2C%0A%20%20R.add(2)%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20const%20delayed%20%3D%20await%20R.delay(100)%0A%20%20%20%20return%20delayed%20%2B%20x%0A%20%20%7D%0A)%0A%2F%2F%20%60result%60%20resolves%20to%20%60RAMBDAX_DELAY104%60">Try this <strong>R.pipeAsync</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20await%20R.pipeAsync(%0A%20%20100%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20await%20R.delay(100)%0A%20%20%20%20return%20x%20%2B%202%0A%20%20%7D%2C%0A%20%20x%20%3D%3E%20x%20%2B2%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20const%20delayed%20%3D%20await%20R.delay(100)%0A%20%20%20%20return%20delayed%20%2B%20x%0A%20%20%7D%0A)%0A%2F%2F%20%60result%60%20resolves%20to%20%60RAMBDAX_DELAY104%60">Try this <strong>R.pipeAsync</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10522,6 +10522,25 @@ describe('R.sortBy', () => {
 sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[]
 ```
 
+```javascript
+const list = [
+  {a: 2},
+  {a: 3},
+  {a: 1}
+]
+const sortFn = x => x.a
+
+const result = R.sortByDescending(sortFn)(list)
+const expected = [
+  {a: 3},
+  {a: 2},
+  {a: 1}
+]
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortByDescending(sortFn)(list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByDescending</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All TypeScript definitions</summary>
@@ -10558,6 +10577,23 @@ sortByPath<S, K0 extends string & keyof S>(
 ```
 
 It sorts `list` by the value of `path` property.
+
+```javascript
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPath('a.b')(list)
+const expected = [
+	{a: {b: 1}, id:2},
+	{a: {b: 2}, id:1},
+	{a: {b: 3}, id:3}
+]
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.sortByPath('a.b')(list)%0Aconst%20expected%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10663,6 +10699,23 @@ sortByPathDescending<S, K0 extends string & keyof S>(
 ): (list: S[]) => S[]
 ```
 
+```javascript
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPathDescending('a.b')(list)
+const expected = [
+	{a: {b: 3}, id:3}
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+]
+// => `result` is equal to `expected`
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.sortByPathDescending('a.b')(list)%0Aconst%20expected%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByPathDescending</strong> example in Rambda REPL</a>
+
 <details>
 
 <summary>All TypeScript definitions</summary>
@@ -10736,11 +10789,11 @@ It returns a sorted version of `input` object.
 ```javascript
 const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
-const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+const result = R.sortObject(predicate)({a:1, b: 4, c: 2})
 // => {b: 4, c: 2, a: 1}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20(propA%2C%20propB%2C%20valueA%2C%20valueB)%20%3D%3E%20valueA%20%3E%20valueB%20%3F%20-1%20%3A%201%0A%0Aconst%20result%20%3D%20R.sortObject(predicate%2C%20%7Ba%3A1%2C%20b%3A%204%2C%20c%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%204%2C%20c%3A%202%2C%20a%3A%201%7D">Try this <strong>R.sortObject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20(propA%2C%20propB%2C%20valueA%2C%20valueB)%20%3D%3E%20valueA%20%3E%20valueB%20%3F%20-1%20%3A%201%0A%0Aconst%20result%20%3D%20R.sortObject(predicate)(%7Ba%3A1%2C%20b%3A%204%2C%20c%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%204%2C%20c%3A%202%2C%20a%3A%201%7D">Try this <strong>R.sortObject</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11101,8 +11154,8 @@ It splits `input` into slices of `sliceLength`.
 
 ```javascript
 const result = [
-  R.splitEvery(2, [1, 2, 3]),
-  R.splitEvery(3, 'foobar')
+  R.splitEvery(2)([1, 2, 3]),
+  R.splitEvery(3)('foobar')
 ]
 
 const expected = [
@@ -11112,7 +11165,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2%2C%20%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.splitEvery(3%2C%20'foobar')%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.splitEvery(3)('foobar')%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11199,11 +11252,11 @@ It returns a merged list of `x` and `y` with all equal elements removed.
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
-const result = R.symmetricDifference(x, y)
+const result = R.symmetricDifference(x)(y)
 // => [ 1, 2, 5, 6 ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.symmetricDifference(x%2C%20y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try this <strong>R.symmetricDifference</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.symmetricDifference(x)(y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try this <strong>R.symmetricDifference</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11770,16 +11823,16 @@ One use case is debugging in the middle of `R.pipe` chain.
 ```javascript
 const list = [1, 2, 3]
 
-R.pipe(
+const result = R.pipe(
 	list,
-  R.map(x => x * 2)
+  R.filter(x => x > 1),
   R.tap(console.log),
-  R.filter(x => x > 1)
+  R.map(x => x * 2)
 )
 // => `2` and `3` will be logged
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0AR.pipe(%0A%09list%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A%20%20R.tap(console.log)%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%0A)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20R.pipe(%0A%09list%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%2C%0A%20%20R.tap(console.log)%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12341,11 +12394,11 @@ It takes two lists and return a new list containing a merger of both list with r
 `R.equals` is used to compare for duplication.
 
 ```javascript
-const result = R.union([1,2,3], [3,4,5]);
+const result = R.union([1,2,3])([3,4,5]);
 // => [1, 2, 3, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D%2C%20%5B3%2C4%2C5%5D)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D)(%5B3%2C4%2C5%5D)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12556,12 +12609,12 @@ It applies uniqueness to input list based on function that defines what to be us
 
 ```javascript
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.uniqBy(x => x, list)
+const result = R.uniqBy(x => x)(list)
 
 // => [{a:1}, {a:2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x)(list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13038,11 +13091,11 @@ const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
-const result = R.update(index, newValue, list)
+const result = R.update(index, newValue)(list)
 // => [1, 2, 88, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue%2C%20list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue)(list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13126,26 +13179,24 @@ If the `predicate` returns `false`, then it will simply return `input`.
 
 ```javascript
 const predicate = x => typeof x === 'number'
-const whenTrueFn = R.add(11)
-
-const fn = when(predicate, whenTrueResult)
+const fn = R.when(predicate)(x => x + 1)
 
 const positiveInput = 88
 const negativeInput = 'foo'
 
 const result = [
   fn(positiveInput),
-  fn(positiveInput),
+  fn(negativeInput),
 ]
 
 const expected = [
-  99,
-  'foo',
+  89,
+  'foo1',
 ]
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20whenTrueFn%20%3D%20R.add(11)%0A%0Aconst%20fn%20%3D%20when(predicate%2C%20whenTrueResult)%0A%0Aconst%20positiveInput%20%3D%2088%0Aconst%20negativeInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(positiveInput)%2C%0A%20%20fn(positiveInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%2099%2C%0A%20%20'foo'%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.when</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20fn%20%3D%20R.when(predicate)(x%20%3D%3E%20x%20%2B%201)%0A%0Aconst%20positiveInput%20%3D%2088%0Aconst%20negativeInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(positiveInput)%2C%0A%20%20fn(negativeInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%2089%2C%0A%20%20'foo1'%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.when</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13377,11 +13428,11 @@ zipWith<T, U, TResult>(
 const list1 = [ 10, 20, 30, 40 ]
 const list2 = [ 100, 200 ]
 
-const result = R.zipWith(R.add, list1)(list2)
+const result = R.zipWith((x, y) => x + y, list1)(list2)
 // => [110, 220]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B%2010%2C%2020%2C%2030%2C%2040%20%5D%0Aconst%20list2%20%3D%20%5B%20100%2C%20200%20%5D%0A%0Aconst%20result%20%3D%20R.zipWith(R.add%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B110%2C%20220%5D">Try this <strong>R.zipWith</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B%2010%2C%2020%2C%2030%2C%2040%20%5D%0Aconst%20list2%20%3D%20%5B%20100%2C%20200%20%5D%0A%0Aconst%20result%20%3D%20R.zipWith((x%2C%20y)%20%3D%3E%20x%20%2B%20y%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B110%2C%20220%5D">Try this <strong>R.zipWith</strong> example in Rambda REPL</a>
 
 <details>
 
