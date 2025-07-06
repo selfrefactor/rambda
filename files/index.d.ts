@@ -2530,6 +2530,20 @@ Explanation:
 Example:
 
 ```
+const list = [
+  {a: 2},
+  {a: 3},
+  {a: 1}
+]
+const sortFn = x => x.a
+
+const result = R.sortByDescending(sortFn)(list)
+const expected = [
+  {a: 3},
+  {a: 2},
+  {a: 1}
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2949,8 +2963,8 @@ Example:
 
 ```
 const result = [
-  R.splitEvery(2, [1, 2, 3]),
-  R.splitEvery(3, 'foobar')
+  R.splitEvery(2)([1, 2, 3]),
+  R.splitEvery(3)('foobar')
 ]
 
 const expected = [
@@ -2981,7 +2995,7 @@ Example:
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
-const result = R.symmetricDifference(x, y)
+const result = R.symmetricDifference(x)(y)
 // => [ 1, 2, 5, 6 ]
 ```
 
@@ -3088,11 +3102,11 @@ Example:
 ```
 const list = [1, 2, 3]
 
-R.pipe(
+const result = R.pipe(
 	list,
-  R.map(x => x * 2)
+  R.filter(x => x > 1),
   R.tap(console.log),
-  R.filter(x => x > 1)
+  R.map(x => x * 2)
 )
 // => `2` and `3` will be logged
 ```
@@ -3198,7 +3212,7 @@ Explanation: It takes two lists and return a new list containing a merger of bot
 Example:
 
 ```
-const result = R.union([1,2,3], [3,4,5]);
+const result = R.union([1,2,3])([3,4,5]);
 // => [1, 2, 3, 4, 5]
 ```
 
@@ -4460,7 +4474,7 @@ Example:
 ```
 const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
-const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+const result = R.sortObject(predicate)({a:1, b: 4, c: 2})
 // => {b: 4, c: 2, a: 1}
 ```
 
