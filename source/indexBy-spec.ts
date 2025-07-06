@@ -6,6 +6,6 @@ it('R.indexBy', () => {
 		list,
 		indexBy('id')
 	)
-	result.abc // $ExpectType {id: string, title: string}
-	result.foo // $ExpectType {id: string, title: string}
+	result.abc // $ExpectType { id: string; title: string; }
+	result.foo // $ExpectType { id: string; title: string; }
 })
