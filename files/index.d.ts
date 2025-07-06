@@ -2562,6 +2562,18 @@ Explanation: It sorts `list` by the value of `path` property.
 Example:
 
 ```
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPath('a.b')(list)
+const expected = [
+	{a: {b: 1}, id:2},
+	{a: {b: 2}, id:1},
+	{a: {b: 3}, id:3}
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2745,6 +2757,18 @@ Explanation:
 Example:
 
 ```
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPathDescending('a.b')(list)
+const expected = [
+	{a: {b: 3}, id:3}
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
