@@ -3368,6 +3368,10 @@ test('happy', () => {
 
   expect(filter(isEven)([1, 2, 3, 4])).toEqual([2, 4])
 })
+
+test('using Boolean', () => {
+  expect(filter(Boolean)([null, 0, 1, 2])).toEqual([1,2])
+})
 ```
 
 </details>
@@ -3377,7 +3381,7 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, mergeTypes, pipe } from 'rambda'
+import { filter, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
@@ -3450,6 +3454,93 @@ describe('R.filter with array', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
+
+### filterAsync
+
+```typescript
+
+filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.filterAsync</strong> source</summary>
+
+```javascript
+export function filterAsync(predicate) {
+  return async list => {
+    const willReturn = []
+    let index = 0
+    for (const x of list) {
+      if (await predicate(x, index)) {
+        willReturn.push(list[index])
+      }
+      index++
+    }
+
+    return willReturn
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { filterAsync } from './filterAsync.js'
+
+test('happy', async () => {
+  const isEven = async n => n % 2 === 0
+
+  expect(await filterAsync(isEven)([1, 2, 3, 4])).toEqual([2, 4])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { filterAsync, pipeAsync } from 'rambda'
+
+const list = [1, 2, 3]
+
+describe('R.filter with array', () => {
+  it('within pipe', async () => {
+    const result = await pipeAsync(
+      list,
+      filterAsync(async x => {
+        x // $ExpectType number
+        return x > 1
+      }),
+    )
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filterAsync)
 
 ### filterObject
 
@@ -4789,6 +4880,121 @@ describe('R.includes', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#includes)
 
+### indexBy
+
+```typescript
+
+indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<T[K] & (string | number), T>
+```
+
+It transforms list of objects to object using specified property as the base for the returned object.
+
+```javascript
+const result = R.indexBy(
+	'id'
+)([{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}])
+// => {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%09'id'%0A)(%5B%7Bid%3A%20'xyz'%2C%20title%3A%20'A'%7D%2C%20%7Bid%3A%20'abc'%2C%20title%3A%20'B'%7D%5D)%0A%2F%2F%20%3D%3E%20%7Babc%3A%20%7Bid%3A%20'abc'%2C%20title%3A%20'B'%7D%2C%20xyz%3A%20%7Bid%3A%20'xyz'%2C%20title%3A%20'A'%7D%7D">Try this <strong>R.indexBy</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<T[K] & (string | number), T>;
+indexBy<T, K extends keyof T>(
+  property: K
+): (list: T[]) => Record<string, T>;
+
+// API_MARKER_END
+// ============================================
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.indexBy</strong> source</summary>
+
+```javascript
+export function indexBy(property){
+	return list => {
+		const toReturn = {}
+		for (let i = 0; i < list.length; i++){
+			const item = list[ i ]
+			const key = item[property]
+			if(key !== undefined){
+				toReturn[ key ] = item
+			}
+		}
+	
+		return toReturn
+	}
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { indexBy } from './indexBy.js'
+
+test('happy', () => {
+	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
+
+	expect(
+		indexBy('id')(list)
+	).toEqual(
+		{abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
+	)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, indexBy } from 'rambda'
+
+describe('R.indexBy', () => {
+	it('using `as const`', () => {
+		const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}] as const
+		const result = pipe(
+      list,
+			indexBy('id')
+    )
+
+    result.abc // $ExpectType {id: string, title: string}
+    result.xyz // $ExpectType {id: string, title: string}
+  })
+	it('general case', () => {
+		const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
+		const result = pipe(
+			list,
+			indexBy('id')
+		)
+		result.abc // $ExpectType {id: string, title: string}
+		result.foo // $ExpectType {id: string, title: string}
+	})
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
+
 ### indexOf
 
 ```typescript
@@ -4847,18 +5053,18 @@ test('will throw with bad input', () => {
   expect(() => indexOf([])(true)).toThrow()
 })
 
-test('without list of objects - no R.equals', () => {
+test('with numbers', () => {
   expect(indexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(indexOf(10)([1, 2, 3, 4])).toBe(-1)
 })
 
-test('list of objects uses R.equals', () => {
+test('list of objects use R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
   expect(indexOf({ c: 4 })(listOfObjects)).toBe(-1)
   expect(indexOf({ c: 3 })(listOfObjects)).toBe(2)
 })
 
-test('list of arrays uses R.equals', () => {
+test('list of arrays use R.equals', () => {
   const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []]
   expect(indexOf([])(listOfLists)).toBe(5)
   expect(indexOf([1])(listOfLists)).toBe(0)
@@ -5142,9 +5348,6 @@ const expected = 'foo is BAR even 1 more'
 
 ```typescript
 interpolate(inputWithTags: string): (templateArguments: object) => string;
-
-// API_MARKER_END
-// ============================================
 ```
 
 </details>
@@ -5824,8 +6027,8 @@ export function mapAsync(fn) {
   return async list => {
     const willReturn = []
     let i = 0
-    for (const a of list) {
-      willReturn.push(await fn(a, i++))
+    for (const x of list) {
+      willReturn.push(await fn(x, i++))
     }
 
     return willReturn
@@ -11680,6 +11883,65 @@ it('R.test', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
 
+### transformPropObject
+
+```typescript
+
+transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>
+```
+
+```javascript
+const fn = (x) => x > 2
+const obj = {a: 1, b: 2}
+
+const result = R.transformPropObject(fn, 'a')(obj)
+// => {a: false, b: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(x)%20%3D%3E%20x%20%3E%202%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.transformPropObject(fn%2C%20'a')(obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20false%2C%20b%3A%202%7D">Try this <strong>R.transformPropObject</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import {  transformPropObject, pipe } from 'rambda'
+
+describe('R.transformPropObject', () => {
+  it('iterable with one arguments', () => {
+    const result = pipe(
+      { a: 1, b: 'foo' },
+      transformPropObject(x => {
+        x // $ExpectType number
+        return x > 2
+      }, 'a'),
+    )
+
+    result // $ExpectType { a: boolean; b: string; }
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transformPropObject)
+
 ### tryCatch
 
 ```typescript
@@ -13210,19 +13472,19 @@ describe('R.zipWith', () => {
 
 10.3.0
 
-Fix `R.pluck`
+- Add `R.mapPropObject`
 
-Add `R.duplicateBy`
+- Add `R.duplicateBy`
 
-Add `R.filterAsync`
+- Add `R.filterAsync`
 
-Add `R.indexBy`
+- Add `R.indexBy`
 
-Restore `R.replaceAll`
+- Restore `R.replaceAll`
 
-Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
 
-Add `R.mapPropObject`
+- Fix `R.pluck` to work without `R.pipe`
 
 10.2.0
 

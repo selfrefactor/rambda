@@ -633,6 +633,21 @@ function excludes(valueToFind) {
   return iterable => !includes(valueToFind)(iterable)
 }
 
+function filterAsync(predicate) {
+  return async list => {
+    const willReturn = [];
+    let index = 0;
+    for (const x of list) {
+      if (await predicate(x, index)) {
+        willReturn.push(list[index]);
+      }
+      index++;
+    }
+
+    return willReturn
+  }
+}
+
 function filterObject(predicate) {
   return obj => {
     const willReturn = {};
@@ -845,6 +860,21 @@ function head(listOrString) {
   return listOrString[0]
 }
 
+function indexBy(property){
+	return list => {
+		const toReturn = {};
+		for (let i = 0; i < list.length; i++){
+			const item = list[ i ];
+			const key = item[property];
+			if(key !== undefined){
+				toReturn[ key ] = item;
+			}
+		}
+	
+		return toReturn
+	}
+}
+
 function indexOf(valueToFind) {
   return list => _indexOf(valueToFind, list)
 }
@@ -983,8 +1013,8 @@ function mapAsync(fn) {
   return async list => {
     const willReturn = [];
     let i = 0;
-    for (const a of list) {
-      willReturn.push(await fn(a, i++));
+    for (const x of list) {
+      willReturn.push(await fn(x, i++));
     }
 
     return willReturn
@@ -1882,6 +1912,7 @@ exports.equalsFn = equalsFn;
 exports.evolve = evolve;
 exports.excludes = excludes;
 exports.filter = filter;
+exports.filterAsync = filterAsync;
 exports.filterObject = filterObject;
 exports.find = find;
 exports.findIndex = findIndex;
@@ -1896,6 +1927,7 @@ exports.groupBy = groupBy;
 exports.groupByFallback = groupByFallback;
 exports.head = head;
 exports.includes = includes;
+exports.indexBy = indexBy;
 exports.indexOf = indexOf;
 exports.init = init;
 exports.innerJoin = innerJoin;

@@ -4756,8 +4756,12 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function interpolate(inputWithTags: string): (templateArguments: object) => string;
-
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<T[K] & (string | number), T>;
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: T[]) => Record<string, T>;
 
 // API_MARKER_END
 // ============================================

@@ -1,6 +1,6 @@
 10.3.0
 
-- Fix `R.pluck` to work without `R.pipe`
+- Add `R.mapPropObject`
 
 - Add `R.duplicateBy`
 
@@ -8,11 +8,11 @@
 
 - Add `R.indexBy`
 
-Restore `R.replaceAll`
+- Restore `R.replaceAll`
 
-Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
 
-Add `R.mapPropObject`
+- Fix `R.pluck` to work without `R.pipe`
 
 10.2.0
 

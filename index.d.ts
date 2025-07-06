@@ -342,6 +342,10 @@ export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
 
+export function filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>;
+
 /**
  * It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
  */
@@ -428,6 +432,19 @@ export function includes<T extends string>(valueToFind: T): (input: string) => b
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /**
+ * It transforms list of objects to object using specified property as the base for the returned object.
+ */
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<T[K] & (string | number), T>;
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: T[]) => Record<string, T>;
+
+// API_MARKER_END
+// ============================================
+
+/**
  * It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
  */
 export function indexOf<T>(valueToFind: T): (list: T[]) => number;
@@ -450,10 +467,6 @@ export function innerJoin<T1, T2>(
  * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
  */
 export function interpolate(inputWithTags: string): (templateArguments: object) => string;
-
-
-// API_MARKER_END
-// ============================================
 
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -2230,6 +2243,11 @@ export function tap<T>(fn: (x: T) => void): (input: T) => T;
  * It determines whether `str` matches `regExpression`.
  */
 export function test(regExpression: RegExp): (str: string) => boolean;
+
+export function transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
 
 /**
  * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
