@@ -11,5 +11,5 @@
     "paths": { "rambda": ["../files/index.d.ts"], "rambdax": ["../files/rambdax.d.ts"], "ramda": ["../node_modules/types-ramda/es/index.d.ts"] },
     "allowJs": false
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts", "indexBy.js"]
 }    

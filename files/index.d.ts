@@ -135,7 +135,7 @@ Example:
 ```
 const result = R.pipe(
 	[1, 2, 3],
-	R.modifyItemAtIndex(1, R.add(1))
+	R.modifyItemAtIndex(1, x => x + 1)
 ) // => [1, 3, 3]
 ```
 
@@ -1032,6 +1032,32 @@ export function mapObject<T extends object, Value>(
     data: T,
   ) => Value,
 ): (data: T) => MappedValues<T, Value>;
+
+/*
+Method: transformPropObject
+
+Explanation:
+
+Example:
+
+```
+const fn = (x) => x > 2
+const obj = {a: 1, b: 2}
+
+const result = R.transformPropObject(fn, 'a')(obj)
+// => {a: false, b: 2}
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
 
 /*
 Method: mapPropObject
@@ -2504,6 +2530,20 @@ Explanation:
 Example:
 
 ```
+const list = [
+  {a: 2},
+  {a: 3},
+  {a: 1}
+]
+const sortFn = x => x.a
+
+const result = R.sortByDescending(sortFn)(list)
+const expected = [
+  {a: 3},
+  {a: 2},
+  {a: 1}
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2522,6 +2562,18 @@ Explanation: It sorts `list` by the value of `path` property.
 Example:
 
 ```
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPath('a.b')(list)
+const expected = [
+	{a: {b: 1}, id:2},
+	{a: {b: 2}, id:1},
+	{a: {b: 3}, id:3}
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2705,6 +2757,18 @@ Explanation:
 Example:
 
 ```
+const list = [
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+	{a: {b: 3}, id:3},
+]
+const result = R.sortByPathDescending('a.b')(list)
+const expected = [
+	{a: {b: 3}, id:3}
+	{a: {b: 2}, id:1},
+	{a: {b: 1}, id:2},
+]
+// => `result` is equal to `expected`
 ```
 
 Categories: List
@@ -2923,8 +2987,8 @@ Example:
 
 ```
 const result = [
-  R.splitEvery(2, [1, 2, 3]),
-  R.splitEvery(3, 'foobar')
+  R.splitEvery(2)([1, 2, 3]),
+  R.splitEvery(3)('foobar')
 ]
 
 const expected = [
@@ -2955,7 +3019,7 @@ Example:
 const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
-const result = R.symmetricDifference(x, y)
+const result = R.symmetricDifference(x)(y)
 // => [ 1, 2, 5, 6 ]
 ```
 
@@ -3062,11 +3126,11 @@ Example:
 ```
 const list = [1, 2, 3]
 
-R.pipe(
+const result = R.pipe(
 	list,
-  R.map(x => x * 2)
+  R.filter(x => x > 1),
   R.tap(console.log),
-  R.filter(x => x > 1)
+  R.map(x => x * 2)
 )
 // => `2` and `3` will be logged
 ```
@@ -3172,7 +3236,7 @@ Explanation: It takes two lists and return a new list containing a merger of bot
 Example:
 
 ```
-const result = R.union([1,2,3], [3,4,5]);
+const result = R.union([1,2,3])([3,4,5]);
 // => [1, 2, 3, 4, 5]
 ```
 
@@ -3255,21 +3319,19 @@ If the `predicate` returns `false`, then it will simply return `input`.
 Example:
 ```
 const predicate = x => typeof x === 'number'
-const whenTrueFn = R.add(11)
-
-const fn = when(predicate, whenTrueResult)
+const fn = R.when(predicate)(x => x + 1)
 
 const positiveInput = 88
 const negativeInput = 'foo'
 
 const result = [
   fn(positiveInput),
-  fn(positiveInput),
+  fn(negativeInput),
 ]
 
 const expected = [
-  99,
-  'foo',
+  89,
+  'foo1',
 ]
 // => `result` is equal to `expected`
 ```
@@ -3381,7 +3443,7 @@ Example:
 const list1 = [ 10, 20, 30, 40 ]
 const list2 = [ 100, 200 ]
 
-const result = R.zipWith(R.add, list1)(list2)
+const result = R.zipWith((x, y) => x + y, list1)(list2)
 // => [110, 220]
 ```
 
@@ -3646,7 +3708,7 @@ Example:
 
 ```
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.uniqBy(x => x, list)
+const result = R.uniqBy(x => x)(list)
 
 // => [{a:1}, {a:2}]
 ```
@@ -3996,7 +4058,7 @@ const index = 2
 const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
-const result = R.update(index, newValue, list)
+const result = R.update(index, newValue)(list)
 // => [1, 2, 88, 4, 5]
 ```
 
@@ -4094,7 +4156,7 @@ const result = await R.pipeAsync(
     await R.delay(100)
     return x + 2
   },
-  R.add(2),
+  x => x +2,
   async x => {
     const delayed = await R.delay(100)
     return delayed + x
@@ -4171,7 +4233,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   fn10: (x: Awaited<K>) => L,
   fn11: (x: Awaited<L>) => M,
 ): M;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4188,7 +4249,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   fn11: (x: Awaited<L>) => M,
   fn12: (x: Awaited<M>) => N,
 ): N;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4206,7 +4266,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   fn12: (x: Awaited<M>) => N,
   fn13: (x: Awaited<N>) => O,
 ): O;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4225,7 +4284,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   fn13: (x: Awaited<N>) => O,
   fn14: (x: Awaited<O>) => P,
 ): P;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4245,7 +4303,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   fn14: (x: Awaited<O>) => P,
   fn15: (x: Awaited<P>) => Q,
 ): Q;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4266,7 +4323,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   fn15: (x: Awaited<P>) => Q,
   fn16: (x: Awaited<Q>) => R,
 ): R;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4288,7 +4344,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn16: (x: Awaited<Q>) => R,
   fn17: (x: Awaited<R>) => S,
 ): S;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4311,7 +4366,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn17: (x: Awaited<R>) => S,
   fn18: (x: Awaited<S>) => T,
 ): T;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -4335,6 +4389,26 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn18: (x: Awaited<S>) => T,
   fn19: (x: Awaited<T>) => U,
 ): U;
+
+/*
+Method: filterAsync
+
+Explanation:
+
+Example:
+
+```
+```
+
+Categories: Async, List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>;
 
 /*
 Method: mapAsync
@@ -4366,14 +4440,6 @@ export function mapAsync<T extends IterableContainer, U>(
 export function mapAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-export function mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-export function mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
 
 /*
 Method: mapParallelAsync
@@ -4397,14 +4463,6 @@ export function mapParallelAsync<T extends IterableContainer, U>(
 export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
 
 /*
 Method: mapObjectAsync
@@ -4440,7 +4498,7 @@ Example:
 ```
 const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
-const result = R.sortObject(predicate, {a:1, b: 4, c: 2})
+const result = R.sortObject(predicate)({a:1, b: 4, c: 2})
 // => {b: 4, c: 2, a: 1}
 ```
 
@@ -4714,6 +4772,32 @@ Notes:
 // @SINGLE_MARKER
 export function interpolate(inputWithTags: string): (templateArguments: object) => string;
 
+/*
+Method: indexBy
+
+Explanation: It transforms list of objects to object using specified property as the base for the returned object.
+
+Example:
+
+```
+const result = R.indexBy(
+	'id'
+)([{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}])
+// => {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
+```
+
+Categories: List, Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<string, T>;
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: T[]) => Record<string, T>;
 
 // API_MARKER_END
 // ============================================

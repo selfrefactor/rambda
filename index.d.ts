@@ -342,6 +342,10 @@ export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
 
+export function filterAsync<T>(
+	predicate: (value: T) => Promise<boolean>,
+): (list: T[]) => Promise<T[]>;
+
 /**
  * It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
  */
@@ -428,6 +432,19 @@ export function includes<T extends string>(valueToFind: T): (input: string) => b
 export function includes<T>(valueToFind: T): (input: T[]) => boolean;
 
 /**
+ * It transforms list of objects to object using specified property as the base for the returned object.
+ */
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: readonly T[]) => Record<string, T>;
+export function indexBy<T, K extends keyof T>(
+  property: K
+): (list: T[]) => Record<string, T>;
+
+// API_MARKER_END
+// ============================================
+
+/**
  * It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
  */
 export function indexOf<T>(valueToFind: T): (list: T[]) => number;
@@ -450,10 +467,6 @@ export function innerJoin<T1, T2>(
  * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
  */
 export function interpolate(inputWithTags: string): (templateArguments: object) => string;
-
-
-// API_MARKER_END
-// ============================================
 
 /**
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
@@ -520,14 +533,6 @@ export function mapAsync<T extends IterableContainer, U>(
 export function mapAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-export function mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-export function mapAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
 
 /**
  * It returns a copy of `obj` with keys transformed by `fn`.
@@ -559,14 +564,6 @@ export function mapParallelAsync<T extends IterableContainer, U>(
 export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
-  data: T
-): Promise<Mapped<T, U>>;
 
 /**
  * It maps over a property of object that is a list.
@@ -1582,7 +1579,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M>(
   fn10: (x: Awaited<K>) => L,
   fn11: (x: Awaited<L>) => M,
 ): M;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1599,7 +1595,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
   fn11: (x: Awaited<L>) => M,
   fn12: (x: Awaited<M>) => N,
 ): N;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1617,7 +1612,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
   fn12: (x: Awaited<M>) => N,
   fn13: (x: Awaited<N>) => O,
 ): O;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1636,7 +1630,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
   fn13: (x: Awaited<N>) => O,
   fn14: (x: Awaited<O>) => P,
 ): P;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1656,7 +1649,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
   fn14: (x: Awaited<O>) => P,
   fn15: (x: Awaited<P>) => Q,
 ): Q;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1677,7 +1669,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
   fn15: (x: Awaited<P>) => Q,
   fn16: (x: Awaited<Q>) => R,
 ): R;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1699,7 +1690,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn16: (x: Awaited<Q>) => R,
   fn17: (x: Awaited<R>) => S,
 ): S;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -1722,7 +1712,6 @@ export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 
   fn17: (x: Awaited<R>) => S,
   fn18: (x: Awaited<S>) => T,
 ): T;
-
 export function pipeAsync<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
   input: A,
   fn0: (x: Awaited<A>) => B,
@@ -2254,6 +2243,11 @@ export function tap<T>(fn: (x: T) => void): (input: T) => T;
  * It determines whether `str` matches `regExpression`.
  */
 export function test(regExpression: RegExp): (str: string) => boolean;
+
+export function transformPropObject<T extends object, K extends keyof T, Value>(
+  valueMapper: (value: T[K]) => Value,
+  prop: K,
+): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
 
 /**
  * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.

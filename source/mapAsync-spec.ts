@@ -1,11 +1,9 @@
-import { mapAsync, pipeAsync } from 'rambda'
-import { delay } from 'rambdax'
+import { mapAsync, pipeAsync, map } from 'rambda'
 
 const list = ['a', 'bc', 'def']
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 it('R.mapAsync', async () => {
-	const fn = async (x:unknown) => x as number + 1
-
   const result = await pipeAsync(
     list,
     mapAsync(async x => {
@@ -14,7 +12,7 @@ it('R.mapAsync', async () => {
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
-		mapAsync(fn),
+		map(x => x +1),
     mapAsync(async x => {
       await delay(100)
       return x + 1

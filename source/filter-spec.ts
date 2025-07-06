@@ -1,4 +1,4 @@
-import { filter, mergeTypes, pipe } from 'rambda'
+import { filter, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 

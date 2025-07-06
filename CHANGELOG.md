@@ -1,18 +1,18 @@
-10.4.0
-
-fix `R.pluck`
-
-Add `R.duplicateBy`
-
-Add `R.filterAsync`
-
-Add `R.indexBy`
-
-Restore `R.replaceAll`
-
 10.3.0
 
-Add `R.mapPropObject`
+- Add `R.mapPropObject`
+
+- Add `R.duplicateBy`
+
+- Add `R.filterAsync`
+
+- Add `R.indexBy`
+
+- Restore `R.replaceAll`
+
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
+
+- Fix `R.pluck` to work without `R.pipe`
 
 10.2.0
 

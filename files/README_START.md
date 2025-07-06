@@ -76,6 +76,8 @@ it('within Ramda.pipe requires explicit types', () => {
 });
 ```
 
+IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+
 ### Keep only the most useful methods
 
 The idea is to give `TypeScript` users only the most useful methods and let them implement the rest. No magic logic methods that are hard to remember. You shouldn't need to read the documentation to understand what a method does. Its name and signature should be enough.
