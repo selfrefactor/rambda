@@ -1,15 +1,29 @@
+10.3.1
+
+- Fix issue with wrong order of inputs in `R.propOr` - [Issue #768](https://github.com/selfrefactor/rambda/discussions/768)
+
+10.3.0
+
+- Add `R.mapPropObject`
 10.3.0
 
 - Add `R.mapPropObject`
 
 - Add `R.duplicateBy`
+- Add `R.duplicateBy`
 
+- Add `R.filterAsync`
 - Add `R.filterAsync`
 
 - Add `R.indexBy`
+- Add `R.indexBy`
 
 - Restore `R.replaceAll`
+- Restore `R.replaceAll`
 
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
+
+- Fix `R.pluck` to work without `R.pipe`
 - Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
 
 - Fix `R.pluck` to work without `R.pipe`

@@ -1773,7 +1773,7 @@ export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolea
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
  */
-export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
+export function propOr<T, P extends string>(property: P, defaultValue: T): (obj: Partial<Record<P, T>>) => T;
 
 /**
  * It returns `true` if the object property satisfies a given predicate.
