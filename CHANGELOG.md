@@ -2,6 +2,8 @@
 
 - Fix issue with wrong order of inputs in `R.propOr` - [Issue #768](https://github.com/selfrefactor/rambda/discussions/768)
 
+- Fix issue with TypeScript definitions for `R.includes`- [Issue #768](https://github.com/selfrefactor/rambda/discussions/768)
+
 10.3.0
 
 - Add `R.mapPropObject`
