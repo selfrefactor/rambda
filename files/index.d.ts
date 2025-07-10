@@ -2322,7 +2322,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
+export function propOr<T, P extends string>(property: P, defaultValue: T): (obj: Partial<Record<P, T>>) => T;
 
 /*
 Method: propSatisfies

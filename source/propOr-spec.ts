@@ -4,9 +4,7 @@ const obj = { foo: 'bar' }
 const property = 'foo'
 const fallback = 'fallback'
 
-describe('R.propOr', () => {
-  it('happy', () => {
-    const result = propOr(fallback, property)(obj)
-    result // $ExpectType string
-  })
+it('R.propOr', () => {
+	const result = propOr(property, fallback)(obj)
+	result // $ExpectType string
 })

@@ -9352,7 +9352,7 @@ test('returns false if called with a null or undefined object', () => {
 
 ```typescript
 
-propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T
+propOr<T, P extends string>(property: P, defaultValue: T): (obj: Partial<Record<P, T>>) => T
 ```
 
 It returns either `defaultValue` or the value of `property` in `obj`.
@@ -9376,7 +9376,7 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<P, T>>) => T;
+propOr<T, P extends string>(property: P, defaultValue: T): (obj: Partial<Record<P, T>>) => T;
 ```
 
 </details>
@@ -9388,7 +9388,7 @@ propOr<T, P extends string>(defaultValue: T, property: P): (obj: Partial<Record<
 ```javascript
 import { defaultTo } from './defaultTo.js'
 
-export function propOr(defaultValue, property) {
+export function propOr(property, defaultValue) {
   return obj => {
     if (!obj) {
       return defaultValue
@@ -9410,9 +9410,9 @@ import { propOr } from './propOr.js'
 
 test('propOr', () => {
   const obj = { a: 1 }
-  expect(propOr('default', 'a')(obj)).toBe(1)
-  expect(propOr('default', 'notExist')(obj)).toBe('default')
-  expect(propOr('default', 'notExist')(null)).toBe('default')
+  expect(propOr('a', 'default', )(obj)).toBe(1)
+  expect(propOr('notExist', 'default')(obj)).toBe('default')
+  expect(propOr('notExist', 'default')(null)).toBe('default')
 })
 ```
 
@@ -9429,11 +9429,9 @@ const obj = { foo: 'bar' }
 const property = 'foo'
 const fallback = 'fallback'
 
-describe('R.propOr', () => {
-  it('happy', () => {
-    const result = propOr(fallback, property)(obj)
-    result // $ExpectType string
-  })
+it('R.propOr', () => {
+	const result = propOr(property, fallback)(obj)
+	result // $ExpectType string
 })
 ```
 
@@ -13506,6 +13504,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+10.3.1
+
+- Fix issue with wrong order of inputs in `R.propOr` - [Issue #768](https://github.com/selfrefactor/rambda/discussions/768)
 
 10.3.0
 
