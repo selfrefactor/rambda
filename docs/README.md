@@ -76,9 +76,28 @@ it('within Ramda.pipe requires explicit types', () => {
 });
 ```
 
-IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+:exclamation: IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains.
 
-IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+In other words:
+
+```typescript
+R.filter(x => x > 1)([1,2,3])
+```
+
+might trigger TS error as it not the same as
+
+```typescript
+
+R.pipe([1,2,3], R.filter(x => x > 1)
+```
+
+### :exclamation: All methods are curried
+
+There is one way to use `Rambda` methods and it is with currying, i.e. using `R.filter(fn, list)` will not work as it is inteded to be `R.filter(fn)(list)`.
+
+The reason is that all methods are supposed to be used inside `R.pipe`. After all, building chains is the very base of functional programming. 
+
+Of course, there is value in supporting the case where you can pass all inputs at once, but I find that the price in terms of maintainability is not worth it.
 
 ### Keep only the most useful methods
 
@@ -3374,10 +3393,6 @@ test('happy', () => {
 test('using Boolean', () => {
   expect(filter(Boolean)([null, 0, 1, 2])).toEqual([1,2])
 })
-
-test('using Boolean', () => {
-  expect(filter(Boolean)([null, 0, 1, 2])).toEqual([1,2])
-})
 ```
 
 </details>
@@ -3387,7 +3402,6 @@ test('using Boolean', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, pipe } from 'rambda'
 import { filter, pipe } from 'rambda'
 
 const list = [1, 2, 3]
@@ -3461,93 +3475,6 @@ describe('R.filter with array', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filter)
-
-### filterAsync
-
-```typescript
-
-filterAsync<T>(
-	predicate: (value: T) => Promise<boolean>,
-): (list: T[]) => Promise<T[]>
-```
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-filterAsync<T>(
-	predicate: (value: T) => Promise<boolean>,
-): (list: T[]) => Promise<T[]>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.filterAsync</strong> source</summary>
-
-```javascript
-export function filterAsync(predicate) {
-  return async list => {
-    const willReturn = []
-    let index = 0
-    for (const x of list) {
-      if (await predicate(x, index)) {
-        willReturn.push(list[index])
-      }
-      index++
-    }
-
-    return willReturn
-  }
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { filterAsync } from './filterAsync.js'
-
-test('happy', async () => {
-  const isEven = async n => n % 2 === 0
-
-  expect(await filterAsync(isEven)([1, 2, 3, 4])).toEqual([2, 4])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { filterAsync, pipeAsync } from 'rambda'
-
-const list = [1, 2, 3]
-
-describe('R.filter with array', () => {
-  it('within pipe', async () => {
-    const result = await pipeAsync(
-      list,
-      filterAsync(async x => {
-        x // $ExpectType number
-        return x > 1
-      }),
-    )
-    result // $ExpectType number[]
-  })
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filterAsync)
 
 ### filterAsync
 
@@ -4855,7 +4782,7 @@ describe('R.head', () => {
 
 ```typescript
 
-includes<T extends string>(valueToFind: T): (input: string) => boolean
+includes(s: string): (list: readonly string[] | string) => boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -4877,8 +4804,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-includes<T extends string>(valueToFind: T): (input: string) => boolean;
-includes<T>(valueToFind: T): (input: T[]) => boolean;
+includes(s: string): (list: readonly string[] | string) => boolean;
+includes<T>(target: T): (list: readonly T[]) => boolean;
 ```
 
 </details>
@@ -4955,7 +4882,8 @@ test('with wrong input that does not throw', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { includes, pipe } from 'rambda'
+import { includes } from 'ramda'
+import { pipe } from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
@@ -4967,115 +4895,22 @@ describe('R.includes', () => {
     const result = pipe('foo', includes('bar'))
     result // $ExpectType boolean
   })
+  it('with array of strings', () => {
+		const result = pipe(['1','2'], includes('1'))
+    result // $ExpectType boolean
+  })
+  it('without R.pipe', () => {
+    const result1 = includes('1')(['1', '2'])
+    const result2 = includes(1)([1, 2])
+    result1 // $ExpectType boolean
+    result2 // $ExpectType boolean
+  })
 })
 ```
 
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#includes)
-
-### indexBy
-
-```typescript
-
-indexBy<T, K extends keyof T>(
-  property: K
-): (list: readonly T[]) => Record<string, T>
-```
-
-It transforms list of objects to object using specified property as the base for the returned object.
-
-```javascript
-const result = R.indexBy(
-	'id'
-)([{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}])
-// => {abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.indexBy(%0A%09'id'%0A)(%5B%7Bid%3A%20'xyz'%2C%20title%3A%20'A'%7D%2C%20%7Bid%3A%20'abc'%2C%20title%3A%20'B'%7D%5D)%0A%2F%2F%20%3D%3E%20%7Babc%3A%20%7Bid%3A%20'abc'%2C%20title%3A%20'B'%7D%2C%20xyz%3A%20%7Bid%3A%20'xyz'%2C%20title%3A%20'A'%7D%7D">Try this <strong>R.indexBy</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-indexBy<T, K extends keyof T>(
-  property: K
-): (list: readonly T[]) => Record<string, T>;
-indexBy<T, K extends keyof T>(
-  property: K
-): (list: T[]) => Record<string, T>;
-
-// API_MARKER_END
-// ============================================
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.indexBy</strong> source</summary>
-
-```javascript
-export function indexBy(property){
-	return list => {
-		const toReturn = {}
-		for (let i = 0; i < list.length; i++){
-			const item = list[ i ]
-			const key = item[property]
-			if(key !== undefined){
-				toReturn[ key ] = item
-			}
-		}
-	
-		return toReturn
-	}
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { indexBy } from './indexBy.js'
-
-test('happy', () => {
-	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
-
-	expect(
-		indexBy('id')(list)
-	).toEqual(
-		{abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
-	)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, indexBy } from 'rambda'
-
-it('R.indexBy', () => {
-	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
-	const result = pipe(
-		list,
-		indexBy('id')
-	)
-	result.abc // $ExpectType { id: string; title: string; }
-	result.foo // $ExpectType { id: string; title: string; }
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#indexBy)
 
 ### indexBy
 
@@ -5239,19 +5074,16 @@ test('will throw with bad input', () => {
 })
 
 test('with numbers', () => {
-test('with numbers', () => {
   expect(indexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(indexOf(10)([1, 2, 3, 4])).toBe(-1)
 })
 
-test('list of objects use R.equals', () => {
 test('list of objects use R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
   expect(indexOf({ c: 4 })(listOfObjects)).toBe(-1)
   expect(indexOf({ c: 3 })(listOfObjects)).toBe(2)
 })
 
-test('list of arrays use R.equals', () => {
 test('list of arrays use R.equals', () => {
   const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []]
   expect(indexOf([])(listOfLists)).toBe(5)
@@ -6217,8 +6049,6 @@ export function mapAsync(fn) {
     let i = 0
     for (const x of list) {
       willReturn.push(await fn(x, i++))
-    for (const x of list) {
-      willReturn.push(await fn(x, i++))
     }
 
     return willReturn
@@ -6290,10 +6120,8 @@ test('error', async () => {
 
 ```typescript
 import { mapAsync, pipeAsync, map } from 'rambda'
-import { mapAsync, pipeAsync, map } from 'rambda'
 
 const list = ['a', 'bc', 'def']
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 it('R.mapAsync', async () => {
@@ -6305,7 +6133,6 @@ it('R.mapAsync', async () => {
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
-		map(x => x +1),
 		map(x => x +1),
     mapAsync(async x => {
       await delay(100)
@@ -7201,11 +7028,9 @@ It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 const result = R.pipe(
 	[1, 2, 3],
 	R.modifyItemAtIndex(1, x => x + 1)
-	R.modifyItemAtIndex(1, x => x + 1)
 ) // => [1, 3, 3]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.modifyItemAtIndex(1%2C%20x%20%3D%3E%20x%20%2B%201)%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.modifyItemAtIndex</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.modifyItemAtIndex(1%2C%20x%20%3D%3E%20x%20%2B%201)%0A)%20%2F%2F%20%3D%3E%20%5B1%2C%203%2C%203%5D">Try this <strong>R.modifyItemAtIndex</strong> example in Rambda REPL</a>
 
 <details>
@@ -7363,9 +7188,16 @@ export function modifyPath(pathInput, fn) {
 ```javascript
 import { modifyPath } from './modifyPath.js'
 
+const obj = { a: { b: { c: 1 } } }
+
 test('happy', () => {
-  const result = modifyPath('a.b.c', x => x + 1)({ a: { b: { c: 1 } } })
+  const result = modifyPath('a.b.c', x => x + 1)(obj)
   expect(result).toEqual({ a: { b: { c: 2 } } })
+})
+
+test('works only on existing paths', () => {
+  const result = modifyPath('a.b.d', x => x + 1)(obj)
+  expect(result).toEqual(obj)
 })
 ```
 
@@ -9122,7 +8954,6 @@ const result = await R.pipeAsync(
     return x + 2
   },
   x => x +2,
-  x => x +2,
   async x => {
     const delayed = await R.delay(100)
     return delayed + x
@@ -9131,7 +8962,6 @@ const result = await R.pipeAsync(
 // `result` resolves to `RAMBDAX_DELAY104`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20await%20R.pipeAsync(%0A%20%20100%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20await%20R.delay(100)%0A%20%20%20%20return%20x%20%2B%202%0A%20%20%7D%2C%0A%20%20x%20%3D%3E%20x%20%2B2%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20const%20delayed%20%3D%20await%20R.delay(100)%0A%20%20%20%20return%20delayed%20%2B%20x%0A%20%20%7D%0A)%0A%2F%2F%20%60result%60%20resolves%20to%20%60RAMBDAX_DELAY104%60">Try this <strong>R.pipeAsync</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20await%20R.pipeAsync(%0A%20%20100%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20await%20R.delay(100)%0A%20%20%20%20return%20x%20%2B%202%0A%20%20%7D%2C%0A%20%20x%20%3D%3E%20x%20%2B2%2C%0A%20%20async%20x%20%3D%3E%20%7B%0A%20%20%20%20const%20delayed%20%3D%20await%20R.delay(100)%0A%20%20%20%20return%20delayed%20%2B%20x%0A%20%20%7D%0A)%0A%2F%2F%20%60result%60%20resolves%20to%20%60RAMBDAX_DELAY104%60">Try this <strong>R.pipeAsync</strong> example in Rambda REPL</a>
 
 <details>
@@ -10736,25 +10566,6 @@ const expected = [
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortByDescending(sortFn)(list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByDescending</strong> example in Rambda REPL</a>
 
-```javascript
-const list = [
-  {a: 2},
-  {a: 3},
-  {a: 1}
-]
-const sortFn = x => x.a
-
-const result = R.sortByDescending(sortFn)(list)
-const expected = [
-  {a: 3},
-  {a: 2},
-  {a: 1}
-]
-// => `result` is equal to `expected`
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20x%20%3D%3E%20x.a%0A%0Aconst%20result%20%3D%20R.sortByDescending(sortFn)(list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByDescending</strong> example in Rambda REPL</a>
-
 <details>
 
 <summary>All TypeScript definitions</summary>
@@ -10791,23 +10602,6 @@ sortByPath<S, K0 extends string & keyof S>(
 ```
 
 It sorts `list` by the value of `path` property.
-
-```javascript
-const list = [
-	{a: {b: 2}, id:1},
-	{a: {b: 1}, id:2},
-	{a: {b: 3}, id:3},
-]
-const result = R.sortByPath('a.b')(list)
-const expected = [
-	{a: {b: 1}, id:2},
-	{a: {b: 2}, id:1},
-	{a: {b: 3}, id:3}
-]
-// => `result` is equal to `expected`
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.sortByPath('a.b')(list)%0Aconst%20expected%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByPath</strong> example in Rambda REPL</a>
 
 ```javascript
 const list = [
@@ -10947,23 +10741,6 @@ const expected = [
 
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.sortByPathDescending('a.b')(list)%0Aconst%20expected%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByPathDescending</strong> example in Rambda REPL</a>
 
-```javascript
-const list = [
-	{a: {b: 2}, id:1},
-	{a: {b: 1}, id:2},
-	{a: {b: 3}, id:3},
-]
-const result = R.sortByPathDescending('a.b')(list)
-const expected = [
-	{a: {b: 3}, id:3}
-	{a: {b: 2}, id:1},
-	{a: {b: 1}, id:2},
-]
-// => `result` is equal to `expected`
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.sortByPathDescending('a.b')(list)%0Aconst%20expected%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%203%7D%2C%20id%3A3%7D%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A1%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A2%7D%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sortByPathDescending</strong> example in Rambda REPL</a>
-
 <details>
 
 <summary>All TypeScript definitions</summary>
@@ -11038,11 +10815,9 @@ It returns a sorted version of `input` object.
 const predicate = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
 const result = R.sortObject(predicate)({a:1, b: 4, c: 2})
-const result = R.sortObject(predicate)({a:1, b: 4, c: 2})
 // => {b: 4, c: 2, a: 1}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20(propA%2C%20propB%2C%20valueA%2C%20valueB)%20%3D%3E%20valueA%20%3E%20valueB%20%3F%20-1%20%3A%201%0A%0Aconst%20result%20%3D%20R.sortObject(predicate)(%7Ba%3A1%2C%20b%3A%204%2C%20c%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%204%2C%20c%3A%202%2C%20a%3A%201%7D">Try this <strong>R.sortObject</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20(propA%2C%20propB%2C%20valueA%2C%20valueB)%20%3D%3E%20valueA%20%3E%20valueB%20%3F%20-1%20%3A%201%0A%0Aconst%20result%20%3D%20R.sortObject(predicate)(%7Ba%3A1%2C%20b%3A%204%2C%20c%3A%202%7D)%0A%2F%2F%20%3D%3E%20%7Bb%3A%204%2C%20c%3A%202%2C%20a%3A%201%7D">Try this <strong>R.sortObject</strong> example in Rambda REPL</a>
 
 <details>
@@ -11406,8 +11181,6 @@ It splits `input` into slices of `sliceLength`.
 const result = [
   R.splitEvery(2)([1, 2, 3]),
   R.splitEvery(3)('foobar')
-  R.splitEvery(2)([1, 2, 3]),
-  R.splitEvery(3)('foobar')
 ]
 
 const expected = [
@@ -11417,7 +11190,6 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.splitEvery(3)('foobar')%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20%5B%0A%20%20R.splitEvery(2)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.splitEvery(3)('foobar')%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%20%5B%5B1%2C%202%5D%2C%20%5B3%5D%5D%2C%0A%20%20%5B'foo'%2C%20'bar'%5D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.splitEvery</strong> example in Rambda REPL</a>
 
 <details>
@@ -11506,11 +11278,9 @@ const x = [ 1, 2, 3, 4 ]
 const y = [ 3, 4, 5, 6 ]
 
 const result = R.symmetricDifference(x)(y)
-const result = R.symmetricDifference(x)(y)
 // => [ 1, 2, 5, 6 ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.symmetricDifference(x)(y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try this <strong>R.symmetricDifference</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.symmetricDifference(x)(y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try this <strong>R.symmetricDifference</strong> example in Rambda REPL</a>
 
 <details>
@@ -12079,18 +11849,14 @@ One use case is debugging in the middle of `R.pipe` chain.
 const list = [1, 2, 3]
 
 const result = R.pipe(
-const result = R.pipe(
 	list,
   R.filter(x => x > 1),
-  R.filter(x => x > 1),
   R.tap(console.log),
-  R.map(x => x * 2)
   R.map(x => x * 2)
 )
 // => `2` and `3` will be logged
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20R.pipe(%0A%09list%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%2C%0A%20%20R.tap(console.log)%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20R.pipe(%0A%09list%2C%0A%20%20R.filter(x%20%3D%3E%20x%20%3E%201)%2C%0A%20%20R.tap(console.log)%2C%0A%20%20R.map(x%20%3D%3E%20x%20*%202)%0A)%0A%2F%2F%20%3D%3E%20%602%60%20and%20%603%60%20will%20be%20logged">Try this <strong>R.tap</strong> example in Rambda REPL</a>
 
 <details>
@@ -12194,63 +11960,6 @@ it('R.test', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#test)
-
-### transformPropObject
-
-```typescript
-
-transformPropObject<T extends object, K extends keyof T, Value>(
-  valueMapper: (value: T[K]) => Value,
-  prop: K,
-): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>
-```
-
-```javascript
-const fn = (x) => x > 2
-const obj = {a: 1, b: 2}
-
-const result = R.transformPropObject(fn, 'a')(obj)
-// => {a: false, b: 2}
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20fn%20%3D%20(x)%20%3D%3E%20x%20%3E%202%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.transformPropObject(fn%2C%20'a')(obj)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20false%2C%20b%3A%202%7D">Try this <strong>R.transformPropObject</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-transformPropObject<T extends object, K extends keyof T, Value>(
-  valueMapper: (value: T[K]) => Value,
-  prop: K,
-): (data: T) => MergeTypes<Omit<T, K> & { [P in K]: Value }>;
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {  transformPropObject, pipe } from 'rambda'
-
-it('R.transformPropObject', () => {
-	const result = pipe(
-		{ a: 1, b: 'foo' },
-		transformPropObject(x => {
-			x // $ExpectType number
-			return x > 2
-		}, 'a'),
-	)
-
-	result // $ExpectType { b: string; a: boolean; }
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transformPropObject)
 
 ### transformPropObject
 
@@ -12709,11 +12418,9 @@ It takes two lists and return a new list containing a merger of both list with r
 
 ```javascript
 const result = R.union([1,2,3])([3,4,5]);
-const result = R.union([1,2,3])([3,4,5]);
 // => [1, 2, 3, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D)(%5B3%2C4%2C5%5D)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.union(%5B1%2C2%2C3%5D)(%5B3%2C4%2C5%5D)%3B%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%203%2C%204%2C%205%5D">Try this <strong>R.union</strong> example in Rambda REPL</a>
 
 <details>
@@ -12926,12 +12633,10 @@ It applies uniqueness to input list based on function that defines what to be us
 ```javascript
 const list = [{a:1}, {a:2}, {a:1}]
 const result = R.uniqBy(x => x)(list)
-const result = R.uniqBy(x => x)(list)
 
 // => [{a:1}, {a:2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x)(list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.uniqBy(x%20%3D%3E%20x)(list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%5D">Try this <strong>R.uniqBy</strong> example in Rambda REPL</a>
 
 <details>
@@ -13410,11 +13115,9 @@ const newValue = 88
 const list = [1, 2, 3, 4, 5]
 
 const result = R.update(index, newValue)(list)
-const result = R.update(index, newValue)(list)
 // => [1, 2, 88, 4, 5]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue)(list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20index%20%3D%202%0Aconst%20newValue%20%3D%2088%0Aconst%20list%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconst%20result%20%3D%20R.update(index%2C%20newValue)(list)%0A%2F%2F%20%3D%3E%20%5B1%2C%202%2C%2088%2C%204%2C%205%5D">Try this <strong>R.update</strong> example in Rambda REPL</a>
 
 <details>
@@ -13500,7 +13203,6 @@ If the `predicate` returns `false`, then it will simply return `input`.
 ```javascript
 const predicate = x => typeof x === 'number'
 const fn = R.when(predicate)(x => x + 1)
-const fn = R.when(predicate)(x => x + 1)
 
 const positiveInput = 88
 const negativeInput = 'foo'
@@ -13508,19 +13210,15 @@ const negativeInput = 'foo'
 const result = [
   fn(positiveInput),
   fn(negativeInput),
-  fn(negativeInput),
 ]
 
 const expected = [
-  89,
-  'foo1',
   89,
   'foo1',
 ]
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20fn%20%3D%20R.when(predicate)(x%20%3D%3E%20x%20%2B%201)%0A%0Aconst%20positiveInput%20%3D%2088%0Aconst%20negativeInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(positiveInput)%2C%0A%20%20fn(negativeInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%2089%2C%0A%20%20'foo1'%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.when</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20predicate%20%3D%20x%20%3D%3E%20typeof%20x%20%3D%3D%3D%20'number'%0Aconst%20fn%20%3D%20R.when(predicate)(x%20%3D%3E%20x%20%2B%201)%0A%0Aconst%20positiveInput%20%3D%2088%0Aconst%20negativeInput%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20fn(positiveInput)%2C%0A%20%20fn(negativeInput)%2C%0A%5D%0A%0Aconst%20expected%20%3D%20%5B%0A%20%2089%2C%0A%20%20'foo1'%2C%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.when</strong> example in Rambda REPL</a>
 
 <details>
@@ -13754,11 +13452,9 @@ const list1 = [ 10, 20, 30, 40 ]
 const list2 = [ 100, 200 ]
 
 const result = R.zipWith((x, y) => x + y, list1)(list2)
-const result = R.zipWith((x, y) => x + y, list1)(list2)
 // => [110, 220]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B%2010%2C%2020%2C%2030%2C%2040%20%5D%0Aconst%20list2%20%3D%20%5B%20100%2C%20200%20%5D%0A%0Aconst%20result%20%3D%20R.zipWith((x%2C%20y)%20%3D%3E%20x%20%2B%20y%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B110%2C%20220%5D">Try this <strong>R.zipWith</strong> example in Rambda REPL</a>
 <a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20list1%20%3D%20%5B%2010%2C%2020%2C%2030%2C%2040%20%5D%0Aconst%20list2%20%3D%20%5B%20100%2C%20200%20%5D%0A%0Aconst%20result%20%3D%20R.zipWith((x%2C%20y)%20%3D%3E%20x%20%2B%20y%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B110%2C%20220%5D">Try this <strong>R.zipWith</strong> example in Rambda REPL</a>
 
 <details>
@@ -13848,6 +13544,12 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+10.3.1
+
+- Fix issue with wrong order of inputs in `R.propOr` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+- Fix issue with TypeScript definitions for `R.includes`- [Issue #781](https://github.com/selfrefactor/rambda/issues/781)
+
 10.3.0
 
 - Add `R.mapPropObject`
@@ -13864,6 +13566,9 @@ describe('R.zipWith', () => {
 - Restore `R.replaceAll`
 - Restore `R.replaceAll`
 
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
+
+- Fix `R.pluck` to work without `R.pipe`
 - Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
 
 - Fix `R.pluck` to work without `R.pipe`
@@ -14329,258 +14034,6 @@ Add the following methods:
 
 - change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
 
-7.5.0
-
-- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
-
-- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
-
-- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
-
-- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
-
-7.4.0
-
-- Synchronize with `@types/ramda` - `R.prop`, `R.path`, `R.pickAll`
-
-- Remove `esm` Rollup output due to tree-shaking issues.
-
-- Upgrade all dev dependencies.
-
-7.3.0
-
-- Important - changing import declaration in `package.json` in order to fix tree-shaking issue - [Issue #647](https://github.com/selfrefactor/rambda/issues/647)
-
-- Add `R.modify`
-
-- Allow multiple inputs in TypeScript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
-
-- Using wrong clone of object in `R.mergeDeepRight` - [Issue #650](https://github.com/selfrefactor/rambda/issues/650)
-
-- Missing early return in `R.where` - [Issue #648](https://github.com/selfrefactor/rambda/issues/648)
-
-- `R.allPass` doesn't accept more than 1 parameters for function predicates- [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
-
-7.2.1
-
-- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript.
-
-- Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
-
-7.2.0
-
-- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
-
-- Wrong curried typings in `R.anyPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/642)
-
-- `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
-
-- Add new method `R.uniqBy`. Implementation is coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641)
-
-- Apply the following changes from `@types/rambda`:
-
--- [https://github.com/DefinitelyTyped/DefinitelyTyped/commit/bab47272d52fc7bb81e85da36dbe9c905a04d067](add `AnyFunction` and `AnyConstructor`)
-
--- Improve `R.ifElse` typings - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59291
-
--- Make `R.propEq` safe for `null/undefined` arguments - https://github.com/ramda/ramda/pull/2594/files
-
-7.1.4
-
-- `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
-
-7.1.0
-
-- Add `R.mergeRight` - introduced by Ramda's latest release. While Ramda renames `R.merge`, Rambda will keep `R.merge`.
-
-- Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by using Ramda's `pipe/compose` logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
-
-- Replace `Async` with `Promise` as return type of `R.type`.
-
-- Add new types as TypeScript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
-
-- Add `R.juxt` method
-
-- Add `R.propSatisfies` method
-
-- Add new methods after `Ramda` version upgrade to `0.28.0`:
-
--- R.count
--- R.modifyPath
--- R.on
--- R.whereAny
--- R.partialObject
-
-7.0.3
-
-Rambda.none has wrong logic introduced in version `7.0.0` - [Issue #625](https://github.com/selfrefactor/rambda/issues/625)
-
-7.0.2
-
-Rambda doesn't work with `pnpm` due to wrong export configuration - [Issue #619](https://github.com/selfrefactor/rambda/issues/619)
-
-7.0.1
-
-- Wrong ESM export configuration in `package.json` - [Issue #614](https://github.com/selfrefactor/rambda/issues/614)
-
-7.0.0
-
-- Breaking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required TypeScript version to `4.2.2`. In other words, to use `Rambda` you'll need TypeScript version `4.2.2` or newer.
-
-Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
-
-There are several other changes in `@types/ramda` as stated in [this comment](https://github.com/ramda/ramda/issues/2976#issuecomment-990408945). This leads to change of typings for the following methods in **Rambda**:
-
--- R.unless
-
--- R.toString
-
--- R.ifElse
-
--- R.always
-
--- R.complement
-
--- R.cond
-
--- R.is
-
--- R.sortBy
-
--- R.dissoc
-
--- R.toPairs
-
--- R.assoc
-
--- R.toLower
-
--- R.toUpper
-
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`.
-
-- Add `R.apply`, `R.bind` and `R.unapply`
-
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
-
-- Remove unused typing for `R.chain`.
-
-- `R.map`/`R.filter` no longer accept bad inputs as iterable. This way, Rambda behaves more like Ramda, which also throws.
-
-- Make `R.lastIndexOf` follow the logic of `R.indexOf`.
-
-- Change `R.type` logic to Ramda logic. This way, `R.type` can return `Error` and `Set` as results.
-
-- Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
-
-- Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
-
-- Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
-
-- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606).
-
-- Improve non-curry typings of `R.merge` by using types from [mobily/ts-belt](https://github.com/mobily/ts-belt).
-
-- Improve performance of `R.uniqWith`.
-
-- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
-
-- Make `R.eqProps` safe for falsy inputs - based on [this opened Ramda PR](https://github.com/ramda/ramda/pull/2943).
-
-- Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
-
-- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609)
-
-6.9.0
-
-- Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
-
-Fixing `R.uniq` was done by improving `R.indexOf` which has performance implication to all methods importing `R.indexOf`:
-
-- R.includes
-- R.intersection
-- R.difference
-- R.excludes
-- R.symmetricDifference
-- R.union
-
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086.
-
-6.8.3
-
-- Fix TypeScript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
-
-- Add `R.objOf` method
-
-- Add `R.mapObjIndexed` method
-
-- Publish shorter README.md version to NPM
-
-6.8.0
-
-- `R.has` use `Object.prototype.hasOwnProperty`- [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
-
-- Expose `immutable.ts` typings which are Rambda typings with `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
-
-- Fix `R.intersection` wrong order compared to Ramda.
-
-- `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
-
-6.7.0
-
-- Remove `ts-toolbelt` types from TypeScript definitions. Most affected are the following methods, which lose one of its curried definitions:
-
-1. R.maxBy
-2. R.minBy
-3. R.pathEq
-4. R.viewOr
-5. R.when
-6. R.merge
-7. R.mergeDeepRight
-8. R.mergeLeft
-
-6.6.0
-
-- Change `R.piped` typings to mimic that of `R.pipe`. Main difference is that `R.pipe` is focused on unary functions.
-
-- Fix wrong logic when `R.without` use `R.includes` while it should use array version of `R.includes`.
-
-- Use uglify plugin for UMD bundle.
-
-- Remove `dist` folder from `.gitignore` in order to fix `Deno` broken package. [Issue #570](https://github.com/selfrefactor/rambda/issues/570)
-
-- Improve `R.fromPairs` typings - [Issue #567](https://github.com/selfrefactor/rambda/issues/567)
-
-6.5.3
-
-- Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
-
-This is Ramda bug, that Rambda also has before this release - https://github.com/ramda/ramda/issues/3086
-
-6.5.2
-
-- Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
-
-- Update dependencies
-
-6.5.1
-
-Fix wrong versions in changelog
-
-6.5.0
-
-- `R.defaultTo` no longer accepts infinite inputs, thus it follows Ramda implementation.
-
-- `R.equals` supports equality of functions.
-
-- `R.pipe` doesn't use `R.compose`.
-
-- Close [Issue #561](https://github.com/selfrefactor/rambda/issues/561) - export several internal TS interfaces and types
-
-- Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
-
-- Add `CHANGELOG.md` file in release files list
-
 > This is only part of the changelog. You can read the full text in [CHANGELOG.md](CHANGELOG.md) file.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-changelog)
@@ -14590,33 +14043,23 @@ Fix wrong versions in changelog
 > Most influential contributors(in alphabetical order)
 
 - [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
-- [@farwayer](https://github.com/farwayer) - improving performance in R.find, R.filter; give the idea how to make benchmarks more reliable;
 
-- [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
 - [@thejohnfreeman](https://github.com/thejohnfreeman) - add R.assoc, R.chain;
 
 - [@peeja](https://github.com/peeja) - add several methods and fix mutiple issues; provides great MR documentation
-- [@peeja](https://github.com/peeja) - add several methods and fix mutiple issues; provides great MR documentation
 
-- [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
 - [@helmuthdu](https://github.com/helmuthdu) - add R.clone; help improve code style;
 
 - [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
-- [@jpgorman](https://github.com/jpgorman) - add R.zip, R.reject, R.without, R.addIndex;
 
-- [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
 - [@ku8ar](https://github.com/ku8ar) - add R.slice, R.propOr, R.identical, R.propIs and several math related methods; introduce the idea to display missing Ramda methods;
 
 - [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
-- [@romgrk](https://github.com/romgrk) - add R.groupBy, R.indexBy, R.findLast, R.findLastIndex;
 
-- [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
 - [@squidfunk](https://github.com/squidfunk) - add R.assocPath, R.symmetricDifference, R.difference, R.intersperse;
 
 - [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
-- [@synthet1c](https://github.com/synthet1c) - add all lenses methods; add R.applySpec, R.converge;
 
-- [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
 - [@vlad-zhukov](https://github.com/vlad-zhukov) - help with configuring Rollup, Babel; change export file to use ES module exports;
 
 > Rambda references

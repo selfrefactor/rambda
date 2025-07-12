@@ -428,8 +428,8 @@ export function head<T>(listOrString: T): T extends string ? string :
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function includes<T>(valueToFind: T): (input: T[]) => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
+export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
 /**
  * It transforms list of objects to object using specified property as the base for the returned object.
