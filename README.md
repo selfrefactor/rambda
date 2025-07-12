@@ -4882,8 +4882,7 @@ test('with wrong input that does not throw', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { includes } from 'ramda'
-import { pipe } from 'rambda'
+import { pipe, includes } from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {

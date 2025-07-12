@@ -1,5 +1,4 @@
-import { includes } from 'ramda'
-import { pipe } from 'rambda'
+import { pipe, includes } from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
