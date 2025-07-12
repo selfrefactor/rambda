@@ -76,7 +76,28 @@ it('within Ramda.pipe requires explicit types', () => {
 });
 ```
 
-IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+:exclamation: IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains.
+
+In other words:
+
+```typescript
+R.filter(x => x > 1)([1,2,3])
+```
+
+might trigger TS error as it not the same as
+
+```typescript
+
+R.pipe([1,2,3], R.filter(x => x > 1)
+```
+
+### :exclamation: All methods are curried
+
+There is one way to use `Rambda` methods and it is with currying, i.e. using `R.filter(fn, list)` will not work as it is inteded to be `R.filter(fn)(list)`.
+
+The reason is that all methods are supposed to be used inside `R.pipe`. After all, building chains is the very base of functional programming. 
+
+Of course, there is value in supporting the case where you can pass all inputs at once, but I find that the price in terms of maintainability is not worth it.
 
 ### Keep only the most useful methods
 
@@ -4761,7 +4782,7 @@ describe('R.head', () => {
 
 ```typescript
 
-includes<T extends string>(valueToFind: T): (input: string) => boolean
+includes(s: string): (list: readonly string[] | string) => boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -4783,8 +4804,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-includes<T extends string>(valueToFind: T): (input: string) => boolean;
-includes<T>(valueToFind: T): (input: T[]) => boolean;
+includes(s: string): (list: readonly string[] | string) => boolean;
+includes<T>(target: T): (list: readonly T[]) => boolean;
 ```
 
 </details>
@@ -4861,7 +4882,7 @@ test('with wrong input that does not throw', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { includes, pipe } from 'rambda'
+import { pipe, includes } from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
@@ -4872,6 +4893,16 @@ describe('R.includes', () => {
   it('with string', () => {
     const result = pipe('foo', includes('bar'))
     result // $ExpectType boolean
+  })
+  it('with array of strings', () => {
+		const result = pipe(['1','2'], includes('1'))
+    result // $ExpectType boolean
+  })
+  it('without R.pipe', () => {
+    const result1 = includes('1')(['1', '2'])
+    const result2 = includes(1)([1, 2])
+    result1 // $ExpectType boolean
+    result2 // $ExpectType boolean
   })
 })
 ```
@@ -7156,9 +7187,16 @@ export function modifyPath(pathInput, fn) {
 ```javascript
 import { modifyPath } from './modifyPath.js'
 
+const obj = { a: { b: { c: 1 } } }
+
 test('happy', () => {
-  const result = modifyPath('a.b.c', x => x + 1)({ a: { b: { c: 1 } } })
+  const result = modifyPath('a.b.c', x => x + 1)(obj)
   expect(result).toEqual({ a: { b: { c: 2 } } })
+})
+
+test('works only on existing paths', () => {
+  const result = modifyPath('a.b.d', x => x + 1)(obj)
+  expect(result).toEqual(obj)
 })
 ```
 
@@ -13507,20 +13545,29 @@ describe('R.zipWith', () => {
 
 10.3.1
 
-- Fix issue with wrong order of inputs in `R.propOr` - [Issue #768](https://github.com/selfrefactor/rambda/discussions/768)
+- Fix issue with wrong order of inputs in `R.propOr` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+- Fix issue with TypeScript definitions for `R.includes`- [Issue #781](https://github.com/selfrefactor/rambda/issues/781)
 
 10.3.0
 
 - Add `R.mapPropObject`
 
 - Add `R.duplicateBy`
+- Add `R.duplicateBy`
 
+- Add `R.filterAsync`
 - Add `R.filterAsync`
 
 - Add `R.indexBy`
+- Add `R.indexBy`
 
 - Restore `R.replaceAll`
+- Restore `R.replaceAll`
 
+- Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
+
+- Fix `R.pluck` to work without `R.pipe`
 - Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
 
 - Fix `R.pluck` to work without `R.pipe`
@@ -13985,258 +14032,6 @@ Add the following methods:
 > Reason for breaking change - synchronize with Ramda `0.29.0` release:
 
 - change order of `R.propEq` - [Ramda MR](https://github.com/ramda/ramda/pull/2938/files)
-
-7.5.0
-
-- IMPORTANT: Remove `export` property in `package.json` in order to allow `Rambda`  support for projects with `"type": "module"` in `package.json` - [Issue #667](https://github.com/selfrefactor/rambda/issues/657)
-
-- Add `R.unnest` - [Rambdax issue 89](https://github.com/selfrefactor/rambdax/issues/89)
-
-- `R.uniq` is not using `R.equals` as Ramda does - [Issue #88](https://github.com/selfrefactor/rambdax/issues/88)
-
-- Fix `R.path(['non','existing','path'], obj)` TS definition as 7.4.0 release caused TS errors - [Issue #668](https://github.com/selfrefactor/rambda/issues/668)
-
-7.4.0
-
-- Synchronize with `@types/ramda` - `R.prop`, `R.path`, `R.pickAll`
-
-- Remove `esm` Rollup output due to tree-shaking issues.
-
-- Upgrade all dev dependencies.
-
-7.3.0
-
-- Important - changing import declaration in `package.json` in order to fix tree-shaking issue - [Issue #647](https://github.com/selfrefactor/rambda/issues/647)
-
-- Add `R.modify`
-
-- Allow multiple inputs in TypeScript versions of `R.anyPass` and `R.allPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/604)
-
-- Using wrong clone of object in `R.mergeDeepRight` - [Issue #650](https://github.com/selfrefactor/rambda/issues/650)
-
-- Missing early return in `R.where` - [Issue #648](https://github.com/selfrefactor/rambda/issues/648)
-
-- `R.allPass` doesn't accept more than 1 parameters for function predicates- [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
-
-7.2.1
-
-- Remove bad typings of `R.propIs` which caused the library to cannot be build with TypeScript.
-
-- Drop support for `Wallaby` as per [https://github.com/wallabyjs/public/issues/3037](https://github.com/wallabyjs/public/issues/3037)
-
-7.2.0
-
-- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
-
-- Wrong curried typings in `R.anyPass` - [Issue #642](https://github.com/selfrefactor/rambda/issues/642)
-
-- `R.modifyPath` not exported - [Issue #640](https://github.com/selfrefactor/rambda/issues/640)
-
-- Add new method `R.uniqBy`. Implementation is coming from [Ramda MR#2641](https://github.com/ramda/ramda/pull/2641)
-
-- Apply the following changes from `@types/rambda`:
-
--- [https://github.com/DefinitelyTyped/DefinitelyTyped/commit/bab47272d52fc7bb81e85da36dbe9c905a04d067](add `AnyFunction` and `AnyConstructor`)
-
--- Improve `R.ifElse` typings - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59291
-
--- Make `R.propEq` safe for `null/undefined` arguments - https://github.com/ramda/ramda/pull/2594/files
-
-7.1.4
-
-- `R.mergeRight` not found on `Deno` import - [Issue #633](https://github.com/selfrefactor/rambda/issues/633)
-
-7.1.0
-
-- Add `R.mergeRight` - introduced by Ramda's latest release. While Ramda renames `R.merge`, Rambda will keep `R.merge`.
-
-- Rambda's `pipe/compose` doesn't return proper length of composed function which leads to issue with `R.applySpec`. It was fixed by using Ramda's `pipe/compose` logic - [Issue #627](https://github.com/selfrefactor/rambda/issues/627)
-
-- Replace `Async` with `Promise` as return type of `R.type`.
-
-- Add new types as TypeScript output for `R.type` - "Map", "WeakMap", "Generator", "GeneratorFunction", "BigInt", "ArrayBuffer"
-
-- Add `R.juxt` method
-
-- Add `R.propSatisfies` method
-
-- Add new methods after `Ramda` version upgrade to `0.28.0`:
-
--- R.count
--- R.modifyPath
--- R.on
--- R.whereAny
--- R.partialObject
-
-7.0.3
-
-Rambda.none has wrong logic introduced in version `7.0.0` - [Issue #625](https://github.com/selfrefactor/rambda/issues/625)
-
-7.0.2
-
-Rambda doesn't work with `pnpm` due to wrong export configuration - [Issue #619](https://github.com/selfrefactor/rambda/issues/619)
-
-7.0.1
-
-- Wrong ESM export configuration in `package.json` - [Issue #614](https://github.com/selfrefactor/rambda/issues/614)
-
-7.0.0
-
-- Breaking change - sync `R.compose`/`R.pipe` with `@types/ramda`. That is significant change so as safeguard, it will lead a major bump. Important - this lead to raising required TypeScript version to `4.2.2`. In other words, to use `Rambda` you'll need TypeScript version `4.2.2` or newer.
-
-Related commit in `@types/ramda` - https://github.com/DefinitelyTyped/DefinitelyTyped/commit/286eff4f76d41eb8f091e7437eabd8a60d97fc1f#diff-4f74803fa83a81e47cb17a7d8a4e46a7e451f4d9e5ce2f1bd7a70a72d91f4bc1
-
-There are several other changes in `@types/ramda` as stated in [this comment](https://github.com/ramda/ramda/issues/2976#issuecomment-990408945). This leads to change of typings for the following methods in **Rambda**:
-
--- R.unless
-
--- R.toString
-
--- R.ifElse
-
--- R.always
-
--- R.complement
-
--- R.cond
-
--- R.is
-
--- R.sortBy
-
--- R.dissoc
-
--- R.toPairs
-
--- R.assoc
-
--- R.toLower
-
--- R.toUpper
-
-- One more reason for the breaking change is changing of export declarations in `package.json` based on [this blog post](https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#packagejson-exports-imports-and-self-referencing) and [this merged Ramda's PR](https://github.com/ramda/ramda/pull/2999). This also led to renaming of `babel.config.js` to `babel.config.cjs`.
-
-- Add `R.apply`, `R.bind` and `R.unapply`
-
-- `R.startsWith/R.endsWith` now support lists as inputs. This way, it matches current Ramda behavior.
-
-- Remove unused typing for `R.chain`.
-
-- `R.map`/`R.filter` no longer accept bad inputs as iterable. This way, Rambda behaves more like Ramda, which also throws.
-
-- Make `R.lastIndexOf` follow the logic of `R.indexOf`.
-
-- Change `R.type` logic to Ramda logic. This way, `R.type` can return `Error` and `Set` as results.
-
-- Add missing logic in `R.equals` to compare sets - [Issue #599](https://github.com/selfrefactor/rambda/issues/599)
-
-- Improve list cloning - [Issue #595](https://github.com/selfrefactor/rambda/issues/595)
-
-- Handle multiple inputs with `R.allPass` and `R.anyPass` - [Issue #604](https://github.com/selfrefactor/rambda/issues/604)
-
-- Fix `R.length` wrong logic with inputs as `{length: 123}` - [Issue #606](https://github.com/selfrefactor/rambda/issues/606).
-
-- Improve non-curry typings of `R.merge` by using types from [mobily/ts-belt](https://github.com/mobily/ts-belt).
-
-- Improve performance of `R.uniqWith`.
-
-- Wrong `R.update` if index is `-1` - [PR #593](https://github.com/selfrefactor/rambda/pull/593)
-
-- Make `R.eqProps` safe for falsy inputs - based on [this opened Ramda PR](https://github.com/ramda/ramda/pull/2943).
-
-- Incorrect benchmarks for `R.pipe/R.compose` - [Issue #608](https://github.com/selfrefactor/rambda/issues/608)
-
-- Fix `R.last/R.head` typings - [Issue #609](https://github.com/selfrefactor/rambda/issues/609)
-
-6.9.0
-
-- Fix slow `R.uniq` methods - [Issue #581](https://github.com/selfrefactor/rambda/issues/581)
-
-Fixing `R.uniq` was done by improving `R.indexOf` which has performance implication to all methods importing `R.indexOf`:
-
-- R.includes
-- R.intersection
-- R.difference
-- R.excludes
-- R.symmetricDifference
-- R.union
-
-- R.without no longer support the following case - `without('0:1', ['0', '0:1']) // => ['0']`. Now it throws as the first argument should be a list, not a string. Ramda, on the other hand, returns an empty list - https://github.com/ramda/ramda/issues/3086.
-
-6.8.3
-
-- Fix TypeScript build process with `rambda/immutable` - [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
-
-- Add `R.objOf` method
-
-- Add `R.mapObjIndexed` method
-
-- Publish shorter README.md version to NPM
-
-6.8.0
-
-- `R.has` use `Object.prototype.hasOwnProperty`- [Issue #572](https://github.com/selfrefactor/rambda/issues/572)
-
-- Expose `immutable.ts` typings which are Rambda typings with `readonly` statements - [Issue #565](https://github.com/selfrefactor/rambda/issues/565)
-
-- Fix `R.intersection` wrong order compared to Ramda.
-
-- `R.path` wrong return of `null` instead of `undefined` when path value is `null` - [PR #577](https://github.com/selfrefactor/rambda/pull/577)
-
-6.7.0
-
-- Remove `ts-toolbelt` types from TypeScript definitions. Most affected are the following methods, which lose one of its curried definitions:
-
-1. R.maxBy
-2. R.minBy
-3. R.pathEq
-4. R.viewOr
-5. R.when
-6. R.merge
-7. R.mergeDeepRight
-8. R.mergeLeft
-
-6.6.0
-
-- Change `R.piped` typings to mimic that of `R.pipe`. Main difference is that `R.pipe` is focused on unary functions.
-
-- Fix wrong logic when `R.without` use `R.includes` while it should use array version of `R.includes`.
-
-- Use uglify plugin for UMD bundle.
-
-- Remove `dist` folder from `.gitignore` in order to fix `Deno` broken package. [Issue #570](https://github.com/selfrefactor/rambda/issues/570)
-
-- Improve `R.fromPairs` typings - [Issue #567](https://github.com/selfrefactor/rambda/issues/567)
-
-6.5.3
-
-- Wrong logic where `R.without` use `R.includes` while it should use the array version of `R.includes`
-
-This is Ramda bug, that Rambda also has before this release - https://github.com/ramda/ramda/issues/3086
-
-6.5.2
-
-- Wrong `R.defaultTo` typings - changes introduced in v6.5.0 are missing their TS equivalent.
-
-- Update dependencies
-
-6.5.1
-
-Fix wrong versions in changelog
-
-6.5.0
-
-- `R.defaultTo` no longer accepts infinite inputs, thus it follows Ramda implementation.
-
-- `R.equals` supports equality of functions.
-
-- `R.pipe` doesn't use `R.compose`.
-
-- Close [Issue #561](https://github.com/selfrefactor/rambda/issues/561) - export several internal TS interfaces and types
-
-- Close [Issue #559](https://github.com/selfrefactor/rambda/issues/559) - improve `R.propOr` typings
-
-- Add `CHANGELOG.md` file in release files list
 
 > This is only part of the changelog. You can read the full text in [CHANGELOG.md](CHANGELOG.md) file.
 

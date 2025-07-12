@@ -76,7 +76,28 @@ it('within Ramda.pipe requires explicit types', () => {
 });
 ```
 
-IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains. Using them outside(standalone) most likely will result in `unknown` type for inputs.
+:exclamation: IMPORTANT - all methods are tested to deliver correct types when they are part of `R.pipe/R.pipeAsync` chains.
+
+In other words:
+
+```typescript
+R.filter(x => x > 1)([1,2,3])
+```
+
+might trigger TS error as it not the same as
+
+```typescript
+
+R.pipe([1,2,3], R.filter(x => x > 1)
+```
+
+### :exclamation: All methods are curried
+
+There is one way to use `Rambda` methods and it is with currying, i.e. using `R.filter(fn, list)` will not work as it is inteded to be `R.filter(fn)(list)`.
+
+The reason is that all methods are supposed to be used inside `R.pipe`. After all, building chains is the very base of functional programming. 
+
+Of course, there is value in supporting the case where you can pass all inputs at once, but I find that the price in terms of maintainability is not worth it.
 
 ### Keep only the most useful methods
 

@@ -766,8 +766,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function includes<T>(valueToFind: T): (input: T[]) => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
+export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
 /*
 Method: excludes

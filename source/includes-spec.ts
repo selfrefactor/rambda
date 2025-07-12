@@ -1,4 +1,4 @@
-import { includes, pipe } from 'rambda'
+import { pipe, includes } from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
@@ -9,5 +9,15 @@ describe('R.includes', () => {
   it('with string', () => {
     const result = pipe('foo', includes('bar'))
     result // $ExpectType boolean
+  })
+  it('with array of strings', () => {
+		const result = pipe(['1','2'], includes('1'))
+    result // $ExpectType boolean
+  })
+  it('without R.pipe', () => {
+    const result1 = includes('1')(['1', '2'])
+    const result2 = includes(1)([1, 2])
+    result1 // $ExpectType boolean
+    result2 // $ExpectType boolean
   })
 })
