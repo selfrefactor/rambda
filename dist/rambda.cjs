@@ -230,8 +230,8 @@ function countBy(fn) {
   }
 }
 
-function createObjectFromKeys(keys) {
-	return fn => {
+function createObjectFromKeys(fn) {
+	return keys => {
 		const result = {};
 		keys.forEach((key, index) => {
 			result[key] = fn(key, index);
