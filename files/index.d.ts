@@ -284,9 +284,7 @@ Explanation: It adds element `x` at the end of `iterable`.
 Example:
 
 ```
-const x = 'foo'
-
-const result = R.append(x, ['bar', 'baz'])
+const result = R.append('foo')(['bar', 'baz'])
 // => ['bar', 'baz', 'foo']
 ```
 
@@ -3494,7 +3492,7 @@ const input = {
 }
 const result = R.pipe(
 	input,
-	evolve({
+	R.evolve({
 		foo: x => x + 1,
 	})
 )

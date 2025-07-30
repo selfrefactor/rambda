@@ -1,6 +1,10 @@
 10.3.1
 
-- Fix issue with wrong order of inputs in `R.propOr` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+- Fix issue with wrong order of inputs in `R.createObjectFromKeys` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+10.3.1
+
+- Fix issue with wrong order of inputs in `R.propEq` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
 
 - Fix issue with TypeScript definitions for `R.includes`- [Issue #781](https://github.com/selfrefactor/rambda/issues/781)
 
@@ -9,15 +13,11 @@
 - Add `R.mapPropObject`
 
 - Add `R.duplicateBy`
-- Add `R.duplicateBy`
 
-- Add `R.filterAsync`
 - Add `R.filterAsync`
 
 - Add `R.indexBy`
-- Add `R.indexBy`
 
-- Restore `R.replaceAll`
 - Restore `R.replaceAll`
 
 - Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.

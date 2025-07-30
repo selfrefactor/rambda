@@ -834,13 +834,11 @@ append<T>(el: T): (list: T[]) => T[]
 It adds element `x` at the end of `iterable`.
 
 ```javascript
-const x = 'foo'
-
-const result = R.append(x, ['bar', 'baz'])
+const result = R.append('foo')(['bar', 'baz'])
 // => ['bar', 'baz', 'foo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20x%20%3D%20'foo'%0A%0Aconst%20result%20%3D%20R.append(x%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try this <strong>R.append</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20result%20%3D%20R.append('foo')(%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'bar'%2C%20'baz'%2C%20'foo'%5D">Try this <strong>R.append</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -1805,8 +1803,8 @@ createObjectFromKeys<const K extends readonly PropertyKey[], V>(
 <summary><strong>R.createObjectFromKeys</strong> source</summary>
 
 ```javascript
-export function createObjectFromKeys(keys) {
-	return fn => {
+export function createObjectFromKeys(fn) {
+	return keys => {
 		const result = {}
 		keys.forEach((key, index) => {
 			result[key] = fn(key, index)
@@ -1827,7 +1825,7 @@ export function createObjectFromKeys(keys) {
 import { createObjectFromKeys } from './createObjectFromKeys.js'
 
 test('happy', () => {
-	const result = createObjectFromKeys(['a', 'b'])((key, index) => key.toUpperCase() + index)
+	const result = createObjectFromKeys((key, index) => key.toUpperCase() + index)(['a', 'b'])
 	const expected = { a: 'A0', b: 'B1' }
 
 	expect(result).toEqual(expected)
@@ -3117,14 +3115,14 @@ const input = {
 }
 const result = R.pipe(
 	input,
-	evolve({
+	R.evolve({
 		foo: x => x + 1,
 	})
 )
 // => result is { foo: 3, baz: 'baz' }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%09foo%3A%202%2C%0A%09baz%3A%20'baz'%2C%0A%7D%0Aconst%20result%20%3D%20R.pipe(%0A%09input%2C%0A%09evolve(%7B%0A%09%09foo%3A%20x%20%3D%3E%20x%20%2B%201%2C%0A%09%7D)%0A)%0A%2F%2F%20%3D%3E%20result%20is%20%7B%20foo%3A%203%2C%20baz%3A%20'baz'%20%7D">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.now.sh?const%20input%20%3D%20%7B%0A%09foo%3A%202%2C%0A%09baz%3A%20'baz'%2C%0A%7D%0Aconst%20result%20%3D%20R.pipe(%0A%09input%2C%0A%09R.evolve(%7B%0A%09%09foo%3A%20x%20%3D%3E%20x%20%2B%201%2C%0A%09%7D)%0A)%0A%2F%2F%20%3D%3E%20result%20is%20%7B%20foo%3A%203%2C%20baz%3A%20'baz'%20%7D">Try this <strong>R.evolve</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -13545,7 +13543,11 @@ describe('R.zipWith', () => {
 
 10.3.1
 
-- Fix issue with wrong order of inputs in `R.propOr` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+- Fix issue with wrong order of inputs in `R.createObjectFromKeys` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+10.3.1
+
+- Fix issue with wrong order of inputs in `R.propEq` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
 
 - Fix issue with TypeScript definitions for `R.includes`- [Issue #781](https://github.com/selfrefactor/rambda/issues/781)
 
@@ -13554,15 +13556,11 @@ describe('R.zipWith', () => {
 - Add `R.mapPropObject`
 
 - Add `R.duplicateBy`
-- Add `R.duplicateBy`
 
-- Add `R.filterAsync`
 - Add `R.filterAsync`
 
 - Add `R.indexBy`
-- Add `R.indexBy`
 
-- Restore `R.replaceAll`
 - Restore `R.replaceAll`
 
 - Remove option for `R.mapAsync` to be called outside of `R.pipeAsync`. This is done for consistency as all other methods follow this rule, i.e. they are all curried.
