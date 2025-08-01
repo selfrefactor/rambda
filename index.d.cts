@@ -506,8 +506,6 @@ export function lastIndexOf<T>(target: T): (list: T[]) => number;
 
 /**
  * It returns the result of looping through `iterable` with `fn`.
- * 
- * It works with both array and object.
  */
 export function map<T extends IterableContainer, U>(
   fn: (value: T[number], index: number) => U,
