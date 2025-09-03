@@ -5891,7 +5891,7 @@ map<T extends IterableContainer, U>(
 
 It returns the result of looping through `iterable` with `fn`.
 
-It works with both array and object.
+> :boom: This function doesn't work with objects (use R.mapObject instead)
 
 ```javascript
 const fn = x => x * 2

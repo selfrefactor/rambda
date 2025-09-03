@@ -967,8 +967,6 @@ Method: map
 
 Explanation: It returns the result of looping through `iterable` with `fn`.
 
-It works with both array and object.
-
 Example:
 
 ```
@@ -983,7 +981,7 @@ const result = R.map(fn)(iterable),
 
 Categories: List
 
-Notes:
+Notes: This function doesn't work with objects (use R.mapObject instead)
 
 */
 // @SINGLE_MARKER
