@@ -1790,10 +1790,6 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: numbe
  * It has the opposite effect of `R.filter`.
  */
 export function reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
-export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
 export function reject<T>(

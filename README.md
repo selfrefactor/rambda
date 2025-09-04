@@ -9790,9 +9790,8 @@ it('R.reduce', () => {
 ```typescript
 
 reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[]
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => ("" | null | undefined | false | 0)[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -9817,10 +9816,6 @@ const result = [
 
 ```typescript
 reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
-reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
 reject<T>(
@@ -9829,8 +9824,6 @@ reject<T>(
 reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
-...
-...
 ```
 
 </details>
