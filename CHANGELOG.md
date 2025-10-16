@@ -1,4 +1,10 @@
-10.3.1
+10.3.3
+
+- Fix wrong typing for `R.reject` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+- Improve `R.pick` to not allow non-existing keys as input.
+
+10.3.2
 
 - Fix issue with wrong order of inputs in `R.createObjectFromKeys` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
 

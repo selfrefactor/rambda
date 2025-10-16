@@ -8435,7 +8435,7 @@ export function permutations(inputArray) {
 
 ```typescript
 
-pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>
+pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>
 ```
 
 It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -8478,8 +8478,8 @@ const expected = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
+pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>;
+pick<S extends string, Keys extends PickStringToPickPath<S>>(propsToPick: S): <T extends Partial<Record<ElementOf<Keys>, any>>>(input: ElementOf<Keys> extends keyof T ? T : never) => ElementOf<Keys> extends keyof T ? MergeTypes<Pick<T, ElementOf<Keys>>> : never;
 ```
 
 </details>
@@ -8567,15 +8567,19 @@ const input = { a: 'foo', c: 3 }
 
 describe('R.pick', () => {
   it('with string as input', () => {
-    const result = pipe(input, pick('a,c,b,o'))
+    const result = pipe(input, pick('a,c'))
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
   it('with array as input', () => {
-    const result = pipe(input, pick(['a', 'c']))
+		const result = pipe(input, pick(['a', 'c']))
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
+	it('throws error if some keys do not exist', () => {
+		// @ts-expect-error
+		pipe(input, pick('a,c,b,o'))
+	})
 })
 ```
 
@@ -13534,7 +13538,13 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-10.3.1
+10.3.3
+
+- Fix wrong typing for `R.reject` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+- Improve `R.pick` to not allow non-existing keys as input.
+
+10.3.2
 
 - Fix issue with wrong order of inputs in `R.createObjectFromKeys` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
 

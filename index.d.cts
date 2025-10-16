@@ -1231,8 +1231,8 @@ export function permutations<T>(list: T[]): T[][];
  * 
  * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
-export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>;
+export function pick<S extends string, Keys extends PickStringToPickPath<S>>(propsToPick: S): <T extends Partial<Record<ElementOf<Keys>, any>>>(input: ElementOf<Keys> extends keyof T ? T : never) => ElementOf<Keys> extends keyof T ? MergeTypes<Pick<T, ElementOf<Keys>>> : never;
 
 /**
  * It performs left-to-right function composition, where first argument is the input for the chain of functions.

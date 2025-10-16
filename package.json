@@ -40,18 +40,18 @@
   "devDependencies": {
     "@definitelytyped/dtslint": "0.0.182",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.3.0",
-    "@vitest/coverage-v8": "4.0.0-beta.10",
+    "@types/node": "24.7.0",
+    "@vitest/coverage-v8": "4.0.0-beta.17",
     "helpers-fn": "2.0.0",
     "lodash": "4.17.21",
     "radashi": "13.0.0-beta.ffa4778",
     "rambdax": "11.3.1",
     "ramda": "0.31.3",
-    "remeda": "2.30.0",
-    "rollup": "4.50.0",
+    "remeda": "2.32.0",
+    "rollup": "4.52.4",
     "types-ramda": "0.31.0",
-    "typescript": "6.0.0-dev.20250903",
-    "vitest": "4.0.0-beta.10"
+    "typescript": "6.0.0-dev.20251006",
+    "vitest": "4.0.0-beta.17"
   },
   "jest": {
     "testEnvironment": "node",
