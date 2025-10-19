@@ -986,19 +986,11 @@ Notes: This function doesn't work with objects (use R.mapObject instead)
 */
 // @SINGLE_MARKER
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>;
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
+	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
-	data: T
-) : Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
-	data: T
-) : Mapped<T, U>;
 
 /*
 Method: mapObject

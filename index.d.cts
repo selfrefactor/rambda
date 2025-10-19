@@ -508,19 +508,11 @@ export function lastIndexOf<T>(target: T): (list: T[]) => number;
  * It returns the result of looping through `iterable` with `fn`.
  */
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>;
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
+	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
-	data: T
-) : Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
-	data: T
-) : Mapped<T, U>;
 
 /**
  * Sequential asynchronous mapping with `fn` over members of `list`.
