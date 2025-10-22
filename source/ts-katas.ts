@@ -17,23 +17,12 @@ function deepPick<T, K extends string>(obj: T, key: K): DeepPick<T, K> {
 	}, obj) as DeepPick<T, K>
 }
 
-function deepPickAll<T, K extends string[]>(obj: T, keys: K): MergeTypes<DeepPickAll<T, K>> {
-	return keys.reduce((acc, key) => {
-		return { ...acc, ...deepPick(obj, key) }
-	}, {} as MergeTypes<DeepPickAll<T, K>>)
+const deepPickAll = <T, K extends string[]>(obj: T, keys: K): DeepPickAll<T, K> => {
+	return null as any
 }
-
 let l = deepPick({ a: { b: { c: 1 } } }, 'a.b.c')
 l.a.b.c
-let l2 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l3 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l4 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l5 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l6 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l7 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-let l8 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c', 'a.b'])
-
-
+let l2 = deepPickAll({ a: { b: { c: 1 } } }, ['a.b.c'] as const)
 
 
 type SnakeCase<T> = T extends `${infer F}${infer R}`
