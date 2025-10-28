@@ -5989,7 +5989,7 @@ it('R.map - without pipe', () => {
 
 it('R.map - without pipe but explicitly typed', () => {
   const result = map<number[], string>(x => {
-    x // $ExpectType number[]
+    x // $ExpectType number
     return String(x)
   })([1, 2, 3])
   result // $ExpectType string[]
