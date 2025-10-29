@@ -986,19 +986,11 @@ Notes: This function doesn't work with objects (use R.mapObject instead)
 */
 // @SINGLE_MARKER
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>;
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
+	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
-	data: T
-) : Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
-	data: T
-) : Mapped<T, U>;
 
 /*
 Method: mapObject
@@ -1886,8 +1878,8 @@ Categories: Object
 Notes: pipe
 */
 // @SINGLE_MARKER
-export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>;
+export function pick<S extends string, Keys extends PickStringToPickPath<S>>(propsToPick: S): <T extends Partial<Record<ElementOf<Keys>, any>>>(input: ElementOf<Keys> extends keyof T ? T : never) => ElementOf<Keys> extends keyof T ? MergeTypes<Pick<T, ElementOf<Keys>>> : never;
 
 /*
 Method: pipe
@@ -2393,10 +2385,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
 export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => ("" | null | undefined | false | 0)[];

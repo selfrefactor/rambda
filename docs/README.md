@@ -5885,7 +5885,7 @@ describe('R.lastIndexOf', () => {
 ```typescript
 
 map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>
 ```
 
@@ -5911,21 +5911,11 @@ const result = R.map(fn)(iterable),
 
 ```typescript
 map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>;
 map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
+	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
-map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
-	data: T
-) : Mapped<T, U>;
-map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
-	data: T
-) : Mapped<T, U>;
-...
-...
 ```
 
 </details>
@@ -5979,7 +5969,7 @@ import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
-it('R.map', () => {
+it('R.map - within pipe', () => {
   const result = pipe(
     list,
     x => x,
@@ -5988,6 +5978,20 @@ it('R.map', () => {
       return String(x)
     }),
   )
+  result // $ExpectType string[]
+})
+
+it('R.map - without pipe', () => {
+  map(x => {
+    x // $ExpectType unknown
+  })([1, 2, 3])
+})
+
+it('R.map - without pipe but explicitly typed', () => {
+  const result = map<number[], string>(x => {
+    x // $ExpectType number
+    return String(x)
+  })([1, 2, 3])
   result // $ExpectType string[]
 })
 ```
@@ -8435,7 +8439,7 @@ export function permutations(inputArray) {
 
 ```typescript
 
-pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>
+pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>
 ```
 
 It returns a partial copy of an `input` containing only `propsToPick` properties.
@@ -8478,8 +8482,8 @@ const expected = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
+pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>;
+pick<S extends string, Keys extends PickStringToPickPath<S>>(propsToPick: S): <T extends Partial<Record<ElementOf<Keys>, any>>>(input: ElementOf<Keys> extends keyof T ? T : never) => ElementOf<Keys> extends keyof T ? MergeTypes<Pick<T, ElementOf<Keys>>> : never;
 ```
 
 </details>
@@ -8567,15 +8571,19 @@ const input = { a: 'foo', c: 3 }
 
 describe('R.pick', () => {
   it('with string as input', () => {
-    const result = pipe(input, pick('a,c,b,o'))
+    const result = pipe(input, pick('a,c'))
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
   it('with array as input', () => {
-    const result = pipe(input, pick(['a', 'c']))
+		const result = pipe(input, pick(['a', 'c']))
     result.a // $ExpectType string
     result.c // $ExpectType number
   })
+	it('throws error if some keys do not exist', () => {
+		// @ts-expect-error
+		pipe(input, pick('a,c,b,o'))
+	})
 })
 ```
 
@@ -9790,9 +9798,8 @@ it('R.reduce', () => {
 ```typescript
 
 reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[]
+	predicate: BooleanConstructor,
+): (list: readonly T[]) => ("" | null | undefined | false | 0)[]
 ```
 
 It has the opposite effect of `R.filter`.
@@ -9817,10 +9824,6 @@ const result = [
 
 ```typescript
 reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
-reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
 reject<T>(
@@ -9829,8 +9832,6 @@ reject<T>(
 reject<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
-...
-...
 ```
 
 </details>
@@ -13541,7 +13542,13 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
-10.3.1
+10.3.3
+
+- Fix wrong typing for `R.reject` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
+
+- Improve `R.pick` to not allow non-existing keys as input.
+
+10.3.2
 
 - Fix issue with wrong order of inputs in `R.createObjectFromKeys` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
 

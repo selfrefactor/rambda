@@ -508,19 +508,11 @@ export function lastIndexOf<T>(target: T): (list: T[]) => number;
  * It returns the result of looping through `iterable` with `fn`.
  */
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
+	fn: (value: T[number], index: number) => U,
 ): (data: T) => Mapped<T, U>;
 export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
+	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => U,
-	data: T
-) : Mapped<T, U>;
-export function map<T extends IterableContainer, U>(
-  fn: (value: T[number]) => U,
-	data: T
-) : Mapped<T, U>;
 
 /**
  * Sequential asynchronous mapping with `fn` over members of `list`.
@@ -1231,8 +1223,8 @@ export function permutations<T>(list: T[]): T[][];
  * 
  * String annotation of `propsToPick` is one of the differences between `Rambda` and `Ramda`.
  */
-export function pick<K extends PropertyKey>(propsToPick: K[]): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>;
-export function pick<S extends string>(propsToPick: S): <T>(input: T) => MergeTypes<Pick<T, Exclude<keyof T, Exclude<keyof T, ElementOf<PickStringToPickPath<S>>>>>>;
+export function pick<K extends PropertyKey>(propsToPick: K[]): <T extends Partial<Record<K, any>>>(input: K extends keyof T ? T : never) => MergeTypes<Pick<T, K>>;
+export function pick<S extends string, Keys extends PickStringToPickPath<S>>(propsToPick: S): <T extends Partial<Record<ElementOf<Keys>, any>>>(input: ElementOf<Keys> extends keyof T ? T : never) => ElementOf<Keys> extends keyof T ? MergeTypes<Pick<T, ElementOf<Keys>>> : never;
 
 /**
  * It performs left-to-right function composition, where first argument is the input for the chain of functions.
@@ -1789,10 +1781,6 @@ export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: numbe
 /**
  * It has the opposite effect of `R.filter`.
  */
-export function reject<T>(
-	predicate: (value: T) => boolean,
-  list: T[],
-): T[];
 export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: readonly T[]) => ("" | null | undefined | false | 0)[];
