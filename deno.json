@@ -1,6 +1,6 @@
 {
   "name": "@rambda/rambda",
-  "version": "10.3.1",
+  "version": "10.3.3",
   "exports": "./mod.ts",
   "imports": {
     "rambda": "./mod.ts"
