@@ -1827,7 +1827,7 @@ export function sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
  */
 export function sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
-export function sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+export function sortByDescending<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
 /**
  * It sorts `list` by the value of `path` property.

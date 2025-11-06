@@ -10542,7 +10542,7 @@ describe('R.sortBy', () => {
 
 ```typescript
 
-sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[]
+sortByDescending<T>(sortFn: (x: T) => Ord): (list: T[]) => T[]
 ```
 
 ```javascript
@@ -10569,7 +10569,7 @@ const expected = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+sortByDescending<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 ```
 
 </details>
@@ -10584,6 +10584,24 @@ import { sortByFn } from "./sortBy.js";
 export function sortByDescending(sortFn) {
   return list => sortByFn(sortFn, list, true)
 }
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { sortByDescending } from './sortByDescending.js'
+import { path } from './path.js'
+
+const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: { b: 2 } }]
+const sorted = [{ a: { b: 3 } }, { a: { b: 2 } }, { a: { b: 1 } }]
+
+test('happy', () => {
+  expect(sortByDescending(path('a.b'))(list)).toEqual(sorted)
+})
 ```
 
 </details>
@@ -13541,6 +13559,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+10.3.4
+
+- Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)
 
 10.3.3
 
