@@ -4429,6 +4429,7 @@ export function mapAsync<T extends IterableContainer, U>(
 Method: mapParallelAsync
 
 Explanation: Wrapper around `Promise.all` for asynchronous mapping with `fn` over members of `list`.
+There is optional `batchSize` parameter to allow parallel execution to run in batches. In this case, the whole batch must complete before the next batch starts.
 
 Example:
 
@@ -4442,10 +4443,8 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-): (data: T) => Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
+	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>;
 
 /*
