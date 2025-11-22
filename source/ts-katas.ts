@@ -1,4 +1,10 @@
-import { type MergeTypes, type MergeTypesAlternative, pipe } from 'rambda'
+import { map, type MergeTypes, type MergeTypesAlternative, pipe, splitEvery } from 'rambda'
+
+let a = pipe(
+	[[1,2,3],[4,5,6]],
+	map(splitEvery(2))
+)
+a
 
 type DeepPick<T, K> = K extends keyof T
   ? { [P in K]: T[P] }

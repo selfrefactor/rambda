@@ -23,3 +23,14 @@ test('pipeAsync', async () => {
 	)
   expect(result).toEqual([ 2,3,4 ])
 })
+
+test('with batchSize', async () => {
+	const fn = async (x, i) => {
+		await delay(100)
+		return `${x}:${i}`
+	}
+	const result = await mapParallelAsync(fn, 2)([1, 2, 3, 4, 5])
+	expect(result).toEqual(
+		['1:0', '2:1', '3:2', '4:3', '5:4']
+	)
+})

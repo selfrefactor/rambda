@@ -1050,7 +1050,7 @@ export function transformPropObject<T extends object, K extends keyof T, Value>(
 /*
 Method: mapPropObject
 
-Explanation: It maps over a property of object that is a list.
+Explanation: Convenience method, when one needs to maps over a object property that is a list.
 
 Example:
 
@@ -1058,13 +1058,12 @@ Example:
 
 const result = pipe(
 	{ a: [1,2,3], b: 'foo' },
-	mapPropObject(x => {
-		x // $ExpectType { a: number; b: string; }
+	mapPropObject('a',x => {
 		return {
 			a: x,
 			flag: x > 2,
 		}
-	}, 'a'),
+	}),
 )
 // => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
 ```
@@ -1075,12 +1074,20 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapPropObject<T extends object, K extends keyof T, Value>(
+export function mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
+	valueMapper: (
+		listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
+		list: T[K] extends ReadonlyArray<any> ? T[K] : never,
+	) => Value,
+): (data: T) => T[K] extends ReadonlyArray<any>
+	? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+	: never;
+export function mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
   valueMapper: (
-    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
-    data: T[K],
+    listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
   ) => Value,
-    prop: K,
 ): (data: T) => T[K] extends ReadonlyArray<any>
   ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
   : never;
@@ -2536,7 +2543,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function sortByDescending<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
+export function sortByDescending<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 
 /*
 Method: sortByPath
@@ -4429,6 +4436,7 @@ export function mapAsync<T extends IterableContainer, U>(
 Method: mapParallelAsync
 
 Explanation: Wrapper around `Promise.all` for asynchronous mapping with `fn` over members of `list`.
+There is optional `batchSize` parameter to allow parallel execution to run in batches. In this case, the whole batch must complete before the next batch starts.
 
 Example:
 
@@ -4442,10 +4450,8 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number], index: number) => Promise<U>,
-): (data: T) => Promise<Mapped<T, U>>;
-export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
+	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>;
 
 /*

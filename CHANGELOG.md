@@ -1,3 +1,15 @@
+10.3.4
+
+- Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)
+
+- Improve `R.mapParallelAsync` typings to allow optional `batchSize` parameter.
+
+- Change order of inputs in `R.mapPropObject`
+
+- Change REPL links in documentation
+
+- Remove `jsr.json`
+
 10.3.3
 
 - Fix wrong typing for `R.reject` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)
