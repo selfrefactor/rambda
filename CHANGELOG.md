@@ -6,6 +6,10 @@
 
 - Change order of inputs in `R.mapPropObject`
 
+- Change REPL links in documentation
+
+- Remove `jsr.json`
+
 10.3.3
 
 - Fix wrong typing for `R.reject` - [Issue #779](https://github.com/selfrefactor/rambda/issues/779)

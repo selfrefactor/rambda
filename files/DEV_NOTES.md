@@ -7,6 +7,31 @@ export function splitEvery(sliceLength: number): {
   <T>(input: T[]): (T[])[];
 };
 ---
+Suggested new methods for Rambda library:
+
+
+15. `sortByMultiple` - Sort by multiple criteria:
+```typescript
+export function sortByMultiple<T>(
+  criteria: Array<(a: T, b: T) => number>
+): (list: T[]) => T[];
+```
+
+These suggestions are based on:
+1. Common use cases in TypeScript projects
+2. Working well within `R.pipe` chains
+3. Having clear, single-purpose functionality
+4. Being type-safe
+5. Following the library's focus on object manipulation and array operations
+6. Complementing existing methods
+
+The suggestions avoid methods that:
+1. Have confusing or ambiguous behavior
+2. Don't work well in pipe chains
+3. Have multiple ways to be used
+4. Are better suited as part of application code
+5. Have complex TypeScript definitions that would be hard to maintain 
+---
 check wrong import
 
 from './[a-zA-Z]+'
