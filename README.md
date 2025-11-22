@@ -6587,46 +6587,53 @@ test('with batchSize', async () => {
 
 ```typescript
 
-mapPropObject<T extends object, K extends keyof T, Value>(
-  valueMapper: (
-    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
-    data: T[K],
-  ) => Value,
-    prop: K,
+mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
+	valueMapper: (
+		listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
+		list: T[K] extends ReadonlyArray<any> ? T[K] : never,
+	) => Value,
 ): (data: T) => T[K] extends ReadonlyArray<any>
-  ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
-  : never
+	? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+	: never
 ```
 
-It maps over a property of object that is a list.
+Convenience method, when one needs to maps over a object property that is a list.
 
 ```javascript
 const result = pipe(
 	{ a: [1,2,3], b: 'foo' },
-	mapPropObject(x => {
-		x // $ExpectType { a: number; b: string; }
+	mapPropObject('a',x => {
 		return {
 			a: x,
 			flag: x > 2,
 		}
-	}, 'a'),
+	}),
 )
 // => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20pipe(%0A%09%7B%20a%3A%20%5B1%2C2%2C3%5D%2C%20b%3A%20'foo'%20%7D%2C%0A%09mapPropObject(x%20%3D%3E%20%7B%0A%09%09x%20%2F%2F%20%24ExpectType%20%7B%20a%3A%20number%3B%20b%3A%20string%3B%20%7D%0A%09%09return%20%7B%0A%09%09%09a%3A%20x%2C%0A%09%09%09flag%3A%20x%20%3E%202%2C%0A%09%09%7D%0A%09%7D%2C%20'a')%2C%0A)%0A%2F%2F%20%3D%3E%20%7B%20a%3A%20%5B%7B%20a%3A%201%2C%20flag%3A%20false%20%7D%2C%7B%20a%3A%202%2C%20flag%3A%20false%20%7D%2C%20%7B%20a%3A%203%2C%20flag%3A%20true%20%7D%5D%2C%20b%3A%20'foo'%20%7D">Try this <strong>R.mapPropObject</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20pipe(%0A%09%7B%20a%3A%20%5B1%2C2%2C3%5D%2C%20b%3A%20'foo'%20%7D%2C%0A%09mapPropObject('a'%2Cx%20%3D%3E%20%7B%0A%09%09return%20%7B%0A%09%09%09a%3A%20x%2C%0A%09%09%09flag%3A%20x%20%3E%202%2C%0A%09%09%7D%0A%09%7D)%2C%0A)%0A%2F%2F%20%3D%3E%20%7B%20a%3A%20%5B%7B%20a%3A%201%2C%20flag%3A%20false%20%7D%2C%7B%20a%3A%202%2C%20flag%3A%20false%20%7D%2C%20%7B%20a%3A%203%2C%20flag%3A%20true%20%7D%5D%2C%20b%3A%20'foo'%20%7D">Try this <strong>R.mapPropObject</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-mapPropObject<T extends object, K extends keyof T, Value>(
+mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
+	valueMapper: (
+		listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
+		list: T[K] extends ReadonlyArray<any> ? T[K] : never,
+	) => Value,
+): (data: T) => T[K] extends ReadonlyArray<any>
+	? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+	: never;
+mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
   valueMapper: (
-    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
-    data: T[K],
+    listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
   ) => Value,
-    prop: K,
 ): (data: T) => T[K] extends ReadonlyArray<any>
   ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
   : never;
@@ -6685,23 +6692,51 @@ it('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {  mapPropObject, pipe } from 'rambda'
+import {  map, mapPropObject, pipe } from 'rambda'
 
 describe('R.mapPropObject', () => {
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
-      mapPropObject(x => {
+      mapPropObject('a', x => {
         x // $ExpectType number
         return {
           a: x,
           flag: x > 2,
         }
-      }, 'a'),
+      }),
     )
 
     result.a // $ExpectType { a: number; flag: boolean; }[]
 		result.b // $ExpectType string
+  })
+
+  it('iterable with two arguments', () => {
+    const result = pipe(
+      { a: [1,2,3], b: 'foo' },
+      mapPropObject('a', (x, list) => {
+        x // $ExpectType number
+        list // $ExpectType number[]
+				return list.length
+      }),
+    )
+		result.a // $ExpectType number[]
+		result.b // $ExpectType string
+  })
+
+  it('more complex example', () => {
+    const result = pipe(
+      [{a:[true, false, true], b: 'foo'}],
+      map(
+					mapPropObject( 'a',(a) => {
+						a // $ExpectType boolean
+						return {a, b: 2}
+								})
+					)
+			)
+
+    result[0].a[0].a // $ExpectType boolean
+    result[0].a[0].b // $ExpectType number
   })
 })
 ```
@@ -13586,6 +13621,8 @@ describe('R.zipWith', () => {
 - Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)
 
 - Improve `R.mapParallelAsync` typings to allow optional `batchSize` parameter.
+
+- Change order of inputs in `R.mapPropObject`
 
 10.3.3
 

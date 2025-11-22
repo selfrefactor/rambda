@@ -1050,7 +1050,7 @@ export function transformPropObject<T extends object, K extends keyof T, Value>(
 /*
 Method: mapPropObject
 
-Explanation: It maps over a property of object that is a list.
+Explanation: Convenience method, when one needs to maps over a object property that is a list.
 
 Example:
 
@@ -1058,13 +1058,12 @@ Example:
 
 const result = pipe(
 	{ a: [1,2,3], b: 'foo' },
-	mapPropObject(x => {
-		x // $ExpectType { a: number; b: string; }
+	mapPropObject('a',x => {
 		return {
 			a: x,
 			flag: x > 2,
 		}
-	}, 'a'),
+	}),
 )
 // => { a: [{ a: 1, flag: false },{ a: 2, flag: false }, { a: 3, flag: true }], b: 'foo' }
 ```
@@ -1075,12 +1074,20 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mapPropObject<T extends object, K extends keyof T, Value>(
+export function mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
+	valueMapper: (
+		listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
+		list: T[K] extends ReadonlyArray<any> ? T[K] : never,
+	) => Value,
+): (data: T) => T[K] extends ReadonlyArray<any>
+	? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
+	: never;
+export function mapPropObject<T extends object, K extends keyof T, Value extends unknown>(
+	prop: K,
   valueMapper: (
-    value: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
-    data: T[K],
+    listItem: T[K] extends ReadonlyArray<infer ElementType> ? ElementType : never,
   ) => Value,
-    prop: K,
 ): (data: T) => T[K] extends ReadonlyArray<any>
   ? MergeTypes<Omit<T, K> & { [P in K]: Value[] }>
   : never;
