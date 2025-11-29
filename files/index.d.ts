@@ -88,6 +88,8 @@ MergeTypes<
 
 type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
+type ExcludeFalsy<T> = Exclude<T, null | undefined | false | true | 0 | "">;
+
 type Flatten<T> = T extends object
 	? T extends readonly any[]
 		? T
@@ -479,10 +481,10 @@ export function filter<T, S extends T>(
 ): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];

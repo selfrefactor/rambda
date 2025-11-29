@@ -13,6 +13,7 @@ describe('R.filter with array', () => {
     )
     result // $ExpectType number[]
   })
+
   it('narrowing type', () => {
     interface Foo {
       a: number
@@ -31,6 +32,7 @@ describe('R.filter with array', () => {
     )
     result // $ExpectType Bar[]
   })
+
   it('narrowing type - readonly', () => {
     interface Foo {
       a: number
@@ -49,11 +51,19 @@ describe('R.filter with array', () => {
     )
     result // $ExpectType Bar[]
   })
-  it('filtering NonNullable', () => {
-    const testList = [1, 2, null, undefined, 3]
+  
+	it('filtering NonNullable', () => {
+    const testList = [1, 2, null, undefined, false, 3]
     const result = pipe(testList, filter(Boolean))
     result // $ExpectType number[]
   })
+
+	it('filtering NonNullable - list of objects', () => {
+    const testList = [{a:1}, {a:2}, false, {a:3}]
+    const result = pipe(testList, filter(Boolean))
+    result // $ExpectType number[]
+  })
+
   it('filtering NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
