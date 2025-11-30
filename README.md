@@ -828,7 +828,7 @@ describe('anyPass', () => {
 
 ```typescript
 
-append<T>(el: T): (list: T[]) => T[]
+append<T>(el: T): (list: readonly T[]) => T[]
 ```
 
 It adds element `x` at the end of `iterable`.
@@ -845,8 +845,8 @@ const result = R.append('foo')(['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-append<T>(el: T): (list: T[]) => T[];
 append<T>(el: T): (list: readonly T[]) => T[];
+append<T>(el: T): (list: T[]) => T[];
 ```
 
 </details>
@@ -3333,10 +3333,10 @@ filter<T, S extends T>(
 ): (list: T[]) => S[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -3408,13 +3408,14 @@ describe('R.filter with array', () => {
   it('within pipe', () => {
     const result = pipe(
       list,
-      filter(x => {
+      filter((x) => {
         x // $ExpectType number
         return x > 1
       }),
     )
     result // $ExpectType number[]
   })
+
   it('narrowing type', () => {
     interface Foo {
       a: number
@@ -3422,17 +3423,15 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] 
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
+    const result = pipe(testList, filter(filterBar))
     result // $ExpectType Bar[]
   })
+
   it('narrowing type - readonly', () => {
     interface Foo {
       a: number
@@ -3440,30 +3439,33 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
+    const result = pipe(testList, filter(filterBar))
     result // $ExpectType Bar[]
   })
-  it('filtering NonNullable', () => {
-    const testList = [1, 2, null, undefined, 3]
+
+  it('filtering NonNullable - list of objects', () => {
+    const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType number[]
+    result // $ExpectType { a: number; }[]
   })
+
   it('filtering NonNullable - readonly', () => {
-    const testList = [1, 2, null, undefined, 3] as const
+    const testList = [1, 2, true, false, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
     result.includes(1)
     // @ts-expect-error
+    result.includes(true)
+    // @ts-expect-error
+    result.includes(false)
+    // @ts-expect-error
     result.includes(4)
     // @ts-expect-error
-    result.includes(undefined) 
+    result.includes(undefined)
     // @ts-expect-error
     result.includes(null)
   })
@@ -11558,8 +11560,8 @@ const result = [
 ```typescript
 take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 ...
 ...
@@ -11651,8 +11653,8 @@ const result = [
 ```typescript
 takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 ...
 ...
@@ -13616,6 +13618,10 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+10.3.5
+
+- Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
+
 10.3.4
 
 - Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)
@@ -13623,6 +13629,10 @@ describe('R.zipWith', () => {
 - Improve `R.mapParallelAsync` typings to allow optional `batchSize` parameter.
 
 - Change order of inputs in `R.mapPropObject`
+
+- Change REPL links in documentation
+
+- Remove `jsr.json`
 
 10.3.3
 

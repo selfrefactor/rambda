@@ -6,7 +6,7 @@ describe('R.filter with array', () => {
   it('within pipe', () => {
     const result = pipe(
       list,
-      filter(x => {
+      filter((x) => {
         x // $ExpectType number
         return x > 1
       }),
@@ -21,15 +21,12 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] 
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
+    const result = pipe(testList, filter(filterBar))
     result // $ExpectType Bar[]
   })
 
@@ -40,38 +37,33 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
+    const result = pipe(testList, filter(filterBar))
     result // $ExpectType Bar[]
   })
-  
-	it('filtering NonNullable', () => {
-    const testList = [1, 2, null, undefined, false, 3]
-    const result = pipe(testList, filter(Boolean))
-    result // $ExpectType number[]
-  })
 
-	it('filtering NonNullable - list of objects', () => {
-    const testList = [{a:1}, {a:2}, false, {a:3}]
+  it('filtering NonNullable - list of objects', () => {
+    const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType number[]
+    result // $ExpectType { a: number; }[]
   })
 
   it('filtering NonNullable - readonly', () => {
-    const testList = [1, 2, null, undefined, 3] as const
+    const testList = [1, 2, true, false, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
     result.includes(1)
     // @ts-expect-error
+    result.includes(true)
+    // @ts-expect-error
+    result.includes(false)
+    // @ts-expect-error
     result.includes(4)
     // @ts-expect-error
-    result.includes(undefined) 
+    result.includes(undefined)
     // @ts-expect-error
     result.includes(null)
   })

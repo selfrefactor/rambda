@@ -1,3 +1,7 @@
+10.3.5
+
+- Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
+
 10.3.4
 
 - Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)

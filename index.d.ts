@@ -88,6 +88,8 @@ MergeTypes<
 
 type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
+type ExcludeFalsy<T> = Exclude<T, null | undefined | false | true | 0 | "">;
+
 type Flatten<T> = T extends object
 	? T extends readonly any[]
 		? T
@@ -198,8 +200,8 @@ export function anyPass<F extends (...args: any[]) => boolean>(predicates: reado
 /**
  * It adds element `x` at the end of `iterable`.
  */
-export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
+export function append<T>(el: T): (list: T[]) => T[];
 
 /**
  * Helper function to be used with `R.sort` to sort list in ascending order.
@@ -334,10 +336,10 @@ export function filter<T, S extends T>(
 ): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -2206,8 +2208,8 @@ export function tail(input: string): string;
  */
 export function take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /**
@@ -2215,8 +2217,8 @@ export function take<T>(howMany: number): {
  */
 export function takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 export function takeLastWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];

@@ -296,8 +296,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
+export function append<T>(el: T): (list: T[]) => T[];
 
 /*
 Method: flatMap
@@ -3074,8 +3074,8 @@ Notes:
 // @SINGLE_MARKER
 export function take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /*
@@ -3103,8 +3103,8 @@ Notes:
 // @SINGLE_MARKER
 export function takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /*
