@@ -1,3 +1,15 @@
+11.0.0
+
+- Rename `R.innerJoin` to `R.intersectionWith`
+
+- Add `R.unionWith`
+
+- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
+
+- R.range
+
+- R.difference(new method)
+ 
 10.3.5
 
 - Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
