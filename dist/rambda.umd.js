@@ -911,40 +911,6 @@
     return input.length ? baseSlice(input, 0, -1) : []
   }
 
-  function _includesWith(pred, x, list) {
-    let idx = 0;
-    const len = list.length;
-
-    while (idx < len) {
-      if (pred(x, list[idx])) {
-        return true
-      }
-
-      idx += 1;
-    }
-
-    return false
-  }
-  function _filter(fn, list) {
-    let idx = 0;
-    const len = list.length;
-    const result = [];
-
-    while (idx < len) {
-      if (fn(list[idx])) {
-        result[result.length] = list[idx];
-      }
-
-      idx += 1;
-    }
-
-    return result
-  }
-
-  function innerJoin(pred, xs) {
-    return ys => _filter(x => _includesWith(pred, x, ys), xs)
-  }
-
   const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g);
   const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '');
 
@@ -977,6 +943,40 @@
 
   function intersection(listA) {
     return listB => filter(x => includes(x)(listA))(listB)
+  }
+
+  function _includesWith(pred, x, list) {
+    let idx = 0;
+    const len = list.length;
+
+    while (idx < len) {
+      if (pred(x, list[idx])) {
+        return true
+      }
+
+      idx += 1;
+    }
+
+    return false
+  }
+  function _filter(fn, list) {
+    let idx = 0;
+    const len = list.length;
+    const result = [];
+
+    while (idx < len) {
+      if (fn(list[idx])) {
+        result[result.length] = list[idx];
+      }
+
+      idx += 1;
+    }
+
+    return result
+  }
+
+  function intersectionWith(pred, xs) {
+    return ys => _filter(x => _includesWith(pred, x, ys), xs)
   }
 
   function intersperse(separator) {
@@ -1789,6 +1789,18 @@
     }
   }
 
+  function unionWith(predicate, x) {
+    return y => {
+      const filtered = y.filter(yInstance => {
+  			return x.every(xInstance => {
+  				return !predicate(xInstance, yInstance)
+  			})
+      });
+
+      return [...x, ...filtered]
+    }
+  }
+
   function uniq(list) {
     const set = new _Set();
     const willReturn = [];
@@ -1944,9 +1956,9 @@
   exports.indexBy = indexBy;
   exports.indexOf = indexOf;
   exports.init = init;
-  exports.innerJoin = innerJoin;
   exports.interpolate = interpolate;
   exports.intersection = intersection;
+  exports.intersectionWith = intersectionWith;
   exports.intersperse = intersperse;
   exports.join = join;
   exports.last = last;
@@ -2014,6 +2026,7 @@
   exports.tryCatch = tryCatch;
   exports.type = type;
   exports.union = union;
+  exports.unionWith = unionWith;
   exports.uniq = uniq;
   exports.uniqBy = uniqBy;
   exports.uniqWith = uniqWith;

@@ -1,4 +1,4 @@
-11.0.0
+10.4.0
 
 - Rename `R.innerJoin` to `R.intersectionWith`
 

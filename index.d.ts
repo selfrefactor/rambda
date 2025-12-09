@@ -458,14 +458,6 @@ export function init<T extends unknown[]>(input: T): T extends readonly [...infe
 export function init(input: string): string;
 
 /**
- * It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
- */
-export function innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
-
-/**
  * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
  */
 export function interpolate(inputWithTags: string): (templateArguments: object) => string;
@@ -474,6 +466,14 @@ export function interpolate(inputWithTags: string): (templateArguments: object) 
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
 export function intersection<T>(listA: T[]): (listB: T[]) => T[];
+
+/**
+ * It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
+ */
+export function intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
 
 /**
  * It adds a `separator` between members of `list`.
@@ -2263,6 +2263,8 @@ export function type(x: any): RambdaTypes;
  * `R.equals` is used to compare for duplication.
  */
 export function union<T>(x: T[]): (y: T[]) => T[];
+
+export function unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element of `list`.

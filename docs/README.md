@@ -5217,130 +5217,6 @@ describe('R.init', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
 
-### innerJoin
-
-```typescript
-
-innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[]
-```
-
-It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
-
-```javascript
-const list1 = [1, 2, 3, 4, 5]
-const list2 = [4, 5, 6]
-const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1)(list2)
-// => [4, 5]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.innerJoin(predicate%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.innerJoin</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.innerJoin</strong> source</summary>
-
-```javascript
-function _includesWith(pred, x, list) {
-  let idx = 0
-  const len = list.length
-
-  while (idx < len) {
-    if (pred(x, list[idx])) {
-      return true
-    }
-
-    idx += 1
-  }
-
-  return false
-}
-function _filter(fn, list) {
-  let idx = 0
-  const len = list.length
-  const result = []
-
-  while (idx < len) {
-    if (fn(list[idx])) {
-      result[result.length] = list[idx]
-    }
-
-    idx += 1
-  }
-
-  return result
-}
-
-export function innerJoin(pred, xs) {
-  return ys => _filter(x => _includesWith(pred, x, ys), xs)
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { innerJoin } from './innerJoin.js'
-
-const a = {
-  id: 1,
-  name: 'a',
-}
-const b = {
-  id: 2,
-  name: 'b',
-}
-const c = {
-  id: 3,
-  name: 'c',
-}
-const f = (a, b) => innerJoin((r, id) => r.id === id, a)(b)
-
-test('only returns elements from the first list', () => {
-  expect(f([a, b, c], [])).toEqual([])
-  expect(f([a, b, c], [1])).toEqual([a])
-  expect(f([a, b, c], [1, 2])).toEqual([a, b])
-  expect(f([a, b, c], [1, 2, 3])).toEqual([a, b, c])
-  expect(f([a, b, c], [1, 2, 3, 4])).toEqual([a, b, c])
-})
-
-test('does not remove duplicates', () => {
-  expect(f([a, a, a], [1, 2, 3])).toEqual([a, a, a])
-  expect(f([a, b, c], [1, 1, 1])).toEqual([a])
-})
-
-test('readme example', () => {
-  const list1 = [1, 2, 3, 4, 5]
-  const list2 = [4, 5, 6]
-  const predicate = (x, y) => x >= y
-  const result = innerJoin(predicate, list1)(list2)
-  expect(result).toEqual([4, 5])
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
-
 ### interpolate
 
 ```typescript
@@ -5546,6 +5422,153 @@ describe('R.intersection', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
+
+### intersectionWith
+
+```typescript
+
+intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[]
+```
+
+It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
+
+```javascript
+const list1 = [1, 2, 3, 4, 5]
+const list2 = [4, 5, 6]
+const predicate = (x, y) => x >= y
+const result = R.intersectionWith(predicate, list1)(list2)
+// => [4, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.intersectionWith(predicate%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.intersectionWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.intersectionWith</strong> source</summary>
+
+```javascript
+function _includesWith(pred, x, list) {
+  let idx = 0
+  const len = list.length
+
+  while (idx < len) {
+    if (pred(x, list[idx])) {
+      return true
+    }
+
+    idx += 1
+  }
+
+  return false
+}
+function _filter(fn, list) {
+  let idx = 0
+  const len = list.length
+  const result = []
+
+  while (idx < len) {
+    if (fn(list[idx])) {
+      result[result.length] = list[idx]
+    }
+
+    idx += 1
+  }
+
+  return result
+}
+
+export function intersectionWith(pred, xs) {
+  return ys => _filter(x => _includesWith(pred, x, ys), xs)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { intersectionWith } from './intersectionWith.js'
+
+const a = {
+  id: 1,
+  name: 'a',
+}
+const b = {
+  id: 2,
+  name: 'b',
+}
+const c = {
+  id: 3,
+  name: 'c',
+}
+const f = (a, b) => intersectionWith((r, id) => r.id === id, a)(b)
+
+test('only returns elements from the first list', () => {
+  expect(f([a, b, c], [])).toEqual([])
+  expect(f([a, b, c], [1])).toEqual([a])
+  expect(f([a, b, c], [1, 2])).toEqual([a, b])
+  expect(f([a, b, c], [1, 2, 3])).toEqual([a, b, c])
+  expect(f([a, b, c], [1, 2, 3, 4])).toEqual([a, b, c])
+})
+
+test('does not remove duplicates', () => {
+  expect(f([a, a, a], [1, 2, 3])).toEqual([a, a, a])
+  expect(f([a, b, c], [1, 1, 1])).toEqual([a])
+})
+
+test('readme example', () => {
+  const list1 = [1, 2, 3, 4, 5]
+  const list2 = [4, 5, 6]
+  const predicate = (x, y) => x >= y
+  const result = intersectionWith(predicate, list1)(list2)
+  expect(result).toEqual([4, 5])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { intersectionWith, pipe } from 'rambda'
+
+const list1 = [1, 2, 3]
+const list2 = [1, 3, 5]
+
+describe('R.intersectionWith', () => {
+  it('happy', () => {
+    const result = pipe(
+      list1,
+      intersectionWith((x, y) => x === y, list2),
+    )
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersectionWith)
 
 ### intersperse
 
@@ -12586,6 +12609,105 @@ describe('R.union', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#union)
 
+### unionWith
+
+```typescript
+
+unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[]
+```
+
+```javascript
+const result = R.pipe(
+	[{a: 1, b: 1}, {a: 2, b: 1}],
+	R.unionWith((x, y) => x === y, [{a: 2, b: 2}, {a: 3, b: 2}]),
+)
+// => [{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B%7Ba%3A%201%2C%20b%3A%201%7D%2C%20%7Ba%3A%202%2C%20b%3A%201%7D%5D%2C%0A%09R.unionWith((x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%2C%20%5B%7Ba%3A%202%2C%20b%3A%202%7D%2C%20%7Ba%3A%203%2C%20b%3A%202%7D%5D)%2C%0A)%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A%201%2C%20b%3A%201%7D%2C%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%20%7Ba%3A%203%2C%20b%3A%202%7D%5D">Try this <strong>R.unionWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.unionWith</strong> source</summary>
+
+```javascript
+export function unionWith(predicate, x) {
+  return y => {
+    const filtered = y.filter(yInstance => {
+			return x.every(xInstance => {
+				return !predicate(xInstance, yInstance)
+			})
+    })
+
+    return [...x, ...filtered]
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { unionWith } from './unionWith.js'
+import { pipe } from './pipe.js'
+
+test('happy', () => {
+	const list1 = [{a: 1, b: 1}, {a: 2, b: 1}]
+	const list2 = [{a: 2, b: 2}, {a: 3, b: 2}]
+	const result = pipe(
+		list2,
+		unionWith((x, y) => {
+			return x.a === y.a
+		}, list1),
+	)
+	expect(result).toEqual([{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, unionWith } from 'rambda'
+
+describe('R.unionWith', () => {
+  it('happy', () => {
+		const list = [{a: 1, b: 1}, {a: 2, b: 1}]
+    const result = pipe(
+			list,
+			unionWith((x, y) => {
+				x.a // $ExpectType number
+				y.b // $ExpectType number
+				return x.a === y.a
+			}, [{a: 2, b: 2}, {a: 3, b: 2}]),
+		)
+
+    result[0].a // $ExpectType number
+    result[0].b // $ExpectType number
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unionWith)
+
 ### uniq
 
 ```typescript
@@ -13618,6 +13740,18 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+10.4.0
+
+- Rename `R.innerJoin` to `R.intersectionWith`
+
+- Add `R.unionWith`
+
+- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
+
+- R.range
+
+- R.difference(new method)
+ 
 10.3.5
 
 - Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.

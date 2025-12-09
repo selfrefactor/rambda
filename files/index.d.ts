@@ -3242,6 +3242,29 @@ Notes:
 export function union<T>(x: T[]): (y: T[]) => T[];
 
 /*
+Method: unionWith
+
+Explanation: 
+
+Example:
+
+```
+const result = R.pipe(
+	[{a: 1, b: 1}, {a: 2, b: 1}],
+	R.unionWith((x, y) => x === y, [{a: 2, b: 2}, {a: 3, b: 2}]),
+)
+// => [{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
+
+/*
 Method: uniq
 
 Explanation: It returns a new array containing only one copy of each element of `list`.
@@ -3807,7 +3830,7 @@ Notes:
 export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
 /*
-Method: innerJoin
+Method: intersectionWith
 
 Explanation: It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
 
@@ -3817,7 +3840,7 @@ Example:
 const list1 = [1, 2, 3, 4, 5]
 const list2 = [4, 5, 6]
 const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1)(list2)
+const result = R.intersectionWith(predicate, list1)(list2)
 // => [4, 5]
 ```
 
@@ -3827,7 +3850,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function innerJoin<T1, T2>(
+export function intersectionWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];

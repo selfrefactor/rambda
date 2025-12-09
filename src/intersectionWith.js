@@ -28,6 +28,6 @@ function _filter(fn, list) {
   return result
 }
 
-export function innerJoin(pred, xs) {
+export function intersectionWith(pred, xs) {
   return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
