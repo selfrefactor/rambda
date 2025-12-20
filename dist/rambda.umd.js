@@ -262,60 +262,6 @@
     }
   }
 
-  function drop(howManyToDrop, ) {
-    return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
-  }
-
-  function dropLast(numberItems) {
-    return list => (numberItems > 0 ? list.slice(0, -numberItems) : list.slice())
-  }
-
-  function dropLastWhile(predicate) {
-    return list => {
-      if (list.length === 0) {
-        return list
-      }
-
-      const toReturn = [];
-      let counter = list.length;
-
-      while (counter) {
-        const item = list[--counter];
-        if (!predicate(item, counter)) {
-          toReturn.push(item);
-          break
-        }
-      }
-
-      while (counter) {
-        toReturn.push(list[--counter]);
-      }
-
-      return toReturn.reverse()
-    }
-  }
-
-  function dropWhile(predicate) {
-    return iterable => {
-      const toReturn = [];
-      let counter = 0;
-
-      while (counter < iterable.length) {
-        const item = iterable[counter++];
-        if (!predicate(item, counter)) {
-          toReturn.push(item);
-          break
-        }
-      }
-
-      while (counter < iterable.length) {
-        toReturn.push(iterable[counter++]);
-      }
-
-      return toReturn
-    }
-  }
-
   function type(input) {
     if (input === null) {
       return 'Null'
@@ -539,6 +485,83 @@
     return b => equalsFn(a, b)
   }
 
+  function includes(valueToFind) {
+    return iterable => {
+      if (typeof iterable === 'string') {
+        return iterable.includes(valueToFind)
+      }
+      if (!iterable) {
+        throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
+      }
+      if (!isArray(iterable)) {
+        return false
+      }
+
+      return _indexOf(valueToFind, iterable) > -1
+    }
+  }
+
+  function difference(x, y) {
+  	return [
+  		...filter(value => !includes(value)(y))(x),
+  		...filter(value => !includes(value)(x))(y),
+  	]
+  }
+
+  function drop(howManyToDrop, ) {
+    return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+  }
+
+  function dropLast(numberItems) {
+    return list => (numberItems > 0 ? list.slice(0, -numberItems) : list.slice())
+  }
+
+  function dropLastWhile(predicate) {
+    return list => {
+      if (list.length === 0) {
+        return list
+      }
+
+      const toReturn = [];
+      let counter = list.length;
+
+      while (counter) {
+        const item = list[--counter];
+        if (!predicate(item, counter)) {
+          toReturn.push(item);
+          break
+        }
+      }
+
+      while (counter) {
+        toReturn.push(list[--counter]);
+      }
+
+      return toReturn.reverse()
+    }
+  }
+
+  function dropWhile(predicate) {
+    return iterable => {
+      const toReturn = [];
+      let counter = 0;
+
+      while (counter < iterable.length) {
+        const item = iterable[counter++];
+        if (!predicate(item, counter)) {
+          toReturn.push(item);
+          break
+        }
+      }
+
+      while (counter < iterable.length) {
+        toReturn.push(iterable[counter++]);
+      }
+
+      return toReturn
+    }
+  }
+
   class _Set {
     constructor() {
       this.set = new Set();
@@ -615,22 +638,6 @@
 
   function evolve(rules) {
     return mapObject((x, prop) => type(rules[prop]) === 'Function' ? rules[prop](x): x)
-  }
-
-  function includes(valueToFind) {
-    return iterable => {
-      if (typeof iterable === 'string') {
-        return iterable.includes(valueToFind)
-      }
-      if (!iterable) {
-        throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
-      }
-      if (!isArray(iterable)) {
-        return false
-      }
-
-      return _indexOf(valueToFind, iterable) > -1
-    }
   }
 
   function excludes(valueToFind) {
@@ -1511,37 +1518,30 @@
     return obj => predicate(obj[property])
   }
 
-  function rangeDescending(start, end) {
-  	const len = start - end;
-  	const willReturn = Array(len);
-
-  	for (let i = 0; i < len; i++) {
-  		willReturn[i] = start - i;
-  	}
-
-  	return willReturn
-  }
-
-  function range(start) {
-    return end => {
-      if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-        throw new TypeError('Both arguments to range must be numbers')
-      }
-
+  function range(start, end) {
       if (end === start) {
         return []
       }
-  		if (end < start) return rangeDescending(start,end)
-
-      const len = end - start;
+  		const len = start - (end ?? 0);
       const willReturn = Array(len);
 
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i <= len; i++) {
         willReturn[i] = start + i;
       }
 
       return willReturn
-    }
+  }
+
+  function rangeDescending(start, end) {
+  	const len = start - (end ?? 0);
+  	if(!(len >0)) return []
+  	const willReturn = Array(len);
+
+  	for (let i = 0; i <= len; i++) {
+  		willReturn[i] = start - i;
+  	}
+
+  	return willReturn
   }
 
   function replace(pattern, replacer) {
@@ -1926,6 +1926,7 @@
   exports.createObjectFromKeys = createObjectFromKeys;
   exports.defaultTo = defaultTo;
   exports.descend = descend;
+  exports.difference = difference;
   exports.drop = drop;
   exports.dropLast = dropLast;
   exports.dropLastWhile = dropLastWhile;
@@ -1998,6 +1999,7 @@
   exports.propOr = propOr;
   exports.propSatisfies = propSatisfies;
   exports.range = range;
+  exports.rangeDescending = rangeDescending;
   exports.reduce = reduce;
   exports.reject = reject;
   exports.rejectObject = rejectObject;

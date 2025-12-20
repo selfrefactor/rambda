@@ -278,6 +278,13 @@ export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
 
 /**
+ * It returns a merged list of `x` and `y` with all equal elements removed.
+ * 
+ * `R.equals` is used to determine equality.
+ */
+export function difference<T>(x: T[]): (y: T[]) => T[];
+
+/**
  * It returns `howMany` items dropped from beginning of list.
  */
 export function drop<T>(howMany: number): (list: T[]) => T[];
@@ -325,8 +332,8 @@ export function evolve<T>(rules: {
  * 
  * `R.equals` is used to determine equality.
  */
-export function excludes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
+export function excludes(list: readonly string[] | string): (substringToFind: string) => boolean;
+export function excludes<T>(list: readonly T[]): (target: T) => boolean;
 
 /**
  * It filters list or object `input` using a `predicate` function.
@@ -430,8 +437,8 @@ export function head<T>(listOrString: T): T extends string ? string :
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes(s: string): (list: readonly string[] | string) => boolean;
-export function includes<T>(target: T): (list: readonly T[]) => boolean;
+export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
+export function includes<T>(list: readonly T[]): (target: T) => boolean;
 
 /**
  * It transforms list of objects to object using specified property as the base for the returned object.
@@ -1780,10 +1787,14 @@ export function propOr<T, P extends string>(property: P, defaultValue: T): (obj:
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /**
- * It returns list of numbers between `startInclusive` to `endExclusive` markers.
- * If `start` is greater than `end`, then the result will be in descending order.
+ * It returns list of numbers between `startInclusive` to `endInclusive` markers.
  */
-export function range(startInclusive: number): (endExclusive: number) => number[];
+export function range(startInclusive: number, endInclusive: number) : number[];
+
+/**
+ * It returns list of numbers between `endInclusive` to `startInclusive` markers.
+ */
+export function rangeDescending(startInclusive: number, endInclusive: number) : number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
@@ -2191,11 +2202,11 @@ export function split(separator: string | RegExp): (str: string) => string[];
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /**
- * It returns a merged list of `x` and `y` with all equal elements removed.
+ * It returns all items that are in either of the lists, but not in both.
  * 
  * `R.equals` is used to determine equality.
  */
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+export function symmetricDifference<T>(list: T[]): (list: T[]) => T[];
 
 /**
  * It returns all but the first element of `input`.

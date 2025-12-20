@@ -1,19 +1,43 @@
-import { filter, pipe } from 'rambda'
+import { filter, includes, pipe, reject, sort, split, uniq } from 'rambda'
 
 const list = [1, 2, 3]
 
 describe('R.filter with array', () => {
   it('within pipe', () => {
-    const result = pipe(
+    const _result = pipe(
       list,
-      filter((x) => {
+      filter(x => {
         x // $ExpectType number
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    _result // $ExpectType number[]
   })
 
+  it('complex example', () => {
+    const text = `Dies ist ein einfacher Beispielsatz. Il fait beau aujourd'hui!`
+    const language = 'de'
+		const SENTENCE_END_CHARS = ['.', '!', '?', '।', '؟']
+    const result = pipe(
+      text,
+      split(''),
+      uniq,
+      filter(char => {
+        if (language === 'de') {
+          return /[A-Za-zäßüöÜÖÄ]/g.test(char) === false
+        }
+        if (language === 'fr') {
+          return /[A-Za-zÀÉàâçèéêîïôùû']/g.test(char) === false
+        }
+        throw new Error(`Language ${language} not supported`)
+      }),
+      sort((a, b) => (a === b ? 0 : a > b ? 1 : -1)),
+      filter(char => char.trim().length > 0),
+      reject(includes(SENTENCE_END_CHARS)),
+    )
+
+    result // $ExpectType string[]
+  })
   it('narrowing type', () => {
     interface Foo {
       a: number
@@ -26,8 +50,8 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    const _result = pipe(testList, filter(filterBar))
+    _result // $ExpectType Bar[]
   })
 
   it('narrowing type - readonly', () => {
@@ -42,14 +66,14 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    const _result = pipe(testList, filter(filterBar))
+    _result // $ExpectType Bar[]
   })
 
   it('filtering NonNullable - list of objects', () => {
     const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
-    const result = pipe(testList, filter(Boolean))
-    result // $ExpectType { a: number; }[]
+    const _result = pipe(testList, filter(Boolean))
+    _result // $ExpectType { a: number; }[]
   })
 
   it('filtering NonNullable - readonly', () => {

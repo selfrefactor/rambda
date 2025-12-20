@@ -1,12 +1,24 @@
-10.4.0
+11.0.0
+
+- Breaking change: `R.includes` and `R.excludes` now accept list as first argument and value to search as second argument. This makes it more useful when used with `R.filter` and `R.reject`.
 
 - Rename `R.innerJoin` to `R.intersectionWith`
 
 - Add `R.unionWith`
 
+- Add `R.exists`
+
+- Add `R.symmetricDifference`
+
+- Add `R.rangeDescending` as now `R.range` works only in ascending order.
+
+- `R.range` now works similar to Ruby's `Range` - both start and end values are inclusive.
+
 - Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
 
-- R.range
+- R.range - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
+
+- R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
 
 - R.difference(new method)
  

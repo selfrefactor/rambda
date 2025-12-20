@@ -1,34 +1,15 @@
-function rangeDescending(start, end) {
-	const len = start - end
-	const willReturn = Array(len)
-
-	for (let i = 0; i < len; i++) {
-		willReturn[i] = start - i
-	}
-
-	return willReturn
-}
-
-export function range(start) {
-  return end => {
-    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-      throw new TypeError('Both arguments to range must be numbers')
-    }
-
+export function range(start, end) {
     if (end === start) {
       return []
     }
-		if (end < start) return rangeDescending(start,end)
-
-    const len = end - start
+		const len = start - (end ?? 0)
     const willReturn = Array(len)
 
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i <= len; i++) {
       willReturn[i] = start + i
     }
 
     return willReturn
-  }
 }
 
 
