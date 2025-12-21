@@ -644,6 +644,28 @@
     return iterable => !includes(valueToFind)(iterable)
   }
 
+  function find(predicate) {
+    return list => {
+      let index = 0;
+      const len = list.length;
+
+      while (index < len) {
+        const x = list[index];
+        if (predicate(x)) {
+          return x
+        }
+
+        index++;
+      }
+    }
+  }
+
+  function exists(predicate) {
+    return list => {
+  		return find(predicate)(list) !== undefined
+    }
+  }
+
   function filterAsync(predicate) {
     return async list => {
       const willReturn = [];
@@ -670,22 +692,6 @@
       }
 
       return willReturn
-    }
-  }
-
-  function find(predicate) {
-    return list => {
-      let index = 0;
-      const len = list.length;
-
-      while (index < len) {
-        const x = list[index];
-        if (predicate(x)) {
-          return x
-        }
-
-        index++;
-      }
     }
   }
 
@@ -1931,6 +1937,7 @@
   exports.equalsFn = equalsFn;
   exports.evolve = evolve;
   exports.excludes = excludes;
+  exports.exists = exists;
   exports.filter = filter;
   exports.filterAsync = filterAsync;
   exports.filterObject = filterObject;

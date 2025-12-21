@@ -336,6 +336,11 @@ export function excludes(list: readonly string[] | string): (substringToFind: st
 export function excludes<T>(list: readonly T[]): (target: T) => boolean;
 
 /**
+ * It returns `true` if there is at least one element in `list` that satisfy the `predicate`.
+ */
+export function exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+
+/**
  * It filters list or object `input` using a `predicate` function.
  */
 export function filter<T, S extends T>(
@@ -437,8 +442,8 @@ export function head<T>(listOrString: T): T extends string ? string :
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 export function includes<T>(list: readonly T[]): (target: T) => boolean;
+export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 
 /**
  * It transforms list of objects to object using specified property as the base for the returned object.

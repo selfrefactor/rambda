@@ -565,7 +565,10 @@ describe('allPass', () => {
       [1, 2, 3, 4],
       [3, 4, 5],
     ]
-    const result = R.pipe(list, R.map(R.allPass([R.includes(3), R.includes(4)])))
+    const result = R.pipe(list, R.map(R.allPass([
+			(x) => x.length > 2,
+			(x) => x.includes(3)
+		])))
     result // $ExpectType boolean[]
   })
 })
@@ -3388,7 +3391,7 @@ import { excludes, pipe } from 'rambda'
 describe('R.excludes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe(list, excludes({ a: { b: '1' } }))
+    const result = pipe({ a: { b: '1' } }, excludes(list))
     result // $ExpectType boolean
   })
   it('with string', () => {
@@ -3401,6 +3404,73 @@ describe('R.excludes', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#excludes)
+
+### exists
+
+```typescript
+
+exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean
+```
+
+It returns `true` if there is at least one element in `list` that satisfy the `predicate`.
+
+```javascript
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.exists(predicate)(list)
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.exists(predicate)(list)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.exists</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.exists</strong> source</summary>
+
+```javascript
+import { find } from './find.js'
+
+export function exists(predicate) {
+  return list => {
+		return find(predicate)(list) !== undefined
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { exists, pipe } from 'rambda'
+
+const list = [1, 2, 3]
+
+describe('R.exists', () => {
+  it('happy', () => {
+    const predicate = (x: number) => x > 2
+    const result = pipe(list, exists(predicate))
+    result // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#exists)
 
 ### filter
 
@@ -4905,7 +4975,7 @@ describe('R.head', () => {
 
 ```typescript
 
-includes(list: readonly string[] | string): (substringToFind: string) => boolean
+includes<T>(list: readonly T[]): (target: T) => boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -4927,8 +4997,8 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 includes<T>(list: readonly T[]): (target: T) => boolean;
+includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 ```
 
 </details>
@@ -5005,27 +5075,21 @@ test('with wrong input that does not throw', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { pipe, includes } from 'rambda'
+import { pipe , includes} from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe(list, includes({ a: { b: '1' } }))
+    const result = pipe({ a: { b: '1' } }, includes(list))
     result // $ExpectType boolean
   })
   it('with string', () => {
-    const result = pipe('foo', includes('bar'))
+    const result = pipe('oo', includes('foo'))
     result // $ExpectType boolean
   })
   it('with array of strings', () => {
-		const result = pipe(['1','2'], includes('1'))
+		const result = pipe('1', includes(['1','2','3']))
     result // $ExpectType boolean
-  })
-  it('without R.pipe', () => {
-    const result1 = includes('1')(['1', '2'])
-    const result2 = includes(1)([1, 2])
-    result1 // $ExpectType boolean
-    result2 // $ExpectType boolean
   })
 })
 ```
@@ -9846,9 +9910,9 @@ import { range } from 'rambda'
 
 describe('R.range', () => {
   it('curried', () => {
-    const result = range(1)(4)
+    const result = [range(1, 4), range(1)]
 
-    result // $ExpectType number[]
+    result // $ExpectType number[][]
   })
 })
 ```

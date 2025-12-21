@@ -6,7 +6,10 @@ describe('allPass', () => {
       [1, 2, 3, 4],
       [3, 4, 5],
     ]
-    const result = R.pipe(list, R.map(R.allPass([R.includes(3), R.includes(4)])))
+    const result = R.pipe(list, R.map(R.allPass([
+			(x) => x.length > 2,
+			(x) => x.includes(3)
+		])))
     result // $ExpectType boolean[]
   })
 })

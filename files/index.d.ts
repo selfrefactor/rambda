@@ -568,7 +568,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
+export function exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: findNth
@@ -789,8 +789,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 export function includes<T>(list: readonly T[]): (target: T) => boolean;
+export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 
 /*
 Method: excludes
