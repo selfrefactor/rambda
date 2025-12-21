@@ -501,11 +501,11 @@
     }
   }
 
-  function difference(x, y) {
-  	return [
+  function difference(x) {
+  	return y => ([
   		...filter(value => !includes(value)(y))(x),
   		...filter(value => !includes(value)(x))(y),
-  	]
+  	])
   }
 
   function drop(howManyToDrop, ) {
@@ -1518,30 +1518,23 @@
     return obj => predicate(obj[property])
   }
 
-  function range(start, end) {
-      if (end === start) {
-        return []
-      }
-  		const len = start - (end ?? 0);
-      const willReturn = Array(len);
-
-      for (let i = 0; i <= len; i++) {
-        willReturn[i] = start + i;
-      }
-
-      return willReturn
+  function range(a, b) {
+    const start = b === undefined ? 0 : a;
+    const end = b === undefined ? a : b;
+    if (end<=  start) {
+  		return []
+    }
+    const len = end - start;
+  	return Array.from({ length: len + 1 }, (_, i) => start + i)
   }
 
-  function rangeDescending(start, end) {
-  	const len = start - (end ?? 0);
-  	if(!(len >0)) return []
-  	const willReturn = Array(len);
-
-  	for (let i = 0; i <= len; i++) {
-  		willReturn[i] = start - i;
+  function rangeDescending(start, b) {
+  	const end = b === undefined ? 0 : b;
+  	if (start <= end) {
+  		return []
   	}
-
-  	return willReturn
+    const len = start - end;
+   	return Array.from({ length: len + 1 }, (_, i) => start - i)
   }
 
   function replace(pattern, replacer) {

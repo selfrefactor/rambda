@@ -2028,11 +2028,11 @@ difference<T>(x: T[]): (y: T[]) => T[];
 import { filter } from './filter.js'
 import { includes } from './includes.js'
 
-export function difference(x, y) {
-	return [
+export function difference(x) {
+	return y => ([
 		...filter(value => !includes(value)(y))(x),
 		...filter(value => !includes(value)(x))(y),
-	]
+	])
 }
 ```
 
@@ -9779,7 +9779,7 @@ describe('R.propSatisfies', () => {
 
 ```typescript
 
-range(startInclusive: number, endInclusive: number) : number[]
+range(endInclusive: number) : number[]
 ```
 
 It returns list of numbers between `startInclusive` to `endInclusive` markers.
@@ -9796,6 +9796,7 @@ It returns list of numbers between `startInclusive` to `endInclusive` markers.
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+range(endInclusive: number) : number[];
 range(startInclusive: number, endInclusive: number) : number[];
 ```
 
@@ -9806,18 +9807,14 @@ range(startInclusive: number, endInclusive: number) : number[];
 <summary><strong>R.range</strong> source</summary>
 
 ```javascript
-export function range(start, end) {
-    if (end === start) {
-      return []
-    }
-		const len = start - (end ?? 0)
-    const willReturn = Array(len)
-
-    for (let i = 0; i <= len; i++) {
-      willReturn[i] = start + i
-    }
-
-    return willReturn
+export function range(a, b) {
+  const start = b === undefined ? 0 : a
+  const end = b === undefined ? a : b
+  if (end<=  start) {
+		return []
+  }
+  const len = end - start
+	return Array.from({ length: len + 1 }, (_, i) => start + i)
 }
 ```
 
@@ -9831,9 +9828,10 @@ export function range(start, end) {
 import { range } from './range.js'
 
 test('happy', () => {
-  expect(range(0)(5)).toEqual([0, 1, 2, 3, 4])
-	expect(range(7)(3)).toEqual([7, 6, 5, 4])
-	expect(range(5)(5)).toEqual([])
+  expect(range(5)).toEqual([0, 1, 2, 3, 4, 5])
+  expect(range(3,5)).toEqual([3, 4, 5])
+  expect(range(5,3)).toEqual([])
+	expect(range(0)).toEqual([])
 })
 ```
 
@@ -9874,6 +9872,7 @@ It returns list of numbers between `endInclusive` to `startInclusive` markers.
 
 ```typescript
 rangeDescending(startInclusive: number, endInclusive: number) : number[];
+rangeDescending(endInclusive: number) : number[];
 ```
 
 </details>
@@ -9883,16 +9882,13 @@ rangeDescending(startInclusive: number, endInclusive: number) : number[];
 <summary><strong>R.rangeDescending</strong> source</summary>
 
 ```javascript
-export function rangeDescending(start, end) {
-	const len = start - (end ?? 0)
-	if(!(len >0)) return []
-	const willReturn = Array(len)
-
-	for (let i = 0; i <= len; i++) {
-		willReturn[i] = start - i
+export function rangeDescending(start, b) {
+	const end = b === undefined ? 0 : b
+	if (start <= end) {
+		return []
 	}
-
-	return willReturn
+  const len = start - end
+ 	return Array.from({ length: len + 1 }, (_, i) => start - i)
 }
 ```
 
@@ -9908,6 +9904,7 @@ import { rangeDescending } from './rangeDescending.js'
 test('happy', () => {
   expect(rangeDescending(5)).toEqual([5, 4, 3, 2, 1, 0])
 	expect(rangeDescending(7,3)).toEqual([7, 6, 5, 4,3])
+	expect(rangeDescending(5, 7)).toEqual([])
 	expect(rangeDescending(5, 5)).toEqual([])
 })
 ```
@@ -13910,17 +13907,15 @@ describe('R.zipWith', () => {
 
 - Add `R.symmetricDifference`
 
-- Add `R.rangeDescending` as now `R.range` works only in ascending order.
+- Add `R.difference`
 
 - `R.range` now works similar to Ruby's `Range` - both start and end values are inclusive.
 
-- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
+- Add `R.rangeDescending` as now `R.range` works only in ascending order.
 
-- R.range - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
+- `R.range` - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
 
 - R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
-
-- R.difference(new method)
  
 10.3.5
 

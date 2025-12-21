@@ -4203,6 +4203,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function range(endInclusive: number) : number[];
 export function range(startInclusive: number, endInclusive: number) : number[];
 
 /*
@@ -4222,6 +4223,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function rangeDescending(startInclusive: number, endInclusive: number) : number[];
+export function rangeDescending(endInclusive: number) : number[];
 
 /*
 Method: pipeAsync

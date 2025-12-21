@@ -1,11 +1,8 @@
-export function rangeDescending(start, end) {
-	const len = start - (end ?? 0)
-	if(!(len >0)) return []
-	const willReturn = Array(len)
-
-	for (let i = 0; i <= len; i++) {
-		willReturn[i] = start - i
+export function rangeDescending(start, b) {
+	const end = b === undefined ? 0 : b
+	if (start <= end) {
+		return []
 	}
-
-	return willReturn
+  const len = start - end
+ 	return Array.from({ length: len + 1 }, (_, i) => start - i)
 }

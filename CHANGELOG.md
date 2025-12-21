@@ -10,17 +10,15 @@
 
 - Add `R.symmetricDifference`
 
-- Add `R.rangeDescending` as now `R.range` works only in ascending order.
+- Add `R.difference`
 
 - `R.range` now works similar to Ruby's `Range` - both start and end values are inclusive.
 
-- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
+- Add `R.rangeDescending` as now `R.range` works only in ascending order.
 
-- R.range - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
+- `R.range` - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
 
 - R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
-
-- R.difference(new method)
  
 10.3.5
 

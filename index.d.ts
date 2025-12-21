@@ -1789,12 +1789,14 @@ export function propSatisfies<T>(predicate: (x: T) => boolean, property: string)
 /**
  * It returns list of numbers between `startInclusive` to `endInclusive` markers.
  */
+export function range(endInclusive: number) : number[];
 export function range(startInclusive: number, endInclusive: number) : number[];
 
 /**
  * It returns list of numbers between `endInclusive` to `startInclusive` markers.
  */
 export function rangeDescending(startInclusive: number, endInclusive: number) : number[];
+export function rangeDescending(endInclusive: number) : number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
