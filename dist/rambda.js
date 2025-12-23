@@ -256,60 +256,6 @@ function descend(getFunction) {
   }
 }
 
-function drop(howManyToDrop, ) {
-  return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
-}
-
-function dropLast(numberItems) {
-  return list => (numberItems > 0 ? list.slice(0, -numberItems) : list.slice())
-}
-
-function dropLastWhile(predicate) {
-  return list => {
-    if (list.length === 0) {
-      return list
-    }
-
-    const toReturn = [];
-    let counter = list.length;
-
-    while (counter) {
-      const item = list[--counter];
-      if (!predicate(item, counter)) {
-        toReturn.push(item);
-        break
-      }
-    }
-
-    while (counter) {
-      toReturn.push(list[--counter]);
-    }
-
-    return toReturn.reverse()
-  }
-}
-
-function dropWhile(predicate) {
-  return iterable => {
-    const toReturn = [];
-    let counter = 0;
-
-    while (counter < iterable.length) {
-      const item = iterable[counter++];
-      if (!predicate(item, counter)) {
-        toReturn.push(item);
-        break
-      }
-    }
-
-    while (counter < iterable.length) {
-      toReturn.push(iterable[counter++]);
-    }
-
-    return toReturn
-  }
-}
-
 function type(input) {
   if (input === null) {
     return 'Null'
@@ -533,6 +479,83 @@ function equals(a) {
   return b => equalsFn(a, b)
 }
 
+function includes(valueToFind) {
+  return iterable => {
+    if (typeof iterable === 'string') {
+      return iterable.includes(valueToFind)
+    }
+    if (!iterable) {
+      throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
+    }
+    if (!isArray(iterable)) {
+      return false
+    }
+
+    return _indexOf(valueToFind, iterable) > -1
+  }
+}
+
+function difference(x) {
+	return y => ([
+		...filter(value => !includes(value)(y))(x),
+		...filter(value => !includes(value)(x))(y),
+	])
+}
+
+function drop(howManyToDrop, ) {
+  return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
+}
+
+function dropLast(numberItems) {
+  return list => (numberItems > 0 ? list.slice(0, -numberItems) : list.slice())
+}
+
+function dropLastWhile(predicate) {
+  return list => {
+    if (list.length === 0) {
+      return list
+    }
+
+    const toReturn = [];
+    let counter = list.length;
+
+    while (counter) {
+      const item = list[--counter];
+      if (!predicate(item, counter)) {
+        toReturn.push(item);
+        break
+      }
+    }
+
+    while (counter) {
+      toReturn.push(list[--counter]);
+    }
+
+    return toReturn.reverse()
+  }
+}
+
+function dropWhile(predicate) {
+  return iterable => {
+    const toReturn = [];
+    let counter = 0;
+
+    while (counter < iterable.length) {
+      const item = iterable[counter++];
+      if (!predicate(item, counter)) {
+        toReturn.push(item);
+        break
+      }
+    }
+
+    while (counter < iterable.length) {
+      toReturn.push(iterable[counter++]);
+    }
+
+    return toReturn
+  }
+}
+
 class _Set {
   constructor() {
     this.set = new Set();
@@ -611,24 +634,30 @@ function evolve(rules) {
   return mapObject((x, prop) => type(rules[prop]) === 'Function' ? rules[prop](x): x)
 }
 
-function includes(valueToFind) {
-  return iterable => {
-    if (typeof iterable === 'string') {
-      return iterable.includes(valueToFind)
-    }
-    if (!iterable) {
-      throw new TypeError(`Cannot read property \'indexOf\' of ${iterable}`)
-    }
-    if (!isArray(iterable)) {
-      return false
-    }
+function excludes(valueToFind) {
+  return iterable => !includes(valueToFind)(iterable)
+}
 
-    return _indexOf(valueToFind, iterable) > -1
+function find(predicate) {
+  return list => {
+    let index = 0;
+    const len = list.length;
+
+    while (index < len) {
+      const x = list[index];
+      if (predicate(x)) {
+        return x
+      }
+
+      index++;
+    }
   }
 }
 
-function excludes(valueToFind) {
-  return iterable => !includes(valueToFind)(iterable)
+function exists(predicate) {
+  return list => {
+		return find(predicate)(list) !== undefined
+  }
 }
 
 function filterAsync(predicate) {
@@ -657,22 +686,6 @@ function filterObject(predicate) {
     }
 
     return willReturn
-  }
-}
-
-function find(predicate) {
-  return list => {
-    let index = 0;
-    const len = list.length;
-
-    while (index < len) {
-      const x = list[index];
-      if (predicate(x)) {
-        return x
-      }
-
-      index++;
-    }
   }
 }
 
@@ -905,40 +918,6 @@ function init(input) {
   return input.length ? baseSlice(input, 0, -1) : []
 }
 
-function _includesWith(pred, x, list) {
-  let idx = 0;
-  const len = list.length;
-
-  while (idx < len) {
-    if (pred(x, list[idx])) {
-      return true
-    }
-
-    idx += 1;
-  }
-
-  return false
-}
-function _filter(fn, list) {
-  let idx = 0;
-  const len = list.length;
-  const result = [];
-
-  while (idx < len) {
-    if (fn(list[idx])) {
-      result[result.length] = list[idx];
-    }
-
-    idx += 1;
-  }
-
-  return result
-}
-
-function innerJoin(pred, xs) {
-  return ys => _filter(x => _includesWith(pred, x, ys), xs)
-}
-
 const getOccurrences = input => input.match(/{{\s*.+?\s*}}/g);
 const getOccurrenceProp = occurrence => occurrence.replace(/{{\s*|\s*}}/g, '');
 
@@ -971,6 +950,40 @@ function interpolate(input) {
 
 function intersection(listA) {
   return listB => filter(x => includes(x)(listA))(listB)
+}
+
+function _includesWith(pred, x, list) {
+  let idx = 0;
+  const len = list.length;
+
+  while (idx < len) {
+    if (pred(x, list[idx])) {
+      return true
+    }
+
+    idx += 1;
+  }
+
+  return false
+}
+function _filter(fn, list) {
+  let idx = 0;
+  const len = list.length;
+  const result = [];
+
+  while (idx < len) {
+    if (fn(list[idx])) {
+      result[result.length] = list[idx];
+    }
+
+    idx += 1;
+  }
+
+  return result
+}
+
+function intersectionWith(pred, xs) {
+  return ys => _filter(x => _includesWith(pred, x, ys), xs)
 }
 
 function intersperse(separator) {
@@ -1505,37 +1518,23 @@ function propSatisfies(predicate, property) {
   return obj => predicate(obj[property])
 }
 
-function rangeDescending(start, end) {
-	const len = start - end;
-	const willReturn = Array(len);
-
-	for (let i = 0; i < len; i++) {
-		willReturn[i] = start - i;
-	}
-
-	return willReturn
+function range(a, b) {
+  const start = b === undefined ? 0 : a;
+  const end = b === undefined ? a : b;
+  if (end<=  start) {
+		return []
+  }
+  const len = end - start;
+	return Array.from({ length: len + 1 }, (_, i) => start + i)
 }
 
-function range(start) {
-  return end => {
-    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-      throw new TypeError('Both arguments to range must be numbers')
-    }
-
-    if (end === start) {
-      return []
-    }
-		if (end < start) return rangeDescending(start,end)
-
-    const len = end - start;
-    const willReturn = Array(len);
-
-    for (let i = 0; i < len; i++) {
-      willReturn[i] = start + i;
-    }
-
-    return willReturn
-  }
+function rangeDescending(start, b) {
+	const end = b === undefined ? 0 : b;
+	if (start <= end) {
+		return []
+	}
+  const len = start - end;
+ 	return Array.from({ length: len + 1 }, (_, i) => start - i)
 }
 
 function replace(pattern, replacer) {
@@ -1783,6 +1782,18 @@ function union(x) {
   }
 }
 
+function unionWith(predicate, x) {
+  return y => {
+    const filtered = y.filter(yInstance => {
+			return x.every(xInstance => {
+				return !predicate(xInstance, yInstance)
+			})
+    });
+
+    return [...x, ...filtered]
+  }
+}
+
 function uniq(list) {
   const set = new _Set();
   const willReturn = [];
@@ -1884,4 +1895,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, filter, filterAsync, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, innerJoin, interpolate, intersection, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, rangeDescending, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

@@ -565,7 +565,10 @@ describe('allPass', () => {
       [1, 2, 3, 4],
       [3, 4, 5],
     ]
-    const result = R.pipe(list, R.map(R.allPass([R.includes(3), R.includes(4)])))
+    const result = R.pipe(list, R.map(R.allPass([
+			(x) => x.length > 2,
+			(x) => x.includes(3)
+		])))
     result // $ExpectType boolean[]
   })
 })
@@ -828,7 +831,7 @@ describe('anyPass', () => {
 
 ```typescript
 
-append<T>(el: T): (list: T[]) => T[]
+append<T>(el: T): (list: readonly T[]) => T[]
 ```
 
 It adds element `x` at the end of `iterable`.
@@ -845,8 +848,8 @@ const result = R.append('foo')(['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-append<T>(el: T): (list: T[]) => T[];
 append<T>(el: T): (list: readonly T[]) => T[];
+append<T>(el: T): (list: T[]) => T[];
 ```
 
 </details>
@@ -1988,6 +1991,105 @@ export function descend(getFunction) {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#descend)
+
+### difference
+
+```typescript
+
+difference<T>(x: T[]): (y: T[]) => T[]
+```
+
+It returns a merged list of `x` and `y` with all equal elements removed.
+
+`R.equals` is used to determine equality.
+
+```javascript
+const x = [ 1, 2, 3, 4 ]
+const y = [ 3, 4, 5, 6 ]
+
+const result = R.difference(x)(y)
+// => [ 1, 2, 5, 6 ]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20x%20%3D%20%5B%201%2C%202%2C%203%2C%204%20%5D%0Aconst%20y%20%3D%20%5B%203%2C%204%2C%205%2C%206%20%5D%0A%0Aconst%20result%20%3D%20R.difference(x)(y)%0A%2F%2F%20%3D%3E%20%5B%201%2C%202%2C%205%2C%206%20%5D">Try this <strong>R.difference</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+difference<T>(x: T[]): (y: T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.difference</strong> source</summary>
+
+```javascript
+import { filter } from './filter.js'
+import { includes } from './includes.js'
+
+export function difference(x) {
+	return y => ([
+		...filter(value => !includes(value)(y))(x),
+		...filter(value => !includes(value)(x))(y),
+	])
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { difference } from './difference.js'
+
+test('difference', () => {
+  const list1 = [1, 2, 3, 4]
+  const list2 = [3, 4, 5, 6]
+  expect(difference(list1)(list2)).toEqual([1, 2, 5, 6])
+  expect(difference([])([])).toEqual([])
+})
+
+test('difference with objects', () => {
+  const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+  const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
+  expect(difference(list1)(list2)).toEqual([
+    { id: 1 },
+    { id: 2 },
+    { id: 5 },
+    { id: 6 },
+  ])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { difference } from 'rambda'
+
+describe('R.difference', () => {
+  it('happy', () => {
+    const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+    const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
+    const result = difference(list1)(list2)
+
+    result // $ExpectType { id: number; }[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#difference)
 
 ### drop
 
@@ -3213,7 +3315,7 @@ it('R.evolve', () => {
 
 ```typescript
 
-excludes<T extends string>(valueToFind: T): (input: string) => boolean
+excludes(list: readonly string[] | string): (substringToFind: string) => boolean
 ```
 
 Opposite of `R.includes`
@@ -3222,21 +3324,21 @@ Opposite of `R.includes`
 
 ```javascript
 const result = [
-  R.excludes('ar')('foo'),
-  R.excludes({a: 2})([{a: 1}])
+  R.excludes('foo')('ar'),
+  R.excludes([{a: 1}])({a: 2})
 ]
 // => [true, true ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.excludes('ar')('foo')%2C%0A%20%20R.excludes(%7Ba%3A%202%7D)(%5B%7Ba%3A%201%7D%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%20%5D">Try this <strong>R.excludes</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.excludes('foo')('ar')%2C%0A%20%20R.excludes(%5B%7Ba%3A%201%7D%5D)(%7Ba%3A%202%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%20%5D">Try this <strong>R.excludes</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-excludes<T extends string>(valueToFind: T): (input: string) => boolean;
-excludes<T>(valueToFind: T): (input: T[]) => boolean;
+excludes(list: readonly string[] | string): (substringToFind: string) => boolean;
+excludes<T>(list: readonly T[]): (target: T) => boolean;
 ```
 
 </details>
@@ -3289,7 +3391,7 @@ import { excludes, pipe } from 'rambda'
 describe('R.excludes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe(list, excludes({ a: { b: '1' } }))
+    const result = pipe({ a: { b: '1' } }, excludes(list))
     result // $ExpectType boolean
   })
   it('with string', () => {
@@ -3302,6 +3404,96 @@ describe('R.excludes', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#excludes)
+
+### exists
+
+```typescript
+
+exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean
+```
+
+It returns `true` if there is at least one element in `list` that satisfy the `predicate`.
+
+```javascript
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.exists(predicate)(list)
+// => true
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20predicate%20%3D%20x%20%3D%3E%20R.type(x.foo)%20%3D%3D%3D%20'Number'%0Aconst%20list%20%3D%20%5B%7Bfoo%3A%20'bar'%7D%2C%20%7Bfoo%3A%201%7D%5D%0A%0Aconst%20result%20%3D%20R.exists(predicate)(list)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.exists</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.exists</strong> source</summary>
+
+```javascript
+import { find } from './find.js'
+
+export function exists(predicate) {
+  return list => {
+		return find(predicate)(list) !== undefined
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { exists } from './exists.js'
+import { propEq } from './propEq.js'
+
+const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
+
+test('happy', () => {
+  const fn = propEq(2, 'a')
+  expect(exists(fn)(list)).toBe(true)
+})
+
+test('nothing is found', () => {
+  const fn = propEq(4, 'a')
+  expect(exists(fn)(list)).toBe(false)
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { exists, pipe } from 'rambda'
+
+const list = [1, 2, 3]
+
+describe('R.exists', () => {
+  it('happy', () => {
+    const predicate = (x: number) => x > 2
+    const result = pipe(list, exists(predicate))
+    result // $ExpectType boolean
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#exists)
 
 ### filter
 
@@ -3333,10 +3525,10 @@ filter<T, S extends T>(
 ): (list: T[]) => S[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -3400,20 +3592,45 @@ test('using Boolean', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { filter, pipe } from 'rambda'
+import { filter, includes, pipe, reject, sort, split, uniq } from 'rambda'
 
 const list = [1, 2, 3]
 
 describe('R.filter with array', () => {
   it('within pipe', () => {
-    const result = pipe(
+    const _result = pipe(
       list,
       filter(x => {
         x // $ExpectType number
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    _result // $ExpectType number[]
+  })
+
+  it('complex example', () => {
+    const text = `Dies ist ein einfacher Beispielsatz. Il fait beau aujourd'hui!`
+    const language = 'de'
+		const SENTENCE_END_CHARS = ['.', '!', '?', '।', '؟']
+    const result = pipe(
+      text,
+      split(''),
+      uniq,
+      filter(char => {
+        if (language === 'de') {
+          return /[A-Za-zäßüöÜÖÄ]/g.test(char) === false
+        }
+        if (language === 'fr') {
+          return /[A-Za-zÀÉàâçèéêîïôùû']/g.test(char) === false
+        }
+        throw new Error(`Language ${language} not supported`)
+      }),
+      sort((a, b) => (a === b ? 0 : a > b ? 1 : -1)),
+      filter(char => char.trim().length > 0),
+      reject(includes(SENTENCE_END_CHARS)),
+    )
+
+    result // $ExpectType string[]
   })
   it('narrowing type', () => {
     interface Foo {
@@ -3422,17 +3639,15 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] 
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
-    result // $ExpectType Bar[]
+    const _result = pipe(testList, filter(filterBar))
+    _result // $ExpectType Bar[]
   })
+
   it('narrowing type - readonly', () => {
     interface Foo {
       a: number
@@ -3440,30 +3655,33 @@ describe('R.filter with array', () => {
     interface Bar extends Foo {
       b: string
     }
-		type T = Foo | Bar
-    const testList: T[]= [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+    type T = Foo | Bar
+    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const result = pipe(
-      testList,
-      filter(filterBar),
-    )
-    result // $ExpectType Bar[]
+    const _result = pipe(testList, filter(filterBar))
+    _result // $ExpectType Bar[]
   })
-  it('filtering NonNullable', () => {
-    const testList = [1, 2, null, undefined, 3]
-    const result = pipe(testList, filter(Boolean))
-    result // $ExpectType number[]
+
+  it('filtering NonNullable - list of objects', () => {
+    const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
+    const _result = pipe(testList, filter(Boolean))
+    _result // $ExpectType { a: number; }[]
   })
+
   it('filtering NonNullable - readonly', () => {
-    const testList = [1, 2, null, undefined, 3] as const
+    const testList = [1, 2, true, false, null, undefined, 3] as const
     const result = pipe(testList, filter(Boolean))
     result.includes(1)
     // @ts-expect-error
+    result.includes(true)
+    // @ts-expect-error
+    result.includes(false)
+    // @ts-expect-error
     result.includes(4)
     // @ts-expect-error
-    result.includes(undefined) 
+    result.includes(undefined)
     // @ts-expect-error
     result.includes(null)
   })
@@ -4780,7 +4998,7 @@ describe('R.head', () => {
 
 ```typescript
 
-includes(s: string): (list: readonly string[] | string) => boolean
+includes<T>(list: readonly T[]): (target: T) => boolean
 ```
 
 If `input` is string, then this method work as native `String.includes`.
@@ -4789,21 +5007,21 @@ If `input` is array, then `R.equals` is used to define if `valueToFind` belongs 
 
 ```javascript
 const result = [
-  R.includes('oo')('foo'),
-  R.includes({a: 1})([{a: 1}])
+  R.includes('foo')('oo'),
+  R.includes([{a: 1}])({a: 1})
 ]
 // => [true, true ]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.includes('oo')('foo')%2C%0A%20%20R.includes(%7Ba%3A%201%7D)(%5B%7Ba%3A%201%7D%5D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%20%5D">Try this <strong>R.includes</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.includes('foo')('oo')%2C%0A%20%20R.includes(%5B%7Ba%3A%201%7D%5D)(%7Ba%3A%201%7D)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20true%20%5D">Try this <strong>R.includes</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-includes(s: string): (list: readonly string[] | string) => boolean;
-includes<T>(target: T): (list: readonly T[]) => boolean;
+includes<T>(list: readonly T[]): (target: T) => boolean;
+includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 ```
 
 </details>
@@ -4880,27 +5098,21 @@ test('with wrong input that does not throw', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { pipe, includes } from 'rambda'
+import { pipe , includes} from 'rambda'
 
 describe('R.includes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe(list, includes({ a: { b: '1' } }))
+    const result = pipe({ a: { b: '1' } }, includes(list))
     result // $ExpectType boolean
   })
   it('with string', () => {
-    const result = pipe('foo', includes('bar'))
+    const result = pipe('oo', includes('foo'))
     result // $ExpectType boolean
   })
   it('with array of strings', () => {
-		const result = pipe(['1','2'], includes('1'))
+		const result = pipe('1', includes(['1','2','3']))
     result // $ExpectType boolean
-  })
-  it('without R.pipe', () => {
-    const result1 = includes('1')(['1', '2'])
-    const result2 = includes(1)([1, 2])
-    result1 // $ExpectType boolean
-    result2 // $ExpectType boolean
   })
 })
 ```
@@ -5215,130 +5427,6 @@ describe('R.init', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#init)
 
-### innerJoin
-
-```typescript
-
-innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[]
-```
-
-It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
-
-```javascript
-const list1 = [1, 2, 3, 4, 5]
-const list2 = [4, 5, 6]
-const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1)(list2)
-// => [4, 5]
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.innerJoin(predicate%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.innerJoin</strong> example in Rambda REPL</a>
-
-<details>
-
-<summary>All TypeScript definitions</summary>
-
-```typescript
-innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
-```
-
-</details>
-
-<details>
-
-<summary><strong>R.innerJoin</strong> source</summary>
-
-```javascript
-function _includesWith(pred, x, list) {
-  let idx = 0
-  const len = list.length
-
-  while (idx < len) {
-    if (pred(x, list[idx])) {
-      return true
-    }
-
-    idx += 1
-  }
-
-  return false
-}
-function _filter(fn, list) {
-  let idx = 0
-  const len = list.length
-  const result = []
-
-  while (idx < len) {
-    if (fn(list[idx])) {
-      result[result.length] = list[idx]
-    }
-
-    idx += 1
-  }
-
-  return result
-}
-
-export function innerJoin(pred, xs) {
-  return ys => _filter(x => _includesWith(pred, x, ys), xs)
-}
-```
-
-</details>
-
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { innerJoin } from './innerJoin.js'
-
-const a = {
-  id: 1,
-  name: 'a',
-}
-const b = {
-  id: 2,
-  name: 'b',
-}
-const c = {
-  id: 3,
-  name: 'c',
-}
-const f = (a, b) => innerJoin((r, id) => r.id === id, a)(b)
-
-test('only returns elements from the first list', () => {
-  expect(f([a, b, c], [])).toEqual([])
-  expect(f([a, b, c], [1])).toEqual([a])
-  expect(f([a, b, c], [1, 2])).toEqual([a, b])
-  expect(f([a, b, c], [1, 2, 3])).toEqual([a, b, c])
-  expect(f([a, b, c], [1, 2, 3, 4])).toEqual([a, b, c])
-})
-
-test('does not remove duplicates', () => {
-  expect(f([a, a, a], [1, 2, 3])).toEqual([a, a, a])
-  expect(f([a, b, c], [1, 1, 1])).toEqual([a])
-})
-
-test('readme example', () => {
-  const list1 = [1, 2, 3, 4, 5]
-  const list2 = [4, 5, 6]
-  const predicate = (x, y) => x >= y
-  const result = innerJoin(predicate, list1)(list2)
-  expect(result).toEqual([4, 5])
-})
-```
-
-</details>
-
-[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#innerJoin)
-
 ### interpolate
 
 ```typescript
@@ -5456,8 +5544,6 @@ intersection<T>(listA: T[]): (listB: T[]) => T[]
 
 It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
 
-> :boom: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]".
-
 ```javascript
 const listA = [ { id : 1 }, { id : 2 }, { id : 3 }, { id : 4 } ]
 const listB = [ { id : 3 }, { id : 4 }, { id : 5 }, { id : 6 } ]
@@ -5544,6 +5630,153 @@ describe('R.intersection', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersection)
+
+### intersectionWith
+
+```typescript
+
+intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[]
+```
+
+It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
+
+```javascript
+const list1 = [1, 2, 3, 4, 5]
+const list2 = [4, 5, 6]
+const predicate = (x, y) => x >= y
+const result = R.intersectionWith(predicate, list1)(list2)
+// => [4, 5]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list1%20%3D%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0Aconst%20list2%20%3D%20%5B4%2C%205%2C%206%5D%0Aconst%20predicate%20%3D%20(x%2C%20y)%20%3D%3E%20x%20%3E%3D%20y%0Aconst%20result%20%3D%20R.intersectionWith(predicate%2C%20list1)(list2)%0A%2F%2F%20%3D%3E%20%5B4%2C%205%5D">Try this <strong>R.intersectionWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.intersectionWith</strong> source</summary>
+
+```javascript
+function _includesWith(pred, x, list) {
+  let idx = 0
+  const len = list.length
+
+  while (idx < len) {
+    if (pred(x, list[idx])) {
+      return true
+    }
+
+    idx += 1
+  }
+
+  return false
+}
+function _filter(fn, list) {
+  let idx = 0
+  const len = list.length
+  const result = []
+
+  while (idx < len) {
+    if (fn(list[idx])) {
+      result[result.length] = list[idx]
+    }
+
+    idx += 1
+  }
+
+  return result
+}
+
+export function intersectionWith(pred, xs) {
+  return ys => _filter(x => _includesWith(pred, x, ys), xs)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { intersectionWith } from './intersectionWith.js'
+
+const a = {
+  id: 1,
+  name: 'a',
+}
+const b = {
+  id: 2,
+  name: 'b',
+}
+const c = {
+  id: 3,
+  name: 'c',
+}
+const f = (a, b) => intersectionWith((r, id) => r.id === id, a)(b)
+
+test('only returns elements from the first list', () => {
+  expect(f([a, b, c], [])).toEqual([])
+  expect(f([a, b, c], [1])).toEqual([a])
+  expect(f([a, b, c], [1, 2])).toEqual([a, b])
+  expect(f([a, b, c], [1, 2, 3])).toEqual([a, b, c])
+  expect(f([a, b, c], [1, 2, 3, 4])).toEqual([a, b, c])
+})
+
+test('does not remove duplicates', () => {
+  expect(f([a, a, a], [1, 2, 3])).toEqual([a, a, a])
+  expect(f([a, b, c], [1, 1, 1])).toEqual([a])
+})
+
+test('readme example', () => {
+  const list1 = [1, 2, 3, 4, 5]
+  const list2 = [4, 5, 6]
+  const predicate = (x, y) => x >= y
+  const result = intersectionWith(predicate, list1)(list2)
+  expect(result).toEqual([4, 5])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { intersectionWith, pipe } from 'rambda'
+
+const list1 = [1, 2, 3]
+const list2 = [1, 3, 5]
+
+describe('R.intersectionWith', () => {
+  it('happy', () => {
+    const result = pipe(
+      list1,
+      intersectionWith((x, y) => x === y, list2),
+    )
+    result // $ExpectType number[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersectionWith)
 
 ### intersperse
 
@@ -9633,25 +9866,25 @@ describe('R.propSatisfies', () => {
 
 ```typescript
 
-range(startInclusive: number): (endExclusive: number) => number[]
+range(endInclusive: number) : number[]
 ```
 
-It returns list of numbers between `startInclusive` to `endExclusive` markers.
-If `start` is greater than `end`, then the result will be in descending order.
+It returns list of numbers between `startInclusive` to `endInclusive` markers.
 
 ```javascript
-[R.range(0)(5), R.range(5)(0)]
-// => [[0, 1, 2, 3, 4], [5, 4, 3, 2, 1]]
+[R.range(5), R.range(1, 5)]
+// => [[0, 1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5BR.range(0)(5)%2C%20R.range(5)(0)%5D%0A%2F%2F%20%3D%3E%20%5B%5B0%2C%201%2C%202%2C%203%2C%204%5D%2C%20%5B5%2C%204%2C%203%2C%202%2C%201%5D%5D">Try this <strong>R.range</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5BR.range(5)%2C%20R.range(1%2C%205)%5D%0A%2F%2F%20%3D%3E%20%5B%5B0%2C%201%2C%202%2C%203%2C%204%2C%205%5D%2C%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%5D">Try this <strong>R.range</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-range(startInclusive: number): (endExclusive: number) => number[];
+range(endInclusive: number) : number[];
+range(startInclusive: number, endInclusive: number) : number[];
 ```
 
 </details>
@@ -9661,37 +9894,14 @@ range(startInclusive: number): (endExclusive: number) => number[];
 <summary><strong>R.range</strong> source</summary>
 
 ```javascript
-function rangeDescending(start, end) {
-	const len = start - end
-	const willReturn = Array(len)
-
-	for (let i = 0; i < len; i++) {
-		willReturn[i] = start - i
-	}
-
-	return willReturn
-}
-
-export function range(start) {
-  return end => {
-    if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
-      throw new TypeError('Both arguments to range must be numbers')
-    }
-
-    if (end === start) {
-      return []
-    }
-		if (end < start) return rangeDescending(start,end)
-
-    const len = end - start
-    const willReturn = Array(len)
-
-    for (let i = 0; i < len; i++) {
-      willReturn[i] = start + i
-    }
-
-    return willReturn
+export function range(a, b) {
+  const start = b === undefined ? 0 : a
+  const end = b === undefined ? a : b
+  if (end<=  start) {
+		return []
   }
+  const len = end - start
+	return Array.from({ length: len + 1 }, (_, i) => start + i)
 }
 ```
 
@@ -9705,9 +9915,10 @@ export function range(start) {
 import { range } from './range.js'
 
 test('happy', () => {
-  expect(range(0)(5)).toEqual([0, 1, 2, 3, 4])
-	expect(range(7)(3)).toEqual([7, 6, 5, 4])
-	expect(range(5)(5)).toEqual([])
+  expect(range(5)).toEqual([0, 1, 2, 3, 4, 5])
+  expect(range(3,5)).toEqual([3, 4, 5])
+  expect(range(5,3)).toEqual([])
+	expect(range(0)).toEqual([])
 })
 ```
 
@@ -9722,9 +9933,9 @@ import { range } from 'rambda'
 
 describe('R.range', () => {
   it('curried', () => {
-    const result = range(1)(4)
+    const result = [range(1, 4), range(1)]
 
-    result // $ExpectType number[]
+    result // $ExpectType number[][]
   })
 })
 ```
@@ -9732,6 +9943,62 @@ describe('R.range', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#range)
+
+### rangeDescending
+
+```typescript
+
+rangeDescending(startInclusive: number, endInclusive: number) : number[]
+```
+
+It returns list of numbers between `endInclusive` to `startInclusive` markers.
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+rangeDescending(startInclusive: number, endInclusive: number) : number[];
+rangeDescending(endInclusive: number) : number[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.rangeDescending</strong> source</summary>
+
+```javascript
+export function rangeDescending(start, b) {
+	const end = b === undefined ? 0 : b
+	if (start <= end) {
+		return []
+	}
+  const len = start - end
+ 	return Array.from({ length: len + 1 }, (_, i) => start - i)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { rangeDescending } from './rangeDescending.js'
+
+test('happy', () => {
+  expect(rangeDescending(5)).toEqual([5, 4, 3, 2, 1, 0])
+	expect(rangeDescending(7,3)).toEqual([7, 6, 5, 4,3])
+	expect(rangeDescending(5, 7)).toEqual([])
+	expect(rangeDescending(5, 5)).toEqual([])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#rangeDescending)
 
 ### reduce
 
@@ -11338,10 +11605,10 @@ describe('R.splitEvery', () => {
 
 ```typescript
 
-symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[]
+symmetricDifference<T>(x: T[]): (y: T[]) => T[]
 ```
 
-It returns a merged list of `x` and `y` with all equal elements removed.
+It returns all items that are in either of the lists, but not in both.
 
 `R.equals` is used to determine equality.
 
@@ -11360,7 +11627,7 @@ const result = R.symmetricDifference(x)(y)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 ```
 
 </details>
@@ -11558,8 +11825,8 @@ const result = [
 ```typescript
 take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 ...
 ...
@@ -11651,8 +11918,8 @@ const result = [
 ```typescript
 takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 ...
 ...
@@ -12583,6 +12850,105 @@ describe('R.union', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#union)
+
+### unionWith
+
+```typescript
+
+unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[]
+```
+
+```javascript
+const result = R.pipe(
+	[{a: 1, b: 1}, {a: 2, b: 1}],
+	R.unionWith((x, y) => x === y, [{a: 2, b: 2}, {a: 3, b: 2}]),
+)
+// => [{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B%7Ba%3A%201%2C%20b%3A%201%7D%2C%20%7Ba%3A%202%2C%20b%3A%201%7D%5D%2C%0A%09R.unionWith((x%2C%20y)%20%3D%3E%20x%20%3D%3D%3D%20y%2C%20%5B%7Ba%3A%202%2C%20b%3A%202%7D%2C%20%7Ba%3A%203%2C%20b%3A%202%7D%5D)%2C%0A)%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A%201%2C%20b%3A%201%7D%2C%20%7Ba%3A%202%2C%20b%3A%201%7D%2C%20%7Ba%3A%203%2C%20b%3A%202%7D%5D">Try this <strong>R.unionWith</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.unionWith</strong> source</summary>
+
+```javascript
+export function unionWith(predicate, x) {
+  return y => {
+    const filtered = y.filter(yInstance => {
+			return x.every(xInstance => {
+				return !predicate(xInstance, yInstance)
+			})
+    })
+
+    return [...x, ...filtered]
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { unionWith } from './unionWith.js'
+import { pipe } from './pipe.js'
+
+test('happy', () => {
+	const list1 = [{a: 1, b: 1}, {a: 2, b: 1}]
+	const list2 = [{a: 2, b: 2}, {a: 3, b: 2}]
+	const result = pipe(
+		list2,
+		unionWith((x, y) => {
+			return x.a === y.a
+		}, list1),
+	)
+	expect(result).toEqual([{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, unionWith } from 'rambda'
+
+describe('R.unionWith', () => {
+  it('happy', () => {
+		const list = [{a: 1, b: 1}, {a: 2, b: 1}]
+    const result = pipe(
+			list,
+			unionWith((x, y) => {
+				x.a // $ExpectType number
+				y.b // $ExpectType number
+				return x.a === y.a
+			}, [{a: 2, b: 2}, {a: 3, b: 2}]),
+		)
+
+    result[0].a // $ExpectType number
+    result[0].b // $ExpectType number
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#unionWith)
 
 ### uniq
 
@@ -13616,6 +13982,30 @@ describe('R.zipWith', () => {
 
 ## ❯ CHANGELOG
 
+11.0.0
+
+- Breaking change: `R.includes` and `R.excludes` now accept list as first argument and value to search as second argument. This makes it more useful when used with `R.filter` and `R.reject`.
+
+- Rename `R.innerJoin` to `R.intersectionWith`
+
+- Add `R.unionWith`
+
+- Add `R.exists`
+
+- Add `R.symmetricDifference`
+
+- Add `R.difference`
+
+- `R.range` now works similar to Ruby's `Range` - both start and end values are inclusive.
+
+- Add `R.rangeDescending` as now `R.range` works only in ascending order.
+
+- `R.range` - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
+
+- R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
+ 
+- Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
+
 10.3.4
 
 - Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)
@@ -13623,6 +14013,10 @@ describe('R.zipWith', () => {
 - Improve `R.mapParallelAsync` typings to allow optional `batchSize` parameter.
 
 - Change order of inputs in `R.mapPropObject`
+
+- Change REPL links in documentation
+
+- Remove `jsr.json`
 
 10.3.3
 

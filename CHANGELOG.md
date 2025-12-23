@@ -1,3 +1,27 @@
+11.0.0
+
+- Breaking change: `R.includes` and `R.excludes` now accept list as first argument and value to search as second argument. This makes it more useful when used with `R.filter` and `R.reject`.
+
+- Rename `R.innerJoin` to `R.intersectionWith`
+
+- Add `R.unionWith`
+
+- Add `R.exists`
+
+- Add `R.symmetricDifference`
+
+- Add `R.difference`
+
+- `R.range` now works similar to Ruby's `Range` - both start and end values are inclusive.
+
+- Add `R.rangeDescending` as now `R.range` works only in ascending order.
+
+- `R.range` - it accepts one or two arguments. If one argument is passed, it is considered as end value, and start is 0.
+
+- R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
+ 
+- Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
+
 10.3.4
 
 - Fix wrong typing for `R.sortByDescending` - [Issue #797](https://github.com/selfrefactor/rambda/issues/797)

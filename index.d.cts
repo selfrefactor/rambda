@@ -88,6 +88,8 @@ MergeTypes<
 
 type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
+type ExcludeFalsy<T> = Exclude<T, null | undefined | false | true | 0 | "">;
+
 type Flatten<T> = T extends object
 	? T extends readonly any[]
 		? T
@@ -198,8 +200,8 @@ export function anyPass<F extends (...args: any[]) => boolean>(predicates: reado
 /**
  * It adds element `x` at the end of `iterable`.
  */
-export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
+export function append<T>(el: T): (list: T[]) => T[];
 
 /**
  * Helper function to be used with `R.sort` to sort list in ascending order.
@@ -276,6 +278,13 @@ export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
 
 /**
+ * It returns a merged list of `x` and `y` with all equal elements removed.
+ * 
+ * `R.equals` is used to determine equality.
+ */
+export function difference<T>(x: T[]): (y: T[]) => T[];
+
+/**
  * It returns `howMany` items dropped from beginning of list.
  */
 export function drop<T>(howMany: number): (list: T[]) => T[];
@@ -323,8 +332,13 @@ export function evolve<T>(rules: {
  * 
  * `R.equals` is used to determine equality.
  */
-export function excludes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
+export function excludes(list: readonly string[] | string): (substringToFind: string) => boolean;
+export function excludes<T>(list: readonly T[]): (target: T) => boolean;
+
+/**
+ * It returns `true` if there is at least one element in `list` that satisfy the `predicate`.
+ */
+export function exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /**
  * It filters list or object `input` using a `predicate` function.
@@ -334,10 +348,10 @@ export function filter<T, S extends T>(
 ): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -428,8 +442,8 @@ export function head<T>(listOrString: T): T extends string ? string :
  * 
  * If `input` is array, then `R.equals` is used to define if `valueToFind` belongs to the list.
  */
-export function includes(s: string): (list: readonly string[] | string) => boolean;
-export function includes<T>(target: T): (list: readonly T[]) => boolean;
+export function includes<T>(list: readonly T[]): (target: T) => boolean;
+export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 
 /**
  * It transforms list of objects to object using specified property as the base for the returned object.
@@ -456,14 +470,6 @@ export function init<T extends unknown[]>(input: T): T extends readonly [...infe
 export function init(input: string): string;
 
 /**
- * It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
- */
-export function innerJoin<T1, T2>(
-  pred: (a: T1, b: T2) => boolean,
-  list1: T1[],
-): (list2: T2[]) => T1[];
-
-/**
  * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
  */
 export function interpolate(inputWithTags: string): (templateArguments: object) => string;
@@ -472,6 +478,14 @@ export function interpolate(inputWithTags: string): (templateArguments: object) 
  * It loops through `listA` and `listB` and returns the intersection of the two according to `R.equals`.
  */
 export function intersection<T>(listA: T[]): (listB: T[]) => T[];
+
+/**
+ * It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
+ */
+export function intersectionWith<T1, T2>(
+  pred: (a: T1, b: T2) => boolean,
+  list1: T1[],
+): (list2: T2[]) => T1[];
 
 /**
  * It adds a `separator` between members of `list`.
@@ -1778,10 +1792,16 @@ export function propOr<T, P extends string>(property: P, defaultValue: T): (obj:
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /**
- * It returns list of numbers between `startInclusive` to `endExclusive` markers.
- * If `start` is greater than `end`, then the result will be in descending order.
+ * It returns list of numbers between `startInclusive` to `endInclusive` markers.
  */
-export function range(startInclusive: number): (endExclusive: number) => number[];
+export function range(endInclusive: number) : number[];
+export function range(startInclusive: number, endInclusive: number) : number[];
+
+/**
+ * It returns list of numbers between `endInclusive` to `startInclusive` markers.
+ */
+export function rangeDescending(startInclusive: number, endInclusive: number) : number[];
+export function rangeDescending(endInclusive: number) : number[];
 
 export function reduce<T, TResult>(reducer: (prev: TResult, current: T, i: number) => TResult, initialValue: TResult): (list: T[]) => TResult;
 
@@ -2189,11 +2209,11 @@ export function split(separator: string | RegExp): (str: string) => string[];
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /**
- * It returns a merged list of `x` and `y` with all equal elements removed.
+ * It returns all items that are in either of the lists, but not in both.
  * 
  * `R.equals` is used to determine equality.
  */
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /**
  * It returns all but the first element of `input`.
@@ -2206,8 +2226,8 @@ export function tail(input: string): string;
  */
 export function take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /**
@@ -2215,8 +2235,8 @@ export function take<T>(howMany: number): {
  */
 export function takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 export function takeLastWhile<T>(predicate: (x: T) => boolean): (input: T[]) => T[];
@@ -2261,6 +2281,8 @@ export function type(x: any): RambdaTypes;
  * `R.equals` is used to compare for duplication.
  */
 export function union<T>(x: T[]): (y: T[]) => T[];
+
+export function unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
 
 /**
  * It returns a new array containing only one copy of each element of `list`.

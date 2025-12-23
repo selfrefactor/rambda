@@ -88,6 +88,8 @@ MergeTypes<
 
 type StrictNonNullable<T> = Exclude<T, null | undefined>;
 
+type ExcludeFalsy<T> = Exclude<T, null | undefined | false | true | 0 | "">;
+
 type Flatten<T> = T extends object
 	? T extends readonly any[]
 		? T
@@ -294,8 +296,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function append<T>(el: T): (list: T[]) => T[];
 export function append<T>(el: T): (list: readonly T[]) => T[];
+export function append<T>(el: T): (list: T[]) => T[];
 
 /*
 Method: flatMap
@@ -479,10 +481,10 @@ export function filter<T, S extends T>(
 ): (list: T[]) => S[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: readonly T[]) => StrictNonNullable<T>[];
+): (list: readonly T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: BooleanConstructor,
-): (list: T[]) => StrictNonNullable<T>[];
+): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
 	predicate: (value: T) => boolean,
 ): (list: T[]) => T[];
@@ -544,6 +546,29 @@ Notes:
 */
 // @SINGLE_MARKER
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
+
+/*
+Method: exists
+
+Explanation: It returns `true` if there is at least one element in `list` that satisfy the `predicate`.
+
+Example:
+
+```
+const predicate = x => R.type(x.foo) === 'Number'
+const list = [{foo: 'bar'}, {foo: 1}]
+
+const result = R.exists(predicate)(list)
+// => true
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function exists<T>(predicate: (x: T) => boolean): (list: T[]) => boolean;
 
 /*
 Method: findNth
@@ -752,8 +777,8 @@ Example:
 
 ```
 const result = [
-  R.includes('oo')('foo'),
-  R.includes({a: 1})([{a: 1}])
+  R.includes('foo')('oo'),
+  R.includes([{a: 1}])({a: 1})
 ]
 // => [true, true ]
 ```
@@ -764,8 +789,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function includes(s: string): (list: readonly string[] | string) => boolean;
-export function includes<T>(target: T): (list: readonly T[]) => boolean;
+export function includes<T>(list: readonly T[]): (target: T) => boolean;
+export function includes(list: readonly string[] | string): (substringToFind: string) => boolean;
 
 /*
 Method: excludes
@@ -778,8 +803,8 @@ Example:
 
 ```
 const result = [
-  R.excludes('ar')('foo'),
-  R.excludes({a: 2})([{a: 1}])
+  R.excludes('foo')('ar'),
+  R.excludes([{a: 1}])({a: 2})
 ]
 // => [true, true ]
 ```
@@ -790,8 +815,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function excludes<T extends string>(valueToFind: T): (input: string) => boolean;
-export function excludes<T>(valueToFind: T): (input: T[]) => boolean;
+export function excludes(list: readonly string[] | string): (substringToFind: string) => boolean;
+export function excludes<T>(list: readonly T[]): (target: T) => boolean;
 
 /*
 Method: indexOf
@@ -857,7 +882,7 @@ const result = R.intersection(listA)(listB)
 
 Categories: List
 
-Notes: There is slight difference between Rambda and Ramda implementation. Ramda.intersection(['a', 'b', 'c'], ['c', 'b']) result is "[ 'c', 'b' ]", but Rambda result is "[ 'b', 'c' ]".
+Notes:
 
 */
 // @SINGLE_MARKER
@@ -2998,9 +3023,34 @@ Notes:
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /*
-Method: symmetricDifference
+Method: difference
 
 Explanation: It returns a merged list of `x` and `y` with all equal elements removed.
+
+`R.equals` is used to determine equality.
+
+Example:
+
+```
+const x = [ 1, 2, 3, 4 ]
+const y = [ 3, 4, 5, 6 ]
+
+const result = R.difference(x)(y)
+// => [ 1, 2, 5, 6 ]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function difference<T>(x: T[]): (y: T[]) => T[];
+
+/*
+Method: symmetricDifference
+
+Explanation: It returns all items that are in either of the lists, but not in both.
 
 `R.equals` is used to determine equality.
 
@@ -3020,7 +3070,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(x: T[]): <T>(y: T[]) => T[];
+export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /*
 Method: tail
@@ -3072,8 +3122,8 @@ Notes:
 // @SINGLE_MARKER
 export function take<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /*
@@ -3101,8 +3151,8 @@ Notes:
 // @SINGLE_MARKER
 export function takeLast<T>(howMany: number): {
   (input: string): string;
-  (input: T[]): T[];
   (input: readonly T[]): T[];
+  (input: T[]): T[];
 };
 
 /*
@@ -3238,6 +3288,29 @@ Notes:
 */
 // @SINGLE_MARKER
 export function union<T>(x: T[]): (y: T[]) => T[];
+
+/*
+Method: unionWith
+
+Explanation: 
+
+Example:
+
+```
+const result = R.pipe(
+	[{a: 1, b: 1}, {a: 2, b: 1}],
+	R.unionWith((x, y) => x === y, [{a: 2, b: 2}, {a: 3, b: 2}]),
+)
+// => [{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}]
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function unionWith<T>(predicate: (x: T, y: T) => boolean, x: T[]): (y: T[]) => T[];
 
 /*
 Method: uniq
@@ -3805,7 +3878,7 @@ Notes:
 export function eqBy<T>(fn: (x: T) => unknown, a: T): (b: T) => boolean;
 
 /*
-Method: innerJoin
+Method: intersectionWith
 
 Explanation: It returns a new list by applying a `predicate` function to all elements of `list1` and `list2` and keeping only these elements where `predicate` returns `true`.
 
@@ -3815,7 +3888,7 @@ Example:
 const list1 = [1, 2, 3, 4, 5]
 const list2 = [4, 5, 6]
 const predicate = (x, y) => x >= y
-const result = R.innerJoin(predicate, list1)(list2)
+const result = R.intersectionWith(predicate, list1)(list2)
 // => [4, 5]
 ```
 
@@ -3825,7 +3898,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function innerJoin<T1, T2>(
+export function intersectionWith<T1, T2>(
   pred: (a: T1, b: T2) => boolean,
   list1: T1[],
 ): (list2: T2[]) => T1[];
@@ -4115,14 +4188,13 @@ export function split(separator: string | RegExp): (str: string) => string[];
 /*
 Method: range
 
-Explanation: It returns list of numbers between `startInclusive` to `endExclusive` markers.
-If `start` is greater than `end`, then the result will be in descending order.
+Explanation: It returns list of numbers between `startInclusive` to `endInclusive` markers.
 
 Example:
 
 ```
-[R.range(0)(5), R.range(5)(0)]
-// => [[0, 1, 2, 3, 4], [5, 4, 3, 2, 1]]
+[R.range(5), R.range(1, 5)]
+// => [[0, 1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]
 ```
 
 Categories: Number
@@ -4131,7 +4203,27 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function range(startInclusive: number): (endExclusive: number) => number[];
+export function range(endInclusive: number) : number[];
+export function range(startInclusive: number, endInclusive: number) : number[];
+
+/*
+Method: rangeDescending
+
+Explanation: It returns list of numbers between `endInclusive` to `startInclusive` markers.
+
+Example:
+
+```
+```
+
+Categories: Number
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function rangeDescending(startInclusive: number, endInclusive: number) : number[];
+export function rangeDescending(endInclusive: number) : number[];
 
 /*
 Method: pipeAsync

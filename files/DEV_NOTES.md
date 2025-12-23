@@ -1,3 +1,7 @@
+
+- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
+
+- R.difference(new method)
 ===
 https:bundlejs.com
 ===
