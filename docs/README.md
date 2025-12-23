@@ -5572,7 +5572,7 @@ import { filter } from './filter.js'
 import { includes } from './includes.js'
 
 export function intersection(listA) {
-  return listB => filter(x => includes(x)(listA))(listB)
+  return listB => filter(includes(listA))(listB)
 }
 ```
 
@@ -11637,13 +11637,13 @@ symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 ```javascript
 import { filter } from './filter.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function symmetricDifference(x) {
-  return y => [
-    ...filter(value => !includes(value)(y))(x),
-    ...filter(value => !includes(value)(x))(y),
-  ]
+export function symmetricDifference(listA) {
+	return listB => [
+		...filter(excludes(listB))(listA),
+		...filter(excludes(listA))(listB),
+	]
 }
 ```
 
@@ -11656,7 +11656,7 @@ export function symmetricDifference(x) {
 ```javascript
 import { symmetricDifference } from './symmetricDifference.js'
 
-test('symmetricDifference', () => {
+test.only('symmetricDifference', () => {
   const list1 = [1, 2, 3, 4]
   const list2 = [3, 4, 5, 6]
   expect(symmetricDifference(list1)(list2)).toEqual([1, 2, 5, 6])
@@ -12776,21 +12776,13 @@ union<T>(x: T[]): (y: T[]) => T[];
 <summary><strong>R.union</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function union(x) {
-  return y => {
-    const toReturn = cloneList(x)
-
-    y.forEach(yInstance => {
-      if (!includes(yInstance)(x)) {
-        toReturn.push(yInstance)
-      }
-    })
-
-    return toReturn
-  }
+export function union(listA) {
+  return listB => [
+		...listA,
+		...listB.filter(excludes(listA)),
+	]
 }
 ```
 

@@ -1,6 +1,6 @@
 import { symmetricDifference } from './symmetricDifference.js'
 
-test('symmetricDifference', () => {
+test.only('symmetricDifference', () => {
   const list1 = [1, 2, 3, 4]
   const list2 = [3, 4, 5, 6]
   expect(symmetricDifference(list1)(list2)).toEqual([1, 2, 5, 6])

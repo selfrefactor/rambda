@@ -951,7 +951,7 @@ function interpolate(input) {
 }
 
 function intersection(listA) {
-  return listB => filter(x => includes(x)(listA))(listB)
+  return listB => filter(includes(listA))(listB)
 }
 
 function _includesWith(pred, x, list) {
@@ -1669,11 +1669,11 @@ function splitEvery(sliceLength) {
   }
 }
 
-function symmetricDifference(x) {
-  return y => [
-    ...filter(value => !includes(value)(y))(x),
-    ...filter(value => !includes(value)(x))(y),
-  ]
+function symmetricDifference(listA) {
+	return listB => [
+		...filter(excludes(listB))(listA),
+		...filter(excludes(listA))(listB),
+	]
 }
 
 function tail(listOrString) {
@@ -1770,18 +1770,11 @@ function tryCatch(fn, fallback) {
   }
 }
 
-function union(x) {
-  return y => {
-    const toReturn = cloneList(x);
-
-    y.forEach(yInstance => {
-      if (!includes(yInstance)(x)) {
-        toReturn.push(yInstance);
-      }
-    });
-
-    return toReturn
-  }
+function union(listA) {
+  return listB => [
+		...listA,
+		...listB.filter(excludes(listA)),
+	]
 }
 
 function unionWith(predicate, x) {

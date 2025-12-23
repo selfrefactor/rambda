@@ -1,16 +1,8 @@
-import { cloneList } from './_internals/cloneList.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function union(x) {
-  return y => {
-    const toReturn = cloneList(x)
-
-    y.forEach(yInstance => {
-      if (!includes(yInstance)(x)) {
-        toReturn.push(yInstance)
-      }
-    })
-
-    return toReturn
-  }
+export function union(listA) {
+  return listB => [
+		...listA,
+		...listB.filter(excludes(listA)),
+	]
 }
