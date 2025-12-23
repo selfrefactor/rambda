@@ -3350,8 +3350,8 @@ excludes<T>(list: readonly T[]): (target: T) => boolean;
 ```javascript
 import { includes } from './includes.js'
 
-export function excludes(valueToFind) {
-  return iterable => !includes(valueToFind)(iterable)
+export function excludes(iterable) {
+  return valueToFind => !includes(iterable)(valueToFind)
 }
 ```
 
@@ -3367,15 +3367,15 @@ import { excludes } from './excludes.js'
 test('excludes with string', () => {
   const str = 'more is less'
 
-  expect(excludes('less')(str)).toBeFalsy()
-  expect(excludes('never')(str)).toBeTruthy()
+  expect(excludes(str)('less')).toBeFalsy()
+  expect(excludes(str)('never')).toBeTruthy()
 })
 
 test('excludes with array', () => {
   const arr = [1, 2, 3]
 
-  expect(excludes(2)(arr)).toBeFalsy()
-  expect(excludes(4)(arr)).toBeTruthy()
+  expect(excludes(arr)(2)).toBeFalsy()
+  expect(excludes(arr)(4)).toBeTruthy()
 })
 ```
 
@@ -5034,8 +5034,8 @@ includes(list: readonly string[] | string): (substringToFind: string) => boolean
 import { isArray } from './_internals/isArray.js'
 import { _indexOf } from './equals.js'
 
-export function includes(valueToFind) {
-  return iterable => {
+export function includes(iterable) {
+  return valueToFind => {
     if (typeof iterable === 'string') {
       return iterable.includes(valueToFind)
     }
@@ -5063,30 +5063,30 @@ import { includes } from './includes.js'
 test('with string as iterable', () => {
   const str = 'foo bar'
 
-  expect(includes('bar')(str)).toBeTruthy()
-  expect(includes('never')(str)).toBeFalsy()
+  expect(includes(str)('foo')).toBeTruthy()
+  expect(includes(str)('never')).toBeFalsy()
 })
 
 test('with array as iterable', () => {
   const arr = [1, 2, 3]
 
-  expect(includes(2)(arr)).toBeTruthy()
-  expect(includes(4)(arr)).toBeFalsy()
+  expect(includes(arr)(2)).toBeTruthy()
+  expect(includes(arr)(4)).toBeFalsy()
 })
 
 test('with list of objects as iterable', () => {
   const arr = [{ a: 1 }, { b: 2 }, { c: 3 }]
 
-  expect(includes({ c: 3 })(arr)).toBeTruthy()
+  expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
 test('with NaN', () => {
-  const result = includes(Number.NaN)([Number.NaN])
+  const result = includes([Number.NaN])(Number.NaN)
   expect(result).toBeTruthy()
 })
 
 test('with wrong input that does not throw', () => {
-  const result = includes(1)(/foo/g)
+  const result = includes([1])(/foo/g)
   expect(result).toBeFalsy()
 })
 ```
@@ -13981,6 +13981,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.0.1
+
+- Add missing JS change for `R.includes` and `R.excludes` methods in `11.0.0` release.
 
 11.0.0
 

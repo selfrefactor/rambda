@@ -485,8 +485,8 @@
     return b => equalsFn(a, b)
   }
 
-  function includes(valueToFind) {
-    return iterable => {
+  function includes(iterable) {
+    return valueToFind => {
       if (typeof iterable === 'string') {
         return iterable.includes(valueToFind)
       }
@@ -640,8 +640,8 @@
     return mapObject((x, prop) => type(rules[prop]) === 'Function' ? rules[prop](x): x)
   }
 
-  function excludes(valueToFind) {
-    return iterable => !includes(valueToFind)(iterable)
+  function excludes(iterable) {
+    return valueToFind => !includes(iterable)(valueToFind)
   }
 
   function find(predicate) {

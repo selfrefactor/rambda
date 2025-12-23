@@ -1,8 +1,8 @@
 import { isArray } from './_internals/isArray.js'
 import { _indexOf } from './equals.js'
 
-export function includes(valueToFind) {
-  return iterable => {
+export function includes(iterable) {
+  return valueToFind => {
     if (typeof iterable === 'string') {
       return iterable.includes(valueToFind)
     }

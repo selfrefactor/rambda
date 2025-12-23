@@ -1,3 +1,7 @@
+11.0.1
+
+- Add missing JS change for `R.includes` and `R.excludes` methods in `11.0.0` release.
+
 11.0.0
 
 - Breaking change: `R.includes` and `R.excludes` now accept list as first argument and value to search as second argument. This makes it more useful when used with `R.filter` and `R.reject`.
