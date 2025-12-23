@@ -3070,7 +3070,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function symmetricDifference<T>(list: T[]): (list: T[]) => T[];
+export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /*
 Method: tail

@@ -3452,6 +3452,29 @@ export function exists(predicate) {
 
 <details>
 
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { exists } from './exists.js'
+import { propEq } from './propEq.js'
+
+const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
+
+test('happy', () => {
+  const fn = propEq(2, 'a')
+  expect(exists(fn)(list)).toBe(true)
+})
+
+test('nothing is found', () => {
+  const fn = propEq(4, 'a')
+  expect(exists(fn)(list)).toBe(false)
+})
+```
+
+</details>
+
+<details>
+
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
@@ -11582,7 +11605,7 @@ describe('R.splitEvery', () => {
 
 ```typescript
 
-symmetricDifference<T>(list: T[]): (list: T[]) => T[]
+symmetricDifference<T>(x: T[]): (y: T[]) => T[]
 ```
 
 It returns all items that are in either of the lists, but not in both.
@@ -11604,7 +11627,7 @@ const result = R.symmetricDifference(x)(y)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-symmetricDifference<T>(list: T[]): (list: T[]) => T[];
+symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 ```
 
 </details>
@@ -13981,8 +14004,6 @@ describe('R.zipWith', () => {
 
 - R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
  
-10.3.5
-
 - Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
 
 10.3.4

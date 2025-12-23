@@ -2213,7 +2213,7 @@ export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
  * 
  * `R.equals` is used to determine equality.
  */
-export function symmetricDifference<T>(list: T[]): (list: T[]) => T[];
+export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /**
  * It returns all but the first element of `input`.

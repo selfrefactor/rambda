@@ -20,8 +20,6 @@
 
 - R.rangeDescending - it accepts one or two arguments. If one argument is passed, it is considered as start value, and end is 0.
  
-10.3.5
-
 - Fix `R.filter(Boolean)` to handle filter of `false`, not only nullable values.
 
 10.3.4
