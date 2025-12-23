@@ -532,7 +532,6 @@ export function allPass(predicates) {
 ```javascript
 import { allPass } from './allPass.js'
 import { filter } from './filter.js'
-import { includes } from './includes.js'
 import { pipe } from './pipe.js'
 
 const list = [
@@ -540,12 +539,12 @@ const list = [
   [3, 4, 5],
 ]
 test('happy', () => {
-  const result = pipe(list, filter(allPass([includes(2), includes(3)])))
+  const result = pipe(list, filter(allPass([x => x.includes(2), x => x.includes(3)])))
   expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const result = pipe(list, filter(allPass([includes(12), includes(31)])))
+  const result = pipe(list, filter(allPass([x => x.includes(12), x => x.includes(31)])))
   expect(result).toEqual([])
 })
 ```
@@ -2029,12 +2028,12 @@ difference<T>(x: T[]): (y: T[]) => T[];
 
 ```javascript
 import { filter } from './filter.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function difference(x) {
-	return y => ([
-		...filter(value => !includes(value)(y))(x),
-		...filter(value => !includes(value)(x))(y),
+export function difference(listA) {
+	return listB => ([
+		...filter(value => excludes(listB)(value))(listA),
+		...filter(value => excludes(listA)(value))(listB),
 	])
 }
 ```

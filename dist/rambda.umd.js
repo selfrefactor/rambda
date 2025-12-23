@@ -501,10 +501,14 @@
     }
   }
 
-  function difference(x) {
-  	return y => ([
-  		...filter(value => !includes(value)(y))(x),
-  		...filter(value => !includes(value)(x))(y),
+  function excludes(iterable) {
+    return valueToFind => !includes(iterable)(valueToFind)
+  }
+
+  function difference(listA) {
+  	return listB => ([
+  		...filter(value => excludes(listB)(value))(listA),
+  		...filter(value => excludes(listA)(value))(listB),
   	])
   }
 
@@ -638,10 +642,6 @@
 
   function evolve(rules) {
     return mapObject((x, prop) => type(rules[prop]) === 'Function' ? rules[prop](x): x)
-  }
-
-  function excludes(iterable) {
-    return valueToFind => !includes(iterable)(valueToFind)
   }
 
   function find(predicate) {
