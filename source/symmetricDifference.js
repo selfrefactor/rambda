@@ -1,9 +1,9 @@
 import { filter } from './filter.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function symmetricDifference(x) {
-  return y => [
-    ...filter(value => !includes(value)(y))(x),
-    ...filter(value => !includes(value)(x))(y),
-  ]
+export function symmetricDifference(listA) {
+	return listB => [
+		...filter(excludes(listB))(listA),
+		...filter(excludes(listA))(listB),
+	]
 }

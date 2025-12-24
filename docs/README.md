@@ -532,7 +532,6 @@ export function allPass(predicates) {
 ```javascript
 import { allPass } from './allPass.js'
 import { filter } from './filter.js'
-import { includes } from './includes.js'
 import { pipe } from './pipe.js'
 
 const list = [
@@ -540,12 +539,12 @@ const list = [
   [3, 4, 5],
 ]
 test('happy', () => {
-  const result = pipe(list, filter(allPass([includes(2), includes(3)])))
+  const result = pipe(list, filter(allPass([x => x.includes(2), x => x.includes(3)])))
   expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const result = pipe(list, filter(allPass([includes(12), includes(31)])))
+  const result = pipe(list, filter(allPass([x => x.includes(12), x => x.includes(31)])))
   expect(result).toEqual([])
 })
 ```
@@ -2029,12 +2028,12 @@ difference<T>(x: T[]): (y: T[]) => T[];
 
 ```javascript
 import { filter } from './filter.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function difference(x) {
-	return y => ([
-		...filter(value => !includes(value)(y))(x),
-		...filter(value => !includes(value)(x))(y),
+export function difference(listA) {
+	return listB => ([
+		...filter(value => excludes(listB)(value))(listA),
+		...filter(value => excludes(listA)(value))(listB),
 	])
 }
 ```
@@ -3350,8 +3349,8 @@ excludes<T>(list: readonly T[]): (target: T) => boolean;
 ```javascript
 import { includes } from './includes.js'
 
-export function excludes(valueToFind) {
-  return iterable => !includes(valueToFind)(iterable)
+export function excludes(iterable) {
+  return valueToFind => !includes(iterable)(valueToFind)
 }
 ```
 
@@ -3367,15 +3366,15 @@ import { excludes } from './excludes.js'
 test('excludes with string', () => {
   const str = 'more is less'
 
-  expect(excludes('less')(str)).toBeFalsy()
-  expect(excludes('never')(str)).toBeTruthy()
+  expect(excludes(str)('less')).toBeFalsy()
+  expect(excludes(str)('never')).toBeTruthy()
 })
 
 test('excludes with array', () => {
   const arr = [1, 2, 3]
 
-  expect(excludes(2)(arr)).toBeFalsy()
-  expect(excludes(4)(arr)).toBeTruthy()
+  expect(excludes(arr)(2)).toBeFalsy()
+  expect(excludes(arr)(4)).toBeTruthy()
 })
 ```
 
@@ -5034,8 +5033,8 @@ includes(list: readonly string[] | string): (substringToFind: string) => boolean
 import { isArray } from './_internals/isArray.js'
 import { _indexOf } from './equals.js'
 
-export function includes(valueToFind) {
-  return iterable => {
+export function includes(iterable) {
+  return valueToFind => {
     if (typeof iterable === 'string') {
       return iterable.includes(valueToFind)
     }
@@ -5063,30 +5062,30 @@ import { includes } from './includes.js'
 test('with string as iterable', () => {
   const str = 'foo bar'
 
-  expect(includes('bar')(str)).toBeTruthy()
-  expect(includes('never')(str)).toBeFalsy()
+  expect(includes(str)('foo')).toBeTruthy()
+  expect(includes(str)('never')).toBeFalsy()
 })
 
 test('with array as iterable', () => {
   const arr = [1, 2, 3]
 
-  expect(includes(2)(arr)).toBeTruthy()
-  expect(includes(4)(arr)).toBeFalsy()
+  expect(includes(arr)(2)).toBeTruthy()
+  expect(includes(arr)(4)).toBeFalsy()
 })
 
 test('with list of objects as iterable', () => {
   const arr = [{ a: 1 }, { b: 2 }, { c: 3 }]
 
-  expect(includes({ c: 3 })(arr)).toBeTruthy()
+  expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
 test('with NaN', () => {
-  const result = includes(Number.NaN)([Number.NaN])
+  const result = includes([Number.NaN])(Number.NaN)
   expect(result).toBeTruthy()
 })
 
 test('with wrong input that does not throw', () => {
-  const result = includes(1)(/foo/g)
+  const result = includes([1])(/foo/g)
   expect(result).toBeFalsy()
 })
 ```
@@ -5573,7 +5572,7 @@ import { filter } from './filter.js'
 import { includes } from './includes.js'
 
 export function intersection(listA) {
-  return listB => filter(x => includes(x)(listA))(listB)
+  return listB => filter(includes(listA))(listB)
 }
 ```
 
@@ -11638,13 +11637,13 @@ symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 ```javascript
 import { filter } from './filter.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function symmetricDifference(x) {
-  return y => [
-    ...filter(value => !includes(value)(y))(x),
-    ...filter(value => !includes(value)(x))(y),
-  ]
+export function symmetricDifference(listA) {
+	return listB => [
+		...filter(excludes(listB))(listA),
+		...filter(excludes(listA))(listB),
+	]
 }
 ```
 
@@ -12777,21 +12776,13 @@ union<T>(x: T[]): (y: T[]) => T[];
 <summary><strong>R.union</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-import { includes } from './includes.js'
+import { excludes } from './excludes.js'
 
-export function union(x) {
-  return y => {
-    const toReturn = cloneList(x)
-
-    y.forEach(yInstance => {
-      if (!includes(yInstance)(x)) {
-        toReturn.push(yInstance)
-      }
-    })
-
-    return toReturn
-  }
+export function union(listA) {
+  return listB => [
+		...listA,
+		...listB.filter(excludes(listA)),
+	]
 }
 ```
 
@@ -13981,6 +13972,10 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.0.1
+
+- Add missing JS change for `R.includes` and `R.excludes` methods in `11.0.0` release.
 
 11.0.0
 

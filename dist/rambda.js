@@ -479,8 +479,8 @@ function equals(a) {
   return b => equalsFn(a, b)
 }
 
-function includes(valueToFind) {
-  return iterable => {
+function includes(iterable) {
+  return valueToFind => {
     if (typeof iterable === 'string') {
       return iterable.includes(valueToFind)
     }
@@ -495,10 +495,14 @@ function includes(valueToFind) {
   }
 }
 
-function difference(x) {
-	return y => ([
-		...filter(value => !includes(value)(y))(x),
-		...filter(value => !includes(value)(x))(y),
+function excludes(iterable) {
+  return valueToFind => !includes(iterable)(valueToFind)
+}
+
+function difference(listA) {
+	return listB => ([
+		...filter(value => excludes(listB)(value))(listA),
+		...filter(value => excludes(listA)(value))(listB),
 	])
 }
 
@@ -632,10 +636,6 @@ function mapObject(fn) {
 
 function evolve(rules) {
   return mapObject((x, prop) => type(rules[prop]) === 'Function' ? rules[prop](x): x)
-}
-
-function excludes(valueToFind) {
-  return iterable => !includes(valueToFind)(iterable)
 }
 
 function find(predicate) {
@@ -949,7 +949,7 @@ function interpolate(input) {
 }
 
 function intersection(listA) {
-  return listB => filter(x => includes(x)(listA))(listB)
+  return listB => filter(includes(listA))(listB)
 }
 
 function _includesWith(pred, x, list) {
@@ -1667,11 +1667,11 @@ function splitEvery(sliceLength) {
   }
 }
 
-function symmetricDifference(x) {
-  return y => [
-    ...filter(value => !includes(value)(y))(x),
-    ...filter(value => !includes(value)(x))(y),
-  ]
+function symmetricDifference(listA) {
+	return listB => [
+		...filter(excludes(listB))(listA),
+		...filter(excludes(listA))(listB),
+	]
 }
 
 function tail(listOrString) {
@@ -1768,18 +1768,11 @@ function tryCatch(fn, fallback) {
   }
 }
 
-function union(x) {
-  return y => {
-    const toReturn = cloneList(x);
-
-    y.forEach(yInstance => {
-      if (!includes(yInstance)(x)) {
-        toReturn.push(yInstance);
-      }
-    });
-
-    return toReturn
-  }
+function union(listA) {
+  return listB => [
+		...listA,
+		...listB.filter(excludes(listA)),
+	]
 }
 
 function unionWith(predicate, x) {
