@@ -4,14 +4,26 @@ const list = [1, 2, 3]
 
 describe('R.filter with array', () => {
   it('within pipe', () => {
-    const _result = pipe(
+    const result = pipe(
       list,
       filter(x => {
         x // $ExpectType number
         return x > 1
       }),
     )
-    _result // $ExpectType number[]
+    result // $ExpectType number[]
+  })
+
+  it('with index', () => {
+    const result = pipe(
+      list,
+      filter((x: number, i: number) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 1
+      }),
+    )
+    result // $ExpectType number[]
   })
 
   it('complex example', () => {
@@ -50,8 +62,8 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const _result = pipe(testList, filter(filterBar))
-    _result // $ExpectType Bar[]
+    const result = pipe(testList, filter(filterBar))
+    result // $ExpectType Bar[]
   })
 
   it('narrowing type - readonly', () => {
@@ -66,14 +78,14 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const _result = pipe(testList, filter(filterBar))
-    _result // $ExpectType Bar[]
+    const result = pipe(testList, filter(filterBar))
+    result // $ExpectType Bar[]
   })
 
   it('filtering NonNullable - list of objects', () => {
     const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
-    const _result = pipe(testList, filter(Boolean))
-    _result // $ExpectType { a: number; }[]
+    const result = pipe(testList, filter(Boolean))
+    result // $ExpectType { a: number; }[]
   })
 
   it('filtering NonNullable - readonly', () => {

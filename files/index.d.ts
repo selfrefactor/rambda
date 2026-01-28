@@ -486,7 +486,7 @@ export function filter<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 
 /*
@@ -519,7 +519,7 @@ export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => (null | undefined)[];
 export function reject<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 
 /*
@@ -995,12 +995,10 @@ Explanation: It returns the result of looping through `iterable` with `fn`.
 Example:
 
 ```
-const fn = x => x * 2
-
-const iterable = [1, 2]
-const obj = {a: 1, b: 2}
-
-const result = R.map(fn)(iterable),
+const result = R.pipe(
+	[1, 2],
+	R.map(x => x * 2)
+)
 // => [2, 4]
 ```
 
@@ -1016,6 +1014,34 @@ export function map<T extends IterableContainer, U>(
 export function map<T extends IterableContainer, U>(
 	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
+
+/*
+Method: filterMap
+
+Explanation: Same as `R.map` but it filters out `null/undefined` if returned from functor functions.
+
+Example:
+
+```
+const result = R.pipe(
+	[1, 2, 3],
+	R.filterMap(x => x > 1 ? x : null)
+)
+// => [2, 3]
+```
+
+Categories: List
+
+Notes: This function doesn't work with objects (use R.mapObject instead)
+
+*/
+// @SINGLE_MARKER
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
 
 /*
 Method: mapObject

@@ -1,3 +1,9 @@
+11.1.0
+
+- Add `R.filterMap` - similar to Ruby `filter_map`
+
+- Add index to `R.filter`/`R.reject` predicate signiture
+
 11.0.1
 
 - Add missing JS change for `R.includes` and `R.excludes` methods in `11.0.0` release.
