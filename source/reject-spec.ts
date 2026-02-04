@@ -13,6 +13,17 @@ describe('R.reject with array', () => {
     )
     result // $ExpectType number[]
   })
+	it('with index', () => {
+    const result = pipe(
+      list,
+      reject((x: number, i: number) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 1
+      }),
+    )
+    result // $ExpectType number[]
+  })
   it('narrowing type', () => {
     interface Foo {
       a: number

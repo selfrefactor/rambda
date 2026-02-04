@@ -1,4 +1,4 @@
-import { init } from 'rambda'
+import { map, pipe, init } from 'rambda'
 
 describe('R.init', () => {
   it('with string', () => {
@@ -6,13 +6,32 @@ describe('R.init', () => {
 
     result // $ExpectType string
   })
-  it('with list - one type', () => {
-    const result = init([1, 2, 3])
-
-    result // $ExpectType number[]
+  it('with list - using const on short array', () => {
+    const result = pipe(
+      [1] as const,
+      map(x => x * 2),
+      init,
+    )
+    result // $ExpectType []
+  })
+  it('with list - using const on empty array', () => {
+    const result = pipe(
+      [] as const,
+      map(x => x * 2),
+      init,
+    )
+    result // $ExpectType []
+  })
+  it('with list - using const', () => {
+    const result = pipe(
+      [1, 2, 3] as const,
+      map(x => x * 2),
+      init,
+    )
+    result // $ExpectType [number, number]
   })
   it('with list - mixed types', () => {
-    const result = init([1, 2, 3, 'foo', 'bar'])
+    const result = init(['foo', 'bar', 1, 2, 3])
 
     result // $ExpectType (string | number)[]
   })

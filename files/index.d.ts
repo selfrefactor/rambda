@@ -123,14 +123,25 @@ export type FlattenObject<T extends object> = object extends T
       } extends Record<keyof T, (y: infer O) => void>
     ? O
     : never;
+
+type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
+type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
+
+interface Switchem<T> {
+  is: isfn<T, Switchem<T>>;
+  default: (x: T) => T;
+}
+interface Switchem2<T, U> {
+  is: isfn2<T, U, Switchem2<T, U>>;
+  default: (x: U) => U;
+}
+
 // API_MARKER
 
 /*
 Method: modifyItemAtIndex
 
-Explanation:
-
-It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
+Explanation: It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 
 Example:
 
@@ -486,7 +497,7 @@ export function filter<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 
 /*
@@ -519,7 +530,7 @@ export function reject<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => (null | undefined)[];
 export function reject<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 
 /*
@@ -862,8 +873,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
-export function init(input: string): string;
+export function init<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [...infer U, any] ? U : T : T extends string ? string : never;
 
 /*
 Method: intersection
@@ -995,12 +1007,10 @@ Explanation: It returns the result of looping through `iterable` with `fn`.
 Example:
 
 ```
-const fn = x => x * 2
-
-const iterable = [1, 2]
-const obj = {a: 1, b: 2}
-
-const result = R.map(fn)(iterable),
+const result = R.pipe(
+	[1, 2],
+	R.map(x => x * 2)
+)
 // => [2, 4]
 ```
 
@@ -1016,6 +1026,85 @@ export function map<T extends IterableContainer, U>(
 export function map<T extends IterableContainer, U>(
 	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
+
+/*
+Method: mapChain
+
+Explanation: Chained 2 or 3 `R.map` transformations as one.
+
+Example:
+
+```
+const result = R.pipe(
+	[1, 2],
+	R.mapChain(
+		x => x * 2,
+		x => [x, x > 3],
+	)
+)
+// => [[2, false], [4, true]]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+	fn3: (value: V, index: number) => Y,
+): (data: T) => Mapped<T, Y>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+	fn3: (value: V) => Y,
+): (data: T) => Mapped<T, Y>;
+
+/*
+Method: filterMap
+
+Explanation: Same as `R.map` but it filters out `null/undefined` if returned from functor functions.
+
+Example:
+
+```
+const result = R.pipe(
+	[1, 2, 3],
+	R.filterMap(x => x > 1 ? x : null)
+)
+// => [2, 3]
+```
+
+Categories: List
+
+Notes: This function doesn't work with objects (use R.mapObject instead)
+
+*/
+// @SINGLE_MARKER
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
 
 /*
 Method: mapObject
@@ -3073,6 +3162,31 @@ Notes:
 export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /*
+Method: middle
+
+Explanation: It returns all but the first and last element of `input`.
+
+Example:
+
+```
+const result = [
+  R.middle([1, 2, 3, 4]),
+  R.middle('bar')
+]
+// => [[2, 3], 'a']
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function middle<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : T['length'] extends 2 ? [] : 
+	T extends [any, ...infer U, any] ? U : T : T extends string ? string : never;
+
+/*
 Method: tail
 
 Explanation: It returns all but the first element of `input`.
@@ -3093,8 +3207,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
-export function tail(input: string): string;
+export function tail<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [any, ...infer U] ? U : T : T extends string ? string : never;
 
 /*
 Method: take
@@ -4880,6 +4995,108 @@ export function indexBy<T, K extends keyof T>(
 export function indexBy<T, K extends keyof T>(
   property: K
 ): (list: T[]) => Record<string, T>;
+
+/*
+Method: sum
+
+Explanation: 
+
+Example:
+
+```
+const result = R.sum(
+	[1,2,3]
+)
+// => 6
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sum(list: number[]): number;
+
+/*
+Method: delay
+
+Explanation: `setTimeout` as a promise that resolves to `RAMBDA_DELAY` string after `ms` milliseconds.
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function delay(ms: number): Promise<'RAMBDA_DELAY'>;
+
+/*
+Method: shuffle
+
+Explanation: It returns a randomized copy of array.
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function shuffle<T>(list: T[]): T[];
+
+/*
+Method: random
+
+Explanation: It returns a random number between `min` inclusive and `max` inclusive.
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function random(minInclusive: number, maxInclusive: number): number;
+
+/*
+Method: switcher
+
+Explanation: 
+
+Example:
+
+```
+const list = [1, 2, 3]
+
+const result = switcher(list.length)
+	.is(x => x < 2, 4)
+	.is(x => x < 4, 6)
+	.default(7)
+// => 6
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
+export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================

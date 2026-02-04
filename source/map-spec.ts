@@ -2,12 +2,25 @@ import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
-it('R.map - within pipe', () => {
+it('R.map', () => {
   const result = pipe(
     list,
     x => x,
     map(x => {
       x // $ExpectType number
+      return String(x)
+    }),
+  )
+  result // $ExpectType string[]
+})
+
+it('R.map - index in functor', () => {
+  const result = pipe(
+    list,
+    x => x,
+    map((x, i) => {
+      x // $ExpectType number
+      i // $ExpectType number
       return String(x)
     }),
   )

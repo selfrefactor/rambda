@@ -1,3 +1,17 @@
+11.1.0
+
+- Add `R.filterMap` - similar to Ruby `filter_map`
+
+- Add `R.mapChain` - when in `R.pipe` there are several `R.map` one after the other, then `R.mapChain` can be used instead.
+
+- Add `R.middle` - equal to `R.init` + `R.tail`
+
+- Add `R.random`, `R.shuffle`, `R.switcher`, `R.sum`, `R.delay` - imported from `Rambda`
+
+- Add index to `R.filter`/`R.reject` predicate signiture
+
+- Improve typing of `R.init`, `R.tail`
+
 11.0.1
 
 - Add missing JS change for `R.includes` and `R.excludes` methods in `11.0.0` release.

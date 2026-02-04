@@ -1,5 +1,5 @@
-import { pipe } from "./pipe.js"
-import { addPropToObjects } from "./addPropToObjects.js"
+import { pipe } from './pipe.js'
+import { addPropToObjects } from './addPropToObjects.js'
 
 test('R.addPropToObjects', () => {
 		let result = pipe(
