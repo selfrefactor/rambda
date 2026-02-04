@@ -1,4 +1,4 @@
-import { addProp } from "./addProp.js"
+import { addProp } from './addProp.js'
 
 test('happy', () => {
 	const result = addProp('a', 1)({ b: 2 })

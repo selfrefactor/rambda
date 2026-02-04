@@ -1,4 +1,4 @@
-import { pipe, pluck } from "rambda";
+import { pipe, pluck } from 'rambda';
 
 it("R.pluck", () => {
   const input = [

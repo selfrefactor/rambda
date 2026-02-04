@@ -215,7 +215,7 @@ export function addProp(key, value) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { addProp } from "./addProp.js"
+import { addProp } from './addProp.js'
 
 test('happy', () => {
 	const result = addProp('a', 1)({ b: 2 })
@@ -325,8 +325,8 @@ export function addPropToObjects (
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pipe } from "./pipe.js"
-import { addPropToObjects } from "./addPropToObjects.js"
+import { pipe } from './pipe.js'
+import { addPropToObjects } from './addPropToObjects.js'
 
 test('R.addPropToObjects', () => {
 		let result = pipe(
@@ -6630,7 +6630,7 @@ mapChain<T extends IterableContainer, U, V>(
 <summary><strong>R.mapChain</strong> source</summary>
 
 ```javascript
-import { mapFn } from "./map.js";
+import { mapFn } from './map.js';
 
 export function mapChain(...fns) {
   return list => {
@@ -6787,7 +6787,7 @@ export function mapKeys(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mapKeys } from "./mapKeys.js"
+import { mapKeys } from './mapKeys.js'
 
 test('happy', () => {
 	const result = mapKeys((prop, x) => `${ prop }-${x}`)({a:1, b: 2 })
@@ -9905,7 +9905,7 @@ test('with undefined', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { pipe, pluck } from "rambda";
+import { pipe, pluck } from 'rambda';
 
 it("R.pluck", () => {
   const input = [
@@ -11424,7 +11424,7 @@ sortByDescending<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 <summary><strong>R.sortByDescending</strong> source</summary>
 
 ```javascript
-import { sortByFn } from "./sortBy.js";
+import { sortByFn } from './sortBy.js';
 
 export function sortByDescending(sortFn) {
   return list => sortByFn(sortFn, list, true)
@@ -12183,6 +12183,18 @@ test('happy', () => {
 
 switcher<T extends unknown>(valueToMatch: T): Switchem<T>
 ```
+
+```javascript
+const list = [1, 2, 3]
+
+const result = switcher(list.length)
+	.is(x => x < 2, 4)
+	.is(x => x < 4, 6)
+	.default(7)
+// => 6
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20switcher(list.length)%0A%09.is(x%20%3D%3E%20x%20%3C%202%2C%204)%0A%09.is(x%20%3D%3E%20x%20%3C%204%2C%206)%0A%09.default(7)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.switcher</strong> example in Rambda REPL</a>
 
 <details>
 

@@ -1,4 +1,4 @@
-import { mapFn } from "./map.js";
+import { mapFn } from './map.js';
 
 export function mapChain(...fns) {
   return list => {
