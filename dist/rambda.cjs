@@ -249,6 +249,16 @@ function defaultTo(defaultArgument) {
   return input => isFalsy(input) ? defaultArgument : input
 }
 
+const DELAY = 'RAMBDA_DELAY';
+
+function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(DELAY);
+    }, ms);
+  })
+}
+
 function descend(getFunction) {
   return (a, b) => {
     const aValue = getFunction(a);
@@ -508,7 +518,7 @@ function difference(listA) {
 	])
 }
 
-function drop(howManyToDrop, ) {
+function drop(howManyToDrop) {
   return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
 
@@ -675,6 +685,10 @@ function filterAsync(predicate) {
 
     return willReturn
   }
+}
+
+function filterMap(fn) {
+  return list => mapFn(fn, list).filter(Boolean)
 }
 
 function filterObject(predicate) {
@@ -1034,6 +1048,16 @@ function mapAsync(fn) {
   }
 }
 
+function mapChain(...fns) {
+  return list => {
+		let result = list.slice();
+		fns.forEach((fn) => {
+			result = mapFn(fn, result);
+		});
+		return result
+	}
+}
+
 function mapKeys(fn) {
   return obj => {
 		const willReturn = {};
@@ -1101,6 +1125,14 @@ function merge(target) {
 
 function mergeTypes(x) {
   return x
+}
+
+function tail(listOrString) {
+  return drop(1)(listOrString)
+}
+
+function middle(listOrString) {
+  return tail(init(listOrString))
 }
 
 function minBy(compareFn, x) {
@@ -1520,6 +1552,10 @@ function propSatisfies(predicate, property) {
   return obj => predicate(obj[property])
 }
 
+function random(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 function range(a, b) {
   const start = b === undefined ? 0 : a;
   const end = b === undefined ? a : b;
@@ -1669,15 +1705,92 @@ function splitEvery(sliceLength) {
   }
 }
 
+function sum(list){
+	return list.reduce((acc, cur) => acc + cur, 0)
+}
+
+const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined;
+
+const getMatchingKeyValuePair = (
+  cases, testValue, defaultValue
+) => {
+  let iterationValue;
+
+  for (let index = 0; index < cases.length; index++){
+    iterationValue = cases[ index ].test(testValue);
+
+    if (iterationValue !== NO_MATCH_FOUND){
+      return iterationValue
+    }
+  }
+
+  return defaultValue
+};
+
+const isEqual = (testValue, matchValue) => {
+  const willReturn =
+    typeof testValue === 'function' ?
+      testValue(matchValue) :
+      equals(testValue)(matchValue);
+
+  return willReturn
+};
+
+const is = (testValue, matchResult = true) => ({
+  key  : testValue,
+  test : matchValue =>
+    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+});
+
+class Switchem{
+  constructor(
+    defaultValue, cases, willMatch
+  ){
+    if (cases === undefined && willMatch === undefined){
+      this.cases = [];
+      this.defaultValue = undefined;
+      this.willMatch = defaultValue;
+    } else {
+      this.cases = cases;
+      this.defaultValue = defaultValue;
+      this.willMatch = willMatch;
+    }
+
+    return this
+  }
+
+  default(defaultValue){
+    const holder = new Switchem(
+      defaultValue, this.cases, this.willMatch
+    );
+
+    return holder.match(this.willMatch)
+  }
+
+  is(testValue, matchResult){
+    return new Switchem(
+      this.defaultValue,
+      [ ...this.cases, is(testValue, matchResult) ],
+      this.willMatch
+    )
+  }
+
+  match(matchValue){
+    return getMatchingKeyValuePair(
+      this.cases, matchValue, this.defaultValue
+    )
+  }
+}
+
+function switcher(input){
+  return new Switchem(input)
+}
+
 function symmetricDifference(listA) {
 	return listB => [
 		...filter(excludes(listB))(listA),
 		...filter(excludes(listA))(listB),
 	]
-}
-
-function tail(listOrString) {
-  return drop(1)(listOrString)
 }
 
 function take(numberOfItems) {
@@ -1890,6 +2003,7 @@ function zipWith(fn, x) {
     )
 }
 
+exports.DELAY = DELAY;
 exports._arity = _arity;
 exports._includes = _includes;
 exports._indexOf = _indexOf;
@@ -1913,6 +2027,7 @@ exports.countBy = countBy;
 exports.createCompareFunction = createCompareFunction;
 exports.createObjectFromKeys = createObjectFromKeys;
 exports.defaultTo = defaultTo;
+exports.delay = delay;
 exports.descend = descend;
 exports.difference = difference;
 exports.drop = drop;
@@ -1929,6 +2044,7 @@ exports.excludes = excludes;
 exports.exists = exists;
 exports.filter = filter;
 exports.filterAsync = filterAsync;
+exports.filterMap = filterMap;
 exports.filterObject = filterObject;
 exports.find = find;
 exports.findIndex = findIndex;
@@ -1955,6 +2071,7 @@ exports.last = last;
 exports.lastIndexOf = lastIndexOf;
 exports.map = map;
 exports.mapAsync = mapAsync;
+exports.mapChain = mapChain;
 exports.mapFn = mapFn;
 exports.mapKeys = mapKeys;
 exports.mapObject = mapObject;
@@ -1965,6 +2082,7 @@ exports.match = match;
 exports.maxBy = maxBy;
 exports.merge = merge;
 exports.mergeTypes = mergeTypes;
+exports.middle = middle;
 exports.minBy = minBy;
 exports.modifyItemAtIndex = modifyItemAtIndex;
 exports.modifyPath = modifyPath;
@@ -1987,6 +2105,7 @@ exports.prop = prop;
 exports.propEq = propEq;
 exports.propOr = propOr;
 exports.propSatisfies = propSatisfies;
+exports.random = random;
 exports.range = range;
 exports.rangeDescending = rangeDescending;
 exports.reduce = reduce;
@@ -2005,6 +2124,8 @@ exports.sortObject = sortObject;
 exports.sortWith = sortWith;
 exports.split = split;
 exports.splitEvery = splitEvery;
+exports.sum = sum;
+exports.switcher = switcher;
 exports.symmetricDifference = symmetricDifference;
 exports.tail = tail;
 exports.take = take;

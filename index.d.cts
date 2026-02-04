@@ -124,6 +124,19 @@ export type FlattenObject<T extends object> = object extends T
     ? O
     : never;
 
+type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
+type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
+
+interface Switchem<T> {
+  is: isfn<T, Switchem<T>>;
+  default: (x: T) => T;
+};
+interface Switchem2<T, U> {
+  is: isfn2<T, U, Switchem2<T, U>>;
+  default: (x: U) => U;
+};
+
+
 /**
  * It adds new key-value pair to the object.
  */
@@ -273,6 +286,11 @@ export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
 export function defaultTo<T>(defaultValue: T): (input: unknown) => T;
 
 /**
+ * `setTimeout` as a promise that resolves to `RAMBDA_DELAY` string after `ms` milliseconds.
+ */
+export function delay(ms: number): Promise<'RAMBDA_DELAY'>;
+
+/**
  * Helper function to be used with `R.sort` to sort list in descending order.
  */
 export function descend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
@@ -353,12 +371,22 @@ export function filter<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => ExcludeFalsy<T>[];
 export function filter<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 
 export function filterAsync<T>(
 	predicate: (value: T) => Promise<boolean>,
 ): (list: T[]) => Promise<T[]>;
+
+/**
+ * Same as `R.map` but it filters out `null/undefined` if returned from functor functions.
+ */
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
+export function filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
 
 /**
  * It loops over each property of `obj` and returns a new object with only those properties that satisfy the `predicate`.
@@ -455,9 +483,6 @@ export function indexBy<T, K extends keyof T>(
   property: K
 ): (list: T[]) => Record<string, T>;
 
-// API_MARKER_END
-// ============================================
-
 /**
  * It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
  */
@@ -466,8 +491,9 @@ export function indexOf<T>(valueToFind: T): (list: T[]) => number;
 /**
  * It returns all but the last element of list or string `input`.
  */
-export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
-export function init(input: string): string;
+export function init<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [...infer U, any] ? U : T : T extends string ? string : never;
 
 /**
  * It generates a new string from `inputWithTags` by replacing all `{{x}}` occurrences with values provided by `templateArguments`.
@@ -537,6 +563,36 @@ export function mapAsync<T extends IterableContainer, U>(
 export function mapAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 ): (data: T) => Promise<Mapped<T, U>>;
+
+/**
+ * Chained 2 or 3 `R.map` transformations as one.
+ */
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+	fn3: (value: V, index: number) => Y,
+): (data: T) => Mapped<T, Y>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+	fn3: (value: V) => Y,
+): (data: T) => Mapped<T, Y>;
 
 /**
  * It returns a copy of `obj` with keys transformed by `fn`.
@@ -609,6 +665,13 @@ export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
  * It returns its input and it is intended to be used as last method inside `R.pipe` chain.
  */
 export function mergeTypes<T>(x: T): MergeTypes<T>;
+
+/**
+ * It returns all but the first and last element of `input`.
+ */
+export function middle<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : T['length'] extends 2 ? [] : 
+	T extends [any, ...infer U, any] ? U : T : T extends string ? string : never;
 
 /**
  * It returns the lesser value between `x` and `y` according to `compareFn` function.
@@ -1792,6 +1855,11 @@ export function propOr<T, P extends string>(property: P, defaultValue: T): (obj:
 export function propSatisfies<T>(predicate: (x: T) => boolean, property: string): (obj: Record<PropertyKey, T>) => boolean;
 
 /**
+ * It returns a random number between `min` inclusive and `max` inclusive.
+ */
+export function random(minInclusive: number, maxInclusive: number): number;
+
+/**
  * It returns list of numbers between `startInclusive` to `endInclusive` markers.
  */
 export function range(endInclusive: number) : number[];
@@ -2208,6 +2276,14 @@ export function split(separator: string | RegExp): (str: string) => string[];
  */
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
+export function sum(list: number[]): number;
+
+export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
+export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+
+// API_MARKER_END
+// ============================================
+
 /**
  * It returns all items that are in either of the lists, but not in both.
  * 
@@ -2218,8 +2294,9 @@ export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 /**
  * It returns all but the first element of `input`.
  */
-export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
-export function tail(input: string): string;
+export function tail<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [any, ...infer U] ? U : T : T extends string ? string : never;
 
 /**
  * It returns the first `howMany` elements of `input`.

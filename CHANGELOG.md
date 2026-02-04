@@ -6,8 +6,6 @@
 
 - Add `R.middle` - equal to `R.init` + `R.tail`
 
-- Add `R.sumByProp`
-
 - Add `R.random`, `R.shuffle`, `R.switcher`, `R.sum`, `R.delay` - imported from `Rambda`
 
 - Add index to `R.filter`/`R.reject` predicate signiture

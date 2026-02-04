@@ -247,6 +247,16 @@ function defaultTo(defaultArgument) {
   return input => isFalsy(input) ? defaultArgument : input
 }
 
+const DELAY = 'RAMBDA_DELAY';
+
+function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(DELAY);
+    }, ms);
+  })
+}
+
 function descend(getFunction) {
   return (a, b) => {
     const aValue = getFunction(a);
@@ -506,7 +516,7 @@ function difference(listA) {
 	])
 }
 
-function drop(howManyToDrop, ) {
+function drop(howManyToDrop) {
   return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
 
@@ -673,6 +683,10 @@ function filterAsync(predicate) {
 
     return willReturn
   }
+}
+
+function filterMap(fn) {
+  return list => mapFn(fn, list).filter(Boolean)
 }
 
 function filterObject(predicate) {
@@ -1032,6 +1046,16 @@ function mapAsync(fn) {
   }
 }
 
+function mapChain(...fns) {
+  return list => {
+		let result = list.slice();
+		fns.forEach((fn) => {
+			result = mapFn(fn, result);
+		});
+		return result
+	}
+}
+
 function mapKeys(fn) {
   return obj => {
 		const willReturn = {};
@@ -1099,6 +1123,14 @@ function merge(target) {
 
 function mergeTypes(x) {
   return x
+}
+
+function tail(listOrString) {
+  return drop(1)(listOrString)
+}
+
+function middle(listOrString) {
+  return tail(init(listOrString))
 }
 
 function minBy(compareFn, x) {
@@ -1518,6 +1550,10 @@ function propSatisfies(predicate, property) {
   return obj => predicate(obj[property])
 }
 
+function random(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 function range(a, b) {
   const start = b === undefined ? 0 : a;
   const end = b === undefined ? a : b;
@@ -1667,15 +1703,92 @@ function splitEvery(sliceLength) {
   }
 }
 
+function sum(list){
+	return list.reduce((acc, cur) => acc + cur, 0)
+}
+
+const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined;
+
+const getMatchingKeyValuePair = (
+  cases, testValue, defaultValue
+) => {
+  let iterationValue;
+
+  for (let index = 0; index < cases.length; index++){
+    iterationValue = cases[ index ].test(testValue);
+
+    if (iterationValue !== NO_MATCH_FOUND){
+      return iterationValue
+    }
+  }
+
+  return defaultValue
+};
+
+const isEqual = (testValue, matchValue) => {
+  const willReturn =
+    typeof testValue === 'function' ?
+      testValue(matchValue) :
+      equals(testValue)(matchValue);
+
+  return willReturn
+};
+
+const is = (testValue, matchResult = true) => ({
+  key  : testValue,
+  test : matchValue =>
+    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+});
+
+class Switchem{
+  constructor(
+    defaultValue, cases, willMatch
+  ){
+    if (cases === undefined && willMatch === undefined){
+      this.cases = [];
+      this.defaultValue = undefined;
+      this.willMatch = defaultValue;
+    } else {
+      this.cases = cases;
+      this.defaultValue = defaultValue;
+      this.willMatch = willMatch;
+    }
+
+    return this
+  }
+
+  default(defaultValue){
+    const holder = new Switchem(
+      defaultValue, this.cases, this.willMatch
+    );
+
+    return holder.match(this.willMatch)
+  }
+
+  is(testValue, matchResult){
+    return new Switchem(
+      this.defaultValue,
+      [ ...this.cases, is(testValue, matchResult) ],
+      this.willMatch
+    )
+  }
+
+  match(matchValue){
+    return getMatchingKeyValuePair(
+      this.cases, matchValue, this.defaultValue
+    )
+  }
+}
+
+function switcher(input){
+  return new Switchem(input)
+}
+
 function symmetricDifference(listA) {
 	return listB => [
 		...filter(excludes(listB))(listA),
 		...filter(excludes(listA))(listB),
 	]
-}
-
-function tail(listOrString) {
-  return drop(1)(listOrString)
 }
 
 function take(numberOfItems) {
@@ -1888,4 +2001,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, range, rangeDescending, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { DELAY, _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, delay, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterMap, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapChain, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeTypes, middle, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, random, range, rangeDescending, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, sum, switcher, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

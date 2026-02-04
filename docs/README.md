@@ -1941,6 +1941,59 @@ describe('R.defaultTo', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#defaultTo)
 
+### delay
+
+```typescript
+
+delay(ms: number): Promise<'RAMBDA_DELAY'>
+```
+
+`setTimeout` as a promise that resolves to `RAMBDA_DELAY` string after `ms` milliseconds.
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+delay(ms: number): Promise<'RAMBDA_DELAY'>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.delay</strong> source</summary>
+
+```javascript
+export const DELAY = 'RAMBDA_DELAY'
+
+export function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(DELAY)
+    }, ms)
+  })
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { DELAY, delay } from './delay.js'
+
+test('usage with variables', async () => {
+  await expect(delay(500)).resolves.toBe(DELAY)
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#delay)
+
 ### descend
 
 ```typescript
@@ -2120,7 +2173,7 @@ drop<T>(howMany: number): (list: T[]) => T[];
 <summary><strong>R.drop</strong> source</summary>
 
 ```javascript
-export function drop(howManyToDrop, ) {
+export function drop(howManyToDrop) {
   return list => list.slice(howManyToDrop > 0 ? howManyToDrop : 0)
 }
 ```
@@ -3529,7 +3582,7 @@ filter<T>(
 	predicate: BooleanConstructor,
 ): (list: T[]) => ExcludeFalsy<T>[];
 filter<T>(
-	predicate: (value: T) => boolean,
+	predicate: (value: T, index: number) => boolean,
 ): (list: T[]) => T[];
 ...
 ...
@@ -3597,14 +3650,26 @@ const list = [1, 2, 3]
 
 describe('R.filter with array', () => {
   it('within pipe', () => {
-    const _result = pipe(
+    const result = pipe(
       list,
       filter(x => {
         x // $ExpectType number
         return x > 1
       }),
     )
-    _result // $ExpectType number[]
+    result // $ExpectType number[]
+  })
+
+  it('with index', () => {
+    const result = pipe(
+      list,
+      filter((x: number, i: number) => {
+        x // $ExpectType number
+        i // $ExpectType number
+        return x > 1
+      }),
+    )
+    result // $ExpectType number[]
   })
 
   it('complex example', () => {
@@ -3643,8 +3708,8 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const _result = pipe(testList, filter(filterBar))
-    _result // $ExpectType Bar[]
+    const result = pipe(testList, filter(filterBar))
+    result // $ExpectType Bar[]
   })
 
   it('narrowing type - readonly', () => {
@@ -3659,14 +3724,14 @@ describe('R.filter with array', () => {
     const filterBar = (x: T): x is Bar => {
       return typeof (x as Bar).b === 'string'
     }
-    const _result = pipe(testList, filter(filterBar))
-    _result // $ExpectType Bar[]
+    const result = pipe(testList, filter(filterBar))
+    result // $ExpectType Bar[]
   })
 
   it('filtering NonNullable - list of objects', () => {
     const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
-    const _result = pipe(testList, filter(Boolean))
-    _result // $ExpectType { a: number; }[]
+    const result = pipe(testList, filter(Boolean))
+    result // $ExpectType { a: number; }[]
   })
 
   it('filtering NonNullable - readonly', () => {
@@ -3777,6 +3842,104 @@ describe('R.filter with array', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filterAsync)
+
+### filterMap
+
+```typescript
+
+filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>
+```
+
+Same as `R.map` but it filters out `null/undefined` if returned from functor functions.
+
+> :boom: This function doesn't work with objects (use R.mapObject instead)
+
+```javascript
+const result = R.pipe(
+	[1, 2, 3],
+	R.filterMap(x => x > 1 ? x : null)
+)
+// => [2, 3]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%2C%203%5D%2C%0A%09R.filterMap(x%20%3D%3E%20x%20%3E%201%20%3F%20x%20%3A%20null)%0A)%0A%2F%2F%20%3D%3E%20%5B2%2C%203%5D">Try this <strong>R.filterMap</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number], index: number) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
+filterMap<T extends IterableContainer, U>(
+	fn: (value: T[number]) => U,
+): (data: T) => Mapped<T, ExcludeFalsy<U>>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.filterMap</strong> source</summary>
+
+```javascript
+import {mapFn} from './map.js'
+
+export function filterMap(fn) {
+  return list => mapFn(fn, list).filter(Boolean)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { filterMap } from './filterMap.js'
+
+const double = x => x > 1 ? x * 2 : null
+
+it('happy', () => {
+  expect(filterMap(double)([1, 2, 3])).toEqual([4, 6])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { filterMap, pipe } from 'rambda'
+
+const list = [1, 2, 3]
+
+it('R.filterMap - within pipe', () => {
+  const result = pipe(
+    list,
+    x => x,
+    filterMap(x => {
+      x // $ExpectType number
+      return Math.random() > 0.5 ? String(x) : null
+    }),
+    filterMap(x => {
+      x // $ExpectType string
+      return Math.random() > 0.5 ? Number(x) : ''
+    }),
+  )
+  result // $ExpectType number[]
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#filterMap)
 
 ### filterObject
 
@@ -5151,9 +5314,6 @@ indexBy<T, K extends keyof T>(
 indexBy<T, K extends keyof T>(
   property: K
 ): (list: T[]) => Record<string, T>;
-
-// API_MARKER_END
-// ============================================
 ```
 
 </details>
@@ -5327,7 +5487,9 @@ describe('R.indexOf', () => {
 
 ```typescript
 
-init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T]
+init<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [...infer U, any] ? U : T : T extends string ? string : never
 ```
 
 It returns all but the last element of list or string `input`.
@@ -5347,8 +5509,9 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
-init(input: string): string;
+init<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [...infer U, any] ? U : T : T extends string ? string : never;
 ```
 
 </details>
@@ -5401,7 +5564,7 @@ test('with string', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { init } from 'rambda'
+import { map, pipe, init } from 'rambda'
 
 describe('R.init', () => {
   it('with string', () => {
@@ -5409,13 +5572,32 @@ describe('R.init', () => {
 
     result // $ExpectType string
   })
-  it('with list - one type', () => {
-    const result = init([1, 2, 3])
-
+  it('with list - using const on short array', () => {
+    const result = pipe(
+      [1] as const,
+      map(x => x * 2),
+      init,
+    )
+    result // $ExpectType []
+  })
+  it('with list - using const on empty array', () => {
+    const result = pipe(
+      [] as const,
+      map(x => x * 2),
+      init,
+    )
     result // $ExpectType number[]
   })
+  it('with list - using const', () => {
+    const result = pipe(
+      [1, 2, 3] as const,
+      map(x => x * 2),
+      init,
+    )
+    result // $ExpectType [number, number]
+  })
   it('with list - mixed types', () => {
-    const result = init([1, 2, 3, 'foo', 'bar'])
+    const result = init(['foo', 'bar', 1, 2, 3])
 
     result // $ExpectType (string | number)[]
   })
@@ -6126,16 +6308,14 @@ It returns the result of looping through `iterable` with `fn`.
 > :boom: This function doesn't work with objects (use R.mapObject instead)
 
 ```javascript
-const fn = x => x * 2
-
-const iterable = [1, 2]
-const obj = {a: 1, b: 2}
-
-const result = R.map(fn)(iterable),
+const result = R.pipe(
+	[1, 2],
+	R.map(x => x * 2)
+)
 // => [2, 4]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20fn%20%3D%20x%20%3D%3E%20x%20*%202%0A%0Aconst%20iterable%20%3D%20%5B1%2C%202%5D%0Aconst%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%7D%0A%0Aconst%20result%20%3D%20R.map(fn)(iterable)%2C%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%5D%2C%0A%09R.map(x%20%3D%3E%20x%20*%202)%0A)%0A%2F%2F%20%3D%3E%20%5B2%2C%204%5D">Try this <strong>R.map</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6201,12 +6381,25 @@ import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
 
-it('R.map - within pipe', () => {
+it('R.map', () => {
   const result = pipe(
     list,
     x => x,
     map(x => {
       x // $ExpectType number
+      return String(x)
+    }),
+  )
+  result // $ExpectType string[]
+})
+
+it('R.map - index in functor', () => {
+  const result = pipe(
+    list,
+    x => x,
+    map((x, i) => {
+      x // $ExpectType number
+      i // $ExpectType number
       return String(x)
     }),
   )
@@ -6379,6 +6572,165 @@ it('R.mapAsync', async () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapAsync)
+
+### mapChain
+
+```typescript
+
+mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>
+```
+
+Chained 2 or 3 `R.map` transformations as one.
+
+```javascript
+const result = R.pipe(
+	[1, 2],
+	R.mapChain(
+		x => x * 2,
+		x => [x, x > 3],
+	)
+)
+// => [[2, false], [4, true]]
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B1%2C%202%5D%2C%0A%09R.mapChain(%0A%09%09x%20%3D%3E%20x%20*%202%2C%0A%09%09x%20%3D%3E%20%5Bx%2C%20x%20%3E%203%5D%2C%0A%09)%0A)%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%20false%5D%2C%20%5B4%2C%20true%5D%5D">Try this <strong>R.mapChain</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mapChain</strong> source</summary>
+
+```javascript
+import { mapFn } from "./map.js";
+
+export function mapChain(...fns) {
+  return list => {
+		let result = list.slice()
+		fns.forEach((fn) => {
+			result = mapFn(fn, result)
+		})
+		return result
+	}
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mapChain } from './mapChain.js'
+
+const double = x => x * 2
+
+it('happy', () => {
+  expect(mapChain(double, double, double)([1, 2, 3])).toEqual([8, 16, 24])
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { mapChain, pipe } from 'rambda'
+
+const list = [1, 2, 3]
+
+it('R.mapChain', () => {
+  const result = pipe(
+    list,
+    mapChain(
+      x => {
+        x // $ExpectType number
+        return String(x)
+      },
+      x => {
+        x // $ExpectType string
+        return x !== 'foo'
+      },
+    ),
+  )
+  result // $ExpectType boolean[]
+})
+
+it('R.mapChain - with index', () => {
+  const result = pipe(
+    list,
+    mapChain(
+      x => {
+        x // $ExpectType number
+        return String(x)
+      },
+      (x, i) => {
+        i // $ExpectType number
+        x // $ExpectType string
+        return x !== 'foo'
+      },
+    ),
+  )
+  result // $ExpectType boolean[]
+})
+
+it('R.mapChain - 3 functions', () => {
+  const result = pipe(
+    list,
+    x => x,
+    mapChain(
+      x => {
+        x // $ExpectType number
+        return String(x)
+      },
+      x => {
+        x // $ExpectType string
+        return x !== 'foo'
+      },
+      x => {
+        x // $ExpectType boolean
+        return x ? 'foo' : 'bar'
+      },
+    ),
+  )
+  result // $ExpectType  ("bar" | "foo")[]
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mapChain)
 
 ### mapKeys
 
@@ -7247,6 +7599,125 @@ export function mergeTypes(x) {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeTypes)
+
+### middle
+
+```typescript
+
+middle<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : T['length'] extends 2 ? [] : 
+	T extends [any, ...infer U, any] ? U : T : T extends string ? string : never
+```
+
+It returns all but the first and last element of `input`.
+
+```javascript
+const result = [
+  R.middle([1, 2, 3, 4]),
+  R.middle('bar')
+]
+// => [[2, 3], 'a']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.middle(%5B1%2C%202%2C%203%2C%204%5D)%2C%0A%20%20R.middle('bar')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B2%2C%203%5D%2C%20'a'%5D">Try this <strong>R.middle</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+middle<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : T['length'] extends 2 ? [] : 
+	T extends [any, ...infer U, any] ? U : T : T extends string ? string : never;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.middle</strong> source</summary>
+
+```javascript
+import { init } from './init.js'
+import { tail } from './tail.js'
+
+export function middle(listOrString) {
+  return tail(init(listOrString))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { middle } from './middle'
+
+test('middle', () => {
+  expect(middle([1, 2, 3])).toEqual([2])
+  expect(middle([1, 2])).toEqual([])
+  expect(middle([1])).toEqual([])
+  expect(middle([])).toEqual([])
+
+  expect(middle('abc')).toBe('b')
+  expect(middle('ab')).toBe('')
+  expect(middle('a')).toBe('')
+  expect(middle('')).toBe('')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { map, middle, pipe } from 'rambda'
+
+describe('R.middle', () => {
+  it('with string', () => {
+    const result = middle('foo')
+
+    result // $ExpectType string
+  })
+  it('with list - using const on short array', () => {
+    const result = pipe(
+      [1, 2] as const,
+      map(x => x * 2),
+      middle,
+    )
+    result // $ExpectType []
+  })
+  it('with list - using const on empty array', () => {
+    const result = pipe(
+      [] as const,
+      map(x => x * 2),
+      middle,
+    )
+    result // $ExpectType number[]
+  })
+  it('with list - using const', () => {
+    const result = pipe(
+      [1, 2, 3, 4] as const,
+      map(x => x * 2),
+      middle,
+    )
+    result // $ExpectType [number, number]
+  })
+  it('with list - mixed types', () => {
+    const result = middle(['foo', 'bar', 1, 2, 3])
+
+    result // $ExpectType (string | number)[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#middle)
 
 ### minBy
 
@@ -9861,6 +10332,56 @@ describe('R.propSatisfies', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propSatisfies)
 
+### random
+
+```typescript
+
+random(minInclusive: number, maxInclusive: number): number
+```
+
+It returns a random number between `min` inclusive and `max` inclusive.
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+random(minInclusive: number, maxInclusive: number): number;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.random</strong> source</summary>
+
+```javascript
+export function random(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { random } from './random.js'
+import { range } from './range.js'
+import { uniq } from './uniq.js'
+
+test('happy', () => {
+	const result = uniq(range(100).map(() => random(0, 3))).sort()
+  expect(result).toEqual([0,1,2,3])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#random)
+
 ### range
 
 ```typescript
@@ -10203,6 +10724,17 @@ describe('R.reject with array', () => {
       list,
       reject(x => {
         x // $ExpectType number
+        return x > 1
+      }),
+    )
+    result // $ExpectType number[]
+  })
+	it('with index', () => {
+    const result = pipe(
+      list,
+      reject((x: number, i: number) => {
+        x // $ExpectType number
+        i // $ExpectType number
         return x > 1
       }),
     )
@@ -10564,15 +11096,6 @@ shuffle<T>(list: T[]): T[]
 ```
 
 It returns a randomized copy of array.
-
-```javascript
-const result = R.shuffle(
-	[1, 2, 3]
-)
-// => [3, 1, 2] or [2, 3, 1] or ...
-```
-
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.shuffle(%0A%09%5B1%2C%202%2C%203%5D%0A)%0A%2F%2F%20%3D%3E%20%5B3%2C%201%2C%202%5D%20or%20%5B2%2C%203%2C%201%5D%20or%20...">Try this <strong>R.shuffle</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11600,6 +12123,288 @@ describe('R.splitEvery', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#splitEvery)
 
+### sum
+
+```typescript
+
+sum(list: number[]): number
+```
+
+```javascript
+const result = R.sum(
+	[1,2,3]
+)
+// => 6
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.sum(%0A%09%5B1%2C2%2C3%5D%0A)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.sum</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+sum(list: number[]): number;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.sum</strong> source</summary>
+
+```javascript
+export function sum(list){
+	return list.reduce((acc, cur) => acc + cur, 0)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { sum } from './sum.js'
+
+test('happy', () => {
+  expect(sum([1,2,3])).toEqual(6)
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#sum)
+
+### switcher
+
+```typescript
+
+switcher<T extends unknown>(valueToMatch: T): Switchem<T>
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
+switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+
+// API_MARKER_END
+// ============================================
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.switcher</strong> source</summary>
+
+```javascript
+import { equals } from './equals.js'
+
+const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined
+
+const getMatchingKeyValuePair = (
+  cases, testValue, defaultValue
+) => {
+  let iterationValue
+
+  for (let index = 0; index < cases.length; index++){
+    iterationValue = cases[ index ].test(testValue)
+
+    if (iterationValue !== NO_MATCH_FOUND){
+      return iterationValue
+    }
+  }
+
+  return defaultValue
+}
+
+const isEqual = (testValue, matchValue) => {
+  const willReturn =
+    typeof testValue === 'function' ?
+      testValue(matchValue) :
+      equals(testValue)(matchValue)
+
+  return willReturn
+}
+
+const is = (testValue, matchResult = true) => ({
+  key  : testValue,
+  test : matchValue =>
+    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+})
+
+class Switchem{
+  constructor(
+    defaultValue, cases, willMatch
+  ){
+    if (cases === undefined && willMatch === undefined){
+      this.cases = []
+      this.defaultValue = undefined
+      this.willMatch = defaultValue
+    } else {
+      this.cases = cases
+      this.defaultValue = defaultValue
+      this.willMatch = willMatch
+    }
+
+    return this
+  }
+
+  default(defaultValue){
+    const holder = new Switchem(
+      defaultValue, this.cases, this.willMatch
+    )
+
+    return holder.match(this.willMatch)
+  }
+
+  is(testValue, matchResult){
+    return new Switchem(
+      this.defaultValue,
+      [ ...this.cases, is(testValue, matchResult) ],
+      this.willMatch
+    )
+  }
+
+  match(matchValue){
+    return getMatchingKeyValuePair(
+      this.cases, matchValue, this.defaultValue
+    )
+  }
+}
+
+export function switcher(input){
+  return new Switchem(input)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { switcher } from './switcher.js'
+import { tap } from './tap.js'
+
+test('with undefined', () => {
+  const result = switcher(undefined)
+    .is(x => x === 0, '0')
+    .is(x => x === undefined, 'UNDEFINED')
+    .default('3')
+
+  expect(result).toBe('UNDEFINED')
+})
+
+test('happy', () => {
+  const a = true
+  const b = false
+  const result = switcher([ a, b ])
+    .is([ false, false ], '0')
+    .is([ false, true ], '1')
+    .is([ true, true ], '2')
+    .default('3')
+
+  expect(result).toBe('3')
+})
+
+test('can compare objects', () => {
+  const result = switcher({ a : 1 })
+    .is({ a : 1 }, 'it is object')
+    .is('baz', 'it is baz')
+    .default('it is default')
+
+  expect(result).toBe('it is object')
+})
+
+test('options are mixture of functions and values - input match function', () => {
+  const fn = switcher('foo').is('bar', 1)
+    .is('foo', x => x + 1)
+    .default(1000)
+
+  expect(fn(2)).toBe(3)
+})
+
+test('options are mixture of functions and values - input match value', () => {
+  const result = switcher('bar').is('bar', 1)
+    .is('foo', x => x + 1)
+    .default(1000)
+
+  expect(result).toBe(1)
+})
+
+test('return function if all options are functions', () => {
+  const fn = switcher('foo')
+		.is('bar', tap)
+    .is('foo', x => x + 1)
+    .default(9)
+
+  expect(fn(2)).toBe(3)
+})
+
+const switchFn = input =>
+  switcher(input)
+    .is(x => x.length && x.length === 7, 'has length of 7')
+    .is('baz', 'it is baz')
+    .default('it is default')
+
+test('works with function as condition', () => {
+  expect(switchFn([ 0, 1, 2, 3, 4, 5, 6 ])).toBe('has length of 7')
+})
+
+test('works with string as condition', () => {
+  expect(switchFn('baz')).toBe('it is baz')
+})
+
+test('fallback to default input when no matches', () => {
+  expect(switchFn(1)).toBe('it is default')
+})
+```
+
+</details>
+
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { switcher } from 'rambda'
+
+describe('R.switcher', () => {
+  it('no transformation', () => {
+    const list = [1, 2, 3]
+
+    const result = switcher(list.length)
+      .is(x => x < 2, 4)
+      .is(x => x < 4, 6)
+      .default(7)
+
+    result // $ExpectType number
+  })
+  it('with transformation', () => {
+    const list = [1, 2, 3]
+    type Stage = 'firstStage' | 'secondStage' | 'thirdStage'
+
+    const result = switcher<number, Stage>(list.length)
+      .is(x => x < 2, 'firstStage')
+      .is(x => x < 4, 'secondStage')
+      .default('thirdStage')
+
+    result // $ExpectType { id: number; }[]
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#switcher)
+
 ### symmetricDifference
 
 ```typescript
@@ -11703,7 +12508,9 @@ describe('R.symmetricDifference', () => {
 
 ```typescript
 
-tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T]
+tail<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [any, ...infer U] ? U : T : T extends string ? string : never
 ```
 
 It returns all but the first element of `input`.
@@ -11723,8 +12530,9 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
-tail(input: string): string;
+tail<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [any, ...infer U] ? U : T : T extends string ? string : never;
 ```
 
 </details>
@@ -11770,7 +12578,7 @@ test('tail', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { tail } from 'rambda'
+import { map, pipe, tail } from 'rambda'
 
 describe('R.tail', () => {
   it('with string', () => {
@@ -11778,10 +12586,29 @@ describe('R.tail', () => {
 
     result // $ExpectType string
   })
-  it('with list - one type', () => {
-    const result = tail([1, 2, 3])
-
+  it('with list - using const on short array', () => {
+    const result = pipe(
+      [1] as const,
+      map(x => x * 2),
+      tail,
+    )
+    result // $ExpectType []
+  })
+  it('with list - using const on empty array', () => {
+    const result = pipe(
+      [] as const,
+      map(x => x * 2),
+      tail,
+    )
     result // $ExpectType number[]
+  })
+  it('with list - using const', () => {
+    const result = pipe(
+      [1, 2, 3] as const,
+      map(x => x * 2),
+      tail,
+    )
+    result // $ExpectType [number, number]
   })
   it('with list - mixed types', () => {
     const result = tail(['foo', 'bar', 1, 2, 3])
@@ -13972,6 +14799,20 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.1.0
+
+- Add `R.filterMap` - similar to Ruby `filter_map`
+
+- Add `R.mapChain` - when in `R.pipe` there are several `R.map` one after the other, then `R.mapChain` can be used instead.
+
+- Add `R.middle` - equal to `R.init` + `R.tail`
+
+- Add `R.random`, `R.shuffle`, `R.switcher`, `R.sum`, `R.delay` - imported from `Rambda`
+
+- Add index to `R.filter`/`R.reject` predicate signiture
+
+- Improve typing of `R.init`, `R.tail`
 
 11.0.1
 

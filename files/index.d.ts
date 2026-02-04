@@ -123,14 +123,25 @@ export type FlattenObject<T extends object> = object extends T
       } extends Record<keyof T, (y: infer O) => void>
     ? O
     : never;
+
+type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
+type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
+
+interface Switchem<T> {
+  is: isfn<T, Switchem<T>>;
+  default: (x: T) => T;
+};
+interface Switchem2<T, U> {
+  is: isfn2<T, U, Switchem2<T, U>>;
+  default: (x: U) => U;
+};
+
 // API_MARKER
 
 /*
 Method: modifyItemAtIndex
 
-Explanation:
-
-It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
+Explanation: It replaces `index` in array `list` with the result of `replaceFn(list[i])`.
 
 Example:
 
@@ -4984,6 +4995,101 @@ export function indexBy<T, K extends keyof T>(
 export function indexBy<T, K extends keyof T>(
   property: K
 ): (list: T[]) => Record<string, T>;
+
+/*
+Method: sum
+
+Explanation: 
+
+Example:
+
+```
+const result = R.sum(
+	[1,2,3]
+)
+// => 6
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function sum(list: number[]): number;
+
+/*
+Method: delay
+
+Explanation: `setTimeout` as a promise that resolves to `RAMBDA_DELAY` string after `ms` milliseconds.
+
+Example:
+
+```
+```
+
+Categories:
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function delay(ms: number): Promise<'RAMBDA_DELAY'>;
+
+/*
+Method: shuffle
+
+Explanation: It returns a randomized copy of array.
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function shuffle<T>(list: T[]): T[];
+
+/*
+Method: random
+
+Explanation: It returns a random number between `min` inclusive and `max` inclusive.
+
+Example:
+
+```
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function random(minInclusive: number, maxInclusive: number): number;
+
+/*
+Method: switcher
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Logic
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
+export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================
