@@ -1978,20 +1978,6 @@ export function delay(ms) {
 
 </details>
 
-<details>
-
-<summary><strong>Tests</strong></summary>
-
-```javascript
-import { DELAY, delay } from './delay.js'
-
-test('usage with variables', async () => {
-  await expect(delay(500)).resolves.toBe(DELAY)
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#delay)
 
 ### descend
