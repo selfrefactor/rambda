@@ -5080,6 +5080,13 @@ Explanation:
 Example:
 
 ```
+const list = [1, 2, 3]
+
+const result = switcher(list.length)
+	.is(x => x < 2, 4)
+	.is(x => x < 4, 6)
+	.default(7)
+// => 6
 ```
 
 Categories: Logic
