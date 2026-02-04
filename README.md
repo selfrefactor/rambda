@@ -1965,12 +1965,12 @@ delay(ms: number): Promise<'RAMBDA_DELAY'>;
 <summary><strong>R.delay</strong> source</summary>
 
 ```javascript
-export const DELAY = 'RAMBDA_DELAY'
+export const RAMBDA_DELAY = 'RAMBDA_DELAY'
 
 export function delay(ms) {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve(DELAY)
+      resolve(RAMBDA_DELAY)
     }, ms)
   })
 }

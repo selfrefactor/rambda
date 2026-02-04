@@ -253,12 +253,12 @@
     return input => isFalsy(input) ? defaultArgument : input
   }
 
-  const DELAY = 'RAMBDA_DELAY';
+  const RAMBDA_DELAY = 'RAMBDA_DELAY';
 
   function delay(ms) {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve(DELAY);
+        resolve(RAMBDA_DELAY);
       }, ms);
     })
   }
@@ -2007,7 +2007,7 @@
       )
   }
 
-  exports.DELAY = DELAY;
+  exports.RAMBDA_DELAY = RAMBDA_DELAY;
   exports._arity = _arity;
   exports._includes = _includes;
   exports._indexOf = _indexOf;
