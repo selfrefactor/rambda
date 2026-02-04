@@ -130,11 +130,11 @@ type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
 interface Switchem<T> {
   is: isfn<T, Switchem<T>>;
   default: (x: T) => T;
-};
+}
 interface Switchem2<T, U> {
   is: isfn2<T, U, Switchem2<T, U>>;
   default: (x: U) => U;
-};
+}
 
 // API_MARKER
 
