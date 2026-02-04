@@ -20,7 +20,7 @@ describe('R.middle', () => {
       map(x => x * 2),
       middle,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(

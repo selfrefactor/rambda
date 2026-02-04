@@ -20,7 +20,7 @@ describe('R.tail', () => {
       map(x => x * 2),
       tail,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(

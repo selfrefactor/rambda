@@ -20,7 +20,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(

@@ -20,6 +20,6 @@ describe('R.switcher', () => {
       .is(x => x < 4, 'secondStage')
       .default('thirdStage')
 
-    result // $ExpectType { id: number; }[]
+    result // $ExpectType Stage
   })
 })

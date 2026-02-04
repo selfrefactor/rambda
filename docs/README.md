@@ -5586,7 +5586,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -6724,7 +6724,7 @@ it('R.mapChain - 3 functions', () => {
       },
     ),
   )
-  result // $ExpectType  ("bar" | "foo")[]
+  result // $ExpectType ("foo" | "bar")[]
 })
 ```
 
@@ -7697,7 +7697,7 @@ describe('R.middle', () => {
       map(x => x * 2),
       middle,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -12396,7 +12396,7 @@ describe('R.switcher', () => {
       .is(x => x < 4, 'secondStage')
       .default('thirdStage')
 
-    result // $ExpectType { id: number; }[]
+    result // $ExpectType Stage
   })
 })
 ```
@@ -12600,7 +12600,7 @@ describe('R.tail', () => {
       map(x => x * 2),
       tail,
     )
-    result // $ExpectType number[]
+    result // $ExpectType []
   })
   it('with list - using const', () => {
     const result = pipe(

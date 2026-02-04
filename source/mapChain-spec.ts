@@ -56,5 +56,5 @@ it('R.mapChain - 3 functions', () => {
       },
     ),
   )
-  result // $ExpectType  ("bar" | "foo")[]
+  result // $ExpectType ("foo" | "bar")[]
 })
