@@ -862,8 +862,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function init<T extends unknown[]>(input: T): T extends readonly [...infer U, any] ? U : [...T];
-export function init(input: string): string;
+export function init<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [...infer U, any] ? U : T : T extends string ? string : never;
 
 /*
 Method: intersection
@@ -1014,6 +1015,57 @@ export function map<T extends IterableContainer, U>(
 export function map<T extends IterableContainer, U>(
 	fn: (value: T[number]) => U,
 ): (data: T) => Mapped<T, U>;
+
+/*
+Method: mapChain
+
+Explanation: Chained 2 or 3 `R.map` transformations as one.
+
+Example:
+
+```
+const result = R.pipe(
+	[1, 2],
+	R.mapChain(
+		x => x * 2,
+		x => [x, x > 3],
+	)
+)
+// => [[2, false], [4, true]]
+```
+
+Categories: List
+
+Notes: 
+
+*/
+// @SINGLE_MARKER
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U, index: number) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+): (data: T) => Mapped<T, V>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number], index: number) => U,
+	fn2: (value: U, index: number) => V,
+	fn3: (value: V, index: number) => Y,
+): (data: T) => Mapped<T, Y>;
+export function mapChain<T extends IterableContainer, U, V, Y>(
+	fn1: (value: T[number]) => U,
+	fn2: (value: U) => V,
+	fn3: (value: V) => Y,
+): (data: T) => Mapped<T, Y>;
 
 /*
 Method: filterMap
@@ -3099,6 +3151,31 @@ Notes:
 export function symmetricDifference<T>(x: T[]): (y: T[]) => T[];
 
 /*
+Method: middle
+
+Explanation: It returns all but the first and last element of `input`.
+
+Example:
+
+```
+const result = [
+  R.middle([1, 2, 3, 4]),
+  R.middle('bar')
+]
+// => [[2, 3], 'a']
+```
+
+Categories: List, String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function middle<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : T['length'] extends 2 ? [] : 
+	T extends [any, ...infer U, any] ? U : T : T extends string ? string : never;
+
+/*
 Method: tail
 
 Explanation: It returns all but the first element of `input`.
@@ -3119,8 +3196,9 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function tail<T extends unknown[]>(input: T): T extends [any, ...infer U] ? U : [...T];
-export function tail(input: string): string;
+export function tail<T extends unknown>(input: T): T extends unknown[] ? 
+	T['length'] extends 0 ? [] : T['length'] extends 1 ? [] : 
+	T extends [any, ...infer U] ? U : T : T extends string ? string : never;
 
 /*
 Method: take
