@@ -12173,14 +12173,14 @@ switcher<T extends unknown>(valueToMatch: T): Switchem<T>
 ```javascript
 const list = [1, 2, 3]
 
-const result = switcher(list.length)
+const result = R.switcher(list.length)
 	.is(x => x < 2, 4)
 	.is(x => x < 4, 6)
 	.default(7)
 // => 6
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20switcher(list.length)%0A%09.is(x%20%3D%3E%20x%20%3C%202%2C%204)%0A%09.is(x%20%3D%3E%20x%20%3C%204%2C%206)%0A%09.default(7)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.switcher</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20R.switcher(list.length)%0A%09.is(x%20%3D%3E%20x%20%3C%202%2C%204)%0A%09.is(x%20%3D%3E%20x%20%3C%204%2C%206)%0A%09.default(7)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.switcher</strong> example in Rambda REPL</a>
 
 <details>
 
