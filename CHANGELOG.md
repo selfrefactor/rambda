@@ -1,3 +1,7 @@
+11.1.1
+
+- Fix `R.range`/`R.rangeDescending` when start and end match
+
 11.1.0
 
 - Add `R.filterMap` - similar to Ruby `filter_map`

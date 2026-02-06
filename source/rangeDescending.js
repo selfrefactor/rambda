@@ -1,6 +1,7 @@
 export function rangeDescending(start, b) {
 	const end = b === undefined ? 0 : b
-	if (start <= end) {
+	if (start === end) return [start]
+	if (start < end) {
 		return []
 	}
   const len = start - end
