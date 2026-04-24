@@ -1347,7 +1347,7 @@ export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 /*
 Method: merge
 
-Explanation: It creates a copy of `target` object with overwritten `newProps` properties.
+Explanation: It creates a copy of `source` object with overwritten `newProps` properties.
 
 Example:
 
@@ -1360,7 +1360,25 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+export function merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+
+/*
+Method: mergeDeep
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeDeep<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
 
 /*
 Method: minBy
@@ -3099,6 +3117,34 @@ const result = [
 const expected = [
   [[1, 2], [3]],
   ['foo', 'bar']
+]
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
+
+/*
+Method: splitEveryStrict
+
+Explanation: Similar to `R.splitEvery`, but it trims the last slice if it's not of the same length as `sliceLength`.
+
+Example:
+
+```
+const result = [
+  R.splitEveryStrict(2)([1, 2, 3, 4, 5]),
+  R.splitEveryStrict(2)('foobarbaz')
+]
+
+const expected = [
+  [[1, 2], [3, 4]],
+  ['fo', 'ob', 'ar', 'ba']
 ]
 // => `result` is equal to `expected`
 ```

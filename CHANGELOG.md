@@ -1,3 +1,9 @@
+11.2.0
+
+- Add R.mergeDeep
+
+- Add R.splitByStrict
+
 11.1.1
 
 - Fix `R.range`/`R.rangeDescending` when start and end match
