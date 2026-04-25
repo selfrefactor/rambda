@@ -1131,9 +1131,7 @@ function mergeDeepFn(source, objectWithNewProps) {
       const pVal = prev[key];
       const oVal = obj[key];
 
-      if (isArray(pVal) && isArray(oVal)) {
-        prev[key] = oVal;
-      } else if (isObject(pVal) && isObject(oVal)) {
+      if (isObject(pVal) && isObject(oVal)) {
         prev[key] = mergeDeepFn(pVal, oVal);
       } else {
         prev[key] = oVal;
