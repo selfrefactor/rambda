@@ -1127,6 +1127,31 @@
       Object.assign({}, target || {}, objectWithNewProps || {})
   }
 
+  const isObject = (x) => type(x) === 'Object';
+
+  function mergeDeepFn(source, objectWithNewProps) {
+    return [source, objectWithNewProps].reduce((prev, obj) => {
+      Object.keys(obj).forEach((key) => {
+        const pVal = prev[key];
+        const oVal = obj[key];
+
+        if (isArray(pVal) && isArray(oVal)) {
+          prev[key] = oVal;
+        } else if (isObject(pVal) && isObject(oVal)) {
+          prev[key] = mergeDeepFn(pVal, oVal);
+        } else {
+          prev[key] = oVal;
+        }
+      });
+
+      return prev
+    }, {})
+  }
+
+  function mergeDeep(source) {
+    return (objectWithNewProps) => mergeDeepFn(source, objectWithNewProps)
+  }
+
   function mergeTypes(x) {
     return x
   }
@@ -1563,7 +1588,8 @@
   function range(a, b) {
     const start = b === undefined ? 0 : a;
     const end = b === undefined ? a : b;
-    if (end<=  start) {
+    if (end ===  start) return [start]
+    if (end <  start) {
   		return []
     }
     const len = end - start;
@@ -1572,7 +1598,8 @@
 
   function rangeDescending(start, b) {
   	const end = b === undefined ? 0 : b;
-  	if (start <= end) {
+  	if (start === end) return [start]
+  	if (start < end) {
   		return []
   	}
     const len = start - end;
@@ -1692,7 +1719,7 @@
     return str => str.split(separator)
   }
 
-  function splitEvery(sliceLength) {
+  function splitEvery(sliceLength, strict = false) {
     return list => {
       if (sliceLength < 1) {
         throw new Error('First argument to splitEvery must be a positive integer')
@@ -1702,6 +1729,7 @@
       let counter = 0;
 
       while (counter < list.length) {
+  			if (strict && counter + sliceLength > list.length) break;
         willReturn.push(list.slice(counter, (counter += sliceLength)));
       }
 
@@ -2085,6 +2113,7 @@
   exports.match = match;
   exports.maxBy = maxBy;
   exports.merge = merge;
+  exports.mergeDeep = mergeDeep;
   exports.mergeTypes = mergeTypes;
   exports.middle = middle;
   exports.minBy = minBy;

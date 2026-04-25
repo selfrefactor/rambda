@@ -656,9 +656,11 @@ export function match(regExpression: RegExp): (str: string) => string[];
 export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 
 /**
- * It creates a copy of `target` object with overwritten `newProps` properties.
+ * It creates a copy of `source` object with overwritten `newProps` properties.
  */
-export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+export function merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+
+export function mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
 
 /**
  * Helper to merge all calculated TypeScript definitions into one definition.

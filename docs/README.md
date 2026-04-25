@@ -7484,17 +7484,17 @@ it('R.maxBy', () => {
 
 ```typescript
 
-merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>
+merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>
 ```
 
-It creates a copy of `target` object with overwritten `newProps` properties.
+It creates a copy of `source` object with overwritten `newProps` properties.
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
 ```
 
 </details>
@@ -7551,6 +7551,99 @@ it('R.merge', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
+
+### mergeDeep
+
+```typescript
+
+mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mergeDeep</strong> source</summary>
+
+```javascript
+import { type } from './type.js'
+import { isArray } from './_internals/isArray.js'
+
+const isObject = (x) => type(x) === 'Object'
+
+function mergeDeepFn(source, objectWithNewProps) {
+  return [source, objectWithNewProps].reduce((prev, obj) => {
+    Object.keys(obj).forEach((key) => {
+      const pVal = prev[key]
+      const oVal = obj[key]
+
+      if (isArray(pVal) && isArray(oVal)) {
+        prev[key] = oVal
+      } else if (isObject(pVal) && isObject(oVal)) {
+        prev[key] = mergeDeepFn(pVal, oVal)
+      } else {
+        prev[key] = oVal
+      }
+    })
+
+    return prev
+  }, {})
+}
+
+export function mergeDeep(source) {
+  return (objectWithNewProps) => mergeDeepFn(source, objectWithNewProps)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mergeDeep } from './mergeDeep.js'
+
+test('happy', () => {
+  const source = {
+    a: 1,
+    b: [1, 2],
+    c: {
+      d: 1,
+      f: 2,
+      e: [1, 2],
+      h: [1, 2],
+    },
+  }
+  const objectWithNewProps = {
+    b: [3],
+    c: {
+      f: 3,
+      s: 3,
+      e: [3],
+    },
+    q: 3,
+  }
+  expect(mergeDeep(source)(objectWithNewProps)).toEqual({
+    a: 1,
+    b: [3],
+    c: { d: 1, f: 3, e: [3], h: [1, 2], s: 3 },
+    q: 3,
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeep)
 
 ### mergeTypes
 
@@ -10403,7 +10496,8 @@ range(startInclusive: number, endInclusive: number) : number[];
 export function range(a, b) {
   const start = b === undefined ? 0 : a
   const end = b === undefined ? a : b
-  if (end<=  start) {
+  if (end ===  start) return [start]
+  if (end <  start) {
 		return []
   }
   const len = end - start
@@ -10422,9 +10516,12 @@ import { range } from './range.js'
 
 test('happy', () => {
   expect(range(5)).toEqual([0, 1, 2, 3, 4, 5])
-  expect(range(3,5)).toEqual([3, 4, 5])
-  expect(range(5,3)).toEqual([])
-	expect(range(0)).toEqual([])
+  expect(range(3, 5)).toEqual([3, 4, 5])
+  expect(range(5, 3)).toEqual([])
+  expect(range(5, 5)).toEqual([5])
+  expect(range(0)).toEqual([0])
+  expect(range(1)).toEqual([0, 1])
+  expect(range(2)).toEqual([0, 1, 2])
 })
 ```
 
@@ -10477,7 +10574,8 @@ rangeDescending(endInclusive: number) : number[];
 ```javascript
 export function rangeDescending(start, b) {
 	const end = b === undefined ? 0 : b
-	if (start <= end) {
+	if (start === end) return [start]
+	if (start < end) {
 		return []
 	}
   const len = start - end
@@ -10496,9 +10594,12 @@ import { rangeDescending } from './rangeDescending.js'
 
 test('happy', () => {
   expect(rangeDescending(5)).toEqual([5, 4, 3, 2, 1, 0])
-	expect(rangeDescending(7,3)).toEqual([7, 6, 5, 4,3])
-	expect(rangeDescending(5, 7)).toEqual([])
-	expect(rangeDescending(5, 5)).toEqual([])
+  expect(rangeDescending(7, 3)).toEqual([7, 6, 5, 4, 3])
+  expect(rangeDescending(0)).toEqual([0])
+  expect(rangeDescending(1)).toEqual([1, 0])
+  expect(rangeDescending(2)).toEqual([2, 1, 0])
+  expect(rangeDescending(5, 7)).toEqual([])
+  expect(rangeDescending(5, 5)).toEqual([5])
 })
 ```
 
@@ -12054,7 +12155,7 @@ splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 <summary><strong>R.splitEvery</strong> source</summary>
 
 ```javascript
-export function splitEvery(sliceLength) {
+export function splitEvery(sliceLength, strict = false) {
   return list => {
     if (sliceLength < 1) {
       throw new Error('First argument to splitEvery must be a positive integer')
@@ -12064,6 +12165,7 @@ export function splitEvery(sliceLength) {
     let counter = 0
 
     while (counter < list.length) {
+			if (strict && counter + sliceLength > list.length) break;
       willReturn.push(list.slice(counter, (counter += sliceLength)))
     }
 
@@ -14797,6 +14899,16 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.2.0
+
+- Add R.mergeDeep
+
+- Add R.splitByStrict
+
+11.1.1
+
+- Fix `R.range`/`R.rangeDescending` when start and end match
 
 11.1.0
 

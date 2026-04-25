@@ -1378,7 +1378,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function mergeDeep<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+export function mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
 
 /*
 Method: minBy
