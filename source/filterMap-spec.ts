@@ -1,4 +1,5 @@
 import { filterMap, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -7,13 +8,13 @@ it('R.filterMap - within pipe', () => {
     list,
     x => x,
     filterMap(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return Math.random() > 0.5 ? String(x) : null
     }),
     filterMap(x => {
-      x // $ExpectType string
+      expectTypeOf(x).toEqualTypeOf<string>()
       return Math.random() > 0.5 ? Number(x) : ''
     }),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })

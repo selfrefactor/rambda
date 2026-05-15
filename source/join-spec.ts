@@ -1,6 +1,7 @@
 import { join, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.join', () => {
   const result = pipe([1, 2, 3], join('|'))
-  result // $ExpectType string
+  expectTypeOf(result).toEqualTypeOf<string>()
 })

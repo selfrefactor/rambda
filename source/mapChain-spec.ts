@@ -1,4 +1,5 @@
 import { mapChain, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -7,16 +8,16 @@ it('R.mapChain', () => {
     list,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
     ),
   )
-  result // $ExpectType boolean[]
+  expectTypeOf(result).toEqualTypeOf<boolean[]>()
 })
 
 it('R.mapChain - with index', () => {
@@ -24,17 +25,17 @@ it('R.mapChain - with index', () => {
     list,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       (x, i) => {
-        i // $ExpectType number
-        x // $ExpectType string
+        expectTypeOf(i).toEqualTypeOf<number>()
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
     ),
   )
-  result // $ExpectType boolean[]
+  expectTypeOf(result).toEqualTypeOf<boolean[]>()
 })
 
 it('R.mapChain - 3 functions', () => {
@@ -43,18 +44,18 @@ it('R.mapChain - 3 functions', () => {
     x => x,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
       x => {
-        x // $ExpectType boolean
+        expectTypeOf(x).toEqualTypeOf<boolean>()
         return x ? 'foo' : 'bar'
       },
     ),
   )
-  result // $ExpectType ("foo" | "bar")[]
+  expectTypeOf(result).toEqualTypeOf<("foo" | "bar")[]>()
 })

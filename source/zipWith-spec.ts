@@ -1,3 +1,4 @@
+import { describe, expectTypeOf, it } from 'vitest'
 import { pipe, zipWith } from 'rambda'
 
 const list1 = [1, 2]
@@ -8,12 +9,12 @@ describe('R.zipWith', () => {
     const result = pipe(
       list2,
       zipWith((x, y) => {
-        x // $ExpectType number
-        y // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(y).toEqualTypeOf<number>()
         return `${x}-${y}`
       }, list1),
     )
 
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
 })

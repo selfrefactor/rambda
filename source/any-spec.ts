@@ -1,12 +1,13 @@
 import { any, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.any', () => {
   const result = pipe(
     [1, 2, 3],
     any(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return x > 2
     }),
   )
-  result // $ExpectType boolean
+  expectTypeOf(result).toEqualTypeOf<boolean>()
 })

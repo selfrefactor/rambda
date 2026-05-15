@@ -1,10 +1,11 @@
 import { map, pipe, init } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.init', () => {
   it('with string', () => {
     const result = init('foo')
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
   it('with list - using const on short array', () => {
     const result = pipe(
@@ -12,7 +13,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const on empty array', () => {
     const result = pipe(
@@ -20,7 +21,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -28,11 +29,11 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType [number, number]
+    expectTypeOf(result).toEqualTypeOf<[number, number]>()
   })
   it('with list - mixed types', () => {
     const result = init(['foo', 'bar', 1, 2, 3])
 
-    result // $ExpectType (string | number)[]
+    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
   })
 })

@@ -1,4 +1,5 @@
 import { findIndex, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -7,5 +8,5 @@ it('R.findIndex', () => {
     list,
     findIndex(x => x > 2),
   )
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })

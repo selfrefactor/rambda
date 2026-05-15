@@ -1,4 +1,5 @@
 import { switcher } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.switcher', () => {
   it('no transformation', () => {
@@ -9,7 +10,7 @@ describe('R.switcher', () => {
       .is(x => x < 4, 6)
       .default(7)
 
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
   it('with transformation', () => {
     const list = [1, 2, 3]
@@ -20,6 +21,6 @@ describe('R.switcher', () => {
       .is(x => x < 4, 'secondStage')
       .default('thirdStage')
 
-    result // $ExpectType Stage
+    expectTypeOf(result).toEqualTypeOf<Stage>()
   })
 })

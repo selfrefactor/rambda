@@ -1,4 +1,5 @@
 import { pipe, uniqWith } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.uniqWith', () => {
   it('happy', () => {
@@ -6,6 +7,6 @@ describe('R.uniqWith', () => {
       [{ a: 1 }, { a: 1 }],
       uniqWith((x, y) => x.a === y.a),
     )
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
 })

@@ -1,4 +1,5 @@
 import { pipe, unionWith } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.unionWith', () => {
   it('happy', () => {
@@ -6,13 +7,13 @@ describe('R.unionWith', () => {
     const result = pipe(
 			list,
 			unionWith((x, y) => {
-				x.a // $ExpectType number
-				y.b // $ExpectType number
+				expectTypeOf(x.a).toEqualTypeOf<number>()
+				expectTypeOf(y.b).toEqualTypeOf<number>()
 				return x.a === y.a
 			}, [{a: 2, b: 2}, {a: 3, b: 2}]),
 		)
 
-    result[0].a // $ExpectType number
-    result[0].b // $ExpectType number
+    expectTypeOf(result[0].a).toEqualTypeOf<number>()
+    expectTypeOf(result[0].b).toEqualTypeOf<number>()
   })
 })

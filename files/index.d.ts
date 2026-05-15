@@ -464,7 +464,6 @@ Notes: It doesn't handle cyclical data structures and functions
 
 */
 // @SINGLE_MARKER
-export function equals<T>(x: T, y: T): boolean;
 export function equals<T>(x: T): (y: T) => boolean;
 
 /*
@@ -716,7 +715,7 @@ Example:
 const list = [ 'a', 'b', 'aa', 'bb' ]
 const groupFn = x => x.length
 
-const result = R.groupBy(groupFn, list)
+const result = R.groupBy(groupFn)(list)
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
@@ -930,7 +929,7 @@ Explanation: It returns a string of all `list` instances joined with a `glue`.
 Example:
 
 ```
-R.join('-', [1, 2, 3])  // => '1-2-3'
+R.join('-')([1, 2, 3])  // => '1-2-3'
 ```
 
 Categories: List
@@ -1309,8 +1308,8 @@ Example:
 
 ```
 const result = [
-  R.match('a', 'foo'),
-  R.match(/([a-z]a)/g, 'bananas')
+  R.match('a')('foo'),
+  R.match(/([a-z]a)/g)('bananas')
 ]
 // => [[], ['ba', 'na', 'na']]
 ```
@@ -1333,7 +1332,7 @@ Example:
 ```
 const compareFn = Math.abs
 
-R.maxBy(compareFn, 5, -7) // => -7
+R.maxBy(compareFn, 5)(-7) // => -7
 ```
 
 Categories: Logic
@@ -1347,7 +1346,7 @@ export function maxBy<T>(compareFn: (input: T) => Ord, x: T): (y: T) => T;
 /*
 Method: merge
 
-Explanation: It creates a copy of `target` object with overwritten `newProps` properties.
+Explanation: It creates a copy of `source` object with overwritten `newProps` properties.
 
 Example:
 
@@ -1360,7 +1359,25 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+export function merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+
+/*
+Method: mergeDeep
+
+Explanation: 
+
+Example:
+
+```
+```
+
+Categories: Object
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
 
 /*
 Method: minBy
@@ -1372,7 +1389,7 @@ Example:
 ```
 const compareFn = Math.abs
 
-R.minBy(compareFn, -5, 2) // => -5
+R.minBy(compareFn, -5)(2) // => -5
 ```
 
 Categories: Logic
@@ -1439,8 +1456,8 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj),
-  R.omit(propsToOmitList, obj)
+  R.omit(propsToOmit)(obj),
+  R.omit(propsToOmitList)(obj)
 ]
 // => [{b: 2}, {b: 2}]
 ```
@@ -1565,9 +1582,9 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch)(obj),
+  R.path(pathToSearchList)(obj),
+  R.path('a.b.c.d')(obj)
 ]
 // => [1, 1, undefined]
 ```
@@ -1628,14 +1645,6 @@ export function path<
   K1 extends keyof S[K0],
   K2 extends keyof S[K0][K1],
   K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
   K4 extends keyof S[K0][K1][K2][K3],
   K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
@@ -1648,15 +1657,6 @@ export function path<
   K4 extends string & keyof S[K0][K1][K2][K3],
   K5 extends string & keyof S[K0][K1][K2][K3][K4]
 >(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<
   S,
   K0 extends keyof S,
@@ -1677,16 +1677,6 @@ export function path<
   K5 extends string & keyof S[K0][K1][K2][K3][K4],
   K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
 >(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
 export function path<
   S,
   K0 extends keyof S,
@@ -1762,14 +1752,6 @@ export function path<
     K1 extends keyof S[K0],
     K2 extends keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
@@ -1780,28 +1762,9 @@ export function path<
     K2 extends keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4],
     K6 extends keyof S[K0][K1][K2][K3][K4][K5]
 >(path: [K0, K1, K2, K3, K4, K5, K6]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
 export function path<
     S,
     K0 extends keyof S,
@@ -1834,7 +1797,7 @@ Explanation: It changes a property of object on the base of provided path and tr
 Example:
 
 ```
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
 // => {a:{b: {c:2}}}
 ```
 
@@ -2333,7 +2296,7 @@ Explanation: It adds element `x` at the beginning of `list`.
 Example:
 
 ```
-const result = R.prepend('foo', ['bar', 'baz'])
+const result = R.prepend('foo')(['bar', 'baz'])
 // => ['foo', 'bar', 'baz']
 ```
 
@@ -2343,7 +2306,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
 export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
 /*
@@ -2370,7 +2332,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
-export function prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 
 /*
 Method: propEq
@@ -2387,8 +2348,8 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch)(obj),
-  R.propEq(propToFind, valueToMatch)(secondObj)
+  R.propEq(valueToMatch, propToFind)(obj),
+  R.propEq(valueToMatch, propToFind)(secondObj)
 ]
 // => [true, false]
 ```
@@ -2399,12 +2360,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
-  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
-};
-export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
+export function propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean;
 
 /*
 Method: propOr
@@ -2419,8 +2375,8 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property)(obj),
-  R.propOr(defaultValue, 'foo')(obj)
+  R.propOr(property, defaultValue)(obj),
+  R.propOr('foo', defaultValue)(obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
@@ -2445,7 +2401,7 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, obj)
+const result = R.propSatisfies(predicate, property)(obj)
 // => true
 ```
 
@@ -2469,7 +2425,7 @@ const list = [1, 2, 3]
 const initialValue = 10
 const reducer = (prev, current) => prev * current
 
-const result = R.reduce(reducer, initialValue, list)
+const result = R.reduce(reducer, initialValue)(list)
 // => 60
 ```
 
@@ -2578,7 +2534,7 @@ const sortFn = (x, y) => {
   return x.a > y.a ? 1 : -1
 }
 
-const result = R.sort(sortFn, list)
+const result = R.sort(sortFn)(list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -3112,6 +3068,34 @@ Notes:
 export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 /*
+Method: splitEveryStrict
+
+Explanation: Similar to `R.splitEvery`, but it trims the last slice if it's not of the same length as `sliceLength`.
+
+Example:
+
+```
+const result = [
+  R.splitEveryStrict(2)([1, 2, 3, 4, 5]),
+  R.splitEveryStrict(2)('foobarbaz')
+]
+
+const expected = [
+  [[1, 2], [3, 4]],
+  ['fo', 'ob', 'ar', 'ba']
+]
+// => `result` is equal to `expected`
+```
+
+Categories: List
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
+
+/*
 Method: difference
 
 Explanation: It returns a merged list of `x` and `y` with all equal elements removed.
@@ -3224,7 +3208,7 @@ const howMany = 2
 
 const result = [
   R.take(howMany)([1, 2, 3]),
-  R.take(howMany, 'foobar'),
+  R.take(howMany)('foobar'),
 ]
 // => [[1, 2], 'fo']
 ```
@@ -3909,7 +3893,7 @@ Example:
 
 ```
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.duplicateBy(x => x, list)
+const result = R.duplicateBy(x => x)(list)
 
 // => [{a:1}]
 ```
@@ -4956,7 +4940,7 @@ Example:
 const inputWithTags = 'foo is {{bar}} even {{a}} more'
 const templateArguments = {"bar":"BAR", a: 1}
 
-const result = R.interpolate(inputWithTags, templateArguments)
+const result = R.interpolate(inputWithTags)(templateArguments)
 const expected = 'foo is BAR even 1 more'
 // => `result` is equal to `expected`
 ```
@@ -5082,7 +5066,7 @@ Example:
 ```
 const list = [1, 2, 3]
 
-const result = switcher(list.length)
+const result = R.switcher(list.length)
 	.is(x => x < 2, 4)
 	.is(x => x < 4, 6)
 	.default(7)

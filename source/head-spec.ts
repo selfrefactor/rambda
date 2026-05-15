@@ -1,3 +1,4 @@
+import { describe, expectTypeOf, it } from 'vitest'
 import { head, last } from 'rambda'
 
 export const mixedList = [1, 'foo', 3, 'bar']
@@ -10,32 +11,35 @@ export const string = 'foo'
 
 describe('R.head', () => {
   it('string', () => {
-    head(string) // $ExpectType string
-    last(string) // $ExpectType string
+    expectTypeOf(head(string)).toEqualTypeOf<string>()
+    expectTypeOf(last(string)).toEqualTypeOf<string>()
   })
-  it('empty string', () => {
-    head(emptyString) // $ExpectType string
-    last(emptyString) // $ExpectType string
-  })
-  it('array', () => {
-    head(numberList) // $ExpectType number
-    head(numberListConst) // $ExpectType 1
 
-    last(numberList) // $ExpectType number
-    last(numberListConst) // $ExpectType 3
+  it('empty string', () => {
+    expectTypeOf(head(emptyString)).toEqualTypeOf<string>()
+    expectTypeOf(last(emptyString)).toEqualTypeOf<string>()
   })
+
+  it('array', () => {
+    expectTypeOf(head(numberList)).toEqualTypeOf<number>()
+    expectTypeOf(head(numberListConst)).toEqualTypeOf<1>()
+
+    expectTypeOf(last(numberList)).toEqualTypeOf<number>()
+    expectTypeOf(last(numberListConst)).toEqualTypeOf<3>()
+  })
+
   it('empty array', () => {
     const list = [] as const
-    head(emptyList) // $ExpectType never
-    head(list) // $ExpectType undefined
-    last(emptyList) // $ExpectType never
-    last(list) // $ExpectType undefined
+    expectTypeOf(head(emptyList)).toEqualTypeOf<never>()
+    expectTypeOf(head(list)).toEqualTypeOf<undefined>()
+    expectTypeOf(last(emptyList)).toEqualTypeOf<never>()
+    expectTypeOf(last(list)).toEqualTypeOf<undefined>()
   })
 
   it('mixed', () => {
-    head(mixedList) // $ExpectType string | number
-    head(mixedListConst) // $ExpectType 1
-    last(mixedList) // $ExpectType string | number
-    last(mixedListConst) // $ExpectType "bar"
+    expectTypeOf(head(mixedList)).toEqualTypeOf<string | number>()
+    expectTypeOf(head(mixedListConst)).toEqualTypeOf<1>()
+    expectTypeOf(last(mixedList)).toEqualTypeOf<string | number>()
+    expectTypeOf(last(mixedListConst)).toEqualTypeOf<'bar'>()
   })
 })

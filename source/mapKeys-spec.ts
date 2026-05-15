@@ -1,4 +1,5 @@
 import { mapKeys, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.mapKeys', () => {
   const result = pipe(
@@ -6,5 +7,5 @@ it('R.mapKeys', () => {
     mapKeys((prop, x) => `${prop}-${x}`),
     mapKeys(prop => `${prop}-${prop}`),
   )
-  result // $ExpectType Record<string, number>
+  expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
 })

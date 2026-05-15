@@ -1,10 +1,11 @@
 import { match } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const str = 'foo bar'
 
 describe('R.match', () => {
   it('happy', () => {
     const result = match(/foo/)(str)
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
 })

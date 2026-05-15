@@ -1,4 +1,5 @@
 import { pipe, assertType } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 type Book = {
 	title: string
@@ -18,5 +19,5 @@ it('R.assertType', () => {
 		{ title: 'Book1', year: 2020, bookmarkFlag: true },
 		assertType(isBookToRead),
 	)
-	result // $ExpectType BookToRead
+	expectTypeOf(result).toEqualTypeOf<BookToRead>()
 })

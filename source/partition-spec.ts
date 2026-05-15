@@ -1,4 +1,5 @@
 import { partition, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.partition', () => {
   it('happy', () => {
@@ -8,14 +9,14 @@ describe('R.partition', () => {
     const list = [1, 2, 3, 4]
 
     const result = pipe(list, partition(predicate))
-    result // $ExpectType [number[], number[]]
+    expectTypeOf(result).toEqualTypeOf<[number[], number[]]>()
   })
   it('with simple object', () => {
     const result = pipe(
       [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }],
       partition(x => x.a > 2),
     )
-    result // $ExpectType [{ a: number; }[], { a: number; }[]]
+    expectTypeOf(result).toEqualTypeOf<[{ a: number; }[], { a: number; }[]]>()
   })
   it('with complex object', () => {
     interface Foo {
@@ -27,6 +28,6 @@ describe('R.partition', () => {
     const list1: (Foo | Bar)[] = [{ a: 1 }, { b: 2 }, { a: 3 }, { b: 4 }]
     const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
     const result = pipe(list1, partition(filterFoo))
-    result // $ExpectType [Foo[], Bar[]]
+    expectTypeOf(result).toEqualTypeOf<[Foo[], Bar[]]>()
   })
 })

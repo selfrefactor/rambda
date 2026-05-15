@@ -1,4 +1,5 @@
 import { pipe, propSatisfies } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = { a: 1 }
 
@@ -7,11 +8,11 @@ describe('R.propSatisfies', () => {
     const result = pipe(
       obj,
       propSatisfies(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 0
       }, 'a'),
     )
 
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })

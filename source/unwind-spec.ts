@@ -1,4 +1,5 @@
 import { pipe, unwind } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = {
   a: 1,
@@ -8,12 +9,12 @@ const obj = {
 describe('R.unwind', () => {
   it('happy', () => {
     const [result] = unwind('b')(obj)
-    result.a // $ExpectType number
-    result.b // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<number>()
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
   it('inside pipe', () => {
     const [result] = pipe(obj, unwind('b'))
-    result.a // $ExpectType number
-    result.b // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<number>()
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
 })

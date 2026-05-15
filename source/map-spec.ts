@@ -1,3 +1,4 @@
+import { expectTypeOf, it } from 'vitest'
 import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
@@ -7,11 +8,11 @@ it('R.map', () => {
     list,
     x => x,
     map(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return String(x)
     }),
   )
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 
 it('R.map - index in functor', () => {
@@ -19,24 +20,24 @@ it('R.map - index in functor', () => {
     list,
     x => x,
     map((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
+      expectTypeOf(i).toEqualTypeOf<number>()
       return String(x)
     }),
   )
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 
 it('R.map - without pipe', () => {
   map(x => {
-    x // $ExpectType unknown
+    expectTypeOf(x).toEqualTypeOf<unknown>()
   })([1, 2, 3])
 })
 
 it('R.map - without pipe but explicitly typed', () => {
   const result = map<number[], string>(x => {
-    x // $ExpectType number
+    expectTypeOf(x).toEqualTypeOf<number>()
     return String(x)
   })([1, 2, 3])
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })

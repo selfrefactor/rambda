@@ -1,14 +1,15 @@
 import { filterObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.filterObject', () => {
   it('require explicit type', () => {
     const result = pipe(
       { a: 1, b: 2 },
       filterObject<{ b: number }>(a => {
-        a // $ExpectType number
+        expectTypeOf(a).toEqualTypeOf<number>()
         return a > 1
       }),
     )
-    result.b // $ExpectType number
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
 })

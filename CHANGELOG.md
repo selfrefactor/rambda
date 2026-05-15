@@ -1,3 +1,17 @@
+11.2.0
+
+- Fix wrong typing for `R.equal`,`R.path`, `R.prop`, `R.propEq`, `R.prepend` - [Issue #803](https://github.com/selfrefactor/rambda/issues/803)
+
+- Add `R.splitEveryStrict`
+
+- Add `R.mergeDeep`
+
+- Change `R.range` when start and end are the same to return array with one element instead of empty array.
+
+- Fix wrong usage of non-curried methods in example snippets.
+
+- Migrate to `vitest` for TS testing
+
 11.1.0
 
 - Add `R.filterMap` - similar to Ruby `filter_map`

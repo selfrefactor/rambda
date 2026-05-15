@@ -2,19 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Test File(current)",
-      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": [
-        "--verbose", 
-        "-i", 
-        "-u",
-        "--no-cache",
-        "${fileBasenameNoExtension}"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    }
+			"type": "node",
+			"request": "launch",
+			"name": "Debug Test(spec or source)",
+			"autoAttachChildProcesses": true,
+			"skipFiles": [
+				"<node_internals>/**",
+				"**/node_modules/**"
+			],
+			"program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+			"args": [
+				"run",
+				"${fileDirnameBasename}/${fileBasenameNoExtension}"
+			],
+			"smartStep": true,
+			"console": "integratedTerminal"
+		}
   ]
 }

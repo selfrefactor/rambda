@@ -1,10 +1,11 @@
-import { test } from 'rambda'
+import { test as ramdaTest } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const input = 'foo   '
 const regex = /foo/
 
 it('R.test', () => {
-  const result = test(regex)(input)
+  const result = ramdaTest(regex)(input)
 
-  result // $ExpectType boolean
+  expectTypeOf(result).toEqualTypeOf<boolean>()
 })

@@ -1,4 +1,5 @@
 import { convertToType, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -6,9 +7,9 @@ it('R.convertToType', () => {
   const result = pipe(list, 
 		convertToType<string[]>,
 		x => {
-			x // $ExpectType string[]
+			expectTypeOf(x).toEqualTypeOf<string[]>()
 			return x 
 		}
 	)
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })

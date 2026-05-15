@@ -1,4 +1,5 @@
 import { reject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -7,22 +8,22 @@ describe('R.reject with array', () => {
     const result = pipe(
       list,
       reject(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 	it('with index', () => {
     const result = pipe(
       list,
       reject((x: number, i: number) => {
-        x // $ExpectType number
-        i // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(i).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('narrowing type', () => {
     interface Foo {
@@ -43,7 +44,7 @@ describe('R.reject with array', () => {
       testList,
       reject(rejectBar),
     )
-    result // $ExpectType (Foo | Baz)[]
+    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
   })
   it('narrowing type - readonly', () => {
 		interface Foo {
@@ -64,17 +65,17 @@ describe('R.reject with array', () => {
       testList,
       reject(rejectBar),
     )
-    result // $ExpectType (Foo | Baz)[]
+    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
   })
   it('rejecting NonNullable', () => {
     const testList = [1, 2, null, undefined, 3]
     const result = pipe(testList, reject(Boolean))
-    result // $ExpectType (null | undefined)[]
+    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
   })
   it('rejecting NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, reject(Boolean))
-    result // $ExpectType (null | undefined)[]
+    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
     // @ts-expect-error
     result.includes(1)
   })

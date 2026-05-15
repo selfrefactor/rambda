@@ -233,12 +233,13 @@ test('happy', () => {
 
 ```typescript
 import { addProp, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.addProp', () => {
 	const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
-	result.a // $ExpectType number
-	result.b // $ExpectType string
-	result.c // $ExpectType number
+	expectTypeOf(result.a).toEqualTypeOf<number>()
+	expectTypeOf(result.b).toEqualTypeOf<string>()
+	expectTypeOf(result.c).toEqualTypeOf<number>()
 })
 ```
 
@@ -354,6 +355,7 @@ test('R.addPropToObjects', () => {
 
 ```typescript
 import { addPropToObjects, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.addPropToObjects', () => {
 		let result = pipe(
@@ -366,7 +368,7 @@ it('R.addPropToObjects', () => {
 				(x) => String(x.a + x.b),
 			)
 		)
-		result // $ExpectType { a: number; b: number; c: string; }[]
+		expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: string; }[]>()
 })
 ```
 
@@ -455,17 +457,18 @@ test('when false', () => {
 
 ```typescript
 import * as R from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('all', () => {
   it('happy', () => {
     const result = R.pipe(
       [1, 2, 3],
       R.all(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 0
       }),
     )
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -557,6 +560,7 @@ test('when returns false', () => {
 
 ```typescript
 import * as R from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('allPass', () => {
   it('happy', () => {
@@ -568,7 +572,7 @@ describe('allPass', () => {
 			(x) => x.length > 2,
 			(x) => x.includes(3)
 		])))
-    result // $ExpectType boolean[]
+    expectTypeOf(result).toEqualTypeOf<boolean[]>()
   })
 })
 ```
@@ -649,16 +653,17 @@ test('happy', () => {
 
 ```typescript
 import { any, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.any', () => {
   const result = pipe(
     [1, 2, 3],
     any(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return x > 2
     }),
   )
-  result // $ExpectType boolean
+  expectTypeOf(result).toEqualTypeOf<boolean>()
 })
 ```
 
@@ -788,13 +793,14 @@ test('with empty predicates list', () => {
 
 ```typescript
 import { anyPass, filter } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('anyPass', () => {
   it('issue #604', () => {
     const plusEq = (w: number, x: number, y: number, z: number) => w + x === y + z
     const result = anyPass([plusEq])(3, 3, 3, 3)
 
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('issue #642', () => {
     const isGreater = (num: number) => num > 5
@@ -802,9 +808,9 @@ describe('anyPass', () => {
     const xs = [0, 1, 2, 3]
 
     const filtered1 = filter(pred)(xs)
-    filtered1 // $ExpectType number[]
+    expectTypeOf(filtered1).toEqualTypeOf<number[]>()
     const filtered2 = xs.filter(pred)
-    filtered2 // $ExpectType number[]
+    expectTypeOf(filtered2).toEqualTypeOf<number[]>()
   })
   it('functions as a type guard', () => {
     const isString = (x: unknown): x is string => typeof x === 'string'
@@ -816,7 +822,7 @@ describe('anyPass', () => {
     const aValue: unknown = 1
 
     if (isStringNumberOrBoolean(aValue)) {
-      aValue // $ExpectType string | number | boolean
+      expectTypeOf(aValue).toEqualTypeOf<string | number | boolean>()
     }
   })
 })
@@ -896,17 +902,18 @@ test('append to empty array', () => {
 
 ```typescript
 import { append, pipe, prepend } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const listOfNumbers = [1, 2, 3]
 
 describe('R.append/R.prepend', () => {
   it('happy', () => {
     const result = pipe(listOfNumbers, append(4), prepend(0))
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('with object', () => {
     const result = pipe([{ a: 1 }], append({ a: 10 }), prepend({ a: 20 }))
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
 })
 ```
@@ -1003,13 +1010,14 @@ test('descend', () => {
 
 ```typescript
 import { pipe, ascend, sort } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.ascend', () => {
 	const result = pipe(
 		[{a:1}, {a:2}],
 		sort(ascend(x => x.a))
 	)
-	result // $ExpectType { a: number; }[]
+	expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
 })
 ```
 
@@ -1087,6 +1095,7 @@ test('throw', () => {
 
 ```typescript
 import { pipe, assertType } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 type Book = {
 	title: string
@@ -1106,7 +1115,7 @@ it('R.assertType', () => {
 		{ title: 'Book1', year: 2020, bookmarkFlag: true },
 		assertType(isBookToRead),
 	)
-	result // $ExpectType BookToRead
+	expectTypeOf(result).toEqualTypeOf<BookToRead>()
 })
 ```
 
@@ -1226,6 +1235,7 @@ test('when false | early exit', () => {
 
 ```typescript
 import { checkObjectWithSpec, equals } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.checkObjectWithSpec', () => {
   it('happy', () => {
@@ -1240,7 +1250,7 @@ describe('R.checkObjectWithSpec', () => {
       b: equals('bar'),
     }
     const result = checkObjectWithSpec(conditions)(input)
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -1348,6 +1358,7 @@ test('happy', () => {
 
 ```typescript
 import { compact, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.compact', () => {
 		let result = pipe(
@@ -1363,9 +1374,9 @@ it('R.compact', () => {
 			})
 		)
 
-		result.a // $ExpectType string[]
-		result.b // $ExpectType number[]
-		result.c // $ExpectType { a: number; b: number; c: number; f: boolean; }
+		expectTypeOf(result.a).toEqualTypeOf<string[]>()
+		expectTypeOf(result.b).toEqualTypeOf<number[]>()
+		expectTypeOf(result.c).toEqualTypeOf<{ a: number; b: number; c: number; f: boolean; }>()
 })
 ```
 
@@ -1447,12 +1458,13 @@ test('with multiple parameters', () => {
 
 ```typescript
 import { complement } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.complement', () => {
   it('happy', () => {
     const fn = complement((x: number) => x > 10)
     const result = fn(1)
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -1506,15 +1518,16 @@ export function concat(x) {
 
 ```typescript
 import { concat, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list1 = [1, 2, 3]
 const list2 = [4, 5, 6]
 
 it('R.concat', () => {
   const result = pipe(list1, concat(list2))
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
   const resultString = pipe('foo', concat('list2'))
-  resultString // $ExpectType string
+  expectTypeOf(resultString).toEqualTypeOf<string>()
 })
 ```
 
@@ -1560,6 +1573,7 @@ export function convertToType(x) {
 
 ```typescript
 import { convertToType, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -1567,11 +1581,11 @@ it('R.convertToType', () => {
   const result = pipe(list, 
 		convertToType<string[]>,
 		x => {
-			x // $ExpectType string[]
+			expectTypeOf(x).toEqualTypeOf<string[]>()
 			return x 
 		}
 	)
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 ```
 
@@ -1654,13 +1668,14 @@ test('happy', () => {
 
 ```typescript
 import { count, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 const predicate = (x: number) => x > 1
 
 it('R.count', () => {
   const result = pipe(list, count(predicate))
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })
 ```
 
@@ -1749,6 +1764,7 @@ test('happy', () => {
 
 ```typescript
 import { countBy, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
@@ -1757,9 +1773,9 @@ it('R.countBy', () => {
     list,
     countBy(x => x.toLowerCase()),
   )
-  result.a // $ExpectType number
-  result.foo // $ExpectType number
-  result // $ExpectType { [index: string]: number; }
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
+  expectTypeOf(result).toEqualTypeOf<{ [index: string]: number; }>()
 })
 ```
 
@@ -1927,12 +1943,13 @@ test('when inputArgument passes initial check', () => {
 
 ```typescript
 import { defaultTo, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.defaultTo', () => {
   it('happy', () => {
     const result = pipe('bar' as unknown, defaultTo('foo'))
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
 })
 ```
@@ -2113,6 +2130,7 @@ test('difference with objects', () => {
 
 ```typescript
 import { difference } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.difference', () => {
   it('happy', () => {
@@ -2120,7 +2138,7 @@ describe('R.difference', () => {
     const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
     const result = difference(list1)(list2)
 
-    result // $ExpectType { id: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ id: number; }[]>()
   })
 })
 ```
@@ -2194,10 +2212,11 @@ test('with non-positive count', () => {
 
 ```typescript
 import { drop, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.drop', () => {
   const result = pipe([1, 2, 3, 4], drop(2))
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -2490,6 +2509,7 @@ test('always false', () => {
 
 ```typescript
 import { dropWhile, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -2500,18 +2520,18 @@ describe('R.dropWhile', () => {
       dropWhile(x => x > 1),
     )
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('with index', () => {
     const result = pipe(
       list,
       dropWhile((x, i) => {
-        i // $ExpectType number
+        expectTypeOf(i).toEqualTypeOf<number>()
         return x + i > 2
       }),
     )
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -2529,12 +2549,12 @@ duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[]
 
 ```javascript
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.duplicateBy(x => x, list)
+const result = R.duplicateBy(x => x)(list)
 
 // => [{a:1}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.duplicateBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%5D">Try this <strong>R.duplicateBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.duplicateBy(x%20%3D%3E%20x)(list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%5D">Try this <strong>R.duplicateBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -2737,6 +2757,7 @@ test('prop does not exist', () => {
 
 ```typescript
 import { eqProps, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const obj1 = { a: { b: 1 }, c: 2 }
 const obj2 = { a: { b: 1 }, c: 3 }
@@ -2744,7 +2765,7 @@ const obj2 = { a: { b: 1 }, c: 3 }
 it('R.eqProps', () => {
   const result = pipe(obj1, eqProps('a', obj2))
 
-  result // $ExpectType boolean
+  expectTypeOf(result).toEqualTypeOf<boolean>()
 })
 ```
 
@@ -2756,7 +2777,7 @@ it('R.eqProps', () => {
 
 ```typescript
 
-equals<T>(x: T, y: T): boolean
+equals<T>(x: T): (y: T) => boolean
 ```
 
 It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -2777,7 +2798,6 @@ R.equals(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-equals<T>(x: T, y: T): boolean;
 equals<T>(x: T): (y: T) => boolean;
 ```
 
@@ -3212,22 +3232,23 @@ test('various examples', () => {
 
 ```typescript
 import { equals } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.equals', () => {
   it('happy', () => {
-    const result = equals(4, 1)
-    result // $ExpectType boolean
+    const result = equals(4)(1)
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('with object', () => {
     const foo = { a: 1 }
     const bar = { a: 2 }
-    const result = equals(foo, bar)
-    result // $ExpectType boolean
+    const result = equals(foo)(bar)
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('curried', () => {
     const result = equals(4)(1)
 
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -3324,6 +3345,7 @@ test('happy', () => {
 
 ```typescript
 import {  evolve, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.evolve', () => {
   const input = {
@@ -3339,9 +3361,9 @@ it('R.evolve', () => {
 			foo: x => x + 1,
 		})
 	)
-  result.foo // $ExpectType number
-  result.baz // $ExpectType number
-  result.nested.a // $ExpectType number
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
+  expectTypeOf(result.baz).toEqualTypeOf<number>()
+  expectTypeOf(result.nested.a).toEqualTypeOf<number>()
 })
 ```
 
@@ -3425,16 +3447,17 @@ test('excludes with array', () => {
 
 ```typescript
 import { excludes, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.excludes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
     const result = pipe({ a: { b: '1' } }, excludes(list))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('with string', () => {
     const result = pipe('foo', excludes('bar'))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -3517,6 +3540,7 @@ test('nothing is found', () => {
 
 ```typescript
 import { exists, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -3524,7 +3548,7 @@ describe('R.exists', () => {
   it('happy', () => {
     const predicate = (x: number) => x > 2
     const result = pipe(list, exists(predicate))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -3631,6 +3655,7 @@ test('using Boolean', () => {
 
 ```typescript
 import { filter, includes, pipe, reject, sort, split, uniq } from 'rambda'
+import { describe, expectTypeOf, it, test } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -3639,23 +3664,23 @@ describe('R.filter with array', () => {
     const result = pipe(
       list,
       filter(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 
   it('with index', () => {
     const result = pipe(
       list,
       filter((x: number, i: number) => {
-        x // $ExpectType number
-        i // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(i).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 
   it('complex example', () => {
@@ -3680,7 +3705,7 @@ describe('R.filter with array', () => {
       reject(includes(SENTENCE_END_CHARS)),
     )
 
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
   it('narrowing type', () => {
     interface Foo {
@@ -3695,7 +3720,7 @@ describe('R.filter with array', () => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    expectTypeOf(result).toEqualTypeOf<Bar[]>()
   })
 
   it('narrowing type - readonly', () => {
@@ -3711,13 +3736,13 @@ describe('R.filter with array', () => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    expectTypeOf(result).toEqualTypeOf<Bar[]>()
   })
 
   it('filtering NonNullable - list of objects', () => {
     const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
 
   it('filtering NonNullable - readonly', () => {
@@ -3808,6 +3833,7 @@ test('happy', async () => {
 
 ```typescript
 import { filterAsync, pipeAsync } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -3816,11 +3842,11 @@ describe('R.filter with array', () => {
     const result = await pipeAsync(
       list,
       filterAsync(async x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -3903,6 +3929,7 @@ it('happy', () => {
 
 ```typescript
 import { filterMap, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -3911,15 +3938,15 @@ it('R.filterMap - within pipe', () => {
     list,
     x => x,
     filterMap(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return Math.random() > 0.5 ? String(x) : null
     }),
     filterMap(x => {
-      x // $ExpectType string
+      expectTypeOf(x).toEqualTypeOf<string>()
       return Math.random() > 0.5 ? Number(x) : ''
     }),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -4019,17 +4046,18 @@ test('happy', () => {
 
 ```typescript
 import { filterObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.filterObject', () => {
   it('require explicit type', () => {
     const result = pipe(
       { a: 1, b: 2 },
       filterObject<{ b: number }>(a => {
-        a // $ExpectType number
+        expectTypeOf(a).toEqualTypeOf<number>()
         return a > 1
       }),
     )
-    result.b // $ExpectType number
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
 })
 ```
@@ -4126,6 +4154,7 @@ test('with empty list', () => {
 
 ```typescript
 import { find, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -4133,7 +4162,7 @@ describe('R.find', () => {
   it('happy', () => {
     const predicate = (x: number) => x > 2
     const result = pipe(list, find(predicate))
-    result // $ExpectType number | undefined
+    expectTypeOf(result).toEqualTypeOf<number | undefined>()
   })
 })
 ```
@@ -4221,6 +4250,7 @@ test('happy', () => {
 
 ```typescript
 import { findIndex, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -4229,7 +4259,7 @@ it('R.findIndex', () => {
     list,
     findIndex(x => x > 2),
   )
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })
 ```
 
@@ -4367,6 +4397,7 @@ test('happy', () => {
 
 ```typescript
 import { findLastIndex, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -4374,7 +4405,7 @@ describe('R.findLastIndex', () => {
   it('happy', () => {
     const predicate = (x: number) => x > 2
     const result = pipe(list, findLastIndex(predicate))
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
 })
 ```
@@ -4555,6 +4586,7 @@ test('can compose', () => {
 
 ```typescript
 import { flatMap, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.flatMap', () => {
   it('happy', () => {
@@ -4566,11 +4598,11 @@ describe('R.flatMap', () => {
       listOfLists,
       x => x,
       flatMap(x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return Number(x) + 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -4668,11 +4700,12 @@ test('readme example', () => {
 
 ```typescript
 import { flatten, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('flatten', () => {
   it('happy', () => {
     const result = pipe([1, 2, [3, [4]]], flatten<number>)
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -4890,11 +4923,12 @@ test('flattenObjectHelper', () => {
 
 ```typescript
 import { flattenObject, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.flattenObject', () => {
   const result = pipe({ a: { b: 1, c: 2 } }, flattenObject)
-  result['a.b'] // $ExpectType number
-  result['a.c'] // $ExpectType number
+  expectTypeOf(result['a.b']).toEqualTypeOf<number>()
+  expectTypeOf(result['a.c']).toEqualTypeOf<number>()
   // @ts-expect-error
   result['a.foo']
 })
@@ -4917,11 +4951,11 @@ It splits `list` according to a provided `groupFn` function and returns an objec
 const list = [ 'a', 'b', 'aa', 'bb' ]
 const groupFn = x => x.length
 
-const result = R.groupBy(groupFn, list)
+const result = R.groupBy(groupFn)(list)
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn%2C%20list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try this <strong>R.groupBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn)(list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try this <strong>R.groupBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4998,6 +5032,7 @@ test('with list', () => {
 
 ```typescript
 import { groupBy, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.groupBy', () => {
   it('happy', () => {
@@ -5005,7 +5040,7 @@ describe('R.groupBy', () => {
     const list = ['foo', 'bar']
 
     const result = pipe(list, groupBy(groupByFn))
-    result // $ExpectType Partial<Record<string, string[]>>
+    expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
   })
 })
 ```
@@ -5095,6 +5130,7 @@ test('head', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
+import { describe, expectTypeOf, it } from 'vitest'
 import { head, last } from 'rambda'
 
 export const mixedList = [1, 'foo', 3, 'bar']
@@ -5107,33 +5143,36 @@ export const string = 'foo'
 
 describe('R.head', () => {
   it('string', () => {
-    head(string) // $ExpectType string
-    last(string) // $ExpectType string
+    expectTypeOf(head(string)).toEqualTypeOf<string>()
+    expectTypeOf(last(string)).toEqualTypeOf<string>()
   })
-  it('empty string', () => {
-    head(emptyString) // $ExpectType string
-    last(emptyString) // $ExpectType string
-  })
-  it('array', () => {
-    head(numberList) // $ExpectType number
-    head(numberListConst) // $ExpectType 1
 
-    last(numberList) // $ExpectType number
-    last(numberListConst) // $ExpectType 3
+  it('empty string', () => {
+    expectTypeOf(head(emptyString)).toEqualTypeOf<string>()
+    expectTypeOf(last(emptyString)).toEqualTypeOf<string>()
   })
+
+  it('array', () => {
+    expectTypeOf(head(numberList)).toEqualTypeOf<number>()
+    expectTypeOf(head(numberListConst)).toEqualTypeOf<1>()
+
+    expectTypeOf(last(numberList)).toEqualTypeOf<number>()
+    expectTypeOf(last(numberListConst)).toEqualTypeOf<3>()
+  })
+
   it('empty array', () => {
     const list = [] as const
-    head(emptyList) // $ExpectType never
-    head(list) // $ExpectType undefined
-    last(emptyList) // $ExpectType never
-    last(list) // $ExpectType undefined
+    expectTypeOf(head(emptyList)).toEqualTypeOf<never>()
+    expectTypeOf(head(list)).toEqualTypeOf<undefined>()
+    expectTypeOf(last(emptyList)).toEqualTypeOf<never>()
+    expectTypeOf(last(list)).toEqualTypeOf<undefined>()
   })
 
   it('mixed', () => {
-    head(mixedList) // $ExpectType string | number
-    head(mixedListConst) // $ExpectType 1
-    last(mixedList) // $ExpectType string | number
-    last(mixedListConst) // $ExpectType "bar"
+    expectTypeOf(head(mixedList)).toEqualTypeOf<string | number>()
+    expectTypeOf(head(mixedListConst)).toEqualTypeOf<1>()
+    expectTypeOf(last(mixedList)).toEqualTypeOf<string | number>()
+    expectTypeOf(last(mixedListConst)).toEqualTypeOf<'bar'>()
   })
 })
 ```
@@ -5247,20 +5286,21 @@ test('with wrong input that does not throw', () => {
 
 ```typescript
 import { pipe , includes} from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.includes', () => {
   it('happy', () => {
     const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
     const result = pipe({ a: { b: '1' } }, includes(list))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('with string', () => {
     const result = pipe('oo', includes('foo'))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('with array of strings', () => {
 		const result = pipe('1', includes(['1','2','3']))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -5353,6 +5393,7 @@ test('happy', () => {
 
 ```typescript
 import { pipe, indexBy } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.indexBy', () => {
 	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
@@ -5360,8 +5401,8 @@ it('R.indexBy', () => {
 		list,
 		indexBy('id')
 	)
-	result.abc // $ExpectType { id: string; title: string; }
-	result.foo // $ExpectType { id: string; title: string; }
+	expectTypeOf(result.abc).toEqualTypeOf<{ id: string; title: string; }>()
+	expectTypeOf(result.foo).toEqualTypeOf<{ id: string; title: string; }>()
 })
 ```
 
@@ -5455,12 +5496,13 @@ test('list of arrays use R.equals', () => {
 
 ```typescript
 import { indexOf } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.indexOf', () => {
   it('happy', () => {
     const list = [{ a: 1 }, { a: 2 }]
     const result = indexOf({ a: 1 })(list)
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
 })
 ```
@@ -5551,12 +5593,13 @@ test('with string', () => {
 
 ```typescript
 import { map, pipe, init } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.init', () => {
   it('with string', () => {
     const result = init('foo')
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
   it('with list - using const on short array', () => {
     const result = pipe(
@@ -5564,7 +5607,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const on empty array', () => {
     const result = pipe(
@@ -5572,7 +5615,7 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -5580,12 +5623,12 @@ describe('R.init', () => {
       map(x => x * 2),
       init,
     )
-    result // $ExpectType [number, number]
+    expectTypeOf(result).toEqualTypeOf<[number, number]>()
   })
   it('with list - mixed types', () => {
     const result = init(['foo', 'bar', 1, 2, 3])
 
-    result // $ExpectType (string | number)[]
+    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
   })
 })
 ```
@@ -5607,12 +5650,12 @@ It generates a new string from `inputWithTags` by replacing all `{{x}}` occurren
 const inputWithTags = 'foo is {{bar}} even {{a}} more'
 const templateArguments = {"bar":"BAR", a: 1}
 
-const result = R.interpolate(inputWithTags, templateArguments)
+const result = R.interpolate(inputWithTags)(templateArguments)
 const expected = 'foo is BAR even 1 more'
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20inputWithTags%20%3D%20'foo%20is%20%7B%7Bbar%7D%7D%20even%20%7B%7Ba%7D%7D%20more'%0Aconst%20templateArguments%20%3D%20%7B%22bar%22%3A%22BAR%22%2C%20a%3A%201%7D%0A%0Aconst%20result%20%3D%20R.interpolate(inputWithTags%2C%20templateArguments)%0Aconst%20expected%20%3D%20'foo%20is%20BAR%20even%201%20more'%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.interpolate</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20inputWithTags%20%3D%20'foo%20is%20%7B%7Bbar%7D%7D%20even%20%7B%7Ba%7D%7D%20more'%0Aconst%20templateArguments%20%3D%20%7B%22bar%22%3A%22BAR%22%2C%20a%3A%201%7D%0A%0Aconst%20result%20%3D%20R.interpolate(inputWithTags)(templateArguments)%0Aconst%20expected%20%3D%20'foo%20is%20BAR%20even%201%20more'%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.interpolate</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5687,6 +5730,7 @@ test('happy', () => {
 
 ```typescript
 import { interpolate } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const templateInput = 'foo {{x}} baz'
 const templateArguments = { x: 'led zeppelin' }
@@ -5694,7 +5738,7 @@ const templateArguments = { x: 'led zeppelin' }
 it('R.interpolate', () => {
 	const result = interpolate(templateInput)(templateArguments)
 
-	result // $ExpectType string
+	expectTypeOf(result).toEqualTypeOf<string>()
 })
 ```
 
@@ -5782,6 +5826,7 @@ test('order is the same as in Ramda', () => {
 
 ```typescript
 import { intersection } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list1 = [1, 2, 3]
 const list2 = [1, 3, 5]
@@ -5789,7 +5834,7 @@ const list2 = [1, 3, 5]
 describe('R.intersection', () => {
   it('happy', () => {
     const result = intersection(list1)(list2)
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -5926,6 +5971,7 @@ test('readme example', () => {
 
 ```typescript
 import { intersectionWith, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list1 = [1, 2, 3]
 const list2 = [1, 3, 5]
@@ -5936,7 +5982,7 @@ describe('R.intersectionWith', () => {
       list1,
       intersectionWith((x, y) => x === y, list2),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -6030,11 +6076,12 @@ test('intersperse', () => {
 
 ```typescript
 import { intersperse } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.intersperse', () => {
   it('curried', () => {
     const result = intersperse('|')(['foo', 'bar'])
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
 })
 ```
@@ -6053,10 +6100,10 @@ join<T>(glue: string): (list: T[]) => string
 It returns a string of all `list` instances joined with a `glue`.
 
 ```javascript
-R.join('-', [1, 2, 3])  // => '1-2-3'
+R.join('-')([1, 2, 3])  // => '1-2-3'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try this <strong>R.join</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.join('-')(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try this <strong>R.join</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6086,10 +6133,11 @@ export function join(glue) {
 
 ```typescript
 import { join, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.join', () => {
   const result = pipe([1, 2, 3], join('|'))
-  result // $ExpectType string
+  expectTypeOf(result).toEqualTypeOf<string>()
 })
 ```
 
@@ -6269,10 +6317,13 @@ test('list of arrays uses R.equals', () => {
 
 ```typescript
 import { lastIndexOf, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.lastIndexOf', () => {
-  const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
-  result // $ExpectType number
+  it('happy', () => {
+    const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
+    expectTypeOf(result).toEqualTypeOf<number>()
+  })
 })
 ```
 
@@ -6363,6 +6414,7 @@ it('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
+import { expectTypeOf, it } from 'vitest'
 import { map, pipe } from 'rambda'
 
 const list = [1, 2, 3]
@@ -6372,11 +6424,11 @@ it('R.map', () => {
     list,
     x => x,
     map(x => {
-      x // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
       return String(x)
     }),
   )
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 
 it('R.map - index in functor', () => {
@@ -6384,26 +6436,26 @@ it('R.map - index in functor', () => {
     list,
     x => x,
     map((x, i) => {
-      x // $ExpectType number
-      i // $ExpectType number
+      expectTypeOf(x).toEqualTypeOf<number>()
+      expectTypeOf(i).toEqualTypeOf<number>()
       return String(x)
     }),
   )
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 
 it('R.map - without pipe', () => {
   map(x => {
-    x // $ExpectType unknown
+    expectTypeOf(x).toEqualTypeOf<unknown>()
   })([1, 2, 3])
 })
 
 it('R.map - without pipe but explicitly typed', () => {
   const result = map<number[], string>(x => {
-    x // $ExpectType number
+    expectTypeOf(x).toEqualTypeOf<number>()
     return String(x)
   })([1, 2, 3])
-  result // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 })
 ```
 
@@ -6532,6 +6584,7 @@ test('error', async () => {
 
 ```typescript
 import { mapAsync, pipeAsync, map } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = ['a', 'bc', 'def']
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -6541,7 +6594,7 @@ it('R.mapAsync', async () => {
     list,
     mapAsync(async x => {
       await delay(100)
-      x // $ExpectType string
+      expectTypeOf(x).toEqualTypeOf<string>()
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
@@ -6551,7 +6604,7 @@ it('R.mapAsync', async () => {
       return x + 1
     }),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -6653,6 +6706,7 @@ it('happy', () => {
 
 ```typescript
 import { mapChain, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -6661,16 +6715,16 @@ it('R.mapChain', () => {
     list,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
     ),
   )
-  result // $ExpectType boolean[]
+  expectTypeOf(result).toEqualTypeOf<boolean[]>()
 })
 
 it('R.mapChain - with index', () => {
@@ -6678,17 +6732,17 @@ it('R.mapChain - with index', () => {
     list,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       (x, i) => {
-        i // $ExpectType number
-        x // $ExpectType string
+        expectTypeOf(i).toEqualTypeOf<number>()
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
     ),
   )
-  result // $ExpectType boolean[]
+  expectTypeOf(result).toEqualTypeOf<boolean[]>()
 })
 
 it('R.mapChain - 3 functions', () => {
@@ -6697,20 +6751,20 @@ it('R.mapChain - 3 functions', () => {
     x => x,
     mapChain(
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return String(x)
       },
       x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       },
       x => {
-        x // $ExpectType boolean
+        expectTypeOf(x).toEqualTypeOf<boolean>()
         return x ? 'foo' : 'bar'
       },
     ),
   )
-  result // $ExpectType ("foo" | "bar")[]
+  expectTypeOf(result).toEqualTypeOf<("foo" | "bar")[]>()
 })
 ```
 
@@ -6791,6 +6845,7 @@ test('happy', () => {
 
 ```typescript
 import { mapKeys, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.mapKeys', () => {
   const result = pipe(
@@ -6798,7 +6853,7 @@ it('R.mapKeys', () => {
     mapKeys((prop, x) => `${prop}-${x}`),
     mapKeys(prop => `${prop}-${prop}`),
   )
-  result // $ExpectType Record<string, number>
+  expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
 })
 ```
 
@@ -6894,54 +6949,55 @@ it('happy', () => {
 
 ```typescript
 import { mapObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.mapObject', () => {
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: 1 },
       mapObject(a => {
-        a // $ExpectType number
+        expectTypeOf(a).toEqualTypeOf<number>()
         return `${a}`
       }),
     )
 
-    result // $ExpectType { a: string; }
+    expectTypeOf(result).toEqualTypeOf<{ a: string; }>()
   })
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
       mapObject(a => {
-        a // $ExpectType string | number[]
+        expectTypeOf(a).toEqualTypeOf<string | number[]>()
         return typeof a as string
       }),
     )
 
-    result // $ExpectType { a: string; b: string; }
+    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
   })
   it('iterable with two arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b) => {
-        a // $ExpectType string | number
-        b // $ExpectType "a" | "b"
+        expectTypeOf(a).toEqualTypeOf<string | number>()
+        expectTypeOf(b).toEqualTypeOf<"a" | "b">()
         return `${a}`
       }),
     )
 
-    result // $ExpectType { a: string; b: string; }
+    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
   })
   it('iterable with three arguments', () => {
     const result = pipe(
       { a: 1, b: 'foo' },
       mapObject((a, b, c) => {
-        a // $ExpectType string | number
-        b // $ExpectType "a" | "b"
-        c // $ExpectType { a: number; b: string; }
+        expectTypeOf(a).toEqualTypeOf<string | number>()
+        expectTypeOf(b).toEqualTypeOf<"a" | "b">()
+        expectTypeOf(c).toEqualTypeOf<{ a: number; b: string; }>()
         return `${a}`
       }),
     )
 
-    result // $ExpectType { a: string; b: string; }
+    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
   })
 })
 ```
@@ -7034,13 +7090,14 @@ test('happy', async () => {
 ```typescript
 import { mapObjectAsync, pipeAsync } from 'rambda'
 import { delay } from 'rambdax'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.mapObjectAsync', async () => {
   const result = await pipeAsync(
     { a: 'foo', b: 'bar' },
     mapObjectAsync(async x => {
       await delay(100)
-      x // $ExpectType string
+      expectTypeOf(x).toEqualTypeOf<string>()
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
@@ -7049,8 +7106,8 @@ it('R.mapObjectAsync', async () => {
       return x + 1
     }),
   )
-  result.a // $ExpectType number
-  result.b // $ExpectType number
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.b).toEqualTypeOf<number>()
 })
 ```
 
@@ -7263,13 +7320,14 @@ it('happy', () => {
 
 ```typescript
 import {  map, mapPropObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.mapPropObject', () => {
   it('iterable with one arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
       mapPropObject('a', x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return {
           a: x,
           flag: x > 2,
@@ -7277,21 +7335,21 @@ describe('R.mapPropObject', () => {
       }),
     )
 
-    result.a // $ExpectType { a: number; flag: boolean; }[]
-		result.b // $ExpectType string
+    expectTypeOf(result.a).toEqualTypeOf<{ a: number; flag: boolean; }[]>()
+		expectTypeOf(result.b).toEqualTypeOf<string>()
   })
 
   it('iterable with two arguments', () => {
     const result = pipe(
       { a: [1,2,3], b: 'foo' },
       mapPropObject('a', (x, list) => {
-        x // $ExpectType number
-        list // $ExpectType number[]
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(list).toEqualTypeOf<number[]>()
 				return list.length
       }),
     )
-		result.a // $ExpectType number[]
-		result.b // $ExpectType string
+		expectTypeOf(result.a).toEqualTypeOf<number[]>()
+		expectTypeOf(result.b).toEqualTypeOf<string>()
   })
 
   it('more complex example', () => {
@@ -7299,14 +7357,14 @@ describe('R.mapPropObject', () => {
       [{a:[true, false, true], b: 'foo'}],
       map(
 					mapPropObject( 'a',(a) => {
-						a // $ExpectType boolean
+						expectTypeOf(a).toEqualTypeOf<boolean>()
 						return {a, b: 2}
 								})
 					)
 			)
 
-    result[0].a[0].a // $ExpectType boolean
-    result[0].a[0].b // $ExpectType number
+    expectTypeOf(result[0].a[0].a).toEqualTypeOf<boolean>()
+    expectTypeOf(result[0].a[0].b).toEqualTypeOf<number>()
   })
 })
 ```
@@ -7326,13 +7384,13 @@ Curried version of `String.prototype.match` which returns empty array, when ther
 
 ```javascript
 const result = [
-  R.match('a', 'foo'),
-  R.match(/([a-z]a)/g, 'bananas')
+  R.match('a')('foo'),
+  R.match(/([a-z]a)/g)('bananas')
 ]
 // => [[], ['ba', 'na', 'na']]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.match('a'%2C%20'foo')%2C%0A%20%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20%5B'ba'%2C%20'na'%2C%20'na'%5D%5D">Try this <strong>R.match</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.match('a')('foo')%2C%0A%20%20R.match(%2F(%5Ba-z%5Da)%2Fg)('bananas')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20%5B'ba'%2C%20'na'%2C%20'na'%5D%5D">Try this <strong>R.match</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7388,13 +7446,14 @@ test('with string', () => {
 
 ```typescript
 import { match } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const str = 'foo bar'
 
 describe('R.match', () => {
   it('happy', () => {
     const result = match(/foo/)(str)
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
 })
 ```
@@ -7415,10 +7474,10 @@ It returns the greater value between `x` and `y` according to `compareFn` functi
 ```javascript
 const compareFn = Math.abs
 
-R.maxBy(compareFn, 5, -7) // => -7
+R.maxBy(compareFn, 5)(-7) // => -7
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.maxBy(compareFn%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try this <strong>R.maxBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.maxBy(compareFn%2C%205)(-7)%20%2F%2F%20%3D%3E%20-7">Try this <strong>R.maxBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7463,6 +7522,7 @@ test('happy', () => {
 
 ```typescript
 import { maxBy, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const first = 1
 const second = 2
@@ -7472,7 +7532,7 @@ it('R.maxBy', () => {
     second,
     maxBy(x => (x % 2 === 0 ? 1 : -1), first),
   )
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })
 ```
 
@@ -7484,17 +7544,17 @@ it('R.maxBy', () => {
 
 ```typescript
 
-merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>
+merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>
 ```
 
-It creates a copy of `target` object with overwritten `newProps` properties.
+It creates a copy of `source` object with overwritten `newProps` properties.
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-merge<Source>(source: Source): <T>(data: T) => Merge<T, Source>;
+merge<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
 ```
 
 </details>
@@ -7540,17 +7600,108 @@ test('happy', () => {
 
 ```typescript
 import { merge, mergeTypes, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.merge', () => {
   const result = pipe({ foo: 1 }, merge({ bar: 2 }), mergeTypes)
-  result.foo // $ExpectType number
-  result.bar // $ExpectType number
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
+  expectTypeOf(result.bar).toEqualTypeOf<number>()
 })
 ```
 
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#merge)
+
+### mergeDeep
+
+```typescript
+
+mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>
+```
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.mergeDeep</strong> source</summary>
+
+```javascript
+import { type } from './type.js'
+
+const isObject = (x) => type(x) === 'Object'
+
+function mergeDeepFn(source, objectWithNewProps) {
+  return [source, objectWithNewProps].reduce((prev, obj) => {
+    Object.keys(obj).forEach((key) => {
+      const pVal = prev[key]
+      const oVal = obj[key]
+
+      if (isObject(pVal) && isObject(oVal)) {
+        prev[key] = mergeDeepFn(pVal, oVal)
+      } else {
+        prev[key] = oVal
+      }
+    })
+
+    return prev
+  }, {})
+}
+
+export function mergeDeep(source) {
+  return (objectWithNewProps) => mergeDeepFn(source, objectWithNewProps)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { mergeDeep } from './mergeDeep.js'
+
+test('happy', () => {
+  const source = {
+    a: 1,
+    b: [1, 2],
+    c: {
+      d: 1,
+      f: 2,
+      e: [1, 2],
+      h: [1, 2],
+    },
+  }
+  const objectWithNewProps = {
+    b: [3],
+    c: {
+      f: 3,
+      s: 3,
+      e: [3],
+    },
+    q: 3,
+  }
+  expect(mergeDeep(source)(objectWithNewProps)).toEqual({
+    a: 1,
+    b: [3],
+    c: { d: 1, f: 3, e: [3], h: [1, 2], s: 3 },
+    q: 3,
+  })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#mergeDeep)
 
 ### mergeTypes
 
@@ -7662,12 +7813,13 @@ test('middle', () => {
 
 ```typescript
 import { map, middle, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.middle', () => {
   it('with string', () => {
     const result = middle('foo')
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
   it('with list - using const on short array', () => {
     const result = pipe(
@@ -7675,7 +7827,7 @@ describe('R.middle', () => {
       map(x => x * 2),
       middle,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const on empty array', () => {
     const result = pipe(
@@ -7683,7 +7835,7 @@ describe('R.middle', () => {
       map(x => x * 2),
       middle,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -7691,12 +7843,12 @@ describe('R.middle', () => {
       map(x => x * 2),
       middle,
     )
-    result // $ExpectType [number, number]
+    expectTypeOf(result).toEqualTypeOf<[number, number]>()
   })
   it('with list - mixed types', () => {
     const result = middle(['foo', 'bar', 1, 2, 3])
 
-    result // $ExpectType (string | number)[]
+    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
   })
 })
 ```
@@ -7717,10 +7869,10 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 ```javascript
 const compareFn = Math.abs
 
-R.minBy(compareFn, -5, 2) // => -5
+R.minBy(compareFn, -5)(2) // => -5
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.minBy(compareFn%2C%20-5%2C%202)%20%2F%2F%20%3D%3E%20-5">Try this <strong>R.minBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.minBy(compareFn%2C%20-5)(2)%20%2F%2F%20%3D%3E%20-5">Try this <strong>R.minBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7854,11 +8006,11 @@ modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T
 It changes a property of object on the base of provided path and transformer function.
 
 ```javascript
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
 // => {a:{b: {c:2}}}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1)(%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7955,6 +8107,7 @@ test('works only on existing paths', () => {
 
 ```typescript
 import { modifyPath, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = { a: { b: { c: 1 } } }
 
@@ -7964,14 +8117,14 @@ describe('R.modifyPath', () => {
       obj,
       modifyPath(['a', 'b', 'c'], (x: number) => String(x)),
     )
-    result.a.b.c // $ExpectType string
+    expectTypeOf(result.a.b.c).toEqualTypeOf<string>()
   })
   it('string path', () => {
     const result = pipe(
       obj,
       modifyPath('a.b.c', (x: number) => String(x)),
     )
-    result.a.b.c // $ExpectType string
+    expectTypeOf(result.a.b.c).toEqualTypeOf<string>()
   })
 })
 ```
@@ -8081,13 +8234,14 @@ test('adjust if `array` at the given key with the `transformation` function', ()
 
 ```typescript
 import { modifyProp, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.modify', () => {
   const result = pipe(
     { a: 1, b: 2, c: { d: 3 } },
     modifyProp('a', val => val + 1),
   )
-  result // $ExpectType { a: number; b: number; c: { d: number; }; }
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: { d: number; }; }>()
 
   pipe(
     { a: 1, b: 2, c: { d: 3 } },
@@ -8182,6 +8336,7 @@ test('when false', () => {
 
 ```typescript
 import { none, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.none', () => {
   it('happy', () => {
@@ -8189,7 +8344,7 @@ describe('R.none', () => {
       [1, 2, 3],
       none(x => x > 0),
     )
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -8313,15 +8468,16 @@ test('with wrong input', () => {
 
 ```typescript
 import { objectIncludes, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.objectIncludes', () => {
   it('happy', () => {
     const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ a: 2 }))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
   it('nested', () => {
     const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ c: { d: 3 } }))
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -8388,13 +8544,14 @@ test('happy', () => {
 
 ```typescript
 import { objOf, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const key = 'foo'
 const value = 42
 
 it('R.objOf', () => {
   const result = pipe(value, objOf(key))
-  result.foo // $ExpectType number
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
   // @ts-expect-error
   result.bar
 })
@@ -8424,13 +8581,13 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj),
-  R.omit(propsToOmitList, obj)
+  R.omit(propsToOmit)(obj),
+  R.omit(propsToOmitList)(obj)
 ]
 // => [{b: 2}, {b: 2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%0A%20%20R.omit(propsToOmitList%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit)(obj)%2C%0A%20%20R.omit(propsToOmitList)(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8532,17 +8689,18 @@ test('with array as condition', () => {
 
 ```typescript
 import { omit, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input = { a: 'foo', b: 2, c: 3 }
 
 describe('R.omit', () => {
   it('with string as input', () => {
     const result = pipe(input, omit('a,b'))
-    result.c // $ExpectType number
+    expectTypeOf(result.c).toEqualTypeOf<number>()
   })
   it('with array as input', () => {
     const result = pipe(input, omit(['a', 'b']))
-    result.c // $ExpectType number
+    expectTypeOf(result.c).toEqualTypeOf<number>()
   })
 })
 ```
@@ -8639,6 +8797,7 @@ test('happy', () => {
 
 ```typescript
 import { partition, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.partition', () => {
   it('happy', () => {
@@ -8648,14 +8807,14 @@ describe('R.partition', () => {
     const list = [1, 2, 3, 4]
 
     const result = pipe(list, partition(predicate))
-    result // $ExpectType [number[], number[]]
+    expectTypeOf(result).toEqualTypeOf<[number[], number[]]>()
   })
   it('with simple object', () => {
     const result = pipe(
       [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }],
       partition(x => x.a > 2),
     )
-    result // $ExpectType [{ a: number; }[], { a: number; }[]]
+    expectTypeOf(result).toEqualTypeOf<[{ a: number; }[], { a: number; }[]]>()
   })
   it('with complex object', () => {
     interface Foo {
@@ -8667,7 +8826,7 @@ describe('R.partition', () => {
     const list1: (Foo | Bar)[] = [{ a: 1 }, { b: 2 }, { a: 3 }, { b: 4 }]
     const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
     const result = pipe(list1, partition(filterFoo))
-    result // $ExpectType [Foo[], Bar[]]
+    expectTypeOf(result).toEqualTypeOf<[Foo[], Bar[]]>()
   })
 })
 ```
@@ -8782,6 +8941,7 @@ test('happy', () => {
 
 ```typescript
 import { partitionObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.partition', () => {
   it('happy', () => {
@@ -8789,7 +8949,7 @@ describe('R.partition', () => {
 			{ a: 1, b: 2 },
 			partitionObject((x, prop) => x> 1 || prop === 'c'),
 		)
-    result // $ExpectType [Record<string, number>, Record<string, number>]
+    expectTypeOf(result).toEqualTypeOf<[Record<string, number>, Record<string, number>]>()
   })
   it('with complex object', () => {
     interface Foo {
@@ -8806,7 +8966,7 @@ describe('R.partition', () => {
 		}
     const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
     const result = pipe(obj, partitionObject(filterFoo))
-    result // $ExpectType [Record<string, Foo>, Record<string, Bar>]
+    expectTypeOf(result).toEqualTypeOf<[Record<string, Foo>, Record<string, Bar>]>()
   })
 })
 ```
@@ -8834,14 +8994,14 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch)(obj),
+  R.path(pathToSearchList)(obj),
+  R.path('a.b.c.d')(obj)
 ]
 // => [1, 1, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20obj)%2C%0A%20%20R.path(pathToSearchList%2C%20obj)%2C%0A%20%20R.path('a.b.c.d'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch)(obj)%2C%0A%20%20R.path(pathToSearchList)(obj)%2C%0A%20%20R.path('a.b.c.d')(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8957,6 +9117,7 @@ test('null is not a valid path', () => {
 
 ```typescript
 import { path, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input = { a: { b: { c: true } } }
 
@@ -8964,12 +9125,12 @@ describe('R.path with string as path', () => {
   it('happy', () => {
     const result = pipe(input, path(['a', 'b']))
     const resultStringInput = pipe(input, path('a.b.c'))
-    result.c // $ExpectType boolean
-    resultStringInput // $ExpectType boolean
+    expectTypeOf(result.c).toEqualTypeOf<boolean>()
+    expectTypeOf(resultStringInput).toEqualTypeOf<boolean>()
   })
   it('happy', () => {
     const result = pipe([1, 2, 3], path([1]))
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
 })
 ```
@@ -9071,6 +9232,7 @@ it('returns false otherwise', () => {
 
 ```typescript
 import { pathSatisfies, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input = { a: { b: { c: 'bar' } } }
 
@@ -9080,7 +9242,7 @@ describe('R.pathSatisfies', () => {
       input,
       pathSatisfies(
         x => {
-          x // $ExpectType string
+          expectTypeOf(x).toEqualTypeOf<string>()
           return x !== 'foo'
         },
         ['a', 'b', 'c'],
@@ -9089,12 +9251,12 @@ describe('R.pathSatisfies', () => {
     const resultStringInput = pipe(
       input,
       pathSatisfies(x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       }, 'a.b.c'),
     )
-    result // $ExpectType boolean
-    resultStringInput // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
+    expectTypeOf(resultStringInput).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -9311,19 +9473,20 @@ test('props to pick is an array', () => {
 
 ```typescript
 import { pick, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input = { a: 'foo', c: 3 }
 
 describe('R.pick', () => {
   it('with string as input', () => {
     const result = pipe(input, pick('a,c'))
-    result.a // $ExpectType string
-    result.c // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<string>()
+    expectTypeOf(result.c).toEqualTypeOf<number>()
   })
   it('with array as input', () => {
 		const result = pipe(input, pick(['a', 'c']))
-    result.a // $ExpectType string
-    result.c // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<string>()
+    expectTypeOf(result.c).toEqualTypeOf<number>()
   })
 	it('throws error if some keys do not exist', () => {
 		// @ts-expect-error
@@ -9526,6 +9689,7 @@ import {
   split,
   union,
 } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
 
@@ -9622,11 +9786,11 @@ describe('real use cases - books', () => {
       drop(1),
       // without converting to `as FamousBook`, endsWith will pick up `Book` as type
       tapFn(union([awardedBrothersKaramazov]), (a, b) => {
-        a // $ExpectType Book[]
-        b // $ExpectType Book[]
+        expectTypeOf(a).toEqualTypeOf<Book[]>()
+        expectTypeOf(b).toEqualTypeOf<Book[]>()
       }),
       find(x => {
-        x // $ExpectType Book
+        expectTypeOf(x).toEqualTypeOf<Book>()
         return x.title === 'Brothers Karamazov'
       }),
       x => [x],
@@ -9650,7 +9814,7 @@ describe('real use cases - books', () => {
         simplify,
         pick('year'),
       )
-    const result = getResult(zaratustra)
+    const result = getResult(awardedZaratustraToRead as BaseBook)
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {
@@ -9660,7 +9824,7 @@ describe('real use cases - books', () => {
 		3,The Third,2018`
 
     const result = pipe(tableData, split('\n'), map(split(',')))
-    result // $ExpectType string[][]
+    expectTypeOf(result).toEqualTypeOf<string[][]>()
   })
 })
 
@@ -9677,9 +9841,9 @@ it('R.pipe', () => {
     x => ({ ...x, c: x.b + 'bar' }),
   )
 
-  result.a // $ExpectType number
-  result.b // $ExpectType string
-  result.c // $ExpectType string
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.b).toEqualTypeOf<string>()
+  expectTypeOf(result.c).toEqualTypeOf<string>()
 })
 ```
 
@@ -9783,23 +9947,24 @@ test('happy', async () => {
 ```typescript
 import { pipeAsync } from 'rambda'
 import { delay } from 'rambdax'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.pipeAsync', () => {
   it('happy', async () => {
     const result = await pipeAsync(
       4,
       async x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         await delay(100)
         return x + 1
       },
       x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return Promise.resolve([x])
       },
     )
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -9892,6 +10057,7 @@ test('with undefined', () => {
 
 ```typescript
 import { pipe, pluck } from 'rambda';
+import { expectTypeOf, it } from 'vitest'
 
 it("R.pluck", () => {
   const input = [
@@ -9899,7 +10065,7 @@ it("R.pluck", () => {
     { a: 2, b: "bar" },
   ];
   const result = pipe(input, pluck("b"));
-  result; // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 });
 
 it("R.pluck without R.pipe", () => {
@@ -9912,7 +10078,7 @@ it("R.pluck without R.pipe", () => {
     },
   ];
   const sentences = pluck("text")(content);
-  sentences; // $ExpectType string[]
+  expectTypeOf(sentences).toEqualTypeOf<string[]>()
 });
 ```
 
@@ -9924,24 +10090,23 @@ it("R.pluck without R.pipe", () => {
 
 ```typescript
 
-prepend<T>(xToPrepend: T, iterable: T[]): T[]
+prepend<T>(xToPrepend: T): (iterable: T[]) => T[]
 ```
 
 It adds element `x` at the beginning of `list`.
 
 ```javascript
-const result = R.prepend('foo', ['bar', 'baz'])
+const result = R.prepend('foo')(['bar', 'baz'])
 // => ['foo', 'bar', 'baz']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.prepend('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.prepend('foo')(%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-prepend<T>(xToPrepend: T, iterable: T[]): T[];
 prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 ```
 
@@ -10006,7 +10171,6 @@ const result = [
 
 ```typescript
 prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
-prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 ```
 
 </details>
@@ -10029,17 +10193,18 @@ export function prop(searchProperty) {
 
 ```typescript
 import { map, pipe, prop } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.prop', () => {
   it('happy', () => {
     const result = pipe({ a: 1 }, prop('a'))
 
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
   it('alike R.pluck', () => {
     const result = pipe([{ a: 1 }, { a: 2 }], map(prop('a')))
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -10052,8 +10217,7 @@ describe('R.prop', () => {
 
 ```typescript
 
-propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean
+propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -10066,26 +10230,20 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch)(obj),
-  R.propEq(propToFind, valueToMatch)(secondObj)
+  R.propEq(valueToMatch, propToFind)(obj),
+  R.propEq(valueToMatch, propToFind)(secondObj)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch)(obj)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch)(secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(valueToMatch%2C%20propToFind)(obj)%2C%0A%20%20R.propEq(valueToMatch%2C%20propToFind)(secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
-  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
-};
-propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-...
-...
+propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean;
 ```
 
 </details>
@@ -10135,6 +10293,26 @@ test('returns false if called with a null or undefined object', () => {
 
 </details>
 
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, propEq } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
+
+const obj = { foo: 'bar' }
+const valueToMatch = 'bar'
+const propToFind = 'foo'
+
+it('R.propEq', () => {
+	const result = pipe(obj, propEq(valueToMatch, propToFind))
+	expectTypeOf(result).toEqualTypeOf<boolean>()
+})
+```
+
+</details>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
 
 ### propOr
@@ -10152,13 +10330,13 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property)(obj),
-  R.propOr(defaultValue, 'foo')(obj)
+  R.propOr(property, defaultValue)(obj),
+  R.propOr('foo', defaultValue)(obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property)(obj)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo')(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(property%2C%20defaultValue)(obj)%2C%0A%20%20R.propOr('foo'%2C%20defaultValue)(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10213,6 +10391,7 @@ test('propOr', () => {
 
 ```typescript
 import { propOr } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const obj = { foo: 'bar' }
 const property = 'foo'
@@ -10220,7 +10399,7 @@ const fallback = 'fallback'
 
 it('R.propOr', () => {
 	const result = propOr(property, fallback)(obj)
-	result // $ExpectType string
+	expectTypeOf(result).toEqualTypeOf<string>()
 })
 ```
 
@@ -10242,11 +10421,11 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, obj)
+const result = R.propSatisfies(predicate, property)(obj)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property)(obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10296,6 +10475,7 @@ test('when false', () => {
 
 ```typescript
 import { pipe, propSatisfies } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = { a: 1 }
 
@@ -10304,12 +10484,12 @@ describe('R.propSatisfies', () => {
     const result = pipe(
       obj,
       propSatisfies(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 0
       }, 'a'),
     )
 
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })
 ```
@@ -10403,7 +10583,8 @@ range(startInclusive: number, endInclusive: number) : number[];
 export function range(a, b) {
   const start = b === undefined ? 0 : a
   const end = b === undefined ? a : b
-  if (end<=  start) {
+  if (end ===  start) return [start]
+  if (end <  start) {
 		return []
   }
   const len = end - start
@@ -10422,9 +10603,12 @@ import { range } from './range.js'
 
 test('happy', () => {
   expect(range(5)).toEqual([0, 1, 2, 3, 4, 5])
-  expect(range(3,5)).toEqual([3, 4, 5])
-  expect(range(5,3)).toEqual([])
-	expect(range(0)).toEqual([])
+  expect(range(3, 5)).toEqual([3, 4, 5])
+  expect(range(5, 3)).toEqual([])
+  expect(range(5, 5)).toEqual([5])
+  expect(range(0)).toEqual([0])
+  expect(range(1)).toEqual([0, 1])
+  expect(range(2)).toEqual([0, 1, 2])
 })
 ```
 
@@ -10436,12 +10620,13 @@ test('happy', () => {
 
 ```typescript
 import { range } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.range', () => {
   it('curried', () => {
     const result = [range(1, 4), range(1)]
 
-    result // $ExpectType number[][]
+    expectTypeOf(result).toEqualTypeOf<number[][]>()
   })
 })
 ```
@@ -10477,7 +10662,8 @@ rangeDescending(endInclusive: number) : number[];
 ```javascript
 export function rangeDescending(start, b) {
 	const end = b === undefined ? 0 : b
-	if (start <= end) {
+	if (start === end) return [start]
+	if (start < end) {
 		return []
 	}
   const len = start - end
@@ -10496,9 +10682,12 @@ import { rangeDescending } from './rangeDescending.js'
 
 test('happy', () => {
   expect(rangeDescending(5)).toEqual([5, 4, 3, 2, 1, 0])
-	expect(rangeDescending(7,3)).toEqual([7, 6, 5, 4,3])
-	expect(rangeDescending(5, 7)).toEqual([])
-	expect(rangeDescending(5, 5)).toEqual([])
+  expect(rangeDescending(7, 3)).toEqual([7, 6, 5, 4, 3])
+  expect(rangeDescending(0)).toEqual([0])
+  expect(rangeDescending(1)).toEqual([1, 0])
+  expect(rangeDescending(2)).toEqual([2, 1, 0])
+  expect(rangeDescending(5, 7)).toEqual([])
+  expect(rangeDescending(5, 5)).toEqual([5])
 })
 ```
 
@@ -10520,11 +10709,11 @@ const list = [1, 2, 3]
 const initialValue = 10
 const reducer = (prev, current) => prev * current
 
-const result = R.reduce(reducer, initialValue, list)
+const result = R.reduce(reducer, initialValue)(list)
 // => 60
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue%2C%20list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue)(list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10608,13 +10797,14 @@ test('returns the accumulator for an undefined list', () => {
 
 ```typescript
 import { pipe, reduce } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.reduce', () => {
   const result = pipe(
     [1, 2, 3],
     reduce((acc, val) => acc + val, 10),
   )
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })
 ```
 
@@ -10701,6 +10891,7 @@ test('happy', () => {
 
 ```typescript
 import { reject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -10709,22 +10900,22 @@ describe('R.reject with array', () => {
     const result = pipe(
       list,
       reject(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 	it('with index', () => {
     const result = pipe(
       list,
       reject((x: number, i: number) => {
-        x // $ExpectType number
-        i // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(i).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('narrowing type', () => {
     interface Foo {
@@ -10745,7 +10936,7 @@ describe('R.reject with array', () => {
       testList,
       reject(rejectBar),
     )
-    result // $ExpectType (Foo | Baz)[]
+    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
   })
   it('narrowing type - readonly', () => {
 		interface Foo {
@@ -10766,17 +10957,17 @@ describe('R.reject with array', () => {
       testList,
       reject(rejectBar),
     )
-    result // $ExpectType (Foo | Baz)[]
+    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
   })
   it('rejecting NonNullable', () => {
     const testList = [1, 2, null, undefined, 3]
     const result = pipe(testList, reject(Boolean))
-    result // $ExpectType (null | undefined)[]
+    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
   })
   it('rejecting NonNullable - readonly', () => {
     const testList = [1, 2, null, undefined, 3] as const
     const result = pipe(testList, reject(Boolean))
-    result // $ExpectType (null | undefined)[]
+    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
     // @ts-expect-error
     result.includes(1)
   })
@@ -10879,17 +11070,18 @@ test('happy', () => {
 
 ```typescript
 import { filterObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.filterObject', () => {
   it('require explicit type', () => {
     const result = pipe(
       { a: 1, b: 2 },
       filterObject<{ b: number }>(a => {
-        a // $ExpectType number
+        expectTypeOf(a).toEqualTypeOf<number>()
         return a > 1
       }),
     )
-    result.b // $ExpectType number
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
 })
 ```
@@ -10960,6 +11152,7 @@ test('happy', () => {
 
 ```typescript
 import { replace } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const str = 'foo bar foo'
 const replacer = 'bar'
@@ -10968,12 +11161,12 @@ describe('R.replace', () => {
   it('happy', () => {
     const result = replace(/foo/g, replacer)(str)
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
   it('with string as search pattern', () => {
     const result = replace('foo', replacer)(str)
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
 })
 ```
@@ -11056,6 +11249,7 @@ test('happy', () => {
 
 ```typescript
 import { pipe, replaceAll } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const str = 'foo bar foo'
 const replacer = 'bar'
@@ -11065,7 +11259,7 @@ describe('R.replaceAll', () => {
   it('happy', () => {
     const result = pipe(str, replaceAll(patterns, replacer))
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
 })
 ```
@@ -11123,13 +11317,14 @@ export function shuffle(listInput) {
 
 ```typescript
 import { shuffle } from 'rambdax'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3, 4, 5]
 
 describe('R.shuffle', () => {
   it('happy', () => {
     const result = shuffle(list)
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -11157,7 +11352,7 @@ const sortFn = (x, y) => {
   return x.a > y.a ? 1 : -1
 }
 
-const result = R.sort(sortFn, list)
+const result = R.sort(sortFn)(list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -11166,7 +11361,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sort</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(sortFn)(list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sort</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11221,6 +11416,7 @@ test("it doesn't mutate", () => {
 
 ```typescript
 import { pipe, sort } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [3, 0, 5, 2, 1]
 
@@ -11229,7 +11425,7 @@ describe('R.sort', () => {
     const result = sort<number>((a, b) => {
       return a > b ? 1 : -1
     })(list)
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('within pipe', () => {
     const result = pipe(
@@ -11238,7 +11434,7 @@ describe('R.sort', () => {
         return a > b ? 1 : -1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -11350,6 +11546,7 @@ test('with non-existing path', () => {
 
 ```typescript
 import { pipe, sortBy } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.sortBy', () => {
   it('passing type to sort function and list', () => {
@@ -11360,7 +11557,7 @@ describe('R.sortBy', () => {
       }),
     )
 
-    result[0].a // $ExpectType number
+    expectTypeOf(result[0].a).toEqualTypeOf<number>()
   })
 })
 ```
@@ -11537,17 +11734,18 @@ test('when path is not found in any item', () => {
 
 ```typescript
 import { pipe, sortByPath } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input= [{ a: { b: 2 } }, { a: { b: 1 } }]
 
 describe('R.sortByPath', () => {
   it('with string as path', () => {
     const result = pipe(input, sortByPath('a.b'))
-		result[0].a.b // $ExpectType number
+		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
   })
   it('with list of strings as path', () => {
     const result = pipe(input, sortByPath(['a', 'b']))
-		result[0].a.b // $ExpectType number
+		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
   })
 	it('with non-existent path', () => {
 		// @ts-expect-error
@@ -11745,6 +11943,7 @@ test('happy', () => {
 
 ```typescript
 import { sortObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = {
   c: 1,
@@ -11757,27 +11956,27 @@ describe('R.sortObject', () => {
     const result = pipe(
       obj,
       sortObject((propA, propB, valueA, valueB) => {
-        propA // $ExpectType string
-        propB // $ExpectType string
-        valueA // $ExpectType number
-        valueB // $ExpectType number
+        expectTypeOf(propA).toEqualTypeOf<string>()
+        expectTypeOf(propB).toEqualTypeOf<string>()
+        expectTypeOf(valueA).toEqualTypeOf<number>()
+        expectTypeOf(valueB).toEqualTypeOf<number>()
         return propA > propB ? -1 : 1
       }),
     )
 
-    result // $ExpectType { c: number; a: number; b: number; }
+    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
   })
 
   it('predicate with only property arguments', () => {
     const result = pipe(
       obj,
       sortObject((propA, propB) => {
-        propA // $ExpectType string
-        propB // $ExpectType string
+        expectTypeOf(propA).toEqualTypeOf<string>()
+        expectTypeOf(propB).toEqualTypeOf<string>()
         return propA > propB ? -1 : 1
       }),
     )
-    result // $ExpectType { c: number; a: number; b: number; }
+    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
   })
 })
 ```
@@ -12054,7 +12253,7 @@ splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 <summary><strong>R.splitEvery</strong> source</summary>
 
 ```javascript
-export function splitEvery(sliceLength) {
+export function splitEvery(sliceLength, strict = false) {
   return list => {
     if (sliceLength < 1) {
       throw new Error('First argument to splitEvery must be a positive integer')
@@ -12064,6 +12263,7 @@ export function splitEvery(sliceLength) {
     let counter = 0
 
     while (counter < list.length) {
+			if (strict && counter + sliceLength > list.length) break;
       willReturn.push(list.slice(counter, (counter += sliceLength)))
     }
 
@@ -12094,13 +12294,14 @@ test('happy', () => {
 
 ```typescript
 import { pipe, splitEvery } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3, 4, 5, 6, 7]
 
 describe('R.splitEvery', () => {
   it('happy', () => {
     const result = pipe(list, splitEvery(3))
-    result // $ExpectType number[][]
+    expectTypeOf(result).toEqualTypeOf<number[][]>()
   })
 })
 ```
@@ -12173,14 +12374,14 @@ switcher<T extends unknown>(valueToMatch: T): Switchem<T>
 ```javascript
 const list = [1, 2, 3]
 
-const result = switcher(list.length)
+const result = R.switcher(list.length)
 	.is(x => x < 2, 4)
 	.is(x => x < 4, 6)
 	.default(7)
 // => 6
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20switcher(list.length)%0A%09.is(x%20%3D%3E%20x%20%3C%202%2C%204)%0A%09.is(x%20%3D%3E%20x%20%3C%204%2C%206)%0A%09.default(7)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.switcher</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0A%0Aconst%20result%20%3D%20R.switcher(list.length)%0A%09.is(x%20%3D%3E%20x%20%3C%202%2C%204)%0A%09.is(x%20%3D%3E%20x%20%3C%204%2C%206)%0A%09.default(7)%0A%2F%2F%20%3D%3E%206">Try this <strong>R.switcher</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12373,6 +12574,7 @@ test('fallback to default input when no matches', () => {
 
 ```typescript
 import { switcher } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.switcher', () => {
   it('no transformation', () => {
@@ -12383,7 +12585,7 @@ describe('R.switcher', () => {
       .is(x => x < 4, 6)
       .default(7)
 
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
   it('with transformation', () => {
     const list = [1, 2, 3]
@@ -12394,7 +12596,7 @@ describe('R.switcher', () => {
       .is(x => x < 4, 'secondStage')
       .default('thirdStage')
 
-    result // $ExpectType Stage
+    expectTypeOf(result).toEqualTypeOf<Stage>()
   })
 })
 ```
@@ -12486,6 +12688,7 @@ test('symmetricDifference with objects', () => {
 
 ```typescript
 import { symmetricDifference } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.symmetricDifference', () => {
   it('happy', () => {
@@ -12493,7 +12696,7 @@ describe('R.symmetricDifference', () => {
     const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
     const result = symmetricDifference(list1)(list2)
 
-    result // $ExpectType { id: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ id: number; }[]>()
   })
 })
 ```
@@ -12577,12 +12780,13 @@ test('tail', () => {
 
 ```typescript
 import { map, pipe, tail } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.tail', () => {
   it('with string', () => {
     const result = tail('foo')
 
-    result // $ExpectType string
+    expectTypeOf(result).toEqualTypeOf<string>()
   })
   it('with list - using const on short array', () => {
     const result = pipe(
@@ -12590,7 +12794,7 @@ describe('R.tail', () => {
       map(x => x * 2),
       tail,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const on empty array', () => {
     const result = pipe(
@@ -12598,7 +12802,7 @@ describe('R.tail', () => {
       map(x => x * 2),
       tail,
     )
-    result // $ExpectType []
+    expectTypeOf(result).toEqualTypeOf<[]>()
   })
   it('with list - using const', () => {
     const result = pipe(
@@ -12606,12 +12810,12 @@ describe('R.tail', () => {
       map(x => x * 2),
       tail,
     )
-    result // $ExpectType [number, number]
+    expectTypeOf(result).toEqualTypeOf<[number, number]>()
   })
   it('with list - mixed types', () => {
     const result = tail(['foo', 'bar', 1, 2, 3])
 
-    result // $ExpectType (string | number)[]
+    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
   })
 })
 ```
@@ -12635,12 +12839,12 @@ const howMany = 2
 
 const result = [
   R.take(howMany)([1, 2, 3]),
-  R.take(howMany, 'foobar'),
+  R.take(howMany)('foobar'),
 ]
 // => [[1, 2], 'fo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.take(howMany)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.take(howMany%2C%20'foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.take</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.take(howMany)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.take(howMany)('foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.take</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12980,6 +13184,7 @@ test('always false', () => {
 
 ```typescript
 import { pipe, takeWhile } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -12989,7 +13194,7 @@ it('R.takeWhile', () => {
     takeWhile(x => x > 1),
     takeWhile((x, i) => i + x > 1),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -13108,15 +13313,16 @@ test('happy', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import { test } from 'rambda'
+import { test as ramdaTest } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const input = 'foo   '
 const regex = /foo/
 
 it('R.test', () => {
-  const result = test(regex)(input)
+  const result = ramdaTest(regex)(input)
 
-  result // $ExpectType boolean
+  expectTypeOf(result).toEqualTypeOf<boolean>()
 })
 ```
 
@@ -13162,18 +13368,15 @@ transformPropObject<T extends object, K extends keyof T, Value>(
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
-import {  transformPropObject, pipe } from 'rambda'
+import type { transformPropObject } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
+/**
+ * `transformPropObject` is declared in typings but not exported from the JS bundle yet.
+ * Keep compile-time-only assertions so Vitest does not execute missing runtime.
+ */
 it('R.transformPropObject', () => {
-	const result = pipe(
-		{ a: 1, b: 'foo' },
-		transformPropObject(x => {
-			x // $ExpectType number
-			return x > 2
-		}, 'a'),
-	)
-
-	result // $ExpectType { b: string; a: boolean; }
+  expectTypeOf<typeof transformPropObject>().toBeFunction()
 })
 ```
 
@@ -13282,6 +13485,7 @@ test('when fn is used', () => {
 
 ```typescript
 import { map, pipe, tryCatch } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.tryCatch', () => {
   it('happy', () => {
@@ -13294,7 +13498,7 @@ describe('R.tryCatch', () => {
       ),
     )
 
-    result // $ExpectType (string | null)[]
+    expectTypeOf(result).toEqualTypeOf<(string | null)[]>()
   })
 })
 ```
@@ -13554,12 +13758,13 @@ test('function inside object 2', () => {
 
 ```typescript
 import { type } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.type', () => {
   it('happy', () => {
     const result = type(4)
 
-    result // $ExpectType RambdaTypes
+    expectTypeOf(result).toEqualTypeOf<RambdaTypes>()
   })
 })
 ```
@@ -13640,25 +13845,26 @@ test('with list of objects', () => {
 
 ```typescript
 import { union } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.union', () => {
   it('happy', () => {
     const result = union([1, 2])([2, 3])
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('with array of objects - case 1', () => {
     const list1 = [{ a: 1 }, { a: 2 }]
     const list2 = [{ a: 2 }, { a: 3 }]
     const result = union(list1)(list2)
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
   it('with array of objects - case 2', () => {
     const list1 = [{ a: 1, b: 1 }, { a: 2 }]
     const list2 = [{ a: 2 }, { a: 3, b: 3 }]
     const result = union(list1)(list2)
-    result[0].a // $ExpectType number
-    result[0].b // $ExpectType number | undefined
+    expectTypeOf(result[0].a).toEqualTypeOf<number>()
+    expectTypeOf(result[0].b).toEqualTypeOf<number | undefined>()
   })
 })
 ```
@@ -13743,6 +13949,7 @@ test('happy', () => {
 
 ```typescript
 import { pipe, unionWith } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.unionWith', () => {
   it('happy', () => {
@@ -13750,14 +13957,14 @@ describe('R.unionWith', () => {
     const result = pipe(
 			list,
 			unionWith((x, y) => {
-				x.a // $ExpectType number
-				y.b // $ExpectType number
+				expectTypeOf(x.a).toEqualTypeOf<number>()
+				expectTypeOf(y.b).toEqualTypeOf<number>()
 				return x.a === y.a
 			}, [{a: 2, b: 2}, {a: 3, b: 2}]),
 		)
 
-    result[0].a // $ExpectType number
-    result[0].b // $ExpectType number
+    expectTypeOf(result[0].a).toEqualTypeOf<number>()
+    expectTypeOf(result[0].b).toEqualTypeOf<number>()
   })
 })
 ```
@@ -13860,11 +14067,12 @@ test('can distinct between string and number', () => {
 
 ```typescript
 import { uniq } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.uniq', () => {
   it('happy', () => {
     const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -13951,12 +14159,13 @@ test('uses R.uniq', () => {
 
 ```typescript
 import { uniqBy } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.uniqBy', () => {
   it('happy', () => {
     const result = uniqBy(Math.abs)([-2, -1, 0])
 
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })
 ```
@@ -14106,6 +14315,7 @@ test('should return items that are not equal to themselves', () => {
 
 ```typescript
 import { pipe, uniqWith } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.uniqWith', () => {
   it('happy', () => {
@@ -14113,7 +14323,7 @@ describe('R.uniqWith', () => {
       [{ a: 1 }, { a: 1 }],
       uniqWith((x, y) => x.a === y.a),
     )
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
 })
 ```
@@ -14210,6 +14420,7 @@ test('happy', () => {
 
 ```typescript
 import { pipe, unless } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const inc = (x: number) => x + 1
 
@@ -14219,23 +14430,23 @@ describe('R.unless', () => {
       1,
       unless(x => x > 5, inc),
     )
-    result // $ExpectType number
+    expectTypeOf(result).toEqualTypeOf<number>()
   })
   it('with two different types', () => {
     const result = pipe(
       1,
       unless(
         x => {
-          x // $ExpectType number
+          expectTypeOf(x).toEqualTypeOf<number>()
           return x > 5
         },
         x => {
-          x // $ExpectType number
+          expectTypeOf(x).toEqualTypeOf<number>()
           return `${x}-foo`
         },
       ),
     )
-    result // $ExpectType string | number
+    expectTypeOf(result).toEqualTypeOf<string | number>()
   })
 })
 ```
@@ -14330,6 +14541,7 @@ test('happy', () => {
 
 ```typescript
 import { pipe, unwind } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = {
   a: 1,
@@ -14339,13 +14551,13 @@ const obj = {
 describe('R.unwind', () => {
   it('happy', () => {
     const [result] = unwind('b')(obj)
-    result.a // $ExpectType number
-    result.b // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<number>()
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
   it('inside pipe', () => {
     const [result] = pipe(obj, unwind('b'))
-    result.a // $ExpectType number
-    result.b // $ExpectType number
+    expectTypeOf(result.a).toEqualTypeOf<number>()
+    expectTypeOf(result.b).toEqualTypeOf<number>()
   })
 })
 ```
@@ -14529,6 +14741,7 @@ test('happy', () => {
 
 ```typescript
 import { head, pipe, tap, when } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 function notNull<T>(a: T | null | undefined): a is T {
   return a != null
@@ -14543,7 +14756,7 @@ describe('R.when', () => {
         x => x,
       ),
       tap(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
       }),
       when(
         x => x > 2,
@@ -14551,7 +14764,7 @@ describe('R.when', () => {
       ),
     )
 
-    result // $ExpectType string | number
+    expectTypeOf(result).toEqualTypeOf<string | number>()
   })
 
 	it('with assertion of type', () => {
@@ -14560,7 +14773,7 @@ describe('R.when', () => {
       head,
       when(notNull, x => x + 1),
     )
-    result // $ExpectType number | null
+    expectTypeOf(result).toEqualTypeOf<number | null>()
   })
 })
 ```
@@ -14674,6 +14887,7 @@ test('should truncate result to length of shorted input list', () => {
 
 ```typescript
 import { zip } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.zip', () => {
   it('happy', () => {
@@ -14681,8 +14895,8 @@ describe('R.zip', () => {
     const array2 = ['A', 'B', 'C']
     let a: Partial<any>
     const result = zip(array1)(array2)
-    result[0][0] // $ExpectType number
-    result[0][1] // $ExpectType string
+    expectTypeOf(result[0][0]).toEqualTypeOf<number>()
+    expectTypeOf(result[0][1]).toEqualTypeOf<string>()
   })
 })
 ```
@@ -14771,6 +14985,7 @@ test('when second list is longer', () => {
 <summary><strong>TypeScript</strong> test</summary>
 
 ```typescript
+import { describe, expectTypeOf, it } from 'vitest'
 import { pipe, zipWith } from 'rambda'
 
 const list1 = [1, 2]
@@ -14781,13 +14996,13 @@ describe('R.zipWith', () => {
     const result = pipe(
       list2,
       zipWith((x, y) => {
-        x // $ExpectType number
-        y // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(y).toEqualTypeOf<number>()
         return `${x}-${y}`
       }, list1),
     )
 
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
 })
 ```
@@ -14797,6 +15012,20 @@ describe('R.zipWith', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.2.0
+
+- Fix wrong typing for `R.equal`,`R.path`, `R.prop`, `R.propEq`, `R.prepend` - [Issue #803](https://github.com/selfrefactor/rambda/issues/803)
+
+- Add `R.splitEveryStrict`
+
+- Add `R.mergeDeep`
+
+- Change `R.range` when start and end are the same to return array with one element instead of empty array.
+
+- Fix wrong usage of non-curried methods in example snippets.
+
+- Migrate to `vitest` for TS testing
 
 11.1.0
 

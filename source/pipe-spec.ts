@@ -15,6 +15,7 @@ import {
   split,
   union,
 } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 type IsNotNever<T> = [T] extends [never] ? false : true
 type Expect<T extends true> = T
 
@@ -111,11 +112,11 @@ describe('real use cases - books', () => {
       drop(1),
       // without converting to `as FamousBook`, endsWith will pick up `Book` as type
       tapFn(union([awardedBrothersKaramazov]), (a, b) => {
-        a // $ExpectType Book[]
-        b // $ExpectType Book[]
+        expectTypeOf(a).toEqualTypeOf<Book[]>()
+        expectTypeOf(b).toEqualTypeOf<Book[]>()
       }),
       find(x => {
-        x // $ExpectType Book
+        expectTypeOf(x).toEqualTypeOf<Book>()
         return x.title === 'Brothers Karamazov'
       }),
       x => [x],
@@ -139,7 +140,7 @@ describe('real use cases - books', () => {
         simplify,
         pick('year'),
       )
-    const result = getResult(zaratustra)
+    const result = getResult(awardedZaratustraToRead as BaseBook)
     const final: Expect<IsNotNever<typeof result>> = true
   })
   it('case 3', () => {
@@ -149,7 +150,7 @@ describe('real use cases - books', () => {
 		3,The Third,2018`
 
     const result = pipe(tableData, split('\n'), map(split(',')))
-    result // $ExpectType string[][]
+    expectTypeOf(result).toEqualTypeOf<string[][]>()
   })
 })
 
@@ -166,7 +167,7 @@ it('R.pipe', () => {
     x => ({ ...x, c: x.b + 'bar' }),
   )
 
-  result.a // $ExpectType number
-  result.b // $ExpectType string
-  result.c // $ExpectType string
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.b).toEqualTypeOf<string>()
+  expectTypeOf(result.c).toEqualTypeOf<string>()
 })

@@ -1,4 +1,5 @@
 import { partitionObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.partition', () => {
   it('happy', () => {
@@ -6,7 +7,7 @@ describe('R.partition', () => {
 			{ a: 1, b: 2 },
 			partitionObject((x, prop) => x> 1 || prop === 'c'),
 		)
-    result // $ExpectType [Record<string, number>, Record<string, number>]
+    expectTypeOf(result).toEqualTypeOf<[Record<string, number>, Record<string, number>]>()
   })
   it('with complex object', () => {
     interface Foo {
@@ -23,6 +24,6 @@ describe('R.partition', () => {
 		}
     const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
     const result = pipe(obj, partitionObject(filterFoo))
-    result // $ExpectType [Record<string, Foo>, Record<string, Bar>]
+    expectTypeOf(result).toEqualTypeOf<[Record<string, Foo>, Record<string, Bar>]>()
   })
 })

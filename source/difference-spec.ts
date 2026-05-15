@@ -1,4 +1,5 @@
 import { difference } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.difference', () => {
   it('happy', () => {
@@ -6,6 +7,6 @@ describe('R.difference', () => {
     const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
     const result = difference(list1)(list2)
 
-    result // $ExpectType { id: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ id: number; }[]>()
   })
 })
