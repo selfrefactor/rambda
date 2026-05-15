@@ -464,7 +464,6 @@ Notes: It doesn't handle cyclical data structures and functions
 
 */
 // @SINGLE_MARKER
-export function equals<T>(x: T, y: T): boolean;
 export function equals<T>(x: T): (y: T) => boolean;
 
 /*
@@ -2361,7 +2360,6 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
 export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
 /*
@@ -2388,7 +2386,6 @@ Notes:
 */
 // @SINGLE_MARKER
 export function prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
-export function prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 
 /*
 Method: propEq
@@ -2417,12 +2414,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
-  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
-};
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /*
 Method: propOr
