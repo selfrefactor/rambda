@@ -916,14 +916,6 @@ export function path<
   K1 extends keyof S[K0],
   K2 extends keyof S[K0][K1],
   K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
   K4 extends keyof S[K0][K1][K2][K3],
   K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
@@ -936,15 +928,6 @@ export function path<
   K4 extends string & keyof S[K0][K1][K2][K3],
   K5 extends string & keyof S[K0][K1][K2][K3][K4]
 >(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`): (obj: S) => S[K0][K1][K2][K3][K4][K5];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<
   S,
   K0 extends keyof S,
@@ -965,16 +948,6 @@ export function path<
   K5 extends string & keyof S[K0][K1][K2][K3][K4],
   K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
 >(path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function path<
-  S,
-  K0 extends keyof S,
-  K1 extends keyof S[K0],
-  K2 extends keyof S[K0][K1],
-  K3 extends keyof S[K0][K1][K2],
-  K4 extends keyof S[K0][K1][K2][K3],
-  K5 extends keyof S[K0][K1][K2][K3][K4],
-  K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
 export function path<
   S,
   K0 extends keyof S,
@@ -1050,14 +1023,6 @@ export function path<
     K1 extends keyof S[K0],
     K2 extends keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3]
->(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4]
 >(path: [K0, K1, K2, K3, K4, K5]): (obj: S) => S[K0][K1][K2][K3][K4][K5];
@@ -1068,28 +1033,9 @@ export function path<
     K2 extends keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4]
->(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4],
     K6 extends keyof S[K0][K1][K2][K3][K4][K5]
 >(path: [K0, K1, K2, K3, K4, K5, K6]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6];
-export function path<
-    S,
-    K0 extends keyof S,
-    K1 extends keyof S[K0],
-    K2 extends keyof S[K0][K1],
-    K3 extends keyof S[K0][K1][K2],
-    K4 extends keyof S[K0][K1][K2][K3],
-    K5 extends keyof S[K0][K1][K2][K3][K4],
-    K6 extends keyof S[K0][K1][K2][K3][K4][K5]
->(path: [K0, K1, K2, K3, K4, K5, K6], obj: S): S[K0][K1][K2][K3][K4][K5][K6];
 export function path<
     S,
     K0 extends keyof S,
@@ -1836,7 +1782,7 @@ export function prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: un
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
+export function propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean;
 
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.

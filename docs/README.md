@@ -2529,12 +2529,12 @@ duplicateBy<T, U>(fn: (x: T) => U): (list: T[]) => T[]
 
 ```javascript
 const list = [{a:1}, {a:2}, {a:1}]
-const result = R.duplicateBy(x => x, list)
+const result = R.duplicateBy(x => x)(list)
 
 // => [{a:1}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.duplicateBy(x%20%3D%3E%20x%2C%20list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%5D">Try this <strong>R.duplicateBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%7Ba%3A1%7D%2C%20%7Ba%3A2%7D%2C%20%7Ba%3A1%7D%5D%0Aconst%20result%20%3D%20R.duplicateBy(x%20%3D%3E%20x)(list)%0A%0A%2F%2F%20%3D%3E%20%5B%7Ba%3A1%7D%5D">Try this <strong>R.duplicateBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -4916,11 +4916,11 @@ It splits `list` according to a provided `groupFn` function and returns an objec
 const list = [ 'a', 'b', 'aa', 'bb' ]
 const groupFn = x => x.length
 
-const result = R.groupBy(groupFn, list)
+const result = R.groupBy(groupFn)(list)
 // => { '1': ['a', 'b'], '2': ['aa', 'bb'] }
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn%2C%20list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try this <strong>R.groupBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%20'a'%2C%20'b'%2C%20'aa'%2C%20'bb'%20%5D%0Aconst%20groupFn%20%3D%20x%20%3D%3E%20x.length%0A%0Aconst%20result%20%3D%20R.groupBy(groupFn)(list)%0A%2F%2F%20%3D%3E%20%7B%20'1'%3A%20%5B'a'%2C%20'b'%5D%2C%20'2'%3A%20%5B'aa'%2C%20'bb'%5D%20%7D">Try this <strong>R.groupBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -5606,12 +5606,12 @@ It generates a new string from `inputWithTags` by replacing all `{{x}}` occurren
 const inputWithTags = 'foo is {{bar}} even {{a}} more'
 const templateArguments = {"bar":"BAR", a: 1}
 
-const result = R.interpolate(inputWithTags, templateArguments)
+const result = R.interpolate(inputWithTags)(templateArguments)
 const expected = 'foo is BAR even 1 more'
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20inputWithTags%20%3D%20'foo%20is%20%7B%7Bbar%7D%7D%20even%20%7B%7Ba%7D%7D%20more'%0Aconst%20templateArguments%20%3D%20%7B%22bar%22%3A%22BAR%22%2C%20a%3A%201%7D%0A%0Aconst%20result%20%3D%20R.interpolate(inputWithTags%2C%20templateArguments)%0Aconst%20expected%20%3D%20'foo%20is%20BAR%20even%201%20more'%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.interpolate</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20inputWithTags%20%3D%20'foo%20is%20%7B%7Bbar%7D%7D%20even%20%7B%7Ba%7D%7D%20more'%0Aconst%20templateArguments%20%3D%20%7B%22bar%22%3A%22BAR%22%2C%20a%3A%201%7D%0A%0Aconst%20result%20%3D%20R.interpolate(inputWithTags)(templateArguments)%0Aconst%20expected%20%3D%20'foo%20is%20BAR%20even%201%20more'%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.interpolate</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -6052,10 +6052,10 @@ join<T>(glue: string): (list: T[]) => string
 It returns a string of all `list` instances joined with a `glue`.
 
 ```javascript
-R.join('-', [1, 2, 3])  // => '1-2-3'
+R.join('-')([1, 2, 3])  // => '1-2-3'
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.join('-'%2C%20%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try this <strong>R.join</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.join('-')(%5B1%2C%202%2C%203%5D)%20%20%2F%2F%20%3D%3E%20'1-2-3'">Try this <strong>R.join</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7325,13 +7325,13 @@ Curried version of `String.prototype.match` which returns empty array, when ther
 
 ```javascript
 const result = [
-  R.match('a', 'foo'),
-  R.match(/([a-z]a)/g, 'bananas')
+  R.match('a')('foo'),
+  R.match(/([a-z]a)/g)('bananas')
 ]
 // => [[], ['ba', 'na', 'na']]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.match('a'%2C%20'foo')%2C%0A%20%20R.match(%2F(%5Ba-z%5Da)%2Fg%2C%20'bananas')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20%5B'ba'%2C%20'na'%2C%20'na'%5D%5D">Try this <strong>R.match</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%20%20R.match('a')('foo')%2C%0A%20%20R.match(%2F(%5Ba-z%5Da)%2Fg)('bananas')%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B%5D%2C%20%5B'ba'%2C%20'na'%2C%20'na'%5D%5D">Try this <strong>R.match</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7414,10 +7414,10 @@ It returns the greater value between `x` and `y` according to `compareFn` functi
 ```javascript
 const compareFn = Math.abs
 
-R.maxBy(compareFn, 5, -7) // => -7
+R.maxBy(compareFn, 5)(-7) // => -7
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.maxBy(compareFn%2C%205%2C%20-7)%20%2F%2F%20%3D%3E%20-7">Try this <strong>R.maxBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.maxBy(compareFn%2C%205)(-7)%20%2F%2F%20%3D%3E%20-7">Try this <strong>R.maxBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7806,10 +7806,10 @@ It returns the lesser value between `x` and `y` according to `compareFn` functio
 ```javascript
 const compareFn = Math.abs
 
-R.minBy(compareFn, -5, 2) // => -5
+R.minBy(compareFn, -5)(2) // => -5
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.minBy(compareFn%2C%20-5%2C%202)%20%2F%2F%20%3D%3E%20-5">Try this <strong>R.minBy</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20compareFn%20%3D%20Math.abs%0A%0Aconst%20result%20%3D%20R.minBy(compareFn%2C%20-5)(2)%20%2F%2F%20%3D%3E%20-5">Try this <strong>R.minBy</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -7943,11 +7943,11 @@ modifyPath<U, T>(path: [], fn: (value: U) => T): (obj: U) => T
 It changes a property of object on the base of provided path and transformer function.
 
 ```javascript
-const result = R.modifyPath('a.b.c', x=> x+1, {a:{b: {c:1}}})
+const result = R.modifyPath('a.b.c', x=> x+1)({a:{b: {c:1}}})
 // => {a:{b: {c:2}}}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1%2C%20%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.modifyPath('a.b.c'%2C%20x%3D%3E%20x%2B1)(%7Ba%3A%7Bb%3A%20%7Bc%3A1%7D%7D%7D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%7Bb%3A%20%7Bc%3A2%7D%7D%7D">Try this <strong>R.modifyPath</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8513,13 +8513,13 @@ const propsToOmit = 'a,c,d'
 const propsToOmitList = ['a', 'c', 'd']
 
 const result = [
-  R.omit(propsToOmit, obj),
-  R.omit(propsToOmitList, obj)
+  R.omit(propsToOmit)(obj),
+  R.omit(propsToOmitList)(obj)
 ]
 // => [{b: 2}, {b: 2}]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit%2C%20obj)%2C%0A%20%20R.omit(propsToOmitList%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%2C%20b%3A%202%2C%20c%3A%203%7D%0Aconst%20propsToOmit%20%3D%20'a%2Cc%2Cd'%0Aconst%20propsToOmitList%20%3D%20%5B'a'%2C%20'c'%2C%20'd'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.omit(propsToOmit)(obj)%2C%0A%20%20R.omit(propsToOmitList)(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B%7Bb%3A%202%7D%2C%20%7Bb%3A%202%7D%5D">Try this <strong>R.omit</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -8923,14 +8923,14 @@ const pathToSearch = 'a.b'
 const pathToSearchList = ['a', 'b']
 
 const result = [
-  R.path(pathToSearch, obj),
-  R.path(pathToSearchList, obj),
-  R.path('a.b.c.d', obj)
+  R.path(pathToSearch)(obj),
+  R.path(pathToSearchList)(obj),
+  R.path('a.b.c.d')(obj)
 ]
 // => [1, 1, undefined]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch%2C%20obj)%2C%0A%20%20R.path(pathToSearchList%2C%20obj)%2C%0A%20%20R.path('a.b.c.d'%2C%20obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A%201%7D%7D%0Aconst%20pathToSearch%20%3D%20'a.b'%0Aconst%20pathToSearchList%20%3D%20%5B'a'%2C%20'b'%5D%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.path(pathToSearch)(obj)%2C%0A%20%20R.path(pathToSearchList)(obj)%2C%0A%20%20R.path('a.b.c.d')(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%201%2C%20undefined%5D">Try this <strong>R.path</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10019,11 +10019,11 @@ prepend<T>(xToPrepend: T): (iterable: T[]) => T[]
 It adds element `x` at the beginning of `list`.
 
 ```javascript
-const result = R.prepend('foo', ['bar', 'baz'])
+const result = R.prepend('foo')(['bar', 'baz'])
 // => ['foo', 'bar', 'baz']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.prepend('foo'%2C%20%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.prepend('foo')(%5B'bar'%2C%20'baz'%5D)%0A%2F%2F%20%3D%3E%20%5B'foo'%2C%20'bar'%2C%20'baz'%5D">Try this <strong>R.prepend</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10139,7 +10139,7 @@ describe('R.prop', () => {
 
 ```typescript
 
-propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean
+propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -10152,20 +10152,20 @@ const propToFind = 'foo'
 const valueToMatch = 'bar'
 
 const result = [
-  R.propEq(propToFind, valueToMatch)(obj),
-  R.propEq(propToFind, valueToMatch)(secondObj)
+  R.propEq(valueToMatch, propToFind)(obj),
+  R.propEq(valueToMatch, propToFind)(secondObj)
 ]
 // => [true, false]
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(propToFind%2C%20valueToMatch)(obj)%2C%0A%20%20R.propEq(propToFind%2C%20valueToMatch)(secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7B%20foo%3A%20'bar'%20%7D%0Aconst%20secondObj%20%3D%20%7B%20foo%3A%201%20%7D%0A%0Aconst%20propToFind%20%3D%20'foo'%0Aconst%20valueToMatch%20%3D%20'bar'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propEq(valueToMatch%2C%20propToFind)(obj)%2C%0A%20%20R.propEq(valueToMatch%2C%20propToFind)(secondObj)%0A%5D%0A%2F%2F%20%3D%3E%20%5Btrue%2C%20false%5D">Try this <strong>R.propEq</strong> example in Rambda REPL</a>
 
 <details>
 
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
+propEq<T, K extends PropertyKey>(valueToMatch: T, propToFind: K): (obj: Record<K, T>) => boolean;
 ```
 
 </details>
@@ -10215,6 +10215,25 @@ test('returns false if called with a null or undefined object', () => {
 
 </details>
 
+<details>
+
+<summary><strong>TypeScript</strong> test</summary>
+
+```typescript
+import { pipe, propEq } from 'rambda'
+
+const obj = { foo: 'bar' }
+const valueToMatch = 'bar'
+const propToFind = 'foo'
+
+it('R.propEq', () => {
+	const result = pipe(obj, propEq(valueToMatch, propToFind))
+	result // $ExpectType boolean
+})
+```
+
+</details>
+
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#propEq)
 
 ### propOr
@@ -10232,13 +10251,13 @@ const defaultValue = 'DEFAULT_VALUE'
 const property = 'a'
 
 const result = [
-  R.propOr(defaultValue, property)(obj),
-  R.propOr(defaultValue, 'foo')(obj)
+  R.propOr(property, defaultValue)(obj),
+  R.propOr('foo', defaultValue)(obj)
 ]
 // => [1, 'DEFAULT_VALUE']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(defaultValue%2C%20property)(obj)%2C%0A%20%20R.propOr(defaultValue%2C%20'foo')(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%201%7D%0Aconst%20defaultValue%20%3D%20'DEFAULT_VALUE'%0Aconst%20property%20%3D%20'a'%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.propOr(property%2C%20defaultValue)(obj)%2C%0A%20%20R.propOr('foo'%2C%20defaultValue)(obj)%0A%5D%0A%2F%2F%20%3D%3E%20%5B1%2C%20'DEFAULT_VALUE'%5D">Try this <strong>R.propOr</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10322,11 +10341,11 @@ const obj = {a: {b:1}}
 const property = 'a'
 const predicate = x => x?.b === 1
 
-const result = R.propSatisfies(predicate, property, obj)
+const result = R.propSatisfies(predicate, property)(obj)
 // => true
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property%2C%20obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20obj%20%3D%20%7Ba%3A%20%7Bb%3A1%7D%7D%0Aconst%20property%20%3D%20'a'%0Aconst%20predicate%20%3D%20x%20%3D%3E%20x%3F.b%20%3D%3D%3D%201%0A%0Aconst%20result%20%3D%20R.propSatisfies(predicate%2C%20property)(obj)%0A%2F%2F%20%3D%3E%20true">Try this <strong>R.propSatisfies</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -10608,11 +10627,11 @@ const list = [1, 2, 3]
 const initialValue = 10
 const reducer = (prev, current) => prev * current
 
-const result = R.reduce(reducer, initialValue, list)
+const result = R.reduce(reducer, initialValue)(list)
 // => 60
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue%2C%20list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B1%2C%202%2C%203%5D%0Aconst%20initialValue%20%3D%2010%0Aconst%20reducer%20%3D%20(prev%2C%20current)%20%3D%3E%20prev%20*%20current%0A%0Aconst%20result%20%3D%20R.reduce(reducer%2C%20initialValue)(list)%0A%2F%2F%20%3D%3E%2060">Try this <strong>R.reduce</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11245,7 +11264,7 @@ const sortFn = (x, y) => {
   return x.a > y.a ? 1 : -1
 }
 
-const result = R.sort(sortFn, list)
+const result = R.sort(sortFn)(list)
 const expected = [
   {a: 1},
   {a: 2},
@@ -11254,7 +11273,7 @@ const expected = [
 // => `result` is equal to `expected`
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(sortFn%2C%20list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sort</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%2C%0A%20%20%7Ba%3A%201%7D%0A%5D%0Aconst%20sortFn%20%3D%20(x%2C%20y)%20%3D%3E%20%7B%0A%20%20return%20x.a%20%3E%20y.a%20%3F%201%20%3A%20-1%0A%7D%0A%0Aconst%20result%20%3D%20R.sort(sortFn)(list)%0Aconst%20expected%20%3D%20%5B%0A%20%20%7Ba%3A%201%7D%2C%0A%20%20%7Ba%3A%202%7D%2C%0A%20%20%7Ba%3A%203%7D%0A%5D%0A%2F%2F%20%3D%3E%20%60result%60%20is%20equal%20to%20%60expected%60">Try this <strong>R.sort</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -12724,12 +12743,12 @@ const howMany = 2
 
 const result = [
   R.take(howMany)([1, 2, 3]),
-  R.take(howMany, 'foobar'),
+  R.take(howMany)('foobar'),
 ]
 // => [[1, 2], 'fo']
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.take(howMany)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.take(howMany%2C%20'foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.take</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20howMany%20%3D%202%0A%0Aconst%20result%20%3D%20%5B%0A%20%20R.take(howMany)(%5B1%2C%202%2C%203%5D)%2C%0A%20%20R.take(howMany)('foobar')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B%5B1%2C%202%5D%2C%20'fo'%5D">Try this <strong>R.take</strong> example in Rambda REPL</a>
 
 <details>
 
