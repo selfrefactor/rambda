@@ -2756,7 +2756,7 @@ it('R.eqProps', () => {
 
 ```typescript
 
-equals<T>(x: T, y: T): boolean
+equals<T>(x: T): (y: T) => boolean
 ```
 
 It deeply compares `x` and `y` and returns `true` if they are equal.
@@ -2777,7 +2777,6 @@ R.equals(
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-equals<T>(x: T, y: T): boolean;
 equals<T>(x: T): (y: T) => boolean;
 ```
 
@@ -10014,7 +10013,7 @@ it("R.pluck without R.pipe", () => {
 
 ```typescript
 
-prepend<T>(xToPrepend: T, iterable: T[]): T[]
+prepend<T>(xToPrepend: T): (iterable: T[]) => T[]
 ```
 
 It adds element `x` at the beginning of `list`.
@@ -10031,7 +10030,6 @@ const result = R.prepend('foo', ['bar', 'baz'])
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-prepend<T>(xToPrepend: T, iterable: T[]): T[];
 prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 ```
 
@@ -10096,7 +10094,6 @@ const result = [
 
 ```typescript
 prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
-prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 ```
 
 </details>
@@ -10142,8 +10139,7 @@ describe('R.prop', () => {
 
 ```typescript
 
-propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean
+propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean
 ```
 
 It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
@@ -10169,13 +10165,7 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
-  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
-};
 propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-...
-...
 ```
 
 </details>

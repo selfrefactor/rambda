@@ -334,7 +334,6 @@ export function eqProps<T, K extends keyof T>(prop: K, obj1: T): (obj2: T) => bo
 /**
  * It deeply compares `x` and `y` and returns `true` if they are equal.
  */
-export function equals<T>(x: T, y: T): boolean;
 export function equals<T>(x: T): (y: T) => boolean;
 
 /**
@@ -1825,7 +1824,6 @@ export function pluck<K extends PropertyKey>(prop: K): {
 /**
  * It adds element `x` at the beginning of `list`.
  */
-export function prepend<T>(xToPrepend: T, iterable: T[]): T[];
 export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
 
 /**
@@ -1834,17 +1832,11 @@ export function prepend<T>(xToPrepend: T): (iterable: T[]) => T[];
  * If there is no such property, it returns `undefined`.
  */
 export function prop<K extends PropertyKey>(prop: K): <U extends { [P in K]?: unknown }>(obj: U) => U[K];
-export function prop<K extends keyof U, U>(prop: K, obj: U): U[K];
 
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
  */
-export function propEq<T>(val: T): {
-  <K extends PropertyKey>(name: K): (obj: Record<K, T>) => boolean;
-  <K extends PropertyKey>(name: K, obj: Record<K, T>): boolean;
-};
 export function propEq<T, K extends PropertyKey>(val: T, name: K): (obj: Record<K, T>) => boolean;
-export function propEq<K extends keyof U, U>(val: U[K], name: K, obj: U): boolean;
 
 /**
  * It returns either `defaultValue` or the value of `property` in `obj`.
