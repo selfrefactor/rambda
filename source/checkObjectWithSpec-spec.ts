@@ -1,4 +1,5 @@
 import { checkObjectWithSpec, equals } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.checkObjectWithSpec', () => {
   it('happy', () => {
@@ -13,6 +14,6 @@ describe('R.checkObjectWithSpec', () => {
       b: equals('bar'),
     }
     const result = checkObjectWithSpec(conditions)(input)
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })

@@ -1,11 +1,12 @@
 import { objOf, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const key = 'foo'
 const value = 42
 
 it('R.objOf', () => {
   const result = pipe(value, objOf(key))
-  result.foo // $ExpectType number
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
   // @ts-expect-error
   result.bar
 })

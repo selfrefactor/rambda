@@ -1,4 +1,5 @@
 import { pipe, sort } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const list = [3, 0, 5, 2, 1]
 
@@ -7,7 +8,7 @@ describe('R.sort', () => {
     const result = sort<number>((a, b) => {
       return a > b ? 1 : -1
     })(list)
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
   it('within pipe', () => {
     const result = pipe(
@@ -16,6 +17,6 @@ describe('R.sort', () => {
         return a > b ? 1 : -1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })

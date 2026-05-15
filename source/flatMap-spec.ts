@@ -1,4 +1,5 @@
 import { flatMap, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.flatMap', () => {
   it('happy', () => {
@@ -10,10 +11,10 @@ describe('R.flatMap', () => {
       listOfLists,
       x => x,
       flatMap(x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return Number(x) + 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 })

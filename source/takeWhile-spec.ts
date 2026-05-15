@@ -1,4 +1,5 @@
 import { pipe, takeWhile } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -8,5 +9,5 @@ it('R.takeWhile', () => {
     takeWhile(x => x > 1),
     takeWhile((x, i) => i + x > 1),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })

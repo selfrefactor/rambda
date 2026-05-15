@@ -1,4 +1,5 @@
 import { head, pipe, tap, when } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 function notNull<T>(a: T | null | undefined): a is T {
   return a != null
@@ -13,7 +14,7 @@ describe('R.when', () => {
         x => x,
       ),
       tap(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
       }),
       when(
         x => x > 2,
@@ -21,7 +22,7 @@ describe('R.when', () => {
       ),
     )
 
-    result // $ExpectType string | number
+    expectTypeOf(result).toEqualTypeOf<string | number>()
   })
 
 	it('with assertion of type', () => {
@@ -30,6 +31,6 @@ describe('R.when', () => {
       head,
       when(notNull, x => x + 1),
     )
-    result // $ExpectType number | null
+    expectTypeOf(result).toEqualTypeOf<number | null>()
   })
 })

@@ -1,4 +1,5 @@
 import { addPropToObjects, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.addPropToObjects', () => {
 		let result = pipe(
@@ -11,5 +12,5 @@ it('R.addPropToObjects', () => {
 				(x) => String(x.a + x.b),
 			)
 		)
-		result // $ExpectType { a: number; b: number; c: string; }[]
+		expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: string; }[]>()
 })

@@ -1,4 +1,5 @@
 import * as R from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('allPass', () => {
   it('happy', () => {
@@ -10,6 +11,6 @@ describe('allPass', () => {
 			(x) => x.length > 2,
 			(x) => x.includes(3)
 		])))
-    result // $ExpectType boolean[]
+    expectTypeOf(result).toEqualTypeOf<boolean[]>()
   })
 })

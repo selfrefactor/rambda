@@ -1,4 +1,5 @@
 import { none, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.none', () => {
   it('happy', () => {
@@ -6,6 +7,6 @@ describe('R.none', () => {
       [1, 2, 3],
       none(x => x > 0),
     )
-    result // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
   })
 })

@@ -1,4 +1,5 @@
 import { pipe, pluck } from 'rambda';
+import { expectTypeOf, it } from 'vitest'
 
 it("R.pluck", () => {
   const input = [
@@ -6,7 +7,7 @@ it("R.pluck", () => {
     { a: 2, b: "bar" },
   ];
   const result = pipe(input, pluck("b"));
-  result; // $ExpectType string[]
+  expectTypeOf(result).toEqualTypeOf<string[]>()
 });
 
 it("R.pluck without R.pipe", () => {
@@ -19,5 +20,5 @@ it("R.pluck without R.pipe", () => {
     },
   ];
   const sentences = pluck("text")(content);
-  sentences; // $ExpectType string[]
+  expectTypeOf(sentences).toEqualTypeOf<string[]>()
 });

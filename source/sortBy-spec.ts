@@ -1,4 +1,5 @@
 import { pipe, sortBy } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.sortBy', () => {
   it('passing type to sort function and list', () => {
@@ -9,6 +10,6 @@ describe('R.sortBy', () => {
       }),
     )
 
-    result[0].a // $ExpectType number
+    expectTypeOf(result[0].a).toEqualTypeOf<number>()
   })
 })

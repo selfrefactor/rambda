@@ -1,4 +1,5 @@
 import { mapAsync, pipeAsync, map } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const list = ['a', 'bc', 'def']
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -8,7 +9,7 @@ it('R.mapAsync', async () => {
     list,
     mapAsync(async x => {
       await delay(100)
-      x // $ExpectType string
+      expectTypeOf(x).toEqualTypeOf<string>()
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
@@ -18,5 +19,5 @@ it('R.mapAsync', async () => {
       return x + 1
     }),
   )
-  result // $ExpectType number[]
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })

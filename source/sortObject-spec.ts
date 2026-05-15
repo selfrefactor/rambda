@@ -1,4 +1,5 @@
 import { sortObject, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const obj = {
   c: 1,
@@ -11,26 +12,26 @@ describe('R.sortObject', () => {
     const result = pipe(
       obj,
       sortObject((propA, propB, valueA, valueB) => {
-        propA // $ExpectType string
-        propB // $ExpectType string
-        valueA // $ExpectType number
-        valueB // $ExpectType number
+        expectTypeOf(propA).toEqualTypeOf<string>()
+        expectTypeOf(propB).toEqualTypeOf<string>()
+        expectTypeOf(valueA).toEqualTypeOf<number>()
+        expectTypeOf(valueB).toEqualTypeOf<number>()
         return propA > propB ? -1 : 1
       }),
     )
 
-    result // $ExpectType { c: number; a: number; b: number; }
+    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
   })
 
   it('predicate with only property arguments', () => {
     const result = pipe(
       obj,
       sortObject((propA, propB) => {
-        propA // $ExpectType string
-        propB // $ExpectType string
+        expectTypeOf(propA).toEqualTypeOf<string>()
+        expectTypeOf(propB).toEqualTypeOf<string>()
         return propA > propB ? -1 : 1
       }),
     )
-    result // $ExpectType { c: number; a: number; b: number; }
+    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
   })
 })

@@ -1,8 +1,9 @@
 import { addProp, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.addProp', () => {
 	const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
-	result.a // $ExpectType number
-	result.b // $ExpectType string
-	result.c // $ExpectType number
+	expectTypeOf(result.a).toEqualTypeOf<number>()
+	expectTypeOf(result.b).toEqualTypeOf<string>()
+	expectTypeOf(result.c).toEqualTypeOf<number>()
 })

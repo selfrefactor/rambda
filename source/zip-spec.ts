@@ -1,4 +1,5 @@
 import { zip } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.zip', () => {
   it('happy', () => {
@@ -6,7 +7,7 @@ describe('R.zip', () => {
     const array2 = ['A', 'B', 'C']
     let a: Partial<any>
     const result = zip(array1)(array2)
-    result[0][0] // $ExpectType number
-    result[0][1] // $ExpectType string
+    expectTypeOf(result[0][0]).toEqualTypeOf<number>()
+    expectTypeOf(result[0][1]).toEqualTypeOf<string>()
   })
 })

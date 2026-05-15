@@ -1,4 +1,5 @@
 import { compact, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.compact', () => {
 		let result = pipe(
@@ -14,7 +15,7 @@ it('R.compact', () => {
 			})
 		)
 
-		result.a // $ExpectType string[]
-		result.b // $ExpectType number[]
-		result.c // $ExpectType { a: number; b: number; c: number; f: boolean; }
+		expectTypeOf(result.a).toEqualTypeOf<string[]>()
+		expectTypeOf(result.b).toEqualTypeOf<number[]>()
+		expectTypeOf(result.c).toEqualTypeOf<{ a: number; b: number; c: number; f: boolean; }>()
 })

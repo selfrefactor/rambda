@@ -1,4 +1,5 @@
 import { map, pipe, tryCatch } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.tryCatch', () => {
   it('happy', () => {
@@ -11,6 +12,6 @@ describe('R.tryCatch', () => {
       ),
     )
 
-    result // $ExpectType (string | null)[]
+    expectTypeOf(result).toEqualTypeOf<(string | null)[]>()
   })
 })

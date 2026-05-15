@@ -1,4 +1,5 @@
 import { maxBy, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 const first = 1
 const second = 2
@@ -8,5 +9,5 @@ it('R.maxBy', () => {
     second,
     maxBy(x => (x % 2 === 0 ? 1 : -1), first),
   )
-  result // $ExpectType number
+  expectTypeOf(result).toEqualTypeOf<number>()
 })

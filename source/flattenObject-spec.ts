@@ -1,9 +1,10 @@
 import { flattenObject, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.flattenObject', () => {
   const result = pipe({ a: { b: 1, c: 2 } }, flattenObject)
-  result['a.b'] // $ExpectType number
-  result['a.c'] // $ExpectType number
+  expectTypeOf(result['a.b']).toEqualTypeOf<number>()
+  expectTypeOf(result['a.c']).toEqualTypeOf<number>()
   // @ts-expect-error
   result['a.foo']
 })

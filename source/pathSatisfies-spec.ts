@@ -1,4 +1,5 @@
 import { pathSatisfies, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input = { a: { b: { c: 'bar' } } }
 
@@ -8,7 +9,7 @@ describe('R.pathSatisfies', () => {
       input,
       pathSatisfies(
         x => {
-          x // $ExpectType string
+          expectTypeOf(x).toEqualTypeOf<string>()
           return x !== 'foo'
         },
         ['a', 'b', 'c'],
@@ -17,11 +18,11 @@ describe('R.pathSatisfies', () => {
     const resultStringInput = pipe(
       input,
       pathSatisfies(x => {
-        x // $ExpectType string
+        expectTypeOf(x).toEqualTypeOf<string>()
         return x !== 'foo'
       }, 'a.b.c'),
     )
-    result // $ExpectType boolean
-    resultStringInput // $ExpectType boolean
+    expectTypeOf(result).toEqualTypeOf<boolean>()
+    expectTypeOf(resultStringInput).toEqualTypeOf<boolean>()
   })
 })

@@ -1,4 +1,5 @@
 import { filter, includes, pipe, reject, sort, split, uniq } from 'rambda'
+import { describe, expectTypeOf, it, test } from 'vitest'
 
 const list = [1, 2, 3]
 
@@ -7,23 +8,23 @@ describe('R.filter with array', () => {
     const result = pipe(
       list,
       filter(x => {
-        x // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 
   it('with index', () => {
     const result = pipe(
       list,
       filter((x: number, i: number) => {
-        x // $ExpectType number
-        i // $ExpectType number
+        expectTypeOf(x).toEqualTypeOf<number>()
+        expectTypeOf(i).toEqualTypeOf<number>()
         return x > 1
       }),
     )
-    result // $ExpectType number[]
+    expectTypeOf(result).toEqualTypeOf<number[]>()
   })
 
   it('complex example', () => {
@@ -48,7 +49,7 @@ describe('R.filter with array', () => {
       reject(includes(SENTENCE_END_CHARS)),
     )
 
-    result // $ExpectType string[]
+    expectTypeOf(result).toEqualTypeOf<string[]>()
   })
   it('narrowing type', () => {
     interface Foo {
@@ -63,7 +64,7 @@ describe('R.filter with array', () => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    expectTypeOf(result).toEqualTypeOf<Bar[]>()
   })
 
   it('narrowing type - readonly', () => {
@@ -79,13 +80,13 @@ describe('R.filter with array', () => {
       return typeof (x as Bar).b === 'string'
     }
     const result = pipe(testList, filter(filterBar))
-    result // $ExpectType Bar[]
+    expectTypeOf(result).toEqualTypeOf<Bar[]>()
   })
 
   it('filtering NonNullable - list of objects', () => {
     const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
     const result = pipe(testList, filter(Boolean))
-    result // $ExpectType { a: number; }[]
+    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
   })
 
   it('filtering NonNullable - readonly', () => {

@@ -1,4 +1,5 @@
 import { groupBy, pipe } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('R.groupBy', () => {
   it('happy', () => {
@@ -6,6 +7,6 @@ describe('R.groupBy', () => {
     const list = ['foo', 'bar']
 
     const result = pipe(list, groupBy(groupByFn))
-    result // $ExpectType Partial<Record<string, string[]>>
+    expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
   })
 })

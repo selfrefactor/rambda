@@ -1,4 +1,5 @@
 import {  evolve, pipe } from 'rambda'
+import { expectTypeOf, it } from 'vitest'
 
 it('R.evolve', () => {
   const input = {
@@ -14,7 +15,7 @@ it('R.evolve', () => {
 			foo: x => x + 1,
 		})
 	)
-  result.foo // $ExpectType number
-  result.baz // $ExpectType number
-  result.nested.a // $ExpectType number
+  expectTypeOf(result.foo).toEqualTypeOf<number>()
+  expectTypeOf(result.baz).toEqualTypeOf<number>()
+  expectTypeOf(result.nested.a).toEqualTypeOf<number>()
 })

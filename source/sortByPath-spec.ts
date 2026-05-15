@@ -1,15 +1,16 @@
 import { pipe, sortByPath } from 'rambda'
+import { describe, expectTypeOf, it } from 'vitest'
 
 const input= [{ a: { b: 2 } }, { a: { b: 1 } }]
 
 describe('R.sortByPath', () => {
   it('with string as path', () => {
     const result = pipe(input, sortByPath('a.b'))
-		result[0].a.b // $ExpectType number
+		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
   })
   it('with list of strings as path', () => {
     const result = pipe(input, sortByPath(['a', 'b']))
-		result[0].a.b // $ExpectType number
+		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
   })
 	it('with non-existent path', () => {
 		// @ts-expect-error
