@@ -1,8 +1,12 @@
 11.2.0
 
+- Fix wrong typing for `R.equal`, `R.prop`, `R.propEq`, `R.prepend` - [Issue #803](https://github.com/selfrefactor/rambda/issues/803)
+
+- Add R.splitEveryStrict
+
 - Add R.mergeDeep
 
-- Add R.splitByStrict
+- Change `R.range` when start and end are the same to return array with one element instead of empty array.
 
 11.1.1
 
