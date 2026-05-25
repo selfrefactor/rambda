@@ -4836,13 +4836,17 @@ export function flattenObject<T extends object>(obj: T): FlattenObject<T>;
 /*
 Method: shuffle
 
-Explanation: It returns a randomized copy of array.
+Explanation: It returns a randomized copy of array. 
 
 Example:
 
 ```
-const result = R.shuffle(
-	[1, 2, 3]
+const data = Array.from({ length: 100 }, (_, i) => i + 1)
+const result = await pipe(
+	data,
+	shuffle<number>, // NEEDS EXPLICIT TYPE ANNOTATION
+	splitEvery(10),
+	flatMap(String),
 )
 // => [3, 1, 2] or [2, 3, 1] or ...
 ```
