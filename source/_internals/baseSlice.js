@@ -1,18 +1,16 @@
 export function baseSlice(array, start, end) {
   let index = -1
-  let { length } = array
-
-  end = end > length ? length : end
-  if (end < 0) {
-    end += length
+  const len = array.length
+  let endIdx = end > len ? len : end
+  if (endIdx < 0) {
+    endIdx += len
   }
-  length = start > end ? 0 : (end - start) >>> 0
-  start >>>= 0
+  const newLen = start > endIdx ? 0 : (endIdx - start) >>> 0
+  const result = Array(newLen)
+  let startIdx = start >>> 0
 
-  const result = Array(length)
-
-  while (++index < length) {
-    result[index] = array[index + start]
+  while (++index < newLen) {
+    result[index] = array[index + startIdx]
   }
 
   return result
