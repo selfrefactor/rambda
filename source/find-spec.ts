@@ -9,4 +9,14 @@ describe('R.find', () => {
     const result = pipe(list, find(predicate))
     expectTypeOf(result).toEqualTypeOf<number | undefined>()
   })
+
+	 it('has type guard narrowing', () => {
+    const items = ['hello', 'world', 42] as (string | number)[]
+
+    const result = pipe(
+      items,
+      find((x): x is string => typeof x === 'string'),
+    )
+    expectTypeOf(result).toEqualTypeOf<string | undefined>()
+  })
 })

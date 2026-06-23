@@ -555,8 +555,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function find<T, S extends T>(predicate: (x: T) => x is S): (list: T[]) => S | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
-
+// declare function find<T, S extends T>(data: readonly T[], predicate: (value: T, index: number, data: readonly T[]) => value is S): S | undefined;
+// declare function find<T>(data: readonly T[], predicate: (value: T, index: number, data: readonly T[]) => boolean): T | undefined;
 /*
 Method: exists
 
