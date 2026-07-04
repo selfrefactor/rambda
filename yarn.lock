@@ -1333,7 +1333,7 @@ universalify@^2.0.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitest@^4.1.9:
+vitest@4.1.9:
   version "4.1.9"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.1.9.tgz#98f22fbd70e2a18c4a92bb20624bc92e5dfac5f3"
   integrity sha512-nE3/LEyc0z87uHYLZebqCUOaJr2hdtuPp7BQ4BosVFnfltxgAvMG08NyrSGlPpOUWvR27c5flSmYFTNr78L9GQ==
