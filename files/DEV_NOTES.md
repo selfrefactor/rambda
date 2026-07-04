@@ -1,3 +1,15 @@
+your task is big so 1. build a plan with todo in refactor.md 2. each "next" from dev will perform 10% of the task. 3. task is to move tests from foo.spec.js to foo-spec.ts 3.1 include test testing if foo-spec.ts exists 4. verify that it works with running node node_modules/vitest/
+dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts
+
+Goal: migrate runtime source/*.spec.js tests and source/*-spec.ts to source/*.spec.ts form
+1. Write refactor.md at repo root listing every method that has either *.spec.js or *-spec.ts file(or both), grouped into 10 batches of ~10% each, in dependency order.
+2. Each dev next completes one batch: create foo.spec.js using foo-spec.ts(if exists) and foo.spec.js(if exists)
+2.1 Extend TS tests to assert also final result(which is missing in -spec.ts files)
+2.2 If there is error on TS types after moving *.spec.js file, use `any` to make TS happy
+2.3 don't delete the old files.
+3. While running the batch, work file by file because you need to verify new file is correct with "node node_modules/vitest/
+dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts" and "bun lint:typings"
+===
 https://github.com/radashi-org/radashi/pull/425/changes
 
 

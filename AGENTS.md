@@ -41,13 +41,6 @@
 - File naming: `.ts` files must be `kebab-case`, `.tsx` must be `CAMEL_CASE`.
 - Semicolons are disabled (Prettier). Single quotes preferred.
 
-## Type definition workflow
-
-1. Edit `files/index.d.ts`.
-2. Add type test in `source/*-spec.ts`.
-3. Verify with `yarn test:typings`.
-4. Use `// @ts-expect-error` for tests expected to fail.
-
 ## Build note
 
 `yarn out` requires `rambda-scripts` cloned as a sibling directory (`../rambda-scripts`). Without it, `populatedocs`, `populatereadme`, and `create-docsify` will fail.
