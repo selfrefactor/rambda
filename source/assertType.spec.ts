@@ -1,5 +1,5 @@
-import { assertType } from './assertType.js'
-import { pipe } from './pipe.js'
+import { assertType } from './assertType'
+import { pipe } from './pipe'
 
 type Book = {
   title: string

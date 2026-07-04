@@ -1,7 +1,7 @@
-import { ascend } from './ascend.js'
-import { descend } from './descend.js'
-import { sort } from './sort.js'
-import { pipe } from './pipe.js'
+import { ascend } from './ascend'
+import { descend } from './descend'
+import { sort } from './sort'
+import { pipe } from './pipe'
 
 test('ascend', () => {
   const result = sort(

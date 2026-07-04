@@ -1,4 +1,4 @@
-import { combinations } from './combinations.js'
+import { combinations } from './combinations'
 
 test('happy', () => {
   const result = combinations(2)([1, 2, 3])

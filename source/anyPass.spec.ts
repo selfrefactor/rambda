@@ -1,5 +1,5 @@
-import { anyPass } from './anyPass.js'
-import { filter } from './filter.js'
+import { anyPass } from './anyPass'
+import { filter } from './filter'
 
 test('happy', () => {
   const rules = [(x: any) => typeof x === 'string', (x: any) => x > 10]

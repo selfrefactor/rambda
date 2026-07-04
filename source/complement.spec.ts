@@ -1,4 +1,4 @@
-import { complement } from './complement.js'
+import { complement } from './complement'
 
 test('happy', () => {
   const fn = complement((x: string) => x.length === 0)

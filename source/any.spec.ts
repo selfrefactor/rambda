@@ -1,5 +1,5 @@
-import { any } from './any.js'
-import { pipe } from './pipe.js'
+import { any } from './any'
+import { pipe } from './pipe'
 
 const list = [1, 2, 3]
 

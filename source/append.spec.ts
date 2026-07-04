@@ -1,6 +1,6 @@
-import { append } from './append.js'
-import { prepend } from './prepend.js'
-import { pipe } from './pipe.js'
+import { append } from './append'
+import { prepend } from './prepend'
+import { pipe } from './pipe'
 
 const listOfNumbers = [1, 2, 3]
 

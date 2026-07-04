@@ -1,0 +1,21 @@
+import { intersperse } from './intersperse'
+
+test('intersperse', () => {
+  const list = [{ id: 1 }, { id: 2 }, { id: 10 }, { id: 'a' }]
+  expect(intersperse('!')(list)).toEqual([
+    { id: 1 },
+    '!',
+    { id: 2 },
+    '!',
+    { id: 10 },
+    '!',
+    { id: 'a' },
+  ])
+  expect(intersperse('!')([])).toEqual([])
+})
+
+test('type test', () => {
+  const result = intersperse('|')(['foo', 'bar'])
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['foo', '|', 'bar'])
+})

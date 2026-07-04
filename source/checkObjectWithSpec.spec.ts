@@ -1,5 +1,5 @@
-import { checkObjectWithSpec } from './checkObjectWithSpec.js'
-import { equals } from './equals.js'
+import { checkObjectWithSpec } from './checkObjectWithSpec'
+import { equals } from './equals'
 
 test('when true', () => {
   const result = checkObjectWithSpec({

@@ -1,6 +1,6 @@
-import { allPass } from './allPass.js'
-import { filter } from './filter.js'
-import { pipe } from './pipe.js'
+import { allPass } from './allPass'
+import { filter } from './filter'
+import { pipe } from './pipe'
 
 const list = [
   [1, 2, 3, 4],
