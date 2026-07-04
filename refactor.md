@@ -4,12 +4,13 @@
 
 Goal: migrate runtime source/*.spec.js tests and source/*-spec.ts to source/*.spec.ts form
 1. Write refactor.md at repo root listing every method that has either *.spec.js or *-spec.ts file(or both), grouped into 10 batches of ~10% each, in dependency order.
-2. Each dev next completes one batch: create foo.spec.js using foo-spec.ts(if exists) and foo.spec.js(if exists)
+2. Each dev next completes one batch: create foo.spec.ts using foo-spec.ts(if exists) and foo.spec.js(if exists)
 2.1 Extend TS tests to assert also final result(which is missing in -spec.ts files)
-2.2 If there is error on TS types after moving *.spec.js file, use `any` to make TS happy
-2.3 don't delete the old files.
+2.2 Keep relative imports: `import { foo } from './foo'`, `import { pipe } from './pipe'` — do NOT import from 'rambda' (that resolves to the build dir, bad for dev)
+2.3 For every method imported via a relative specifier, create `source/<name>.d.ts` containing `export { <name> } from '../files/index'` so TS resolves types from the type-of-record while vitest still loads the `.js` at runtime
+2.4 don't delete the old files.
 3. While running the batch, work file by file because you need to verify new file is correct with "node node_modules/vitest/
-dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts" and "bun lint:typings"
+dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts" and "yarn lint:typings"
 
 ## Current state
 
@@ -26,22 +27,24 @@ Create `source/foo.spec.ts` that combines:
 1. **Runtime tests** from `source/foo.spec.js` — `test(...)` / `expect(...)` calls
 2. **Type tests** from `source/foo-spec.ts` — `expectTypeOf(...)` calls
 3. **Extend** type tests to assert the **final runtime result value** (current `-spec.ts` files only check types, not values)
-4. If TypeScript complains about types from the JS runtime test code, use `any` to suppress
-5. **Do NOT delete** old `*.spec.js` or `*-spec.ts` files
+4. Use **relative imports** (`from './foo'`), not `from 'rambda'`
+5. For each relative import, ensure a `source/<name>.d.ts` exists re-exporting from `../files/index` — create it if missing
+6. **Do NOT delete** old `*.spec.js` or `*-spec.ts` files
+7. If TypeScript complains about types from the JS runtime test code, use `any` to make it happy
 
 
 ## Verification per file
 
 ```bash
-node node_modules/vitest/dist/cli.js source/foo.spec.ts
-bun lint:typings
+node node_modules/vitest/dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts
+yarn lint:typings
 ```
 
 ## EXAMPLE TARGET
 
 ```
-import { addProp, pipe } from 'rambda'
-import { test, expect, expectTypeOf } from 'vitest';
+import { addProp } from './addProp'
+import { pipe } from './pipe'
 
 test('happy', () => {
   const result = addProp('a', 1)({ b: 2 })
@@ -59,7 +62,21 @@ test('type test', () => {
 })
 ```
 
-PLEASE NOTE THAT IMPORT ARE IN PLACE AND METHODS ARE IMPORTED `from 'rambda'`
+PLEASE NOTE: imports are relative (`from './addProp'`), NOT `from 'rambda'`. `test`/`expect`/`expectTypeOf` are globals (provided by `source/vitest-globals.d.ts`) — no `from 'vitest'` import needed.
+
+## Per-method .d.ts (REQUIRED for relative imports)
+
+`source/tsconfig.json` has `allowJs: false`, so `import { foo } from './foo'` resolves to `foo.js` which has no types → TS infers `any` → `expectTypeOf<any>().toEqualTypeOf<X>()` fails with `Type 'X' does not satisfy the constraint 'never'` (expect-type's anti-vacuous-assertion guard).
+
+Fix: create `source/foo.d.ts` containing:
+
+```ts
+export { foo } from '../files/index'
+```
+
+TS resolves `./foo` → `foo.d.ts` (types from the barrel of record in `files/index.d.ts`), while vitest/vite still loads `foo.js` at runtime. No `allowJs`, no build-dir resolution, relative imports preserved.
+
+If a spec imports multiple methods (e.g. `./pipe`), create a `.d.ts` for each that doesn't already exist. Check `source/` for an existing `.d.ts` before creating.
 
 ---
 

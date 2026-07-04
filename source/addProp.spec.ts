@@ -1,6 +1,5 @@
 import { addProp } from './addProp'
 import { pipe } from './pipe'
-import { test, expect, expectTypeOf } from 'vitest';
 
 test('happy', () => {
   const result = addProp('a', 1)({ b: 2 })
