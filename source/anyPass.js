@@ -7,7 +7,6 @@ export function anyPass(predicates) {
       }
       counter++
     }
-
     return false
   }
 }

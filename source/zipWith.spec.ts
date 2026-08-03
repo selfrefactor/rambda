@@ -1,7 +1,7 @@
 import { pipe } from './pipe'
 import { zipWith } from './zipWith'
 
-const add = (x, y) => x + y
+const add = (x: number, y: number) => x + y
 const list1 = [1, 2, 3]
 const list2 = [10, 20, 30, 40]
 const list3 = [100, 200]

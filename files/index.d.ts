@@ -1322,7 +1322,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp): (str: string) => string[];
+export function match(regExpression: RegExp | string): (str: string) => string[];
 
 /*
 Method: maxBy
@@ -3328,6 +3328,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function tryCatch<T>(
+  fn: () => T,
+  fallback: T
+): () => T;
 export function tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
@@ -4643,6 +4647,10 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+	batchSize?: number,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>;
@@ -4934,6 +4942,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+export function assertType<T>(fn: (x: T) => boolean): (x: T) => T;
 
 /*
 Method: interpolate

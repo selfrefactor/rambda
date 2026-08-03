@@ -17,7 +17,7 @@ test('predicate is always false', () => {
 })
 
 test('type test', () => {
-  const result = takeLastWhile(x => x > 2)([1, 2, 3, 4])
+  const result = takeLastWhile((x: number) => x > 2)([1, 2, 3, 4])
   expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([3, 4])
 })

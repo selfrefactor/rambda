@@ -30,14 +30,14 @@ test('can compare objects', () => {
 
 test('options are mixture of functions and values - input match function', () => {
   const fn = switcher('foo').is('bar', 1)
-    .is('foo', x => x + 1)
+    .is('foo', (x: number) => x + 1)
     .default(1000)
   expect(fn(2)).toBe(3)
 })
 
 test('options are mixture of functions and values - input match value', () => {
   const result = switcher('bar').is('bar', 1)
-    .is('foo', x => x + 1)
+    .is('foo', (x: number) => x + 1)
     .default(1000)
   expect(result).toBe(1)
 })
@@ -45,7 +45,7 @@ test('options are mixture of functions and values - input match value', () => {
 test('return function if all options are functions', () => {
   const fn = switcher('foo')
     .is('bar', tap)
-    .is('foo', x => x + 1)
+    .is('foo', (x: number) => x + 1)
     .default(9)
   expect(fn(2)).toBe(3)
 })

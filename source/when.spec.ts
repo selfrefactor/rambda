@@ -3,10 +3,13 @@ import { pipe } from './pipe'
 import { tap } from './tap'
 import { when } from './when'
 
-const predicate = x => typeof x === 'number'
+const predicate = (x: number | string): x is number => typeof x === 'number'
 
 test('happy', () => {
-  const fn = when(predicate, x => x + 1)
+  const fn = when(
+    predicate,
+    (x: number | string) => (typeof x === 'number' ? x + 1 : x),
+  )
   expect(fn(11)).toBe(12)
   expect(fn('foo')).toBe('foo')
 })

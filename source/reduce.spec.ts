@@ -18,11 +18,11 @@ test('with undefined as iterable', () => {
 })
 
 test('returns the accumulator for a null list', () => {
-  expect(reduce(concat, [])(null)).toEqual([])
+  expect(reduce(concat as any, [])(null as any)).toEqual([])
 })
 
 test('returns the accumulator for an undefined list', () => {
-  expect(reduce(concat, [])(undefined)).toEqual([])
+  expect(reduce(concat as any, [])(undefined as any)).toEqual([])
 })
 
 test('type test', () => {

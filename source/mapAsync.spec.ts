@@ -17,7 +17,7 @@ test('happy', async () => {
     indexes.push(prop)
     return x + 1
   }
-  const result = await mapAsync(fn)([1, 2, 3])
+  const result = await mapAsync<number[], number>(fn)([1, 2, 3])
   expect(result).toEqual([2, 3, 4])
   expect(indexes).toEqual([0, 1, 2])
 })
@@ -39,7 +39,7 @@ test('with R.pipeAsync', async () => {
 
 test('error', async () => {
   try {
-    await mapAsync(rejectDelay)([1, 2, 3])
+    await mapAsync<number[], unknown>(rejectDelay)([1, 2, 3])
   } catch (err) {
     expect(err).toBe(21)
   }

@@ -10,7 +10,7 @@ test('when true', () => {
 test('when false', () => {
   const condition = { a: 1 }
   const input = { b: 2 }
-  expect(objectIncludes(condition)(input)).toBeFalsy()
+  expect(objectIncludes(condition as Record<string, number>)(input)).toBeFalsy()
 })
 
 test('with nested object', () => {
@@ -21,7 +21,7 @@ test('with nested object', () => {
 
 test('with wrong input', () => {
   const condition = { a: { b: 1 } }
-  expect(() => objectIncludes(condition)(null)).toThrow()
+  expect(() => objectIncludes(condition)(null as any)).toThrow()
 })
 
 test('type test', () => {

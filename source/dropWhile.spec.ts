@@ -13,7 +13,7 @@ test('happy', () => {
 })
 
 test('always false', () => {
-  const predicate = () => 0
+  const predicate = () => false
   const result = dropWhile(predicate)(list)
   expect(result).toEqual(list)
 })

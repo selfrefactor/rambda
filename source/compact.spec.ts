@@ -26,7 +26,7 @@ test('type test', () => {
       b: [1,2, null, 0, undefined, 3],
       c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
     },
-    (x: { a: (string | undefined | null)[]; b: (number | null | undefined)[]; c: Record<string, any> }) => ({
+    (x: { a: (string | undefined | null)[]; b: (number | null | undefined)[]; c: { a: number; b: number; c: number; d: undefined; e: null; f: boolean } }) => ({
       a: compact(x.a),
       b: compact(x.b),
       c: compact(x.c),

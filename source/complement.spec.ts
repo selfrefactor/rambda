@@ -2,7 +2,7 @@ import { complement } from './complement'
 
 test('happy', () => {
   const fn = complement((x: string) => x.length === 0)
-  expect(fn([1, 2, 3])).toBeTruthy()
+  expect(fn([1, 2, 3] as any)).toBeTruthy()
 })
 
 test('with multiple parameters', () => {

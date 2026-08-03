@@ -4,7 +4,7 @@ import { pipe } from './pipe'
 const double = (x: number) => x * 2
 
 test('happy', () => {
-  expect(mapChain(double, double, double)([1, 2, 3])).toEqual([8, 16, 24])
+  expect(mapChain<number[], number, number, number>(double, double, double)([1, 2, 3])).toEqual([8, 16, 24])
 })
 
 test('type test', () => {

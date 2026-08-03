@@ -2,9 +2,9 @@ import { propOr } from './propOr'
 
 test('propOr', () => {
   const obj = { a: 1 }
-  expect(propOr('a', 'default')(obj)).toBe(1)
-  expect(propOr('notExist', 'default')(obj)).toBe('default')
-  expect(propOr('notExist', 'default')(null)).toBe('default')
+  expect(propOr('a', 'default')(obj as any)).toBe(1)
+  expect(propOr('notExist', 'default')(obj as any)).toBe('default')
+  expect(propOr('notExist', 'default')(null as any)).toBe('default')
 })
 
 test('type test', () => {

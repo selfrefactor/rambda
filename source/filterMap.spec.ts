@@ -4,7 +4,7 @@ import { pipe } from './pipe'
 const double = (x: number) => x > 1 ? x * 2 : null
 
 test('happy', () => {
-  expect(filterMap(double)([1, 2, 3])).toEqual([4, 6])
+  expect(filterMap<number[], number | null>(double)([1, 2, 3])).toEqual([4, 6])
 })
 
 test('within pipe', () => {

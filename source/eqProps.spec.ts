@@ -21,7 +21,7 @@ test('props are not equal', () => {
 })
 
 test('prop does not exist', () => {
-  const result = eqProps('c', obj1)(obj2)
+  const result = eqProps('c' as 'a' | 'b', obj1)(obj2)
   expect(result).toBeTruthy()
 })
 

@@ -1,8 +1,10 @@
+// ramda ships without bundled types
+// @ts-expect-error
 import { type as typeRamda } from 'ramda'
-import { type } from './type'
+import { type, RambdaTypes } from './type'
 
 test('with buffer', () => {
-  expect(type(new Buffer.from('foo'))).toBe('Uint8Array')
+  expect(type(Buffer.from('foo'))).toBe('Uint8Array')
 })
 
 test('with array buffer', () => {
@@ -73,7 +75,7 @@ test('with error - wrong @types/ramda test', () => {
 })
 
 test('with new promise', () => {
-  const delay = ms =>
+  const delay = (ms: number) =>
     new Promise(resolve => {
       setTimeout(() => {
         resolve(ms + 110)

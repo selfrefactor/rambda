@@ -17,15 +17,17 @@ const albums = [
   { artist: 'John Eliot Gardiner', genre: 'Classical', score: 4, title: 'The Magic Flute' },
 ]
 
+type Album = (typeof albums)[number]
+
 test('sorts by a simple property', () => {
-  const sortedAlbums = sortWith([ascend(prop('title'))])(albums)
+  const sortedAlbums = sortWith([ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('A Farewell to Kings')
   expect(sortedAlbums[11].title).toBe('Timeout')
 })
 
 test('sorts by multiple properties', () => {
-  const sortedAlbums = sortWith([ascend(prop('score')), ascend(prop('title'))])(albums)
+  const sortedAlbums = sortWith([ascend((x: Album) => x.score), ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Five Leaves Left')
   expect(sortedAlbums[1].title).toBe('In Times of Desparation')
@@ -33,7 +35,7 @@ test('sorts by multiple properties', () => {
 })
 
 test('sorts by 3 properties', () => {
-  const sortedAlbums = sortWith([ascend(prop('genre')), ascend(prop('score')), ascend(prop('title'))])(albums)
+  const sortedAlbums = sortWith([ascend((x: Album) => x.genre), ascend((x: Album) => x.score), ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Art of the Fugue')
   expect(sortedAlbums[1].title).toBe('Goldberg Variations')
@@ -41,7 +43,7 @@ test('sorts by 3 properties', () => {
 })
 
 test('type test', () => {
-  const result = sortWith([ascend(prop('title'))])(albums)
+  const result = sortWith([ascend((x: Album) => x.title)])(albums)
   expect(result).toHaveLength(albums.length)
   expect(result[0].title).toBe('A Farewell to Kings')
 })

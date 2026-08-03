@@ -7,7 +7,7 @@ test('with string as condition', () => {
 })
 
 test('with array as condition', () => {
-  expect(omit(['a', 'c', 'd'])({ a: 'foo', b: 'bar', c: 'baz' })).toEqual({ b: 'bar' })
+  expect(omit(['a', 'c', 'd'])({ a: 'foo', b: 'bar', c: 'baz' } as any)).toEqual({ b: 'bar' })
 })
 
 test('type test', () => {

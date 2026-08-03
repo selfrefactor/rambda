@@ -23,7 +23,7 @@ test('with NaN', () => {
 })
 
 test('with wrong input that does not throw', () => {
-  expect(includes([1])(/foo/g)).toBeFalsy()
+  expect(includes([1])(/foo/g as never)).toBeFalsy()
 })
 
 test('type test', () => {

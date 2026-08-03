@@ -8,11 +8,11 @@ test('props to pick is a string', () => {
 
 test('when prop is missing', () => {
   const obj = { a: 1, b: 2, c: 3 }
-  expect(pick('a,d,f')(obj)).toEqual({ a: 1 })
+  expect(pick('a,d,f')(obj as any)).toEqual({ a: 1 })
 })
 
 test('props to pick is an array', () => {
-  expect(pick(['a', 'c'])({ a: 'foo', b: 'bar' })).toEqual({ a: 'foo' })
+  expect(pick(['a', 'c'])({ a: 'foo', b: 'bar' } as any)).toEqual({ a: 'foo' })
 })
 
 test('type test', () => {

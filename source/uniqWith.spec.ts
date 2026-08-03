@@ -4,13 +4,13 @@ import { pipe } from './pipe'
 const list = [{ a: 1 }, { a: 1 }]
 
 test('happy', () => {
-  const fn = (x, y) => x.a === y.a
+  const fn = (x: { a: number }, y: { a: number }) => x.a === y.a
   const result = uniqWith(fn)(list)
   expect(result).toEqual([{ a: 1 }])
 })
 
 test('with list of strings', () => {
-  const fn = (x, y) => x.length === y.length
+  const fn = (x: string, y: string) => x.length === y.length
   const list = ['0', '11', '222', '33', '4', '55']
   const result = uniqWith(fn)(list)
   expect(result).toEqual(['0', '11', '222'])
@@ -28,7 +28,8 @@ test('should return items that are not equal to themselves', () => {
     { reason: 'No name' },
     { reason: 'No name' },
   ]
-  const result = uniqWith((errorA, errorB) => {
+  const result = uniqWith(
+    (errorA: { id?: number; reason: string }, errorB: { id?: number; reason: string }) => {
     if (errorA.id === undefined || errorB.id === undefined) {
       return false
     }

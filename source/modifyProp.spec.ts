@@ -4,15 +4,15 @@ import { pipe } from './pipe'
 const person = { name: 'foo', age: 20 }
 
 test('happy', () => {
-  expect(modifyProp('age', (x: number) => x + 1)(person)).toEqual({ name: 'foo', age: 21 })
+  expect(modifyProp<typeof person, 'age'>('age', (x: number) => x + 1)(person)).toEqual({ name: 'foo', age: 21 })
 })
 
 test('property is missing', () => {
-  expect(modifyProp('foo', (x: number) => x + 1)(person)).toEqual(person)
+  expect(modifyProp<typeof person, 'age'>('foo' as 'age', (x: number) => x + 1)(person)).toEqual(person)
 })
 
 test('adjust if `array` at the given key', () => {
-  expect(modifyProp(1, (x: number) => x + 1)([100, 1400])).toEqual([100, 1401])
+  expect(modifyProp<number[], 1>(1, (x: number) => x + 1)([100, 1400])).toEqual([100, 1401])
 })
 
 test('type test', () => {

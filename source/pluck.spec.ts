@@ -2,11 +2,11 @@ import { pluck } from './pluck'
 import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(pluck('a')([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([1, 2])
+  expect(pluck('a')([{ a: 1 }, { a: 2 }, { b: 1 }] as Array<Record<string, number>>)).toEqual([1, 2])
 })
 
 test('with undefined', () => {
-  expect(pluck(undefined)([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([])
+  expect(pluck(undefined as never)([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([])
 })
 
 test('type test', () => {

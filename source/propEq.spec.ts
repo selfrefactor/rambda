@@ -7,13 +7,13 @@ const BAR = 'bar'
 test('happy', () => {
   const obj = { [FOO]: BAR }
   expect(propEq(BAR, FOO)(obj)).toBeTruthy()
-  expect(propEq(1, FOO)(obj)).toBeFalsy()
-  expect(propEq(1, 1)(null)).toBeFalsy()
+  expect(propEq(1, FOO)(obj as any)).toBeFalsy()
+  expect(propEq(1, 1)(null as any)).toBeFalsy()
 })
 
 test('returns false if called with a null or undefined object', () => {
-  expect(propEq('name', 'Abby')(null)).toBeFalsy()
-  expect(propEq('name', 'Abby')(undefined)).toBeFalsy()
+  expect(propEq('name', 'Abby')(null as any)).toBeFalsy()
+  expect(propEq('name', 'Abby')(undefined as any)).toBeFalsy()
 })
 
 test('type test', () => {

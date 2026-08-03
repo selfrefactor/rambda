@@ -2,8 +2,8 @@ import { maxBy } from './maxBy'
 import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(maxBy(Math.abs, 2)(-5)).toBe(-5)
-  expect(maxBy(Math.abs, -5)(2)).toBe(-5)
+  expect(maxBy<number>(Math.abs, 2)(-5)).toBe(-5)
+  expect(maxBy<number>(Math.abs, -5)(2)).toBe(-5)
 })
 
 test('type test', () => {

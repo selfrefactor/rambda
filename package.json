@@ -9,7 +9,8 @@
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-    "lint": "cd source && run lint:folder > lint-output.txt",
+    "format": "oxfmt --write 'source/**/*.{ts,js}'",
+    "lint:file": "oxfmt --write",
     "lint:typings": "tsc",
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
@@ -21,7 +22,17 @@
     "ts": "yarn test:typings"
   },
   "niketaScripts": {
-    "**/*.js": "yarn test:file"
+    "scripts": {
+      "Testing": {
+        "**/*.ts": "yarn test:file",
+        "**/*.tsx": "yarn test:file"
+      },
+      "Linting": {
+        "**/*.ts": "yarn lint:file",
+        "**/*.js": "yarn lint:file"
+      }
+    },
+    "active": "Testing"
   },
   "type": "module",
   "exports": {
@@ -41,6 +52,7 @@
     "@vitest/coverage-v8": "5.0.0-beta.5",
     "helpers-fn": "2.1.1",
     "lodash": "4.18.1",
+    "oxfmt": "0.62.0",
     "radashi": "13.0.0-beta.ffa4778",
     "rambdax": "11.3.1",
     "ramda": "0.32.0",

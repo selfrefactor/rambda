@@ -2,11 +2,11 @@ import { propSatisfies } from './propSatisfies'
 import { pipe } from './pipe'
 
 test('when true', () => {
-  expect(propSatisfies(x => x > 0, 'a')({ a: 1 })).toBeTruthy()
+  expect(propSatisfies((x: number) => x > 0, 'a')({ a: 1 })).toBeTruthy()
 })
 
 test('when false', () => {
-  expect(propSatisfies(x => x < 0, 'a')({ a: 1 })).toBeFalsy()
+  expect(propSatisfies((x: number) => x < 0, 'a')({ a: 1 })).toBeFalsy()
 })
 
 test('type test', () => {

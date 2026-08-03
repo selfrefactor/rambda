@@ -12,7 +12,7 @@ test('happy', () => {
 })
 
 test('when fallback is used', () => {
-  const fn = x => x.x
+  const fn = (x: any) => x.x
   expect(tryCatch(fn, false)(null)).toBeFalsy()
 })
 
@@ -25,15 +25,15 @@ test('with json parse', () => {
 
 test('when fn is used', () => {
   const fn = prop('x')
-  expect(tryCatch(fn, false)({})).toBeUndefined()
-  expect(tryCatch(fn, false)({ x: 1 })).toBe(1)
+  expect(tryCatch(fn as (input: unknown) => unknown, false)({})).toBeUndefined()
+  expect(tryCatch(fn as (input: unknown) => unknown, false)({ x: 1 })).toBe(1)
 })
 
 test('type test', () => {
   const result = pipe(
     ['{a:1', '{"b": 2}'],
     map(
-      tryCatch(x => {
+      tryCatch((x: string) => {
         return JSON.parse(x) as string
       }, null),
     ),
