@@ -197,12 +197,10 @@ test('type test', () => {
   const result = equals(4)(1)
   expectTypeOf(result).toEqualTypeOf<boolean>()
   expect(result).toBe(false)
-})
 
-test('with object', () => {
   const foo = { a: 1 }
   const bar = { a: 2 }
-  const result = equals(foo)(bar)
-  expectTypeOf(result).toEqualTypeOf<boolean>()
-  expect(result).toBe(false)
+  const result2 = equals(foo)(bar)
+  expectTypeOf(result2).toEqualTypeOf<boolean>()
+  expect(result2).toBe(false)
 })

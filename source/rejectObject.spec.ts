@@ -7,11 +7,6 @@ test('happy', () => {
     testInput,
     rejectObject((x, prop) => x > 1),
   )
-  expect(result).toEqual({ a: 1 })
-})
-
-test('type test', () => {
-  const result = pipe({ a: 1, b: 2 }, rejectObject(x => x > 1))
-  expectTypeOf(result).toEqualTypeOf<Partial<{ a: number; b: number }>>()
+  expectTypeOf(result).toEqualTypeOf<Partial<{ a: number; b: number; c: number }>>()
   expect(result).toEqual({ a: 1 })
 })

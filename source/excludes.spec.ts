@@ -18,10 +18,8 @@ test('type test', () => {
   const result = pipe({ a: { b: '1' } }, excludes(list))
   expectTypeOf(result).toEqualTypeOf<boolean>()
   expect(result).toBe(false)
-})
 
-test('with string', () => {
-  const result = pipe('foo', excludes('bar'))
-  expectTypeOf(result).toEqualTypeOf<boolean>()
-  expect(result).toBe(true)
+  const stringResult = pipe('foo', excludes('bar'))
+  expectTypeOf(stringResult).toEqualTypeOf<boolean>()
+  expect(stringResult).toBe(true)
 })

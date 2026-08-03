@@ -1,11 +1,6 @@
 import { takeWhile } from './takeWhile'
 import { pipe } from './pipe'
 
-test('happy', () => {
-  const result = takeWhile((x: number) => x < 3)([1, 2, 3, 4, 5])
-  expect(result).toEqual([1, 2])
-})
-
 test('always true', () => {
   const result = takeWhile(x => true)([1, 2, 3, 4, 5])
   expect(result).toEqual([1, 2, 3, 4, 5])

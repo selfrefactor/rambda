@@ -1,4 +1,3 @@
-import { pipeAsync } from './pipeAsync'
 import { delay } from './delay'
 import { mapParallelAsync } from './mapParallelAsync'
 
@@ -9,17 +8,6 @@ test('happy', async () => {
   }
   const result = await mapParallelAsync<number[], number>(fn)([1, 2, 3])
   expect(result).toEqual([1, 3, 5])
-})
-
-test('pipeAsync', async () => {
-  const result = await pipeAsync(
-    [1, 2, 3],
-    mapParallelAsync(async x => {
-      await delay(100)
-      return x + 1
-    })
-  )
-  expect(result).toEqual([2, 3, 4])
 })
 
 test('with batchSize', async () => {

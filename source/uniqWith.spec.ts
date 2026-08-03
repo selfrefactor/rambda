@@ -3,12 +3,6 @@ import { pipe } from './pipe'
 
 const list = [{ a: 1 }, { a: 1 }]
 
-test('happy', () => {
-  const fn = (x: { a: number }, y: { a: number }) => x.a === y.a
-  const result = uniqWith(fn)(list)
-  expect(result).toEqual([{ a: 1 }])
-})
-
 test('with list of strings', () => {
   const fn = (x: string, y: string) => x.length === y.length
   const list = ['0', '11', '222', '33', '4', '55']

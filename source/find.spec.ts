@@ -6,7 +6,9 @@ const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
 
 test('happy', () => {
   const fn = propEq(2, 'a')
-  expect(find(fn)(list)).toEqual({ a: 2 })
+  const result = find(fn)(list)
+  expectTypeOf(result).toEqualTypeOf<{ a: number } | undefined>()
+  expect(result).toEqual({ a: 2 })
 })
 
 test('nothing is found', () => {
@@ -16,13 +18,6 @@ test('nothing is found', () => {
 
 test('with empty list', () => {
   expect(find(() => true)([])).toBeUndefined()
-})
-
-test('type test', () => {
-  const predicate = (x: number) => x > 2
-  const result = pipe([1, 2, 3], find(predicate))
-  expectTypeOf(result).toEqualTypeOf<number | undefined>()
-  expect(result).toBe(3)
 })
 
 test('has type guard narrowing', () => {

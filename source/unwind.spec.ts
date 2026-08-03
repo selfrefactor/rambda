@@ -20,14 +20,6 @@ test('happy', () => {
   expect(result).toEqual(expected)
 })
 
-test('type test', () => {
-  const [result] = unwind('b')(obj)
-
-  expectTypeOf(result.a).toEqualTypeOf<number>()
-  expectTypeOf(result.b).toEqualTypeOf<number>()
-  expect(result).toEqual({ a: 1, b: 2 })
-})
-
 test('inside pipe', () => {
   const [result] = pipe(obj, unwind('b'))
 

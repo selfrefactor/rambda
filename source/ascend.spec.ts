@@ -1,13 +1,13 @@
 import { ascend } from './ascend'
 import { descend } from './descend'
 import { sort } from './sort'
-import { pipe } from './pipe'
 
 test('ascend', () => {
   const result = sort(
     ascend((x: { a: number }) => x.a))(
     [{a:1}, {a:3}, {a:2}],
   )
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
   expect(result).toEqual([{a:1}, {a:2}, {a:3}])
 })
 
@@ -17,13 +17,4 @@ test('descend', () => {
     [{a:1}, {a:3}, {a:2}],
   )
   expect(result).toEqual([{a:3}, {a:2}, {a:1}])
-})
-
-test('type test', () => {
-  const result = pipe(
-    [{a:1}, {a:2}],
-    sort(ascend((x: { a: number }) => x.a))
-  )
-  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
-  expect(result).toEqual([{a:1}, {a:2}])
 })

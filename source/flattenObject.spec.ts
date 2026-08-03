@@ -1,5 +1,4 @@
 import { flattenObject } from './flattenObject'
-import { pipe } from './pipe'
 
 test('happy', () => {
   const result = flattenObject({
@@ -30,12 +29,6 @@ test('happy', () => {
     'b.d.f.j.k': 8,
     'b.d.f.j.l': 9,
   }
+  expectTypeOf(result['b.c']).toEqualTypeOf<number>()
   expect(result).toEqual(expected)
-})
-
-test('type test', () => {
-  const result = pipe({ a: { b: 1, c: 2 } }, flattenObject)
-  expectTypeOf(result['a.b']).toEqualTypeOf<number>()
-  expectTypeOf(result['a.c']).toEqualTypeOf<number>()
-  expect(result).toEqual({ 'a.b': 1, 'a.c': 2 })
 })

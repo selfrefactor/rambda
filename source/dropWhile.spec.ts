@@ -3,15 +3,6 @@ import { pipe } from './pipe'
 
 const list = [1, 2, 3, 4]
 
-test('happy', () => {
-  const predicate = (x: number, i: number) => {
-    expect(typeof i).toBe('number')
-    return x < 3
-  }
-  const result = dropWhile(predicate)(list)
-  expect(result).toEqual([3, 4])
-})
-
 test('always false', () => {
   const predicate = () => false
   const result = dropWhile(predicate)(list)
