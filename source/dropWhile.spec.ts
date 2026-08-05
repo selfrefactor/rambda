@@ -3,19 +3,19 @@ import { pipe } from './pipe'
 
 const list = [1, 2, 3, 4]
 
-test('always false', () => {
-  const predicate = () => false
-  const result = dropWhile(predicate)(list)
-  expect(result).toEqual(list)
-})
-
-test('type test', () => {
+test('happy', () => {
   const result = pipe(
     [1, 2, 3],
     dropWhile((x: number) => x < 3),
   )
   expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([3])
+})
+
+test('always false', () => {
+  const predicate = () => false
+  const result = dropWhile(predicate)(list)
+  expect(result).toEqual(list)
 })
 
 test('with index', () => {

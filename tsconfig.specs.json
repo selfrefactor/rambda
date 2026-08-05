@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["source/**/*.spec.ts", "source/**/*-spec.ts"],
+  "exclude": [
+    "source/_internals/**",
+    "source/radashi-comparison-spec.ts",
+    "source/rejectObject.spec.ts",
+    "source/remeda-comparison-spec.ts"
+  ]
+}

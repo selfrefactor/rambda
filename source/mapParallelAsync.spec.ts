@@ -7,6 +7,7 @@ test('happy', async () => {
     return x + i
   }
   const result = await mapParallelAsync<number[], number>(fn)([1, 2, 3])
+	expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([1, 3, 5])
 })
 
@@ -19,8 +20,3 @@ test('with batchSize', async () => {
   expect(result).toEqual(['1:0', '2:1', '3:2', '4:3', '5:4'])
 })
 
-test('type test', async () => {
-  const result = await mapParallelAsync<number[], number>(async (x: number) => x + 1)([1, 2, 3])
-  expectTypeOf(result).toEqualTypeOf<number[]>()
-  expect(result).toEqual([2, 3, 4])
-})

@@ -1,5 +1,12 @@
 import { indexOf } from './indexOf'
 
+test('happy', () => {
+  const list = [{ a: 1 }, { a: 2 }]
+  const result = indexOf({ a: 1 })(list)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(0)
+})
+
 test('with NaN', () => {
   expect(indexOf(Number.NaN)([Number.NaN])).toBe(0)
 })
@@ -25,11 +32,4 @@ test('list of arrays use R.equals', () => {
   expect(indexOf([1])(listOfLists)).toBe(0)
   expect(indexOf([2, 3, 4])(listOfLists)).toBe(2)
   expect(indexOf([2, 3, 5])(listOfLists)).toBe(-1)
-})
-
-test('type test', () => {
-  const list = [{ a: 1 }, { a: 2 }]
-  const result = indexOf({ a: 1 })(list)
-  expectTypeOf(result).toEqualTypeOf<number>()
-  expect(result).toBe(0)
 })

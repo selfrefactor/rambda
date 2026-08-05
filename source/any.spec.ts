@@ -1,13 +1,8 @@
 import { any } from './any'
 import { pipe } from './pipe'
 
-const list = [1, 2, 3]
 
 test('happy', () => {
-  expect(any((x: number) => x > 2)(list)).toBeTruthy()
-})
-
-test('type test', () => {
   const result = pipe(
     [1, 2, 3],
     any((x: number) => {

@@ -1,7 +1,15 @@
 import { uniqWith } from './uniqWith'
 import { pipe } from './pipe'
 
-const list = [{ a: 1 }, { a: 1 }]
+test('happy', () => {
+  const result = pipe(
+    [{ a: 1 }, { a: 1 }],
+    uniqWith((x, y) => x.a === y.a),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
+  expect(result).toEqual([{ a: 1 }])
+})
 
 test('with list of strings', () => {
   const fn = (x: string, y: string) => x.length === y.length
@@ -31,14 +39,4 @@ test('should return items that are not equal to themselves', () => {
   })(data)
 
   expect(result).toEqual(expectedResult)
-})
-
-test('type test', () => {
-  const result = pipe(
-    [{ a: 1 }, { a: 1 }],
-    uniqWith((x, y) => x.a === y.a),
-  )
-
-  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
-  expect(result).toEqual([{ a: 1 }])
 })

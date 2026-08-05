@@ -1,7 +1,7 @@
 import { evolve } from './evolve'
 import { pipe } from './pipe'
 
-test('type test', () => {
+test('happy', () => {
   const input = {
     baz: 1,
     foo: 2,
@@ -12,7 +12,7 @@ test('type test', () => {
   }
   const result = pipe(input,
     evolve({
-      foo: (x: number) => x + 1,
+      foo: (x) => x + 1,
     })
   )
   expectTypeOf(result.foo).toEqualTypeOf<number>()

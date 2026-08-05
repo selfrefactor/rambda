@@ -1,6 +1,6 @@
 import { shuffle } from './shuffle'
 
-test('type test', () => {
+test('happy', () => {
   const list = [1, 2, 3, 4, 5]
   const result = shuffle(list)
   expectTypeOf(result).toEqualTypeOf<number[]>()

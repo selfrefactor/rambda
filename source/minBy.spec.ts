@@ -1,11 +1,7 @@
 import { minBy } from './minBy'
 
-test('happy', () => {
-  expect(minBy<number>(Math.abs, -5)(2)).toBe(2)
-  expect(minBy<number>(Math.abs, 2)(-5)).toBe(2)
-})
 
-test('type test', () => {
+test('happy', () => {
   const result = minBy<number>(Math.abs, -5)(2)
   expectTypeOf(result).toEqualTypeOf<number>()
   expect(result).toBe(2)

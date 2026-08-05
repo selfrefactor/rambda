@@ -3,6 +3,14 @@ import { zip } from './zip'
 const array1 = [1, 2, 3]
 const array2 = ['A', 'B', 'C']
 
+test('happy', () => {
+  const result = zip(array1)(array2)
+
+  expectTypeOf(result[0][0]).toEqualTypeOf<number>()
+  expectTypeOf(result[0][1]).toEqualTypeOf<string>()
+  expect(result).toEqual([[1, 'A'], [2, 'B'], [3, 'C']])
+})
+
 test('should return an array', () => {
   const actual = zip(array1)(array2)
   expect(actual).toBeInstanceOf(Array)
@@ -32,12 +40,4 @@ test('should truncate result to length of shorted input list', () => {
   ]
   const actualB = zip(array1)(['A', 'B'])
   expect(actualB).toEqual(expectedB)
-})
-
-test('type test', () => {
-  const result = zip(array1)(array2)
-
-  expectTypeOf(result[0][0]).toEqualTypeOf<number>()
-  expectTypeOf(result[0][1]).toEqualTypeOf<string>()
-  expect(result).toEqual([[1, 'A'], [2, 'B'], [3, 'C']])
 })

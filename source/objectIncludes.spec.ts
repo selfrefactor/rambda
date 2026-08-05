@@ -1,6 +1,12 @@
 import { objectIncludes } from './objectIncludes'
 import { pipe } from './pipe'
 
+test('happy', () => {
+  const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ a: 2 }))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeFalsy()
+})
+
 test('when true', () => {
   const condition = { a: 1 }
   const input = { a: 1, b: 2 }
@@ -22,10 +28,4 @@ test('with nested object', () => {
 test('with wrong input', () => {
   const condition = { a: { b: 1 } }
   expect(() => objectIncludes(condition)(null as any)).toThrow()
-})
-
-test('type test', () => {
-  const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ a: 2 }))
-  expectTypeOf(result).toEqualTypeOf<boolean>()
-  expect(result).toBeFalsy()
 })

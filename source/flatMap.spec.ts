@@ -4,10 +4,19 @@ import { pipe } from './pipe'
 const duplicate = (n: number) => [n, n]
 
 test('happy', () => {
-  const fn = (x: number) => [x * 2]
-  const list = [1, 2, 3]
-  const result = flatMap(fn)(list)
-  expect(result).toEqual([2, 4, 6])
+  const listOfLists: string[][] = [
+    ['f', 'bar'],
+    ['baz', 'b'],
+  ]
+  const result = pipe(
+    listOfLists,
+    (x: string[][]) => x,
+    flatMap((x: string) => {
+      expectTypeOf(x).toEqualTypeOf<string>()
+      return Number(x) + 1
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 
 test('maps then flattens one level', () => {
@@ -29,20 +38,4 @@ test('can compose', () => {
   const mdouble = flatMap(times2)
   const mdec = flatMap(dec)
   expect(mdec(mdouble([10, 20, 30]))).toEqual([19, 39, 59])
-})
-
-test('type test', () => {
-  const listOfLists: string[][] = [
-    ['f', 'bar'],
-    ['baz', 'b'],
-  ]
-  const result = pipe(
-    listOfLists,
-    (x: string[][]) => x,
-    flatMap((x: string) => {
-      expectTypeOf(x).toEqualTypeOf<string>()
-      return Number(x) + 1
-    }),
-  )
-  expectTypeOf(result).toEqualTypeOf<number[]>()
 })

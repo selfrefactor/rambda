@@ -3,10 +3,10 @@ import { pipe } from './pipe'
 import { tap } from './tap'
 import { when } from './when'
 
-const predicate = (x: number | string): x is number => typeof x === 'number'
 
 test('happy', () => {
-  const fn = when(
+	const predicate = (x: number | string): x is number => typeof x === 'number'
+	const fn = when(
     predicate,
     (x: number | string) => (typeof x === 'number' ? x + 1 : x),
   )
@@ -18,7 +18,7 @@ function notNull<T>(a: T | null | undefined): a is T {
   return a != null
 }
 
-test('type test', () => {
+test('happy', () => {
   const result = pipe(
     1,
     when(

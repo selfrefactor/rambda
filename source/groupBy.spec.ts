@@ -1,6 +1,14 @@
 import { groupBy } from './groupBy'
 import { pipe } from './pipe'
 
+test('happy', () => {
+  const groupByFn = (x: string) => String(x.length)
+  const list = ['foo', 'bar']
+  const result = pipe(list, groupBy(groupByFn))
+  expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
+  expect(result).toEqual({ '3': ['foo', 'bar'] })
+})
+
 test('with list', () => {
   const inventory = [
     { name: 'asparagus', type: 'vegetables', quantity: 9 },
@@ -19,12 +27,4 @@ test('with list', () => {
   expect(result.sufficient![0]).toEqual(
     { name: 'asparagus', type: 'vegetables', quantity: 9 }
   )
-})
-
-test('type test', () => {
-  const groupByFn = (x: string) => String(x.length)
-  const list = ['foo', 'bar']
-  const result = pipe(list, groupBy(groupByFn))
-  expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
-  expect(result).toEqual({ '3': ['foo', 'bar'] })
 })

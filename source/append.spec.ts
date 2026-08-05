@@ -5,17 +5,13 @@ import { pipe } from './pipe'
 const listOfNumbers = [1, 2, 3]
 
 test('happy', () => {
-  expect(append('tests')(['write', 'more'])).toEqual(['write', 'more', 'tests'])
+  const result = pipe(listOfNumbers, append(4), prepend(0))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([0, 1, 2, 3, 4])
 })
 
 test('append to empty array', () => {
   expect(append('tests')([])).toEqual(['tests'])
-})
-
-test('type test', () => {
-  const result = pipe(listOfNumbers, append(4), prepend(0))
-  expectTypeOf(result).toEqualTypeOf<number[]>()
-  expect(result).toEqual([0, 1, 2, 3, 4])
 })
 
 test('with object', () => {

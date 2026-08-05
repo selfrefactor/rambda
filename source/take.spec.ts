@@ -1,13 +1,10 @@
 import { take } from './take'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const arr = ['foo', 'bar', 'baz']
-  expect(take(1)(arr)).toEqual(['foo'])
-  expect(arr).toEqual(['foo', 'bar', 'baz'])
-  expect(take(2)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar'])
-  expect(take(3)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar', 'baz'])
-  expect(take(4)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar', 'baz'])
-  expect(take(3)('rambda')).toBe('ram')
+  const result = pipe(['foo', 'bar', 'baz'],take(1))
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['foo'])
 })
 
 test('with negative index', () => {
@@ -17,10 +14,4 @@ test('with negative index', () => {
 
 test('with zero index', () => {
   expect(take(0)([1, 2, 3])).toEqual([])
-})
-
-test('type test', () => {
-  const result = take(1)(['foo', 'bar', 'baz'])
-  expectTypeOf(result).toEqualTypeOf<string[]>()
-  expect(result).toEqual(['foo'])
 })

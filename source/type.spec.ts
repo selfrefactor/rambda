@@ -1,9 +1,15 @@
-// ramda ships without bundled types
-// @ts-expect-error
 import { type as typeRamda } from 'ramda'
 import { type, RambdaTypes } from './type'
 
+test('happy', () => {
+  const result = type(4)
+
+  expectTypeOf(result).toEqualTypeOf<RambdaTypes>()
+  expect(result).toBe('Number')
+})
+
 test('with buffer', () => {
+	// @ts-expect-error
   expect(type(Buffer.from('foo'))).toBe('Uint8Array')
 })
 
@@ -12,6 +18,7 @@ test('with array buffer', () => {
 })
 
 test('with big int', () => {
+	// @ts-expect-error
   expect(type(BigInt(9007199254740991))).toBe('BigInt')
 })
 
@@ -164,11 +171,4 @@ test('function inside object 2', () => {
   }
   expect(type(obj.f)).toBe('Function')
   expect(typeRamda(obj.f)).toBe('Function')
-})
-
-test('type test', () => {
-  const result = type(4)
-
-  expectTypeOf(result).toEqualTypeOf<RambdaTypes>()
-  expect(result).toBe('Number')
 })

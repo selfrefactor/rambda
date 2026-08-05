@@ -1,6 +1,12 @@
 import { defaultTo } from './defaultTo'
 import { pipe } from './pipe'
 
+test('happy', () => {
+  const result = pipe('bar' as unknown, defaultTo('foo'))
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('bar')
+})
+
 test('with undefined', () => {
   expect(defaultTo('foo')(undefined)).toBe('foo')
 })
@@ -23,10 +29,4 @@ test('with false', () => {
 
 test('when inputArgument passes initial check', () => {
   expect(defaultTo('foo')('bar')).toBe('bar')
-})
-
-test('type test', () => {
-  const result = pipe('bar' as unknown, defaultTo('foo'))
-  expectTypeOf(result).toEqualTypeOf<string>()
-  expect(result).toBe('bar')
 })

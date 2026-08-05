@@ -1,7 +1,7 @@
 import { mapKeys } from './mapKeys'
 import { pipe } from './pipe'
 
-test('type test', () => {
+test('happy', () => {
   const result = pipe(
     { a: 1, b: 2 },
     mapKeys((prop, x) => `${prop}-${x}`),

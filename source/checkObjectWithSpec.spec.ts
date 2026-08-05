@@ -1,6 +1,22 @@
 import { checkObjectWithSpec } from './checkObjectWithSpec'
 import { equals } from './equals'
 
+test('happy', () => {
+  const input = {
+    a: 'foo',
+    b: 'bar',
+    x: 11,
+    y: 19,
+  }
+  const conditions = {
+    a: equals('foo'),
+    b: equals('bar'),
+  }
+  const result = checkObjectWithSpec(conditions)(input)
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
+})
+
 test('when true', () => {
   const result = checkObjectWithSpec({
     a: equals('foo'),
@@ -31,20 +47,4 @@ test('when false | early exit', () => {
     }),
   ).toBeFalsy()
   expect(counter).toBe(1)
-})
-
-test('type test', () => {
-  const input = {
-    a: 'foo',
-    b: 'bar',
-    x: 11,
-    y: 19,
-  }
-  const conditions = {
-    a: equals('foo'),
-    b: equals('bar'),
-  }
-  const result = checkObjectWithSpec(conditions)(input)
-  expectTypeOf(result).toEqualTypeOf<boolean>()
-  expect(result).toBe(true)
 })

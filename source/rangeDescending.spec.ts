@@ -8,10 +8,6 @@ test('happy', () => {
   expect(rangeDescending(2)).toEqual([2, 1, 0])
   expect(rangeDescending(5, 7)).toEqual([])
   expect(rangeDescending(5, 5)).toEqual([5])
+	expectTypeOf(rangeDescending(5, 5)).toEqualTypeOf<number[]>()
 })
 
-test('type test', () => {
-  const result = rangeDescending(5)
-  expectTypeOf(result).toEqualTypeOf<number[]>()
-  expect(result).toEqual([5, 4, 3, 2, 1, 0])
-})

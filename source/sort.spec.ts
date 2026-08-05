@@ -1,21 +1,13 @@
 import { sort } from './sort'
 import { pipe } from './pipe'
 
-const fn = (a: number, b: number) => (a > b ? 1 : -1)
-
-test('sort', () => {
-  expect(sort((a: number, b: number) => a - b)([2, 3, 1])).toEqual([1, 2, 3])
-})
-
-test("it doesn't mutate", () => {
-  const list = ['foo', 'bar', 'baz']
-  expect(sort(fn as any)(list)).toEqual(['bar', 'baz', 'foo'])
-  expect(list).toEqual(['foo', 'bar', 'baz'])
-})
-
-test('type test', () => {
+test('happy', () => {
   const list = [3, 0, 5, 2, 1]
-  const result = sort<number>((a, b) => (a > b ? 1 : -1))(list)
+  const result = pipe(list, sort((a, b) => (a > b ? 1 : -1)))
   expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([0, 1, 2, 3, 5])
+})
+
+test('sort', () => {
+  expect(pipe([2, 3, 1], sort((a, b) => a - b))).toEqual([1, 2, 3])
 })

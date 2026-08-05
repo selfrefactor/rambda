@@ -1,8 +1,11 @@
 import { uniq } from './uniq'
 
+
 test('happy', () => {
-  const list = [1, 2, 3, 3, 3, 1, 2, 0]
-  expect(uniq(list)).toEqual([1, 2, 3, 0])
+  const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
+
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 2, 3, 0])
 })
 
 test('with object', () => {
@@ -24,11 +27,4 @@ test('with falsy values', () => {
 
 test('can distinct between string and number', () => {
   expect(uniq([1, '1'])).toEqual([1, '1'])
-})
-
-test('type test', () => {
-  const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
-
-  expectTypeOf(result).toEqualTypeOf<number[]>()
-  expect(result).toEqual([1, 2, 3, 0])
 })

@@ -128,7 +128,7 @@ type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
 type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
 
 interface Switchem<T> {
-  is: isfn<T, Switchem<T>>;
+  is:  isfn<T, Switchem<T>>;
   default: (x: T) => T;
 }
 interface Switchem2<T, U> {
@@ -2496,6 +2496,30 @@ Notes:
 */
 // @SINGLE_MARKER
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
+
+/*
+Method: remove
+
+Explanation: It accepts single rule or list of rules and removes them from input string.
+
+Example:
+
+```
+const result = [
+	R.remove('o')('foo'),
+	R.remove(/o/g)('foo'),
+]
+// => ['fo', 'f']
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function remove(rule: RegExp | string): (str: string) => string;
+export function remove(listRules: (RegExp | string)[]): (str: string) => string;
 
 /*
 Method: replaceAll
@@ -5094,8 +5118,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
-export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+export function switcher<T>(valueToMatch: T): Switchem<T>;
+export function switcher<T, U>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================

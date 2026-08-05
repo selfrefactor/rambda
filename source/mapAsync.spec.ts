@@ -45,7 +45,7 @@ test('error', async () => {
   }
 })
 
-test('type test', async () => {
+test('happy', async () => {
   const list = ['a', 'bc', 'def']
   const result = await pipeAsync(
     list,

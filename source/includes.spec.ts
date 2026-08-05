@@ -1,6 +1,13 @@
 import { includes } from './includes'
 import { pipe } from './pipe'
 
+test('happy', () => {
+  const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
+  const result = pipe({ a: { b: '1' } }, includes(list))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeTruthy()
+})
+
 test('with string as iterable', () => {
   const str = 'foo bar'
   expect(includes(str)('foo')).toBeTruthy()
@@ -24,11 +31,4 @@ test('with NaN', () => {
 
 test('with wrong input that does not throw', () => {
   expect(includes([1])(/foo/g as never)).toBeFalsy()
-})
-
-test('type test', () => {
-  const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-  const result = pipe({ a: { b: '1' } }, includes(list))
-  expectTypeOf(result).toEqualTypeOf<boolean>()
-  expect(result).toBeTruthy()
 })

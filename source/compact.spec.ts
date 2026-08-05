@@ -1,7 +1,7 @@
 import { compact } from './compact'
 import { pipe } from './pipe'
 
-test('type test', () => {
+test('happy', () => {
   const result = pipe(
     {
       a: [ undefined, '', 'a', 'b', 'c', null ],

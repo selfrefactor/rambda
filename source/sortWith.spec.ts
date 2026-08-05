@@ -1,5 +1,4 @@
 import { ascend } from './ascend'
-import { prop } from './prop'
 import { sortWith } from './sortWith'
 
 const albums = [
@@ -18,6 +17,12 @@ const albums = [
 ]
 
 type Album = (typeof albums)[number]
+
+test('happy', () => {
+  const result = sortWith([ascend((x: Album) => x.title)])(albums)
+  expect(result).toHaveLength(albums.length)
+  expect(result[0].title).toBe('A Farewell to Kings')
+})
 
 test('sorts by a simple property', () => {
   const sortedAlbums = sortWith([ascend((x: Album) => x.title)])(albums)
@@ -40,10 +45,4 @@ test('sorts by 3 properties', () => {
   expect(sortedAlbums[0].title).toBe('Art of the Fugue')
   expect(sortedAlbums[1].title).toBe('Goldberg Variations')
   expect(sortedAlbums[11].title).toBe('New World Symphony')
-})
-
-test('type test', () => {
-  const result = sortWith([ascend((x: Album) => x.title)])(albums)
-  expect(result).toHaveLength(albums.length)
-  expect(result[0].title).toBe('A Farewell to Kings')
 })

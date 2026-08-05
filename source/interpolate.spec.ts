@@ -1,6 +1,6 @@
 import { interpolate } from './interpolate'
 
-test('type test', () => {
+test('happy', () => {
   const templateInput = 'foo {{x}} baz'
   const templateArguments = { x: 'led zeppelin' }
   const result = interpolate(templateInput)(templateArguments)

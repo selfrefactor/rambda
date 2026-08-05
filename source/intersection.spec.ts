@@ -1,5 +1,13 @@
 import { intersection } from './intersection'
 
+test('happy', () => {
+  const list1 = [1, 2, 3]
+  const list2 = [1, 3, 5]
+  const result = intersection(list1)(list2)
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 3])
+})
+
 test('intersection', () => {
   const list1 = [1, 2, 3, 4]
   const list2 = [3, 4, 5, 6]
@@ -17,12 +25,4 @@ test('order is the same as in Ramda', () => {
   const list = ['a', 'b', 'c', 'd']
   expect(intersection(list)(['b', 'c'])).toEqual(['b', 'c'])
   expect(intersection(list)(['c', 'b'])).toEqual(['c', 'b'])
-})
-
-test('type test', () => {
-  const list1 = [1, 2, 3]
-  const list2 = [1, 3, 5]
-  const result = intersection(list1)(list2)
-  expectTypeOf(result).toEqualTypeOf<number[]>()
-  expect(result).toEqual([1, 3])
 })

@@ -3,7 +3,7 @@ import { pipe } from './pipe'
 
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
-test('type test', () => {
+test('happy', () => {
   const result = pipe(
     list,
     countBy((x: string) => x.toLowerCase()),

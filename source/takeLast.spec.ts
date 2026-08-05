@@ -1,4 +1,11 @@
+import { pipe } from './pipe';
 import { takeLast } from './takeLast'
+
+test('happy', () => {
+  const result = pipe(['foo', 'bar', 'baz'],takeLast(1))
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['baz'])
+})
 
 test('with arrays', () => {
   expect(takeLast(1)(['foo', 'bar', 'baz'])).toEqual(['baz'])
@@ -16,10 +23,4 @@ test('with strings', () => {
 test('with negative index', () => {
   expect(takeLast(-1)([1, 2, 3])).toEqual([1, 2, 3])
   expect(takeLast(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
-})
-
-test('type test', () => {
-  const result = takeLast(1)(['foo', 'bar', 'baz'])
-  expectTypeOf(result).toEqualTypeOf<string[]>()
-  expect(result).toEqual(['baz'])
 })

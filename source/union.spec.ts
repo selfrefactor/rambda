@@ -1,6 +1,6 @@
 import { union } from './union'
 
-test('type test', () => {
+test('happy', () => {
   const result = union([1, 2])([2, 3])
 
   expectTypeOf(result).toEqualTypeOf<number[]>()

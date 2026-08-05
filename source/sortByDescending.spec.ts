@@ -8,7 +8,7 @@ test('happy', () => {
   expect(sortByDescending(path('a.b') as (x: (typeof list)[number]) => number)(list)).toEqual(sorted)
 })
 
-test('type test', () => {
+test('happy', () => {
   const result = sortByDescending(path('a.b') as (x: (typeof list)[number]) => number)(list)
   expectTypeOf(result).toEqualTypeOf<typeof list>()
   expect(result).toEqual(sorted)

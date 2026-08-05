@@ -5,10 +5,13 @@ import { map } from './map'
 
 test('happy', () => {
   const fn = () => {
+		if(Math.random()> 2) return false
     throw new Error('foo')
   }
-  const result = tryCatch(fn, () => true)()
+  const result = tryCatch(fn, true)()
   expect(result).toBeTruthy()
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+
 })
 
 test('when fallback is used', () => {

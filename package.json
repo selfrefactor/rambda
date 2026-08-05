@@ -15,7 +15,7 @@
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
     "test": "vitest run --watch -u",
-    "test:typings": "vitest run --config vitest.typings.config.js",
+    "test:typings": "tsc -p tsconfig.specs.json",
     "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
     "deps": "run dep:next 10",
     "x": "run dep:stable 10",

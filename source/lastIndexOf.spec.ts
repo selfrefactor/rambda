@@ -1,6 +1,12 @@
 import { lastIndexOf } from './lastIndexOf'
 import { pipe } from './pipe'
 
+test('happy', () => {
+  const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(1)
+})
+
 test('with NaN', () => {
   expect(lastIndexOf(Number.NaN)([Number.NaN])).toBe(0)
 })
@@ -22,10 +28,4 @@ test('list of arrays uses R.equals', () => {
   expect(lastIndexOf([1])(listOfLists)).toBe(4)
   expect(lastIndexOf([2, 3, 4])(listOfLists)).toBe(2)
   expect(lastIndexOf([2, 3, 5])(listOfLists)).toBe(-1)
-})
-
-test('type test', () => {
-  const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
-  expectTypeOf(result).toEqualTypeOf<number>()
-  expect(result).toBe(1)
 })

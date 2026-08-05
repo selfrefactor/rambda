@@ -1,6 +1,14 @@
 11.3.0
 
+source/reduce.spec.ts:10-12
+'toThrowError' is deprecated.
+index.d.ts(544, 4): The declaration was marked as deprecated here.
+
+- Add `R.remove`
+
 - Add missing type narrowing in `R.find`
+
+- R.switcher accept only functions as inputs
 
 11.2.0
 
