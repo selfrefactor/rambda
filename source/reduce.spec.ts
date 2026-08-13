@@ -14,7 +14,7 @@ test('happy', () => {
 })
 
 test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, 0)({} as any)).toThrowError(ERROR)
+  expect(() => reduce(reducer, 0)({} as any)).toThrow(ERROR)
 })
 
 test('returns the accumulator for a null list', () => {
