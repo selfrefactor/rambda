@@ -1,23 +1,19 @@
-your task is big so 1. build a plan with todo in refactor.md 2. each "next" from dev will perform 10% of the task. 3. task is to move tests from foo.spec.js to foo-spec.ts 3.1 include test testing if foo-spec.ts exists 4. verify that it works with running node node_modules/vitest/
-dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts
+## Phase 2: Radashi Comparison Tests (`source/radashi-comparison-spec.ts`)
 
-Goal: migrate runtime source/*.spec.js tests and source/*-spec.ts to source/*.spec.ts form
-1. Write refactor.md at repo root listing every method that has either *.spec.js or *-spec.ts file(or both), grouped into 10 batches of ~10% each, in dependency order.
-2. Each dev next completes one batch: create foo.spec.js using foo-spec.ts(if exists) and foo.spec.js(if exists)
-2.1 Extend TS tests to assert also final result(which is missing in -spec.ts files)
-2.2 If there is error on TS types after moving *.spec.js file, use `any` to make TS happy
-2.3 don't delete the old files.
-3. While running the batch, work file by file because you need to verify new file is correct with "node node_modules/vitest/
-dist/cli.js run --config vitest.typings.config.js source/foo.spec.ts" and "bun lint:typings"
-===
-https://github.com/radashi-org/radashi/pull/425/changes
+| # | Rambda method | Radashi equivalent | Key type difference |
+|---|---|---|---|
+| 1 | `find` | `selectFirst` | Radashi `selectFirst` has no type guard overload; `condition` is `(item, idx) => boolean` |
+| 2 | `filter` | `select` | Radashi `select` combines filter+map; no type guard; `condition` is `(item, idx) => boolean` |
+| 3 | `groupBy` | `group` | Both return `Partial<Record<K, T[]>>` — comparable |
+| 4 | `indexBy` | `objectify` | Radashi infers literal keys (`Record<K, V>`) but non-partial vs Rambda `Record<string, T>` |
+| 5 | `sortBy` | `sort` | Radashi only numeric getter, Rambda accepts any `Ord` |
+| 6 | `pick` | `pick` | Radashi supports predicate filter (`KeyFilter`); Rambda has string-path overload |
+| 7 | `omit` | `omit` | Both similar `Omit<T, K>` |
+| 8 | `uniq` | `unique` | Radashi supports optional `toKey` (like `uniqBy`); Rambda has separate `uniq`/`uniqBy` |
+| 9 | `sum` | `sum` | Radashi adds mapper overload `(T[], fn) => number` |
+| 10 | `pipe` | `chain` | Radashi 10 overloads vs Rambda 20; neither uses variadic tuples |
+| 11 | `zip` | `zip` | Radashi variadic (2-5 arrays, tuple-of-tuples return); Rambda curried `(K[]) => (V[]) => KeyValuePair[]` |
 
-
-- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
-
-- R.difference(new method)
-===
-https:bundlejs.com
 ===
 
 export function splitEvery(sliceLength: number): {
