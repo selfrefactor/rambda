@@ -105,5 +105,5 @@ test('filtering NonNullable - list of objects', () => {
 test('filtering NonNullable - readonly', () => {
   const testList = [1, 2, true, false, null, undefined, 3] as const
   const result = pipe(testList, filter(Boolean))
-  expectTypeOf(result).toEqualTypeOf<1 | 2 | 3>()
+  expectTypeOf(result).toEqualTypeOf<(1 | 2 | 3)[]>()
 })

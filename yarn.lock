@@ -1100,7 +1100,7 @@ obug@^2.1.1:
   resolved "https://registry.npmjs.org/obug/-/obug-2.1.1.tgz"
   integrity sha512-uTqF9MuPraAQ+IsnPf366RG4cP9RtUi7MLO1N3KEc+wb0a6yKpeL0lmk2IB1jY5KHPAlTc6T/JRdC/YqxHNwkQ==
 
-oxfmt@^0.62.0:
+oxfmt@0.62.0:
   version "0.62.0"
   resolved "https://registry.yarnpkg.com/oxfmt/-/oxfmt-0.62.0.tgz#9945728022d26dc0a1d5bc486db112e7e340507a"
   integrity sha512-vxgGHTmnDU9j4CX7dDBLzxgmHxfda/yPcgJkGCMUSCwRmz+euo/V08xXLNgXTeqAB9Fhf3Pe2nO1RNKLCVgphQ==

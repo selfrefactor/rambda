@@ -3333,7 +3333,7 @@ test('filtering NonNullable - list of objects', () => {
 test('filtering NonNullable - readonly', () => {
   const testList = [1, 2, true, false, null, undefined, 3] as const
   const result = pipe(testList, filter(Boolean))
-  expectTypeOf(result).toEqualTypeOf<1 | 2 | 3>()
+  expectTypeOf(result).toEqualTypeOf<(1 | 2 | 3)[]>()
 })
 ```
 
@@ -8948,9 +8948,9 @@ test('happy', () => {
   const testInput = { a: 1, b: 2, c: 3 }
   const result = pipe(
     testInput,
-    rejectObject((x, prop) => x > 1),
+    rejectObject((x) => x > 1),
   )
-  expectTypeOf(result).toEqualTypeOf<Partial<{ a: number; b: number; c: number }>>()
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: number }>()
   expect(result).toEqual({ a: 1 })
 })
 ```
@@ -9276,10 +9276,8 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 <summary><strong>R.sort</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sort(sortFn) {
-  return list => cloneList(list).sort(sortFn)
+  return list => list.toSorted(sortFn)
 }
 ```
 
@@ -9352,16 +9350,12 @@ sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 <summary><strong>R.sortBy</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sortByFn (
 	sortFn,
 	list,
 	descending
 ){
-	const clone = cloneList(list)
-
-	return clone.sort((a, b) => {
+	return list.toSorted((a, b) => {
 		const aSortResult = sortFn(a)
 		const bSortResult = sortFn(b)
 
@@ -9827,10 +9821,7 @@ export function sortWith(listOfSortingFns) {
       return []
     }
 
-    const clone = list.slice()
-    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
-
-    return clone
+    return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
   }
 }
 ```
@@ -11038,7 +11029,6 @@ export function type(input) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { type as typeRamda } from 'ramda'
 import { type, RambdaTypes } from './type'
 
 test('happy', () => {
@@ -11049,7 +11039,6 @@ test('happy', () => {
 })
 
 test('with buffer', () => {
-	// @ts-expect-error
   expect(type(Buffer.from('foo'))).toBe('Uint8Array')
 })
 
@@ -11058,7 +11047,6 @@ test('with array buffer', () => {
 })
 
 test('with big int', () => {
-	// @ts-expect-error
   expect(type(BigInt(9007199254740991))).toBe('BigInt')
 })
 
@@ -11112,13 +11100,8 @@ test('with new Number', () => {
 
 test('with error', () => {
   expect(type(Error('foo'))).toBe('Error')
-  expect(typeRamda(Error('foo'))).toBe('Error')
-})
-
-test('with error - wrong @types/ramda test', () => {
-  class ExtendedError extends Error {}
-  expect(type(ExtendedError)).toBe('Function')
-  expect(typeRamda(ExtendedError)).toBe('Function')
+	class ExtendedError extends Error {}
+	expect(type(ExtendedError)).toBe('Function')
 })
 
 test('with new promise', () => {
@@ -11189,7 +11172,6 @@ test('not a number', () => {
 test('set', () => {
   const exampleSet = new Set([1, 2, 3])
   expect(type(exampleSet)).toBe('Set')
-  expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
@@ -11199,7 +11181,6 @@ test('function inside object 1', () => {
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
 })
 
 test('function inside object 2', () => {
@@ -11210,7 +11191,6 @@ test('function inside object 2', () => {
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
 })
 ```
 
@@ -12290,6 +12270,8 @@ test('when second list is longer', () => {
 - Add missing type narrowing in `R.find`
 
 - `R.switcher` accept only functions as inputs
+
+- Sort functions use `.toSorted`
 
 11.2.0
 
