@@ -1,5 +1,3 @@
-import { equals } from './equals.js'
-
 const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined
 
 const getMatchingKeyValuePair = (
@@ -18,19 +16,10 @@ const getMatchingKeyValuePair = (
   return defaultValue
 }
 
-const isEqual = (testValue, matchValue) => {
-  const willReturn =
-    typeof testValue === 'function' ?
-      testValue(matchValue) :
-      equals(testValue)(matchValue)
-
-  return willReturn
-}
-
 const is = (testValue, matchResult = true) => ({
   key  : testValue,
   test : matchValue =>
-    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+    testValue(matchValue) ? matchResult : NO_MATCH_FOUND,
 })
 
 class Switchem{

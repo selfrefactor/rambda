@@ -128,7 +128,7 @@ type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
 type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
 
 interface Switchem<T> {
-  is: isfn<T, Switchem<T>>;
+  is:  isfn<T, Switchem<T>>;
   default: (x: T) => T;
 }
 interface Switchem2<T, U> {
@@ -555,6 +555,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function find<T, S extends T>(predicate: (x: T) => x is S): (list: T[]) => S | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /*
@@ -1320,7 +1321,7 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function match(regExpression: RegExp): (str: string) => string[];
+export function match(regExpression: RegExp | string): (str: string) => string[];
 
 /*
 Method: maxBy
@@ -2496,6 +2497,30 @@ Notes:
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
 
 /*
+Method: remove
+
+Explanation: It accepts single rule or list of rules and removes them from input string.
+
+Example:
+
+```
+const result = [
+	R.remove('o')('foo'),
+	R.remove(/o/g)('foo'),
+]
+// => ['fo', 'f']
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function remove(rule: RegExp | string): (str: string) => string;
+export function remove(listRules: (RegExp | string)[]): (str: string) => string;
+
+/*
 Method: replaceAll
 
 Explanation: Same as `R.replace` but it accepts array of string and regular expressions instead of a single value.
@@ -3326,6 +3351,10 @@ Notes:
 
 */
 // @SINGLE_MARKER
+export function tryCatch<T>(
+  fn: () => T,
+  fallback: T
+): () => T;
 export function tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
@@ -4641,6 +4670,10 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+	batchSize?: number,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>;
@@ -4836,13 +4869,17 @@ export function flattenObject<T extends object>(obj: T): FlattenObject<T>;
 /*
 Method: shuffle
 
-Explanation: It returns a randomized copy of array.
+Explanation: It returns a randomized copy of array. 
 
 Example:
 
 ```
-const result = R.shuffle(
-	[1, 2, 3]
+const data = Array.from({ length: 100 }, (_, i) => i + 1)
+const result = await pipe(
+	data,
+	shuffle<number>, // NEEDS EXPLICIT TYPE ANNOTATION
+	splitEvery(10),
+	flatMap(String),
 )
 // => [3, 1, 2] or [2, 3, 1] or ...
 ```
@@ -4928,6 +4965,7 @@ Notes:
 */
 // @SINGLE_MARKER
 export function assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+export function assertType<T>(fn: (x: T) => boolean): (x: T) => T;
 
 /*
 Method: interpolate
@@ -5079,8 +5117,8 @@ Notes:
 
 */
 // @SINGLE_MARKER
-export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
-export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+export function switcher<T>(valueToMatch: T): Switchem<T>;
+export function switcher<T, U>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================

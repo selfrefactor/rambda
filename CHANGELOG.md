@@ -1,3 +1,13 @@
+11.3.0
+
+- Add `R.remove`
+
+- Add missing type narrowing in `R.find`
+
+- `R.switcher` accept only functions as inputs
+
+- Sort functions use `.toSorted`
+
 11.2.0
 
 - Fix wrong typing for `R.equal`,`R.path`, `R.prop`, `R.propEq`, `R.prepend` - [Issue #803](https://github.com/selfrefactor/rambda/issues/803)

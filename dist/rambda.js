@@ -80,7 +80,6 @@ function anyPass(predicates) {
       }
       counter++;
     }
-
     return false
   }
 }
@@ -1602,6 +1601,22 @@ function replace(pattern, replacer) {
   return str => str.replace(pattern, replacer)
 }
 
+function remove(inputs) {
+  return text => {
+    if (!isArray(inputs)) {
+      return replace(inputs, '')(text)
+    }
+
+    let textCopy = text;
+
+    inputs.forEach(singleInput => {
+      textCopy = replace(singleInput, '')(textCopy).trim();
+    });
+
+    return textCopy
+  }
+}
+
 function replaceAll(patterns, replacer) {
   return input => {
     let text = input;
@@ -1628,7 +1643,7 @@ function shuffle(listInput) {
 }
 
 function sort(sortFn) {
-  return list => cloneList(list).sort(sortFn)
+  return list => list.toSorted(sortFn)
 }
 
 function sortByFn (
@@ -1636,9 +1651,7 @@ function sortByFn (
 	list,
 	descending
 ){
-	const clone = cloneList(list);
-
-	return clone.sort((a, b) => {
+	return list.toSorted((a, b) => {
 		const aSortResult = sortFn(a);
 		const bSortResult = sortFn(b);
 
@@ -1700,10 +1713,7 @@ function sortWith(listOfSortingFns) {
       return []
     }
 
-    const clone = list.slice();
-    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns));
-
-    return clone
+    return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
   }
 }
 
@@ -1751,19 +1761,10 @@ const getMatchingKeyValuePair = (
   return defaultValue
 };
 
-const isEqual = (testValue, matchValue) => {
-  const willReturn =
-    typeof testValue === 'function' ?
-      testValue(matchValue) :
-      equals(testValue)(matchValue);
-
-  return willReturn
-};
-
 const is = (testValue, matchResult = true) => ({
   key  : testValue,
   test : matchValue =>
-    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+    testValue(matchValue) ? matchResult : NO_MATCH_FOUND,
 });
 
 class Switchem{
@@ -2027,4 +2028,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { RAMBDA_DELAY, _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, delay, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterMap, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapChain, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeDeep, mergeTypes, middle, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, random, range, rangeDescending, reduce, reject, rejectObject, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, sum, switcher, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { RAMBDA_DELAY, _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, delay, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterMap, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapChain, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeDeep, mergeTypes, middle, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, random, range, rangeDescending, reduce, reject, rejectObject, remove, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, sum, switcher, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

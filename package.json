@@ -9,19 +9,30 @@
     "build:web": "rollup rambda.js --file dist/rambda.umd.js --format umd --name \"R\"",
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
-    "lint": "cd source && run lint:folder > lint-output.txt",
+    "format": "oxfmt --write 'source/**/*.{ts,js}'",
+    "lint:file": "oxfmt --write",
     "lint:typings": "tsc",
     "test:file": "node scripts/tasks/run/run-test.js",
     "test:ci": "vitest run",
     "test": "vitest run --watch -u",
-    "test:typings": "vitest run --config vitest.typings.config.js",
+    "test:typings": "tsc -p tsconfig.specs.json",
     "create-docsify": "cd ../rambda-scripts && yarn create-docsify",
     "deps": "run dep:next 10",
     "x": "run dep:stable 10",
     "ts": "yarn test:typings"
   },
   "niketaScripts": {
-    "**/*.js": "yarn test:file"
+    "scripts": {
+      "Testing": {
+        "**/*.ts": "yarn test:file",
+        "**/*.tsx": "yarn test:file"
+      },
+      "Linting": {
+        "**/*.ts": "yarn lint:file",
+        "**/*.js": "yarn lint:file"
+      }
+    },
+    "active": "Testing"
   },
   "type": "module",
   "exports": {
@@ -37,30 +48,19 @@
   "dependencies": {},
   "devDependencies": {
     "@types/mocha": "10.0.10",
-    "@types/node": "25.8.0",
-    "@vitest/coverage-v8": "5.0.0-beta.2",
+    "@types/node": "26.1.0",
+    "@vitest/coverage-v8": "5.0.0-beta.5",
     "helpers-fn": "2.1.1",
     "lodash": "4.18.1",
+    "oxfmt": "0.62.0",
     "radashi": "13.0.0-beta.ffa4778",
     "rambdax": "11.3.1",
     "ramda": "0.32.0",
-    "remeda": "2.34.1",
-    "rollup": "4.60.4",
-    "types-ramda": "0.31.0",
-    "typescript": "6.0.3",
-    "vitest": "5.0.0-beta.2"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testRegex": ".*\\.(spec|test)\\.js$",
-    "setupFilesAfterEnv": [
-      "./files/testSetup.js"
-    ],
-    "collectCoverageFrom": [
-      "source/*.js",
-      "!_internals",
-      "!benchmarks"
-    ]
+    "remeda": "2.39.0",
+    "rollup": "4.62.2",
+    "types-ramda": "0.32.0",
+    "typescript": "7.0.1-rc",
+    "vitest": "4.1.9"
   },
   "repository": {
     "type": "git",

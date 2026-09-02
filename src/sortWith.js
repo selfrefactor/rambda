@@ -15,9 +15,6 @@ export function sortWith(listOfSortingFns) {
       return []
     }
 
-    const clone = list.slice()
-    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
-
-    return clone
+    return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
   }
 }

@@ -1,0 +1,50 @@
+import { head } from './head'
+import { pipe } from './pipe'
+import { tap } from './tap'
+import { when } from './when'
+
+
+test('happy', () => {
+	const predicate = (x: number | string): x is number => typeof x === 'number'
+	const fn = when(
+    predicate,
+    (x: number | string) => (typeof x === 'number' ? x + 1 : x),
+  )
+  expect(fn(11)).toBe(12)
+  expect(fn('foo')).toBe('foo')
+})
+
+function notNull<T>(a: T | null | undefined): a is T {
+  return a != null
+}
+
+test('happy', () => {
+  const result = pipe(
+    1,
+    when(
+      x => x > 2,
+      x => x,
+    ),
+    tap(x => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+    }),
+    when(
+      x => x > 2,
+      x => String(x),
+    ),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<string | number>()
+  expect(result).toBe(1)
+})
+
+test('with assertion of type', () => {
+  const result = pipe(
+    [1, null, 2, 3],
+    head,
+    when(notNull, x => x + 1),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<number | null>()
+  expect(result).toBe(2)
+})

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",                                /* Specify what module code is generated. */
-    "moduleResolution": "nodenext",                      /* Specify how TypeScript looks up a file from a given module specifier. */
-    "strict": true                                       /* Enable all strict type-checking options. */
+    "module": "NodeNext",                                
+    "moduleResolution": "nodenext",                      
+    "strict": true                                       
   },
   "exclude": ["mod.ts", "files", "source"]
 }

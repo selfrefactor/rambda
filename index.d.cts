@@ -128,7 +128,7 @@ type isfn<T, U> = (fn: (x: T) => boolean, y: T) => U;
 type isfn2<T, V, U> = (fn: (x: T) => boolean, y: V) => U;
 
 interface Switchem<T> {
-  is: isfn<T, Switchem<T>>;
+  is:  isfn<T, Switchem<T>>;
   default: (x: T) => T;
 }
 interface Switchem2<T, U> {
@@ -225,6 +225,7 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T)=> Ordering;
  * It helps to make sure that input is from specific type. Similar to `R.convertToType`, but it actually checks the type of the input value. If `fn` input returns falsy value, then the function will throw an error.
  */
 export function assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+export function assertType<T>(fn: (x: T) => boolean): (x: T) => T;
 
 /**
  * It returns `true` if all each property in `conditions` returns `true` when applied to corresponding property in `input` object.
@@ -403,6 +404,7 @@ export function filterObject<T extends object>(
  * 
  * If there is no such element, it returns `undefined`.
  */
+export function find<T, S extends T>(predicate: (x: T) => x is S): (list: T[]) => S | undefined;
 export function find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 
 /**
@@ -619,6 +621,10 @@ export function mapObjectAsync<T extends object, Value>(
  * There is optional `batchSize` parameter to allow parallel execution to run in batches. In this case, the whole batch must complete before the next batch starts.
  */
 export function mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+	batchSize?: number,
+): (data: T) => Promise<Mapped<T, U>>;
+export function mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>;
@@ -647,7 +653,7 @@ export function mapPropObject<T extends object, K extends keyof T, Value extends
 /**
  * Curried version of `String.prototype.match` which returns empty array, when there is no match.
  */
-export function match(regExpression: RegExp): (str: string) => string[];
+export function match(regExpression: RegExp | string): (str: string) => string[];
 
 /**
  * It returns the greater value between `x` and `y` according to `compareFn` function.
@@ -1838,6 +1844,12 @@ export function rejectObject<T extends object>(
 ): <U extends T>(data: T) => U;
 
 /**
+ * It accepts single rule or list of rules and removes them from input string.
+ */
+export function remove(rule: RegExp | string): (str: string) => string;
+export function remove(listRules: (RegExp | string)[]): (str: string) => string;
+
+/**
  * It replaces `strOrRegex` found in `str` with `replacer`.
  */
 export function replace(strOrRegex: RegExp | string, replacer: RegExp | string): (str: string) => string;
@@ -2218,8 +2230,8 @@ export function splitEvery<T>(sliceLength: number): (input: T[]) => (T[])[];
 
 export function sum(list: number[]): number;
 
-export function switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
-export function switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+export function switcher<T>(valueToMatch: T): Switchem<T>;
+export function switcher<T, U>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================
@@ -2282,6 +2294,10 @@ export function transformPropObject<T extends object, K extends keyof T, Value>(
 /**
  * It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
  */
+export function tryCatch<T>(
+  fn: () => T,
+  fallback: T
+): () => T;
 export function tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U

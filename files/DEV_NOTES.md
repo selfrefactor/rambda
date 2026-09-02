@@ -1,11 +1,19 @@
-https://github.com/radashi-org/radashi/pull/425/changes
+## Phase 2: Radashi Comparison Tests (`source/radashi-comparison-spec.ts`)
 
+| # | Rambda method | Radashi equivalent | Key type difference |
+|---|---|---|---|
+| 1 | `find` | `selectFirst` | Radashi `selectFirst` has no type guard overload; `condition` is `(item, idx) => boolean` |
+| 2 | `filter` | `select` | Radashi `select` combines filter+map; no type guard; `condition` is `(item, idx) => boolean` |
+| 3 | `groupBy` | `group` | Both return `Partial<Record<K, T[]>>` — comparable |
+| 4 | `indexBy` | `objectify` | Radashi infers literal keys (`Record<K, V>`) but non-partial vs Rambda `Record<string, T>` |
+| 5 | `sortBy` | `sort` | Radashi only numeric getter, Rambda accepts any `Ord` |
+| 6 | `pick` | `pick` | Radashi supports predicate filter (`KeyFilter`); Rambda has string-path overload |
+| 7 | `omit` | `omit` | Both similar `Omit<T, K>` |
+| 8 | `uniq` | `unique` | Radashi supports optional `toKey` (like `uniqBy`); Rambda has separate `uniq`/`uniqBy` |
+| 9 | `sum` | `sum` | Radashi adds mapper overload `(T[], fn) => number` |
+| 10 | `pipe` | `chain` | Radashi 10 overloads vs Rambda 20; neither uses variadic tuples |
+| 11 | `zip` | `zip` | Radashi variadic (2-5 arrays, tuple-of-tuples return); Rambda curried `(K[]) => (V[]) => KeyValuePair[]` |
 
-- Change several functions to be used directly without currying. It relates when there is confusion which is the input that is coming from the pipe:
-
-- R.difference(new method)
-===
-https:bundlejs.com
 ===
 
 export function splitEvery(sliceLength: number): {

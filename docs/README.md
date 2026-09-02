@@ -215,31 +215,15 @@ export function addProp(key, value) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { addProp } from './addProp.js'
+import { addProp } from './addProp'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	const result = addProp('a', 1)({ b: 2 })
-	const expected = { a: 1, b: 2 }
-
-	expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { addProp, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.addProp', () => {
-	const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
-	expectTypeOf(result.a).toEqualTypeOf<number>()
-	expectTypeOf(result.b).toEqualTypeOf<string>()
-	expectTypeOf(result.c).toEqualTypeOf<number>()
+  const result = pipe({ a: 1, b: 'foo' }, addProp('c', 3))
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.b).toEqualTypeOf<string>()
+  expectTypeOf(result.c).toEqualTypeOf<number>()
+  expect(result).toEqual({ a: 1, b: 'foo', c: 3 })
 })
 ```
 
@@ -326,49 +310,25 @@ export function addPropToObjects (
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pipe } from './pipe.js'
-import { addPropToObjects } from './addPropToObjects.js'
+import { pipe } from './pipe'
+import { addPropToObjects } from './addPropToObjects'
 
 test('R.addPropToObjects', () => {
-		let result = pipe(
-			[
-				{a: 1, b: 2},
-				{a: 3, b: 4},
-			],
-			addPropToObjects(
-				'c',
-				(x) => String(x.a + x.b),
-			)
-		)
-		expect(result).toEqual([
-			{ a: 1, b: 2, c: '3' },
-			{ a: 3, b: 4, c: '7' },
-		])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { addPropToObjects, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.addPropToObjects', () => {
-		let result = pipe(
-			[
-				{a: 1, b: 2},
-				{a: 3, b: 4},
-			],
-			addPropToObjects(
-				'c',
-				(x) => String(x.a + x.b),
-			)
-		)
-		expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: string; }[]>()
+  let result = pipe(
+    [
+      {a: 1, b: 2},
+      {a: 3, b: 4},
+    ],
+    addPropToObjects(
+      'c',
+      (x: { a: number; b: number }) => String(x.a + x.b),
+    )
+  )
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: string }[]>()
+  expect(result).toEqual([
+    { a: 1, b: 2, c: '3' },
+    { a: 3, b: 4, c: '7' },
+  ])
 })
 ```
 
@@ -432,44 +392,33 @@ export function all(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { all } from './all.js'
+import { all } from './all'
+import { pipe } from './pipe'
 
 const list = [0, 1, 2, 3, 4]
 
+test('happy', () => {
+  const result = pipe(
+    [1, 2, 3],
+    all((x: number) => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+      return x > 0
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
+})
+
 test('when true', () => {
-  const fn = x => x > -1
+  const fn = (x: number) => x > -1
 
   expect(all(fn)(list)).toBeTruthy()
 })
 
 test('when false', () => {
-  const fn = x => x > 2
+  const fn = (x: number) => x > 2
 
   expect(all(fn)(list)).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import * as R from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('all', () => {
-  it('happy', () => {
-    const result = R.pipe(
-      [1, 2, 3],
-      R.all(x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return x > 0
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -533,47 +482,24 @@ export function allPass(predicates) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { allPass } from './allPass.js'
-import { filter } from './filter.js'
-import { pipe } from './pipe.js'
+import { allPass } from './allPass'
+import { filter } from './filter'
+import { pipe } from './pipe'
 
 const list = [
   [1, 2, 3, 4],
   [3, 4, 5],
 ]
+
 test('happy', () => {
-  const result = pipe(list, filter(allPass([x => x.includes(2), x => x.includes(3)])))
+  const result = pipe(list, filter(allPass([(x: number[]) => x.includes(2), (x: number[]) => x.includes(3)])))
+  expectTypeOf(result).toEqualTypeOf<number[][]>()
   expect(result).toEqual([[1, 2, 3, 4]])
 })
 
 test('when returns false', () => {
-  const result = pipe(list, filter(allPass([x => x.includes(12), x => x.includes(31)])))
+  const result = pipe(list, filter(allPass([(x: number[]) => x.includes(12), (x: number[]) => x.includes(31)])))
   expect(result).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import * as R from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('allPass', () => {
-  it('happy', () => {
-    const list = [
-      [1, 2, 3, 4],
-      [3, 4, 5],
-    ]
-    const result = R.pipe(list, R.map(R.allPass([
-			(x) => x.length > 2,
-			(x) => x.includes(3)
-		])))
-    expectTypeOf(result).toEqualTypeOf<boolean[]>()
-  })
 })
 ```
 
@@ -636,34 +562,19 @@ export function any(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { any } from './any.js'
-
-const list = [1, 2, 3]
+import { any } from './any'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(any(x => x > 2)(list)).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { any, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.any', () => {
   const result = pipe(
     [1, 2, 3],
-    any(x => {
+    any((x: number) => {
       expectTypeOf(x).toEqualTypeOf<number>()
       return x > 2
     }),
   )
   expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
 })
 ```
 
@@ -734,7 +645,6 @@ export function anyPass(predicates) {
       }
       counter++
     }
-
     return false
   }
 }
@@ -747,18 +657,19 @@ export function anyPass(predicates) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { anyPass } from './anyPass.js'
+import { anyPass } from "./anyPass"
+import { filter } from "./filter"
+import { pipe } from "./pipe"
 
-test('happy', () => {
-  const rules = [x => typeof x === 'string', x => x > 10]
+test("happy", () => {
+  const rules = [(x: any) => typeof x === "string", (x: any) => x > 10]
   const predicate = anyPass(rules)
-  expect(predicate('foo')).toBeTruthy()
+  expect(predicate("foo")).toBeTruthy()
   expect(predicate(6)).toBeFalsy()
 })
 
-test('happy', () => {
-  const rules = [x => typeof x === 'string', x => x > 10]
-
+test("happy 2", () => {
+  const rules = [(x: any) => typeof x === "string", (x: any) => x > 10]
   expect(anyPass(rules)(11)).toBeTruthy()
   expect(anyPass(rules)(undefined)).toBeFalsy()
 })
@@ -768,63 +679,48 @@ const obj = {
   b: 2,
 }
 
-test('when returns true', () => {
-  const conditionArr = [val => val.a === 1, val => val.a === 2]
-
+test("when returns true", () => {
+  const conditionArr = [(val: any) => val.a === 1, (val: any) => val.a === 2]
   expect(anyPass(conditionArr)(obj)).toBeTruthy()
 })
 
-test('when returns false', () => {
-  const conditionArr = [val => val.a === 2, val => val.b === 3]
-
+test("when returns false", () => {
+  const conditionArr = [(val: any) => val.a === 2, (val: any) => val.b === 3]
   expect(anyPass(conditionArr)(obj)).toBeFalsy()
 })
 
-test('with empty predicates list', () => {
-  expect(anyPass([])(3)).toBeFalsy()
+test("with empty predicates list", () => {
+	const result = pipe(3, anyPass([]))
+	expectTypeOf(result).toEqualTypeOf<unknown>()
+  expect(result).toBeFalsy()
 })
-```
 
-</details>
+test("issue #604", () => {
+  const plusEq = (w: number, x: number, y: number, z: number) => w + x === y + z
+  const result = anyPass([plusEq])(3, 3, 3, 3)
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(false)
+})
 
-<details>
+test("issue #642", () => {
+  const isGreater = (num: number) => num > 5
+  const pred = anyPass([isGreater])
+  const xs = [0, 1, 2, 3]
+  const filtered1 = filter(pred)(xs)
+  expectTypeOf(filtered1).toEqualTypeOf<number[]>()
+  const filtered2 = xs.filter(pred)
+  expectTypeOf(filtered2).toEqualTypeOf<number[]>()
+})
 
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { anyPass, filter } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('anyPass', () => {
-  it('issue #604', () => {
-    const plusEq = (w: number, x: number, y: number, z: number) => w + x === y + z
-    const result = anyPass([plusEq])(3, 3, 3, 3)
-
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('issue #642', () => {
-    const isGreater = (num: number) => num > 5
-    const pred = anyPass([isGreater])
-    const xs = [0, 1, 2, 3]
-
-    const filtered1 = filter(pred)(xs)
-    expectTypeOf(filtered1).toEqualTypeOf<number[]>()
-    const filtered2 = xs.filter(pred)
-    expectTypeOf(filtered2).toEqualTypeOf<number[]>()
-  })
-  it('functions as a type guard', () => {
-    const isString = (x: unknown): x is string => typeof x === 'string'
-    const isNumber = (x: unknown): x is number => typeof x === 'number'
-    const isBoolean = (x: unknown): x is boolean => typeof x === 'boolean'
-
-    const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean])
-
-    const aValue: unknown = 1
-
-    if (isStringNumberOrBoolean(aValue)) {
-      expectTypeOf(aValue).toEqualTypeOf<string | number | boolean>()
-    }
-  })
+test("functions as a type guard", () => {
+  const isString = (x: unknown): x is string => typeof x === "string"
+  const isNumber = (x: unknown): x is number => typeof x === "number"
+  const isBoolean = (x: unknown): x is boolean => typeof x === "boolean"
+  const isStringNumberOrBoolean = anyPass([isString, isNumber, isBoolean])
+  const aValue: unknown = 1
+  if (isStringNumberOrBoolean(aValue)) {
+    expectTypeOf(aValue).toEqualTypeOf<string | number | boolean>()
+  }
 })
 ```
 
@@ -883,38 +779,26 @@ export function append(x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { append } from './append.js'
+import { append } from './append'
+import { prepend } from './prepend'
+import { pipe } from './pipe'
+
+const listOfNumbers = [1, 2, 3]
 
 test('happy', () => {
-  expect(append('tests')(['write', 'more'])).toEqual(['write', 'more', 'tests'])
+  const result = pipe(listOfNumbers, append(4), prepend(0))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([0, 1, 2, 3, 4])
 })
 
 test('append to empty array', () => {
   expect(append('tests')([])).toEqual(['tests'])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { append, pipe, prepend } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const listOfNumbers = [1, 2, 3]
-
-describe('R.append/R.prepend', () => {
-  it('happy', () => {
-    const result = pipe(listOfNumbers, append(4), prepend(0))
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-  it('with object', () => {
-    const result = pipe([{ a: 1 }], append({ a: 10 }), prepend({ a: 20 }))
-    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
-  })
+test('with object', () => {
+  const result = pipe([{ a: 1 }], append({ a: 10 }), prepend({ a: 20 }))
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
+  expect(result).toEqual([{ a: 20 }, { a: 1 }, { a: 10 }])
 })
 ```
 
@@ -981,43 +865,25 @@ export function ascend(getFunction) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { ascend } from './ascend.js'
-import { descend } from './descend.js'
-import { sort } from './sort.js'
+import { ascend } from './ascend'
+import { descend } from './descend'
+import { sort } from './sort'
 
 test('ascend', () => {
   const result = sort(
-    ascend(x => x.a))(
+    ascend((x: { a: number }) => x.a))(
     [{a:1}, {a:3}, {a:2}],
   )
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
   expect(result).toEqual([{a:1}, {a:2}, {a:3}])
 })
 
 test('descend', () => {
   const result = sort(
-    descend(x => x.a))(
+    descend((x: { a: number }) => x.a))(
     [{a:1}, {a:3}, {a:2}],
   )
   expect(result).toEqual([{a:3}, {a:2}, {a:1}])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, ascend, sort } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.ascend', () => {
-	const result = pipe(
-		[{a:1}, {a:2}],
-		sort(ascend(x => x.a))
-	)
-	expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
 })
 ```
 
@@ -1040,6 +906,7 @@ It helps to make sure that input is from specific type. Similar to `R.convertToT
 
 ```typescript
 assertType<T, U extends T>(fn: (x: T) => x is U) : (x: T) => U;
+assertType<T>(fn: (x: T) => boolean): (x: T) => T;
 ```
 
 </details>
@@ -1066,56 +933,46 @@ export function assertType(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { assertType } from './assertType.js'
-import { pipe } from './pipe.js'
-
-test('happy', () => {
-  const result = pipe(
-		[1, 2, 3],
-		assertType((x) => x.length === 3),
-	)
-	expect(result).toEqual([1, 2, 3])
-})
-
-test('throw', () => {
-	expect(() => {
-		pipe(
-			[1, 2, 3],
-			assertType((x) => x.length === 4),
-		)
-	}).toThrow('type assertion failed in R.assertType')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, assertType } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
+import { assertType } from './assertType'
+import { pipe } from './pipe'
 
 type Book = {
-	title: string
-	year: number
+  title: string
+  year: number
 }
 
 type BookToRead = Book & {
-	bookmarkFlag: boolean
+  bookmarkFlag: boolean
 }
 
 function isBookToRead(book: Book): book is BookToRead {
-	return (book as BookToRead).bookmarkFlag !== undefined 
+  return (book as BookToRead).bookmarkFlag !== undefined
 }
 
-it('R.assertType', () => {
-	const result = pipe(
-		{ title: 'Book1', year: 2020, bookmarkFlag: true },
-		assertType(isBookToRead),
-	)
-	expectTypeOf(result).toEqualTypeOf<BookToRead>()
+test('happy', () => {
+  const result = pipe(
+    [1, 2, 3],
+    assertType((x: number[]) => x.length === 3),
+  )
+  expect(result).toEqual([1, 2, 3])
+})
+
+test('throw', () => {
+  expect(() => {
+    pipe(
+      [1, 2, 3],
+      assertType((x: number[]) => x.length === 4),
+    )
+  }).toThrow('type assertion failed in R.assertType')
+})
+
+test('R.assertType', () => {
+  const result = pipe(
+    { title: 'Book1', year: 2020, bookmarkFlag: true },
+    assertType(isBookToRead),
+  )
+  expectTypeOf(result).toEqualTypeOf<BookToRead>()
+  expect(result).toEqual({ title: 'Book1', year: 2020, bookmarkFlag: true })
 })
 ```
 
@@ -1189,8 +1046,24 @@ export function checkObjectWithSpec(conditions) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { checkObjectWithSpec } from './checkObjectWithSpec.js'
-import { equals } from './equals.js'
+import { checkObjectWithSpec } from './checkObjectWithSpec'
+import { equals } from './equals'
+
+test('happy', () => {
+  const input = {
+    a: 'foo',
+    b: 'bar',
+    x: 11,
+    y: 19,
+  }
+  const conditions = {
+    a: equals('foo'),
+    b: equals('bar'),
+  }
+  const result = checkObjectWithSpec(conditions)(input)
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
+})
 
 test('when true', () => {
   const result = checkObjectWithSpec({
@@ -1202,15 +1075,13 @@ test('when true', () => {
     x: 11,
     y: 19,
   })
-
   expect(result).toBeTruthy()
 })
 
 test('when false | early exit', () => {
   let counter = 0
-  const equalsFn = expected => input => {
+  const equalsFn = (expected: string) => (input: string) => {
     counter++
-
     return input === expected
   }
   const predicate = checkObjectWithSpec({
@@ -1224,34 +1095,6 @@ test('when false | early exit', () => {
     }),
   ).toBeFalsy()
   expect(counter).toBe(1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { checkObjectWithSpec, equals } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.checkObjectWithSpec', () => {
-  it('happy', () => {
-    const input = {
-      a: 'foo',
-      b: 'bar',
-      x: 11,
-      y: 19,
-    }
-    const conditions = {
-      a: equals('foo'),
-      b: equals('bar'),
-    }
-    const result = checkObjectWithSpec(conditions)(input)
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -1328,55 +1171,28 @@ export function compact(input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { compact } from './compact.js'
-import { pipe } from './pipe.js'
+import { compact } from './compact'
+import { pipe } from './pipe'
 
 test('happy', () => {
   const result = pipe(
-		{
-			a: [ undefined, 'a', 'b', 'c'],
-			b: [1,2, null, 0, undefined, 3],
-			c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
-		},
-		x => ({
-			a: compact(x.a),
-			b: compact(x.b),
-			c: compact(x.c)
-		})
-	)
-	expect(result.a).toEqual(['a', 'b', 'c'])
-	expect(result.b).toEqual([1,2,0,3])
-	expect(result.c).toEqual({ a: 1, b: 2,c:0, f: false })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { compact, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.compact', () => {
-		let result = pipe(
-			{
-				a: [ undefined, '', 'a', 'b', 'c', null ],
-				b: [1,2, null, 0, undefined, 3],
-				c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
-			},
-			x => ({
-				a: compact(x.a),
-				b: compact(x.b),
-				c: compact(x.c)
-			})
-		)
-
-		expectTypeOf(result.a).toEqualTypeOf<string[]>()
-		expectTypeOf(result.b).toEqualTypeOf<number[]>()
-		expectTypeOf(result.c).toEqualTypeOf<{ a: number; b: number; c: number; f: boolean; }>()
+    {
+      a: [ undefined, '', 'a', 'b', 'c', null ],
+      b: [1,2, null, 0, undefined, 3],
+      c: { a: 1, b: 2, c: 0, d: undefined, e: null, f: false },
+    },
+    (x: { a: (string | undefined | null)[]; b: (number | null | undefined)[]; c: { a: number; b: number; c: number; d: undefined; e: null; f: boolean } }) => ({
+      a: compact(x.a),
+      b: compact(x.b),
+      c: compact(x.c),
+    })
+  )
+  expectTypeOf(result.a).toEqualTypeOf<string[]>()
+  expectTypeOf(result.b).toEqualTypeOf<number[]>()
+  expectTypeOf(result.c).toEqualTypeOf<{ a: number; b: number; c: number; f: boolean }>()
+  expect(result.a).toEqual(['', 'a', 'b', 'c'])
+  expect(result.b).toEqual([1,2,0,3])
+  expect(result.c).toEqual({ a: 1, b: 2, c: 0, f: false })
 })
 ```
 
@@ -1434,38 +1250,20 @@ export function complement(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { complement } from './complement.js'
+import { complement } from './complement'
 
 test('happy', () => {
-  const fn = complement(x => x.length === 0)
-
-  expect(fn([1, 2, 3])).toBeTruthy()
+  const fn = complement((x: number) => x > 10)
+  const result = fn(1)
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
 })
 
 test('with multiple parameters', () => {
-  const between = (a, b, c) => a < b && b < c
+  const between = (a: number, b: number, c: number) => a < b && b < c
   const f = complement(between)
   expect(f(4, 5, 11)).toBeFalsy()
   expect(f(12, 2, 6)).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { complement } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.complement', () => {
-  it('happy', () => {
-    const fn = complement((x: number) => x > 10)
-    const result = fn(1)
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -1514,20 +1312,22 @@ export function concat(x) {
 
 <details>
 
-<summary><strong>TypeScript</strong> test</summary>
+<summary><strong>Tests</strong></summary>
 
-```typescript
-import { concat, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
+```javascript
+import { concat } from './concat'
+import { pipe } from './pipe'
 
 const list1 = [1, 2, 3]
 const list2 = [4, 5, 6]
 
-it('R.concat', () => {
+test('R.concat', () => {
   const result = pipe(list1, concat(list2))
   expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([4, 5, 6, 1, 2, 3])
   const resultString = pipe('foo', concat('list2'))
   expectTypeOf(resultString).toEqualTypeOf<string>()
+  expect(resultString).toBe('list2foo')
 })
 ```
 
@@ -1563,30 +1363,6 @@ convertToType<T>(x: unknown) : T;
 export function convertToType(x) {
   return x
 }
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { convertToType, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-it('R.convertToType', () => {
-  const result = pipe(list, 
-		convertToType<string[]>,
-		x => {
-			expectTypeOf(x).toEqualTypeOf<string[]>()
-			return x 
-		}
-	)
-  expectTypeOf(result).toEqualTypeOf<string[]>()
-})
 ```
 
 </details>
@@ -1645,37 +1421,20 @@ export function count(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { count } from './count.js'
+import { count } from './count'
+import { pipe } from './pipe'
 
-const predicate = x => x.a !== undefined
+const predicate = (x: any) => x.a !== undefined
+
+test('happy', () => {
+  const list = [1, 2, 3]
+  const result = pipe(list, count((x: number) => x > 1))
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(2)
+})
 
 test('with empty list', () => {
   expect(count(predicate)([])).toBe(0)
-})
-
-test('happy', () => {
-  const list = [1, 2, { a: 1 }, 3, { a: 1 }]
-
-  expect(count(predicate)(list)).toBe(2)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { count, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-const predicate = (x: number) => x > 1
-
-it('R.count', () => {
-  const result = pipe(list, count(predicate))
-  expectTypeOf(result).toEqualTypeOf<number>()
 })
 ```
 
@@ -1742,40 +1501,20 @@ export function countBy(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { countBy } from './countBy.js'
+import { countBy } from './countBy'
+import { pipe } from './pipe'
 
 const list = ['a', 'A', 'b', 'B', 'c', 'C']
 
 test('happy', () => {
-  const result = countBy(x => x.toLowerCase())(list)
-  expect(result).toEqual({
-    a: 2,
-    b: 2,
-    c: 2,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { countBy, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = ['a', 'A', 'b', 'B', 'c', 'C']
-
-it('R.countBy', () => {
   const result = pipe(
     list,
-    countBy(x => x.toLowerCase()),
+    countBy((x: string) => x.toLowerCase()),
   )
   expectTypeOf(result.a).toEqualTypeOf<number>()
   expectTypeOf(result.foo).toEqualTypeOf<number>()
-  expectTypeOf(result).toEqualTypeOf<{ [index: string]: number; }>()
+  expectTypeOf(result).toEqualTypeOf<{ [index: string]: number }>()
+  expect(result).toEqual({ a: 2, b: 2, c: 2 })
 })
 ```
 
@@ -1840,13 +1579,12 @@ export function createObjectFromKeys(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { createObjectFromKeys } from './createObjectFromKeys.js'
+import { createObjectFromKeys } from './createObjectFromKeys'
 
 test('happy', () => {
-	const result = createObjectFromKeys((key, index) => key.toUpperCase() + index)(['a', 'b'])
-	const expected = { a: 'A0', b: 'B1' }
-
-	expect(result).toEqual(expected)
+  const result = createObjectFromKeys<['a', 'b'], string>((key: string, index: number) => key.toUpperCase() + index)(['a', 'b'])
+  const expected = { a: 'A0', b: 'B1' }
+  expect(result).toEqual(expected)
 })
 ```
 
@@ -1908,7 +1646,14 @@ export function defaultTo(defaultArgument) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { defaultTo } from './defaultTo.js'
+import { defaultTo } from './defaultTo'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const result = pipe('bar' as unknown, defaultTo('foo'))
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('bar')
+})
 
 test('with undefined', () => {
   expect(defaultTo('foo')(undefined)).toBe('foo')
@@ -1932,25 +1677,6 @@ test('with false', () => {
 
 test('when inputArgument passes initial check', () => {
   expect(defaultTo('foo')('bar')).toBe('bar')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { defaultTo, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.defaultTo', () => {
-  it('happy', () => {
-    const result = pipe('bar' as unknown, defaultTo('foo'))
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
 })
 ```
 
@@ -2101,7 +1827,7 @@ export function difference(listA) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { difference } from './difference.js'
+import { difference } from './difference'
 
 test('difference', () => {
   const list1 = [1, 2, 3, 4]
@@ -2113,33 +1839,14 @@ test('difference', () => {
 test('difference with objects', () => {
   const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
   const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
-  expect(difference(list1)(list2)).toEqual([
+  const result = difference(list1)(list2)
+  expectTypeOf(result).toEqualTypeOf<{ id: number }[]>()
+  expect(result).toEqual([
     { id: 1 },
     { id: 2 },
     { id: 5 },
     { id: 6 },
   ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { difference } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.difference', () => {
-  it('happy', () => {
-    const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
-    const result = difference(list1)(list2)
-
-    expectTypeOf(result).toEqualTypeOf<{ id: number; }[]>()
-  })
 })
 ```
 
@@ -2189,7 +1896,14 @@ export function drop(howManyToDrop) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { drop } from './drop.js'
+import { drop } from './drop'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const result = pipe([1, 2, 3, 4], drop(2))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([3, 4])
+})
 
 test('with array', () => {
   expect(drop(2)(['foo', 'bar', 'baz'])).toEqual(['baz'])
@@ -2201,22 +1915,6 @@ test('with non-positive count', () => {
   expect(drop(0)([1, 2, 3])).toEqual([1, 2, 3])
   expect(drop(-1)([1, 2, 3])).toEqual([1, 2, 3])
   expect(drop(Number.NEGATIVE_INFINITY)([1, 2, 3])).toEqual([1, 2, 3])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { drop, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.drop', () => {
-  const result = pipe([1, 2, 3, 4], drop(2))
-  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -2260,7 +1958,7 @@ export function dropLast(numberItems) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropLast } from './dropLast.js'
+import { dropLast } from './dropLast'
 
 test('with array', () => {
   expect(dropLast(2)(['foo', 'bar', 'baz'])).toEqual(['foo'])
@@ -2345,12 +2043,12 @@ export function dropLastWhile(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropLastWhile } from './dropLastWhile.js'
+import { dropLastWhile } from './dropLastWhile'
 
 const list = [1, 2, 3, 4, 5]
 
 test('with list', () => {
-  const result = dropLastWhile(x => x >= 3)(list)
+  const result = dropLastWhile((x: number) => x >= 3)(list)
   expect(result).toEqual([1, 2])
 })
 
@@ -2481,58 +2179,36 @@ export function dropWhile(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { dropWhile } from './dropWhile.js'
+import { dropWhile } from './dropWhile'
+import { pipe } from './pipe'
 
 const list = [1, 2, 3, 4]
 
 test('happy', () => {
-  const predicate = (x, i) => {
-    expect(typeof i).toBe('number')
-    return x < 3
-  }
-  const result = dropWhile(predicate)(list)
-  expect(result).toEqual([3, 4])
+  const result = pipe(
+    [1, 2, 3],
+    dropWhile((x: number) => x < 3),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([3])
 })
 
 test('always false', () => {
-  const predicate = () => 0
+  const predicate = () => false
   const result = dropWhile(predicate)(list)
   expect(result).toEqual(list)
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { dropWhile, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.dropWhile', () => {
-  it('happy', () => {
-    const result = pipe(
-      list,
-      dropWhile(x => x > 1),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-  it('with index', () => {
-    const result = pipe(
-      list,
-      dropWhile((x, i) => {
-        expectTypeOf(i).toEqualTypeOf<number>()
-        return x + i > 2
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('with index', () => {
+  const result = pipe(
+    [1, 2, 3],
+    dropWhile((x: number, i: number) => {
+      expectTypeOf(i).toEqualTypeOf<number>()
+      return x + i > 2
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 2, 3])
 })
 ```
 
@@ -2589,10 +2265,10 @@ export function duplicateBy(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { duplicateBy } from './duplicateBy.js'
+import { duplicateBy } from './duplicateBy'
 
 test('happy', () => {
-  expect(duplicateBy(Math.abs)([-2, -1, 0, 1, 2])).toEqual([1,2])
+  expect(duplicateBy(Math.abs)([-2, -1, 0, 1, 2])).toEqual([1, 2])
 })
 
 test('returns an empty array for an empty array', () => {
@@ -2602,7 +2278,7 @@ test('returns an empty array for an empty array', () => {
 test('uses R.uniq', () => {
   const list = [{ a: 1 }, { a: 2 }, { a: 1 }]
   const expected = [{ a: 1 }]
-  expect(duplicateBy(x => x)(list)).toEqual(expected)
+  expect(duplicateBy((x: any) => x)(list)).toEqual(expected)
 })
 ```
 
@@ -2653,21 +2329,21 @@ export function eqBy(fn, a) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { eqBy } from './eqBy.js'
+import { eqBy } from './eqBy'
 
 test('deteremines whether two values map to the same value in the codomain', () => {
-  expect(eqBy(Math.abs, 5)(5)).toBe(true)
-  expect(eqBy(Math.abs, 5)(-5)).toBe(true)
-  expect(eqBy(Math.abs, -5)(5)).toBe(true)
-  expect(eqBy(Math.abs, -5)(-5)).toBe(true)
-  expect(eqBy(Math.abs, 42)(99)).toBe(false)
+  expect(eqBy<number>(Math.abs, 5)(5)).toBe(true)
+  expect(eqBy<number>(Math.abs, 5)(-5)).toBe(true)
+  expect(eqBy<number>(Math.abs, -5)(5)).toBe(true)
+  expect(eqBy<number>(Math.abs, -5)(-5)).toBe(true)
+  expect(eqBy<number>(Math.abs, 42)(99)).toBe(false)
 })
 
 test('has R.equals semantics', () => {
   expect(eqBy(Math.abs, Number.NaN)(Number.NaN)).toBe(true)
-  expect(eqBy(Math.abs, [42])([42])).toBe(true)
-  expect(eqBy(x => x, { a: 1 })({ a: 1 })).toBe(true)
-  expect(eqBy(x => x, { a: 1 })({ a: 2 })).toBe(false)
+  expect(eqBy((x: number[]) => x.length, [42])([42])).toBe(true)
+  expect(eqBy((x: any) => x, { a: 1 })({ a: 1 })).toBe(true)
+  expect(eqBy((x: any) => x, { a: 1 })({ a: 2 })).toBe(false)
 })
 ```
 
@@ -2722,7 +2398,8 @@ export function eqProps(property, objA) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { eqProps } from './eqProps.js'
+import { eqProps } from './eqProps'
+import { pipe } from './pipe'
 
 const obj1 = {
   a: 1,
@@ -2732,6 +2409,14 @@ const obj2 = {
   a: 1,
   b: 3,
 }
+
+test('happy', () => {
+  const objA = { a: { b: 1 }, c: 2 }
+  const objB = { a: { b: 1 }, c: 3 }
+  const result = pipe(objA, eqProps('a', objB))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
+})
 
 test('props are equal', () => {
   const result = eqProps('a', obj1)(obj2)
@@ -2744,28 +2429,8 @@ test('props are not equal', () => {
 })
 
 test('prop does not exist', () => {
-  const result = eqProps('c', obj1)(obj2)
+  const result = eqProps('c' as 'a' | 'b', obj1)(obj2)
   expect(result).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { eqProps, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const obj1 = { a: { b: 1 }, c: 2 }
-const obj2 = { a: { b: 1 }, c: 3 }
-
-it('R.eqProps', () => {
-  const result = pipe(obj1, eqProps('a', obj2))
-
-  expectTypeOf(result).toEqualTypeOf<boolean>()
 })
 ```
 
@@ -3028,16 +2693,28 @@ export function equals(a) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { equalsFn } from './equals.js'
+import { equals } from './equals'
+
+test('happy', () => {
+  const result = equals(4)(1)
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(false)
+
+  const foo = { a: 1 }
+  const bar = { a: 2 }
+  const result2 = equals(foo)(bar)
+  expectTypeOf(result2).toEqualTypeOf<boolean>()
+  expect(result2).toBe(false)
+})
 
 test('compare functions', () => {
   function foo() {}
   function bar() {}
   const baz = () => {}
 
-  const expectTrue = equalsFn(foo, foo)
-  const expectFalseFirst = equalsFn(foo, bar)
-  const expectFalseSecond = equalsFn(foo, baz)
+  const expectTrue = equals(foo)(foo)
+  const expectFalseFirst = equals(bar)(foo)
+  const expectFalseSecond = equals(baz)(foo)
 
   expect(expectTrue).toBeTruthy()
   expect(expectFalseFirst).toBeFalsy()
@@ -3049,122 +2726,120 @@ test('with array of objects', () => {
   const list2 = [{ a: 1 }, [{ b: 2 }]]
   const list3 = [{ a: 1 }, [{ b: 3 }]]
 
-  expect(equalsFn(list1, list2)).toBeTruthy()
-  expect(equalsFn(list1, list3)).toBeFalsy()
+  expect(equals(list1)(list2)).toBeTruthy()
+  expect(equals(list1)(list3)).toBeFalsy()
 })
 
 test('with regex', () => {
-  expect(equalsFn(/s/, /s/)).toBeTruthy()
-  expect(equalsFn(/s/, /d/)).toBeFalsy()
-  expect(equalsFn(/a/gi, /a/gi)).toBeTruthy()
-  expect(equalsFn(/a/gim, /a/gim)).toBeTruthy()
-  expect(equalsFn(/a/gi, /a/i)).toBeFalsy()
+  expect(equals(/s/)(/s/)).toBeTruthy()
+  expect(equals(/s/)(/d/)).toBeFalsy()
+  expect(equals(/a/gi)(/a/gi)).toBeTruthy()
+  expect(equals(/a/gim)(/a/gim)).toBeTruthy()
+  expect(equals(/a/gi)(/a/i)).toBeFalsy()
 })
 
 test('not a number', () => {
-  expect(equalsFn([Number.NaN], [Number.NaN])).toBeTruthy()
+  expect(equals([Number.NaN])([Number.NaN])).toBeTruthy()
 })
 
 test('new number', () => {
-  expect(equalsFn(new Number(0), new Number(0))).toBeTruthy()
-  expect(equalsFn(new Number(0), new Number(1))).toBeFalsy()
-  expect(equalsFn(new Number(1), new Number(0))).toBeFalsy()
+  expect(equals(new Number(0))(new Number(0))).toBeTruthy()
+  expect(equals(new Number(0))(new Number(1))).toBeFalsy()
+  expect(equals(new Number(1))(new Number(0))).toBeFalsy()
 })
 
 test('new string', () => {
-  expect(equalsFn(new String(''), new String(''))).toBeTruthy()
-  expect(equalsFn(new String(''), new String('x'))).toBeFalsy()
-  expect(equalsFn(new String('x'), new String(''))).toBeFalsy()
-  expect(equalsFn(new String('foo'), new String('foo'))).toBeTruthy()
-  expect(equalsFn(new String('foo'), new String('bar'))).toBeFalsy()
-  expect(equalsFn(new String('bar'), new String('foo'))).toBeFalsy()
+  expect(equals(new String(''))(new String(''))).toBeTruthy()
+  expect(equals(new String(''))(new String('x'))).toBeFalsy()
+  expect(equals(new String('x'))(new String(''))).toBeFalsy()
+  expect(equals(new String('foo'))(new String('foo'))).toBeTruthy()
+  expect(equals(new String('foo'))(new String('bar'))).toBeFalsy()
+  expect(equals(new String('bar'))(new String('foo'))).toBeFalsy()
 })
 
 test('new Boolean', () => {
-  expect(equalsFn(new Boolean(true), new Boolean(true))).toBeTruthy()
-  expect(equalsFn(new Boolean(false), new Boolean(false))).toBeTruthy()
-  expect(equalsFn(new Boolean(true), new Boolean(false))).toBeFalsy()
-  expect(equalsFn(new Boolean(false), new Boolean(true))).toBeFalsy()
+  expect(equals(new Boolean(true))(new Boolean(true))).toBeTruthy()
+  expect(equals(new Boolean(false))(new Boolean(false))).toBeTruthy()
+  expect(equals(new Boolean(true))(new Boolean(false))).toBeFalsy()
+  expect(equals(new Boolean(false))(new Boolean(true))).toBeFalsy()
 })
 
 test('new Error', () => {
-  expect(equalsFn(new Error('XXX'), {})).toBeFalsy()
-  expect(equalsFn(new Error('XXX'), new TypeError('XXX'))).toBeFalsy()
-  expect(equalsFn(new Error('XXX'), new Error('YYY'))).toBeFalsy()
-  expect(equalsFn(new Error('XXX'), new Error('XXX'))).toBeTruthy()
-  expect(equalsFn(new Error('XXX'), new TypeError('YYY'))).toBeFalsy()
-  expect(equalsFn(new Error('XXX'), new Error('XXX'))).toBeTruthy()
+  expect(equals(new Error('XXX'))({} as any)).toBeFalsy()
+  expect(equals(new Error('XXX'))(new TypeError('XXX'))).toBeFalsy()
+  expect(equals(new Error('XXX'))(new Error('YYY'))).toBeFalsy()
+  expect(equals(new Error('XXX'))(new Error('XXX'))).toBeTruthy()
+  expect(equals(new Error('XXX'))(new TypeError('YYY'))).toBeFalsy()
 })
 
 test('with dates', () => {
-  expect(equalsFn(new Date(0), new Date(0))).toBeTruthy()
-  expect(equalsFn(new Date(1), new Date(1))).toBeTruthy()
-  expect(equalsFn(new Date(0), new Date(1))).toBeFalsy()
-  expect(equalsFn(new Date(1), new Date(0))).toBeFalsy()
-  expect(equalsFn(new Date(0), {})).toBeFalsy()
-  expect(equalsFn({}, new Date(0))).toBeFalsy()
+  expect(equals(new Date(0))(new Date(0))).toBeTruthy()
+  expect(equals(new Date(1))(new Date(1))).toBeTruthy()
+  expect(equals(new Date(0))(new Date(1))).toBeFalsy()
+  expect(equals(new Date(1))(new Date(0))).toBeFalsy()
+  expect(equals(new Date(0))({} as any)).toBeFalsy()
+  expect(equals({})(new Date(0))).toBeFalsy()
 })
 
 test('ramda spec', () => {
-  expect(equalsFn({}, {})).toBeTruthy()
+  expect(equals({})({})).toBeTruthy()
 
   expect(
-    equalsFn(
+    equals(
       {
         a: 1,
         b: 2,
-      },
-      {
+      })({
         a: 1,
         b: 2,
-      },
-    ),
+      }),
+     )
+  .toBeTruthy()
+
+  expect(
+    equals(
+      {
+        a: 2,
+        b: 3,
+      })(
+      {
+        a: 2,
+        b: 3,
+      } as any
+    )
   ).toBeTruthy()
 
   expect(
-    equalsFn(
+    equals(
       {
         a: 2,
         b: 3,
-      },
-      {
-        a: 2,
-        b: 3,
-      },
-    ),
-  ).toBeTruthy()
-
-  expect(
-    equalsFn(
-      {
-        a: 2,
-        b: 3,
-      },
+      })(
       {
         a: 3,
         b: 3,
-      },
+      } as any
     ),
   ).toBeFalsy()
 
   expect(
-    equalsFn(
+    equals(
       {
         a: 2,
         b: 3,
         c: 1,
-      },
+      })(
       {
         a: 2,
         b: 3,
-      },
-    ),
-  ).toBeFalsy()
+      } as any
+    ))
+  .toBeFalsy()
 })
 
 test('works with boolean tuple', () => {
-  expect(equalsFn([true, false], [true, false])).toBeTruthy()
-  expect(equalsFn([true, false], [true, true])).toBeFalsy()
+  expect(equals([true, false])([true, false])).toBeTruthy()
+  expect(equals([true, false])([true, true])).toBeFalsy()
 })
 
 test('works with equal objects within array', () => {
@@ -3185,7 +2860,7 @@ test('works with equal objects within array', () => {
 
   const x = [1, 2, objFirst, null, '', []]
   const y = [1, 2, objSecond, null, '', []]
-  expect(equalsFn(x, y)).toBeTruthy()
+  expect(equals(x)(y)).toBeTruthy()
 })
 
 test('works with different objects within array', () => {
@@ -3194,62 +2869,32 @@ test('works with different objects within array', () => {
 
   const x = [1, 2, objFirst, null, '', []]
   const y = [1, 2, objSecond, null, '', []]
-  expect(equalsFn(x, y)).toBeFalsy()
+  expect(equals(x)(y)).toBeFalsy()
 })
 
 test('works with undefined as second argument', () => {
-  expect(equalsFn(1, undefined)).toBeFalsy()
-
-  expect(equalsFn(undefined, undefined)).toBeTruthy()
+  expect(equals(1)(undefined as any)).toBeFalsy()
+  expect(equals(undefined)(undefined)).toBeTruthy()
 })
 
 test('compare sets', () => {
   const toCompareDifferent = new Set([{ a: 1 }, { a: 2 }])
   const toCompareSame = new Set([{ a: 1 }, { a: 2 }, { a: 1 }])
   const testSet = new Set([{ a: 1 }, { a: 2 }, { a: 1 }])
-  expect(equalsFn(toCompareSame, testSet)).toBeTruthy()
-  expect(equalsFn(toCompareDifferent, testSet)).toBeFalsy()
+  expect(equals(toCompareSame)(testSet)).toBeTruthy()
+  expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
-  expect(equalsFn(new Set(['3', '2', '1']), testSet)).toBeTruthy()
-  expect(equalsFn(new Set(['3', '2', '0']), testSet)).toBeFalsy()
+  expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()
+  expect(equals(new Set(['3', '2', '0']))(testSet)).toBeFalsy()
 })
 
 test('various examples', () => {
-  expect(equalsFn([1, 2, 3], [1, 2, 3])).toBeTruthy()
-  expect(equalsFn([1, 2, 3], [1, 2])).toBeFalsy()
-  expect(equalsFn({}, {})).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { equals } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.equals', () => {
-  it('happy', () => {
-    const result = equals(4)(1)
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('with object', () => {
-    const foo = { a: 1 }
-    const bar = { a: 2 }
-    const result = equals(foo)(bar)
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('curried', () => {
-    const result = equals(4)(1)
-
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
+  expect(equals([1, 2, 3])([1, 2, 3])).toBeTruthy()
+  expect(equals([1, 2, 3])([1, 2])).toBeFalsy()
+  expect(equals({})({})).toBeTruthy()
 })
 ```
 
@@ -3317,53 +2962,31 @@ export function evolve(rules) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { evolve } from './evolve.js'
+import { evolve } from './evolve'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const rules = {
-    foo: x => x + 1,
-  }
   const input = {
-    a: 1,
-    foo: 2,
-		nested: { bar: { z: 3 } },
-  }
-  const result = evolve(rules)(input)
-  expect(result).toEqual({
-    a: 1,
-    foo: 3,
-		nested: { bar: { z: 3 } },
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {  evolve, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.evolve', () => {
-  const input = {
-		baz: 1,
+    baz: 1,
     foo: 2,
     nested: {
       a: 1,
       bar: 3,
     },
   }
-  const result = pipe(input, 
-		evolve({
-			foo: x => x + 1,
-		})
-	)
+  const result = pipe(input,
+    evolve({
+      foo: (x) => x + 1,
+    })
+  )
   expectTypeOf(result.foo).toEqualTypeOf<number>()
   expectTypeOf(result.baz).toEqualTypeOf<number>()
   expectTypeOf(result.nested.a).toEqualTypeOf<number>()
+  expect(result).toEqual({
+    baz: 1,
+    foo: 3,
+    nested: { a: 1, bar: 3 },
+  })
 })
 ```
 
@@ -3422,43 +3045,30 @@ export function excludes(iterable) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { excludes } from './excludes.js'
+import { excludes } from './excludes'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
+  const result = pipe({ a: { b: '1' } }, excludes(list))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(false)
+
+  const stringResult = pipe('foo', excludes('bar'))
+  expectTypeOf(stringResult).toEqualTypeOf<boolean>()
+  expect(stringResult).toBe(true)
+})
 
 test('excludes with string', () => {
   const str = 'more is less'
-
   expect(excludes(str)('less')).toBeFalsy()
   expect(excludes(str)('never')).toBeTruthy()
 })
 
 test('excludes with array', () => {
   const arr = [1, 2, 3]
-
   expect(excludes(arr)(2)).toBeFalsy()
   expect(excludes(arr)(4)).toBeTruthy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { excludes, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.excludes', () => {
-  it('happy', () => {
-    const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe({ a: { b: '1' } }, excludes(list))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('with string', () => {
-    const result = pipe('foo', excludes('bar'))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -3516,40 +3126,22 @@ export function exists(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { exists } from './exists.js'
-import { propEq } from './propEq.js'
+import { exists } from './exists'
+import { propEq } from './propEq'
+import { pipe } from './pipe'
 
 const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
 
 test('happy', () => {
-  const fn = propEq(2, 'a')
-  expect(exists(fn)(list)).toBe(true)
+  const predicate = (x: number) => x > 2
+  const result = pipe([1, 2, 3], exists(predicate))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
 })
 
 test('nothing is found', () => {
   const fn = propEq(4, 'a')
   expect(exists(fn)(list)).toBe(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { exists, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.exists', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = pipe(list, exists(predicate))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -3634,132 +3226,114 @@ export function filter(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { filter } from './filter.js'
+import { filter } from './filter'
+import { includes } from './includes'
+import { pipe } from './pipe'
+import { reject } from './reject'
+import { sort } from './sort'
+import { split } from './split'
+import { uniq } from './uniq'
 
 test('happy', () => {
-  const isEven = n => n % 2 === 0
-
+  const isEven = (n: number) => n % 2 === 0
   expect(filter(isEven)([1, 2, 3, 4])).toEqual([2, 4])
 })
 
 test('using Boolean', () => {
-  expect(filter(Boolean)([null, 0, 1, 2])).toEqual([1,2])
+  expect(filter(Boolean)([null, 0, 1, 2])).toEqual([1, 2])
 })
-```
 
-</details>
+test('within pipe', () => {
+  const result = pipe(
+    [1, 2, 3],
+    filter((x: number) => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+      return x > 1
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([2, 3])
+})
 
-<details>
+test('with index', () => {
+  const result = pipe(
+    [1, 2, 3],
+    filter((x: number, i: number) => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+      expectTypeOf(i).toEqualTypeOf<number>()
+      return x > 1
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([2, 3])
+})
 
-<summary><strong>TypeScript</strong> test</summary>
+test('complex example', () => {
+  const text = `Dies ist ein einfacher Beispielsatz. Il fait beau aujourd'hui!`
+  const language = 'de'
+  const SENTENCE_END_CHARS = ['.', '!', '?', '।', '؟']
+  const result = pipe(
+    text,
+    split(''),
+    uniq,
+    filter((char: string) => {
+      if (language === 'de') {
+        return /[A-Za-zäßüöÜÖÄ]/g.test(char) === false
+      }
+      if (language === 'fr') {
+        return /[A-Za-zÀÉàâçèéêîïôùû']/g.test(char) === false
+      }
+      throw new Error(`Language ${language} not supported`)
+    }),
+    sort((a: string, b: string) => (a === b ? 0 : a > b ? 1 : -1)),
+    filter((char: string) => char.trim().length > 0),
+    reject(includes(SENTENCE_END_CHARS)),
+  )
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+})
 
-```typescript
-import { filter, includes, pipe, reject, sort, split, uniq } from 'rambda'
-import { describe, expectTypeOf, it, test } from 'vitest'
+test('narrowing type', () => {
+  interface Foo {
+    a: number
+  }
+  interface Bar extends Foo {
+    b: string
+  }
+  type T = Foo | Bar
+  const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
+  const filterBar = (x: T): x is Bar => {
+    return typeof (x as Bar).b === 'string'
+  }
+  const result = pipe(testList, filter(filterBar))
+  expectTypeOf(result).toEqualTypeOf<Bar[]>()
+})
 
-const list = [1, 2, 3]
+test('narrowing type - readonly', () => {
+  interface Foo {
+    a: number
+  }
+  interface Bar extends Foo {
+    b: string
+  }
+  type T = Foo | Bar
+  const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
+  const filterBar = (x: T): x is Bar => {
+    return typeof (x as Bar).b === 'string'
+  }
+  const result = pipe(testList, filter(filterBar))
+  expectTypeOf(result).toEqualTypeOf<Bar[]>()
+})
 
-describe('R.filter with array', () => {
-  it('within pipe', () => {
-    const result = pipe(
-      list,
-      filter(x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return x > 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('filtering NonNullable - list of objects', () => {
+  const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
+  const result = pipe(testList, filter(Boolean))
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
+})
 
-  it('with index', () => {
-    const result = pipe(
-      list,
-      filter((x: number, i: number) => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        expectTypeOf(i).toEqualTypeOf<number>()
-        return x > 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-
-  it('complex example', () => {
-    const text = `Dies ist ein einfacher Beispielsatz. Il fait beau aujourd'hui!`
-    const language = 'de'
-		const SENTENCE_END_CHARS = ['.', '!', '?', '।', '؟']
-    const result = pipe(
-      text,
-      split(''),
-      uniq,
-      filter(char => {
-        if (language === 'de') {
-          return /[A-Za-zäßüöÜÖÄ]/g.test(char) === false
-        }
-        if (language === 'fr') {
-          return /[A-Za-zÀÉàâçèéêîïôùû']/g.test(char) === false
-        }
-        throw new Error(`Language ${language} not supported`)
-      }),
-      sort((a, b) => (a === b ? 0 : a > b ? 1 : -1)),
-      filter(char => char.trim().length > 0),
-      reject(includes(SENTENCE_END_CHARS)),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<string[]>()
-  })
-  it('narrowing type', () => {
-    interface Foo {
-      a: number
-    }
-    interface Bar extends Foo {
-      b: string
-    }
-    type T = Foo | Bar
-    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
-    const filterBar = (x: T): x is Bar => {
-      return typeof (x as Bar).b === 'string'
-    }
-    const result = pipe(testList, filter(filterBar))
-    expectTypeOf(result).toEqualTypeOf<Bar[]>()
-  })
-
-  it('narrowing type - readonly', () => {
-    interface Foo {
-      a: number
-    }
-    interface Bar extends Foo {
-      b: string
-    }
-    type T = Foo | Bar
-    const testList: T[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
-    const filterBar = (x: T): x is Bar => {
-      return typeof (x as Bar).b === 'string'
-    }
-    const result = pipe(testList, filter(filterBar))
-    expectTypeOf(result).toEqualTypeOf<Bar[]>()
-  })
-
-  it('filtering NonNullable - list of objects', () => {
-    const testList = [{ a: 1 }, { a: 2 }, false, { a: 3 }]
-    const result = pipe(testList, filter(Boolean))
-    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
-  })
-
-  it('filtering NonNullable - readonly', () => {
-    const testList = [1, 2, true, false, null, undefined, 3] as const
-    const result = pipe(testList, filter(Boolean))
-    result.includes(1)
-    // @ts-expect-error
-    result.includes(true)
-    // @ts-expect-error
-    result.includes(false)
-    // @ts-expect-error
-    result.includes(4)
-    // @ts-expect-error
-    result.includes(undefined)
-    // @ts-expect-error
-    result.includes(null)
-  })
+test('filtering NonNullable - readonly', () => {
+  const testList = [1, 2, true, false, null, undefined, 3] as const
+  const result = pipe(testList, filter(Boolean))
+  expectTypeOf(result).toEqualTypeOf<(1 | 2 | 3)[]>()
 })
 ```
 
@@ -3816,38 +3390,24 @@ export function filterAsync(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { filterAsync } from './filterAsync.js'
+import { filterAsync } from './filterAsync'
+import { pipeAsync } from './pipeAsync'
 
 test('happy', async () => {
-  const isEven = async n => n % 2 === 0
-
+  const isEven = async (n: number) => n % 2 === 0
   expect(await filterAsync(isEven)([1, 2, 3, 4])).toEqual([2, 4])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { filterAsync, pipeAsync } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.filter with array', () => {
-  it('within pipe', async () => {
-    const result = await pipeAsync(
-      list,
-      filterAsync(async x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return x > 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('within pipe', async () => {
+  const result = await pipeAsync(
+    [1, 2, 3],
+    filterAsync(async (x: number) => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+      return x > 1
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([2, 3])
 })
 ```
 
@@ -3912,36 +3472,24 @@ export function filterMap(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { filterMap } from './filterMap.js'
+import { filterMap } from './filterMap'
+import { pipe } from './pipe'
 
-const double = x => x > 1 ? x * 2 : null
+const double = (x: number) => x > 1 ? x * 2 : null
 
-it('happy', () => {
-  expect(filterMap(double)([1, 2, 3])).toEqual([4, 6])
+test('happy', () => {
+  expect(filterMap<number[], number | null>(double)([1, 2, 3])).toEqual([4, 6])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { filterMap, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-it('R.filterMap - within pipe', () => {
+test('within pipe', () => {
   const result = pipe(
-    list,
-    x => x,
-    filterMap(x => {
+    [1, 2, 3],
+    (x: number[]) => x,
+    filterMap((x: number) => {
       expectTypeOf(x).toEqualTypeOf<number>()
       return Math.random() > 0.5 ? String(x) : null
     }),
-    filterMap(x => {
+    filterMap((x: string) => {
       expectTypeOf(x).toEqualTypeOf<string>()
       return Math.random() > 0.5 ? Number(x) : ''
     }),
@@ -4021,44 +3569,32 @@ export function filterObject(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pipe } from './pipe.js'
-import { filterObject } from './filterObject.js'
+import { filterObject } from './filterObject'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	let testInput = { a: 1, b: 2, c: 3 }
+  const testInput = { a: 1, b: 2, c: 3 }
   const result = pipe(
-		testInput,
-		filterObject((x, prop, obj) => {
-			expect(prop).toBeOneOf(['a', 'b', 'c'])
-			expect(obj).toBe(testInput)
-			return x > 1
-		})
-	)
-	expect(result).toEqual({ b: 2, c: 3 })
+    testInput,
+    filterObject((x: number, prop: string, obj: typeof testInput) => {
+      expect(prop).toBeOneOf(['a', 'b', 'c'])
+      expect(obj).toBe(testInput)
+      return x > 1
+    })
+  )
+  expect(result).toEqual({ b: 2, c: 3 })
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { filterObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.filterObject', () => {
-  it('require explicit type', () => {
-    const result = pipe(
-      { a: 1, b: 2 },
-      filterObject<{ b: number }>(a => {
-        expectTypeOf(a).toEqualTypeOf<number>()
-        return a > 1
-      }),
-    )
-    expectTypeOf(result.b).toEqualTypeOf<number>()
-  })
+test('require explicit type', () => {
+  const result = pipe(
+    { a: 1, b: 2 },
+    filterObject<{ b: number }>((a: number) => {
+      expectTypeOf(a).toEqualTypeOf<number>()
+      return a > 1
+    }),
+  )
+  expectTypeOf(result.b).toEqualTypeOf<number>()
+  expect(result).toEqual({ b: 2 })
 })
 ```
 
@@ -4070,7 +3606,7 @@ describe('R.filterObject', () => {
 
 ```typescript
 
-find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined
+find<T, S extends T>(predicate: (x: T) => x is S): (list: T[]) => S | undefined
 ```
 
 It returns the first element of `list` that satisfy the `predicate`.
@@ -4092,6 +3628,7 @@ const result = R.find(predicate)(list)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+find<T, S extends T>(predicate: (x: T) => x is S): (list: T[]) => S | undefined;
 find<T>(predicate: (x: T) => boolean): (list: T[]) => T | undefined;
 ```
 
@@ -4126,14 +3663,17 @@ export function find(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { find } from './find.js'
-import { propEq } from './propEq.js'
+import { find } from './find'
+import { propEq } from './propEq'
+import { pipe } from './pipe'
 
 const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
 
 test('happy', () => {
   const fn = propEq(2, 'a')
-  expect(find(fn)(list)).toEqual({ a: 2 })
+  const result = find(fn)(list)
+  expectTypeOf(result).toEqualTypeOf<{ a: number } | undefined>()
+  expect(result).toEqual({ a: 2 })
 })
 
 test('nothing is found', () => {
@@ -4144,26 +3684,15 @@ test('nothing is found', () => {
 test('with empty list', () => {
   expect(find(() => true)([])).toBeUndefined()
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { find, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.find', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = pipe(list, find(predicate))
-    expectTypeOf(result).toEqualTypeOf<number | undefined>()
-  })
+test('has type guard narrowing', () => {
+  const items = ['hello', 'world', 42] as (string | number)[]
+  const result = pipe(
+    items,
+    find((x): x is string => typeof x === 'string'),
+  )
+  expectTypeOf(result).toEqualTypeOf<string | undefined>()
+  expect(result).toBe('hello')
 })
 ```
 
@@ -4230,8 +3759,9 @@ export function findIndex(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { findIndex } from './findIndex.js'
-import { propEq } from './propEq.js'
+import { findIndex } from './findIndex'
+import { propEq } from './propEq'
+import { pipe } from './pipe'
 
 const list = [{ a: 1 }, { a: 2 }, { a: 3 }]
 
@@ -4240,26 +3770,14 @@ test('happy', () => {
   expect(findIndex(propEq(1, 'a'))(list)).toBe(0)
   expect(findIndex(propEq(4, 'a'))(list)).toBe(-1)
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { findIndex, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-it('R.findIndex', () => {
+test('type test', () => {
   const result = pipe(
-    list,
-    findIndex(x => x > 2),
+    [1, 2, 3],
+    findIndex((x: number) => x > 2),
   )
   expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(2)
 })
 ```
 
@@ -4380,33 +3898,13 @@ export function findLastIndex(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { findLastIndex } from './findLastIndex.js'
+import { findLastIndex } from './findLastIndex'
 
 test('happy', () => {
-  const result = findLastIndex(x => x > 1)([1, 1, 1, 2, 3, 4, 1])
+  const result = findLastIndex((x: number) => x > 1)([1, 1, 1, 2, 3, 4, 1])
+  expectTypeOf(result).toEqualTypeOf<number>()
   expect(result).toBe(5)
-  expect(findLastIndex(x => x === 0)([0, 1, 1, 2, 3, 4, 1])).toBe(0)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { findLastIndex, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.findLastIndex', () => {
-  it('happy', () => {
-    const predicate = (x: number) => x > 2
-    const result = pipe(list, findLastIndex(predicate))
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
+  expect(findLastIndex((x: number) => x === 0)([0, 1, 1, 2, 3, 4, 1])).toBe(0)
 })
 ```
 
@@ -4473,18 +3971,18 @@ export function findNth(predicate, nth) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { findNth } from './findNth.js'
+import { findNth } from './findNth'
 
 const list = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
 
 test('happy', () => {
-  const fn = x => x.a > 1
-  expect(findNth(fn,1)(list)).toEqual({ a: 3 })
+  const fn = (x: { a: number }) => x.a > 1
+  expect(findNth(fn, 1)(list)).toEqual({ a: 3 })
 })
 
 test('nothing is found', () => {
-	const fn = x => x.a > 4
-	expect(findNth(fn,1)(list)).toBeUndefined()
+  const fn = (x: { a: number }) => x.a > 4
+  expect(findNth(fn, 1)(list)).toBeUndefined()
 })
 ```
 
@@ -4538,21 +4036,25 @@ export function flatMap(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { flatMap } from './flatMap.js'
+import { flatMap } from './flatMap'
+import { pipe } from './pipe'
 
-const duplicate = n => [n, n]
+const duplicate = (n: number) => [n, n]
 
 test('happy', () => {
-  const fn = x => [x * 2]
-  const list = [1, 2, 3]
-
-  const result = flatMap(fn)(list)
-
-  expect(result).toEqual([2, 4, 6])
-})
-
-test('maps then flattens one level', () => {
-  expect(flatMap(duplicate)([1, 2, 3])).toEqual([1, 1, 2, 2, 3, 3])
+  const listOfLists: string[][] = [
+    ['f', 'bar'],
+    ['baz', 'b'],
+  ]
+  const result = pipe(
+    listOfLists,
+    (x: string[][]) => x,
+    flatMap((x: string) => {
+      expectTypeOf(x).toEqualTypeOf<string>()
+      return Number(x) + 1
+    }),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 
 test('maps then flattens one level', () => {
@@ -4560,50 +4062,20 @@ test('maps then flattens one level', () => {
 })
 
 test('flattens only one level', () => {
-  const nest = n => [[n]]
+  const nest = (n: number) => [[n]]
   expect(flatMap(nest)([1, 2, 3])).toEqual([[1], [2], [3]])
 })
 
 test('can compose', () => {
-  function dec(x) {
+  function dec(x: number) {
     return [x - 1]
   }
-  function times2(x) {
+  function times2(x: number) {
     return [x * 2]
   }
-
   const mdouble = flatMap(times2)
   const mdec = flatMap(dec)
   expect(mdec(mdouble([10, 20, 30]))).toEqual([19, 39, 59])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { flatMap, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.flatMap', () => {
-  it('happy', () => {
-    const listOfLists: string[][] = [
-      ['f', 'bar'],
-      ['baz', 'b'],
-    ]
-    const result = pipe(
-      listOfLists,
-      x => x,
-      flatMap(x => {
-        expectTypeOf(x).toEqualTypeOf<string>()
-        return Number(x) + 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
 })
 ```
 
@@ -4672,41 +4144,13 @@ export function flatten(list, input) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { flatten } from './flatten.js'
+import { flatten } from './flatten'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(flatten([1, 2, 3, [[[[[4]]]]]])).toEqual([1, 2, 3, 4])
-
-  expect(flatten([1, [2, [[3]]], [4]])).toEqual([1, 2, 3, 4])
-
-  expect(flatten([1, [2, [[[3]]]], [4]])).toEqual([1, 2, 3, 4])
-
-  expect(flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])).toEqual([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-  ])
-})
-
-test('readme example', () => {
-  const result = flatten([1, 2, [3, 30, [300]], [4]])
-  expect(result).toEqual([1, 2, 3, 30, 300, 4])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { flatten, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('flatten', () => {
-  it('happy', () => {
-    const result = pipe([1, 2, [3, [4]]], flatten<number>)
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+  const result = pipe([1, 2, [3, [4]]], flatten<number>)
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 2, 3, 4])
 })
 ```
 
@@ -4832,105 +4276,39 @@ export function flattenObject(obj){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import {
-  flattenObject,
-  flattenObjectHelper,
-  transformFlatObject,
-} from './flattenObject.js'
-
-test('happy', () => {
-  const obj = {
-    c : 3,
-    d : {
-      'd.e' : [ 5, 6, 7 ],
-      'd.z' : 4,
-      'd.f' : { 'd.f.h' : 6 },
-    },
-  }
-  const result = transformFlatObject(obj)
-  expect(result).toEqual({
-    'c'     : 3,
-    'd.e'   : [ 5, 6, 7 ],
-    'd.z'   : 4,
-    'd.f.h' : 6,
-  })
-})
+import { flattenObject } from './flattenObject'
 
 test('happy', () => {
   const result = flattenObject({
-    a : 1,
-    b : {
-      c : 3,
-      d : {
-        e : 5,
-        z : 4,
-        f : {
-          h : 6,
-          i : 7,
-          j : {
-            k : 8,
-            l : 9,
+    a: 1,
+    b: {
+      c: 3,
+      d: {
+        e: 5,
+        z: 4,
+        f: {
+          h: 6,
+          i: 7,
+          j: {
+            k: 8,
+            l: 9,
           },
         },
       },
     },
   })
-    const expected = {
-      'a'         : 1,
-      'b.c'       : 3,
-      'b.d.e'     : 5,
-      'b.d.z'     : 4,
-      'b.d.f.h'   : 6,
-      'b.d.f.i'   : 7,
-      'b.d.f.j.k' : 8,
-      'b.d.f.j.l' : 9,
-    }
-    expect(result).toEqual(expected)
-})
-
-test('flattenObjectHelper', () => {
-  const result = flattenObjectHelper({
-    a : 1,
-    b : {
-      c : 3,
-      d : {
-        e : 5,
-        z : 4,
-        f : { h : 6 },
-      },
-    },
-  })
   const expected = {
-    a : 1,
-    b : {
-      'b.c' : 3,
-      'b.d' : {
-        'b.d.e' : 5,
-        'b.d.z' : 4,
-        'b.d.f' : { 'b.d.f.h' : 6 },
-      },
-    },
+    'a': 1,
+    'b.c': 3,
+    'b.d.e': 5,
+    'b.d.z': 4,
+    'b.d.f.h': 6,
+    'b.d.f.i': 7,
+    'b.d.f.j.k': 8,
+    'b.d.f.j.l': 9,
   }
+  expectTypeOf(result['b.c']).toEqualTypeOf<number>()
   expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { flattenObject, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.flattenObject', () => {
-  const result = pipe({ a: { b: 1, c: 2 } }, flattenObject)
-  expectTypeOf(result['a.b']).toEqualTypeOf<number>()
-  expectTypeOf(result['a.c']).toEqualTypeOf<number>()
-  // @ts-expect-error
-  result['a.foo']
 })
 ```
 
@@ -5000,48 +4378,35 @@ export function groupBy(groupFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { groupBy } from './groupBy.js'
+import { groupBy } from './groupBy'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const groupByFn = (x: string) => String(x.length)
+  const list = ['foo', 'bar']
+  const result = pipe(list, groupBy(groupByFn))
+  expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
+  expect(result).toEqual({ '3': ['foo', 'bar'] })
+})
 
 test('with list', () => {
   const inventory = [
-		{ name: "asparagus", type: "vegetables", quantity: 9 },
-		{ name: "bananas", type: "fruit", quantity: 5 },
-		{ name: "goat", type: "meat", quantity: 23 },
-		{ name: "cherries", type: "fruit", quantity: 12 },
-		{ name: "fish", type: "meat", quantity: 22 },
-	];
+    { name: 'asparagus', type: 'vegetables', quantity: 9 },
+    { name: 'bananas', type: 'fruit', quantity: 5 },
+    { name: 'goat', type: 'meat', quantity: 23 },
+    { name: 'cherries', type: 'fruit', quantity: 12 },
+    { name: 'fish', type: 'meat', quantity: 22 },
+  ]
   const result = groupBy(
-		({ quantity }) =>
-			quantity < 6 ? "restock" : "sufficient"
-	
-	)(inventory)
-	expect(result.restock).toEqual([
-		{ name: "bananas", type: "fruit", quantity: 5 },
-	]);
-	expect(result.sufficient[0]).toEqual(
-		{ name: "asparagus", type: "vegetables", quantity: 9 }
-	);
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { groupBy, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.groupBy', () => {
-  it('happy', () => {
-    const groupByFn = (x: string) => String(x.length)
-    const list = ['foo', 'bar']
-
-    const result = pipe(list, groupBy(groupByFn))
-    expectTypeOf(result).toEqualTypeOf<Partial<Record<string, string[]>>>()
-  })
+    ({ quantity }: { quantity: number }) =>
+      quantity < 6 ? 'restock' : 'sufficient'
+  )(inventory)
+  expect(result.restock).toEqual([
+    { name: 'bananas', type: 'fruit', quantity: 5 },
+  ])
+  expect(result.sufficient![0]).toEqual(
+    { name: 'asparagus', type: 'vegetables', quantity: 9 }
+  )
 })
 ```
 
@@ -5113,67 +4478,16 @@ export function head(listOrString) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { head } from './head.js'
+import { head } from './head'
 
-test('head', () => {
+test('happy', () => {
+  expectTypeOf(head('foo')).toEqualTypeOf<string>()
+  expectTypeOf(head('')).toEqualTypeOf<string>()
+  expectTypeOf(head([1, 2, 3])).toEqualTypeOf<number>()
+  expectTypeOf(head([])).toEqualTypeOf<never>()
   expect(head(['fi', 'fo', 'fum'])).toBe('fi')
-  expect(head([])).toBeUndefined()
-  expect(head('foo')).toBe('f')
-  expect(head('')).toBe('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { describe, expectTypeOf, it } from 'vitest'
-import { head, last } from 'rambda'
-
-export const mixedList = [1, 'foo', 3, 'bar']
-export const mixedListConst = [1, 'foo', 3, 'bar'] as const
-export const numberList = [1, 2, 3]
-export const numberListConst = [1, 2, 3] as const
-export const emptyList = []
-export const emptyString = ''
-export const string = 'foo'
-
-describe('R.head', () => {
-  it('string', () => {
-    expectTypeOf(head(string)).toEqualTypeOf<string>()
-    expectTypeOf(last(string)).toEqualTypeOf<string>()
-  })
-
-  it('empty string', () => {
-    expectTypeOf(head(emptyString)).toEqualTypeOf<string>()
-    expectTypeOf(last(emptyString)).toEqualTypeOf<string>()
-  })
-
-  it('array', () => {
-    expectTypeOf(head(numberList)).toEqualTypeOf<number>()
-    expectTypeOf(head(numberListConst)).toEqualTypeOf<1>()
-
-    expectTypeOf(last(numberList)).toEqualTypeOf<number>()
-    expectTypeOf(last(numberListConst)).toEqualTypeOf<3>()
-  })
-
-  it('empty array', () => {
-    const list = [] as const
-    expectTypeOf(head(emptyList)).toEqualTypeOf<never>()
-    expectTypeOf(head(list)).toEqualTypeOf<undefined>()
-    expectTypeOf(last(emptyList)).toEqualTypeOf<never>()
-    expectTypeOf(last(list)).toEqualTypeOf<undefined>()
-  })
-
-  it('mixed', () => {
-    expectTypeOf(head(mixedList)).toEqualTypeOf<string | number>()
-    expectTypeOf(head(mixedListConst)).toEqualTypeOf<1>()
-    expectTypeOf(last(mixedList)).toEqualTypeOf<string | number>()
-    expectTypeOf(last(mixedListConst)).toEqualTypeOf<'bar'>()
-  })
+	
+  expectTypeOf(head([1, 'foo', 3, 'bar'])).toEqualTypeOf<string | number>()
 })
 ```
 
@@ -5245,63 +4559,39 @@ export function includes(iterable) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { includes } from './includes.js'
+import { includes } from './includes'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
+  const result = pipe({ a: { b: '1' } }, includes(list))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeTruthy()
+})
 
 test('with string as iterable', () => {
   const str = 'foo bar'
-
   expect(includes(str)('foo')).toBeTruthy()
   expect(includes(str)('never')).toBeFalsy()
 })
 
 test('with array as iterable', () => {
   const arr = [1, 2, 3]
-
   expect(includes(arr)(2)).toBeTruthy()
   expect(includes(arr)(4)).toBeFalsy()
 })
 
 test('with list of objects as iterable', () => {
   const arr = [{ a: 1 }, { b: 2 }, { c: 3 }]
-
   expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
 test('with NaN', () => {
-  const result = includes([Number.NaN])(Number.NaN)
-  expect(result).toBeTruthy()
+  expect(includes([Number.NaN])(Number.NaN)).toBeTruthy()
 })
 
 test('with wrong input that does not throw', () => {
-  const result = includes([1])(/foo/g)
-  expect(result).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe , includes} from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.includes', () => {
-  it('happy', () => {
-    const list = [{ a: { b: '1' } }, { a: { b: '2' } }, { a: { b: '3' } }]
-    const result = pipe({ a: { b: '1' } }, includes(list))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('with string', () => {
-    const result = pipe('oo', includes('foo'))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('with array of strings', () => {
-		const result = pipe('1', includes(['1','2','3']))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
+  expect(includes([1])(/foo/g as never)).toBeFalsy()
 })
 ```
 
@@ -5372,37 +4662,14 @@ export function indexBy(property){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { indexBy } from './indexBy.js'
+import { indexBy } from './indexBy'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
-
-	expect(
-		indexBy('id')(list)
-	).toEqual(
-		{abc: {id: 'abc', title: 'B'}, xyz: {id: 'xyz', title: 'A'}}
-	)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, indexBy } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.indexBy', () => {
-	const list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}]
-	const result = pipe(
-		list,
-		indexBy('id')
-	)
-	expectTypeOf(result.abc).toEqualTypeOf<{ id: string; title: string; }>()
-	expectTypeOf(result.foo).toEqualTypeOf<{ id: string; title: string; }>()
+  const list = [{ id: 'xyz', title: 'A' }, { id: 'abc', title: 'B' }]
+  const result = pipe(list, indexBy('id'))
+  expectTypeOf(result.abc).toEqualTypeOf<{ id: string; title: string; }>()
+  expect(result).toEqual({ abc: { id: 'abc', title: 'B' }, xyz: { id: 'xyz', title: 'A' } })
 })
 ```
 
@@ -5458,14 +4725,21 @@ export function indexOf(valueToFind) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { indexOf } from './indexOf.js'
+import { indexOf } from './indexOf'
+
+test('happy', () => {
+  const list = [{ a: 1 }, { a: 2 }]
+  const result = indexOf({ a: 1 })(list)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(0)
+})
 
 test('with NaN', () => {
   expect(indexOf(Number.NaN)([Number.NaN])).toBe(0)
 })
 
 test('will throw with bad input', () => {
-  expect(() => indexOf([])(true)).toThrow()
+  expect(() => indexOf([])(true as any)).toThrow()
 })
 
 test('with numbers', () => {
@@ -5475,35 +4749,16 @@ test('with numbers', () => {
 
 test('list of objects use R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
-  expect(indexOf({ c: 4 })(listOfObjects)).toBe(-1)
-  expect(indexOf({ c: 3 })(listOfObjects)).toBe(2)
+  expect(indexOf({ c: 4 } as any)(listOfObjects)).toBe(-1)
+  expect(indexOf({ c: 3 } as any)(listOfObjects)).toBe(2)
 })
 
 test('list of arrays use R.equals', () => {
   const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []]
-  expect(indexOf([])(listOfLists)).toBe(5)
+  expect(indexOf([] as number[])(listOfLists)).toBe(5)
   expect(indexOf([1])(listOfLists)).toBe(0)
   expect(indexOf([2, 3, 4])(listOfLists)).toBe(2)
   expect(indexOf([2, 3, 5])(listOfLists)).toBe(-1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { indexOf } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.indexOf', () => {
-  it('happy', () => {
-    const list = [{ a: 1 }, { a: 2 }]
-    const result = indexOf({ a: 1 })(list)
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
 })
 ```
 
@@ -5567,69 +4822,29 @@ export function init(input) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { init } from './init.js'
+import { init } from './init'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  expectTypeOf(init('foo')).toEqualTypeOf<string>()
+  expect(init('foo')).toBe('fo')
+
+  const result = pipe(['foo', 'bar', 1, 2, 3], init)
+  expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
+  expect(result).toEqual(['foo', 'bar', 1, 2])
+})
 
 test('with array', () => {
   expect(init([1, 2, 3])).toEqual([1, 2])
   expect(init([1, 2])).toEqual([1])
   expect(init([1])).toEqual([])
   expect(init([])).toEqual([])
-  expect(init([])).toEqual([])
-  expect(init([1])).toEqual([])
 })
 
 test('with string', () => {
   expect(init('foo')).toBe('fo')
   expect(init('f')).toBe('')
   expect(init('')).toBe('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { map, pipe, init } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.init', () => {
-  it('with string', () => {
-    const result = init('foo')
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
-  it('with list - using const on short array', () => {
-    const result = pipe(
-      [1] as const,
-      map(x => x * 2),
-      init,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const on empty array', () => {
-    const result = pipe(
-      [] as const,
-      map(x => x * 2),
-      init,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const', () => {
-    const result = pipe(
-      [1, 2, 3] as const,
-      map(x => x * 2),
-      init,
-    )
-    expectTypeOf(result).toEqualTypeOf<[number, number]>()
-  })
-  it('with list - mixed types', () => {
-    const result = init(['foo', 'bar', 1, 2, 3])
-
-    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
-  })
 })
 ```
 
@@ -5710,35 +4925,14 @@ export function interpolate(input) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { interpolate } from './interpolate.js'
-import { pipe } from './pipe.js'
+import { interpolate } from './interpolate'
 
 test('happy', () => {
-  const result = pipe(
-		{ name: 'John', age: 30 },
-		interpolate('My name is {{name}} and I am {{age}} years old')
-	)
-	expect(result).toBe('My name is John and I am 30 years old')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { interpolate } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const templateInput = 'foo {{x}} baz'
-const templateArguments = { x: 'led zeppelin' }
-
-it('R.interpolate', () => {
-	const result = interpolate(templateInput)(templateArguments)
-
-	expectTypeOf(result).toEqualTypeOf<string>()
+  const templateInput = 'foo {{x}} baz'
+  const templateArguments = { x: 'led zeppelin' }
+  const result = interpolate(templateInput)(templateArguments)
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('foo led zeppelin baz')
 })
 ```
 
@@ -5795,7 +4989,15 @@ export function intersection(listA) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { intersection } from './intersection.js'
+import { intersection } from './intersection'
+
+test('happy', () => {
+  const list1 = [1, 2, 3]
+  const list2 = [1, 3, 5]
+  const result = intersection(list1)(list2)
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 3])
+})
 
 test('intersection', () => {
   const list1 = [1, 2, 3, 4]
@@ -5812,30 +5014,8 @@ test('intersection with objects', () => {
 
 test('order is the same as in Ramda', () => {
   const list = ['a', 'b', 'c', 'd']
-
   expect(intersection(list)(['b', 'c'])).toEqual(['b', 'c'])
   expect(intersection(list)(['c', 'b'])).toEqual(['c', 'b'])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { intersection } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list1 = [1, 2, 3]
-const list2 = [1, 3, 5]
-
-describe('R.intersection', () => {
-  it('happy', () => {
-    const result = intersection(list1)(list2)
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
 })
 ```
 
@@ -5925,65 +5105,15 @@ export function intersectionWith(pred, xs) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { intersectionWith } from './intersectionWith.js'
+import { intersectionWith } from './intersectionWith'
+import { pipe } from './pipe'
 
-const a = {
-  id: 1,
-  name: 'a',
-}
-const b = {
-  id: 2,
-  name: 'b',
-}
-const c = {
-  id: 3,
-  name: 'c',
-}
-const f = (a, b) => intersectionWith((r, id) => r.id === id, a)(b)
-
-test('only returns elements from the first list', () => {
-  expect(f([a, b, c], [])).toEqual([])
-  expect(f([a, b, c], [1])).toEqual([a])
-  expect(f([a, b, c], [1, 2])).toEqual([a, b])
-  expect(f([a, b, c], [1, 2, 3])).toEqual([a, b, c])
-  expect(f([a, b, c], [1, 2, 3, 4])).toEqual([a, b, c])
-})
-
-test('does not remove duplicates', () => {
-  expect(f([a, a, a], [1, 2, 3])).toEqual([a, a, a])
-  expect(f([a, b, c], [1, 1, 1])).toEqual([a])
-})
-
-test('readme example', () => {
-  const list1 = [1, 2, 3, 4, 5]
-  const list2 = [4, 5, 6]
-  const predicate = (x, y) => x >= y
-  const result = intersectionWith(predicate, list1)(list2)
-  expect(result).toEqual([4, 5])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { intersectionWith, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list1 = [1, 2, 3]
-const list2 = [1, 3, 5]
-
-describe('R.intersectionWith', () => {
-  it('happy', () => {
-    const result = pipe(
-      list1,
-      intersectionWith((x, y) => x === y, list2),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('happy', () => {
+  const list1 = [1, 2, 3]
+  const list2 = [1, 3, 5]
+  const result = pipe(list1, intersectionWith((x, y) => x === y, list2))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 3])
 })
 ```
 
@@ -6050,39 +5180,12 @@ export function intersperse(separator) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { intersperse } from './intersperse.js'
+import { intersperse } from './intersperse'
 
-test('intersperse', () => {
-  const list = [{ id: 1 }, { id: 2 }, { id: 10 }, { id: 'a' }]
-  expect(intersperse('!')(list)).toEqual([
-    { id: 1 },
-    '!',
-    { id: 2 },
-    '!',
-    { id: 10 },
-    '!',
-    { id: 'a' },
-  ])
-
-  expect(intersperse('!')([])).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { intersperse } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.intersperse', () => {
-  it('curried', () => {
-    const result = intersperse('|')(['foo', 'bar'])
-    expectTypeOf(result).toEqualTypeOf<string[]>()
-  })
+test('happy', () => {
+  const result = intersperse('|')(['foo', 'bar'])
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['foo', '|', 'bar'])
 })
 ```
 
@@ -6129,15 +5232,16 @@ export function join(glue) {
 
 <details>
 
-<summary><strong>TypeScript</strong> test</summary>
+<summary><strong>Tests</strong></summary>
 
-```typescript
-import { join, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
+```javascript
+import { join } from './join'
+import { pipe } from './pipe'
 
-it('R.join', () => {
+test('happy', () => {
   const result = pipe([1, 2, 3], join('|'))
   expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('1|2|3')
 })
 ```
 
@@ -6209,7 +5313,14 @@ export function last(listOrString) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { last } from './last.js'
+import { last } from './last'
+
+test('happy', () => {
+  expectTypeOf(last([1, 2, 3])).toEqualTypeOf<number>()
+  expectTypeOf(last([])).toEqualTypeOf<never>()
+  expectTypeOf(last('abc')).toEqualTypeOf<string>()
+  expect(last([1, 2, 3])).toBe(3)
+})
 
 test('with list', () => {
   expect(last([1, 2, 3])).toBe(3)
@@ -6279,14 +5390,17 @@ export function lastIndexOf(valueToFind) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { lastIndexOf } from './lastIndexOf.js'
+import { lastIndexOf } from './lastIndexOf'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(1)
+})
 
 test('with NaN', () => {
   expect(lastIndexOf(Number.NaN)([Number.NaN])).toBe(0)
-})
-
-test('will throw with bad input', () => {
-  expect(() => indexOf([])(true)).toThrowError('indexOf is not defined')
 })
 
 test('without list of objects - no R.equals', () => {
@@ -6296,34 +5410,16 @@ test('without list of objects - no R.equals', () => {
 
 test('list of objects uses R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
-  expect(lastIndexOf({ c: 4 })(listOfObjects)).toBe(-1)
-  expect(lastIndexOf({ c: 3 })(listOfObjects)).toBe(2)
+  expect(lastIndexOf({ c: 4 } as any)(listOfObjects)).toBe(-1)
+  expect(lastIndexOf({ c: 3 } as any)(listOfObjects)).toBe(2)
 })
 
 test('list of arrays uses R.equals', () => {
   const listOfLists = [[1], [2, 3], [2, 3, 4], [2, 3], [1], []]
-  expect(lastIndexOf([])(listOfLists)).toBe(5)
+  expect(lastIndexOf([] as number[])(listOfLists)).toBe(5)
   expect(lastIndexOf([1])(listOfLists)).toBe(4)
   expect(lastIndexOf([2, 3, 4])(listOfLists)).toBe(2)
   expect(lastIndexOf([2, 3, 5])(listOfLists)).toBe(-1)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { lastIndexOf, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.lastIndexOf', () => {
-  it('happy', () => {
-    const result = pipe([{ a: 1 }, { a: 2 }, { a: 3 }], lastIndexOf({ a: 2 }))
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
 })
 ```
 
@@ -6398,64 +5494,20 @@ export function map(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { map } from './map.js'
+import { map } from './map'
+import { pipe } from './pipe'
 
-const double = x => x * 2
+const double = (x: number) => x * 2
 
-it('happy', () => {
-  expect(map(double)([1, 2, 3])).toEqual([2, 4, 6])
+test('happy', () => {
+  expect(map<number[], number>(double)([1, 2, 3])).toEqual([2, 4, 6])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { expectTypeOf, it } from 'vitest'
-import { map, pipe } from 'rambda'
-
-const list = [1, 2, 3]
-
-it('R.map', () => {
-  const result = pipe(
-    list,
-    x => x,
-    map(x => {
-      expectTypeOf(x).toEqualTypeOf<number>()
-      return String(x)
-    }),
-  )
+test('type test', () => {
+  const list = [1, 2, 3]
+  const result = pipe(list, x => x, map(x => String(x)))
   expectTypeOf(result).toEqualTypeOf<string[]>()
-})
-
-it('R.map - index in functor', () => {
-  const result = pipe(
-    list,
-    x => x,
-    map((x, i) => {
-      expectTypeOf(x).toEqualTypeOf<number>()
-      expectTypeOf(i).toEqualTypeOf<number>()
-      return String(x)
-    }),
-  )
-  expectTypeOf(result).toEqualTypeOf<string[]>()
-})
-
-it('R.map - without pipe', () => {
-  map(x => {
-    expectTypeOf(x).toEqualTypeOf<unknown>()
-  })([1, 2, 3])
-})
-
-it('R.map - without pipe but explicitly typed', () => {
-  const result = map<number[], string>(x => {
-    expectTypeOf(x).toEqualTypeOf<number>()
-    return String(x)
-  })([1, 2, 3])
-  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['1', '2', '3'])
 })
 ```
 
@@ -6527,12 +5579,12 @@ export function mapAsync(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { delay } from './delay.js'
-import { map } from './map.js'
-import { mapAsync } from './mapAsync.js'
-import { pipeAsync } from './pipeAsync.js'
+import { delay } from './delay'
+import { map } from './map'
+import { mapAsync } from './mapAsync'
+import { pipeAsync } from './pipeAsync'
 
-const rejectDelay = a =>
+const rejectDelay = (a: number) =>
   new Promise((_, reject) => {
     setTimeout(() => {
       reject(a + 20)
@@ -6540,28 +5592,27 @@ const rejectDelay = a =>
   })
 
 test('happy', async () => {
-  const indexes = []
-  const fn = async (x, prop) => {
+  const indexes: number[] = []
+  const fn = async (x: number, prop: number) => {
     await delay(100)
     indexes.push(prop)
     return x + 1
   }
-  const result = await mapAsync(fn)([1, 2, 3])
+  const result = await mapAsync<number[], number>(fn)([1, 2, 3])
   expect(result).toEqual([2, 3, 4])
   expect(indexes).toEqual([0, 1, 2])
 })
 
 test('with R.pipeAsync', async () => {
-	const fn = async x => x + 1
+  const fn = async (x: number) => x + 1
   const result = await pipeAsync(
     [1, 2, 3],
     map(x => x + 1),
     mapAsync(async x => {
-      delay(x)
-
+      await delay(x)
       return x
     }),
-		mapAsync(fn),
+    mapAsync(fn),
     map(x => x * 10),
   )
   expect(result).toEqual([30, 40, 50])
@@ -6569,42 +5620,29 @@ test('with R.pipeAsync', async () => {
 
 test('error', async () => {
   try {
-    await mapAsync(rejectDelay)([1, 2, 3])
+    await mapAsync<number[], unknown>(rejectDelay)([1, 2, 3])
   } catch (err) {
     expect(err).toBe(21)
   }
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mapAsync, pipeAsync, map } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = ['a', 'bc', 'def']
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
-it('R.mapAsync', async () => {
+test('happy', async () => {
+  const list = ['a', 'bc', 'def']
   const result = await pipeAsync(
     list,
     mapAsync(async x => {
       await delay(100)
-      expectTypeOf(x).toEqualTypeOf<string>()
       return x.length % 2 ? x.length + 1 : x.length + 10
     }),
     x => x,
-		map(x => x +1),
+    map(x => x + 1),
     mapAsync(async x => {
       await delay(100)
       return x + 1
     }),
   )
   expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([4, 14, 6])
 })
 ```
 
@@ -6689,82 +5727,26 @@ export function mapChain(...fns) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mapChain } from './mapChain.js'
+import { mapChain } from './mapChain'
+import { pipe } from './pipe'
 
-const double = x => x * 2
+const double = (x: number) => x * 2
 
-it('happy', () => {
-  expect(mapChain(double, double, double)([1, 2, 3])).toEqual([8, 16, 24])
+test('happy', () => {
+  expect(mapChain<number[], number, number, number>(double, double, double)([1, 2, 3])).toEqual([8, 16, 24])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mapChain, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-it('R.mapChain', () => {
+test('type test', () => {
+  const list = [1, 2, 3]
   const result = pipe(
     list,
     mapChain(
-      x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return String(x)
-      },
-      x => {
-        expectTypeOf(x).toEqualTypeOf<string>()
-        return x !== 'foo'
-      },
+      x => String(x),
+      x => x !== 'foo',
     ),
   )
   expectTypeOf(result).toEqualTypeOf<boolean[]>()
-})
-
-it('R.mapChain - with index', () => {
-  const result = pipe(
-    list,
-    mapChain(
-      x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return String(x)
-      },
-      (x, i) => {
-        expectTypeOf(i).toEqualTypeOf<number>()
-        expectTypeOf(x).toEqualTypeOf<string>()
-        return x !== 'foo'
-      },
-    ),
-  )
-  expectTypeOf(result).toEqualTypeOf<boolean[]>()
-})
-
-it('R.mapChain - 3 functions', () => {
-  const result = pipe(
-    list,
-    x => x,
-    mapChain(
-      x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return String(x)
-      },
-      x => {
-        expectTypeOf(x).toEqualTypeOf<string>()
-        return x !== 'foo'
-      },
-      x => {
-        expectTypeOf(x).toEqualTypeOf<boolean>()
-        return x ? 'foo' : 'bar'
-      },
-    ),
-  )
-  expectTypeOf(result).toEqualTypeOf<("foo" | "bar")[]>()
+  expect(result).toEqual([true, true, true])
 })
 ```
 
@@ -6827,33 +5809,17 @@ export function mapKeys(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mapKeys } from './mapKeys.js'
+import { mapKeys } from './mapKeys'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	const result = mapKeys((prop, x) => `${ prop }-${x}`)({a:1, b: 2 })
-	const expected = { 'a-1': 1, 'b-2': 2 }
-
-	expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mapKeys, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.mapKeys', () => {
   const result = pipe(
     { a: 1, b: 2 },
     mapKeys((prop, x) => `${prop}-${x}`),
     mapKeys(prop => `${prop}-${prop}`),
   )
   expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
+  expect(result).toEqual({ 'a-1-a-1': 1, 'b-2-b-2': 2 })
 })
 ```
 
@@ -6932,73 +5898,13 @@ export function mapObject(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mapObject } from './mapObject.js'
+import { mapObject } from './mapObject'
+import { pipe } from './pipe'
 
-const double = x => x * 2
-
-it('happy', () => {
-  expect(mapObject(double)({ a: 1, b: 2, c: 3 })).toEqual({ a: 2, b: 4, c: 6 })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mapObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.mapObject', () => {
-  it('iterable with one arguments', () => {
-    const result = pipe(
-      { a: 1 },
-      mapObject(a => {
-        expectTypeOf(a).toEqualTypeOf<number>()
-        return `${a}`
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<{ a: string; }>()
-  })
-  it('iterable with one arguments', () => {
-    const result = pipe(
-      { a: [1,2,3], b: 'foo' },
-      mapObject(a => {
-        expectTypeOf(a).toEqualTypeOf<string | number[]>()
-        return typeof a as string
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
-  })
-  it('iterable with two arguments', () => {
-    const result = pipe(
-      { a: 1, b: 'foo' },
-      mapObject((a, b) => {
-        expectTypeOf(a).toEqualTypeOf<string | number>()
-        expectTypeOf(b).toEqualTypeOf<"a" | "b">()
-        return `${a}`
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
-  })
-  it('iterable with three arguments', () => {
-    const result = pipe(
-      { a: 1, b: 'foo' },
-      mapObject((a, b, c) => {
-        expectTypeOf(a).toEqualTypeOf<string | number>()
-        expectTypeOf(b).toEqualTypeOf<"a" | "b">()
-        expectTypeOf(c).toEqualTypeOf<{ a: number; b: string; }>()
-        return `${a}`
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<{ a: string; b: string; }>()
-  })
+test('happy', () => {
+  const result = pipe({ a: 1 }, mapObject(a => `${a}`))
+  expectTypeOf(result).toEqualTypeOf<{ a: string }>()
+  expect(result).toEqual({ a: '1' })
 })
 ```
 
@@ -7059,12 +5965,12 @@ export function mapObjectAsync(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { delay } from './delay.js'
-import { mapObjectAsync } from './mapObjectAsync.js'
-import { pipeAsync } from './pipeAsync.js'
+import { delay } from './delay'
+import { mapObjectAsync } from './mapObjectAsync'
+import { pipeAsync } from './pipeAsync'
 
 test('happy', async () => {
-  const indexes = []
+  const indexes: string[] = []
   const result = await pipeAsync(
     { a: 1, b: 2 },
     mapObjectAsync(async (x, i) => {
@@ -7074,40 +5980,8 @@ test('happy', async () => {
     }),
   )
   expect(indexes).toEqual(['a', 'b'])
-  expect(result).toEqual({
-    a: 2,
-    b: 3,
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { mapObjectAsync, pipeAsync } from 'rambda'
-import { delay } from 'rambdax'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.mapObjectAsync', async () => {
-  const result = await pipeAsync(
-    { a: 'foo', b: 'bar' },
-    mapObjectAsync(async x => {
-      await delay(100)
-      expectTypeOf(x).toEqualTypeOf<string>()
-      return x.length % 2 ? x.length + 1 : x.length + 10
-    }),
-    x => x,
-    mapObjectAsync(async x => {
-      await delay(100)
-      return x + 1
-    }),
-  )
-  expectTypeOf(result.a).toEqualTypeOf<number>()
-  expectTypeOf(result.b).toEqualTypeOf<number>()
+  expect(result).toEqual({ a: 2, b: 3 })
+	expectTypeOf(result).toEqualTypeOf<{ a: number; b: number }>()
 })
 ```
 
@@ -7120,7 +5994,7 @@ it('R.mapObjectAsync', async () => {
 ```typescript
 
 mapParallelAsync<T extends IterableContainer, U>(
-  fn: (value: T[number]) => Promise<U>,
+  fn: (value: T[number], index: number) => Promise<U>,
 	batchSize?: number,
 ): (data: T) => Promise<Mapped<T, U>>
 ```
@@ -7133,6 +6007,10 @@ There is optional `batchSize` parameter to allow parallel execution to run in ba
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+mapParallelAsync<T extends IterableContainer, U>(
+  fn: (value: T[number], index: number) => Promise<U>,
+	batchSize?: number,
+): (data: T) => Promise<Mapped<T, U>>;
 mapParallelAsync<T extends IterableContainer, U>(
   fn: (value: T[number]) => Promise<U>,
 	batchSize?: number,
@@ -7168,41 +6046,26 @@ export function mapParallelAsync(fn, batchSize){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pipeAsync } from './pipeAsync.js'
-import { delay } from './delay.js'
-import { mapParallelAsync } from './mapParallelAsync.js'
+import { delay } from './delay'
+import { mapParallelAsync } from './mapParallelAsync'
 
 test('happy', async () => {
-  const fn = async (x, i) => {
+  const fn = async (x: number, i: number) => {
     await delay(100)
-
     return x + i
   }
-  const result = await mapParallelAsync(fn)([ 1, 2, 3 ])
-  expect(result).toEqual([ 1, 3, 5 ])
-})
-
-test('pipeAsync', async () => {
-  const result = await pipeAsync(
-		[1, 2, 3],
-    mapParallelAsync(async x => {
-      await delay(100)
-
-      return x + 1
-    })
-	)
-  expect(result).toEqual([ 2,3,4 ])
+  const result = await mapParallelAsync<number[], number>(fn)([1, 2, 3])
+	expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 3, 5])
 })
 
 test('with batchSize', async () => {
-	const fn = async (x, i) => {
-		await delay(100)
-		return `${x}:${i}`
-	}
-	const result = await mapParallelAsync(fn, 2)([1, 2, 3, 4, 5])
-	expect(result).toEqual(
-		['1:0', '2:1', '3:2', '4:3', '5:4']
-	)
+  const fn = async (x: number, i: number) => {
+    await delay(100)
+    return `${x}:${i}`
+  }
+  const result = await mapParallelAsync<number[], string>(fn, 2)([1, 2, 3, 4, 5])
+  expect(result).toEqual(['1:0', '2:1', '3:2', '4:3', '5:4'])
 })
 ```
 
@@ -7292,15 +6155,16 @@ export function mapPropObject(fn, prop) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mapPropObject } from './mapPropObject.js'
-import { pipe } from './pipe.js'
+import { mapPropObject } from './mapPropObject'
+import { pipe } from './pipe'
 
-it('happy', () => {
-  const result = pipe(
+const fn = (x: number) => ({ a: x, flag: x > 2 })
+
+test('happy', () => {
+  const result = (pipe as any)(
     { a: [1, 2, 3], b: 'foo' },
-    mapPropObject(x => ({ a: x, flag: x > 2 }), 'a'),
+    (mapPropObject as any)(fn, 'a'),
   )
-
   expect(result).toEqual({
     a: [
       { a: 1, flag: false },
@@ -7310,62 +6174,14 @@ it('happy', () => {
     b: 'foo',
   })
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {  map, mapPropObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.mapPropObject', () => {
-  it('iterable with one arguments', () => {
-    const result = pipe(
-      { a: [1,2,3], b: 'foo' },
-      mapPropObject('a', x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return {
-          a: x,
-          flag: x > 2,
-        }
-      }),
-    )
-
-    expectTypeOf(result.a).toEqualTypeOf<{ a: number; flag: boolean; }[]>()
-		expectTypeOf(result.b).toEqualTypeOf<string>()
-  })
-
-  it('iterable with two arguments', () => {
-    const result = pipe(
-      { a: [1,2,3], b: 'foo' },
-      mapPropObject('a', (x, list) => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        expectTypeOf(list).toEqualTypeOf<number[]>()
-				return list.length
-      }),
-    )
-		expectTypeOf(result.a).toEqualTypeOf<number[]>()
-		expectTypeOf(result.b).toEqualTypeOf<string>()
-  })
-
-  it('more complex example', () => {
-    const result = pipe(
-      [{a:[true, false, true], b: 'foo'}],
-      map(
-					mapPropObject( 'a',(a) => {
-						expectTypeOf(a).toEqualTypeOf<boolean>()
-						return {a, b: 2}
-								})
-					)
-			)
-
-    expectTypeOf(result[0].a[0].a).toEqualTypeOf<boolean>()
-    expectTypeOf(result[0].a[0].b).toEqualTypeOf<number>()
-  })
+test('type test', () => {
+  const result = pipe(
+    { a: [1, 2, 3], b: 'foo' },
+    mapPropObject('a', fn),
+  )
+  expectTypeOf(result.a).toEqualTypeOf<{ a: number; flag: boolean }[]>()
+  expectTypeOf(result.b).toEqualTypeOf<string>()
 })
 ```
 
@@ -7377,7 +6193,7 @@ describe('R.mapPropObject', () => {
 
 ```typescript
 
-match(regExpression: RegExp): (str: string) => string[]
+match(regExpression: RegExp | string): (str: string) => string[]
 ```
 
 Curried version of `String.prototype.match` which returns empty array, when there is no match.
@@ -7397,7 +6213,7 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-match(regExpression: RegExp): (str: string) => string[];
+match(regExpression: RegExp | string): (str: string) => string[];
 ```
 
 </details>
@@ -7423,10 +6239,13 @@ export function match(pattern) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { match } from './match.js'
+import { match } from './match'
 
 test('happy', () => {
-  expect(match(/a./g)('foo bar baz')).toEqual(['ar', 'az'])
+  const str = 'foo bar'
+  const result = match(/foo/)(str)
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toContain('foo')
 })
 
 test('fallback', () => {
@@ -7435,26 +6254,6 @@ test('fallback', () => {
 
 test('with string', () => {
   expect(match('a')('foo')).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { match } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const str = 'foo bar'
-
-describe('R.match', () => {
-  it('happy', () => {
-    const result = match(/foo/)(str)
-    expectTypeOf(result).toEqualTypeOf<string[]>()
-  })
 })
 ```
 
@@ -7506,33 +6305,15 @@ export function maxBy(compareFn, x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { maxBy } from './maxBy.js'
+import { maxBy } from './maxBy'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(maxBy(Math.abs, 2)(-5)).toBe(-5)
-  expect(maxBy(Math.abs, -5)(2)).toBe(-5)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { maxBy, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const first = 1
-const second = 2
-
-it('R.maxBy', () => {
-  const result = pipe(
-    second,
-    maxBy(x => (x % 2 === 0 ? 1 : -1), first),
-  )
+  const first = 1
+  const second = 2
+  const result = pipe(second, maxBy(x => (x % 2 === 0 ? 1 : -1), first))
   expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(2)
 })
 ```
 
@@ -7577,35 +6358,20 @@ export function merge(target) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { merge } from './merge.js'
-
-const obj = {
-  foo: 1,
-  bar: 2,
-}
+import { merge } from './merge'
+import { mergeTypes } from './mergeTypes'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(merge(obj)({ bar: 20 })).toEqual({
-    foo: 1,
-    bar: 20,
-  })
+  const obj = { foo: 1, bar: 2 }
+  expect(merge(obj)({ bar: 20 })).toEqual({ foo: 1, bar: 20 })
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { merge, mergeTypes, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.merge', () => {
+test('type test', () => {
   const result = pipe({ foo: 1 }, merge({ bar: 2 }), mergeTypes)
   expectTypeOf(result.foo).toEqualTypeOf<number>()
   expectTypeOf(result.bar).toEqualTypeOf<number>()
+  expect(result).toEqual({ foo: 1, bar: 2 })
 })
 ```
 
@@ -7668,34 +6434,20 @@ export function mergeDeep(source) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { mergeDeep } from './mergeDeep.js'
+import { mergeDeep } from './mergeDeep'
 
 test('happy', () => {
-  const source = {
-    a: 1,
-    b: [1, 2],
-    c: {
-      d: 1,
-      f: 2,
-      e: [1, 2],
-      h: [1, 2],
-    },
-  }
-  const objectWithNewProps = {
-    b: [3],
-    c: {
-      f: 3,
-      s: 3,
-      e: [3],
-    },
-    q: 3,
-  }
+  const source = { a: 1, b: [1, 2], c: { d: 1, f: 2, e: [1, 2], h: [1, 2] } }
+  const objectWithNewProps = { b: [3], c: { f: 3, s: 3, e: [3] }, q: 3 }
   expect(mergeDeep(source)(objectWithNewProps)).toEqual({
-    a: 1,
-    b: [3],
-    c: { d: 1, f: 3, e: [3], h: [1, 2], s: 3 },
-    q: 3,
+    a: 1, b: [3], c: { d: 1, f: 3, e: [3], h: [1, 2], s: 3 }, q: 3,
   })
+})
+
+test('type test', () => {
+  const result = mergeDeep({ a: 1 })({ b: 2 })
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number }>()
+  expect(result).toEqual({ a: 1, b: 2 })
 })
 ```
 
@@ -7792,64 +6544,11 @@ export function middle(listOrString) {
 ```javascript
 import { middle } from './middle'
 
-test('middle', () => {
-  expect(middle([1, 2, 3])).toEqual([2])
-  expect(middle([1, 2])).toEqual([])
-  expect(middle([1])).toEqual([])
-  expect(middle([])).toEqual([])
-
+test('happy', () => {
+  expectTypeOf(middle('foo')).toEqualTypeOf<string>()
+  expectTypeOf(middle('')).toEqualTypeOf<string>()
+  expectTypeOf(middle(['foo', 'bar', 1, 2, 3])).toEqualTypeOf<(string | number)[]>()
   expect(middle('abc')).toBe('b')
-  expect(middle('ab')).toBe('')
-  expect(middle('a')).toBe('')
-  expect(middle('')).toBe('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { map, middle, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.middle', () => {
-  it('with string', () => {
-    const result = middle('foo')
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
-  it('with list - using const on short array', () => {
-    const result = pipe(
-      [1, 2] as const,
-      map(x => x * 2),
-      middle,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const on empty array', () => {
-    const result = pipe(
-      [] as const,
-      map(x => x * 2),
-      middle,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const', () => {
-    const result = pipe(
-      [1, 2, 3, 4] as const,
-      map(x => x * 2),
-      middle,
-    )
-    expectTypeOf(result).toEqualTypeOf<[number, number]>()
-  })
-  it('with list - mixed types', () => {
-    const result = middle(['foo', 'bar', 1, 2, 3])
-
-    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
-  })
 })
 ```
 
@@ -7901,11 +6600,12 @@ export function minBy(compareFn, x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { minBy } from './minBy.js'
+import { minBy } from './minBy'
 
 test('happy', () => {
-  expect(minBy(Math.abs, -5)(2)).toBe(2)
-  expect(minBy(Math.abs, 2)(-5)).toBe(2)
+  const result = minBy<number>(Math.abs, -5)(2)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(2)
 })
 ```
 
@@ -7970,25 +6670,23 @@ export function modifyItemAtIndex(index, replaceFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { modifyItemAtIndex } from './modifyItemAtIndex.js'
+import { modifyItemAtIndex } from './modifyItemAtIndex'
 
-const add10 = x => x + 10
-
-const list = [0, 1, 2]
-const expected = [0, 11, 2]
+const add10 = (x: number) => x + 10
 
 test('happy', () => {
-  expect(modifyItemAtIndex(1, add10)(list)).toEqual(expected)
+  const result = modifyItemAtIndex(1, add10)([0, 1, 2])
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([0, 11, 2])
 })
 
 test('with negative index', () => {
-  expect(modifyItemAtIndex(-2, add10)(list)).toEqual(expected)
+  expect(modifyItemAtIndex(-2, add10)([0, 1, 2])).toEqual([0, 11, 2])
 })
 
 test('when index is out of bounds', () => {
-  const list = [0, 1, 2, 3]
-  expect(modifyItemAtIndex(4, add10)(list)).toEqual(list)
-  expect(modifyItemAtIndex(-5, add10)(list)).toEqual(list)
+  expect(modifyItemAtIndex(4, add10)([0, 1, 2, 3])).toEqual([0, 1, 2, 3])
+  expect(modifyItemAtIndex(-5, add10)([0, 1, 2, 3])).toEqual([0, 1, 2, 3])
 })
 ```
 
@@ -8084,48 +6782,15 @@ export function modifyPath(pathInput, fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { modifyPath } from './modifyPath.js'
+import { modifyPath } from './modifyPath'
+import { pipe } from './pipe'
 
 const obj = { a: { b: { c: 1 } } }
 
 test('happy', () => {
-  const result = modifyPath('a.b.c', x => x + 1)(obj)
-  expect(result).toEqual({ a: { b: { c: 2 } } })
-})
-
-test('works only on existing paths', () => {
-  const result = modifyPath('a.b.d', x => x + 1)(obj)
-  expect(result).toEqual(obj)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { modifyPath, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const obj = { a: { b: { c: 1 } } }
-
-describe('R.modifyPath', () => {
-  it('array path', () => {
-    const result = pipe(
-      obj,
-      modifyPath(['a', 'b', 'c'], (x: number) => String(x)),
-    )
-    expectTypeOf(result.a.b.c).toEqualTypeOf<string>()
-  })
-  it('string path', () => {
-    const result = pipe(
-      obj,
-      modifyPath('a.b.c', (x: number) => String(x)),
-    )
-    expectTypeOf(result.a.b.c).toEqualTypeOf<string>()
-  })
+  const result = pipe(obj, modifyPath(['a', 'b', 'c'], (x: number) => String(x)))
+  expectTypeOf(result.a.b.c).toEqualTypeOf<string>()
+  expect(result).toEqual({ a: { b: { c: '1' } } })
 })
 ```
 
@@ -8203,57 +6868,23 @@ export function modifyProp(property, fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { modifyProp } from './modifyProp.js'
-
-const person = {
-  name: 'foo',
-  age: 20,
-}
+import { modifyProp } from './modifyProp'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(modifyProp('age', x => x + 1)(person)).toEqual({
-    name: 'foo',
-    age: 21,
-  })
+  const result = pipe({ a: 1, b: 2, c: { d: 3 } }, modifyProp('a', val => val + 1))
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: { d: number } }>()
+  expect(result).toEqual({ a: 2, b: 2, c: { d: 3 } })
 })
 
 test('property is missing', () => {
-  expect(modifyProp('foo', x => x + 1)(person)).toEqual(person)
+	const person = { name: 'foo', age: 20 }
+	
+	expect(modifyProp<typeof person, 'age'>('foo' as 'age', (x: number) => x + 1)(person)).toEqual(person)
 })
 
-test('adjust if `array` at the given key with the `transformation` function', () => {
-  expect(modifyProp(1, x => x + 1)([100, 1400])).toEqual([100, 1401])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { modifyProp, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.modify', () => {
-  const result = pipe(
-    { a: 1, b: 2, c: { d: 3 } },
-    modifyProp('a', val => val + 1),
-  )
-  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: { d: number; }; }>()
-
-  pipe(
-    { a: 1, b: 2, c: { d: 3 } },
-    // @ts-expect-error
-    modifyProp('ax', val => val + 1),
-  )
-
-  pipe(
-    { a: 1, b: 2, c: { d: 3 } },
-    // @ts-expect-error
-    modifyProp('a', val => String(val)),
-  )
+test('adjust if `array` at the given key', () => {
+  expect(modifyProp<number[], 1>(1, (x: number) => x + 1)([100, 1400])).toEqual([100, 1401])
 })
 ```
 
@@ -8315,37 +6946,19 @@ export function none(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { none } from './none.js'
+import { none } from './none'
+import { pipe } from './pipe'
 
-const isEven = n => n % 2 === 0
+const isEven = (n: number) => n % 2 === 0
+
+test('happy', () => {
+  const result = pipe([1, 2, 3], none(x => x > 0))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeFalsy()
+})
 
 test('when true', () => {
   expect(none(isEven)([1, 3, 5, 7])).toBeTruthy()
-})
-
-test('when false', () => {
-  expect(none(input => input > 1)([1, 2, 3])).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { none, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.none', () => {
-  it('happy', () => {
-    const result = pipe(
-      [1, 2, 3],
-      none(x => x > 0),
-    )
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
 })
 ```
 
@@ -8413,72 +7026,36 @@ export function objectIncludes(condition) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { objectIncludes } from './objectIncludes.js'
+import { objectIncludes } from './objectIncludes'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ a: 2 }))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeFalsy()
+})
 
 test('when true', () => {
   const condition = { a: 1 }
-  const input = {
-    a: 1,
-    b: 2,
-  }
-
-  const result = objectIncludes(condition)(input)
-  const expectedResult = true
-
-  expect(result).toEqual(expectedResult)
+  const input = { a: 1, b: 2 }
+  expect(objectIncludes(condition)(input)).toBeTruthy()
 })
 
 test('when false', () => {
   const condition = { a: 1 }
   const input = { b: 2 }
-
-  const result = objectIncludes(condition)(input)
-  const expectedResult = false
-
-  expect(result).toEqual(expectedResult)
+  expect(objectIncludes(condition as Record<string, number>)(input)).toBeFalsy()
 })
 
 test('with nested object', () => {
   const condition = { a: { b: 1 } }
-  const input = {
-    a: { b: 1 },
-    c: 2,
-  }
-
-  const result = objectIncludes(condition)(input)
-  const expectedResult = true
-
-  expect(result).toEqual(expectedResult)
+  const input = { a: { b: 1 }, c: 2 }
+  expect(objectIncludes(condition)(input)).toBeTruthy()
 })
 
 test('with wrong input', () => {
   const condition = { a: { b: 1 } }
-
-  expect(() => objectIncludes(condition)(null)).toThrowErrorMatchingInlineSnapshot(
-    `[TypeError: Cannot read properties of null (reading 'a')]`,
-  )
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { objectIncludes, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.objectIncludes', () => {
-  it('happy', () => {
-    const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ a: 2 }))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
-  it('nested', () => {
-    const result = pipe({ a: 1, b: 2, c: { d: 3 } }, objectIncludes({ c: { d: 3 } }))
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
+  expect(() => objectIncludes(condition)(null as any)).toThrow()
 })
 ```
 
@@ -8529,31 +7106,13 @@ export function objOf(key) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { objOf } from './objOf.js'
+import { objOf } from './objOf'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(objOf('foo')(42)).toEqual({ foo: 42 })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { objOf, pipe } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const key = 'foo'
-const value = 42
-
-it('R.objOf', () => {
-  const result = pipe(value, objOf(key))
+  const result = pipe(42, objOf('foo'))
   expectTypeOf(result.foo).toEqualTypeOf<number>()
-  // @ts-expect-error
-  result.bar
+  expect(result).toEqual({ foo: 42 })
 })
 ```
 
@@ -8656,52 +7215,23 @@ export function omit(propsToOmit) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { omit } from './omit.js'
+import { omit } from './omit'
+import { pipe } from './pipe'
+
+test('happy', () => {
+  const input = { a: 'foo', b: 2, c: 3 }
+  const result = pipe(input, omit('a,b'))
+  expectTypeOf(result).toEqualTypeOf<{ c: number }	>()
+  expect(result).toEqual({ c: 3 })
+})
 
 test('with string as condition', () => {
-  const obj = {
-    a: 1,
-    b: 2,
-    c: 3,
-  }
-  const result = omit('a,c')(obj)
-  const expectedResult = { b: 2 }
-
-  expect(result).toEqual(expectedResult)
+  const obj = { a: 1, b: 2, c: 3 }
+  expect(omit('a,c')(obj)).toEqual({ b: 2 })
 })
 
 test('with array as condition', () => {
-  expect(
-    omit(['a', 'c', 'd'])({
-      a: 'foo',
-      b: 'bar',
-      c: 'baz',
-    }),
-  ).toEqual({ b: 'bar' })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { omit, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const input = { a: 'foo', b: 2, c: 3 }
-
-describe('R.omit', () => {
-  it('with string as input', () => {
-    const result = pipe(input, omit('a,b'))
-    expectTypeOf(result.c).toEqualTypeOf<number>()
-  })
-  it('with array as input', () => {
-    const result = pipe(input, omit(['a', 'b']))
-    expectTypeOf(result.c).toEqualTypeOf<number>()
-  })
+  expect(omit(['a', 'c', 'd'])({ a: 'foo', b: 'bar', c: 'baz' } as any)).toEqual({ b: 'bar' })
 })
 ```
 
@@ -8778,56 +7308,14 @@ export function partition(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { partition } from './partition.js'
+import { partition } from './partition'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const list = [1, 2, 3]
-  const predicate = x => x > 2
-
-  const result = partition(predicate)(list)
-  expect(result).toEqual([[3], [1, 2]])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { partition, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.partition', () => {
-  it('happy', () => {
-    const predicate = (x: number) => {
-      return x > 2
-    }
-    const list = [1, 2, 3, 4]
-
-    const result = pipe(list, partition(predicate))
-    expectTypeOf(result).toEqualTypeOf<[number[], number[]]>()
-  })
-  it('with simple object', () => {
-    const result = pipe(
-      [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }],
-      partition(x => x.a > 2),
-    )
-    expectTypeOf(result).toEqualTypeOf<[{ a: number; }[], { a: number; }[]]>()
-  })
-  it('with complex object', () => {
-    interface Foo {
-      a: number
-    }
-    interface Bar {
-      b: number
-    }
-    const list1: (Foo | Bar)[] = [{ a: 1 }, { b: 2 }, { a: 3 }, { b: 4 }]
-    const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
-    const result = pipe(list1, partition(filterFoo))
-    expectTypeOf(result).toEqualTypeOf<[Foo[], Bar[]]>()
-  })
+  const list = [1, 2, 3, 4]
+  const result = pipe(list, partition((x: number) => x > 2))
+  expectTypeOf(result).toEqualTypeOf<[number[], number[]]>()
+  expect(result).toEqual([[3, 4], [1, 2]])
 })
 ```
 
@@ -8902,72 +7390,13 @@ export function partitionObject(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { partitionObject } from './partitionObject.js'
+import { partitionObject } from './partitionObject'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const predicate = (value, prop) => {
-    expect(typeof prop).toBe('string')
-
-    return value > 2
-  }
-  const hash = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 4,
-  }
-
-  const result = partitionObject(predicate)(hash)
-  const expectedResult = [
-    {
-      c: 3,
-      d: 4,
-    },
-    {
-      a: 1,
-      b: 2,
-    },
-  ]
-
-  expect(result).toEqual(expectedResult)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { partitionObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.partition', () => {
-  it('happy', () => {
-		let result = pipe(
-			{ a: 1, b: 2 },
-			partitionObject((x, prop) => x> 1 || prop === 'c'),
-		)
-    expectTypeOf(result).toEqualTypeOf<[Record<string, number>, Record<string, number>]>()
-  })
-  it('with complex object', () => {
-    interface Foo {
-      a: number
-    }
-    interface Bar {
-      b: number
-    }
-    const obj: Record<string, (Foo | Bar)> = {
-			a: { a: 1 },
-			b: { b: 2 },
-			c: { a: 3 },
-			d: { b: 4 },
-		}
-    const filterFoo = (x: Foo | Bar): x is Foo => 'a' in x
-    const result = pipe(obj, partitionObject(filterFoo))
-    expectTypeOf(result).toEqualTypeOf<[Record<string, Foo>, Record<string, Bar>]>()
-  })
+  const result = pipe({ a: 1, b: 2 }, partitionObject((x, prop) => x > 1 || prop === 'c'))
+  expectTypeOf(result).toEqualTypeOf<[Record<string, number>, Record<string, number>]>()
+  expect(result).toEqual([{ b: 2 }, { a: 1 }])
 })
 ```
 
@@ -9069,69 +7498,14 @@ export function path(pathInput) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { path } from './path.js'
+import { path } from './path'
+import { pipe } from './pipe'
 
-test('with array inside object', () => {
-  const obj = { a: { b: [1, { c: 1 }] } }
-
-  expect(path('a.b.1.c')(obj)).toBe(1)
-})
-
-test('works with undefined', () => {
-  const obj = { a: { b: { c: 1 } } }
-
-  expect(path('a.b.c.d.f')(obj)).toBeUndefined()
-  expect(path('foo.babaz')(undefined)).toBeUndefined()
-  expect(path('foo.babaz')(undefined)).toBeUndefined()
-})
-
-test('works with string instead of array', () => {
-  expect(path('foo.bar.baz')({ foo: { bar: { baz: 'yes' } } })).toBe('yes')
-})
-
-test('path', () => {
-  expect(path(['foo', 'bar', 'baz'])({ foo: { bar: { baz: 'yes' } } })).toBe('yes')
-  expect(path(['foo', 'bar', 'baz'])(null)).toBeUndefined()
-  expect(path(['foo', 'bar', 'baz'])({ foo: { bar: 'baz' } })).toBeUndefined()
-})
-
-test('with number string in between', () => {
-  expect(path(['a', '1', 'b'])({ a: [{ b: 1 }, { b: 2 }] })).toBe(2)
-})
-
-test('null is not a valid path', () => {
-  expect(
-    path('audio_tracks')({
-      a: 1,
-      audio_tracks: null,
-    }),
-  ).toBeUndefined()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { path, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const input = { a: { b: { c: true } } }
-
-describe('R.path with string as path', () => {
-  it('happy', () => {
-    const result = pipe(input, path(['a', 'b']))
-    const resultStringInput = pipe(input, path('a.b.c'))
-    expectTypeOf(result.c).toEqualTypeOf<boolean>()
-    expectTypeOf(resultStringInput).toEqualTypeOf<boolean>()
-  })
-  it('happy', () => {
-    const result = pipe([1, 2, 3], path([1]))
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
+test('happy', () => {
+  const input = { a: { b: { c: true } } }
+  const result = pipe(input, path(['a', 'b']))
+	expectTypeOf(result).toEqualTypeOf<{ c: boolean }>()
+  expect(result).toEqual({ c: true })
 })
 ```
 
@@ -9206,58 +7580,26 @@ export function pathSatisfies(fn, pathInput) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pathSatisfies } from './pathSatisfies.js'
+import { pathSatisfies } from './pathSatisfies'
+import { pipe } from './pipe'
 
-const isPositive = n => n > 0
+const isPositive = (n: number) => n > 0
 
-it('returns true if the specified object path satisfies the given predicate', () => {
-  expect(pathSatisfies(isPositive, ['x', 'y'])({ x: { y: 1 } })).toBe(true)
+test('returns true if the specified object path satisfies the given predicate', () => {
+	const result = pipe({ x: { y: 1 } },pathSatisfies(isPositive, ['x', 'y']))
+  expect(result).toBe(true)
+	expectTypeOf(result).toEqualTypeOf<boolean>()
 })
 
-it('returns false if the specified path does not exist', () => {
-  expect(pathSatisfies(isPositive, ['x', 'y'])({ x: { z: 42 } })).toBe(false)
-  expect(pathSatisfies(isPositive, 'x.y')({ x: { z: 42 } })).toBe(false)
+test('returns false if the specified path does not exist', () => {
+	// @ts-expect-error
+  expect(pipe({ x: { z: 42 } }, pathSatisfies(isPositive, ['x', 'y']))).toBe(false)
+	// @ts-expect-error
+  expect(pipe({ x: { z: 42 } }, pathSatisfies(isPositive, 'x.y'))).toBe(false)
 })
 
-it('returns false otherwise', () => {
-  expect(pathSatisfies(isPositive, ['x', 'y'])({ x: { y: 0 } })).toBe(false)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pathSatisfies, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const input = { a: { b: { c: 'bar' } } }
-
-describe('R.pathSatisfies', () => {
-  it('happy', () => {
-    const result = pipe(
-      input,
-      pathSatisfies(
-        x => {
-          expectTypeOf(x).toEqualTypeOf<string>()
-          return x !== 'foo'
-        },
-        ['a', 'b', 'c'],
-      ),
-    )
-    const resultStringInput = pipe(
-      input,
-      pathSatisfies(x => {
-        expectTypeOf(x).toEqualTypeOf<string>()
-        return x !== 'foo'
-      }, 'a.b.c'),
-    )
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-    expectTypeOf(resultStringInput).toEqualTypeOf<boolean>()
-  })
+test('returns false otherwise', () => {
+  expect(pipe({ x: { y: 0 } }, pathSatisfies(isPositive, ['x', 'y']))).toBe(false)
 })
 ```
 
@@ -9430,68 +7772,29 @@ export function pick(propsToPick) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pick } from './pick.js'
+import { pick } from './pick'
+import { pipe } from './pipe'
 
-const obj = {
-  a: 1,
-  b: 2,
-  c: 3,
-}
+test('happy', () => {
+  const input = { a: 'foo', c: 3 }
+  const result = pipe(input, pick('a,c'))
+  expectTypeOf(result.a).toEqualTypeOf<string>()
+  expectTypeOf(result.c).toEqualTypeOf<number>()
+  expect(result).toEqual({ a: 'foo', c: 3 })
+})
 
 test('props to pick is a string', () => {
-  const result = pick('a,c')(obj)
-  const expectedResult = {
-    a: 1,
-    c: 3,
-  }
-
-  expect(result).toEqual(expectedResult)
+  const obj = { a: 1, b: 2, c: 3 }
+  expect(pick('a,c')(obj)).toEqual({ a: 1, c: 3 })
 })
 
 test('when prop is missing', () => {
-  const result = pick('a,d,f')(obj)
-  expect(result).toEqual({ a: 1 })
+  const obj = { a: 1, b: 2, c: 3 }
+  expect(pick('a,d,f')(obj as any)).toEqual({ a: 1 })
 })
 
 test('props to pick is an array', () => {
-  expect(
-    pick(['a', 'c'])({
-      a: 'foo',
-      b: 'bar',
-    }),
-  ).toEqual({
-    a: 'foo',
-  })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pick, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const input = { a: 'foo', c: 3 }
-
-describe('R.pick', () => {
-  it('with string as input', () => {
-    const result = pipe(input, pick('a,c'))
-    expectTypeOf(result.a).toEqualTypeOf<string>()
-    expectTypeOf(result.c).toEqualTypeOf<number>()
-  })
-  it('with array as input', () => {
-		const result = pipe(input, pick(['a', 'c']))
-    expectTypeOf(result.a).toEqualTypeOf<string>()
-    expectTypeOf(result.c).toEqualTypeOf<number>()
-  })
-	it('throws error if some keys do not exist', () => {
-		// @ts-expect-error
-		pipe(input, pick('a,c,b,o'))
-	})
+  expect(pick(['a', 'c'])({ a: 'foo', b: 'bar' } as any)).toEqual({ a: 'foo' })
 })
 ```
 
@@ -9648,9 +7951,10 @@ export function pipe(...inputs) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { filter } from './filter.js'
-import { map } from './map.js'
-import { pipe } from './pipe.js'
+import { filter } from './filter'
+import { map } from './map'
+import { pipe } from './pipe'
+import { split } from './split'
 
 test('happy', () => {
   const result = pipe(
@@ -9659,191 +7963,37 @@ test('happy', () => {
     map(x => x * 10),
     map(x => x + 1),
   )
-  const expectedResult = [21, 31]
-
-  expect(result).toEqual(expectedResult)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import {
-  type MergeTypes,
-  append,
-  assertType,
-  defaultTo,
-  drop,
-  dropLast,
-  evolve,
-  filter,
-  find,
-  head,
-  map,
-  pick,
-  pipe,
-  split,
-  union,
-} from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-type IsNotNever<T> = [T] extends [never] ? false : true
-type Expect<T extends true> = T
-
-interface BaseBook {
-  title: string
-  year: number
-  description?: string
-  userRating?: number
-}
-interface Book extends BaseBook {
-  awards: {
-    number: number
-    years?: number[]
-  }
-  status?: Status
-}
-interface BookWithBookmarkStatus extends Book {
-  bookmarkFlag: boolean
-}
-interface BookWithReadStatus extends Book {
-  readFlag: boolean
-}
-type BookToRead = BookWithBookmarkStatus & BookWithReadStatus
-type FamousBook = Book & {
-	status: 'famous'
-}
-
-const checkIfFamous = (x: Book): x is FamousBook => {
-	return x.status === 'famous'
-}
-const zaratustra: BaseBook = {
-  title: 'Zaratustra',
-  year: 1956,
-}
-const brothersKaramazov = {
-  title: 'Brothers Karamazov',
-  year: 1880,
-}
-
-const awardedZaratustra: Book = {
-  ...zaratustra,
-  awards: {
-    number: 1,
-    years: [1956],
-  },
-}
-const awardedBrothersKaramazov: Book = {
-  ...brothersKaramazov,
-  awards: {
-    number: 2,
-    years: [1869, 1870],
-  },
-}
-const awardedZaratustraToRead: BookToRead = {
-  ...awardedZaratustra,
-  readFlag: true,
-  bookmarkFlag: true,
-}
-const awardedBaseValue: Book = {
-  title: '',
-  year: 0,
-  awards: {
-    number: 0,
-    years: [],
-  },
-}
-
-type Status = 'famous' | 'can be skipped' | 'must-read'
-
-function checkBookToRead(x: Book): x is BookToRead {
-  return (x as BookToRead).readFlag && (x as BookToRead).bookmarkFlag
-}
-
-function tapFn<T, U>(
-  transformFn: (x: T) => U,
-  fn: (a: T, b: U) => void,
-): (x: T) => T {
-  return x => {
-    const result = transformFn(x)
-    fn(x, result)
-    return x
-  }
-}
-
-function simplify<T>(x: T) {
-  return x as MergeTypes<T>
-}
-
-describe('real use cases - books', () => {
-  it('case 1', () => {
-    const result = pipe(
-      [awardedZaratustra, awardedBrothersKaramazov],
-      filter(checkIfFamous),
-      drop(1),
-      // without converting to `as FamousBook`, endsWith will pick up `Book` as type
-      tapFn(union([awardedBrothersKaramazov]), (a, b) => {
-        expectTypeOf(a).toEqualTypeOf<Book[]>()
-        expectTypeOf(b).toEqualTypeOf<Book[]>()
-      }),
-      find(x => {
-        expectTypeOf(x).toEqualTypeOf<Book>()
-        return x.title === 'Brothers Karamazov'
-      }),
-      x => [x],
-      filter(Boolean),
-    )
-    const final: Expect<IsNotNever<typeof result>> = true
-  })
-  it('case 2', () => {
-    const getResult = (book: BaseBook) =>
-      pipe(
-        book,
-        defaultTo(awardedBaseValue),
-        assertType(checkBookToRead),
-        x => [x],
-        dropLast(1),
-        append(awardedZaratustraToRead),
-        head,
-        evolve({
-          year: x => x + 1,
-        }),
-        simplify,
-        pick('year'),
-      )
-    const result = getResult(awardedZaratustraToRead as BaseBook)
-    const final: Expect<IsNotNever<typeof result>> = true
-  })
-  it('case 3', () => {
-    const tableData = `id,title,year
-		1,The First,2001
-		2,The Second,2020
-		3,The Third,2018`
-
-    const result = pipe(tableData, split('\n'), map(split(',')))
-    expectTypeOf(result).toEqualTypeOf<string[][]>()
-  })
+  expect(result).toEqual([21, 31])
 })
 
-it('R.pipe', () => {
-  const obj = {
-    a: 'foo',
-    b: 'bar',
-  }
+test('split test', () => {
+  const tableData = `id,title,year
+1,The First,2001
+2,The Second,2020
+3,The Third,2018`
 
+  const result = pipe(tableData, split('\n'), map(split(',')))
+  expectTypeOf(result).toEqualTypeOf<string[][]>()
+  expect(result).toEqual([
+    ['id', 'title', 'year'],
+    ['1', 'The First', '2001'],
+    ['2', 'The Second', '2020'],
+    ['3', 'The Third', '2018'],
+  ])
+})
+
+test('R.pipe type test', () => {
+  const obj = { a: 'foo', b: 'bar' }
   const result = pipe(
     obj,
     x => ({ a: x.a.length + x.b.length }),
     x => ({ ...x, b: x.a + 'foo' }),
     x => ({ ...x, c: x.b + 'bar' }),
   )
-
   expectTypeOf(result.a).toEqualTypeOf<number>()
   expectTypeOf(result.b).toEqualTypeOf<string>()
   expectTypeOf(result.c).toEqualTypeOf<string>()
+  expect(result.a > 0).toBeTruthy()
 })
 ```
 
@@ -9918,54 +8068,20 @@ export async function pipeAsync(input, ...fnList) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { delay } from './delay.js'
-import { pipeAsync } from './pipeAsync.js'
-
-const fn1 = x => {
-  return new Promise(resolve => {
-    resolve(x + 2)
-  })
-}
-const fn2 = async x => {
-  await delay(1)
-
-  return x + 3
-}
+import { delay } from './delay'
+import { pipeAsync } from './pipeAsync'
 
 test('happy', async () => {
-  const result = await pipeAsync(1, fn1, x => x + 2, fn2)
-  expect(result).toBe(8)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipeAsync } from 'rambda'
-import { delay } from 'rambdax'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.pipeAsync', () => {
-  it('happy', async () => {
-    const result = await pipeAsync(
-      4,
-      async x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        await delay(100)
-        return x + 1
-      },
-      x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return Promise.resolve([x])
-      },
-    )
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+  const result = await pipeAsync(
+    4,
+    async x => {
+      await delay(100)
+      return x + 1
+    },
+    x => Promise.resolve([x]),
+  )
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([5])
 })
 ```
 
@@ -10038,48 +8154,19 @@ export function pluck(property) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pluck } from './pluck.js'
+import { pluck } from './pluck'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(pluck('a')([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([1, 2])
+  const input = [{ a: 1, b: 'foo' }, { a: 2, b: 'bar' }]
+  const result = pipe(input, pluck('b'))
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['foo', 'bar'])
 })
 
 test('with undefined', () => {
-  expect(pluck(undefined)([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([])
+  expect(pluck(undefined as any)([{ a: 1 }, { a: 2 }, { b: 1 }])).toEqual([])
 })
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, pluck } from 'rambda';
-import { expectTypeOf, it } from 'vitest'
-
-it("R.pluck", () => {
-  const input = [
-    { a: 1, b: "foo" },
-    { a: 2, b: "bar" },
-  ];
-  const result = pipe(input, pluck("b"));
-  expectTypeOf(result).toEqualTypeOf<string[]>()
-});
-
-it("R.pluck without R.pipe", () => {
-  interface Content {
-    text: string;
-  }
-  const content: Content[] = [
-    {
-      text: "foo",
-    },
-  ];
-  const sentences = pluck("text")(content);
-  expectTypeOf(sentences).toEqualTypeOf<string[]>()
-});
 ```
 
 </details>
@@ -10129,10 +8216,12 @@ export function prepend(x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { prepend } from './prepend.js'
+import { prepend } from './prepend'
 
 test('happy', () => {
-  expect(prepend('yes')(['foo', 'bar', 'baz'])).toEqual(['yes', 'foo', 'bar', 'baz'])
+  const result = prepend('yes')(['foo', 'bar', 'baz'])
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['yes', 'foo', 'bar', 'baz'])
 })
 
 test('with empty list', () => {
@@ -10189,23 +8278,16 @@ export function prop(searchProperty) {
 
 <details>
 
-<summary><strong>TypeScript</strong> test</summary>
+<summary><strong>Tests</strong></summary>
 
-```typescript
-import { map, pipe, prop } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
+```javascript
+import { prop } from './prop'
+import { pipe } from './pipe'
 
-describe('R.prop', () => {
-  it('happy', () => {
-    const result = pipe({ a: 1 }, prop('a'))
-
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
-  it('alike R.pluck', () => {
-    const result = pipe([{ a: 1 }, { a: 2 }], map(prop('a')))
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('happy', () => {
+  const result = pipe({ a: 1 }, prop('a'))
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(1)
 })
 ```
 
@@ -10273,41 +8355,19 @@ export function propEq(valueToMatch, propToFind) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { propEq } from './propEq.js'
-
-const FOO = 'foo'
-const BAR = 'bar'
+import { propEq } from './propEq'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const obj = { [FOO]: BAR }
-  expect(propEq(BAR, FOO)(obj)).toBeTruthy()
-  expect(propEq(1, FOO)(obj)).toBeFalsy()
-  expect(propEq(1, 1)(null)).toBeFalsy()
+  const obj = { foo: 'bar' }
+  const result = pipe(obj, propEq('bar', 'foo'))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeTruthy()
 })
 
 test('returns false if called with a null or undefined object', () => {
-  expect(propEq('name', 'Abby')(null)).toBeFalsy()
-  expect(propEq('name', 'Abby')(undefined)).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, propEq } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const obj = { foo: 'bar' }
-const valueToMatch = 'bar'
-const propToFind = 'foo'
-
-it('R.propEq', () => {
-	const result = pipe(obj, propEq(valueToMatch, propToFind))
-	expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(propEq('name', 'Abby')(null as any)).toBeFalsy()
+  expect(propEq('name', 'Abby')(undefined as any)).toBeFalsy()
 })
 ```
 
@@ -10373,33 +8433,13 @@ export function propOr(property, defaultValue) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { propOr } from './propOr.js'
+import { propOr } from './propOr'
 
-test('propOr', () => {
-  const obj = { a: 1 }
-  expect(propOr('a', 'default', )(obj)).toBe(1)
-  expect(propOr('notExist', 'default')(obj)).toBe('default')
-  expect(propOr('notExist', 'default')(null)).toBe('default')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { propOr } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const obj = { foo: 'bar' }
-const property = 'foo'
-const fallback = 'fallback'
-
-it('R.propOr', () => {
-	const result = propOr(property, fallback)(obj)
-	expectTypeOf(result).toEqualTypeOf<string>()
+test('happy', () => {
+  const obj = { foo: 'bar' }
+  const result = propOr('foo', 'fallback')(obj)
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('bar')
 })
 ```
 
@@ -10454,43 +8494,21 @@ export function propSatisfies(predicate, property) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { propSatisfies } from './propSatisfies.js'
+import { propSatisfies } from './propSatisfies'
+import { pipe } from './pipe'
 
-const obj = { a: 1 }
+test('happy', () => {
+  const result = pipe({ a: 1 }, propSatisfies(x => x > 0, 'a'))
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBeTruthy()
+})
 
 test('when true', () => {
-  expect(propSatisfies(x => x > 0, 'a')(obj)).toBeTruthy()
+  expect(propSatisfies((x: number) => x > 0, 'a')({ a: 1 })).toBeTruthy()
 })
 
 test('when false', () => {
-  expect(propSatisfies(x => x < 0, 'a')(obj)).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, propSatisfies } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const obj = { a: 1 }
-
-describe('R.propSatisfies', () => {
-  it('happy', () => {
-    const result = pipe(
-      obj,
-      propSatisfies(x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return x > 0
-      }, 'a'),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<boolean>()
-  })
+  expect(propSatisfies((x: number) => x < 0, 'a')({ a: 1 })).toBeFalsy()
 })
 ```
 
@@ -10534,13 +8552,12 @@ export function random(min, max){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { random } from './random.js'
-import { range } from './range.js'
-import { uniq } from './uniq.js'
+import { random } from './random'
 
-test('happy', () => {
-	const result = uniq(range(100).map(() => random(0, 3))).sort()
-  expect(result).toEqual([0,1,2,3])
+test('type test', () => {
+  const result = random(0, 3)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result >= 0 && result <= 3).toBeTruthy()
 })
 ```
 
@@ -10599,7 +8616,7 @@ export function range(a, b) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { range } from './range.js'
+import { range } from './range'
 
 test('happy', () => {
   expect(range(5)).toEqual([0, 1, 2, 3, 4, 5])
@@ -10609,25 +8626,7 @@ test('happy', () => {
   expect(range(0)).toEqual([0])
   expect(range(1)).toEqual([0, 1])
   expect(range(2)).toEqual([0, 1, 2])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { range } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.range', () => {
-  it('curried', () => {
-    const result = [range(1, 4), range(1)]
-
-    expectTypeOf(result).toEqualTypeOf<number[][]>()
-  })
+	expectTypeOf(range(2)).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -10678,7 +8677,7 @@ export function rangeDescending(start, b) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { rangeDescending } from './rangeDescending.js'
+import { rangeDescending } from './rangeDescending'
 
 test('happy', () => {
   expect(rangeDescending(5)).toEqual([5, 4, 3, 2, 1, 0])
@@ -10688,6 +8687,7 @@ test('happy', () => {
   expect(rangeDescending(2)).toEqual([2, 1, 0])
   expect(rangeDescending(5, 7)).toEqual([])
   expect(rangeDescending(5, 5)).toEqual([5])
+	expectTypeOf(rangeDescending(5, 5)).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -10760,51 +8760,31 @@ export function reduce(reducer, acc) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { concat } from './concat.js'
-import { reduce } from './reduce.js'
+import { concat } from './concat'
+import { reduce } from './reduce'
+import { pipe } from './pipe'
 
-const reducer = (prev, current, i) => {
-  expect(typeof i).toBe('number')
-
+const reducer = (prev: number, current: number, i: number) => {
   return prev + current
 }
-const initialValue = 1
-const list = [1, 2, 3]
 const ERROR = 'reduce: list must be array or iterable'
 
 test('happy', () => {
-  expect(reduce(reducer, initialValue)(list)).toBe(7)
+  const result = pipe([1, 2, 3], reduce((acc, val) => acc + val, 10))
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(16)
 })
 
 test('with undefined as iterable', () => {
-  expect(() => reduce(reducer, 0)({})).toThrowError(ERROR)
+  expect(() => reduce(reducer, 0)({} as any)).toThrow(ERROR)
 })
 
 test('returns the accumulator for a null list', () => {
-  expect(reduce(concat, [])(null)).toEqual([])
+  expect(reduce(concat as any, [])(null as any)).toEqual([])
 })
 
 test('returns the accumulator for an undefined list', () => {
-  expect(reduce(concat, [])(undefined)).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, reduce } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-it('R.reduce', () => {
-  const result = pipe(
-    [1, 2, 3],
-    reduce((acc, val) => acc + val, 10),
-  )
-  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(reduce(concat as any, [])(undefined as any)).toEqual([])
 })
 ```
 
@@ -10874,103 +8854,19 @@ export function reject(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { reject } from './reject.js'
+import { reject } from './reject'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const isEven = n => n % 2 === 0
-
+  const isEven = (n: number) => n % 2 === 0
   expect(reject(isEven)([1, 2, 3, 4])).toEqual([1, 3])
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { reject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-describe('R.reject with array', () => {
-  it('within pipe', () => {
-    const result = pipe(
-      list,
-      reject(x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        return x > 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-	it('with index', () => {
-    const result = pipe(
-      list,
-      reject((x: number, i: number) => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        expectTypeOf(i).toEqualTypeOf<number>()
-        return x > 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-  it('narrowing type', () => {
-    interface Foo {
-      a: number
-    }
-    interface Bar extends Foo {
-      b: string
-    }
-    interface Baz extends Foo {
-      c: string
-    }
-
-    const testList: (Foo | Bar | Baz)[] = [{ a: 1 }, { a: 2 }, { a: 3 }]
-    const rejectBar = (x: Foo | Bar | Baz): x is Bar => {
-      return typeof (x as Bar).b === 'string'
-    }
-    const result = pipe(
-      testList,
-      reject(rejectBar),
-    )
-    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
-  })
-  it('narrowing type - readonly', () => {
-		interface Foo {
-      a: number
-    }
-    interface Bar extends Foo {
-      b: string
-    }
-    interface Baz extends Foo {
-      c: string
-    }
-
-    const testList: (Foo | Bar | Baz)[] = [{ a: 1 }, { a: 2 }, { a: 3 }] as const
-    const rejectBar = (x: Foo | Bar | Baz): x is Bar => {
-      return typeof (x as Bar).b === 'string'
-    }
-    const result = pipe(
-      testList,
-      reject(rejectBar),
-    )
-    expectTypeOf(result).toEqualTypeOf<(Foo | Baz)[]>()
-  })
-  it('rejecting NonNullable', () => {
-    const testList = [1, 2, null, undefined, 3]
-    const result = pipe(testList, reject(Boolean))
-    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
-  })
-  it('rejecting NonNullable - readonly', () => {
-    const testList = [1, 2, null, undefined, 3] as const
-    const result = pipe(testList, reject(Boolean))
-    expectTypeOf(result).toEqualTypeOf<(null | undefined)[]>()
-    // @ts-expect-error
-    result.includes(1)
-  })
+test('happy', () => {
+  const list = [1, 2, 3]
+  const result = pipe(list, reject(x => x > 1))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1])
 })
 ```
 
@@ -11045,50 +8941,105 @@ export function rejectObject(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { pipe } from './pipe.js'
-import { rejectObject } from './rejectObject.js'
+import { rejectObject } from './rejectObject'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	let testInput = { a: 1, b: 2, c: 3 }
+  const testInput = { a: 1, b: 2, c: 3 }
   const result = pipe(
-		testInput,
-		rejectObject((x, prop, obj) => {
-			expect(prop).toBeOneOf(['a', 'b', 'c'])
-			expect(obj).toBe(testInput)
-			return x > 1
-		})
-	)
-	expect(result).toEqual({ a:1 })
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { filterObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.filterObject', () => {
-  it('require explicit type', () => {
-    const result = pipe(
-      { a: 1, b: 2 },
-      filterObject<{ b: number }>(a => {
-        expectTypeOf(a).toEqualTypeOf<number>()
-        return a > 1
-      }),
-    )
-    expectTypeOf(result.b).toEqualTypeOf<number>()
-  })
+    testInput,
+    rejectObject((x) => x > 1),
+  )
+  expectTypeOf(result).toEqualTypeOf<{ a: number; b: number; c: number }>()
+  expect(result).toEqual({ a: 1 })
 })
 ```
 
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#rejectObject)
+
+### remove
+
+```typescript
+
+remove(rule: RegExp | string): (str: string) => string
+```
+
+It accepts single rule or list of rules and removes them from input string.
+
+```javascript
+const result = [
+	R.remove('o')('foo'),
+	R.remove(/o/g)('foo'),
+]
+// => ['fo', 'f']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20%5B%0A%09R.remove('o')('foo')%2C%0A%09R.remove(%2Fo%2Fg)('foo')%2C%0A%5D%0A%2F%2F%20%3D%3E%20%5B'fo'%2C%20'f'%5D">Try this <strong>R.remove</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+remove(rule: RegExp | string): (str: string) => string;
+remove(listRules: (RegExp | string)[]): (str: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.remove</strong> source</summary>
+
+```javascript
+import { isArray } from './_internals/isArray.js'
+import { replace } from './replace.js'
+
+export function remove(inputs) {
+  return text => {
+    if (!isArray(inputs)) {
+      return replace(inputs, '')(text)
+    }
+
+    let textCopy = text
+
+    inputs.forEach(singleInput => {
+      textCopy = replace(singleInput, '')(textCopy).trim()
+    })
+
+    return textCopy
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { remove } from './remove'
+
+test('happy', () => {
+  const result = remove([/f/, 'o'])('foo bar')
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('o bar')
+})
+
+test('with single rule', () => {
+  const inputs = /foo/g
+  const text = 'foo bar baz foo'
+  const result = remove(inputs)(text)
+  expect(result).toEqual(' bar baz ')
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#remove)
 
 ### replace
 
@@ -11136,38 +9087,13 @@ export function replace(pattern, replacer) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { replace } from './replace.js'
+import { replace } from './replace'
 
 test('happy', () => {
-  expect(replace(/\s/g, '|')('foo bar baz')).toBe('foo|bar|baz')
-  expect(replace('a', '|')('foo bar baz')).toBe('foo b|r baz')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { replace } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const str = 'foo bar foo'
-const replacer = 'bar'
-
-describe('R.replace', () => {
-  it('happy', () => {
-    const result = replace(/foo/g, replacer)(str)
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
-  it('with string as search pattern', () => {
-    const result = replace('foo', replacer)(str)
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
+  const str = 'foo bar foo'
+  const result = replace(/foo/g, 'bar')(str)
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('bar bar bar')
 })
 ```
 
@@ -11227,40 +9153,14 @@ export function replaceAll(patterns, replacer) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { replaceAll } from './replaceAll.js'
-
-const replacer = '|'
-const patterns = [/foo/g, 'bar']
-const input = 'foo bar baz foo bar'
+import { replaceAll } from './replaceAll'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const result = replaceAll(patterns, replacer)(input)
-  const expected = '| | baz | bar'
-
-  expect(result).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, replaceAll } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const str = 'foo bar foo'
-const replacer = 'bar'
-const patterns = [/foo/g, 'bar']
-
-describe('R.replaceAll', () => {
-  it('happy', () => {
-    const result = pipe(str, replaceAll(patterns, replacer))
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
+  const str = 'foo bar foo'
+  const result = pipe(str, replaceAll([/foo/g, 'bar'], 'bar'))
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('bar bar bar')
 })
 ```
 
@@ -11313,19 +9213,17 @@ export function shuffle(listInput) {
 
 <details>
 
-<summary><strong>TypeScript</strong> test</summary>
+<summary><strong>Tests</strong></summary>
 
-```typescript
-import { shuffle } from 'rambdax'
-import { describe, expectTypeOf, it } from 'vitest'
+```javascript
+import { shuffle } from './shuffle'
 
-const list = [1, 2, 3, 4, 5]
-
-describe('R.shuffle', () => {
-  it('happy', () => {
-    const result = shuffle(list)
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+test('happy', () => {
+  const list = [1, 2, 3, 4, 5]
+  const result = shuffle(list)
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toHaveLength(5)
+  expect(result.sort()).toEqual([1, 2, 3, 4, 5])
 })
 ```
 
@@ -11378,10 +9276,8 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 <summary><strong>R.sort</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sort(sortFn) {
-  return list => cloneList(list).sort(sortFn)
+  return list => list.toSorted(sortFn)
 }
 ```
 
@@ -11392,50 +9288,18 @@ export function sort(sortFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sort } from './sort.js'
+import { sort } from './sort'
+import { pipe } from './pipe'
 
-const fn = (a, b) => (a > b ? 1 : -1)
+test('happy', () => {
+  const list = [3, 0, 5, 2, 1]
+  const result = pipe(list, sort((a, b) => (a > b ? 1 : -1)))
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([0, 1, 2, 3, 5])
+})
 
 test('sort', () => {
-  expect(sort((a, b) => a - b)([2, 3, 1])).toEqual([1, 2, 3])
-})
-
-test("it doesn't mutate", () => {
-  const list = ['foo', 'bar', 'baz']
-
-  expect(sort(fn)(list)).toEqual(['bar', 'baz', 'foo'])
-  expect(list).toEqual(['foo', 'bar', 'baz'])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, sort } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [3, 0, 5, 2, 1]
-
-describe('R.sort', () => {
-  it('happy', () => {
-    const result = sort<number>((a, b) => {
-      return a > b ? 1 : -1
-    })(list)
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-  it('within pipe', () => {
-    const result = pipe(
-      list,
-      sort((a, b) => {
-        return a > b ? 1 : -1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
+  expect(pipe([2, 3, 1], sort((a, b) => a - b))).toEqual([1, 2, 3])
 })
 ```
 
@@ -11486,16 +9350,12 @@ sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 <summary><strong>R.sortBy</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sortByFn (
 	sortFn,
 	list,
 	descending
 ){
-	const clone = cloneList(list)
-
-	return clone.sort((a, b) => {
+	return list.toSorted((a, b) => {
 		const aSortResult = sortFn(a)
 		const bSortResult = sortFn(b)
 
@@ -11522,43 +9382,23 @@ export function sortBy(sortFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sortBy } from './sortBy.js'
+import { sortBy } from './sortBy'
+import { pipe } from './pipe'
 
 const input = [{ a: 2 }, { a: 1 }, { a: 1 }, { a: 3 }]
 
 test('happy', () => {
-  const expected = [{ a: 1 }, { a: 1 }, { a: 2 }, { a: 3 }]
-
-  const result = sortBy(x => x.a)(input)
-  expect(result).toEqual(expected)
+  const result = pipe(
+    [{ a: 2 }, { a: 1 }, { a: 0 }],
+    sortBy(x => x.a),
+  )
+  expectTypeOf(result[0].a).toEqualTypeOf<number>()
+  expect(result[0].a).toBe(0)
 })
 
 test('with non-existing path', () => {
-	expect(sortBy(x => x.b)(input)).toEqual(input)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, sortBy } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.sortBy', () => {
-  it('passing type to sort function and list', () => {
-    const result = pipe(
-      [{ a: 2 }, { a: 1 }, { a: 0 }],
-      sortBy(x => {
-        return x.a
-      }),
-    )
-
-    expectTypeOf(result[0].a).toEqualTypeOf<number>()
-  })
+	// @ts-expect-error
+  expect(pipe(input, sortBy((x) => x.b))).toEqual(input)
 })
 ```
 
@@ -11621,14 +9461,20 @@ export function sortByDescending(sortFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sortByDescending } from './sortByDescending.js'
-import { path } from './path.js'
+import { sortByDescending } from './sortByDescending'
+import { path } from './path'
 
 const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: { b: 2 } }]
 const sorted = [{ a: { b: 3 } }, { a: { b: 2 } }, { a: { b: 1 } }]
 
 test('happy', () => {
-  expect(sortByDescending(path('a.b'))(list)).toEqual(sorted)
+  expect(sortByDescending(path('a.b') as (x: (typeof list)[number]) => number)(list)).toEqual(sorted)
+})
+
+test('happy', () => {
+  const result = sortByDescending(path('a.b') as (x: (typeof list)[number]) => number)(list)
+  expectTypeOf(result).toEqualTypeOf<typeof list>()
+  expect(result).toEqual(sorted)
 })
 ```
 
@@ -11707,52 +9553,31 @@ export function sortByPath(sortPath) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sortByPath } from './sortByPath.js'
+import { sortByPath } from './sortByPath'
+import { pipe } from './pipe'
 
 const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: { b: 2 } }]
 const sorted = [{ a: { b: 1 } }, { a: { b: 2 } }, { a: { b: 3 } }]
 
+test('happy', () => {
+  const input = [{ a: { b: 2 } }, { a: { b: 1 } }]
+  const result = pipe(input, sortByPath('a.b'))
+  expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
+  expect(result[0].a.b).toBe(1)
+})
+
 test('with string as path', () => {
-  expect(sortByPath('a.b')(list)).toEqual(sorted)
+  expect(pipe(list, sortByPath('a.b'))).toEqual(sorted)
 })
 
 test('with list of strings as path', () => {
-  expect(sortByPath(['a', 'b'])(list)).toEqual(sorted)
+  expect(pipe(list, sortByPath(['a', 'b']))).toEqual(sorted)
 })
 
 test('when path is not found in any item', () => {
-	const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: {} }]
-	expect(sortByPath('a.b.c.d')(list)).toEqual(list)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, sortByPath } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const input= [{ a: { b: 2 } }, { a: { b: 1 } }]
-
-describe('R.sortByPath', () => {
-  it('with string as path', () => {
-    const result = pipe(input, sortByPath('a.b'))
-		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
-  })
-  it('with list of strings as path', () => {
-    const result = pipe(input, sortByPath(['a', 'b']))
-		expectTypeOf(result[0].a.b).toEqualTypeOf<number>()
-  })
-	it('with non-existent path', () => {
-		// @ts-expect-error
-		pipe(input, sortByPath(['a', 'c']))
-		// @ts-expect-error
-		pipe(input, sortByPath('a.c'))
-	})
+  const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: {} }]
+	// @ts-expect-error	
+	pipe(list, sortByPath('a.b.c.d'))
 })
 ```
 
@@ -11829,17 +9654,24 @@ export function sortByPathDescending(sortPath) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sortByPathDescending } from './sortByPathDescending.js'
+import { sortByPathDescending } from './sortByPathDescending'
+import {pipe} from './pipe'
 
 const list = [{ a: { b: 3 } }, { a: { b: 1 } }, { a: { b: 2 } }]
 const sorted = [{ a: { b: 3 } }, { a: { b: 2 } }, { a: { b: 1 } }]
 
+test('happy', () => {
+  const result = pipe(list, sortByPathDescending('a.b'))
+  expectTypeOf(result).toEqualTypeOf<typeof list>()
+  expect(result).toEqual(sorted)
+})
+
 test('with string as path', () => {
-  expect(sortByPathDescending('a.b')(list)).toEqual(sorted)
+  expect(pipe(list, sortByPathDescending('a.b'))).toEqual(sorted)
 })
 
 test('with list of strings as path', () => {
-  expect(sortByPathDescending(['a', 'b'])(list)).toEqual(sorted)
+  expect(pipe(list, sortByPathDescending(['a', 'b']))).toEqual(sorted)
 })
 ```
 
@@ -11905,79 +9737,23 @@ export function sortObject(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sortObject } from './sortObject.js'
-
-const obj = {
-  c: 7,
-  a: 100,
-  b: 1,
-  d: 4,
-}
+import { sortObject } from './sortObject'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const predicate = (a, b, aValue, bValue) => {
-    if (a === 'a') {
-      return -1
-    }
-    if (b === 'a') {
-      return 1
-    }
+  const obj = { c: 7, a: 100, b: 1, d: 4 }
+  const predicate = (a: string, b: string, aValue: number, bValue: number) => {
+    if (a === 'a') return -1
+    if (b === 'a') return 1
     return aValue > bValue ? -1 : 1
   }
   const result = sortObject(predicate)(obj)
-  const expected = {
-    a: 100,
-    c: 7,
-    d: 4,
-    b: 1,
-  }
-  expect(result).toEqual(expected)
+  expect(result).toEqual({ a: 100, c: 7, d: 4, b: 1 })
 })
-```
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { sortObject, pipe } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const obj = {
-  c: 1,
-  a: 2,
-  b: 3,
-}
-
-describe('R.sortObject', () => {
-  it('predicate with all arguments', () => {
-    const result = pipe(
-      obj,
-      sortObject((propA, propB, valueA, valueB) => {
-        expectTypeOf(propA).toEqualTypeOf<string>()
-        expectTypeOf(propB).toEqualTypeOf<string>()
-        expectTypeOf(valueA).toEqualTypeOf<number>()
-        expectTypeOf(valueB).toEqualTypeOf<number>()
-        return propA > propB ? -1 : 1
-      }),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
-  })
-
-  it('predicate with only property arguments', () => {
-    const result = pipe(
-      obj,
-      sortObject((propA, propB) => {
-        expectTypeOf(propA).toEqualTypeOf<string>()
-        expectTypeOf(propB).toEqualTypeOf<string>()
-        return propA > propB ? -1 : 1
-      }),
-    )
-    expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number; }>()
-  })
+test('type test', () => {
+  const result = pipe({ c: 1, a: 2, b: 3 }, sortObject((propA, propB) => propA > propB ? -1 : 1))
+  expectTypeOf(result).toEqualTypeOf<{ c: number; a: number; b: number }>()
 })
 ```
 
@@ -12045,10 +9821,7 @@ export function sortWith(listOfSortingFns) {
       return []
     }
 
-    const clone = list.slice()
-    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
-
-    return clone
+    return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
   }
 }
 ```
@@ -12060,122 +9833,53 @@ export function sortWith(listOfSortingFns) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { ascend } from './ascend.js'
-import { prop } from './prop.js'
-import { sortWith } from './sortWith.js'
+import { ascend } from './ascend'
+import { sortWith } from './sortWith'
 
 const albums = [
-  {
-    artist: 'Rush',
-    genre: 'Rock',
-    score: 3,
-    title: 'A Farewell to Kings',
-  },
-  {
-    artist: 'Dave Brubeck Quartet',
-    genre: 'Jazz',
-    score: 3,
-    title: 'Timeout',
-  },
-  {
-    artist: 'Rush',
-    genre: 'Rock',
-    score: 5,
-    title: 'Fly By Night',
-  },
-  {
-    artist: 'Daniel Barenboim',
-    genre: 'Baroque',
-    score: 3,
-    title: 'Goldberg Variations',
-  },
-  {
-    artist: 'Glenn Gould',
-    genre: 'Baroque',
-    score: 3,
-    title: 'Art of the Fugue',
-  },
-  {
-    artist: 'Leonard Bernstein',
-    genre: 'Romantic',
-    score: 4,
-    title: 'New World Symphony',
-  },
-  {
-    artist: 'Don Byron',
-    genre: 'Jazz',
-    score: 5,
-    title: 'Romance with the Unseen',
-  },
-  {
-    artist: 'Iron Maiden',
-    genre: 'Metal',
-    score: 2,
-    title: 'Somewhere In Time',
-  },
-  {
-    artist: 'Danny Holt',
-    genre: 'Modern',
-    score: 1,
-    title: 'In Times of Desparation',
-  },
-  {
-    artist: 'Various',
-    genre: 'Broadway',
-    score: 3,
-    title: 'Evita',
-  },
-  {
-    artist: 'Nick Drake',
-    genre: 'Folk',
-    score: 1,
-    title: 'Five Leaves Left',
-  },
-  {
-    artist: 'John Eliot Gardiner',
-    genre: 'Classical',
-    score: 4,
-    title: 'The Magic Flute',
-  },
+  { artist: 'Rush', genre: 'Rock', score: 3, title: 'A Farewell to Kings' },
+  { artist: 'Dave Brubeck Quartet', genre: 'Jazz', score: 3, title: 'Timeout' },
+  { artist: 'Rush', genre: 'Rock', score: 5, title: 'Fly By Night' },
+  { artist: 'Daniel Barenboim', genre: 'Baroque', score: 3, title: 'Goldberg Variations' },
+  { artist: 'Glenn Gould', genre: 'Baroque', score: 3, title: 'Art of the Fugue' },
+  { artist: 'Leonard Bernstein', genre: 'Romantic', score: 4, title: 'New World Symphony' },
+  { artist: 'Don Byron', genre: 'Jazz', score: 5, title: 'Romance with the Unseen' },
+  { artist: 'Iron Maiden', genre: 'Metal', score: 2, title: 'Somewhere In Time' },
+  { artist: 'Danny Holt', genre: 'Modern', score: 1, title: 'In Times of Desparation' },
+  { artist: 'Various', genre: 'Broadway', score: 3, title: 'Evita' },
+  { artist: 'Nick Drake', genre: 'Folk', score: 1, title: 'Five Leaves Left' },
+  { artist: 'John Eliot Gardiner', genre: 'Classical', score: 4, title: 'The Magic Flute' },
 ]
 
-test('sorts by a simple property of the objects', () => {
-  const sortedAlbums = sortWith([ascend(prop('title'))])(albums)
+type Album = (typeof albums)[number]
+
+test('happy', () => {
+  const result = sortWith([ascend((x: Album) => x.title)])(albums)
+  expect(result).toHaveLength(albums.length)
+  expect(result[0].title).toBe('A Farewell to Kings')
+})
+
+test('sorts by a simple property', () => {
+  const sortedAlbums = sortWith([ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('A Farewell to Kings')
   expect(sortedAlbums[11].title).toBe('Timeout')
 })
 
-test('sorts by multiple properties of the objects', () => {
-  const sortedAlbums = sortWith([ascend(prop('score')), ascend(prop('title'))])(
-    albums,
-  )
+test('sorts by multiple properties', () => {
+  const sortedAlbums = sortWith([ascend((x: Album) => x.score), ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Five Leaves Left')
   expect(sortedAlbums[1].title).toBe('In Times of Desparation')
   expect(sortedAlbums[11].title).toBe('Romance with the Unseen')
 })
 
-test('sorts by 3 properties of the objects', () => {
-  const sortedAlbums = sortWith([
-    ascend(prop('genre')),
-    ascend(prop('score')),
-    ascend(prop('title')),
-  ])(albums)
+test('sorts by 3 properties', () => {
+  const sortedAlbums = sortWith([ascend((x: Album) => x.genre), ascend((x: Album) => x.score), ascend((x: Album) => x.title)])(albums)
   expect(sortedAlbums).toHaveLength(albums.length)
   expect(sortedAlbums[0].title).toBe('Art of the Fugue')
   expect(sortedAlbums[1].title).toBe('Goldberg Variations')
   expect(sortedAlbums[11].title).toBe('New World Symphony')
-})
-
-test('sorts by multiple properties using ascend and descend', () => {
-  const sortedAlbums = sortWith([ascend(prop('score')), ascend(prop('title'))])(
-    albums,
-  )
-  expect(sortedAlbums).toHaveLength(albums.length)
-  expect(sortedAlbums[0].title).toBe('Five Leaves Left')
-  expect(sortedAlbums[1].title).toBe('In Times of Desparation')
-  expect(sortedAlbums[11].title).toBe('Romance with the Unseen')
 })
 ```
 
@@ -12279,30 +9983,13 @@ export function splitEvery(sliceLength, strict = false) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { splitEvery } from './splitEvery.js'
+import { splitEvery } from './splitEvery'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(splitEvery(3)([1, 2, 3, 4, 5, 6, 7])).toEqual([[1, 2, 3], [4, 5, 6], [7]])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, splitEvery } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3, 4, 5, 6, 7]
-
-describe('R.splitEvery', () => {
-  it('happy', () => {
-    const result = pipe(list, splitEvery(3))
-    expectTypeOf(result).toEqualTypeOf<number[][]>()
-  })
+  const result = pipe([1, 2, 3, 4, 5, 6, 7], splitEvery(3))
+  expectTypeOf(result).toEqualTypeOf<number[][]>()
+  expect(result).toEqual([[1, 2, 3], [4, 5, 6], [7]])
 })
 ```
 
@@ -12353,10 +10040,12 @@ export function sum(list){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { sum } from './sum.js'
+import { sum } from './sum'
 
 test('happy', () => {
-  expect(sum([1,2,3])).toEqual(6)
+  const result = sum([1, 2, 3])
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(6)
 })
 ```
 
@@ -12368,7 +10057,7 @@ test('happy', () => {
 
 ```typescript
 
-switcher<T extends unknown>(valueToMatch: T): Switchem<T>
+switcher<T>(valueToMatch: T): Switchem<T>
 ```
 
 ```javascript
@@ -12388,8 +10077,8 @@ const result = R.switcher(list.length)
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-switcher<T extends unknown>(valueToMatch: T): Switchem<T>;
-switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>;
+switcher<T>(valueToMatch: T): Switchem<T>;
+switcher<T, U>(valueToMatch: T): Switchem2<T, U>;
 
 // API_MARKER_END
 // ============================================
@@ -12402,8 +10091,6 @@ switcher<T extends unknown, U extends unknown>(valueToMatch: T): Switchem2<T, U>
 <summary><strong>R.switcher</strong> source</summary>
 
 ```javascript
-import { equals } from './equals.js'
-
 const NO_MATCH_FOUND = Symbol ? Symbol('NO_MATCH_FOUND') : undefined
 
 const getMatchingKeyValuePair = (
@@ -12422,19 +10109,10 @@ const getMatchingKeyValuePair = (
   return defaultValue
 }
 
-const isEqual = (testValue, matchValue) => {
-  const willReturn =
-    typeof testValue === 'function' ?
-      testValue(matchValue) :
-      equals(testValue)(matchValue)
-
-  return willReturn
-}
-
 const is = (testValue, matchResult = true) => ({
   key  : testValue,
   test : matchValue =>
-    isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+    testValue(matchValue) ? matchResult : NO_MATCH_FOUND,
 })
 
 class Switchem{
@@ -12489,115 +10167,26 @@ export function switcher(input){
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { switcher } from './switcher.js'
-import { tap } from './tap.js'
-
-test('with undefined', () => {
-  const result = switcher(undefined)
-    .is(x => x === 0, '0')
-    .is(x => x === undefined, 'UNDEFINED')
-    .default('3')
-
-  expect(result).toBe('UNDEFINED')
-})
+import { switcher } from './switcher'
 
 test('happy', () => {
-  const a = true
-  const b = false
-  const result = switcher([ a, b ])
-    .is([ false, false ], '0')
-    .is([ false, true ], '1')
-    .is([ true, true ], '2')
-    .default('3')
-
-  expect(result).toBe('3')
+  const list = [1, 2, 3]
+  const result = switcher(list.length)
+    .is(x => x < 2, 4)
+    .is(x => x < 4, 6)
+    .default(7)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toBe(6)
 })
 
-test('can compare objects', () => {
-  const result = switcher({ a : 1 })
-    .is({ a : 1 }, 'it is object')
-    .is('baz', 'it is baz')
-    .default('it is default')
-
-  expect(result).toBe('it is object')
-})
-
-test('options are mixture of functions and values - input match function', () => {
-  const fn = switcher('foo').is('bar', 1)
-    .is('foo', x => x + 1)
-    .default(1000)
-
-  expect(fn(2)).toBe(3)
-})
-
-test('options are mixture of functions and values - input match value', () => {
-  const result = switcher('bar').is('bar', 1)
-    .is('foo', x => x + 1)
-    .default(1000)
-
-  expect(result).toBe(1)
-})
-
-test('return function if all options are functions', () => {
-  const fn = switcher('foo')
-		.is('bar', tap)
-    .is('foo', x => x + 1)
-    .default(9)
-
-  expect(fn(2)).toBe(3)
-})
-
-const switchFn = input =>
-  switcher(input)
-    .is(x => x.length && x.length === 7, 'has length of 7')
-    .is('baz', 'it is baz')
-    .default('it is default')
-
-test('works with function as condition', () => {
-  expect(switchFn([ 0, 1, 2, 3, 4, 5, 6 ])).toBe('has length of 7')
-})
-
-test('works with string as condition', () => {
-  expect(switchFn('baz')).toBe('it is baz')
-})
-
-test('fallback to default input when no matches', () => {
-  expect(switchFn(1)).toBe('it is default')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { switcher } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.switcher', () => {
-  it('no transformation', () => {
-    const list = [1, 2, 3]
-
-    const result = switcher(list.length)
-      .is(x => x < 2, 4)
-      .is(x => x < 4, 6)
-      .default(7)
-
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
-  it('with transformation', () => {
-    const list = [1, 2, 3]
-    type Stage = 'firstStage' | 'secondStage' | 'thirdStage'
-
-    const result = switcher<number, Stage>(list.length)
-      .is(x => x < 2, 'firstStage')
-      .is(x => x < 4, 'secondStage')
-      .default('thirdStage')
-
-    expectTypeOf(result).toEqualTypeOf<Stage>()
-  })
+test('require explicit types when dealing with different types', () => {
+  const list = [1, 2, 3]
+  const result = switcher<number, string>(list.length)
+    .is(x => x < 2, '4')
+    .is(x => x===3, '6')
+    .default('7')
+  expectTypeOf(result).toEqualTypeOf<string>()
+  expect(result).toBe('6')
 })
 ```
 
@@ -12659,7 +10248,13 @@ export function symmetricDifference(listA) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { symmetricDifference } from './symmetricDifference.js'
+import { symmetricDifference } from './symmetricDifference'
+
+test('happy', () => {
+  const result = symmetricDifference([{ id: 1 }])([{ id: 2 }])
+  expectTypeOf(result).toEqualTypeOf<{ id: number }[]>()
+  expect(result).toEqual([{ id: 1 }, { id: 2 }])
+})
 
 test('symmetricDifference', () => {
   const list1 = [1, 2, 3, 4]
@@ -12671,33 +10266,7 @@ test('symmetricDifference', () => {
 test('symmetricDifference with objects', () => {
   const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
   const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
-  expect(symmetricDifference(list1)(list2)).toEqual([
-    { id: 1 },
-    { id: 2 },
-    { id: 5 },
-    { id: 6 },
-  ])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { symmetricDifference } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.symmetricDifference', () => {
-  it('happy', () => {
-    const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
-    const result = symmetricDifference(list1)(list2)
-
-    expectTypeOf(result).toEqualTypeOf<{ id: number; }[]>()
-  })
+  expect(symmetricDifference(list1)(list2)).toEqual([{ id: 1 }, { id: 2 }, { id: 5 }, { id: 6 }])
 })
 ```
 
@@ -12757,66 +10326,14 @@ export function tail(listOrString) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { tail } from './tail.js'
+import { tail } from './tail'
 
-test('tail', () => {
-  expect(tail([1, 2, 3])).toEqual([2, 3])
-  expect(tail([1, 2])).toEqual([2])
-  expect(tail([1])).toEqual([])
-  expect(tail([])).toEqual([])
-
+test('happy', () => {
+	expectTypeOf(tail('foo')).toEqualTypeOf<string>()
+  expectTypeOf(tail(['foo', 'bar', 1, 2, 3])).toEqualTypeOf<(string | number)[]>()
   expect(tail('abc')).toBe('bc')
-  expect(tail('ab')).toBe('b')
-  expect(tail('a')).toBe('')
-  expect(tail('')).toBe('')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { map, pipe, tail } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.tail', () => {
-  it('with string', () => {
-    const result = tail('foo')
-
-    expectTypeOf(result).toEqualTypeOf<string>()
-  })
-  it('with list - using const on short array', () => {
-    const result = pipe(
-      [1] as const,
-      map(x => x * 2),
-      tail,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const on empty array', () => {
-    const result = pipe(
-      [] as const,
-      map(x => x * 2),
-      tail,
-    )
-    expectTypeOf(result).toEqualTypeOf<[]>()
-  })
-  it('with list - using const', () => {
-    const result = pipe(
-      [1, 2, 3] as const,
-      map(x => x * 2),
-      tail,
-    )
-    expectTypeOf(result).toEqualTypeOf<[number, number]>()
-  })
-  it('with list - mixed types', () => {
-    const result = tail(['foo', 'bar', 1, 2, 3])
-
-    expectTypeOf(result).toEqualTypeOf<(string | number)[]>()
-  })
+	expect(tail([])).toEqual([])
+	expect(tail('')).toBe('')
 })
 ```
 
@@ -12890,17 +10407,13 @@ export function take(numberOfItems) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { take } from './take.js'
+import { take } from './take'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const arr = ['foo', 'bar', 'baz']
-
-  expect(take(1)(arr)).toEqual(['foo'])
-  expect(arr).toEqual(['foo', 'bar', 'baz'])
-  expect(take(2)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar'])
-  expect(take(3)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar', 'baz'])
-  expect(take(4)(['foo', 'bar', 'baz'])).toEqual(['foo', 'bar', 'baz'])
-  expect(take(3)('rambda')).toBe('ram')
+  const result = pipe(['foo', 'bar', 'baz'],take(1))
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['foo'])
 })
 
 test('with negative index', () => {
@@ -12988,7 +10501,14 @@ export function takeLast(numberOfItems) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeLast } from './takeLast.js'
+import { pipe } from './pipe';
+import { takeLast } from './takeLast'
+
+test('happy', () => {
+  const result = pipe(['foo', 'bar', 'baz'],takeLast(1))
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['baz'])
+})
 
 test('with arrays', () => {
   expect(takeLast(1)(['foo', 'bar', 'baz'])).toEqual(['baz'])
@@ -13072,25 +10592,21 @@ export function takeLastWhile(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeLastWhile } from './takeLastWhile.js'
-
-const list = [1, 2, 3, 4]
+import { takeLastWhile } from './takeLastWhile'
 
 test('happy', () => {
-  const predicate = x => x > 2
-  const result = takeLastWhile(predicate)(list)
+  const result = takeLastWhile((x: number) => x > 2)([1, 2, 3, 4])
+  expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([3, 4])
 })
 
 test('predicate is always true', () => {
-  const predicate = () => true
-  const result = takeLastWhile(predicate)(list)
-  expect(result).toEqual(list)
+  const result = takeLastWhile(() => true)([1, 2, 3, 4])
+  expect(result).toEqual([1, 2, 3, 4])
 })
 
 test('predicate is always false', () => {
-  const predicate = () => false
-  const result = takeLastWhile(predicate)(list)
+  const result = takeLastWhile(() => false)([1, 2, 3, 4])
   expect(result).toEqual([])
 })
 ```
@@ -13156,45 +10672,22 @@ export function takeWhile(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { takeWhile } from './takeWhile.js'
-
-const list = [1, 2, 3, 4, 5]
+import { takeWhile } from './takeWhile'
 
 test('happy', () => {
-  const result = takeWhile(x => x < 3)(list)
-  expect(result).toEqual([1, 2])
+  const result = takeWhile((x: number) => x > 1)([2, 3, 1])
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([2, 3])
 })
 
 test('always true', () => {
-  const result = takeWhile(x => true)(list)
-  expect(result).toEqual(list)
+  const result = takeWhile(x => true)([1, 2, 3, 4, 5])
+  expect(result).toEqual([1, 2, 3, 4, 5])
 })
 
 test('always false', () => {
-  const result = takeWhile(x => 0)(list)
+  const result = takeWhile(x => false)([1, 2, 3, 4, 5])
   expect(result).toEqual([])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, takeWhile } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const list = [1, 2, 3]
-
-it('R.takeWhile', () => {
-  const result = pipe(
-    list,
-    takeWhile(x => x > 1),
-    takeWhile((x, i) => i + x > 1),
-  )
-  expectTypeOf(result).toEqualTypeOf<number[]>()
 })
 ```
 
@@ -13298,31 +10791,15 @@ export function test(pattern) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { test as testMethod } from './test.js'
+import { test as testMethod } from './test'
 
 test('happy', () => {
-  expect(testMethod(/^x/)('xyz')).toBeTruthy()
-  expect(testMethod(/^y/)('xyz')).toBeFalsy()
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { test as ramdaTest } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-const input = 'foo   '
-const regex = /foo/
-
-it('R.test', () => {
-  const result = ramdaTest(regex)(input)
+  const input = 'foo   '
+  const regex = /foo/
+  const result = testMethod(regex)(input)
 
   expectTypeOf(result).toEqualTypeOf<boolean>()
+  expect(result).toBe(true)
 })
 ```
 
@@ -13363,35 +10840,16 @@ transformPropObject<T extends object, K extends keyof T, Value>(
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import type { transformPropObject } from 'rambda'
-import { expectTypeOf, it } from 'vitest'
-
-/**
- * `transformPropObject` is declared in typings but not exported from the JS bundle yet.
- * Keep compile-time-only assertions so Vitest does not execute missing runtime.
- */
-it('R.transformPropObject', () => {
-  expectTypeOf<typeof transformPropObject>().toBeFunction()
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#transformPropObject)
 
 ### tryCatch
 
 ```typescript
 
-tryCatch<T, U>(
-  fn: (input: T) => U,
-  fallback: U
-): (input: T) => U
+tryCatch<T>(
+  fn: () => T,
+  fallback: T
+): () => T
 ```
 
 It returns function that runs `fn` in `try/catch` block. If there was an error, then `fallback` is used to return the result.
@@ -13413,6 +10871,10 @@ const result = [
 <summary>All TypeScript definitions</summary>
 
 ```typescript
+tryCatch<T>(
+  fn: () => T,
+  fallback: T
+): () => T;
 tryCatch<T, U>(
   fn: (input: T) => U,
   fallback: U
@@ -13444,62 +10906,52 @@ export function tryCatch(fn, fallback) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { prop } from './prop.js'
-import { tryCatch } from './tryCatch.js'
+import { prop } from './prop'
+import { tryCatch } from './tryCatch'
+import { pipe } from './pipe'
+import { map } from './map'
 
 test('happy', () => {
   const fn = () => {
+		if(Math.random()> 2) return false
     throw new Error('foo')
   }
-  const result = tryCatch(fn, () => true)()
+  const result = tryCatch(fn, true)()
   expect(result).toBeTruthy()
+  expectTypeOf(result).toEqualTypeOf<boolean>()
+
 })
 
 test('when fallback is used', () => {
-  const fn = x => x.x
-
+  const fn = (x: any) => x.x
   expect(tryCatch(fn, false)(null)).toBeFalsy()
 })
 
 test('with json parse', () => {
   const good = () => JSON.parse(JSON.stringify({ a: 1 }))
   const bad = () => JSON.parse('a{a')
-
   expect(tryCatch(good, 1)()).toEqual({ a: 1 })
   expect(tryCatch(bad, 1)()).toBe(1)
 })
 
 test('when fn is used', () => {
   const fn = prop('x')
-
-  expect(tryCatch(fn, false)({})).toBeUndefined()
-  expect(tryCatch(fn, false)({ x: 1 })).toBe(1)
+  expect(tryCatch(fn as (input: unknown) => unknown, false)({})).toBeUndefined()
+  expect(tryCatch(fn as (input: unknown) => unknown, false)({ x: 1 })).toBe(1)
 })
-```
 
-</details>
+test('type test', () => {
+  const result = pipe(
+    ['{a:1', '{"b": 2}'],
+    map(
+      tryCatch((x: string) => {
+        return JSON.parse(x) as string
+      }, null),
+    ),
+  )
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { map, pipe, tryCatch } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.tryCatch', () => {
-  it('happy', () => {
-    const result = pipe(
-      ['{a:1', '{"b": 2}'],
-      map(
-        tryCatch(x => {
-          return JSON.parse(x) as string
-        }, null),
-      ),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<(string | null)[]>()
-  })
+  expectTypeOf(result).toEqualTypeOf<(string | null)[]>()
+  expect(result).toEqual([null, { b: 2 }])
 })
 ```
 
@@ -13577,12 +11029,17 @@ export function type(input) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { type as typeRamda } from 'ramda'
+import { type, RambdaTypes } from './type'
 
-import { type } from './type.js'
+test('happy', () => {
+  const result = type(4)
+
+  expectTypeOf(result).toEqualTypeOf<RambdaTypes>()
+  expect(result).toBe('Number')
+})
 
 test('with buffer', () => {
-  expect(type(new Buffer.from('foo'))).toBe('Uint8Array')
+  expect(type(Buffer.from('foo'))).toBe('Uint8Array')
 })
 
 test('with array buffer', () => {
@@ -13599,7 +11056,6 @@ test('with generators', () => {
     yield 2
     yield 3
   }
-
   const gen = generator()
   expect(type(generator)).toBe('GeneratorFunction')
   expect(type(gen)).toBe('Generator')
@@ -13644,24 +11100,17 @@ test('with new Number', () => {
 
 test('with error', () => {
   expect(type(Error('foo'))).toBe('Error')
-  expect(typeRamda(Error('foo'))).toBe('Error')
-})
-
-test('with error - wrong @types/ramda test', () => {
-  // @types/ramda expect the result to be 'Error' but it is not
-  class ExtendedError extends Error {}
-  expect(type(ExtendedError)).toBe('Function')
-  expect(typeRamda(ExtendedError)).toBe('Function')
+	class ExtendedError extends Error {}
+	expect(type(ExtendedError)).toBe('Function')
 })
 
 test('with new promise', () => {
-  const delay = ms =>
+  const delay = (ms: number) =>
     new Promise(resolve => {
       setTimeout(() => {
         resolve(ms + 110)
       }, ms)
     })
-
   expect(type(delay(10))).toBe('Promise')
 })
 
@@ -13677,7 +11126,6 @@ test('async arrow', () => {
 test('function', () => {
   const fn1 = () => {}
   const fn2 = () => {}
-
   function fn3() {}
   ;[() => {}, fn1, fn2, fn3].map(val => {
     expect(type(val)).toBe('Function')
@@ -13724,7 +11172,6 @@ test('not a number', () => {
 test('set', () => {
   const exampleSet = new Set([1, 2, 3])
   expect(type(exampleSet)).toBe('Set')
-  expect(typeRamda(exampleSet)).toBe('Set')
 })
 
 test('function inside object 1', () => {
@@ -13733,9 +11180,7 @@ test('function inside object 1', () => {
       return 4
     },
   }
-
   expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
 })
 
 test('function inside object 2', () => {
@@ -13746,26 +11191,6 @@ test('function inside object 2', () => {
     },
   }
   expect(type(obj.f)).toBe('Function')
-  expect(typeRamda(obj.f)).toBe('Function')
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { type } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.type', () => {
-  it('happy', () => {
-    const result = type(4)
-
-    expectTypeOf(result).toEqualTypeOf<RambdaTypes>()
-  })
 })
 ```
 
@@ -13823,49 +11248,32 @@ export function union(listA) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { union } from './union.js'
+import { union } from './union'
 
 test('happy', () => {
-  expect(union([1, 2])([2, 3])).toEqual([1, 2, 3])
+  const result = union([1, 2])([2, 3])
+
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 2, 3])
 })
 
-test('with list of objects', () => {
+test('type test with array of objects - case 1', () => {
   const list1 = [{ a: 1 }, { a: 2 }]
   const list2 = [{ a: 2 }, { a: 3 }]
   const result = union(list1)(list2)
+
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
   expect(result).toEqual([{ a: 1 }, { a: 2 }, { a: 3 }])
 })
-```
 
-</details>
+test('type test with array of objects - case 2', () => {
+  const list1 = [{ a: 1, b: 1 }, { a: 2 }]
+  const list2 = [{ a: 2 }, { a: 3, b: 3 }]
+  const result = union(list1)(list2)
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { union } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.union', () => {
-  it('happy', () => {
-    const result = union([1, 2])([2, 3])
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
-  it('with array of objects - case 1', () => {
-    const list1 = [{ a: 1 }, { a: 2 }]
-    const list2 = [{ a: 2 }, { a: 3 }]
-    const result = union(list1)(list2)
-    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
-  })
-  it('with array of objects - case 2', () => {
-    const list1 = [{ a: 1, b: 1 }, { a: 2 }]
-    const list2 = [{ a: 2 }, { a: 3, b: 3 }]
-    const result = union(list1)(list2)
-    expectTypeOf(result[0].a).toEqualTypeOf<number>()
-    expectTypeOf(result[0].b).toEqualTypeOf<number | undefined>()
-  })
+  expectTypeOf(result[0].a).toEqualTypeOf<number>()
+  expectTypeOf(result[0].b).toEqualTypeOf<number | undefined>()
+  expect(result).toEqual([{ a: 1, b: 1 }, { a: 2 }, { a: 3, b: 3 }])
 })
 ```
 
@@ -13925,47 +11333,23 @@ export function unionWith(predicate, x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { unionWith } from './unionWith.js'
-import { pipe } from './pipe.js'
+import { unionWith } from './unionWith'
+import { pipe } from './pipe'
 
 test('happy', () => {
-	const list1 = [{a: 1, b: 1}, {a: 2, b: 1}]
-	const list2 = [{a: 2, b: 2}, {a: 3, b: 2}]
-	const result = pipe(
-		list2,
-		unionWith((x, y) => {
-			return x.a === y.a
-		}, list1),
-	)
-	expect(result).toEqual([{a: 1, b: 1}, {a: 2, b: 1}, {a: 3, b: 2}])
-})
-```
+  const list = [{ a: 1, b: 1 }, { a: 2, b: 1 }]
+  const result = pipe(
+    list,
+    unionWith((x, y) => {
+      expectTypeOf(x.a).toEqualTypeOf<number>()
+      expectTypeOf(y.b).toEqualTypeOf<number>()
+      return x.a === y.a
+    }, [{ a: 2, b: 2 }, { a: 3, b: 2 }]),
+  )
 
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, unionWith } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.unionWith', () => {
-  it('happy', () => {
-		const list = [{a: 1, b: 1}, {a: 2, b: 1}]
-    const result = pipe(
-			list,
-			unionWith((x, y) => {
-				expectTypeOf(x.a).toEqualTypeOf<number>()
-				expectTypeOf(y.b).toEqualTypeOf<number>()
-				return x.a === y.a
-			}, [{a: 2, b: 2}, {a: 3, b: 2}]),
-		)
-
-    expectTypeOf(result[0].a).toEqualTypeOf<number>()
-    expectTypeOf(result[0].b).toEqualTypeOf<number>()
-  })
+  expectTypeOf(result[0].a).toEqualTypeOf<number>()
+  expectTypeOf(result[0].b).toEqualTypeOf<number>()
+  expect(result).toEqual([{ a: 2, b: 2 }, { a: 3, b: 2 }, { a: 1, b: 1 }])
 })
 ```
 
@@ -14030,11 +11414,13 @@ export function uniq(list) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { uniq } from './uniq.js'
+import { uniq } from './uniq'
 
 test('happy', () => {
-  const list = [1, 2, 3, 3, 3, 1, 2, 0]
-  expect(uniq(list)).toEqual([1, 2, 3, 0])
+  const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
+
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([1, 2, 3, 0])
 })
 
 test('with object', () => {
@@ -14056,24 +11442,6 @@ test('with falsy values', () => {
 
 test('can distinct between string and number', () => {
   expect(uniq([1, '1'])).toEqual([1, '1'])
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { uniq } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.uniq', () => {
-  it('happy', () => {
-    const result = uniq([1, 2, 3, 3, 3, 1, 2, 0])
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
 })
 ```
 
@@ -14134,10 +11502,13 @@ export function uniqBy(fn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { uniqBy } from './uniqBy.js'
+import { uniqBy } from './uniqBy'
 
 test('happy', () => {
-  expect(uniqBy(Math.abs)([-2, -1, 0, 1, 2])).toEqual([-2, -1, 0])
+  const result = uniqBy(Math.abs)([-2, -1, 0])
+
+  expectTypeOf(result).toEqualTypeOf<number[]>()
+  expect(result).toEqual([-2, -1, 0])
 })
 
 test('returns an empty array for an empty array', () => {
@@ -14148,25 +11519,6 @@ test('uses R.uniq', () => {
   const list = [{ a: 1 }, { a: 2 }, { a: 1 }]
   const expected = [{ a: 1 }, { a: 2 }]
   expect(uniqBy(x => x)(list)).toEqual(expected)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { uniqBy } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.uniqBy', () => {
-  it('happy', () => {
-    const result = uniqBy(Math.abs)([-2, -1, 0])
-
-    expectTypeOf(result).toEqualTypeOf<number[]>()
-  })
 })
 ```
 
@@ -14263,26 +11615,27 @@ export function uniqWith(predicate) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { uniqWith } from './uniqWith.js'
-
-const list = [{ a: 1 }, { a: 1 }]
+import { uniqWith } from './uniqWith'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  const fn = (x, y) => x.a === y.a
+  const result = pipe(
+    [{ a: 1 }, { a: 1 }],
+    uniqWith((x, y) => x.a === y.a),
+  )
 
-  const result = uniqWith(fn)(list)
+  expectTypeOf(result).toEqualTypeOf<{ a: number }[]>()
   expect(result).toEqual([{ a: 1 }])
 })
 
 test('with list of strings', () => {
-  const fn = (x, y) => x.length === y.length
+  const fn = (x: string, y: string) => x.length === y.length
   const list = ['0', '11', '222', '33', '4', '55']
   const result = uniqWith(fn)(list)
   expect(result).toEqual(['0', '11', '222'])
 })
 
 test('should return items that are not equal to themselves', () => {
-  // test case based on https://github.com/remeda/remeda/issues/999
   const data = [
     { id: 1, reason: 'No name' },
     { id: 1, reason: 'No name' },
@@ -14294,9 +11647,8 @@ test('should return items that are not equal to themselves', () => {
     { reason: 'No name' },
     { reason: 'No name' },
   ]
-
-  const result = uniqWith((errorA, errorB) => {
-    // the objects with no ids should effectively be ignored from removal of duplicates
+  const result = uniqWith(
+    (errorA: { id?: number; reason: string }, errorB: { id?: number; reason: string }) => {
     if (errorA.id === undefined || errorB.id === undefined) {
       return false
     }
@@ -14304,27 +11656,6 @@ test('should return items that are not equal to themselves', () => {
   })(data)
 
   expect(result).toEqual(expectedResult)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, uniqWith } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.uniqWith', () => {
-  it('happy', () => {
-    const result = pipe(
-      [{ a: 1 }, { a: 1 }],
-      uniqWith((x, y) => x.a === y.a),
-    )
-    expectTypeOf(result).toEqualTypeOf<{ a: number; }[]>()
-  })
 })
 ```
 
@@ -14394,60 +11725,35 @@ export function unless(predicate, whenFalseFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { unless } from './unless.js'
+import { unless } from './unless'
+import { pipe } from './pipe'
 
 test('happy', () => {
-  expect(
-    unless(
-      x => x > 10,
-      x => x + 1,
-    )(20),
-  ).toEqual(20)
-  expect(
-    unless(
-      x => x > 10,
-      x => x + 1,
-    )(5),
-  ).toEqual(6)
+  const result = unless((x: number) => x > 10, x => x + 1)(20)
+  expectTypeOf(result).toEqualTypeOf<number>()
+  expect(result).toEqual(20)
+  expect(unless((x: number) => x > 10, x => x + 1)(5)).toEqual(6)
 })
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, unless } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
 
 const inc = (x: number) => x + 1
 
-describe('R.unless', () => {
-  it('happy', () => {
-    const result = pipe(
-      1,
-      unless(x => x > 5, inc),
-    )
-    expectTypeOf(result).toEqualTypeOf<number>()
-  })
-  it('with two different types', () => {
-    const result = pipe(
-      1,
-      unless(
-        x => {
-          expectTypeOf(x).toEqualTypeOf<number>()
-          return x > 5
-        },
-        x => {
-          expectTypeOf(x).toEqualTypeOf<number>()
-          return `${x}-foo`
-        },
-      ),
-    )
-    expectTypeOf(result).toEqualTypeOf<string | number>()
-  })
+test('with two different types', () => {
+  const result = pipe(
+    1,
+    unless(
+      x => {
+        expectTypeOf(x).toEqualTypeOf<number>()
+        return x > 5
+      },
+      x => {
+        expectTypeOf(x).toEqualTypeOf<number>()
+        return `${x}-foo`
+      },
+    ),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<string | number>()
+  expect(result).toBe('1-foo')
 })
 ```
 
@@ -14508,7 +11814,13 @@ export function unwind(property) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { unwind } from './unwind.js'
+import { unwind } from './unwind'
+import { pipe } from './pipe'
+
+const obj = {
+  a: 1,
+  b: [2, 3],
+}
 
 test('happy', () => {
   const obj = {
@@ -14517,48 +11829,19 @@ test('happy', () => {
     c: [3, 4],
   }
   const expected = [
-    {
-      a: 1,
-      b: 2,
-      c: [3, 4],
-    },
-    {
-      a: 1,
-      b: 3,
-      c: [3, 4],
-    },
+    { a: 1, b: 2, c: [3, 4] },
+    { a: 1, b: 3, c: [3, 4] },
   ]
   const result = unwind('b')(obj)
   expect(result).toEqual(expected)
 })
-```
 
-</details>
+test('inside pipe', () => {
+  const [result] = pipe(obj, unwind('b'))
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { pipe, unwind } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-const obj = {
-  a: 1,
-  b: [2, 3],
-}
-
-describe('R.unwind', () => {
-  it('happy', () => {
-    const [result] = unwind('b')(obj)
-    expectTypeOf(result.a).toEqualTypeOf<number>()
-    expectTypeOf(result.b).toEqualTypeOf<number>()
-  })
-  it('inside pipe', () => {
-    const [result] = pipe(obj, unwind('b'))
-    expectTypeOf(result.a).toEqualTypeOf<number>()
-    expectTypeOf(result.b).toEqualTypeOf<number>()
-  })
+  expectTypeOf(result.a).toEqualTypeOf<number>()
+  expectTypeOf(result.b).toEqualTypeOf<number>()
+  expect(result).toEqual({ a: 1, b: 2 })
 })
 ```
 
@@ -14622,7 +11905,7 @@ export function update(index, newValue) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { update } from './update.js'
+import { update } from './update'
 
 const list = [1, 2, 3]
 
@@ -14722,59 +12005,54 @@ export function when(predicate, whenTrueFn) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { when } from './when.js'
-
-const predicate = x => typeof x === 'number'
+import { head } from './head'
+import { pipe } from './pipe'
+import { tap } from './tap'
+import { when } from './when'
 
 test('happy', () => {
-  const fn = when(predicate, x => x + 1)
+	const predicate = (x: number | string): x is number => typeof x === 'number'
+	const fn = when(
+    predicate,
+    (x: number | string) => (typeof x === 'number' ? x + 1 : x),
+  )
   expect(fn(11)).toBe(12)
   expect(fn('foo')).toBe('foo')
 })
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { head, pipe, tap, when } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
 
 function notNull<T>(a: T | null | undefined): a is T {
   return a != null
 }
 
-describe('R.when', () => {
-  it('happy', () => {
-    const result = pipe(
-      1,
-      when(
-        x => x > 2,
-        x => x,
-      ),
-      tap(x => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-      }),
-      when(
-        x => x > 2,
-        x => String(x),
-      ),
-    )
+test('happy', () => {
+  const result = pipe(
+    1,
+    when(
+      x => x > 2,
+      x => x,
+    ),
+    tap(x => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+    }),
+    when(
+      x => x > 2,
+      x => String(x),
+    ),
+  )
 
-    expectTypeOf(result).toEqualTypeOf<string | number>()
-  })
+  expectTypeOf(result).toEqualTypeOf<string | number>()
+  expect(result).toBe(1)
+})
 
-	it('with assertion of type', () => {
-    const result = pipe(
-      [1, null, 2, 3],
-      head,
-      when(notNull, x => x + 1),
-    )
-    expectTypeOf(result).toEqualTypeOf<number | null>()
-  })
+test('with assertion of type', () => {
+  const result = pipe(
+    [1, null, 2, 3],
+    head,
+    when(notNull, x => x + 1),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<number | null>()
+  expect(result).toBe(2)
 })
 ```
 
@@ -14842,10 +12120,18 @@ export function zip(left) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { zip } from './zip.js'
+import { zip } from './zip'
 
 const array1 = [1, 2, 3]
 const array2 = ['A', 'B', 'C']
+
+test('happy', () => {
+  const result = zip(array1)(array2)
+
+  expectTypeOf(result[0][0]).toEqualTypeOf<number>()
+  expectTypeOf(result[0][1]).toEqualTypeOf<string>()
+  expect(result).toEqual([[1, 'A'], [2, 'B'], [3, 'C']])
+})
 
 test('should return an array', () => {
   const actual = zip(array1)(array2)
@@ -14876,28 +12162,6 @@ test('should truncate result to length of shorted input list', () => {
   ]
   const actualB = zip(array1)(['A', 'B'])
   expect(actualB).toEqual(expectedB)
-})
-```
-
-</details>
-
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { zip } from 'rambda'
-import { describe, expectTypeOf, it } from 'vitest'
-
-describe('R.zip', () => {
-  it('happy', () => {
-    const array1 = [1, 2, 3]
-    const array2 = ['A', 'B', 'C']
-    let a: Partial<any>
-    const result = zip(array1)(array2)
-    expectTypeOf(result[0][0]).toEqualTypeOf<number>()
-    expectTypeOf(result[0][1]).toEqualTypeOf<string>()
-  })
 })
 ```
 
@@ -14960,12 +12224,27 @@ export function zipWith(fn, x) {
 <summary><strong>Tests</strong></summary>
 
 ```javascript
-import { zipWith } from './zipWith.js'
+import { pipe } from './pipe'
+import { zipWith } from './zipWith'
 
-const add = (x, y) => x + y
+const add = (x: number, y: number) => x + y
 const list1 = [1, 2, 3]
 const list2 = [10, 20, 30, 40]
 const list3 = [100, 200]
+
+test('happy', () => {
+  const result = pipe(
+    list2,
+    zipWith((x, y) => {
+      expectTypeOf(x).toEqualTypeOf<number>()
+      expectTypeOf(y).toEqualTypeOf<number>()
+      return `${x}-${y}`
+    }, list1),
+  )
+
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+  expect(result).toEqual(['1-10', '2-20', '3-30'])
+})
 
 test('when second list is shorter', () => {
   const result = zipWith(add, list1)(list3)
@@ -14980,38 +12259,19 @@ test('when second list is longer', () => {
 
 </details>
 
-<details>
-
-<summary><strong>TypeScript</strong> test</summary>
-
-```typescript
-import { describe, expectTypeOf, it } from 'vitest'
-import { pipe, zipWith } from 'rambda'
-
-const list1 = [1, 2]
-const list2 = [10, 20, 30]
-
-describe('R.zipWith', () => {
-  it('happy', () => {
-    const result = pipe(
-      list2,
-      zipWith((x, y) => {
-        expectTypeOf(x).toEqualTypeOf<number>()
-        expectTypeOf(y).toEqualTypeOf<number>()
-        return `${x}-${y}`
-      }, list1),
-    )
-
-    expectTypeOf(result).toEqualTypeOf<string[]>()
-  })
-})
-```
-
-</details>
-
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.3.0
+
+- Add `R.remove`
+
+- Add missing type narrowing in `R.find`
+
+- `R.switcher` accept only functions as inputs
+
+- Sort functions use `.toSorted`
 
 11.2.0
 

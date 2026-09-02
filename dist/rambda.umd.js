@@ -86,7 +86,6 @@
         }
         counter++;
       }
-
       return false
     }
   }
@@ -1608,6 +1607,22 @@
     return str => str.replace(pattern, replacer)
   }
 
+  function remove(inputs) {
+    return text => {
+      if (!isArray(inputs)) {
+        return replace(inputs, '')(text)
+      }
+
+      let textCopy = text;
+
+      inputs.forEach(singleInput => {
+        textCopy = replace(singleInput, '')(textCopy).trim();
+      });
+
+      return textCopy
+    }
+  }
+
   function replaceAll(patterns, replacer) {
     return input => {
       let text = input;
@@ -1634,7 +1649,7 @@
   }
 
   function sort(sortFn) {
-    return list => cloneList(list).sort(sortFn)
+    return list => list.toSorted(sortFn)
   }
 
   function sortByFn (
@@ -1642,9 +1657,7 @@
   	list,
   	descending
   ){
-  	const clone = cloneList(list);
-
-  	return clone.sort((a, b) => {
+  	return list.toSorted((a, b) => {
   		const aSortResult = sortFn(a);
   		const bSortResult = sortFn(b);
 
@@ -1706,10 +1719,7 @@
         return []
       }
 
-      const clone = list.slice();
-      clone.sort((a, b) => sortHelper(a, b, listOfSortingFns));
-
-      return clone
+      return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
     }
   }
 
@@ -1757,19 +1767,10 @@
     return defaultValue
   };
 
-  const isEqual = (testValue, matchValue) => {
-    const willReturn =
-      typeof testValue === 'function' ?
-        testValue(matchValue) :
-        equals(testValue)(matchValue);
-
-    return willReturn
-  };
-
   const is = (testValue, matchResult = true) => ({
     key  : testValue,
     test : matchValue =>
-      isEqual(testValue, matchValue) ? matchResult : NO_MATCH_FOUND,
+      testValue(matchValue) ? matchResult : NO_MATCH_FOUND,
   });
 
   class Switchem{
@@ -2142,6 +2143,7 @@
   exports.reduce = reduce;
   exports.reject = reject;
   exports.rejectObject = rejectObject;
+  exports.remove = remove;
   exports.replace = replace;
   exports.replaceAll = replaceAll;
   exports.shuffle = shuffle;

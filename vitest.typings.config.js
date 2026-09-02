@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     globals: true,
-    include: ['source/**/*-spec.ts'],
+    include: ['source/**/*-spec.ts', 'source/**/*.spec.ts'],
     exclude: ['source/_internals/**'],
   },
 })
