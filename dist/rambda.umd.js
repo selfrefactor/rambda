@@ -1649,7 +1649,7 @@
   }
 
   function sort(sortFn) {
-    return list => cloneList(list).sort(sortFn)
+    return list => list.toSorted(sortFn)
   }
 
   function sortByFn (
@@ -1657,9 +1657,7 @@
   	list,
   	descending
   ){
-  	const clone = cloneList(list);
-
-  	return clone.sort((a, b) => {
+  	return list.toSorted((a, b) => {
   		const aSortResult = sortFn(a);
   		const bSortResult = sortFn(b);
 
@@ -1721,10 +1719,7 @@
         return []
       }
 
-      const clone = list.slice();
-      clone.sort((a, b) => sortHelper(a, b, listOfSortingFns));
-
-      return clone
+      return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
     }
   }
 

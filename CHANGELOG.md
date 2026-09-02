@@ -6,6 +6,8 @@
 
 - `R.switcher` accept only functions as inputs
 
+- Sort functions use `.toSorted`
+
 11.2.0
 
 - Fix wrong typing for `R.equal`,`R.path`, `R.prop`, `R.propEq`, `R.prepend` - [Issue #803](https://github.com/selfrefactor/rambda/issues/803)

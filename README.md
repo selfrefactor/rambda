@@ -9276,10 +9276,8 @@ sort<T>(sortFn: (a: T, b: T) => number): (list: T[]) => T[];
 <summary><strong>R.sort</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sort(sortFn) {
-  return list => cloneList(list).sort(sortFn)
+  return list => list.toSorted(sortFn)
 }
 ```
 
@@ -9352,16 +9350,12 @@ sortBy<T>(sortFn: (x: T) => Ord): (list: T[]) => T[];
 <summary><strong>R.sortBy</strong> source</summary>
 
 ```javascript
-import { cloneList } from './_internals/cloneList.js'
-
 export function sortByFn (
 	sortFn,
 	list,
 	descending
 ){
-	const clone = cloneList(list)
-
-	return clone.sort((a, b) => {
+	return list.toSorted((a, b) => {
 		const aSortResult = sortFn(a)
 		const bSortResult = sortFn(b)
 
@@ -9827,10 +9821,7 @@ export function sortWith(listOfSortingFns) {
       return []
     }
 
-    const clone = list.slice()
-    clone.sort((a, b) => sortHelper(a, b, listOfSortingFns))
-
-    return clone
+    return list.toSorted((a, b) => sortHelper(a, b, listOfSortingFns))
   }
 }
 ```
@@ -12290,6 +12281,8 @@ test('when second list is longer', () => {
 - Add missing type narrowing in `R.find`
 
 - `R.switcher` accept only functions as inputs
+
+- Sort functions use `.toSorted`
 
 11.2.0
 

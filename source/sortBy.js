@@ -1,13 +1,9 @@
-import { cloneList } from './_internals/cloneList.js'
-
 export function sortByFn (
 	sortFn,
 	list,
 	descending
 ){
-	const clone = cloneList(list)
-
-	return clone.sort((a, b) => {
+	return list.toSorted((a, b) => {
 		const aSortResult = sortFn(a)
 		const bSortResult = sortFn(b)
 
