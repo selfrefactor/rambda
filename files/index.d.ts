@@ -1324,6 +1324,197 @@ Notes:
 export function match(regExpression: RegExp | string): (str: string) => string[];
 
 /*
+Method: max
+
+Explanation: It returns the element of `list` with the greatest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+Example:
+
+```
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.max('a.b')(list)
+// => {a: {b: 5}, id: 2}
+```
+
+Categories: List
+
+Notes: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+*/
+// @SINGLE_MARKER
+export function max<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+export function max<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+export function max<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+export function max<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+export function max<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: [K0, K1, K2]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: [K0, K1, K2, K3]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: [K0, K1, K2, K3, K4]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: [K0, K1, K2, K3, K4, K5]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: S[]) => S | undefined;
+export function max<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: S[]) => S | undefined;
+
+/*
 Method: maxBy
 
 Explanation: It returns the greater value between `x` and `y` according to `compareFn` function.
@@ -1379,6 +1570,197 @@ Notes:
 */
 // @SINGLE_MARKER
 export function mergeDeep<Source>(source: Source): <T>(newProps: T) => Merge<T, Source>;
+
+/*
+Method: min
+
+Explanation: It returns the element of `list` with the smallest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+Example:
+
+```
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.min('a.b')(list)
+// => {a: {b: 1}, id: 3}
+```
+
+Categories: List
+
+Notes: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+*/
+// @SINGLE_MARKER
+export function min<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+export function min<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+export function min<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+export function min<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+export function min<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: `${K0}.${K1}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: [K0, K1, K2]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1]
+>(
+  path: `${K0}.${K1}.${K2}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: [K0, K1, K2, K3]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: [K0, K1, K2, K3, K4]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: [K0, K1, K2, K3, K4, K5]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}`
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]
+): (list: S[]) => S | undefined;
+export function min<
+  S,
+  K0 extends string & keyof S,
+  K1 extends string & keyof S[K0],
+  K2 extends string & keyof S[K0][K1],
+  K3 extends string & keyof S[K0][K1][K2],
+  K4 extends string & keyof S[K0][K1][K2][K3],
+  K5 extends string & keyof S[K0][K1][K2][K3][K4],
+  K6 extends string & keyof S[K0][K1][K2][K3][K4][K5],
+  K7 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6],
+  K8 extends string & keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
+>(
+  path: `${K0}.${K1}.${K2}.${K3}.${K4}.${K5}.${K6}.${K7}.${K8}`
+): (list: S[]) => S | undefined;
 
 /*
 Method: minBy
@@ -1507,6 +1889,129 @@ export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
 export function createObjectFromKeys<const K extends readonly PropertyKey[], V>(
 	fn: (key: K[number], index: number) => V
 ): (keys: K) => { [P in K[number]]: V };
+
+/*
+Method: invert
+
+Explanation: It returns inverted version of input object, with values as keys and keys as values. If multiple keys of `input` have the same value, the last key wins.
+
+Example:
+
+```
+const result = R.invert({ ok: 200, not_found: 404 })
+// => {200: 'ok', 404: 'not_found'}
+```
+
+Categories: Object
+
+Notes: Values of `input` must be storable as keys and the keys of the returned object are always strings (JS coercion).
+
+*/
+// @SINGLE_MARKER
+export function invert<T extends object>(obj: T): Record<string, keyof T>;
+
+/*
+Method: lines
+
+Explanation: It splits a string into lines, similar to Ruby's `String#lines(chomp: true)`. The returned lines have no trailing newline characters. Both `\n` and `\r\n` separators are supported.
+
+Example:
+
+```
+const result = R.lines('Hello\nWorld\nRuby')
+// => ['Hello', 'World', 'Ruby']
+```
+
+Categories: String
+
+Notes: This implements only the `chomp: true` behavior.
+
+*/
+// @SINGLE_MARKER
+export function lines(str: string): string[];
+
+/*
+Method: deletePrefix
+
+Explanation: It deletes `prefix` from the beginning of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_prefix`.
+
+Example:
+
+```
+const result = R.deletePrefix('https://')('https://loving-ruby.com')
+// => 'loving-ruby.com'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function deletePrefix(prefix: string): (str: string) => string;
+
+/*
+Method: deleteSuffix
+
+Explanation: It deletes `suffix` from the end of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_suffix`.
+
+Example:
+
+```
+const result = R.deleteSuffix('/')('https://loving-ruby.com/')
+// => 'https://loving-ruby.com'
+```
+
+Categories: String
+
+Notes:
+
+*/
+// @SINGLE_MARKER
+export function deleteSuffix(suffix: string): (str: string) => string;
+
+/*
+Method: tally
+
+Explanation: It counts occurrences of each member of `list` and returns an object where keys are the members and values are their respective counts.
+
+Example:
+
+```
+const result = R.tally(['🍎', '🍌', '🍎', '🍑', '🍌', '🍎'])
+// => {'🍎': 3, '🍌': 2, '🍑': 1}
+```
+
+Categories: List
+
+Notes: Unlike `R.countBy`, it doesn't accept a transform function. Keys of the returned object are always strings (JS coercion).
+
+*/
+// @SINGLE_MARKER
+export function tally<T extends PropertyKey>(list: readonly T[]): Record<string, number>;
+
+/*
+Method: grep
+
+Explanation: It filters `list` keeping only members that match `regexp`. Similar to Ruby's `Enumerable#grep`.
+
+Example:
+
+```
+const result = R.pipe(
+	['ERROR: low disk', 'INFO: ok'],
+	R.grep(/ERROR/)
+)
+// => ['ERROR: low disk']
+```
+
+Categories: List
+
+Notes: Only `RegExp` is supported as pattern. For matching a single string, see `R.test`.
+
+*/
+// @SINGLE_MARKER
+export function grep(pattern: RegExp): (list: string[]) => string[];
 
 /*
 Method: partition
