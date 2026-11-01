@@ -19,3 +19,9 @@ test("happy", () => {
 test("no matches", () => {
   expect(pipe(["a", "b"], grep(/z/))).toEqual([])
 })
+
+test("global regexp does not leak lastIndex", () => {
+  const filterA = grep(/a/g)
+  expect(pipe(["xa", "a", "b"], filterA)).toEqual(["xa", "a"])
+  expect(pipe(["a", "za"], filterA)).toEqual(["a", "za"])
+})
