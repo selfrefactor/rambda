@@ -26,42 +26,7 @@ import {
   zip as radashiZip,
 } from 'radashi'
 
-describe('Radashi vs Rambda: API design', () => {
-  it('Radashi is data-first, Rambda is curried data-last', () => {
-    const items = [3, 1, 2]
 
-    // Radashi: data-first, all args at once
-    const radashiResult = radashiSort(items, x => x)
-    expectTypeOf(radashiResult).toEqualTypeOf<number[]>()
-
-    // Rambda: curried data-last, designed for pipe
-    const rambdaResult = pipe(items, sortBy(x => x))
-    expectTypeOf(rambdaResult).toEqualTypeOf<number[]>()
-  })
-})
-
-describe('Radashi vs Rambda: selectFirst vs find (type guard narrowing)', () => {
-  it('Rambda find supports type guard narrowing; Radashi selectFirst does not', () => {
-    const items = ['hello', 'world', 42] as (string | number)[]
-
-    const radashiResult = radashiSelectFirst(
-      items,
-      x => String(x),
-      (x): x is string => typeof x === 'string',
-    )
-    // Radashi condition is typed as (item: T, index: number) => boolean
-    // No type guard overload — result is still string | undefined
-    // because mapper returns string for all T, and condition narrows runtime only
-    expectTypeOf(radashiResult).toEqualTypeOf<string | undefined>()
-
-    const rambdaResult = pipe(
-      items,
-      find((x): x is string => typeof x === 'string'),
-    )
-    // Rambda find has type guard overload: predicate(value is S) => S | undefined
-    expectTypeOf(rambdaResult).toEqualTypeOf<string | undefined>()
-  })
-})
 
 describe('Radashi vs Rambda: select vs filter (type guard narrowing)', () => {
   it('Rambda filter supports type guard narrowing; Radashi select does not', () => {

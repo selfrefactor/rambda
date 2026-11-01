@@ -1723,6 +1723,157 @@ export function delay(ms) {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#delay)
 
+### deletePrefix
+
+```typescript
+
+deletePrefix(prefix: string): (str: string) => string
+```
+
+It deletes `prefix` from the beginning of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_prefix`.
+
+```javascript
+const result = R.deletePrefix('https://')('https://loving-ruby.com')
+// => 'loving-ruby.com'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.deletePrefix('https%3A%2F%2F')('https%3A%2F%2Floving-ruby.com')%0A%2F%2F%20%3D%3E%20'loving-ruby.com'">Try this <strong>R.deletePrefix</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+deletePrefix(prefix: string): (str: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.deletePrefix</strong> source</summary>
+
+```javascript
+export function deletePrefix(prefix) {
+  return (str) => (str.startsWith(prefix) ? str.slice(prefix.length) : str)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { deletePrefix } from "./deletePrefix"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const result = deletePrefix("https://")("https://loving-ruby.com")
+  expect(result).toBe("loving-ruby.com")
+  expectTypeOf(result).toEqualTypeOf<string>()
+})
+
+test("prefix not present - string returned as is", () => {
+  expect(deletePrefix("ftp://")("https://loving-ruby.com")).toBe(
+    "https://loving-ruby.com",
+  )
+})
+
+test("empty prefix - string returned as is", () => {
+  expect(deletePrefix("")("abc")).toBe("abc")
+})
+test("within pipe", () => {
+  const result = pipe(
+    "https://loving-ruby.com",
+    deletePrefix("https://"),
+    deletePrefix(""),
+  )
+  expect(result).toBe("loving-ruby.com")
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#deletePrefix)
+
+### deleteSuffix
+
+```typescript
+
+deleteSuffix(suffix: string): (str: string) => string
+```
+
+It deletes `suffix` from the end of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_suffix`.
+
+```javascript
+const result = R.deleteSuffix('/')('https://loving-ruby.com/')
+// => 'https://loving-ruby.com'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.deleteSuffix('%2F')('https%3A%2F%2Floving-ruby.com%2F')%0A%2F%2F%20%3D%3E%20'https%3A%2F%2Floving-ruby.com'">Try this <strong>R.deleteSuffix</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+deleteSuffix(suffix: string): (str: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.deleteSuffix</strong> source</summary>
+
+```javascript
+export function deleteSuffix(suffix) {
+  return (str) =>
+    suffix && str.endsWith(suffix) ? str.slice(0, -1 * suffix.length) : str
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { deleteSuffix } from "./deleteSuffix"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const result = deleteSuffix("/")("https://loving-ruby.com/")
+  expect(result).toBe("https://loving-ruby.com")
+  expectTypeOf(result).toEqualTypeOf<string>()
+})
+
+test("suffix not present - string returned as is", () => {
+  expect(deleteSuffix("/not-present")("https://loving-ruby.com/")).toBe(
+    "https://loving-ruby.com/",
+  )
+})
+
+test("empty suffix - string returned as is", () => {
+  expect(deleteSuffix("")("abc")).toBe("abc")
+})
+test("within pipe", () => {
+  const result = pipe(
+    "https://loving-ruby.com/",
+    deleteSuffix("/"),
+    deleteSuffix(""),
+  )
+  expect(result).toBe("https://loving-ruby.com")
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#deleteSuffix)
+
 ### descend
 
 ```typescript
@@ -4316,6 +4467,81 @@ test('happy', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flattenObject)
 
+### grep
+
+```typescript
+
+grep(pattern: RegExp): (list: string[]) => string[]
+```
+
+It filters `list` keeping only members that match `regexp`. Similar to Ruby's `Enumerable#grep`.
+
+> :boom: Only `RegExp` is supported as pattern. For matching a single string, see `R.test`.
+
+```javascript
+const result = R.pipe(
+	['ERROR: low disk', 'INFO: ok'],
+	R.grep(/ERROR/)
+)
+// => ['ERROR: low disk']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B'ERROR%3A%20low%20disk'%2C%20'INFO%3A%20ok'%5D%2C%0A%09R.grep(%2FERROR%2F)%0A)%0A%2F%2F%20%3D%3E%20%5B'ERROR%3A%20low%20disk'%5D">Try this <strong>R.grep</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+grep(pattern: RegExp): (list: string[]) => string[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.grep</strong> source</summary>
+
+```javascript
+export function grep(regexp) {
+  return (list) => list.filter((item) => regexp.test(item))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { grep } from "./grep"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const logLines = [
+    "ERROR: Disk space low",
+    "INFO: User logged in",
+    "WARNING: High memory usage",
+    "ERROR: Network timeout",
+    "INFO: File uploaded",
+    "INFO: User logged out",
+  ]
+  const result = pipe(logLines, grep(/ERROR/))
+  const expected = ["ERROR: Disk space low", "ERROR: Network timeout"]
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+})
+
+test("no matches", () => {
+  expect(pipe(["a", "b"], grep(/z/))).toEqual([])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#grep)
+
 ### groupBy
 
 ```typescript
@@ -5193,6 +5419,75 @@ test('happy', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
 
+### invert
+
+```typescript
+
+invert<T extends object>(obj: T): Record<string, keyof T>
+```
+
+It returns inverted version of input object, with values as keys and keys as values. If multiple keys of `input` have the same value, the last key wins.
+
+> :boom: Values of `input` must be storable as keys and the keys of the returned object are always strings (JS coercion).
+
+```javascript
+const result = R.invert({ ok: 200, not_found: 404 })
+// => {200: 'ok', 404: 'not_found'}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.invert(%7B%20ok%3A%20200%2C%20not_found%3A%20404%20%7D)%0A%2F%2F%20%3D%3E%20%7B200%3A%20'ok'%2C%20404%3A%20'not_found'%7D">Try this <strong>R.invert</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+invert<T extends object>(obj: T): Record<string, keyof T>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.invert</strong> source</summary>
+
+```javascript
+export function invert(obj) {
+  const willReturn = {}
+  Object.keys(obj).forEach((key) => {
+    willReturn[obj[key]] = key
+  })
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { invert } from "./invert"
+
+test("happy", () => {
+  const result = invert({ ok: 200, not_found: 404 })
+  const expected = { 200: "ok", 404: "not_found" }
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<Record<string, "ok" | "not_found">>()
+})
+
+test("duplicate values - last one wins", () => {
+  const result = invert({ a: 1, b: 1 })
+  expect(result).toEqual({ 1: "b" })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#invert)
+
 ### join
 
 ```typescript
@@ -5426,6 +5721,80 @@ test('list of arrays uses R.equals', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
+
+### lines
+
+```typescript
+
+lines(str: string): string[]
+```
+
+It splits a string into lines, similar to Ruby's `String#lines(chomp: true)`. The returned lines have no trailing newline characters. Both `\n` and `\r\n` separators are supported.
+
+> :boom: This implements only the `chomp: true` behavior.
+
+```javascript
+const result = R.lines('Hello\nWorld\nRuby')
+// => ['Hello', 'World', 'Ruby']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.lines('Hello%5CnWorld%5CnRuby')%0A%2F%2F%20%3D%3E%20%5B'Hello'%2C%20'World'%2C%20'Ruby'%5D">Try this <strong>R.lines</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+lines(str: string): string[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.lines</strong> source</summary>
+
+```javascript
+const linesRegexp = /[^\n]*\r?\n|[^\n]+$/g
+
+export function lines(str) {
+  const willReturn = str.match(linesRegexp) ?? []
+
+  return willReturn.map((line) => line.replace(/\r?\n$/, ""))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { lines } from "./lines"
+
+test("happy", () => {
+  const result = lines("Hello\nWorld\nRuby")
+  const expected = ["Hello", "World", "Ruby"]
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+})
+
+test("windows line separators", () => {
+  expect(lines("Hello\r\nWorld\r\nRuby")).toEqual(["Hello", "World", "Ruby"])
+})
+
+test("edge cases", () => {
+  expect(lines("")).toEqual([])
+  expect(lines("\n")).toEqual([""])
+  expect(lines("a\n\nb")).toEqual(["a", "", "b"])
+  expect(lines("Hello\nWorld\n")).toEqual(["Hello", "World"])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lines)
 
 ### map
 
@@ -6261,6 +6630,146 @@ test('with string', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#match)
 
+### max
+
+```typescript
+
+max<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined
+```
+
+It returns the element of `list` with the greatest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+> :boom: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+```javascript
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.max('a.b')(list)
+// => {a: {b: 5}, id: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A%201%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.max('a.b')(list)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D">Try this <strong>R.max</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+max<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+max<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+max<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+max<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.max</strong> source</summary>
+
+```javascript
+import { path } from './path.js'
+
+export function max(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath)
+
+  return list => {
+    let result
+    let resultValue
+    let index = 0
+    const len = list.length
+
+    while (index < len) {
+      const value = getValue(list[index])
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value > resultValue) {
+          result = list[index]
+          resultValue = value
+        }
+      }
+
+      index++
+    }
+
+    return result
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { max } from './max'
+import { pipe } from './pipe'
+
+const list = [{ a: { b: 2 } }, { a: { b: 5 } }, { a: { b: 1 } }]
+
+test('happy', () => {
+  const result = pipe(list, max('a.b'))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 5 } })
+})
+
+test('with selector', () => {
+  const result = pipe(list, max(x => x.a.b))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 5 } })
+})
+
+test('with list as path', () => {
+  expect(pipe(list, max(['a', 'b']))).toEqual({ a: { b: 5 } })
+})
+
+test('with empty list', () => {
+  expect(pipe([] as number[], max(x => x))).toBeUndefined()
+})
+
+test('with one element', () => {
+  expect(max<number>(x => x)([3])).toBe(3)
+})
+
+test('when first element is the max', () => {
+  expect(max<number>(x => x)([3, 1, 2])).toBe(3)
+})
+
+test('with equal values', () => {
+  const input = [{ a: 1, id: 'first' }, { a: 1, id: 'second' }]
+  expect(pipe(input, max('a'))).toEqual(input[0])
+})
+
+test('skips missing path values', () => {
+  const input: Array<{ a?: number | null }> = [{ a: 1 }, {}, { a: 3 }, { a: null }]
+  expect(pipe(input, max('a'))).toEqual({ a: 3 })
+})
+
+test('when all path values are missing', () => {
+  const input: Array<{ a?: number | null }> = [{}, { a: null }]
+  expect(pipe(input, max('a'))).toBeUndefined()
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
+
 ### maxBy
 
 ```typescript
@@ -6555,6 +7064,146 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#middle)
+
+### min
+
+```typescript
+
+min<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined
+```
+
+It returns the element of `list` with the smallest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+> :boom: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+```javascript
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.min('a.b')(list)
+// => {a: {b: 1}, id: 3}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A%201%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.min('a.b')(list)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D">Try this <strong>R.min</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+min<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+min<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+min<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+min<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.min</strong> source</summary>
+
+```javascript
+import { path } from './path.js'
+
+export function min(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath)
+
+  return list => {
+    let result
+    let resultValue
+    let index = 0
+    const len = list.length
+
+    while (index < len) {
+      const value = getValue(list[index])
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value < resultValue) {
+          result = list[index]
+          resultValue = value
+        }
+      }
+
+      index++
+    }
+
+    return result
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { min } from './min'
+import { pipe } from './pipe'
+
+const list = [{ a: { b: 2 } }, { a: { b: 5 } }, { a: { b: 1 } }]
+
+test('happy', () => {
+  const result = pipe(list, min('a.b'))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 1 } })
+})
+
+test('with selector', () => {
+  const result = pipe(list, min(x => x.a.b))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 1 } })
+})
+
+test('with list as path', () => {
+  expect(pipe(list, min(['a', 'b']))).toEqual({ a: { b: 1 } })
+})
+
+test('with empty list', () => {
+  expect(pipe([] as number[], min(x => x))).toBeUndefined()
+})
+
+test('with one element', () => {
+  expect(min<number>(x => x)([3])).toBe(3)
+})
+
+test('when first element is the min', () => {
+  expect(min<number>(x => x)([1, 3, 2])).toBe(1)
+})
+
+test('with equal values', () => {
+  const input = [{ a: 1, id: 'first' }, { a: 1, id: 'second' }]
+  expect(pipe(input, min('a'))).toEqual(input[0])
+})
+
+test('skips missing path values', () => {
+  const input: Array<{ a?: number | null }> = [{ a: 3 }, {}, { a: 1 }, { a: null }]
+  expect(pipe(input, min('a'))).toEqual({ a: 1 })
+})
+
+test('when all path values are missing', () => {
+  const input: Array<{ a?: number | null }> = [{}, { a: null }]
+  expect(pipe(input, min('a'))).toBeUndefined()
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
@@ -10695,6 +11344,78 @@ test('always false', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeWhile)
 
+### tally
+
+```typescript
+
+tally<T extends PropertyKey>(list: readonly T[]): Record<string, number>
+```
+
+It counts occurrences of each member of `list` and returns an object where keys are the members and values are their respective counts.
+
+> :boom: Unlike `R.countBy`, it doesn't accept a transform function. Keys of the returned object are always strings (JS coercion).
+
+```javascript
+const result = R.tally(['🍎', '🍌', '🍎', '🍑', '🍌', '🍎'])
+// => {'🍎': 3, '🍌': 2, '🍑': 1}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.tally(%5B'%F0%9F%8D%8E'%2C%20'%F0%9F%8D%8C'%2C%20'%F0%9F%8D%8E'%2C%20'%F0%9F%8D%91'%2C%20'%F0%9F%8D%8C'%2C%20'%F0%9F%8D%8E'%5D)%0A%2F%2F%20%3D%3E%20%7B'%F0%9F%8D%8E'%3A%203%2C%20'%F0%9F%8D%8C'%3A%202%2C%20'%F0%9F%8D%91'%3A%201%7D">Try this <strong>R.tally</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+tally<T extends PropertyKey>(list: readonly T[]): Record<string, number>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.tally</strong> source</summary>
+
+```javascript
+export function tally(list) {
+  const willReturn = {}
+  list.forEach((item) => {
+    willReturn[item] = (willReturn[item] || 0) + 1
+  })
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { tally } from "./tally"
+
+test("happy", () => {
+  const result = tally(["🍎", "🍌", "🍎", "🍑", "🍌", "🍎"])
+  const expected = { "🍎": 3, "🍌": 2, "🍑": 1 }
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
+})
+
+test("empty list", () => {
+  expect(tally([])).toEqual({})
+})
+
+test("numbers and their string forms share the same key", () => {
+  expect(tally([1, 2, 1, "1"])).toEqual({ 1: 3, 2: 1 })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tally)
+
 ### tap
 
 ```typescript
@@ -12262,6 +12983,18 @@ test('when second list is longer', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.4.0
+
+- Add `R.invert` - similar to Ruby `Hash#invert`
+
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`
+
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`
+
+- Add `R.tally` - similar to Ruby `Enumerable#tally`
+
+- Add `R.grep` - similar to Ruby `Enumerable#grep`
 
 11.3.0
 

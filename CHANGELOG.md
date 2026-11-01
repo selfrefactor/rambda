@@ -1,3 +1,17 @@
+11.4.0
+
+- Add `R.invert` - similar to Ruby `Hash#invert`
+
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`
+
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`
+
+- Add `R.tally` - similar to Ruby `Enumerable#tally`
+
+- Add `R.grep` - similar to Ruby `Enumerable#grep`
+
+- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path
+
 11.3.0
 
 - Add `R.remove`

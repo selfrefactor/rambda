@@ -1,6 +1,6 @@
 {
   "name": "rambda",
-  "version": "11.2.0",
+  "version": "11.4.0",
   "scripts": {
     "out": "yarn populatedocs && yarn populatereadme && yarn build && yarn create-docsify",
     "build": "yarn build:main && yarn build:web && yarn build:esm",
@@ -10,6 +10,7 @@
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "format": "oxfmt --write 'source/**/*.{ts,js}'",
+    "lint": "cd source && run lint:folder > lint-output.txt",
     "lint:file": "oxfmt --write",
     "lint:typings": "tsc",
     "test:file": "node scripts/tasks/run/run-test.js",

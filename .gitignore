@@ -6,3 +6,6 @@ source/lint-output.txt
 scripts/tasks/outputs/*.txt
 .yarnrc.yml
 .yarn
+
+# CodeGraph local index - regenerable, not committed
+.codegraph
