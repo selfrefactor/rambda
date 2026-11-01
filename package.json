@@ -10,6 +10,7 @@
     "populatedocs": "cd ../rambda-scripts && yarn populate:docs",
     "populatereadme": "cd ../rambda-scripts && yarn populate:readme",
     "format": "oxfmt --write 'source/**/*.{ts,js}'",
+    "lint": "cd source && run lint:folder > lint-output.txt",
     "lint:file": "oxfmt --write",
     "lint:typings": "tsc",
     "test:file": "node scripts/tasks/run/run-test.js",
