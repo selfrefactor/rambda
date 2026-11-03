@@ -349,9 +349,15 @@
     const aList = _arrayFromIterator(a.values());
     const bList = _arrayFromIterator(b.values());
 
-    const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
+    for (const aInstance of aList) {
+      const matchIndex = _indexOf(aInstance, bList);
+      if (matchIndex === -1) {
+        return false
+      }
+      bList.splice(matchIndex, 1);
+    }
 
-    return filtered.length === 0
+    return true
   }
 
   function compareErrors(a, b) {
@@ -476,6 +482,10 @@
       let loopObjectFlag = true;
       aKeys.forEach(aKeyInstance => {
         if (loopObjectFlag) {
+          if (!Object.prototype.hasOwnProperty.call(b, aKeyInstance)) {
+            loopObjectFlag = false;
+            return
+          }
           const aValue = a[aKeyInstance];
           const bValue = b[aKeyInstance];
 
