@@ -856,7 +856,7 @@ function flattenObject(obj){
 }
 
 function groupByFallback(groupFn, list) {
-    const result = {};
+    const result = Object.create(null);
     for (let i = 0; i < list.length; i++) {
       const item = list[i];
       const key = groupFn(item);
