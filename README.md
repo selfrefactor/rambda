@@ -5423,7 +5423,7 @@ test('happy', () => {
 
 ```typescript
 
-invert<T extends object>(obj: T): Record<string, keyof T>
+invert<T>(obj: T): Record<string, keyof T>
 ```
 
 It returns inverted version of input object, with values as keys and keys as values. If multiple keys of `input` have the same value, the last key wins.
@@ -5442,7 +5442,7 @@ const result = R.invert({ ok: 200, not_found: 404 })
 <summary>All TypeScript definitions</summary>
 
 ```typescript
-invert<T extends object>(obj: T): Record<string, keyof T>;
+invert<T>(obj: T): Record<string, keyof T>;
 ```
 
 </details>
@@ -11356,11 +11356,11 @@ It counts occurrences of each member of `list` and returns an object where keys 
 > :boom: Unlike `R.countBy`, it doesn't accept a transform function. Keys of the returned object are always strings (JS coercion).
 
 ```javascript
-const result = R.tally(['🍎', '🍌', '🍎', '🍑', '🍌', '🍎'])
-// => {'🍎': 3, '🍌': 2, '🍑': 1}
+const result = R.tally(['a', 'b', 'a', 'c', 'b', 'a'])
+// => {a: 3, b: 2, c: 1}
 ```
 
-<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.tally(%5B'%F0%9F%8D%8E'%2C%20'%F0%9F%8D%8C'%2C%20'%F0%9F%8D%8E'%2C%20'%F0%9F%8D%91'%2C%20'%F0%9F%8D%8C'%2C%20'%F0%9F%8D%8E'%5D)%0A%2F%2F%20%3D%3E%20%7B'%F0%9F%8D%8E'%3A%203%2C%20'%F0%9F%8D%8C'%3A%202%2C%20'%F0%9F%8D%91'%3A%201%7D">Try this <strong>R.tally</strong> example in Rambda REPL</a>
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.tally(%5B'a'%2C%20'b'%2C%20'a'%2C%20'c'%2C%20'b'%2C%20'a'%5D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%203%2C%20b%3A%202%2C%20c%3A%201%7D">Try this <strong>R.tally</strong> example in Rambda REPL</a>
 
 <details>
 
@@ -11397,8 +11397,8 @@ export function tally(list) {
 import { tally } from "./tally"
 
 test("happy", () => {
-  const result = tally(["🍎", "🍌", "🍎", "🍑", "🍌", "🍎"])
-  const expected = { "🍎": 3, "🍌": 2, "🍑": 1 }
+  const result = tally(["a", "b", "a", "c", "b", "a"])
+  const expected = { a: 3, b: 2, c: 1 }
   expect(result).toEqual(expected)
   expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
 })
