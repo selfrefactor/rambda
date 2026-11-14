@@ -195,6 +195,29 @@ test('compare sets of dates', () => {
   expect(equals(new Set([new Date(0)]))(new Set([new Date(1)]))).toBeFalsy()
 })
 
+test('with maps', () => {
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2]]))).toBeTruthy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 3]]))).toBeFalsy()
+  expect(
+    equals(new Map([
+      [1, 2],
+      [3, 4],
+    ]))(new Map([
+      [3, 4],
+      [1, 2],
+    ])),
+  ).toBeTruthy()
+  expect(
+    equals(new Map([[{ a: 1 }, 2]]))(new Map([[{ a: 1 }, 2]])),
+  ).toBeTruthy()
+})
+
+test('with map inside object', () => {
+  expect(equals({ m: new Map() })({ m: new Map() })).toBeTruthy()
+  expect(equals({ m: new Map([[1, 2]]) })({ m: new Map([[1, 3]]) })).toBeFalsy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2], [3, 4]]))).toBeFalsy()
+})
+
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
   expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()

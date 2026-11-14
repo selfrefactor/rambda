@@ -60,6 +60,21 @@ function _compareSets(a, b) {
   return filtered.length === 0
 }
 
+function _compareMaps(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  const aEntries = _arrayFromIterator(a.entries())
+  const bEntries = _arrayFromIterator(b.entries())
+
+  return aEntries.every(([aKey, aValue]) =>
+    bEntries.some(
+      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+    ),
+  )
+}
+
 function compareErrors(a, b) {
   if (a.message !== b.message) {
     return false
@@ -170,6 +185,10 @@ export function equalsFn(a, b) {
 
   if (aType === 'Set') {
     return _compareSets(a, b)
+  }
+
+  if (aType === 'Map') {
+    return _compareMaps(a, b)
   }
 
   if (aType === 'Object') {
