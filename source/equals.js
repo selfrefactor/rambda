@@ -165,7 +165,7 @@ export function equalsFn(a, b) {
     aClone.forEach((aCloneInstance, aCloneIndex) => {
       if (loopArrayFlag) {
         if (
-          aCloneInstance !== bClone[aCloneIndex] &&
+          !Object.is(aCloneInstance, bClone[aCloneIndex]) &&
           !equalsFn(aCloneInstance, bClone[aCloneIndex])
         ) {
           loopArrayFlag = false
@@ -225,7 +225,7 @@ export function equalsFn(a, b) {
         const aValue = a[aKeyInstance]
         const bValue = b[aKeyInstance]
 
-        if (aValue !== bValue && !equalsFn(aValue, bValue)) {
+        if (!Object.is(aValue, bValue) && !equalsFn(aValue, bValue)) {
           loopObjectFlag = false
         }
       }

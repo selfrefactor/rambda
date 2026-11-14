@@ -11,7 +11,7 @@ test('with NaN', () => {
   expect(lastIndexOf(Number.NaN)([Number.NaN])).toBe(0)
 })
 
-test('without list of objects - no R.equals', () => {
+test('with numbers', () => {
   expect(lastIndexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(lastIndexOf(10)([1, 2, 3, 4])).toBe(-1)
 })

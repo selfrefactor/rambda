@@ -832,7 +832,7 @@ export function excludes<T>(list: readonly T[]): (target: T) => boolean;
 /*
 Method: indexOf
 
-Explanation: It uses `R.equals` for list of objects/arrays or native `indexOf` for any other case.
+Explanation: It uses `R.equals` for every list element.
 
 Example:
 

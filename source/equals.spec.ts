@@ -255,6 +255,11 @@ test('with symbol and null prototype objects within array', () => {
   expect(equals([Object.create(null)])([Object.create(null)])).toBeTruthy()
 })
 
+test('distinguishes -0 from 0 in nested values', () => {
+  expect(equals([-0])([0])).toBeFalsy()
+  expect(equals({ a: -0 })({ a: 0 })).toBeFalsy()
+})
+
 test('with arrays of different length and undefined values', () => {
   expect(equals<unknown[]>([])([undefined])).toBeFalsy()
   expect(equals<unknown[]>([])([null])).toBeFalsy()

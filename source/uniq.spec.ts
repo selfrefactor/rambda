@@ -46,3 +46,8 @@ test('with maps', () => {
 test('with regexes', () => {
   expect(uniq([/a/, /a/])).toEqual([/a/])
 })
+
+test('with boxed primitives', () => {
+  expect(uniq([new Number(1), new Number(1)])).toHaveLength(1)
+  expect(uniq([new String('a'), new String('a')])).toHaveLength(1)
+})
