@@ -25,6 +25,11 @@ test('with list of objects as iterable', () => {
   expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
+test('uses R.equals for dates', () => {
+  expect(includes([new Date(0)])(new Date(0))).toBeTruthy()
+  expect(includes([new Date(0)])(new Date(1))).toBeFalsy()
+})
+
 test('with NaN', () => {
   expect(includes([Number.NaN])(Number.NaN)).toBeTruthy()
 })

@@ -6,11 +6,6 @@ export function _lastIndexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
 
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.lastIndexOf(valueToFind)
-  }
-
   const { length } = list
   let index = length
   let foundIndex = -1
@@ -27,11 +22,6 @@ export function _lastIndexOf(valueToFind, list) {
 export function _indexOf(valueToFind, list) {
   if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
-  }
-
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.indexOf(valueToFind)
   }
 
   let index = -1

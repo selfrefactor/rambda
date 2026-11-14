@@ -190,6 +190,11 @@ test('compare sets', () => {
   expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
+test('compare sets of dates', () => {
+  expect(equals(new Set([new Date(0)]))(new Set([new Date(0)]))).toBeTruthy()
+  expect(equals(new Set([new Date(0)]))(new Set([new Date(1)]))).toBeFalsy()
+})
+
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
   expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()

@@ -15,6 +15,12 @@ test('intersection', () => {
   expect(intersection([])([])).toEqual([])
 })
 
+test('intersection with dates', () => {
+  const date = new Date(0)
+
+  expect(intersection([date])([new Date(0)])).toEqual([date])
+})
+
 test('intersection with objects', () => {
   const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
   const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
