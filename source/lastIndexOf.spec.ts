@@ -16,6 +16,13 @@ test('without list of objects - no R.equals', () => {
   expect(lastIndexOf(10)([1, 2, 3, 4])).toBe(-1)
 })
 
+test('uses R.equals for dates', () => {
+  const list = [new Date(0), new Date(1), new Date(0)]
+
+  expect(lastIndexOf(new Date(0))(list)).toBe(2)
+  expect(lastIndexOf(new Date(2))(list)).toBe(-1)
+})
+
 test('list of objects uses R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
   expect(lastIndexOf({ c: 4 } as any)(listOfObjects)).toBe(-1)

@@ -190,10 +190,49 @@ test('compare sets', () => {
   expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
+test('compare sets of dates', () => {
+  expect(equals(new Set([new Date(0)]))(new Set([new Date(0)]))).toBeTruthy()
+  expect(equals(new Set([new Date(0)]))(new Set([new Date(1)]))).toBeFalsy()
+})
+
+test('with maps', () => {
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2]]))).toBeTruthy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 3]]))).toBeFalsy()
+  expect(
+    equals(new Map([
+      [1, 2],
+      [3, 4],
+    ]))(new Map([
+      [3, 4],
+      [1, 2],
+    ])),
+  ).toBeTruthy()
+  expect(
+    equals(new Map([[{ a: 1 }, 2]]))(new Map([[{ a: 1 }, 2]])),
+  ).toBeTruthy()
+})
+
+test('with map inside object', () => {
+  expect(equals({ m: new Map() })({ m: new Map() })).toBeTruthy()
+  expect(equals({ m: new Map([[1, 2]]) })({ m: new Map([[1, 3]]) })).toBeFalsy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2], [3, 4]]))).toBeFalsy()
+})
+
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
   expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()
   expect(equals(new Set(['3', '2', '0']))(testSet)).toBeFalsy()
+})
+
+test('with symbol and null prototype objects within array', () => {
+  expect(equals([Symbol.for('s')])([Symbol.for('s')])).toBeTruthy()
+  expect(equals([Object.create(null)])([Object.create(null)])).toBeTruthy()
+})
+
+test('with arrays of different length and undefined values', () => {
+  expect(equals<unknown[]>([])([undefined])).toBeFalsy()
+  expect(equals<unknown[]>([])([null])).toBeFalsy()
+  expect(equals([1] as any)([1, undefined])).toBeFalsy()
 })
 
 test('various examples', () => {

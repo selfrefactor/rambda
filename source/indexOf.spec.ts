@@ -20,6 +20,13 @@ test('with numbers', () => {
   expect(indexOf(10)([1, 2, 3, 4])).toBe(-1)
 })
 
+test('uses R.equals for dates', () => {
+  const list = [new Date(1), new Date(0)]
+
+  expect(indexOf(new Date(0))(list)).toBe(1)
+  expect(indexOf(new Date(2))(list)).toBe(-1)
+})
+
 test('list of objects use R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
   expect(indexOf({ c: 4 } as any)(listOfObjects)).toBe(-1)

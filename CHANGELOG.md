@@ -1,16 +1,16 @@
 11.4.0
 
-- Add `R.invert` - similar to Ruby `Hash#invert`
+- Add `R.invert` - similar to Ruby `Hash#invert`; values become keys (string coercion) and the last key wins when several keys share a value
 
-- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`; handles `\n` and `\r\n`, and a trailing newline does not add an empty last line
 
-- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`; the input is returned unchanged when the prefix/suffix is absent or empty
 
-- Add `R.tally` - similar to Ruby `Enumerable#tally`
+- Add `R.tally` - similar to Ruby `Enumerable#tally`; counts occurrences into an object
 
-- Add `R.grep` - similar to Ruby `Enumerable#grep`
+- Add `R.grep` - similar to Ruby `Enumerable#grep`; filters by a `RegExp` only (use `R.test` to match a plain string)
 
-- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path
+- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path; entries whose derived value is `undefined`/`null` are skipped and an empty list returns `undefined`
 
 11.3.0
 

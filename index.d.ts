@@ -537,7 +537,7 @@ export function intersperse<T>(separator: T): (list: T[]) => T[];
 /**
  * It returns inverted version of input object, with values as keys and keys as values. If multiple keys of `input` have the same value, the last key wins.
  */
-export function invert<T extends object>(obj: T): Record<string, keyof T>;
+export function invert<T>(obj: T): Record<string, keyof T>;
 
 /**
  * It returns a string of all `list` instances joined with a `glue`.
