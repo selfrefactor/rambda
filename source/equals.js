@@ -131,7 +131,7 @@ export function equalsFn(a, b) {
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.length !== bClone.length) {
       return false
     }
 

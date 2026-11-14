@@ -196,6 +196,17 @@ test('compare simple sets', () => {
   expect(equals(new Set(['3', '2', '0']))(testSet)).toBeFalsy()
 })
 
+test('with symbol and null prototype objects within array', () => {
+  expect(equals([Symbol.for('s')])([Symbol.for('s')])).toBeTruthy()
+  expect(equals([Object.create(null)])([Object.create(null)])).toBeTruthy()
+})
+
+test('with arrays of different length and undefined values', () => {
+  expect(equals<unknown[]>([])([undefined])).toBeFalsy()
+  expect(equals<unknown[]>([])([null])).toBeFalsy()
+  expect(equals([1] as any)([1, undefined])).toBeFalsy()
+})
+
 test('various examples', () => {
   expect(equals([1, 2, 3])([1, 2, 3])).toBeTruthy()
   expect(equals([1, 2, 3])([1, 2])).toBeFalsy()
