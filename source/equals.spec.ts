@@ -212,6 +212,32 @@ test('with maps', () => {
   ).toBeTruthy()
 })
 
+test('with map object keys and different values', () => {
+  expect(
+    equals(new Map([[{ x: 1 }, 1]]))(new Map([[{ x: 1 }, 2]])),
+  ).toBeFalsy()
+})
+
+test('does not double-match equal values', () => {
+  const mapA = new Map([
+    [{ x: 1 }, 1],
+    [{ x: 1 }, 1],
+  ])
+  const mapB = new Map([
+    [{ x: 1 }, 1],
+    [{ x: 2 }, 1],
+  ])
+
+  expect(equals(mapA)(mapB)).toBeFalsy()
+  expect(equals(mapB)(mapA)).toBeFalsy()
+
+  const setA = new Set([{ x: 1 }, { x: 1 }])
+  const setB = new Set([{ x: 1 }, { x: 2 }])
+
+  expect(equals(setA)(setB)).toBeFalsy()
+  expect(equals(setB)(setA)).toBeFalsy()
+})
+
 test('with map inside object', () => {
   expect(equals({ m: new Map() })({ m: new Map() })).toBeTruthy()
   expect(equals({ m: new Map([[1, 2]]) })({ m: new Map([[1, 3]]) })).toBeFalsy()

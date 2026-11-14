@@ -47,17 +47,42 @@ function _arrayFromIterator(iter) {
   return list
 }
 
+function _hasEqualInstance(value, list, usedIndexes) {
+  let index = -1
+
+  while (++index < list.length) {
+    if (!usedIndexes[index] && equalsFn(value, list[index])) {
+      usedIndexes[index] = true
+
+      return true
+    }
+  }
+
+  return false
+}
+
+function _compareIterables(aList, bList) {
+  const usedIndexes = {}
+  let index = -1
+
+  while (++index < aList.length) {
+    if (!_hasEqualInstance(aList[index], bList, usedIndexes)) {
+      return false
+    }
+  }
+
+  return true
+}
+
 function _compareSets(a, b) {
   if (a.size !== b.size) {
     return false
   }
 
-  const aList = _arrayFromIterator(a.values())
-  const bList = _arrayFromIterator(b.values())
-
-  const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
-
-  return filtered.length === 0
+  return _compareIterables(
+    _arrayFromIterator(a.values()),
+    _arrayFromIterator(b.values()),
+  )
 }
 
 function _compareMaps(a, b) {
@@ -65,13 +90,9 @@ function _compareMaps(a, b) {
     return false
   }
 
-  const aEntries = _arrayFromIterator(a.entries())
-  const bEntries = _arrayFromIterator(b.entries())
-
-  return aEntries.every(([aKey, aValue]) =>
-    bEntries.some(
-      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
-    ),
+  return _compareIterables(
+    _arrayFromIterator(a.entries()),
+    _arrayFromIterator(b.entries()),
   )
 }
 
