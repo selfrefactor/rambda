@@ -1,6 +1,8 @@
 import { _indexOf } from '../equals.js'
 import { type as typeMethod } from '../type.js'
 
+const primitiveTypes = ['Boolean', 'BigInt', 'Number', 'String', 'Symbol']
+
 export class _Set {
   constructor() {
     this.set = new Set()
@@ -9,6 +11,7 @@ export class _Set {
 
   checkUniqueness(item) {
     const type = typeMethod(item)
+
     if (['Null', 'Undefined', 'NaN'].includes(type)) {
       if (type in this.items) {
         return false
@@ -17,7 +20,8 @@ export class _Set {
 
       return true
     }
-    if (!['Object', 'Array'].includes(type)) {
+
+    if (primitiveTypes.includes(type)) {
       const prevSize = this.set.size
       this.set.add(item)
 

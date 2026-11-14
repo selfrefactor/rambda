@@ -28,3 +28,21 @@ test('with falsy values', () => {
 test('can distinct between string and number', () => {
   expect(uniq([1, '1'])).toEqual([1, '1'])
 })
+
+test('with dates', () => {
+  expect(uniq([new Date(0), new Date(0)])).toEqual([new Date(0)])
+})
+
+test('with sets', () => {
+  expect(uniq([new Set([1]), new Set([1])])).toEqual([new Set([1])])
+})
+
+test('with maps', () => {
+  expect(uniq([new Map([[1, 2]]), new Map([[1, 2]])])).toEqual([
+    new Map([[1, 2]]),
+  ])
+})
+
+test('with regexes', () => {
+  expect(uniq([/a/, /a/])).toEqual([/a/])
+})
