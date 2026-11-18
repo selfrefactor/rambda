@@ -262,6 +262,15 @@
     })
   }
 
+  function deletePrefix(prefix) {
+    return (str) => (str.startsWith(prefix) ? str.slice(prefix.length) : str)
+  }
+
+  function deleteSuffix(suffix) {
+    return (str) =>
+      suffix && str.endsWith(suffix) ? str.slice(0, -1 * suffix.length) : str
+  }
+
   function descend(getFunction) {
     return (a, b) => {
       const aValue = getFunction(a);
@@ -290,11 +299,6 @@
       throw new Error(`Cannot read property 'indexOf' of ${list}`)
     }
 
-    const typeOfValue = type(valueToFind);
-    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-      return list.lastIndexOf(valueToFind)
-    }
-
     const { length } = list;
     let index = length;
     let foundIndex = -1;
@@ -311,11 +315,6 @@
   function _indexOf(valueToFind, list) {
     if (!isArray(list)) {
       throw new Error(`Cannot read property 'indexOf' of ${list}`)
-    }
-
-    const typeOfValue = type(valueToFind);
-    if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-      return list.indexOf(valueToFind)
     }
 
     let index = -1;
@@ -352,6 +351,21 @@
     const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
 
     return filtered.length === 0
+  }
+
+  function _compareMaps(a, b) {
+    if (a.size !== b.size) {
+      return false
+    }
+
+    const aEntries = _arrayFromIterator(a.entries());
+    const bEntries = _arrayFromIterator(b.entries());
+
+    return aEntries.every(([aKey, aValue]) =>
+      bEntries.some(
+        ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+      ),
+    )
   }
 
   function compareErrors(a, b) {
@@ -415,7 +429,7 @@
       const aClone = Array.from(a);
       const bClone = Array.from(b);
 
-      if (aClone.toString() !== bClone.toString()) {
+      if (aClone.length !== bClone.length) {
         return false
       }
 
@@ -464,6 +478,10 @@
 
     if (aType === 'Set') {
       return _compareSets(a, b)
+    }
+
+    if (aType === 'Map') {
+      return _compareMaps(a, b)
     }
 
     if (aType === 'Object') {
@@ -575,6 +593,8 @@
     }
   }
 
+  const primitiveTypes = ['Boolean', 'BigInt', 'Number', 'String', 'Symbol'];
+
   class _Set {
     constructor() {
       this.set = new Set();
@@ -583,6 +603,7 @@
 
     checkUniqueness(item) {
       const type$1 = type(item);
+
       if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
         if (type$1 in this.items) {
           return false
@@ -591,7 +612,8 @@
 
         return true
       }
-      if (!['Object', 'Array'].includes(type$1)) {
+
+      if (primitiveTypes.includes(type$1)) {
         const prevSize = this.set.size;
         this.set.add(item);
 
@@ -861,6 +883,10 @@
     return willReturn
   }
 
+  function grep(regexp) {
+    return (list) => list.filter((item) => item.search(regexp) !== -1)
+  }
+
   function groupByFallback(groupFn, list) {
       const result = {};
       for (let i = 0; i < list.length; i++) {
@@ -1023,6 +1049,15 @@
     }
   }
 
+  function invert(obj) {
+    const willReturn = {};
+    Object.keys(obj).forEach((key) => {
+      willReturn[obj[key]] = key;
+    });
+
+    return willReturn
+  }
+
   function join(glue) {
     return list => list.join(glue)
   }
@@ -1037,6 +1072,14 @@
 
   function lastIndexOf(valueToFind) {
     return list => _lastIndexOf(valueToFind, list)
+  }
+
+  const linesRegexp = /[^\n]*\r?\n|[^\n]+$/g;
+
+  function lines(str) {
+    const willReturn = str.match(linesRegexp) ?? [];
+
+    return willReturn.map((line) => line.replace(/\r?\n$/, ""))
   }
 
   function mapAsync(fn) {
@@ -1117,6 +1160,66 @@
     }
   }
 
+  function createPath(path, delimiter = '.') {
+    return typeof path === 'string'
+      ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+      : path
+  }
+
+  function path(pathInput) {
+  	return (obj)  => {
+  		if (!obj) {
+  			return undefined
+  		}
+  		let willReturn = obj;
+  		let counter = 0;
+  	
+  		const pathArrValue = createPath(pathInput);
+  	
+  		while (counter < pathArrValue.length) {
+  			if (willReturn === null || willReturn === undefined) {
+  				return undefined
+  			}
+  			if (willReturn[pathArrValue[counter]] === null) {
+  				return undefined
+  			}
+  	
+  			willReturn = willReturn[pathArrValue[counter]];
+  			counter++;
+  		}
+  	
+  		return willReturn
+  	}
+  }
+
+  function max(fnOrPath) {
+    const getValue = typeof fnOrPath === 'function'
+      ? fnOrPath
+      : path(fnOrPath);
+
+    return list => {
+      let result;
+      let resultValue;
+      let index = 0;
+      const len = list.length;
+
+      while (index < len) {
+        const value = getValue(list[index]);
+
+        if (value !== undefined && value !== null) {
+          if (resultValue === undefined || value > resultValue) {
+            result = list[index];
+            resultValue = value;
+          }
+        }
+
+        index++;
+      }
+
+      return result
+    }
+  }
+
   function maxBy(compareFn, x) {
     return y => (compareFn(y) > compareFn(x) ? y : x)
   }
@@ -1161,6 +1264,34 @@
     return tail(init(listOrString))
   }
 
+  function min(fnOrPath) {
+    const getValue = typeof fnOrPath === 'function'
+      ? fnOrPath
+      : path(fnOrPath);
+
+    return list => {
+      let result;
+      let resultValue;
+      let index = 0;
+      const len = list.length;
+
+      while (index < len) {
+        const value = getValue(list[index]);
+
+        if (value !== undefined && value !== null) {
+          if (resultValue === undefined || value < resultValue) {
+            result = list[index];
+            resultValue = value;
+          }
+        }
+
+        index++;
+      }
+
+      return result
+    }
+  }
+
   function minBy(compareFn, x) {
     return y => (compareFn(y) < compareFn(x) ? y : x)
   }
@@ -1177,38 +1308,6 @@
 
       return clone
     }
-  }
-
-  function createPath(path, delimiter = '.') {
-    return typeof path === 'string'
-      ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-      : path
-  }
-
-  function path(pathInput) {
-  	return (obj)  => {
-  		if (!obj) {
-  			return undefined
-  		}
-  		let willReturn = obj;
-  		let counter = 0;
-  	
-  		const pathArrValue = createPath(pathInput);
-  	
-  		while (counter < pathArrValue.length) {
-  			if (willReturn === null || willReturn === undefined) {
-  				return undefined
-  			}
-  			if (willReturn[pathArrValue[counter]] === null) {
-  				return undefined
-  			}
-  	
-  			willReturn = willReturn[pathArrValue[counter]];
-  			counter++;
-  		}
-  	
-  		return willReturn
-  	}
   }
 
   function assoc(prop, newValue) {
@@ -1892,6 +1991,15 @@
     }
   }
 
+  function tally(list) {
+    const willReturn = {};
+    list.forEach((item) => {
+      willReturn[item] = (willReturn[item] || 0) + 1;
+    });
+
+    return willReturn
+  }
+
   function tap(fn) {
     return x => {
       fn(x);
@@ -1914,11 +2022,20 @@
     }
   }
 
+  function uniq(list) {
+    const set = new _Set();
+    const willReturn = [];
+    list.forEach(item => {
+      if (set.checkUniqueness(item)) {
+        willReturn.push(item);
+      }
+    });
+
+    return willReturn
+  }
+
   function union(listA) {
-    return listB => [
-  		...listA,
-  		...listB.filter(excludes(listA)),
-  	]
+    return listB => uniq([...listA, ...listB])
   }
 
   function unionWith(predicate, x) {
@@ -1931,18 +2048,6 @@
 
       return [...x, ...filtered]
     }
-  }
-
-  function uniq(list) {
-    const set = new _Set();
-    const willReturn = [];
-    list.forEach(item => {
-      if (set.checkUniqueness(item)) {
-        willReturn.push(item);
-      }
-    });
-
-    return willReturn
   }
 
   function uniqBy(fn) {
@@ -2059,6 +2164,8 @@
   exports.createObjectFromKeys = createObjectFromKeys;
   exports.defaultTo = defaultTo;
   exports.delay = delay;
+  exports.deletePrefix = deletePrefix;
+  exports.deleteSuffix = deleteSuffix;
   exports.descend = descend;
   exports.difference = difference;
   exports.drop = drop;
@@ -2086,6 +2193,7 @@
   exports.flatten = flatten;
   exports.flattenObject = flattenObject;
   exports.flattenObjectHelper = flattenObjectHelper;
+  exports.grep = grep;
   exports.groupBy = groupBy;
   exports.groupByFallback = groupByFallback;
   exports.head = head;
@@ -2097,9 +2205,11 @@
   exports.intersection = intersection;
   exports.intersectionWith = intersectionWith;
   exports.intersperse = intersperse;
+  exports.invert = invert;
   exports.join = join;
   exports.last = last;
   exports.lastIndexOf = lastIndexOf;
+  exports.lines = lines;
   exports.map = map;
   exports.mapAsync = mapAsync;
   exports.mapChain = mapChain;
@@ -2110,11 +2220,13 @@
   exports.mapParallelAsync = mapParallelAsync;
   exports.mapPropObject = mapPropObject;
   exports.match = match;
+  exports.max = max;
   exports.maxBy = maxBy;
   exports.merge = merge;
   exports.mergeDeep = mergeDeep;
   exports.mergeTypes = mergeTypes;
   exports.middle = middle;
+  exports.min = min;
   exports.minBy = minBy;
   exports.modifyItemAtIndex = modifyItemAtIndex;
   exports.modifyPath = modifyPath;
@@ -2165,6 +2277,7 @@
   exports.takeLast = takeLast;
   exports.takeLastWhile = takeLastWhile;
   exports.takeWhile = takeWhile;
+  exports.tally = tally;
   exports.tap = tap;
   exports.test = test;
   exports.transformFlatObject = transformFlatObject;

@@ -1,8 +1,5 @@
-import { excludes } from './excludes.js'
+import { uniq } from './uniq.js'
 
 export function union(listA) {
-  return listB => [
-		...listA,
-		...listB.filter(excludes(listA)),
-	]
+  return listB => uniq([...listA, ...listB])
 }

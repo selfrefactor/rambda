@@ -1908,7 +1908,7 @@ Notes: Values of `input` must be storable as keys and the keys of the returned o
 
 */
 // @SINGLE_MARKER
-export function invert<T extends object>(obj: T): Record<string, keyof T>;
+export function invert<T>(obj: T): Record<string, keyof T>;
 
 /*
 Method: lines
@@ -1978,8 +1978,8 @@ Explanation: It counts occurrences of each member of `list` and returns an objec
 Example:
 
 ```
-const result = R.tally(['🍎', '🍌', '🍎', '🍑', '🍌', '🍎'])
-// => {'🍎': 3, '🍌': 2, '🍑': 1}
+const result = R.tally(['a', 'b', 'a', 'c', 'b', 'a'])
+// => {a: 3, b: 2, c: 1}
 ```
 
 Categories: List

@@ -1,8 +1,8 @@
 import { tally } from "./tally"
 
 test("happy", () => {
-  const result = tally(["🍎", "🍌", "🍎", "🍑", "🍌", "🍎"])
-  const expected = { "🍎": 3, "🍌": 2, "🍑": 1 }
+  const result = tally(["a", "b", "a", "c", "b", "a"])
+  const expected = { a: 3, b: 2, c: 1 }
   expect(result).toEqual(expected)
   expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
 })

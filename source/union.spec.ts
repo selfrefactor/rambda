@@ -7,6 +7,18 @@ test('happy', () => {
   expect(result).toEqual([1, 2, 3])
 })
 
+test('removes duplicates within both lists', () => {
+  expect(union([1, 1])([2])).toEqual([1, 2])
+  expect(union([1])([2, 2])).toEqual([1, 2])
+  expect(union([1, 1])([2, 2])).toEqual([1, 2])
+})
+
+test('uses R.equals for dates', () => {
+  const date = new Date(0)
+
+  expect(union([date])([new Date(0)])).toEqual([date])
+})
+
 test('type test with array of objects - case 1', () => {
   const list1 = [{ a: 1 }, { a: 2 }]
   const list2 = [{ a: 2 }, { a: 3 }]

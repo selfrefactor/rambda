@@ -12,6 +12,16 @@
 
 - Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path
 
+- `R.equals` - compare `Array` by length instead of stringifying elements
+
+- `R.equals` - support `Map` comparison
+
+- `R.indexOf`, `R.lastIndexOf` and `R.includes` use `R.equals` for all value types
+
+- `R.uniq` deep-compares all non-primitive values
+
+- `R.union` removes duplicates within each input list as well as across them
+
 11.3.0
 
 - Add `R.remove`
