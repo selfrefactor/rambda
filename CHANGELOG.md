@@ -12,6 +12,20 @@
 
 - Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path; entries whose derived value is `undefined`/`null` are skipped and an empty list returns `undefined`
 
+- `R.equals` - compare `Array` by length instead of stringifying elements, so `[1]` and `[1, undefined]` differ, and arrays holding `Symbol` or null prototype objects compare correctly
+
+- `R.equals` - support `Map` comparison; entries are matched by key and value using `R.equals`
+
+- `R.indexOf`, `R.lastIndexOf` and `R.includes` use `R.equals` for all value types, so dates and objects are matched by value (`R.intersection` inherits this through `R.includes`)
+
+- `R.uniq` deep-compares all non-primitive values, so equal dates, maps, sets, regexes and objects are collapsed to the first occurrence
+
+- `R.union` removes duplicates within each input list as well as across them
+
+- `R.grep` no longer depends on `RegExp.lastIndex`, so a regexp with the `g` flag gives the same result on repeated calls
+
+- `R.invert` type signature relaxed from `invert<T extends object>` to `invert<T>`
+
 11.3.0
 
 - Add `R.remove`
