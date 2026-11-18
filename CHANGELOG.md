@@ -1,30 +1,26 @@
 11.4.0
 
-- Add `R.invert` - similar to Ruby `Hash#invert`; values become keys (string coercion) and the last key wins when several keys share a value
+- Add `R.invert` - similar to Ruby `Hash#invert`
 
-- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`; handles `\n` and `\r\n`, and a trailing newline does not add an empty last line
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`
 
-- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`; the input is returned unchanged when the prefix/suffix is absent or empty
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`
 
-- Add `R.tally` - similar to Ruby `Enumerable#tally`; counts occurrences into an object
+- Add `R.tally` - similar to Ruby `Enumerable#tally`
 
-- Add `R.grep` - similar to Ruby `Enumerable#grep`; filters by a `RegExp` only (use `R.test` to match a plain string)
+- Add `R.grep` - similar to Ruby `Enumerable#grep`
 
-- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path; entries whose derived value is `undefined`/`null` are skipped and an empty list returns `undefined`
+- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path
 
-- `R.equals` - compare `Array` by length instead of stringifying elements, so `[1]` and `[1, undefined]` differ, and arrays holding `Symbol` or null prototype objects compare correctly
+- `R.equals` - compare `Array` by length instead of stringifying elements
 
-- `R.equals` - support `Map` comparison; entries are matched by key and value using `R.equals`
+- `R.equals` - support `Map` comparison
 
-- `R.indexOf`, `R.lastIndexOf` and `R.includes` use `R.equals` for all value types, so dates and objects are matched by value (`R.intersection` inherits this through `R.includes`)
+- `R.indexOf`, `R.lastIndexOf` and `R.includes` use `R.equals` for all value types
 
-- `R.uniq` deep-compares all non-primitive values, so equal dates, maps, sets, regexes and objects are collapsed to the first occurrence
+- `R.uniq` deep-compares all non-primitive values
 
 - `R.union` removes duplicates within each input list as well as across them
-
-- `R.grep` no longer depends on `RegExp.lastIndex`, so a regexp with the `g` flag gives the same result on repeated calls
-
-- `R.invert` type signature relaxed from `invert<T extends object>` to `invert<T>`
 
 11.3.0
 
