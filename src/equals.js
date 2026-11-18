@@ -6,11 +6,6 @@ export function _lastIndexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
 
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.lastIndexOf(valueToFind)
-  }
-
   const { length } = list
   let index = length
   let foundIndex = -1
@@ -27,11 +22,6 @@ export function _lastIndexOf(valueToFind, list) {
 export function _indexOf(valueToFind, list) {
   if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
-  }
-
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.indexOf(valueToFind)
   }
 
   let index = -1
@@ -68,6 +58,21 @@ function _compareSets(a, b) {
   const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
 
   return filtered.length === 0
+}
+
+function _compareMaps(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  const aEntries = _arrayFromIterator(a.entries())
+  const bEntries = _arrayFromIterator(b.entries())
+
+  return aEntries.every(([aKey, aValue]) =>
+    bEntries.some(
+      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+    ),
+  )
 }
 
 function compareErrors(a, b) {
@@ -131,7 +136,7 @@ export function equalsFn(a, b) {
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.length !== bClone.length) {
       return false
     }
 
@@ -180,6 +185,10 @@ export function equalsFn(a, b) {
 
   if (aType === 'Set') {
     return _compareSets(a, b)
+  }
+
+  if (aType === 'Map') {
+    return _compareMaps(a, b)
   }
 
   if (aType === 'Object') {

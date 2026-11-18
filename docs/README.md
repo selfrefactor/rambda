@@ -155,8 +155,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
 
-You can find documentation site of **Rambda** version **9.4.2** is [here](https://selfrefactor.github.io/rambda-v9/).
-
 From version `10.0.0` onwards, **Rambda** is no longer aiming to be drop-in replacement for *Ramda*.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
@@ -1723,6 +1721,157 @@ export function delay(ms) {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#delay)
 
+### deletePrefix
+
+```typescript
+
+deletePrefix(prefix: string): (str: string) => string
+```
+
+It deletes `prefix` from the beginning of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_prefix`.
+
+```javascript
+const result = R.deletePrefix('https://')('https://loving-ruby.com')
+// => 'loving-ruby.com'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.deletePrefix('https%3A%2F%2F')('https%3A%2F%2Floving-ruby.com')%0A%2F%2F%20%3D%3E%20'loving-ruby.com'">Try this <strong>R.deletePrefix</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+deletePrefix(prefix: string): (str: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.deletePrefix</strong> source</summary>
+
+```javascript
+export function deletePrefix(prefix) {
+  return (str) => (str.startsWith(prefix) ? str.slice(prefix.length) : str)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { deletePrefix } from "./deletePrefix"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const result = deletePrefix("https://")("https://loving-ruby.com")
+  expect(result).toBe("loving-ruby.com")
+  expectTypeOf(result).toEqualTypeOf<string>()
+})
+
+test("prefix not present - string returned as is", () => {
+  expect(deletePrefix("ftp://")("https://loving-ruby.com")).toBe(
+    "https://loving-ruby.com",
+  )
+})
+
+test("empty prefix - string returned as is", () => {
+  expect(deletePrefix("")("abc")).toBe("abc")
+})
+test("within pipe", () => {
+  const result = pipe(
+    "https://loving-ruby.com",
+    deletePrefix("https://"),
+    deletePrefix(""),
+  )
+  expect(result).toBe("loving-ruby.com")
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#deletePrefix)
+
+### deleteSuffix
+
+```typescript
+
+deleteSuffix(suffix: string): (str: string) => string
+```
+
+It deletes `suffix` from the end of `str`, if it exists. Otherwise it returns `str` unchanged. Behaves like Ruby's `String#delete_suffix`.
+
+```javascript
+const result = R.deleteSuffix('/')('https://loving-ruby.com/')
+// => 'https://loving-ruby.com'
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.deleteSuffix('%2F')('https%3A%2F%2Floving-ruby.com%2F')%0A%2F%2F%20%3D%3E%20'https%3A%2F%2Floving-ruby.com'">Try this <strong>R.deleteSuffix</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+deleteSuffix(suffix: string): (str: string) => string;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.deleteSuffix</strong> source</summary>
+
+```javascript
+export function deleteSuffix(suffix) {
+  return (str) =>
+    suffix && str.endsWith(suffix) ? str.slice(0, -1 * suffix.length) : str
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { deleteSuffix } from "./deleteSuffix"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const result = deleteSuffix("/")("https://loving-ruby.com/")
+  expect(result).toBe("https://loving-ruby.com")
+  expectTypeOf(result).toEqualTypeOf<string>()
+})
+
+test("suffix not present - string returned as is", () => {
+  expect(deleteSuffix("/not-present")("https://loving-ruby.com/")).toBe(
+    "https://loving-ruby.com/",
+  )
+})
+
+test("empty suffix - string returned as is", () => {
+  expect(deleteSuffix("")("abc")).toBe("abc")
+})
+test("within pipe", () => {
+  const result = pipe(
+    "https://loving-ruby.com/",
+    deleteSuffix("/"),
+    deleteSuffix(""),
+  )
+  expect(result).toBe("https://loving-ruby.com")
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#deleteSuffix)
+
 ### descend
 
 ```typescript
@@ -2481,11 +2630,6 @@ export function _lastIndexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
 
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.lastIndexOf(valueToFind)
-  }
-
   const { length } = list
   let index = length
   let foundIndex = -1
@@ -2502,11 +2646,6 @@ export function _lastIndexOf(valueToFind, list) {
 export function _indexOf(valueToFind, list) {
   if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
-  }
-
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.indexOf(valueToFind)
   }
 
   let index = -1
@@ -2543,6 +2682,21 @@ function _compareSets(a, b) {
   const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
 
   return filtered.length === 0
+}
+
+function _compareMaps(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  const aEntries = _arrayFromIterator(a.entries())
+  const bEntries = _arrayFromIterator(b.entries())
+
+  return aEntries.every(([aKey, aValue]) =>
+    bEntries.some(
+      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+    ),
+  )
 }
 
 function compareErrors(a, b) {
@@ -2606,7 +2760,7 @@ export function equalsFn(a, b) {
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.length !== bClone.length) {
       return false
     }
 
@@ -2655,6 +2809,10 @@ export function equalsFn(a, b) {
 
   if (aType === 'Set') {
     return _compareSets(a, b)
+  }
+
+  if (aType === 'Map') {
+    return _compareMaps(a, b)
   }
 
   if (aType === 'Object') {
@@ -2885,10 +3043,44 @@ test('compare sets', () => {
   expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
+test('with maps', () => {
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2]]))).toBeTruthy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 3]]))).toBeFalsy()
+  expect(
+    equals(new Map([
+      [1, 2],
+      [3, 4],
+    ]))(new Map([
+      [3, 4],
+      [1, 2],
+    ])),
+  ).toBeTruthy()
+  expect(
+    equals(new Map([[{ a: 1 }, 2]]))(new Map([[{ a: 1 }, 2]])),
+  ).toBeTruthy()
+})
+
+test('with map inside object', () => {
+  expect(equals({ m: new Map() })({ m: new Map() })).toBeTruthy()
+  expect(equals({ m: new Map([[1, 2]]) })({ m: new Map([[1, 3]]) })).toBeFalsy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2], [3, 4]]))).toBeFalsy()
+})
+
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
   expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()
   expect(equals(new Set(['3', '2', '0']))(testSet)).toBeFalsy()
+})
+
+test('with symbol and null prototype objects within array', () => {
+  expect(equals([Symbol.for('s')])([Symbol.for('s')])).toBeTruthy()
+  expect(equals([Object.create(null)])([Object.create(null)])).toBeTruthy()
+})
+
+test('with arrays of different length and undefined values', () => {
+  expect(equals<unknown[]>([])([undefined])).toBeFalsy()
+  expect(equals<unknown[]>([])([null])).toBeFalsy()
+  expect(equals([1] as any)([1, undefined])).toBeFalsy()
 })
 
 test('various examples', () => {
@@ -4316,6 +4508,87 @@ test('happy', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#flattenObject)
 
+### grep
+
+```typescript
+
+grep(pattern: RegExp): (list: string[]) => string[]
+```
+
+It filters `list` keeping only members that match `regexp`. Similar to Ruby's `Enumerable#grep`.
+
+> :boom: Only `RegExp` is supported as pattern. For matching a single string, see `R.test`.
+
+```javascript
+const result = R.pipe(
+	['ERROR: low disk', 'INFO: ok'],
+	R.grep(/ERROR/)
+)
+// => ['ERROR: low disk']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.pipe(%0A%09%5B'ERROR%3A%20low%20disk'%2C%20'INFO%3A%20ok'%5D%2C%0A%09R.grep(%2FERROR%2F)%0A)%0A%2F%2F%20%3D%3E%20%5B'ERROR%3A%20low%20disk'%5D">Try this <strong>R.grep</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+grep(pattern: RegExp): (list: string[]) => string[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.grep</strong> source</summary>
+
+```javascript
+export function grep(regexp) {
+  return (list) => list.filter((item) => item.search(regexp) !== -1)
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { grep } from "./grep"
+import { pipe } from "./pipe"
+
+test("happy", () => {
+  const logLines = [
+    "ERROR: Disk space low",
+    "INFO: User logged in",
+    "WARNING: High memory usage",
+    "ERROR: Network timeout",
+    "INFO: File uploaded",
+    "INFO: User logged out",
+  ]
+  const result = pipe(logLines, grep(/ERROR/))
+  const expected = ["ERROR: Disk space low", "ERROR: Network timeout"]
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+})
+
+test("no matches", () => {
+  expect(pipe(["a", "b"], grep(/z/))).toEqual([])
+})
+
+test("global regexp does not leak lastIndex", () => {
+  const filterA = grep(/a/g)
+  expect(pipe(["xa", "a", "b"], filterA)).toEqual(["xa", "a"])
+  expect(pipe(["a", "za"], filterA)).toEqual(["a", "za"])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#grep)
+
 ### groupBy
 
 ```typescript
@@ -4586,6 +4859,11 @@ test('with list of objects as iterable', () => {
   expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
+test('uses R.equals for dates', () => {
+  expect(includes([new Date(0)])(new Date(0))).toBeTruthy()
+  expect(includes([new Date(0)])(new Date(1))).toBeFalsy()
+})
+
 test('with NaN', () => {
   expect(includes([Number.NaN])(Number.NaN)).toBeTruthy()
 })
@@ -4745,6 +5023,13 @@ test('will throw with bad input', () => {
 test('with numbers', () => {
   expect(indexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(indexOf(10)([1, 2, 3, 4])).toBe(-1)
+})
+
+test('uses R.equals for dates', () => {
+  const list = [new Date(1), new Date(0)]
+
+  expect(indexOf(new Date(0))(list)).toBe(1)
+  expect(indexOf(new Date(2))(list)).toBe(-1)
 })
 
 test('list of objects use R.equals', () => {
@@ -5006,6 +5291,12 @@ test('intersection', () => {
   expect(intersection([])([])).toEqual([])
 })
 
+test('intersection with dates', () => {
+  const date = new Date(0)
+
+  expect(intersection([date])([new Date(0)])).toEqual([date])
+})
+
 test('intersection with objects', () => {
   const list1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
   const list2 = [{ id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
@@ -5192,6 +5483,75 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#intersperse)
+
+### invert
+
+```typescript
+
+invert<T>(obj: T): Record<string, keyof T>
+```
+
+It returns inverted version of input object, with values as keys and keys as values. If multiple keys of `input` have the same value, the last key wins.
+
+> :boom: Values of `input` must be storable as keys and the keys of the returned object are always strings (JS coercion).
+
+```javascript
+const result = R.invert({ ok: 200, not_found: 404 })
+// => {200: 'ok', 404: 'not_found'}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.invert(%7B%20ok%3A%20200%2C%20not_found%3A%20404%20%7D)%0A%2F%2F%20%3D%3E%20%7B200%3A%20'ok'%2C%20404%3A%20'not_found'%7D">Try this <strong>R.invert</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+invert<T>(obj: T): Record<string, keyof T>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.invert</strong> source</summary>
+
+```javascript
+export function invert(obj) {
+  const willReturn = {}
+  Object.keys(obj).forEach((key) => {
+    willReturn[obj[key]] = key
+  })
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { invert } from "./invert"
+
+test("happy", () => {
+  const result = invert({ ok: 200, not_found: 404 })
+  const expected = { 200: "ok", 404: "not_found" }
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<Record<string, "ok" | "not_found">>()
+})
+
+test("duplicate values - last one wins", () => {
+  const result = invert({ a: 1, b: 1 })
+  expect(result).toEqual({ 1: "b" })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#invert)
 
 ### join
 
@@ -5408,6 +5768,13 @@ test('without list of objects - no R.equals', () => {
   expect(lastIndexOf(10)([1, 2, 3, 4])).toBe(-1)
 })
 
+test('uses R.equals for dates', () => {
+  const list = [new Date(0), new Date(1), new Date(0)]
+
+  expect(lastIndexOf(new Date(0))(list)).toBe(2)
+  expect(lastIndexOf(new Date(2))(list)).toBe(-1)
+})
+
 test('list of objects uses R.equals', () => {
   const listOfObjects = [{ a: 1 }, { b: 2 }, { c: 3 }]
   expect(lastIndexOf({ c: 4 } as any)(listOfObjects)).toBe(-1)
@@ -5426,6 +5793,80 @@ test('list of arrays uses R.equals', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lastIndexOf)
+
+### lines
+
+```typescript
+
+lines(str: string): string[]
+```
+
+It splits a string into lines, similar to Ruby's `String#lines(chomp: true)`. The returned lines have no trailing newline characters. Both `\n` and `\r\n` separators are supported.
+
+> :boom: This implements only the `chomp: true` behavior.
+
+```javascript
+const result = R.lines('Hello\nWorld\nRuby')
+// => ['Hello', 'World', 'Ruby']
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.lines('Hello%5CnWorld%5CnRuby')%0A%2F%2F%20%3D%3E%20%5B'Hello'%2C%20'World'%2C%20'Ruby'%5D">Try this <strong>R.lines</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+lines(str: string): string[];
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.lines</strong> source</summary>
+
+```javascript
+const linesRegexp = /[^\n]*\r?\n|[^\n]+$/g
+
+export function lines(str) {
+  const willReturn = str.match(linesRegexp) ?? []
+
+  return willReturn.map((line) => line.replace(/\r?\n$/, ""))
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { lines } from "./lines"
+
+test("happy", () => {
+  const result = lines("Hello\nWorld\nRuby")
+  const expected = ["Hello", "World", "Ruby"]
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<string[]>()
+})
+
+test("windows line separators", () => {
+  expect(lines("Hello\r\nWorld\r\nRuby")).toEqual(["Hello", "World", "Ruby"])
+})
+
+test("edge cases", () => {
+  expect(lines("")).toEqual([])
+  expect(lines("\n")).toEqual([""])
+  expect(lines("a\n\nb")).toEqual(["a", "", "b"])
+  expect(lines("Hello\nWorld\n")).toEqual(["Hello", "World"])
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#lines)
 
 ### map
 
@@ -6261,6 +6702,146 @@ test('with string', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#match)
 
+### max
+
+```typescript
+
+max<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined
+```
+
+It returns the element of `list` with the greatest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+> :boom: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+```javascript
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.max('a.b')(list)
+// => {a: {b: 5}, id: 2}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A%201%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.max('a.b')(list)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D">Try this <strong>R.max</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+max<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+max<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+max<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+max<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.max</strong> source</summary>
+
+```javascript
+import { path } from './path.js'
+
+export function max(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath)
+
+  return list => {
+    let result
+    let resultValue
+    let index = 0
+    const len = list.length
+
+    while (index < len) {
+      const value = getValue(list[index])
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value > resultValue) {
+          result = list[index]
+          resultValue = value
+        }
+      }
+
+      index++
+    }
+
+    return result
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { max } from './max'
+import { pipe } from './pipe'
+
+const list = [{ a: { b: 2 } }, { a: { b: 5 } }, { a: { b: 1 } }]
+
+test('happy', () => {
+  const result = pipe(list, max('a.b'))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 5 } })
+})
+
+test('with selector', () => {
+  const result = pipe(list, max(x => x.a.b))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 5 } })
+})
+
+test('with list as path', () => {
+  expect(pipe(list, max(['a', 'b']))).toEqual({ a: { b: 5 } })
+})
+
+test('with empty list', () => {
+  expect(pipe([] as number[], max(x => x))).toBeUndefined()
+})
+
+test('with one element', () => {
+  expect(max<number>(x => x)([3])).toBe(3)
+})
+
+test('when first element is the max', () => {
+  expect(max<number>(x => x)([3, 1, 2])).toBe(3)
+})
+
+test('with equal values', () => {
+  const input = [{ a: 1, id: 'first' }, { a: 1, id: 'second' }]
+  expect(pipe(input, max('a'))).toEqual(input[0])
+})
+
+test('skips missing path values', () => {
+  const input: Array<{ a?: number | null }> = [{ a: 1 }, {}, { a: 3 }, { a: null }]
+  expect(pipe(input, max('a'))).toEqual({ a: 3 })
+})
+
+test('when all path values are missing', () => {
+  const input: Array<{ a?: number | null }> = [{}, { a: null }]
+  expect(pipe(input, max('a'))).toBeUndefined()
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#max)
+
 ### maxBy
 
 ```typescript
@@ -6555,6 +7136,146 @@ test('happy', () => {
 </details>
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#middle)
+
+### min
+
+```typescript
+
+min<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined
+```
+
+It returns the element of `list` with the smallest value according to `fnOrPath`. `fnOrPath` can be a function that extracts the value or a path to the value.
+
+> :boom: It returns the first element in case of equal compared values and `undefined` for an empty list. `null` and `undefined` path values are skipped.
+
+```javascript
+const list = [
+	{a: {b: 2}, id: 1},
+	{a: {b: 5}, id: 2},
+	{a: {b: 1}, id: 3},
+]
+const result = R.min('a.b')(list)
+// => {a: {b: 1}, id: 3}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20list%20%3D%20%5B%0A%09%7Ba%3A%20%7Bb%3A%202%7D%2C%20id%3A%201%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%205%7D%2C%20id%3A%202%7D%2C%0A%09%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D%2C%0A%5D%0Aconst%20result%20%3D%20R.min('a.b')(list)%0A%2F%2F%20%3D%3E%20%7Ba%3A%20%7Bb%3A%201%7D%2C%20id%3A%203%7D">Try this <strong>R.min</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+min<T>(fn: (x: T) => Ord): (list: T[]) => T | undefined;
+min<S, K0 extends string & keyof S>(
+  path: [K0]
+): (list: S[]) => S | undefined;
+min<S, K0 extends string & keyof S>(
+  path: `${K0}`
+): (list: S[]) => S | undefined;
+min<S, K0 extends string & keyof S, K1 extends string & keyof S[K0]>(
+  path: [K0, K1]
+): (list: S[]) => S | undefined;
+...
+...
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.min</strong> source</summary>
+
+```javascript
+import { path } from './path.js'
+
+export function min(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath)
+
+  return list => {
+    let result
+    let resultValue
+    let index = 0
+    const len = list.length
+
+    while (index < len) {
+      const value = getValue(list[index])
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value < resultValue) {
+          result = list[index]
+          resultValue = value
+        }
+      }
+
+      index++
+    }
+
+    return result
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { min } from './min'
+import { pipe } from './pipe'
+
+const list = [{ a: { b: 2 } }, { a: { b: 5 } }, { a: { b: 1 } }]
+
+test('happy', () => {
+  const result = pipe(list, min('a.b'))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 1 } })
+})
+
+test('with selector', () => {
+  const result = pipe(list, min(x => x.a.b))
+  expectTypeOf(result).toEqualTypeOf<{ a: { b: number } } | undefined>()
+  expect(result).toEqual({ a: { b: 1 } })
+})
+
+test('with list as path', () => {
+  expect(pipe(list, min(['a', 'b']))).toEqual({ a: { b: 1 } })
+})
+
+test('with empty list', () => {
+  expect(pipe([] as number[], min(x => x))).toBeUndefined()
+})
+
+test('with one element', () => {
+  expect(min<number>(x => x)([3])).toBe(3)
+})
+
+test('when first element is the min', () => {
+  expect(min<number>(x => x)([1, 3, 2])).toBe(1)
+})
+
+test('with equal values', () => {
+  const input = [{ a: 1, id: 'first' }, { a: 1, id: 'second' }]
+  expect(pipe(input, min('a'))).toEqual(input[0])
+})
+
+test('skips missing path values', () => {
+  const input: Array<{ a?: number | null }> = [{ a: 3 }, {}, { a: 1 }, { a: null }]
+  expect(pipe(input, min('a'))).toEqual({ a: 1 })
+})
+
+test('when all path values are missing', () => {
+  const input: Array<{ a?: number | null }> = [{}, { a: null }]
+  expect(pipe(input, min('a'))).toBeUndefined()
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#min)
 
 ### minBy
 
@@ -10695,6 +11416,78 @@ test('always false', () => {
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#takeWhile)
 
+### tally
+
+```typescript
+
+tally<T extends PropertyKey>(list: readonly T[]): Record<string, number>
+```
+
+It counts occurrences of each member of `list` and returns an object where keys are the members and values are their respective counts.
+
+> :boom: Unlike `R.countBy`, it doesn't accept a transform function. Keys of the returned object are always strings (JS coercion).
+
+```javascript
+const result = R.tally(['a', 'b', 'a', 'c', 'b', 'a'])
+// => {a: 3, b: 2, c: 1}
+```
+
+<a title="redirect to Rambda Repl site" href="https://rambda.netlify.app?const%20result%20%3D%20R.tally(%5B'a'%2C%20'b'%2C%20'a'%2C%20'c'%2C%20'b'%2C%20'a'%5D)%0A%2F%2F%20%3D%3E%20%7Ba%3A%203%2C%20b%3A%202%2C%20c%3A%201%7D">Try this <strong>R.tally</strong> example in Rambda REPL</a>
+
+<details>
+
+<summary>All TypeScript definitions</summary>
+
+```typescript
+tally<T extends PropertyKey>(list: readonly T[]): Record<string, number>;
+```
+
+</details>
+
+<details>
+
+<summary><strong>R.tally</strong> source</summary>
+
+```javascript
+export function tally(list) {
+  const willReturn = {}
+  list.forEach((item) => {
+    willReturn[item] = (willReturn[item] || 0) + 1
+  })
+
+  return willReturn
+}
+```
+
+</details>
+
+<details>
+
+<summary><strong>Tests</strong></summary>
+
+```javascript
+import { tally } from "./tally"
+
+test("happy", () => {
+  const result = tally(["a", "b", "a", "c", "b", "a"])
+  const expected = { a: 3, b: 2, c: 1 }
+  expect(result).toEqual(expected)
+  expectTypeOf(result).toEqualTypeOf<Record<string, number>>()
+})
+
+test("empty list", () => {
+  expect(tally([])).toEqual({})
+})
+
+test("numbers and their string forms share the same key", () => {
+  expect(tally([1, 2, 1, "1"])).toEqual({ 1: 3, 2: 1 })
+})
+```
+
+</details>
+
+[![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#tally)
+
 ### tap
 
 ```typescript
@@ -11231,13 +12024,10 @@ union<T>(x: T[]): (y: T[]) => T[];
 <summary><strong>R.union</strong> source</summary>
 
 ```javascript
-import { excludes } from './excludes.js'
+import { uniq } from './uniq.js'
 
 export function union(listA) {
-  return listB => [
-		...listA,
-		...listB.filter(excludes(listA)),
-	]
+  return listB => uniq([...listA, ...listB])
 }
 ```
 
@@ -11255,6 +12045,18 @@ test('happy', () => {
 
   expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([1, 2, 3])
+})
+
+test('removes duplicates within both lists', () => {
+  expect(union([1, 1])([2])).toEqual([1, 2])
+  expect(union([1])([2, 2])).toEqual([1, 2])
+  expect(union([1, 1])([2, 2])).toEqual([1, 2])
+})
+
+test('uses R.equals for dates', () => {
+  const date = new Date(0)
+
+  expect(union([date])([new Date(0)])).toEqual([date])
 })
 
 test('type test with array of objects - case 1', () => {
@@ -11442,6 +12244,24 @@ test('with falsy values', () => {
 
 test('can distinct between string and number', () => {
   expect(uniq([1, '1'])).toEqual([1, '1'])
+})
+
+test('with dates', () => {
+  expect(uniq([new Date(0), new Date(0)])).toEqual([new Date(0)])
+})
+
+test('with sets', () => {
+  expect(uniq([new Set([1]), new Set([1])])).toEqual([new Set([1])])
+})
+
+test('with maps', () => {
+  expect(uniq([new Map([[1, 2]]), new Map([[1, 2]])])).toEqual([
+    new Map([[1, 2]]),
+  ])
+})
+
+test('with regexes', () => {
+  expect(uniq([/a/, /a/])).toEqual([/a/])
 })
 ```
 
@@ -12262,6 +13082,20 @@ test('when second list is longer', () => {
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#zipWith)
 
 ## ❯ CHANGELOG
+
+11.4.0
+
+- Add `R.invert` - similar to Ruby `Hash#invert`; values become keys (string coercion) and the last key wins when several keys share a value
+
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`; handles `\n` and `\r\n`, and a trailing newline does not add an empty last line
+
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`; the input is returned unchanged when the prefix/suffix is absent or empty
+
+- Add `R.tally` - similar to Ruby `Enumerable#tally`; counts occurrences into an object
+
+- Add `R.grep` - similar to Ruby `Enumerable#grep`; filters by a `RegExp` only (use `R.test` to match a plain string)
+
+- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path; entries whose derived value is `undefined`/`null` are skipped and an empty list returns `undefined`
 
 11.3.0
 

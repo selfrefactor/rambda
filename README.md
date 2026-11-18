@@ -155,8 +155,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
 
-You can find documentation site of **Rambda** version **9.4.2** is [here](https://selfrefactor.github.io/rambda-v9/).
-
 From version `10.0.0` onwards, **Rambda** is no longer aiming to be drop-in replacement for *Ramda*.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
@@ -2632,11 +2630,6 @@ export function _lastIndexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
 
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.lastIndexOf(valueToFind)
-  }
-
   const { length } = list
   let index = length
   let foundIndex = -1
@@ -2653,11 +2646,6 @@ export function _lastIndexOf(valueToFind, list) {
 export function _indexOf(valueToFind, list) {
   if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
-  }
-
-  const typeOfValue = type(valueToFind)
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.indexOf(valueToFind)
   }
 
   let index = -1
@@ -2694,6 +2682,21 @@ function _compareSets(a, b) {
   const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1)
 
   return filtered.length === 0
+}
+
+function _compareMaps(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  const aEntries = _arrayFromIterator(a.entries())
+  const bEntries = _arrayFromIterator(b.entries())
+
+  return aEntries.every(([aKey, aValue]) =>
+    bEntries.some(
+      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+    ),
+  )
 }
 
 function compareErrors(a, b) {
@@ -2757,7 +2760,7 @@ export function equalsFn(a, b) {
     const aClone = Array.from(a)
     const bClone = Array.from(b)
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.length !== bClone.length) {
       return false
     }
 
@@ -2806,6 +2809,10 @@ export function equalsFn(a, b) {
 
   if (aType === 'Set') {
     return _compareSets(a, b)
+  }
+
+  if (aType === 'Map') {
+    return _compareMaps(a, b)
   }
 
   if (aType === 'Object') {
@@ -3036,10 +3043,44 @@ test('compare sets', () => {
   expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
+test('with maps', () => {
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2]]))).toBeTruthy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 3]]))).toBeFalsy()
+  expect(
+    equals(new Map([
+      [1, 2],
+      [3, 4],
+    ]))(new Map([
+      [3, 4],
+      [1, 2],
+    ])),
+  ).toBeTruthy()
+  expect(
+    equals(new Map([[{ a: 1 }, 2]]))(new Map([[{ a: 1 }, 2]])),
+  ).toBeTruthy()
+})
+
+test('with map inside object', () => {
+  expect(equals({ m: new Map() })({ m: new Map() })).toBeTruthy()
+  expect(equals({ m: new Map([[1, 2]]) })({ m: new Map([[1, 3]]) })).toBeFalsy()
+  expect(equals(new Map([[1, 2]]))(new Map([[1, 2], [3, 4]]))).toBeFalsy()
+})
+
 test('compare simple sets', () => {
   const testSet = new Set(['2', '3', '3', '2', '1'])
   expect(equals(new Set(['3', '2', '1']))(testSet)).toBeTruthy()
   expect(equals(new Set(['3', '2', '0']))(testSet)).toBeFalsy()
+})
+
+test('with symbol and null prototype objects within array', () => {
+  expect(equals([Symbol.for('s')])([Symbol.for('s')])).toBeTruthy()
+  expect(equals([Object.create(null)])([Object.create(null)])).toBeTruthy()
+})
+
+test('with arrays of different length and undefined values', () => {
+  expect(equals<unknown[]>([])([undefined])).toBeFalsy()
+  expect(equals<unknown[]>([])([null])).toBeFalsy()
+  expect(equals([1] as any)([1, undefined])).toBeFalsy()
 })
 
 test('various examples', () => {
@@ -4504,7 +4545,7 @@ grep(pattern: RegExp): (list: string[]) => string[];
 
 ```javascript
 export function grep(regexp) {
-  return (list) => list.filter((item) => regexp.test(item))
+  return (list) => list.filter((item) => item.search(regexp) !== -1)
 }
 ```
 
@@ -4535,6 +4576,12 @@ test("happy", () => {
 
 test("no matches", () => {
   expect(pipe(["a", "b"], grep(/z/))).toEqual([])
+})
+
+test("global regexp does not leak lastIndex", () => {
+  const filterA = grep(/a/g)
+  expect(pipe(["xa", "a", "b"], filterA)).toEqual(["xa", "a"])
+  expect(pipe(["a", "za"], filterA)).toEqual(["a", "za"])
 })
 ```
 
@@ -4812,6 +4859,11 @@ test('with list of objects as iterable', () => {
   expect(includes(arr)({ c: 3 })).toBeTruthy()
 })
 
+test('uses R.equals for dates', () => {
+  expect(includes([new Date(0)])(new Date(0))).toBeTruthy()
+  expect(includes([new Date(0)])(new Date(1))).toBeFalsy()
+})
+
 test('with NaN', () => {
   expect(includes([Number.NaN])(Number.NaN)).toBeTruthy()
 })
@@ -4971,6 +5023,13 @@ test('will throw with bad input', () => {
 test('with numbers', () => {
   expect(indexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(indexOf(10)([1, 2, 3, 4])).toBe(-1)
+})
+
+test('uses R.equals for dates', () => {
+  const list = [new Date(1), new Date(0)]
+
+  expect(indexOf(new Date(0))(list)).toBe(1)
+  expect(indexOf(new Date(2))(list)).toBe(-1)
 })
 
 test('list of objects use R.equals', () => {
@@ -5230,6 +5289,12 @@ test('intersection', () => {
   const list2 = [3, 4, 5, 6]
   expect(intersection(list1)(list2)).toEqual([3, 4])
   expect(intersection([])([])).toEqual([])
+})
+
+test('intersection with dates', () => {
+  const date = new Date(0)
+
+  expect(intersection([date])([new Date(0)])).toEqual([date])
 })
 
 test('intersection with objects', () => {
@@ -5701,6 +5766,13 @@ test('with NaN', () => {
 test('without list of objects - no R.equals', () => {
   expect(lastIndexOf(3)([1, 2, 3, 4])).toBe(2)
   expect(lastIndexOf(10)([1, 2, 3, 4])).toBe(-1)
+})
+
+test('uses R.equals for dates', () => {
+  const list = [new Date(0), new Date(1), new Date(0)]
+
+  expect(lastIndexOf(new Date(0))(list)).toBe(2)
+  expect(lastIndexOf(new Date(2))(list)).toBe(-1)
 })
 
 test('list of objects uses R.equals', () => {
@@ -11952,13 +12024,10 @@ union<T>(x: T[]): (y: T[]) => T[];
 <summary><strong>R.union</strong> source</summary>
 
 ```javascript
-import { excludes } from './excludes.js'
+import { uniq } from './uniq.js'
 
 export function union(listA) {
-  return listB => [
-		...listA,
-		...listB.filter(excludes(listA)),
-	]
+  return listB => uniq([...listA, ...listB])
 }
 ```
 
@@ -11976,6 +12045,18 @@ test('happy', () => {
 
   expectTypeOf(result).toEqualTypeOf<number[]>()
   expect(result).toEqual([1, 2, 3])
+})
+
+test('removes duplicates within both lists', () => {
+  expect(union([1, 1])([2])).toEqual([1, 2])
+  expect(union([1])([2, 2])).toEqual([1, 2])
+  expect(union([1, 1])([2, 2])).toEqual([1, 2])
+})
+
+test('uses R.equals for dates', () => {
+  const date = new Date(0)
+
+  expect(union([date])([new Date(0)])).toEqual([date])
 })
 
 test('type test with array of objects - case 1', () => {
@@ -12163,6 +12244,24 @@ test('with falsy values', () => {
 
 test('can distinct between string and number', () => {
   expect(uniq([1, '1'])).toEqual([1, '1'])
+})
+
+test('with dates', () => {
+  expect(uniq([new Date(0), new Date(0)])).toEqual([new Date(0)])
+})
+
+test('with sets', () => {
+  expect(uniq([new Set([1]), new Set([1])])).toEqual([new Set([1])])
+})
+
+test('with maps', () => {
+  expect(uniq([new Map([[1, 2]]), new Map([[1, 2]])])).toEqual([
+    new Map([[1, 2]]),
+  ])
+})
+
+test('with regexes', () => {
+  expect(uniq([/a/, /a/])).toEqual([/a/])
 })
 ```
 
@@ -12986,15 +13085,17 @@ test('when second list is longer', () => {
 
 11.4.0
 
-- Add `R.invert` - similar to Ruby `Hash#invert`
+- Add `R.invert` - similar to Ruby `Hash#invert`; values become keys (string coercion) and the last key wins when several keys share a value
 
-- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`
+- Add `R.lines` - similar to Ruby `String#lines` with `chomp: true`; handles `\n` and `\r\n`, and a trailing newline does not add an empty last line
 
-- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`
+- Add `R.deletePrefix` and `R.deleteSuffix` - similar to Ruby `String#delete_prefix` and `String#delete_suffix`; the input is returned unchanged when the prefix/suffix is absent or empty
 
-- Add `R.tally` - similar to Ruby `Enumerable#tally`
+- Add `R.tally` - similar to Ruby `Enumerable#tally`; counts occurrences into an object
 
-- Add `R.grep` - similar to Ruby `Enumerable#grep`
+- Add `R.grep` - similar to Ruby `Enumerable#grep`; filters by a `RegExp` only (use `R.test` to match a plain string)
+
+- Add `R.max` and `R.min` - return the greatest/least element of a list by selector function or path; entries whose derived value is `undefined`/`null` are skipped and an empty list returns `undefined`
 
 11.3.0
 

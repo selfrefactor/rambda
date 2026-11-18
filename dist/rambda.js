@@ -256,6 +256,15 @@ function delay(ms) {
   })
 }
 
+function deletePrefix(prefix) {
+  return (str) => (str.startsWith(prefix) ? str.slice(prefix.length) : str)
+}
+
+function deleteSuffix(suffix) {
+  return (str) =>
+    suffix && str.endsWith(suffix) ? str.slice(0, -1 * suffix.length) : str
+}
+
 function descend(getFunction) {
   return (a, b) => {
     const aValue = getFunction(a);
@@ -284,11 +293,6 @@ function _lastIndexOf(valueToFind, list) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
   }
 
-  const typeOfValue = type(valueToFind);
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.lastIndexOf(valueToFind)
-  }
-
   const { length } = list;
   let index = length;
   let foundIndex = -1;
@@ -305,11 +309,6 @@ function _lastIndexOf(valueToFind, list) {
 function _indexOf(valueToFind, list) {
   if (!isArray(list)) {
     throw new Error(`Cannot read property 'indexOf' of ${list}`)
-  }
-
-  const typeOfValue = type(valueToFind);
-  if (!['Array', 'NaN', 'Object', 'RegExp'].includes(typeOfValue)) {
-    return list.indexOf(valueToFind)
   }
 
   let index = -1;
@@ -346,6 +345,21 @@ function _compareSets(a, b) {
   const filtered = aList.filter(aInstance => _indexOf(aInstance, bList) === -1);
 
   return filtered.length === 0
+}
+
+function _compareMaps(a, b) {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  const aEntries = _arrayFromIterator(a.entries());
+  const bEntries = _arrayFromIterator(b.entries());
+
+  return aEntries.every(([aKey, aValue]) =>
+    bEntries.some(
+      ([bKey, bValue]) => equalsFn(aKey, bKey) && equalsFn(aValue, bValue),
+    ),
+  )
 }
 
 function compareErrors(a, b) {
@@ -409,7 +423,7 @@ function equalsFn(a, b) {
     const aClone = Array.from(a);
     const bClone = Array.from(b);
 
-    if (aClone.toString() !== bClone.toString()) {
+    if (aClone.length !== bClone.length) {
       return false
     }
 
@@ -458,6 +472,10 @@ function equalsFn(a, b) {
 
   if (aType === 'Set') {
     return _compareSets(a, b)
+  }
+
+  if (aType === 'Map') {
+    return _compareMaps(a, b)
   }
 
   if (aType === 'Object') {
@@ -569,6 +587,8 @@ function dropWhile(predicate) {
   }
 }
 
+const primitiveTypes = ['Boolean', 'BigInt', 'Number', 'String', 'Symbol'];
+
 class _Set {
   constructor() {
     this.set = new Set();
@@ -577,6 +597,7 @@ class _Set {
 
   checkUniqueness(item) {
     const type$1 = type(item);
+
     if (['Null', 'Undefined', 'NaN'].includes(type$1)) {
       if (type$1 in this.items) {
         return false
@@ -585,7 +606,8 @@ class _Set {
 
       return true
     }
-    if (!['Object', 'Array'].includes(type$1)) {
+
+    if (primitiveTypes.includes(type$1)) {
       const prevSize = this.set.size;
       this.set.add(item);
 
@@ -855,6 +877,10 @@ function flattenObject(obj){
   return willReturn
 }
 
+function grep(regexp) {
+  return (list) => list.filter((item) => item.search(regexp) !== -1)
+}
+
 function groupByFallback(groupFn, list) {
     const result = {};
     for (let i = 0; i < list.length; i++) {
@@ -1017,6 +1043,15 @@ function intersperse(separator) {
   }
 }
 
+function invert(obj) {
+  const willReturn = {};
+  Object.keys(obj).forEach((key) => {
+    willReturn[obj[key]] = key;
+  });
+
+  return willReturn
+}
+
 function join(glue) {
   return list => list.join(glue)
 }
@@ -1031,6 +1066,14 @@ function last(listOrString) {
 
 function lastIndexOf(valueToFind) {
   return list => _lastIndexOf(valueToFind, list)
+}
+
+const linesRegexp = /[^\n]*\r?\n|[^\n]+$/g;
+
+function lines(str) {
+  const willReturn = str.match(linesRegexp) ?? [];
+
+  return willReturn.map((line) => line.replace(/\r?\n$/, ""))
 }
 
 function mapAsync(fn) {
@@ -1111,6 +1154,66 @@ function match(pattern) {
   }
 }
 
+function createPath(path, delimiter = '.') {
+  return typeof path === 'string'
+    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
+    : path
+}
+
+function path(pathInput) {
+	return (obj)  => {
+		if (!obj) {
+			return undefined
+		}
+		let willReturn = obj;
+		let counter = 0;
+	
+		const pathArrValue = createPath(pathInput);
+	
+		while (counter < pathArrValue.length) {
+			if (willReturn === null || willReturn === undefined) {
+				return undefined
+			}
+			if (willReturn[pathArrValue[counter]] === null) {
+				return undefined
+			}
+	
+			willReturn = willReturn[pathArrValue[counter]];
+			counter++;
+		}
+	
+		return willReturn
+	}
+}
+
+function max(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath);
+
+  return list => {
+    let result;
+    let resultValue;
+    let index = 0;
+    const len = list.length;
+
+    while (index < len) {
+      const value = getValue(list[index]);
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value > resultValue) {
+          result = list[index];
+          resultValue = value;
+        }
+      }
+
+      index++;
+    }
+
+    return result
+  }
+}
+
 function maxBy(compareFn, x) {
   return y => (compareFn(y) > compareFn(x) ? y : x)
 }
@@ -1155,6 +1258,34 @@ function middle(listOrString) {
   return tail(init(listOrString))
 }
 
+function min(fnOrPath) {
+  const getValue = typeof fnOrPath === 'function'
+    ? fnOrPath
+    : path(fnOrPath);
+
+  return list => {
+    let result;
+    let resultValue;
+    let index = 0;
+    const len = list.length;
+
+    while (index < len) {
+      const value = getValue(list[index]);
+
+      if (value !== undefined && value !== null) {
+        if (resultValue === undefined || value < resultValue) {
+          result = list[index];
+          resultValue = value;
+        }
+      }
+
+      index++;
+    }
+
+    return result
+  }
+}
+
 function minBy(compareFn, x) {
   return y => (compareFn(y) < compareFn(x) ? y : x)
 }
@@ -1171,38 +1302,6 @@ function modifyItemAtIndex(index, replaceFn) {
 
     return clone
   }
-}
-
-function createPath(path, delimiter = '.') {
-  return typeof path === 'string'
-    ? path.split(delimiter).map(x => (Number.isInteger(Number(x)) ? Number(x) : x))
-    : path
-}
-
-function path(pathInput) {
-	return (obj)  => {
-		if (!obj) {
-			return undefined
-		}
-		let willReturn = obj;
-		let counter = 0;
-	
-		const pathArrValue = createPath(pathInput);
-	
-		while (counter < pathArrValue.length) {
-			if (willReturn === null || willReturn === undefined) {
-				return undefined
-			}
-			if (willReturn[pathArrValue[counter]] === null) {
-				return undefined
-			}
-	
-			willReturn = willReturn[pathArrValue[counter]];
-			counter++;
-		}
-	
-		return willReturn
-	}
 }
 
 function assoc(prop, newValue) {
@@ -1886,6 +1985,15 @@ function takeWhile(predicate) {
   }
 }
 
+function tally(list) {
+  const willReturn = {};
+  list.forEach((item) => {
+    willReturn[item] = (willReturn[item] || 0) + 1;
+  });
+
+  return willReturn
+}
+
 function tap(fn) {
   return x => {
     fn(x);
@@ -1908,11 +2016,20 @@ function tryCatch(fn, fallback) {
   }
 }
 
+function uniq(list) {
+  const set = new _Set();
+  const willReturn = [];
+  list.forEach(item => {
+    if (set.checkUniqueness(item)) {
+      willReturn.push(item);
+    }
+  });
+
+  return willReturn
+}
+
 function union(listA) {
-  return listB => [
-		...listA,
-		...listB.filter(excludes(listA)),
-	]
+  return listB => uniq([...listA, ...listB])
 }
 
 function unionWith(predicate, x) {
@@ -1925,18 +2042,6 @@ function unionWith(predicate, x) {
 
     return [...x, ...filtered]
   }
-}
-
-function uniq(list) {
-  const set = new _Set();
-  const willReturn = [];
-  list.forEach(item => {
-    if (set.checkUniqueness(item)) {
-      willReturn.push(item);
-    }
-  });
-
-  return willReturn
 }
 
 function uniqBy(fn) {
@@ -2028,4 +2133,4 @@ function zipWith(fn, x) {
     )
 }
 
-export { RAMBDA_DELAY, _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, delay, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterMap, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, join, last, lastIndexOf, map, mapAsync, mapChain, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, maxBy, merge, mergeDeep, mergeTypes, middle, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, random, range, rangeDescending, reduce, reject, rejectObject, remove, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, sum, switcher, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };
+export { RAMBDA_DELAY, _arity, _includes, _indexOf, _lastIndexOf, addProp, addPropToObjects, all, allPass, any, anyPass, append, ascend, assertType, checkObjectWithSpec, compact, complement, concat, convertToType, count, countBy, createCompareFunction, createObjectFromKeys, defaultTo, delay, deletePrefix, deleteSuffix, descend, difference, drop, dropLast, dropLastWhile, dropWhile, duplicateBy, eqBy, eqProps, equals, equalsFn, evolve, excludes, exists, filter, filterAsync, filterMap, filterObject, find, findIndex, findLast, findLastIndex, findNth, flatMap, flatten, flattenObject, flattenObjectHelper, grep, groupBy, groupByFallback, head, includes, indexBy, indexOf, init, interpolate, intersection, intersectionWith, intersperse, invert, join, last, lastIndexOf, lines, map, mapAsync, mapChain, mapFn, mapKeys, mapObject, mapObjectAsync, mapParallelAsync, mapPropObject, match, max, maxBy, merge, mergeDeep, mergeTypes, middle, min, minBy, modifyItemAtIndex, modifyPath, modifyProp, none, objOf, objectIncludes, omit, partition, partitionObject, path, pathSatisfies, permutations, pick, pipe, pipeAsync, pluck, prepend, prop, propEq, propOr, propSatisfies, random, range, rangeDescending, reduce, reject, rejectObject, remove, replace, replaceAll, shuffle, sort, sortBy, sortByDescending, sortByFn, sortByPath, sortByPathDescending, sortObject, sortWith, split, splitEvery, sum, switcher, symmetricDifference, tail, take, takeLast, takeLastWhile, takeWhile, tally, tap, test, transformFlatObject, tryCatch, type, union, unionWith, uniq, uniqBy, uniqWith, unless, unwind, update, when, zip, zipWith };

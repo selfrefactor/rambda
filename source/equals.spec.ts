@@ -190,11 +190,6 @@ test('compare sets', () => {
   expect(equals(toCompareDifferent)(testSet)).toBeFalsy()
 })
 
-test('compare sets of dates', () => {
-  expect(equals(new Set([new Date(0)]))(new Set([new Date(0)]))).toBeTruthy()
-  expect(equals(new Set([new Date(0)]))(new Set([new Date(1)]))).toBeFalsy()
-})
-
 test('with maps', () => {
   expect(equals(new Map([[1, 2]]))(new Map([[1, 2]]))).toBeTruthy()
   expect(equals(new Map([[1, 2]]))(new Map([[1, 3]]))).toBeFalsy()

@@ -155,8 +155,6 @@ R.pick('a,b', {a: 1 , b: 2, c: 3} })
 
 Up until version `9.4.2`, the aim of Rambda was to match as much as possible the Ramda API.
 
-You can find documentation site of **Rambda** version **9.4.2** is [here](https://selfrefactor.github.io/rambda-v9/).
-
 From version `10.0.0` onwards, **Rambda** is no longer aiming to be drop-in replacement for *Ramda*.
 
 [![---------------](https://raw.githubusercontent.com/selfrefactor/rambda/master/files/separator.png)](#-rambdas-features)
